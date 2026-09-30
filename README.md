@@ -13,8 +13,10 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
+| [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
+| [`docs/DEVICE-TEST.md`](docs/DEVICE-TEST.md) | Pass/fail checklist for iPhone, Android, Windows, and Mac browsers |
 | `settings.json` | The main settings: weights, letter height, roundness, spacing, reading setup |
 | `engine.js` | The letter rules: every character, mark, and symbol is drawn here |
 | `make_fonts.py` | Builds all 10 styles from the rules as full OTF and WOFF2 files |
@@ -65,7 +67,7 @@ To apply changes saved from the Lab (copied with "Copy instead of Save"), put th
 
 ## Roadmap
 
-- **Phase 3:** real-device testing (iPhone, Android, Windows, Mac) and full-chapter reading tests
+- **Phase 3:** the device checklist and full-chapter reading test are ready. Run the checklist on physical iPhone, Android, Windows, and Mac devices and record the results; no device results are claimed yet.
 - **Phase 4:** more languages: Central European, then Russian and Greek, then Vietnamese
 - **Phase 5:** trademark check for the name, license decision, license info inside the files
 - **Later:** a separate SEIHouse display font

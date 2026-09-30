@@ -1,0 +1,259 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="color-scheme" content="dark light">
+<title>SEIReader · Three Chapters</title>
+<style>
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-Light.woff2') format('woff2');font-style:normal;font-weight:300;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-LightItalic.woff2') format('woff2');font-style:italic;font-weight:300;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-Regular.woff2') format('woff2');font-style:normal;font-weight:400;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-Italic.woff2') format('woff2');font-style:italic;font-weight:400;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-Medium.woff2') format('woff2');font-style:normal;font-weight:500;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-MediumItalic.woff2') format('woff2');font-style:italic;font-weight:500;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-SemiBold.woff2') format('woff2');font-style:normal;font-weight:600;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-SemiBoldItalic.woff2') format('woff2');font-style:italic;font-weight:600;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-Bold.woff2') format('woff2');font-style:normal;font-weight:700;font-display:swap}
+@font-face{font-family:SEIReader;src:url('../fonts/SEIReader-BoldItalic.woff2') format('woff2');font-style:italic;font-weight:700;font-display:swap}
+:root{color-scheme:dark;--bg:#111419;--paper:#191d24;--ink:#e6e8e9;--muted:#a7afb6;--border:#3a4148;--accent:#a5c4cf;--control:#252c34;--focus:#b7dfe9;font-synthesis:none}
+:root[data-theme="day"]{color-scheme:light;--bg:#e8e5dd;--paper:#faf8f2;--ink:#242931;--muted:#4f5963;--border:#bfc3c4;--accent:#28546a;--control:#f1f2ee;--focus:#245b76}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--ink);font-family:system-ui,-apple-system,'Segoe UI',sans-serif}
+button,select,textarea{font:inherit}
+button,select,textarea{color:var(--ink);background:var(--control);border:1px solid var(--border);border-radius:.45rem}
+button{cursor:pointer;padding:.55rem .8rem}
+button:hover{border-color:var(--accent)}
+:focus-visible{outline:3px solid var(--focus);outline-offset:3px}
+.toolbar{position:sticky;top:0;z-index:3;background:var(--bg);border-bottom:1px solid var(--border);padding:.7rem max(1rem,env(safe-area-inset-right)) .7rem max(1rem,env(safe-area-inset-left))}
+.toolbar-inner{max-width:72rem;margin:auto;display:flex;flex-wrap:wrap;align-items:center;gap:.6rem 1rem}
+.brand{font-weight:650;letter-spacing:.03em;margin-right:auto}
+.toolbar label{display:flex;align-items:center;gap:.45rem;font-size:.875rem}
+.toolbar select{padding:.5rem;min-width:9rem}
+.toolbar button{min-width:5rem}
+.shell{max-width:72rem;margin:auto;padding:clamp(1.2rem,4vw,3rem) 1rem 5rem}
+.intro,.chapter,.summary{background:var(--paper);border:1px solid var(--border);border-radius:1rem;margin:0 auto 2rem;max-width:78ch;padding:clamp(1.25rem,5vw,3.2rem)}
+.intro h1{font-size:clamp(1.75rem,4vw,2.5rem);line-height:1.15;margin:0 0 .7rem}
+.intro p,.intro li{line-height:1.6;color:var(--muted)}
+.intro a,.chapter-nav a{color:var(--accent)}
+.chapter-nav{display:flex;flex-wrap:wrap;gap:.6rem 1.2rem;margin-top:1.2rem}
+.diagnostic{margin-top:1.5rem;padding:1rem;border:1px solid var(--border);border-radius:.6rem}
+.diagnostic h2{font:600 .9rem/1.3 system-ui,sans-serif;margin:0 0 .5rem}
+.diagnostic p{margin:.35rem 0;color:var(--ink);font-family:SEIReader,serif;font-weight:400;font-variant-emoji:text}
+.diagnostic .small13{font-size:13px}.diagnostic .small15{font-size:15px}.diagnostic .small17{font-size:17px}.diagnostic .small20{font-size:20px}
+.diagnostic .icons{overflow-wrap:anywhere}.diagnostic .light{font-weight:300}.diagnostic .emoji-default{font-variant-emoji:normal}
+.chapter{scroll-margin-top:5rem}
+.chapter-head{text-align:center;margin-bottom:2.6rem}
+.chapter-head .eyebrow{font:600 .75rem/1.4 system-ui,sans-serif;letter-spacing:.16em;text-transform:uppercase;color:var(--muted)}
+.chapter-head h2{font-family:SEIReader,serif;font-size:clamp(1.6rem,4vw,2.15rem);line-height:1.2;font-weight:600;margin:.65rem 0}
+.chapter-head .subtitle{font:italic 1rem/1.45 SEIReader,serif;color:var(--muted)}
+.prose{font-family:SEIReader,serif;font-size:20px;line-height:1.4;font-weight:var(--reading-weight,400);font-synthesis:none;font-variant-emoji:text;max-width:60ch;margin:auto}
+.prose p{margin:0 0 1.08em}
+.prose p:last-child{margin-bottom:0}
+.prose .system{margin:1.25em 0;padding:.65em .8em;border-left:3px solid var(--accent);background:var(--control);font-size:.95em}
+.prose .scene{margin:1.5em 0;text-align:center;letter-spacing:.3em;color:var(--muted)}
+.feedback{max-width:60ch;margin:3rem auto 0;border-top:1px solid var(--border);padding-top:1.6rem;font-family:system-ui,-apple-system,'Segoe UI',sans-serif;font-size:.9rem}
+.feedback h3{font-size:1.1rem;margin:0 0 .45rem}
+.feedback p{color:var(--muted);margin:.2rem 0 1.2rem;line-height:1.5}
+.field{display:grid;gap:.4rem;margin:0 0 1rem}
+.field label{font-weight:600}
+.field textarea{width:100%;min-height:5.5rem;resize:vertical;padding:.7rem;line-height:1.5}
+.field select{width:max-content;max-width:100%;padding:.55rem}
+.save-status{min-height:1.4em;color:var(--muted);font-size:.82rem}
+.summary h2{margin:0 0 .55rem}
+.summary p{color:var(--muted);line-height:1.55}
+.summary textarea{display:block;width:100%;min-height:14rem;margin:1rem 0;padding:.8rem;line-height:1.45;resize:vertical}
+.summary .actions{display:flex;align-items:center;flex-wrap:wrap;gap:.7rem}
+@media(max-width:600px){.toolbar-inner{gap:.5rem}.brand{width:100%}.toolbar label{flex:1}.toolbar select{min-width:0;max-width:100%}.chapter,.intro,.summary{border-radius:.6rem}.prose{overflow-wrap:break-word}}
+@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
+</style>
+</head>
+<body>
+<header class="toolbar"><div class="toolbar-inner">
+  <span class="brand">SEIReader · Reading Test</span>
+  <label for="weight">Weight <select id="weight"><option value="300">Light</option><option value="400" selected>Regular</option><option value="500">Medium</option><option value="600">SemiBold</option><option value="700">Bold</option></select></label>
+  <button id="theme" type="button" aria-pressed="false">Day mode</button>
+</div></header>
+<main class="shell">
+<section class="intro" aria-labelledby="page-title">
+  <h1 id="page-title">Three chapters, one reading test</h1>
+  <p>Read naturally, then record where the letters slow you down. This page loads the full SEIReader WOFF2 files from <code>../fonts/</code>. The chapter text is set at 20px, 1.4 line height, and a measure of about 60 characters. Night is the initial theme. Your notes stay in this browser until you copy them.</p>
+  <nav class="chapter-nav" aria-label="Chapters"><a href="#chapter-1">I · The Bell Beneath the Rain</a><a href="#chapter-2">II · The Debt of a Name</a><a href="#chapter-3">III · The Door of Small Mercies</a></nav>
+  <div class="diagnostic" aria-label="Quick glyph check">
+    <h2>Quick glyph check · 13 / 15 / 17 / 20px</h2>
+    <p class="small13">13px · To AV P. “A · office flame · Hlbdfk · Áurea Iñés João</p>
+    <p class="small15">15px · To AV P. “A · office flame · Hlbdfk · Éloi Müller Søren</p>
+    <p class="small17">17px · To AV P. “A · office flame · Hlbdfk · Þóra façade</p>
+    <p class="small20">20px · <i>affinity and reflection</i> · ☯ ⚡ ▲ ♥ Ⓢ</p>
+    <p class="small17 light">Light comment · “A fine flame,” said Áurea. ☯ ⚡ ▲ ♥</p>
+    <p class="small17 icons emoji-default">Normal emoji setting · ☯ ⚡ ▲ ♥ Ⓢ · U+E000–E00F: &#xE000; &#xE001; &#xE002; &#xE003; &#xE004; &#xE005; &#xE006; &#xE007; &#xE008; &#xE009; &#xE00A; &#xE00B; &#xE00C; &#xE00D; &#xE00E; &#xE00F;</p>
+    <p class="small17 icons">Text emoji setting · ☯ ⚡ ▲ ♥ Ⓢ · U+E000–E00F: &#xE000; &#xE001; &#xE002; &#xE003; &#xE004; &#xE005; &#xE006; &#xE007; &#xE008; &#xE009; &#xE00A; &#xE00B; &#xE00C; &#xE00D; &#xE00E; &#xE00F;</p>
+  </div>
+</section>
+<article class="chapter" id="chapter-1" aria-labelledby="chapter-1-title">
+  <header class="chapter-head"><div class="eyebrow">Chapter One</div><h2 id="chapter-1-title">The Bell Beneath the Rain</h2><p class="subtitle">A debt can be counted. A promise cannot.</p></header>
+  <div class="prose">
+    <p>At the seventh strike of the rain bell, Lian discovered that someone had been taking years from the children of Reed Gate. The bell was not a metaphor. It hung beneath the old bridge in a chamber the river had forgotten, and every evening its bronze tongue moved once for each child who had reached a new cultivation stage. Tonight it struck seven times. Reed Gate had only six children left. Lian stood in the fish market with a bundle of wet paper under one arm and counted again, because counting was safer than believing the sound.</p>
+    <p>“You heard it too?” asked Iñés. She had followed him from the archive without a cloak, which meant the wind had flattened her black hair against one cheek. She carried a carpenter's rule as if it were a sword. Her family had measured canal walls for three generations; she could tell when a stone had moved by the shadow on its edge. “The seventh child,” she said. “Who is it?”</p>
+    <p>“There is no seventh child.” Lian held up the papers. Six names, six dates of birth, six marks made by parents who could not write. Mei's name was the last. His sister was thirteen and had been coughing since the spring thaw. She should have entered the first Breath stage yesterday. Instead she woke with frost on the inside of her window and asked why her hands looked older than her face.</p>
+    <p>From the market roof came a scrape of tiles. A woman in the gray coat of the Ordinance watched them from above the lanterns. Lian could not see her face, only the pale enamel mask used by officers who collected unpaid spiritual debt. Its right eye was painted with a small red dot. The mask turned toward the bridge. Then it was gone. “That is not a coincidence,” Iñés said. “No,” said Lian. He tucked the papers into his shirt, where rain could ruin them more slowly.</p>
+    <p>They passed the apothecary and the school, where a faded notice promised that one hundred and twenty breaths a day would keep a young meridian clear. It had been nailed there when Lian was small. The teacher, old Master João, used to make students count their breaths aloud. He said a number was a fence against fear. Lian had learned since that a fence could also be a boundary someone else set around your life. He counted now without meaning to: four steps to the alley, nine to the stair, thirty-one down to the water.</p>
+    <p>At the bridge, lightning touched the river and turned every ripple into a blade. The stair gate bore the seal of the Bell Office, an office that had burned down forty years ago. Iñés put her rule against the iron bar. “It was opened this morning,” she said. “See the bright scrape? Whoever went down brought a heavy case.” Her voice was calm. Lian envied it. He had learned to breathe through pain, but calm was a different art. It did not arrive because one demanded it.</p>
+    <p>“The Ordinance woman?” he asked. Iñés shook her head. “Her boots are narrow. This mark is broad and square. Two people, perhaps three.” She lifted the latch. The gate gave way at once, so readily that both of them froze. Below it, the old stair carried the smell of wet clay and something sweet, like pear skins left too long in a bowl. Somewhere under the bridge, a chain drew tight with a slow metallic cry.</p>
+    <p><i>Turn back,</i> thought Lian. The thought felt sensible, almost dignified. If he went home, he could make Mei ginger tea. He could sit beside her until morning, and when she asked about the bell he could say there had been thunder. But he had read the birth ledger. The ink beside her name had thinned from black to gray over the last month. Ink did not lose color because a child had a fever. He stepped through the gate and found that his feet knew the stair.</p>
+    <p>The chamber was wider than the bridge above it. Water slipped down the walls in tidy vertical lines, never touching the floor. In the center stood a bell taller than a man, suspended in a ring of pale stone. Its surface held hundreds of names cut so finely they looked like hair. Iñés raised a lantern. The nearest name was Áurea Val, a girl who had left Reed Gate at the age of nine and returned at sixty with the same face. Beneath her name was a number: 0047.</p>
+    <p>Names circled the bronze in many hands. Lian found the flourished capitals of a mountain clerk, the hurried scratches of a canal worker, and one line pressed by a child who had held the tool too tightly. A little mark above Éloi's name had been cut twice, as though the cutter had feared the bell might forget the accent and, with it, the person. Lian thought of the archive's rule that every copy must preserve a name exactly. A missing stroke could send a letter to the wrong family. Here it might send a year to the wrong life. Iñés moved the lantern so they could read each curve without touching it.</p>
+    <p>“Years?” Lian whispered. Iñés ran one finger just above the cut, careful not to touch. “Could be. Look at the way the digits narrow toward the bottom. These were cut at different times.” She moved around the bell. “Somebody has been adding to it.” A second number, 0003, stood beside Mei's name. Lian gripped the lantern handle until the metal pressed four small squares into his palm. Three years. It was not enough to account for the gray in her hair, yet it was enough to make him imagine her third birthday disappearing.</p>
+    <p class="system">[Ding!] ☯ Quiet Ledger awakened.<br>Unrecorded transfer detected: 3 years, 4 months, 12 days.<br>Witness required. Cost to witness: one true name. ⚡</p>
+    <p>The words appeared in the air just above the bell, sharp as a line of fresh ink. Lian had seen system messages in stories sold at the market, where they announced secret inheritances and impossible victories. Those stories never said what a system sounded like. This one sounded like a spoon tapped against a glass. Iñés stepped beside him and read the message without smiling. “Do not give it your name,” she said. “It says <i>one</i> true name, not whose.”</p>
+    <p>“It wants a witness.” Lian looked at the rows of names. “Could I give it the name of the person who did this?” “If you know it. If you are certain.” Iñés studied the floor. Seven channels had been carved into the stone, each no wider than a finger. Six led toward the bell. The seventh led away, under the western wall. She set down the lantern and laid her rule across it. “Someone made a road out of the children's years. The bell is just the toll gate.”</p>
+    <p>The gray mask appeared at the stair. The officer came down without hurry, one gloved hand on the rail. Up close she was younger than Lian expected. Rain had caught in the groove of the red dot over her eye. “Do not touch the seventh channel,” she said. “I am not here to stop you reading it. I am here to stop you opening it.” She took off the mask. A narrow scar crossed her forehead, straight enough to have been made by a measuring tool.</p>
+    <p>“Your name,” said Iñés. The woman looked at her. “Captain Mara Voss.” Lian felt the message in the air sharpen. He could offer that name. The system would accept it or refuse it, and either way the captain would know he had tried. Mara seemed to hear the thought. “The Ledger does not judge guilt,” she said. “It judges whether you speak truly. Give it my name, and it may show you everything I have witnessed. That will take more than an evening.”</p>
+    <p>“Then tell us what you witnessed,” Lian said. Mara glanced at Mei's cut name. “I saw the bell before the Office burned. I saw its old keeper hide a second ledger beyond the western wall. I saw three children return from that wall with voices that belonged to their grandparents.” Her mouth tightened. “I did not see who reopened the channel this morning. My order is to close it before midnight, with the children still connected if necessary.” The silence after that sentence was not an apology.</p>
+    <p>Above them, the market clock sounded eight. One hour until midnight in Reed Gate, where every clock ran four hours fast to agree with the mountain observatory. Iñés stood over the seventh channel, her rule balanced across the waterless groove. “If we close it now, can we return what was taken?” Mara did not answer. Lian did not need her to. He thought of Mei counting backward from ten when her cough was bad, treating each number like a stepping stone. He would not leave three of those stones beneath a bridge.</p>
+    <p>He reached for the bell. The stone ring pulsed once, and the little cuts on its surface filled with light. A line of text lifted from the bronze: <i>A debt can be transferred only by its owner, a thief, or a willing witness.</i> Lian read it aloud. Iñés said, “That is a rule with a door in it.” Mara said, “Most rules are. The trouble is finding the handle before the house burns.” She drew a short blade from her coat, but held it point down.</p>
+    <p>“My name is Lian Ardent,” he said to the message. Iñés caught his wrist too late. The lantern guttered. The system's thin chime passed through the bell, through the floor, through the bones behind his eyes. For an instant he remembered a room he had never entered: a mountain study with seven windows and a woman placing a copper cup beside a child's bed. The child's face was hidden by sunlight. Then the memory vanished, leaving a smell of pear skins.</p>
+    <p class="system">[Ding!] ▲ Witness accepted: Lian Ardent.<br>Debt owner concealed. Seventh channel open for 17 minutes.<br>Transfer route: beneath the western wall. ♥</p>
+    <p>Seventeen minutes was a cruelly exact gift. Iñés snatched up the lantern and moved toward the wall. Mara barred her path with the blade, then turned it and struck the stone with the hilt. A square panel fell inward. “I was told to close it,” she said. “I was not told how long I had to look first.” In the dark beyond, small bells rang at irregular intervals. Lian recognized the rhythm after six notes. It was the pattern Mei tapped on her bed frame when she could not sleep.</p>
+    <p>They entered single file. The passage was too narrow for Mara's blade and too low for the lantern to swing. Names had been written along both walls in chalk, then rubbed away with the heel of a hand. One name remained near the floor: Éloi. Iñés stopped. “My brother,” she said. Lian had known she had a brother once; he had never heard her say his name. She knelt, touched the chalk, and looked at her fingers. “This was written today.”</p>
+    <p>From the far end of the passage came a voice that was not quite a voice. It had Mei's cadence and the scrape of an old man's breath. “Lian,” it called. “If you found the bell, do not follow me.” Iñés lowered the lantern. Mara lowered the blade. Lian counted the heartbeats until the next sound: one, two, three, four. The bells answered with a fifth beat that did not belong to any of them. He went forward before fear could build another fence.</p>
+  </div>
+  <form class="feedback" aria-labelledby="feedback-1-title"><h3 id="feedback-1-title">Chapter One feedback</h3><p>Note the exact line or word whenever you can. Your answers save as you type in this browser.</p>
+    <div class="field"><label for="tiring-1">Tiring spots</label><textarea id="tiring-1" name="tiring" placeholder="Where did reading begin to feel effortful?"></textarea></div>
+    <div class="field"><label for="snags-1">Letters or words that snagged</label><textarea id="snags-1" name="snags" placeholder="Quote the words, joins, accents, or punctuation."></textarea></div>
+    <div class="field"><label for="symbols-1">Symbol issues</label><textarea id="symbols-1" name="symbols" placeholder="Missing, mismatched, or color emoji symbols?"></textarea></div>
+    <div class="field"><label for="comfort-1">Reading comfort</label><select id="comfort-1" name="comfort"><option value="">Choose 1–5</option><option value="1">1 · difficult</option><option value="2">2 · tiring</option><option value="3">3 · adequate</option><option value="4">4 · comfortable</option><option value="5">5 · effortless</option></select></div>
+    <div class="save-status" role="status" aria-live="polite"></div>
+  </form>
+</article>
+<article class="chapter" id="chapter-2" aria-labelledby="chapter-2-title">
+  <header class="chapter-head"><div class="eyebrow">Chapter Two</div><h2 id="chapter-2-title">The Debt of a Name</h2><p class="subtitle">The mountain keeps what the river forgets.</p></header>
+  <div class="prose">
+    <p>The passage under the western wall ended at a door made of river glass. Lian could see a room beyond it: seven empty chairs, a table set for eight, and a clock that had no hands. A child's shape moved between the chairs, but each time he tried to focus, the shape became a reflection of his own shoulder. Mei's borrowed voice came again. “Do not follow me.” It seemed to rise from the glass itself. Iñés put her hand near it. A small bell rang inside her coat, though she carried no bell.</p>
+    <p>Mara held up the Ordinance mask. The red dot on its eye shone against the door, and writing emerged in narrow columns. “Property of the First Ledger,” she read. “Entry by invitation. Exit by settlement.” She turned to Lian. “You have seventeen minutes of witness access. I have an officer's seal. She has a claim.” Iñés pulled a folded scrap of chalk paper from her pocket. On it was a rubbing of the name Éloi, taken from the passage wall. “He is my brother,” she said. “That is my claim.”</p>
+    <p>The door opened when all three touched it. Inside, the air was dry and warm. It smelled of pears again, but also of dust on a bookshelf and the faint bitter scent of lamp oil. Lian had never been to the mountain observatory. Yet the room seemed made from pieces of places he knew: the school desk where he had learned numbers, the kitchen chair Mei stood on to reach the window, the archive's iron key cabinet. Someone had built a room that remembered its visitors better than they remembered it.</p>
+    <p>On the table lay a ledger bound in gray cloth. Its first page carried a diagram of Reed Gate's river: six channels feeding a circle, one carrying water away. In the margin a hand had written, <i>When the flood returns, borrow a little from everyone. Return it before dawn.</i> The writing grew hurried on later pages. The “little” became a month. Then a year. Then four. A list of weather disasters appeared beside the amounts, each one crossed out as though crossing out a storm would make the borrowing harmless.</p>
+    <p>“Who made this?” Lian asked. Mara touched the first signature. Master João. Lian remembered the old teacher showing children how to draw a straight seven, top bar first. The signature had the same severe angle. “He was Bell Keeper before he was a teacher,” Mara said. “After the Office fire, he told the Ordinance the mechanism was dead. I believed him until last winter.” Iñés turned a page and found a second signature written in different ink. Éloi had not signed as a witness. He had signed as the person responsible for repayment.</p>
+    <p>Iñés stared so long that Lian began to hear the clock without hands. It ticked only while she held the page. “Éloi was eleven when he disappeared,” she said. “He could barely count a market bill. This is his writing now.” The final letter of his name was pulled into a graceful loop, the flourish of an adult trying to look unafraid. Mara read the date below it. “Yesterday.” No one spoke for a while. A promise made by a child and kept by an adult who could not come home was a form of theft even if the ledger called it duty.</p>
+    <p class="system">[Ding!] ⚡ Settlement window: 12 minutes.<br>Outstanding principal: 37 years, 8 months, 6 days.<br>Interest: one memory from each living witness. ☯</p>
+    <p>“Interest?” said Lian. The word hit harder than the number. He could imagine taking thirty-seven years from himself. He could not imagine choosing a memory for Mei to lose. Iñés turned to the back of the ledger, where a smaller book had been stitched into the cloth. It held notes in Éloi's hand: the names of children he had fed, lanterns he had repaired, jokes he had tried on the bell to see if it could laugh. Between the notes were calculations. One year of a strong cultivator's time could hold back twelve hours of flood water, provided the borrower never broke the circle.</p>
+    <p>“The flood returns tonight,” Mara said. “The western sluice cracked at sunrise. João reopened the bell to reinforce it.” Lian thought of the market above them, the paper charms on doors, the fishmonger who walked with a bad knee. They would not survive a river that came through the street at midnight. He looked at the ledger again. It was possible to understand why someone had borrowed the years and still refuse to let them keep them. <i>Understanding is not acquittal,</i> he thought, hearing the careful voice of the archive in his own head.</p>
+    <p>A fourth chair scraped across the floor. Master João stepped from the shadow behind it. He wore his school coat, the elbows patched with blue thread, and carried a teacup with no tea. “You found the arithmetic,” he said. “Good. Then you know what closing the channel will do.” His face had the exhausted kindness Lian remembered from lessons, which made it harder to keep anger in one shape. “You could have told us,” Lian said. “You could have asked.” João looked at the six channels on the page. “I did ask, the first winter. Every parent said yes for that winter. Then the winter did not end.”</p>
+    <p>“And you stopped asking,” said Iñés. João's cup shook. “I was going to return it. I sent Éloi to study the second ledger because he could hear the timing fault.” “He was eleven.” Iñés spoke so quietly that Mara moved closer to hear. João did not answer. Through the river glass, a distant bell sounded twice. A thin crack appeared in the door, filled instantly with water that stood upright like a thread. Lian had twelve minutes, and anger would not slow the river.</p>
+    <p>Éloi came from beneath the table. He was not eleven and not fully grown. He wore a child's wool coat strained across an adult's shoulders, and his hair was threaded with white. Iñés made a sound that was almost his name. He smiled at her, then looked at the floor. “I wrote the repayment plan,” he said. “He did not make me sign.” Iñés gripped the edge of the table. “That is what a kind old teacher says when he needs you to agree.” Éloi winced as if she had struck a place he already knew was bruised.</p>
+    <p>“There is another way,” Éloi said. “The system measures years because that is what the first keeper taught it to measure. It can be taught to measure effort instead: watch hours, repairs, carried stones. Thirty-seven years is a terrible unit for a town that has hundreds of hands.” He opened the small book to a page marked by a pressed leaf. Its columns held estimates: 428 people, 92 nights of watch, 1,160 sandbags, 14 rebuilt gates. At the bottom: <i>Requires unanimous consent of the living debtors.</i></p>
+    <p>“There are six children,” Lian said. “One is ill and one is asleep.” “Consent can be given through a willing witness,” replied the system in its spoon-on-glass voice. Words appeared above the ledger, but this time no bell rang. <i>Witness assumes any uncompleted share.</i> Lian felt Iñés and Mara look at him. He was already a witness. The rule had a door, but its handle was attached to a weight. He thought of his sister waking older, and of a town waking underwater if he guessed wrong.</p>
+    <p>“Show me a fair share,” he said. The ledger's pages moved without wind. A table of tasks unfolded in the air: 28 people on the sluice, 36 on the bank, 4 with the children, 1 bell keeper, 1 witness. The list left out the people who could not lift a stone and the people who would need care while others worked. “That is not fair,” Iñés said. She took the carpenter's rule and drew lines through the air, dividing the work into shorter shifts. “Old Mrs. Müller can sort dry grain. Søren can ferry medicines. Þóra can watch the warning lamps. Count them.”</p>
+    <p>The system hesitated. Its numbers flickered. For the first time Lian felt it was not a god but a tool with an old set of instructions. “Recalculate,” he said. Éloi added names; Mara gave the names of officers who could be ordered to help; João named the teachers he had trained. Every addition changed the total. The debt did not vanish, but it stopped looking like a sentence carried by six children. It began to look like a schedule, and a schedule could be argued with.</p>
+    <p>Beyond the glass, the vertical water thread widened to the breadth of a hand. Lian counted seven beats between drops falling from the ceiling. The clock without hands began to turn in its frame, tracing a circle of pale fire. “Nine minutes,” said Mara. She put on the mask. “I can go above and summon the Ordinance. They will move quickly if I tell them there is a breach.” “Tell them there are children,” said Lian. Mara met his eyes through the white enamel. “I will tell them both.” She crossed the room, and the glass opened for her.</p>
+    <p>Iñés kept drawing the schedule. Her rule clicked against the tabletop. Lian noticed that the line for bell keeper remained blank. João put down his cup. “I can do it,” he said. Éloi shook his head. “You no longer hear the fault.” João's face folded around that truth. He had spent so long hiding the debt that the bell no longer answered him. Éloi had heard it for years, in every room where he tried to sleep. “Then let me stand with you,” João said. The offer was too small. It was also the first honest one Lian had heard from him.</p>
+    <p class="system">[Ding!] ▲ Alternative settlement accepted for review.<br>Condition: consent of six debtors or one witness for each absent debtor.<br>Emergency term: hold the western sluice until dawn. ♥</p>
+    <p>Six children. Lian could witness for Mei. He could not speak for the others without finding their parents, and the system's wording was careful: witness for each <i>absent</i> debtor. “If we bring them here?” he asked. “The passage is flooding,” Éloi said. “Bring the ledger to them.” Iñés lifted the gray book and nearly dropped it. It was heavier than stone. Its pages swelled with names and weather. Lian took one side; she took the other. Together they moved it an inch. There was no way they could carry it through the narrow passage before the water arrived.</p>
+    <p>João knelt at the table's far leg and pressed a knot in the wood. A drawer opened, revealing six thin copper plates. “The ledger can travel by copy,” he said. “I used these once to ask the parents.” The plates held the old consents, long expired. Lian saw where three names had been overwritten. He did not let João hide the evidence. He laid the plates on the table, one by one, with the false marks facing up. “You will bring these too,” he said. “No one should agree until they see how you changed the record.”</p>
+    <p>Éloi touched the plate bearing his own name. “I can carry one.” Iñés answered, “You can carry the one that is yours, and you can come home afterward.” He looked at her with the wary hope of someone offered an ordinary thing after years of strange bargains. On the table the river diagram darkened. One channel began to overflow. The bell beneath the bridge struck a note so low Lian felt it in his teeth. If the children said no, the town would still have to find a way to live with that answer. He understood at last that consent was not a clever way to reach yes.</p>
+    <p>The glass door opened onto the passage, now ankle-deep in cold water. Mara waited there with four officers and two neighbors carrying ropes. She had been gone less than three minutes. “The market is moving uphill,” she said. “The sluice crew is ready. We need names.” Lian handed her the first copper plate. “We need the truth beside each name,” he said. They went into the water together, and behind them the ledger turned a page on its own, as if a book could learn to listen.</p>
+  </div>
+  <form class="feedback" aria-labelledby="feedback-2-title"><h3 id="feedback-2-title">Chapter Two feedback</h3><p>Note the exact line or word whenever you can. Your answers save as you type in this browser.</p>
+    <div class="field"><label for="tiring-2">Tiring spots</label><textarea id="tiring-2" name="tiring" placeholder="Where did reading begin to feel effortful?"></textarea></div>
+    <div class="field"><label for="snags-2">Letters or words that snagged</label><textarea id="snags-2" name="snags" placeholder="Quote the words, joins, accents, or punctuation."></textarea></div>
+    <div class="field"><label for="symbols-2">Symbol issues</label><textarea id="symbols-2" name="symbols" placeholder="Missing, mismatched, or color emoji symbols?"></textarea></div>
+    <div class="field"><label for="comfort-2">Reading comfort</label><select id="comfort-2" name="comfort"><option value="">Choose 1–5</option><option value="1">1 · difficult</option><option value="2">2 · tiring</option><option value="3">3 · adequate</option><option value="4">4 · comfortable</option><option value="5">5 · effortless</option></select></div>
+    <div class="save-status" role="status" aria-live="polite"></div>
+  </form>
+</article>
+<article class="chapter" id="chapter-3" aria-labelledby="chapter-3-title">
+  <header class="chapter-head"><div class="eyebrow">Chapter Three</div><h2 id="chapter-3-title">The Door of Small Mercies</h2><p class="subtitle">A town is more than the sum of its strongest hands.</p></header>
+  <div class="prose">
+    <p>By the time Lian reached the market, the rain had become a wall through which lanterns shone like coins at the bottom of a well. Mara's officers carried the copper plates beneath oilcloth. Iñés ran ahead to the school, where the six children had been gathered with their families. Éloi kept one hand against the bridge rail, as if daylight might vanish if he did not hold on. The sluice bell sounded from the western bank: three sharp strikes, then one long. The crews had begun, but the river was already climbing the third step of the fish market.</p>
+    <p>Mei sat at a school desk with a blanket around her shoulders. She looked up when Lian entered, annoyed rather than frightened. “You promised ginger tea,” she said. “I did.” He knelt before her and found that the frost on her fingers was gone. That should have been comforting. Instead he saw how carefully she held her hands, the way an older person protects a joint that aches. “I found something under the bridge. It has your name in it.” He wanted to say the rest gently. There was no gentle way to tell someone that time had been taken from her.</p>
+    <p>The other children listened while Iñés spread the plates on the teacher's desk. She showed the old consent marks, the overwritten names, the years still owed. Parents began to speak at once. Some wanted the bell destroyed. One father insisted he had agreed to everything. A mother asked whether a year could be cut into pieces and returned by morning. Iñés let each question finish. She did not call the new plan fair until she had explained what work it asked of them and what would happen if the river broke through first.</p>
+    <p>Áurea Val, the girl who had returned from the mountain with a young face, stood at the back of the room. She carried a small bag of dry pears. “I have lived forty-seven borrowed years,” she said. “They were given by people who believed they were saving their homes. I did not ask whose years they were, and I should have.” Her voice crossed the room without force. “If the ledger can count labor instead, put me on the bank. I know how to set stones so water cannot lift them.” She set the pears beside Mei and waited, neither begging forgiveness nor pretending she had none to seek.</p>
+    <p>At the door, João removed his school coat and folded it over a chair. Under it his shirt was thin, his shoulders narrower than Lian remembered. “I altered three marks,” he said. The room fell quiet. “I told myself the parents would agree again if there had been time to ask. There was time. I spent it fearing their answer.” He named the three families without looking at the plate. No one thanked him for confessing. A parent took her child home before the explanation ended, and Iñés marked the child absent without changing the rule to make the plan easier.</p>
+    <p class="system">[Ding!] ☯ Six debtors located. Five present; one departed.<br>Consent is requested, never presumed.<br>Witness liability for absent debtor: 6 years, 2 months, 9 days. ▲</p>
+    <p>Lian felt the number settle between his ribs. The departed child was Béla, whose mother had carried him into the uphill quarter. He could witness for Béla, but the system would charge him if the work failed. Iñés held his gaze. “You do not have to decide for him,” she said. “We can find another way to hold the bank.” He heard what she meant. The child could refuse. The town could still work. The ledger had made both choices appear as one, as if safety required taking what was easiest to take.</p>
+    <p>“Ask me,” Mei said. Her voice was rough from coughing, but she stood without help. Lian turned. “You are thirteen.” “And you are acting as if I cannot count.” She took the copper plate bearing her name. “Three years, four months, twelve days. You told me that this morning was the first day of spring. If you can tell me what the work means, I can tell you whether I want to do it.” No adult answered at once. Then Éloi explained the shifts: two hours at the warning lamps, warm rooms between, no child on the bank.</p>
+    <p>Mei considered him. “If I say yes, do I get my years back?” “If the bell keeps its promise,” Éloi said. “That is not an answer.” “No. We will have to hold it to the promise.” She looked at the other children. One by one they asked questions no adult had asked: what if someone became ill, who would watch the watchers, and whether the lantern fuel would last until dawn. The plan changed as they spoke. Shorter shifts. A rest room. Two people assigned to every lamp. Lian realized he had mistaken their smallness for an inability to improve the work.</p>
+    <p>Four children agreed. The fifth wanted to wait until her father returned from the sluice. Mei said yes after Éloi wrote down that she could stop if she was too tired. Iñés copied the condition onto every plate. Mara, who had come in from the rain, added the Ordinance seal beside it. “A condition you cannot enforce is only decoration,” she said. “My officers will keep the rest room open.” Lian had never expected to hear an officer promise warmth. He wanted to ask whether a seal could change a person. Then the western bell sounded twice and cut the thought short.</p>
+    <p>The river struck the bank with a noise like a door being pushed across a floor. Lian ran with Mara and Áurea through the market, boots filling with water. People passed sandbags hand to hand. João stood in the line. So did Mrs. Müller, not lifting but tying each bag closed with quick, practiced fingers. Søren drove a medicine cart along the dry side of the street. Þóra held a lamp above the crowd, its glass painted with a red triangle ▲ to mark the safe path. The ledger's schedule had called some of them too weak to count. The bank held because they were there.</p>
+    <p>At the sluice, the old stone gate had opened a finger's width. Water sprayed through with enough force to peel paint from the wall. Iñés measured the gap with her carpenter's rule. “If we wedge it here, the upper hinge will twist,” she said. “We need a brace from the canal warehouse.” The warehouse was thirty-one steps away in dry weather. Lian counted forty-eight through the flood. He and Mara hauled a timber between them, with Áurea guiding the heavy end. Their hands slipped twice. On the third attempt, the brace caught.</p>
+    <p><i>Hold,</i> thought Lian. He had no stage name for what he did then. No radiant aura rose from him. He put a shoulder against wet wood while someone fixed it in place, and he breathed when Mei had taught him to breathe during her worst coughs: in for four, out for six. Beside him Mara muttered numbers under her breath. Above them lightning flashed, and for a moment the river showed its whole surface. It was not an enemy. It was water following a path left too narrow by people who had trusted a hidden debt.</p>
+    <p class="system">[Ding!] ⚡ Emergency work recorded: 312 people, 4,806 shared minutes.<br>Western sluice stability: 74% and rising.<br>Debt conversion available when all witnesses return to the bell. ♥</p>
+    <p>“Four thousand eight hundred and six minutes,” Mara read, unbelieving. “That is eighty hours,” said Iñés. “Across everyone, in one storm.” She looked toward the school. “The fifth child?” An officer arrived with an answer before Lian could move. The child's father had returned. They had read the plate together and agreed to a one-hour lamp shift. Béla and his mother had stayed uphill. They had declined the plan. They were safe. The ledger's old rule would still ask Lian to speak for them, but the town's new plan did not need their years.</p>
+    <p>At dawn's first gray edge, the five children came to the bridge with their families. Mei walked beside Lian, her blanket wrapped twice around her. Éloi led them down only as far as the dry landing. He would speak to the bell; they could hear its answer from there. João came last, carrying the gray ledger against his chest. He placed it on the floor and stepped away. When Lian opened it, the pages were light enough to turn with one hand.</p>
+    <p>“We have the work,” Lian said. “We have the people who agreed. We also have a child who did not.” The bell gave a shallow note. The system displayed two choices: transfer Béla's share to Lian, or leave it unpaid. If left unpaid, the ledger warned, the town might lose a portion of its repaired protection next winter. Iñés read the warning aloud. “There is a third choice,” she said. “Keep a watch. Repair the gate before winter. Let the town carry a risk rather than a child.” Éloi placed his hand against the stone ring and asked the system to calculate it.</p>
+    <p>The bell was silent for so long Lian could hear individual drops sliding down the chamber walls. The old system knew years and minutes. It had never been asked to measure trust kept over time. Its letters appeared one at a time. <i>Uncertain future labor cannot settle a present debt.</i> “Then leave it open,” said Mei. “A debt can stay on a page while we decide what to do.” Lian almost corrected her. He had grown used to treating every open number as a danger. But the danger had come from hiding the number, not from admitting it remained.</p>
+    <p>Éloi wrote a new entry: <i>Unpaid share, publicly held. No automatic transfer.</i> He asked each family to read it. João read it too. At the bottom he wrote his name without the word keeper beside it. Áurea offered to fund a winter crew from the mountain years she still had; no one decided whether that was enough to make amends. The important thing was that the ledger stayed on the table where anyone could read it. Its cover, once gray, had begun to dry into the plain brown of ordinary cloth.</p>
+    <p class="system">[Ding!] ▲ Emergency settlement complete.<br>Five child debts restored. One share remains public and unassigned.<br>New rule accepted: no transfer without present consent. ☯ ♥</p>
+    <p>Mei looked at her hands. The ache had gone, though the memories of it had not. “Do I look thirteen again?” she asked. “You look like you need ginger tea,” Lian said. She laughed, then coughed once, a small human sound that did not belong to any bell. Above the bridge, the sky had changed from iron to pale blue. The river still moved fast, but it had stopped climbing the market steps. Lian counted six breaths, then let the seventh pass without a number.</p>
+    <p>Iñés and Éloi stood near the stair, arguing softly about whether the old house had room for a second desk. Mara listened while pretending to inspect a hinge. João waited by the gate with a brush and a pot of white paint. He had asked permission to write the new rule on the school wall, and the families had told him to wait until they chose the words together. There would be arguments. There would be winter. Lian knew that one decent morning did not repair every theft. Still, no one had to make the next choice alone.</p>
+    <p>When the first market stall opened, Lian bought a knob of ginger, three pears, and enough rice for a late breakfast. The fishmonger asked why the bell had struck through the night. He could have told her that the river had threatened them and the Ordinance had helped and a system had learned a new unit of measure. Instead he said, “Come to the school after breakfast. The ledger is there.” She nodded, set an extra pear in his bag, and asked him to leave the door open.</p>
+  </div>
+  <form class="feedback" aria-labelledby="feedback-3-title"><h3 id="feedback-3-title">Chapter Three feedback</h3><p>Note the exact line or word whenever you can. Your answers save as you type in this browser.</p>
+    <div class="field"><label for="tiring-3">Tiring spots</label><textarea id="tiring-3" name="tiring" placeholder="Where did reading begin to feel effortful?"></textarea></div>
+    <div class="field"><label for="snags-3">Letters or words that snagged</label><textarea id="snags-3" name="snags" placeholder="Quote the words, joins, accents, or punctuation."></textarea></div>
+    <div class="field"><label for="symbols-3">Symbol issues</label><textarea id="symbols-3" name="symbols" placeholder="Missing, mismatched, or color emoji symbols?"></textarea></div>
+    <div class="field"><label for="comfort-3">Reading comfort</label><select id="comfort-3" name="comfort"><option value="">Choose 1–5</option><option value="1">1 · difficult</option><option value="2">2 · tiring</option><option value="3">3 · adequate</option><option value="4">4 · comfortable</option><option value="5">5 · effortless</option></select></div>
+    <div class="save-status" role="status" aria-live="polite"></div>
+  </form>
+</article>
+<section class="summary" aria-labelledby="summary-title"><h2 id="summary-title">Collect your notes</h2><p>Feedback is saved locally as you type. Copy All Feedback gathers all three chapters into one block for an issue, message, or test report. The text also appears below for manual copying.</p><div class="actions"><button id="copy-all" type="button">Copy All Feedback</button><span id="copy-status" role="status" aria-live="polite"></span></div><textarea id="all-feedback" readonly aria-label="All chapter feedback"></textarea></section>
+</main>
+<script>
+(() => {
+  const key = 'seireader-reading-test-v1';
+  const chapterNames = ['The Bell Beneath the Rain', 'The Debt of a Name', 'The Door of Small Mercies'];
+  const fields = ['tiring', 'snags', 'symbols', 'comfort'];
+  const weight = document.getElementById('weight');
+  const theme = document.getElementById('theme');
+  const status = document.getElementById('copy-status');
+  const output = document.getElementById('all-feedback');
+  let saved = {};
+  try { saved = JSON.parse(localStorage.getItem(key) || '{}') || {}; } catch { saved = {}; }
+  function applyTheme(value) {
+    const day = value === 'day';
+    document.documentElement.dataset.theme = day ? 'day' : 'night';
+    theme.textContent = day ? 'Night mode' : 'Day mode';
+    theme.setAttribute('aria-pressed', String(day));
+  }
+  function persist() {
+    try { localStorage.setItem(key, JSON.stringify(saved)); return true; }
+    catch { document.querySelectorAll('.save-status').forEach(el => el.textContent = 'Local storage is unavailable; copy your notes before closing this page.'); return false; }
+  }
+  applyTheme(saved.theme || 'night');
+  if (['300','400','500','600','700'].includes(String(saved.weight))) weight.value = String(saved.weight);
+  document.documentElement.style.setProperty('--reading-weight', weight.value);
+  weight.addEventListener('change', () => { document.documentElement.style.setProperty('--reading-weight', weight.value); saved.weight = weight.value; persist(); });
+  theme.addEventListener('click', () => { saved.theme = document.documentElement.dataset.theme === 'day' ? 'night' : 'day'; applyTheme(saved.theme); persist(); });
+  document.querySelectorAll('form.feedback').forEach((form, index) => {
+    const id = String(index + 1);
+    const record = saved[id] || {};
+    fields.forEach(field => { if (typeof record[field] === 'string') form.elements[field].value = record[field]; });
+    const save = () => {
+      saved[id] = Object.fromEntries(fields.map(field => [field, form.elements[field].value]));
+      form.querySelector('.save-status').textContent = persist() ? 'Saved in this browser.' : 'Local storage is unavailable; copy your notes before closing this page.';
+    };
+    form.addEventListener('input', save);
+    form.addEventListener('change', save);
+    form.addEventListener('submit', event => event.preventDefault());
+  });
+  function feedbackBlock() {
+    const lines = ['SEIReader Phase 3 · Reading feedback', `Theme: ${document.documentElement.dataset.theme}; weight: ${weight.options[weight.selectedIndex].text}`];
+    document.querySelectorAll('form.feedback').forEach((form, index) => {
+      lines.push('', `Chapter ${index + 1}: ${chapterNames[index]}`);
+      lines.push(`Tiring spots: ${form.elements.tiring.value.trim() || '(none entered)'}`);
+      lines.push(`Letters or words that snagged: ${form.elements.snags.value.trim() || '(none entered)'}`);
+      lines.push(`Symbol issues: ${form.elements.symbols.value.trim() || '(none entered)'}`);
+      lines.push(`Comfort (1–5): ${form.elements.comfort.value || '(not rated)'}`);
+    });
+    return lines.join('\n');
+  }
+  document.getElementById('copy-all').addEventListener('click', async () => {
+    output.value = feedbackBlock();
+    try { await navigator.clipboard.writeText(output.value); status.textContent = 'Copied all feedback.'; }
+    catch { output.focus(); output.select(); status.textContent = 'Feedback is ready below. Select and copy it manually.'; }
+  });
+})();
+</script>
+</body>
+</html>

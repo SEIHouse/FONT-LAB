@@ -2,6 +2,9 @@
 
 Newest first.
 
+- **0.27** Phase 3 testing materials: added a six-browser device pass/fail checklist and a
+  self-contained three-chapter reading page with Day/Night, five weight choices, and feedback
+  saved in local storage with a one-block copy action. Font files and build settings unchanged.
 - **0.26** Phase 2: optional tabular figures (`tnum`), superscript/subscript digits (`sups`,
   `subs`), fractions (`frac`, ½ ¼ ¾, U+2044), and three pyftsubset WOFF2 deliveries per style
   with generated `fonts.css`. Added numeric demos in the Lab.
