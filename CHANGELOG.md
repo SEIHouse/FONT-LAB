@@ -2,9 +2,11 @@
 
 Newest first.
 
-- **0.27** Phase 3 testing materials: added a six-browser device pass/fail checklist and a
-  self-contained three-chapter reading page with Day/Night, five weight choices, and feedback
-  saved in local storage with a one-block copy action. Font files and build settings unchanged.
+- **0.27** Phase 3 reading feedback pass: rounder, slightly wider upright forms; conservative
+  lowercase pair spacing to smooth long words; straight and curly quotes raised, with
+  apostrophes tucked closer to adjacent lowercase letters. Rebuilt the full family and web
+  subsets, with the reported snag words in the original Lab Reader Chamber. Also added a
+  six-browser device checklist and three-chapter reading page with locally saved feedback.
 - **0.26** Phase 2: optional tabular figures (`tnum`), superscript/subscript digits (`sups`,
   `subs`), fractions (`frac`, ½ ¼ ¾, U+2044), and three pyftsubset WOFF2 deliveries per style
   with generated `fonts.css`. Added numeric demos in the Lab.

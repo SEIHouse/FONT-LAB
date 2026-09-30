@@ -1,8 +1,12 @@
-SEIReader 0.26 health check
+SEIReader 0.27 health check
 Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
 
-  Universal checks:  695 passed, 0 failed, 0 warnings  (437 did not apply, 30 info)
+  Universal offline: 675 passed, 0 failed, 0 warnings  (457 skipped, 30 info)
   OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
+
+  Universal was run with --skip-network because the session cannot access external services.
+  A full run returned 10 connection failures for fontbakery_version and 10 service errors for
+  fontdata_namecheck. Those online checks are unverified; all local universal checks passed.
 
 History
   0.19  First check found and fixed: version number mismatch, missing "normal style" flag on
@@ -22,3 +26,6 @@ History
   0.26  Phase 2: tabular figures, superscript/subscript figures, fractions, and three WOFF2
         Unicode subsets per style. All 10 full OTF styles still have 0 FAIL / 0 WARN in both
         profiles. Shaping and all 30 web subsets also verified.
+  0.27  Rounder upright forms, gentler lowercase pair spacing, raised quotes and tighter
+        apostrophes; all 10 full styles and 30 subsets rebuilt. OpenType and offline universal
+        profiles are clean. Online-only universal checks remain unverified.

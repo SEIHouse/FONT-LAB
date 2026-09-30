@@ -1,4 +1,4 @@
-SEIReader, version 0.26 (working draft)
+SEIReader, version 0.27 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).

@@ -121,6 +121,8 @@ html = r'''<!DOCTYPE html>
   .chamber .clabel{ color:var(--r-mute); margin-bottom:6px; }
   .chamber .title{ margin-bottom:22px; }
   .chamber .para{ margin-bottom:1em; }
+  .chamber .reviewtag{ color:var(--r-mute); font:12px/1.4 system-ui,sans-serif; letter-spacing:.04em; margin-bottom:5px; }
+  .chamber .reviewline{ border-bottom:1px solid var(--line); padding-bottom:1em; }
   .chamber .cap{ color:var(--r-mute); margin-top:6px; }
   .filemode p{ margin:0 0 1em; line-height:var(--rlh,1.55); }
   .side{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
@@ -370,6 +372,7 @@ const SR_BAKED = __BAKED__;
 const SR_KERN = __KERN__;
 const SR_CHARS = [...__CHARS__];
 const SR_CHAPTER = __CHAPTER__;
+const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
 const SR_FONTS = __FONTLIST__;
 const WORDER = __WORDER__;
 const $ = id => document.getElementById(id);
@@ -490,9 +493,11 @@ function renderChamber(){
   const liveHTML = () =>
       `<div class="clabel">${drawText('Chapter 12', 13, 1.3)}</div>` +
       `<div class="title">${drawText('The Last Gate', 32, 1.25)}</div>` +
+      `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><div class="para reviewline">${drawText(SR_REVIEW, RD.size, RD.lh)}</div>` +
       SR_CHAPTER.map(p => `<div class="para">${drawText(p, RD.size, RD.lh)}</div>`).join('') +
       `<div class="cap">${drawText('4 minutes left in this chapter', 13, 1.3)}</div>`;
   const fileHTML = () => `<div class="clabel" style="font-size:13px">Chapter 12</div><div class="title" style="font-size:32px;line-height:1.25">The Last Gate</div>` +
+      `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><p class="reviewline" style="font-size:${RD.size}px">${e_(SR_REVIEW)}</p>` +
       SR_CHAPTER.map(p => `<p style="font-size:${RD.size}px">${e_(p).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>`).join('') +
       `<div class="cap" style="font-size:13px">4 minutes left in this chapter</div>`;
   if(RD.view === 'side'){

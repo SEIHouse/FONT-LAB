@@ -210,7 +210,9 @@ AUTO_STRENGTH = 0.6      # how much of the difference to correct (1 = all of it)
 AUTO_DEPTH = 0.10        # how far into a letter's open space counts (share of the em)
 AUTO_MIN, AUTO_MAX = -0.12, 0.04   # limits, as share of the em
 AUTO_THRESHOLD = 15      # ignore small corrections (units per 1000)
-AUTO_LOWLOW = 30         # lowercase+lowercase pairs are only touched when really off
+AUTO_LOWLOW = 12         # catch visible uneven gaps inside long lowercase words
+AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX = -0.035, 0.025  # gentler than capital/punctuation pairs
+APOSTROPHE_TUCK = 25     # raised apostrophes need less empty space beside lowercase letters
 
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
@@ -279,14 +281,14 @@ def auto_pairs(paths, hm, cmap):
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
         if 'j' in (a, b): return False                         # j's tail curls under its neighbour; leave it
+        if a in lower and b in lower: return 'lowlow'           # smooth gaps inside words, with a tighter limit
         if a in caps and (b in caps or b in lower): return True    # AV, LT, To, Ya ...
         if (a in letters or a in digits) and b in lowp: return True  # r. y, P. 7.
         if a in quotes and (b in letters or b in digits): return True   # “A ’s
         if (a in letters or a in lowp) and b in quotes: return True    # L’ s” .”
         if a == '(' and (b in letters or b in digits): return True
         if (a in letters or a in digits) and b == ')': return True
-        # lowercase+lowercase and number+number stay exactly as designed (t/f crossbars fool the measuring;
-        # numbers get their own even-width set later)
+        # Numbers get their own even-width set later.
         return False
     out = {}
     for a in prof:
@@ -296,7 +298,10 @@ def auto_pairs(paths, hm, cmap):
             zone = 'low' if (a in lower or b in lower) else 'cap'
             target = t_low if zone == 'low' else t_cap
             k = AUTO_STRENGTH * (target - gap(a, b, zone))
-            k = max(AUTO_MIN * UPM, min(AUTO_MAX * UPM, k))
+            low, high = (AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX) if w == 'lowlow' else (AUTO_MIN, AUTO_MAX)
+            k = max(low * UPM, min(high * UPM, k))
+            if ((a in lower and b in "'’") or (a in "'’" and b in lower)):
+                k = max(AUTO_MIN * UPM, k - APOSTROPHE_TUCK * SC)
             limit = AUTO_LOWLOW if w == 'lowlow' else AUTO_THRESHOLD
             if abs(k) >= limit * SC:
                 out[a + b] = round(k / SC)       # stored per 1000, like the hand-set pairs
@@ -391,7 +396,10 @@ def build(data, out, style='Regular', italic=False):
         o = ovr.get(ch) or ovr.get(data.get('basemap', {}).get(ch, ''), {}) or {}; before, after = o.get('before', 0), o.get('after', 0)
         left = TR + g['sb0'] + before
         name = gname(ch); order.append(name); cmap[ord(ch)] = name
-        paths[name] = outline(g, left)
+        try:
+            paths[name] = outline(g, left)
+        except pathops.PathOpsError as exc:
+            raise RuntimeError(f'Could not union {shown} glyph {name}') from exc
         hm[name] = round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
 
     # Add unencoded alternates without touching the proportional digit outlines or metrics.
@@ -407,7 +415,10 @@ def build(data, out, style='Regular', italic=False):
     for name, g in data['alternates'].items():
         if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
         order.append(name)
-        paths[name] = outline(g, TR + g['sb0'])
+        try:
+            paths[name] = outline(g, TR + g['sb0'])
+        except pathops.PathOpsError as exc:
+            raise RuntimeError(f'Could not union {shown} alternate {name}') from exc
         hm[name] = round((2*TR + g['sb0'] + g['w'] + S + g['sb1']) * SC)
 
     # The small figures share a measured advance within each weight/style.

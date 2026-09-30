@@ -47,12 +47,14 @@ python verify_phase2.py     # checks OpenType shaping and subset coverage
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
 `python make_fonts.py my_changes.json`.
 
-## What SEIReader has (version 0.26)
+## What SEIReader has (version 0.27)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
 - Tall lowercase letters exactly capital height
-- Automatic pair spacing for capitals, punctuation, quotes, and brackets, plus hand-set pairs
+- Automatic pair spacing for capitals, punctuation, quotes, brackets, and gently corrected
+  lowercase pairs, plus hand-set pairs
+- Rounder upright letters and slightly wider forms; raised straight and curly quotation marks
 - Joined `fi` and `fl`
 - Optional tabular figures (`tnum`), superscript and subscript figures (`sups`, `subs`),
   and stacked fractions (`frac`); Unicode superscripts/subscripts and ½ ¼ ¾ are also included
@@ -63,7 +65,8 @@ To apply changes saved from the Lab (copied with "Copy instead of Save"), put th
   Norwegian, Swedish, Finnish, Icelandic
 - Web-novel and system-screen symbols, music marks, player controls, icons, and the SEIHouse `Ⓢ`
   brand mark, with private in-app codes (U+E000–E00F) so phones can't swap in color emoji
-- FontBakery: 0 failures, 0 warnings on all 10 full OTF styles
+- FontBakery: 0 failures and 0 warnings in OpenType and offline universal checks on all 10
+  full OTF styles; online-only universal checks remain unverified in this session
 
 ## Roadmap
 
