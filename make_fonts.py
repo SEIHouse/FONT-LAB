@@ -26,9 +26,9 @@ BIG = 16          # stroke at 16x size for precise round ends, then shrink back
 # vertical room reserved now so accented letters (É, Ǻ, Vietnamese stacks) fit later without changing line spacing
 ASCENT, DESCENT = 950, 250
 
-settings = json.load(open(os.path.join(HERE, 'settings.json')))
+settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
 if len(sys.argv) > 1:
-    ch = json.load(open(sys.argv[1]))
+    ch = json.load(open(sys.argv[1], encoding='utf-8'))
     for k in ('weights', 'weight', 'xHeight', 'ascender', 'lowercaseRoundness', 'capitalRoundness', 'letterWidth', 'wordSpace', 'overshoot', 'uFoot',
               'spaceBetweenAllLetters', 'letterSpace', 'pairSpace'):
         if k in ch: settings[k] = ch[k]
@@ -44,13 +44,15 @@ TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMIL
 
 def export():
     from playwright.sync_api import sync_playwright
-    page = (open(os.path.join(HERE, 'export_head.html')).read() + open(os.path.join(HERE, 'engine.js')).read()
-            + open(os.path.join(HERE, 'export_tail.js')).read() + '</script></body></html>')
-    tmp = os.path.join(HERE, '_export.html'); open(tmp, 'w').write(page)
+    page = (open(os.path.join(HERE, 'export_head.html'), encoding='utf-8').read()
+            + open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
+            + open(os.path.join(HERE, 'export_tail.js'), encoding='utf-8').read() + '</script></body></html>')
+    tmp = os.path.join(HERE, '_export.html'); open(tmp, 'w', encoding='utf-8').write(page)
     with sync_playwright() as p:
         b = p.chromium.launch(); pg = b.new_page(); pg.goto('file://' + tmp)
         pg.evaluate(f"P.round={ROUND}; P.contrast={F}; P.xh={XHT}; P.caprx={CAPR}; P.ws={WS}; P.base={S}; P.os={1 if settings.get('overshoot', True) else 0}; P.ufoot={1 if settings.get('uFoot', True) else 0}; P.ital={1 if ITAL else 0}; P.straight={settings.get('uprightStraightness', 1)}; P.asc={settings.get('ascender', 770)}; P.trk={track_for(S) + (ITAL_EXTRA_SPACE if ITAL else 0)};")
-        out = {'glyphs': pg.evaluate(f'exportGlyphs({S})'), 'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()')}
+        out = {'glyphs': pg.evaluate(f'exportGlyphs({S})'), 'alternates': pg.evaluate(f'exportAlternates({S})'),
+               'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()')}
         b.close()
     os.remove(tmp)
     return out
@@ -313,7 +315,9 @@ def autohint(path_otf):
     """Run Adobe's auto-tuner (otfautohint) on the finished file, in place."""
     import subprocess, shutil
     tmp = path_otf + '.hinted.otf'
-    r = subprocess.run(['otfautohint', path_otf, '-o', tmp], capture_output=True, text=True)
+    executable = shutil.which('otfautohint') or os.path.join(os.path.dirname(sys.executable),
+                                                            'otfautohint.exe' if os.name == 'nt' else 'otfautohint')
+    r = subprocess.run([executable, path_otf, '-o', tmp], capture_output=True, text=True)
     if r.returncode == 0 and os.path.exists(tmp):
         shutil.move(tmp, path_otf); return True
     print('    screen tuning failed:', (r.stderr or r.stdout)[-300:]); return False
@@ -352,6 +356,13 @@ def lsb_of(path):
     if path is None: return 0
     bp = BoundsPen(None); path.draw(bp); return round(bp.bounds[0]) if bp.bounds else 0
 
+def center_ink(path, advance):
+    """Place the finished outline, including its stroke and italic slant, in the middle of its advance."""
+    bp = BoundsPen(None); path.draw(bp)
+    if not bp.bounds: return path
+    left, _, right, _ = bp.bounds
+    return path.transform(translateX=(advance - (right - left)) / 2 - left)
+
 def gname(ch):
     u = ord(ch)
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
@@ -382,6 +393,42 @@ def build(data, out, style='Regular', italic=False):
         name = gname(ch); order.append(name); cmap[ord(ch)] = name
         paths[name] = outline(g, left)
         hm[name] = round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
+
+    # Add unencoded alternates without touching the proportional digit outlines or metrics.
+    digits = '0123456789'
+    digit_names = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
+    tabular_advance = max(hm[gname(d)] for d in digits)
+    for d, name in zip(digits, digit_names):
+        alt = name + '.tf'
+        order.append(alt)
+        paths[alt] = center_ink(paths[gname(d)], tabular_advance)
+        hm[alt] = tabular_advance
+
+    for name, g in data['alternates'].items():
+        if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
+        order.append(name)
+        paths[name] = outline(g, TR + g['sb0'])
+        hm[name] = round((2*TR + g['sb0'] + g['w'] + S + g['sb1']) * SC)
+
+    # The small figures share a measured advance within each weight/style.
+    supers = '⁰¹²³⁴⁵⁶⁷⁸⁹'; subs = '₀₁₂₃₄₅₆₇₈₉'
+    mini_names = [gname(ch) for ch in supers + subs] + [name + suffix for name in digit_names for suffix in ('.numr', '.dnom')]
+    mini_advance = max(hm[name] for name in mini_names)
+    for name in mini_names:
+        paths[name] = center_ink(paths[name], mini_advance)
+        hm[name] = mini_advance
+
+    fraction_name = gname('⁄')
+    hm[fraction_name] = round(190 * SC)
+    paths[fraction_name] = center_ink(paths[fraction_name], hm[fraction_name])
+    for ch, numerator, denominator in (('½', 'one', 'two'), ('¼', 'one', 'four'), ('¾', 'three', 'four')):
+        num_name, den_name = numerator + '.numr', denominator + '.dnom'
+        left = paths[num_name]
+        slash = paths[fraction_name].transform(translateX=hm[num_name])
+        right = paths[den_name].transform(translateX=hm[num_name] + hm[fraction_name])
+        paths[gname(ch)] = pathops.op(pathops.op(left, slash, PathOp.UNION, fix_winding=True),
+                                     right, PathOp.UNION, fix_winding=True)
+        hm[gname(ch)] = hm[num_name] + hm[fraction_name] + hm[den_name]
 
     for code, ch in PRIVATE.items():
         if ord(ch) in cmap: cmap[code] = cmap[ord(ch)]
@@ -428,7 +475,7 @@ def build(data, out, style='Regular', italic=False):
     KERN.update(AUTO); KERN.update(data['kern'])
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     if style == 'Regular' and not italic:
-        json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w'), ensure_ascii=False)
+        json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')
     # pair spacing written with groups, so letters added later (accents) join the right group automatically
     left_groups, right_groups, lines = set(), set(), []
@@ -447,6 +494,33 @@ def build(data, out, style='Regular', italic=False):
         # where the text cursor can stop inside a joined letter (between the f and the i / l)
         cut = hm[gname('f')]
         fea += f"table GDEF {{\n  LigatureCaretByPos {gname('ﬁ')} {cut};\n  LigatureCaretByPos {gname('ﬂ')} {cut};\n}} GDEF;\n"
+    plain = ' '.join(gname(d) for d in digits)
+    tabular = ' '.join(name + '.tf' for name in digit_names)
+    numerator = ' '.join(name + '.numr' for name in digit_names)
+    denominator = ' '.join(name + '.dnom' for name in digit_names)
+    fea += f"@figures = [{plain}];\n@numerators = [{numerator}];\n@denominators = [{denominator}];\n"
+    fea += f"feature sups {{ sub @figures by [{' '.join(gname(ch) for ch in supers)}]; }} sups;\n"
+    fea += f"feature subs {{ sub @figures by [{' '.join(gname(ch) for ch in subs)}]; }} subs;\n"
+    fea += f"""feature frac {{
+      sub @figures {gname('/')}\u0027 @figures by {fraction_name};
+      sub @figures\u0027 {fraction_name} by @numerators;
+      rsub @figures\u0027 @numerators by @numerators;
+      sub {fraction_name} @figures\u0027 by @denominators;
+      sub @denominators @figures\u0027 by @denominators;
+    }} frac;
+"""
+    # HarfBuzz applies 'frac' to the slash and following digits for ASCII input. A later
+    # default ligature pass completes the surrounding numerators and denominators after
+    # the slash becomes U+2044; it also handles directly typed fraction slashes.
+    fea += f"""feature liga {{
+      sub @figures\u0027 {fraction_name} by @numerators;
+      rsub @figures\u0027 @numerators by @numerators;
+      sub {fraction_name} @figures\u0027 by @denominators;
+      sub @denominators @figures\u0027 by @denominators;
+    }} liga;
+"""
+    # Apply tabular figures last: sups/subs/frac must still see proportional digit names.
+    fea += f"feature tnum {{ sub @figures by [{tabular}]; }} tnum;\n"
     addOpenTypeFeaturesFromString(fb.font, fea)
     fb.font['name'].removeNames(platformID=1)
     fb.save(out)
@@ -463,7 +537,9 @@ if __name__ == '__main__':
             S = w
             data = export()
             if style == 'Regular' and not italic:
-                json.dump(data['kern'], open(os.path.join(HERE, 'kern_base.json'), 'w'), ensure_ascii=False)
+                json.dump(data['kern'], open(os.path.join(HERE, 'kern_base.json'), 'w', encoding='utf-8'), ensure_ascii=False)
             fname = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             build(data, os.path.join(outdir, f'{FAMILY}-{fname}.otf'), style, italic)
             print('built', FAMILY, VERSION, fname, 'thickness', w)
+    from build_subsets import build_subsets
+    build_subsets()

@@ -4,10 +4,10 @@ import base64, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from emoji_demo import EMOJI
 HERE = os.path.dirname(os.path.abspath(__file__))
-settings = json.load(open(os.path.join(HERE, 'settings.json')))
+settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
 VERSION = settings['version']
-kern = json.load(open(os.path.join(HERE, 'kern_auto.json')))           # automatic pair spacing
-kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'))))     # hand-set pairs win
+kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
+kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'), encoding='utf-8')))     # hand-set pairs win
 for k, v in settings.get('pairSpace', {}).items(): kern[k] = v
 b64 = lambda p: base64.b64encode(open(os.path.join(HERE, p), 'rb').read()).decode()
 WEIGHTS = dict(settings.get('weights', {})); WEIGHTS['Regular'] = settings['weight']
@@ -17,7 +17,7 @@ FONTLIST = [{'name':'SEIReader','weight':str(WCLASS[w]),'style':'normal','data':
 FONTLIST += [{'name':'SEIReader','weight':str(WCLASS[w]),'style':'italic','data':b64('fonts/SEIReader-' + ('Italic' if w == 'Regular' else w + 'Italic') + '.woff2')} for w in WORDER]
 OLD = b64('old/previous.woff2')
 FONTLIST.append({'name':'SEIReader Previous','weight':'400','style':'normal','data':OLD})
-ENGINE = open(os.path.join(HERE, 'engine.js')).read()
+ENGINE = open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
 BAKED = {
   'weight': settings['weight'], 'xHeight': settings.get('xHeight', 520),
   'lowercaseRoundness': settings['lowercaseRoundness'], 'capitalRoundness': settings.get('capitalRoundness', 210),
@@ -30,7 +30,7 @@ BAKED = {
   'overshoot': settings.get('overshoot', True), 'uFoot': settings.get('uFoot', True),
   'letterSpace': settings.get('letterSpace', {}), 'pairSpace': settings.get('pairSpace', {}),
 }
-CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;…!?'\"‘’“”-–—()[]/%+=&@#$*~_|\\{}<>★•·×÷±°→←∞«»‹›¥€£☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀↑↓♥♡✓✗♪©®™−≤≥≠≈Ⓢ♩♫♬♭♮♯⏮⏸⏹⏺⏭🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÆŒÐÞàáâãäåçèéêëìíîïñòóôõöøùúûüýÿæœßðþ¡¿ºª"
+CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉½¼¾⁄.,:;…!?'\"‘’“”-–—()[]/%+=&@#$*~_|\\{}<>★•·×÷±°→←∞«»‹›¥€£☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀↑↓♥♡✓✗♪©®™−≤≥≠≈Ⓢ♩♫♬♭♮♯⏮⏸⏹⏺⏭🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÆŒÐÞàáâãäåçèéêëìíîïñòóôõöøùúûüýÿæœßðþ¡¿ºª"
 CHAPTER = [
   "The lantern burned low as the last gate opened—slowly, then all at once. Beyond it lay the hall of quiet books, thousands of them, and every shelf seemed to hum.",
   "“Don’t stop now,” Ren whispered. His voice came back to him twice, as if the room were deciding whether to answer.",
@@ -129,6 +129,21 @@ html = r'''<!DOCTYPE html>
   @media (max-width:860px){ .side{ grid-template-columns:1fr; } }
   .f-new{ font-family:'SEIReader', system-ui, sans-serif; font-synthesis:none; }
   .f-old{ font-family:'SEIReader Previous', system-ui, sans-serif; font-synthesis:none; }
+
+  .number-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:12px; }
+  .number-panel{ border:1px solid var(--line); border-radius:12px; background:var(--bg); padding:14px; }
+  .number-panel h3{ margin:0 0 8px; font:600 12px/1.3 system-ui,sans-serif; color:var(--mute); }
+  .stat-line{ display:flex; justify-content:space-between; gap:12px; align-items:baseline; padding:5px 0;
+    font:20px/1.3 'SEIReader',system-ui,sans-serif; font-synthesis:none; }
+  .stat-line + .stat-line{ border-top:1px solid var(--line); }
+  .stat-line strong{ font-weight:400; font-size:26px; white-space:nowrap; }
+  .number-panel.tabular .stat-line strong{ font-variant-numeric:tabular-nums; }
+  .number-samples{ display:flex; flex-wrap:wrap; gap:12px 24px; margin-top:14px;
+    font:26px/1.4 'SEIReader',system-ui,sans-serif; font-synthesis:none; }
+  .number-samples > span{ white-space:nowrap; }
+  .feature-sups{ font-feature-settings:'sups' 1; }
+  .feature-subs{ font-feature-settings:'subs' 1; }
+  .feature-frac{ font-feature-settings:'frac' 1; }
 
   .letters{ display:flex; flex-wrap:wrap; gap:6px; }
   .letters button{ font-family:'SEIReader', system-ui, sans-serif; font-synthesis:none; font-size:21px; line-height:1; background:var(--bg); border:1px solid var(--line); border-radius:8px; min-width:40px; height:42px; padding:0 8px; color:var(--ink); cursor:pointer; }
@@ -269,6 +284,29 @@ html = r'''<!DOCTYPE html>
       <section class="card" id="weightsCard">
         <h2>Weights</h2>
         <div id="weightrows" style="display:grid;gap:14px"></div>
+      </section>
+
+      <section class="card" id="numbersCard">
+        <h2>Numbers on a stat screen</h2>
+        <p class="sub">The same font file with proportional numbers (default) and tabular numbers (<code>tnum</code>). Tabular digits keep each column steady when values change.</p>
+        <div class="number-grid">
+          <div class="number-panel"><h3>tnum off · proportional</h3>
+            <div class="stat-line"><span>Energy</span><strong>1,111</strong></div>
+            <div class="stat-line"><span>Power</span><strong>8,888</strong></div>
+            <div class="stat-line"><span>Health</span><strong>4,090</strong></div>
+          </div>
+          <div class="number-panel tabular"><h3>tnum on · equal-width figures</h3>
+            <div class="stat-line"><span>Energy</span><strong>1,111</strong></div>
+            <div class="stat-line"><span>Power</span><strong>8,888</strong></div>
+            <div class="stat-line"><span>Health</span><strong>4,090</strong></div>
+          </div>
+        </div>
+        <div class="number-samples" aria-label="Superscript, subscript, and fraction examples">
+          <span>x<span class="feature-sups">2</span> · x²</span>
+          <span>H<span class="feature-subs">2</span>O · H₂O</span>
+          <span>½ · ¼ · ¾</span>
+          <span class="feature-frac">1/2 · 12/34</span>
+        </div>
       </section>
 
       <section class="card">
@@ -472,6 +510,7 @@ function renderChamber(){
 }
 function renderAllChars(){
   const rows = ['ABCDEFGHIJKLM NOPQRSTUVWXYZ','abcdefghijklm nopqrstuvwxyz','0123456789 Il1 O0o bd pq nu',". , : ; … ! ? ' \" ‘ ’ “ ” - – — ( ) [ ] / % + =",
+    '⁰¹²³⁴⁵⁶⁷⁸⁹', '₀₁₂₃₄₅₆₇₈₉', '½ ¼ ¾ ⁄',
     "& @ # $ * ~ _ | \\ { } < >", '★ • · × ÷ ± ° → ← ∞ « » ‹ › ¥ € £',
     '☯ ⚡ ☀ ☾ ☽ ⚔ ✦ ☆ ◆ ◇ ▲ ▼ ▶ ◀ ↑ ↓', '♥ ♡ ✓ ✗ ♪ © ® ™ − ≤ ≥ ≠ ≈',
     'Ⓢ ♩ ♪ ♫ ♬ ♭ ♮ ♯ ⏮ ▶ ⏸ ⏹ ⏺ ⏭', '🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊',
@@ -802,5 +841,5 @@ html = (html.replace('__ENGINE__', ENGINE)
             .replace('__READER__', json.dumps({ 'size': settings.get('reader',{}).get('size',18), 'lh': settings.get('reader',{}).get('lineSpacing',1.55), 'measure': settings.get('reader',{}).get('lineLength',62), 'night': settings.get('reader',{}).get('night',False) })))
 out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
 os.makedirs(os.path.dirname(out), exist_ok=True)
-open(out, 'w').write(html)
+open(out, 'w', encoding='utf-8').write(html)
 print('page', len(html))

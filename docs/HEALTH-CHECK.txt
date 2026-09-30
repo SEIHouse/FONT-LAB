@@ -1,7 +1,7 @@
-SEIReader 0.25 health check
-Checked with FontBakery 1.1.0 (Google's font checker), all 10 files.
+SEIReader 0.26 health check
+Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
 
-  Universal checks:  665 passed, 0 failed, 0 warnings  (467 did not apply)
+  Universal checks:  695 passed, 0 failed, 0 warnings  (437 did not apply, 30 info)
   OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
 
 History
@@ -19,3 +19,6 @@ History
   0.25  Phase 1: Light 70, automatic pair spacing (about 1,800 pairs per style: capitals,
         punctuation, quotes, brackets), joined fi / fl with cursor positions, and screen tuning
         (alignment zones + Adobe otfautohint). Still clean.
+  0.26  Phase 2: tabular figures, superscript/subscript figures, fractions, and three WOFF2
+        Unicode subsets per style. All 10 full OTF styles still have 0 FAIL / 0 WARN in both
+        profiles. Shaping and all 30 web subsets also verified.
