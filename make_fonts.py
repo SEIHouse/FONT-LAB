@@ -499,7 +499,6 @@ def build(data, out, style='Regular', italic=False):
     numerator = ' '.join(name + '.numr' for name in digit_names)
     denominator = ' '.join(name + '.dnom' for name in digit_names)
     fea += f"@figures = [{plain}];\n@numerators = [{numerator}];\n@denominators = [{denominator}];\n"
-    fea += f"feature tnum {{ sub @figures by [{tabular}]; }} tnum;\n"
     fea += f"feature sups {{ sub @figures by [{' '.join(gname(ch) for ch in supers)}]; }} sups;\n"
     fea += f"feature subs {{ sub @figures by [{' '.join(gname(ch) for ch in subs)}]; }} subs;\n"
     fea += f"""feature frac {{
@@ -520,6 +519,8 @@ def build(data, out, style='Regular', italic=False):
       sub @denominators @figures\u0027 by @denominators;
     }} liga;
 """
+    # Apply tabular figures last: sups/subs/frac must still see proportional digit names.
+    fea += f"feature tnum {{ sub @figures by [{tabular}]; }} tnum;\n"
     addOpenTypeFeaturesFromString(fb.font, fea)
     fb.font['name'].removeNames(platformID=1)
     fb.save(out)

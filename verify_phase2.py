@@ -65,6 +65,8 @@ def verify_style(style):
     subs, _ = shape(source, DIGITS, {'subs': 1})
     assert supers == [cmap[ord(ch)] for ch in SUPERS], (style, supers)
     assert subs == [cmap[ord(ch)] for ch in SUBS], (style, subs)
+    assert shape(source, '2', {'tnum': 1, 'sups': 1})[0] == [cmap[ord('²')]], style
+    assert shape(source, '2', {'tnum': 1, 'subs': 1})[0] == [cmap[ord('₂')]], style
     assert abs(ink_center(font, supers[0]) - font['hmtx'][supers[0]][0] / 2) <= 1, style
 
     for text, expected in (
@@ -73,6 +75,8 @@ def verify_style(style):
     ):
         actual, _ = shape(source, text, {'frac': 1})
         assert actual == expected, (style, text, actual)
+        combined, _ = shape(source, text, {'frac': 1, 'tnum': 1})
+        assert combined == expected, (style, text, combined)
     direct, _ = shape(source, '1⁄2')
     assert direct == ['one.numr', cmap[ord('⁄')], 'two.dnom'], (style, direct)
     assert shape(source, '1/2')[0] == ['one', cmap[ord('/')], 'two'], style
@@ -89,6 +93,9 @@ def verify_style(style):
     basic = os.path.join(HERE, 'fonts', f'SEIReader-{style}.latin-basic.woff2')
     assert shape(basic, '10', {'tnum': 1})[0] == ['one.tf', 'zero.tf'], style
     assert shape(basic, '1/2', {'frac': 1})[0] == ['one.numr', cmap[ord('⁄')], 'two.dnom'], style
+    assert shape(basic, '1⁄2')[0] == ['one.numr', cmap[ord('⁄')], 'two.dnom'], style
+    assert shape(basic, '12/34', {'frac': 1, 'tnum': 1})[0] == [
+        'one.numr', 'two.numr', cmap[ord('⁄')], 'three.dnom', 'four.dnom'], style
     assert shape(basic, '2', {'sups': 1})[0] == [cmap[ord('²')]], style
     font.close()
     print('verified', style)

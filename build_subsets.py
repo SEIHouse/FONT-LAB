@@ -21,7 +21,8 @@ PRECOMPOSED_FRACTIONS = {0x00BC, 0x00BD, 0x00BE}
 
 
 def group_for(codepoint):
-    if 0x20 <= codepoint <= 0x7E or codepoint == 0xA0:
+    # Keep U+2044 with ASCII digits so directly typed fractions can shape as one run.
+    if 0x20 <= codepoint <= 0x7E or codepoint in (0xA0, 0x2044):
         return 'latin-basic'
     if codepoint in PRECOMPOSED_FRACTIONS:
         return 'symbols-icons'
