@@ -1,0 +1,130 @@
+SEIReader, version 0.25 (working draft)
+
+WHAT YOU HAVE
+  Five weights, each in upright and italic, each as .woff2 (websites and apps) and .otf (computers).
+  SEIReader-all-fonts.zip has all 20 files in one download.
+    Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
+  Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
+  and screen tuning for crisp small text on Windows and lower-resolution screens.
+    Italic versions: LightItalic, Italic, MediumItalic, SemiBoldItalic, BoldItalic
+  Italic is a real italic: 9-degree slant, rounder handwriting-style letters (a, d, f, h, i, m, n, u), not a tilted copy.
+
+WHAT TO TELL YOUR CODING AGENT (copy and paste)
+  Add all ten .woff2 files to the project and register them exactly like this, all under one
+  family name. Do not add, swap, or restyle other fonts for reading text.
+
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-Light.woff2') format('woff2');
+    font-weight: 300; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-LightItalic.woff2') format('woff2');
+    font-weight: 300; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-Regular.woff2') format('woff2');
+    font-weight: 400; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-Italic.woff2') format('woff2');
+    font-weight: 400; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-Medium.woff2') format('woff2');
+    font-weight: 500; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-MediumItalic.woff2') format('woff2');
+    font-weight: 500; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-SemiBold.woff2') format('woff2');
+    font-weight: 600; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-SemiBoldItalic.woff2') format('woff2');
+    font-weight: 600; font-style: italic; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-Bold.woff2') format('woff2');
+    font-weight: 700; font-style: normal; font-display: swap;
+  }
+  @font-face {
+    font-family: 'SEIReader';
+    src: url('/fonts/SEIReader-BoldItalic.woff2') format('woff2');
+    font-weight: 700; font-style: italic; font-display: swap;
+  }
+
+  .reader-text {
+    font-family: 'SEIReader', system-ui, sans-serif;
+    font-weight: 400;
+    font-synthesis: none;      /* never fake bold or italic; the real files cover both */
+    font-size: 20px;
+    line-height: 1.4;
+    max-width: 60ch;           /* about 60 letters per line */
+  }
+  .comment-text {
+    font-family: 'SEIReader', system-ui, sans-serif;
+    font-weight: 300;          /* Light */
+    font-synthesis: none;
+  }
+  Use <em> or font-style: italic for inner thoughts, book titles, and sound effects, and
+  font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
+
+CHARACTERS INCLUDED
+  A-Z, a-z, 0-9
+  . , : ; … ! ? ' " ‘ ’ “ ” - – — ( ) [ ] { } / \ | _ % + − = < > ≤ ≥ ≠ ≈ & @ # $ * ~
+  ★ ☆ ✦ • · ◆ ◇ ▲ ▼ ▶ ◀ × ÷ ± ° → ← ↑ ↓ ∞ « » ‹ ›
+  ☯ ⚡ ☀ ☾ ☽ ⚔ ♥ ♡ ✓ ✗ © ® ™   ¥ € £
+  Ⓢ  (SEIHouse brand mark)
+  Music: ♩ ♪ ♫ ♬ ♭ ♮ ♯    Player: ⏮ ▶ ⏸ ⏹ ⏺ ⏭
+  Icons: 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊
+  Accented letters: ÀÁÂÃÄÅ Ç ÈÉÊË ÌÍÎÏ Ñ ÒÓÔÕÖØ ÙÚÛÜ ÝŸ ÆŒ ÐÞ (and lowercase), ß æ œ ð þ ¡ ¿ º ª
+
+LANGUAGES
+  Covered: English, Spanish, French, Portuguese, German, Italian, Dutch, Catalan, Danish,
+  Norwegian, Swedish, Finnish and Icelandic (everyday text).
+  Not yet: Central European (Polish, Czech, Hungarian...), Turkish, Vietnamese, Russian and
+  other Cyrillic, Greek. Missing characters show in a backup font.
+
+ICONS AND PHONES (read this before using symbols in the app)
+  Many symbols also exist as color emoji, and phones (especially iPhone) can swap in the
+  emoji instead of SEIReader's version. Icons like headphones, laptop and book ONLY exist as
+  emoji, so phones will almost always swap those.
+
+  The reliable way inside your apps is the PRIVATE CODES below. They always show SEIReader's
+  version, because no phone has an emoji for them. (Outside your apps, they show as an empty box,
+  so use them for app interface and system screens, not for text people copy and share.)
+
+    Code     Icon  Name               HTML        JavaScript
+    U+E000   Ⓢ    SEIHouse brand     &#xE000;    "\uE000"
+    U+E001   🎧    headphones         &#xE001;    "\uE001"
+    U+E002   💻    laptop             &#xE002;    "\uE002"
+    U+E003   📖    book               &#xE003;    "\uE003"
+    U+E004   🔖    bookmark           &#xE004;    "\uE004"
+    U+E005   🔍    search             &#xE005;    "\uE005"
+    U+E006   🔔    notifications      &#xE006;    "\uE006"
+    U+E007   🎤    microphone         &#xE007;    "\uE007"
+    U+E008   💿    disc / album       &#xE008;    "\uE008"
+    U+E009   🔊    sound              &#xE009;    "\uE009"
+    U+E00A   ⚙    settings           &#xE00A;    "\uE00A"
+    U+E00B   ⌂    home               &#xE00B;    "\uE00B"
+    U+E00C   ⚡    lightning          &#xE00C;    "\uE00C"
+    U+E00D   ☀    sun                &#xE00D;    "\uE00D"
+    U+E00E   ☯    qi (yin yang)      &#xE00E;    "\uE00E"
+    U+E00F   ♥    heart              &#xE00F;    "\uE00F"
+
+  For the other symbols typed normally in text, also add  font-variant-emoji: text;  to
+  .reader-text and .comment-text so browsers prefer the text version.
+
+THE SOURCE ZIP
+  The rules SEIReader is built from, including the emoji demo art. Ask Claude to rebuild from it.
