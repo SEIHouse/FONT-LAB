@@ -128,6 +128,23 @@ def('7',400,'cap',[o([[0,700],[400,700],[120,0]])],[],[40,20]);
 def('8',420,'cap',[R(20,350,400,700),R(0,0,420,350)]);
 def('9',400,'cap',[o([[0,0],[400,0],[400,700],[0,700],[0,340],[400,340]])]);
 
+/* Numeric alternates keep the original digit drawings as their source. The font builder
+   measures the finished outlines for the exact shared advances and optical centering. */
+const DIGITS = '0123456789';
+const DIGIT_NAMES = ['zero','one','two','three','four','five','six','seven','eight','nine'];
+const SUPERS = '⁰¹²³⁴⁵⁶⁷⁸⁹', SUBS = '₀₁₂₃₄₅₆₇₈₉';
+const NUMERIC_VARIANTS = {};
+for(let i = 0; i < 10; i++){
+  NUMERIC_VARIANTS[DIGIT_NAMES[i] + '.tf'] = { digit:DIGITS[i], type:'tf' };
+  NUMERIC_VARIANTS[DIGIT_NAMES[i] + '.numr'] = { digit:DIGITS[i], type:'numr' };
+  NUMERIC_VARIANTS[DIGIT_NAMES[i] + '.dnom'] = { digit:DIGITS[i], type:'dnom' };
+  NUMERIC_VARIANTS[SUPERS[i]] = { digit:DIGITS[i], type:'sup' };
+  NUMERIC_VARIANTS[SUBS[i]] = { digit:DIGITS[i], type:'sub' };
+  G[SUPERS[i]] = G[SUBS[i]] = { comp:true, w:0, kind:'cap', shapes:[], dots:[], sb:[0,0] };
+}
+const FRACTION_PARTS = { '½':['1','2'], '¼':['1','4'], '¾':['3','4'] };
+for(const ch of Object.keys(FRACTION_PARTS)) G[ch] = { comp:true, w:0, kind:'cap', shapes:[], dots:[], sb:[0,0] };
+
 /* ----- punctuation ----- */
 def('.',0,'cap',[],[[0,0]],[50,50]);
 def(',',80,'cap',[o([[80,20],[10,-150]])],[[80,20]],[36,40]);
@@ -146,6 +163,7 @@ def('-',240,'low',[o([[0,265],[240,265]])],[],[50,50]);
 def('–',480,'low',[o([[0,265],[480,265]])],[],[40,40]);
 def('—',860,'low',[o([[0,265],[860,265]])],[],[24,24]);
 def('/',300,'low',[o([[0,-90],[300,760]])],[],[10,10]);
+def('⁄',170,'cap',[THIN(o([[0,-180],[170,760]]),0.68)],[],[5,5]);
 def('\\',300,'low',[o([[0,760],[300,-90]])],[],[10,10]);
 /* common symbols */
 def('&',480,'cap',[RAW([['M',470,10], LN(470,10,150,420), ['C',90,500,100,700,250,700], ['C',390,700,410,560,300,480],
@@ -415,9 +433,48 @@ function buildLig(ch, S){
   return { w: wFinal / ws0, kind:'low', sb:[fb.sb[0], sec.sb[1]], shapes, dots:[] };
 }
 
+function moveNumericBody(body, scale, dx, dy, strokeScale = scale){
+  const n = v => f1(+v);
+  return body.replace(/d="([^"]+)"/g, (all, d) => {
+    let coordinate = 0;
+    return `d="${d.replace(/-?\d+(?:\.\d+)?/g, value => n((+value) * scale + (coordinate++ % 2 ? dy : dx)))}"`;
+  }).replace(/stroke-width="([^"]+)"/g, (all, width) => `stroke-width="${n((+width) * strokeScale)}"`)
+    .replace(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g,
+      (all, x, y, r) => `<circle cx="${n((+x)*scale+dx)}" cy="${n((+y)*scale+dy)}" r="${n((+r)*strokeScale)}"`);
+}
+
+function numericVariant(spec, S){
+  const base = glyph(spec.digit, S);
+  const widest = Math.max(...[...DIGITS].map(d => { const g = glyph(d, S); return g.sb0 + g.w + S + g.sb1; }));
+  if(spec.type === 'tf'){
+    const dx = (widest - (base.w + S)) / 2;
+    return { body:moveNumericBody(base.body, 1, dx, 0), clipId:base.clipId,
+      sb0:0, sb1:0, w:widest - S };
+  }
+  const scale = 0.60, advance = Math.round(widest * scale + 22);
+  const rise = { sup:380, sub:-190, numr:300, dnom:-190 }[spec.type];
+  const dx = (advance - (base.w + S) * scale) / 2;
+  const lighterStroke = Math.min(S * 0.52, 70) / S;
+  return { body:moveNumericBody(base.body, scale, dx, -rise, lighterStroke),
+    clipId:ensureClip(900, -310), sb0:0, sb1:0, w:advance - S };
+}
+
+function composedFraction(parts, S){
+  const numerator = numericVariant({digit:parts[0], type:'numr'}, S);
+  const denominator = numericVariant({digit:parts[1], type:'dnom'}, S);
+  const slash = glyph('⁄', S);
+  const nAdvance = numerator.w + S, slashAdvance = slash.sb0 + slash.w + S + slash.sb1;
+  return { body:numerator.body + moveNumericBody(slash.body, 1, nAdvance, 0, 1)
+      + moveNumericBody(denominator.body, 1, nAdvance + slashAdvance, 0, 1),
+    clipId:ensureClip(900, -310), sb0:0, sb1:0,
+    w:nAdvance + slashAdvance + denominator.w };
+}
+
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
+  if(NUMERIC_VARIANTS[ch]) return (cache[ck] = numericVariant(NUMERIC_VARIANTS[ch], S));
+  if(FRACTION_PARTS[ch]) return (cache[ck] = composedFraction(FRACTION_PARTS[ch], S));
   let g = LIG[ch] ? buildLig(ch, S) : pickBase(ch);
   if(ACC[ch]){                                   // accented letter = base letter + mark
     const a = ACC[ch], b = pickBase(a.base);
@@ -481,6 +538,11 @@ function glyph(ch, S){
   const hasDot = g.dots.length > 0;
   const top = hasDot ? 1000 : Math.round(topO);
   const bot = Math.round(Math.min(0, botO)) - (hasDot ? 30 : 0);
+  if(ch === '⁄'){
+    const advance = 190;
+    return (cache[ck] = { body:moveNumericBody(body, 1, (advance - (g.w*ws + S)) / 2, 0, 1),
+      clipId:ensureClip(top, bot), sb0:0, sb1:0, w:advance-S });
+  }
   return (cache[ck] = { body, clipId: ensureClip(top, bot), sb0:g.sb[0], sb1:g.sb[1], w:g.w*ws });
 }
 

@@ -1,7 +1,10 @@
 fonttools[woff]>=4.62
 skia-pathops>=0.9
 brotli>=1.1
+uharfbuzz>=0.56
 playwright>=1.40
 afdko>=4.0
 # optional, for the health check:
 fontbakery>=1.1
+glyphsets>=1.1
+shaperglot>=1.2

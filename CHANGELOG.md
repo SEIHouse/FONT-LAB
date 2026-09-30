@@ -2,6 +2,9 @@
 
 Newest first.
 
+- **0.26** Phase 2: optional tabular figures (`tnum`), superscript/subscript digits (`sups`,
+  `subs`), fractions (`frac`, ½ ¼ ¾, U+2044), and three pyftsubset WOFF2 deliveries per style
+  with generated `fonts.css`. Added numeric demos in the Lab.
 - **0.25** Phase 1: Light raised to 70; automatic pair spacing (about 1,800 pairs per style);
   joined fi / fl with cursor positions; screen tuning (alignment zones + Adobe otfautohint).
 - **0.24** Tall lowercase letters (l b d h k f) set to exactly capital height.

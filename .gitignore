@@ -1,4 +1,5 @@
 __pycache__/
+.venv/
 *.pyc
 _export.html
 *.hinted.otf

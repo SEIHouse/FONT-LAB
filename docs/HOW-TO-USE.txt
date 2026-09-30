@@ -1,8 +1,8 @@
-SEIReader, version 0.25 (working draft)
+SEIReader, version 0.26 (working draft)
 
 WHAT YOU HAVE
-  Five weights, each in upright and italic, each as .woff2 (websites and apps) and .otf (computers).
-  SEIReader-all-fonts.zip has all 20 files in one download.
+  Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
+  There are also 30 smaller WOFF2 files: Latin basic, Latin extended, and symbols/icons for each style.
     Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
   Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
   and screen tuning for crisp small text on Windows and lower-resolution screens.
@@ -10,8 +10,17 @@ WHAT YOU HAVE
   Italic is a real italic: 9-degree slant, rounder handwriting-style letters (a, d, f, h, i, m, n, u), not a tilted copy.
 
 WHAT TO TELL YOUR CODING AGENT (copy and paste)
-  Add all ten .woff2 files to the project and register them exactly like this, all under one
-  family name. Do not add, swap, or restyle other fonts for reading text.
+  For the smaller web delivery, copy fonts.css and the whole fonts/ directory to the site's
+  public root. Import the stylesheet once, before rules that use SEIReader:
+
+    @import url('/fonts.css');
+
+  fonts.css contains all 30 @font-face rules with nonoverlapping unicode-range values.
+  Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
+  each weight, style, and character range. Keep the three subset files for every style.
+
+  If you instead want the full .woff2 files, add all ten and register them exactly like this,
+  all under one family name. Do not add, swap, or restyle other fonts for reading text.
 
   @font-face {
     font-family: 'SEIReader';
@@ -80,6 +89,20 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   Use <em> or font-style: italic for inner thoughts, book titles, and sound effects, and
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
+NUMERIC FEATURES (opt in)
+  Proportional numbers remain the default. The feature settings below work with either the
+  full WOFF2 files or fonts.css subsets:
+
+  .stat-values { font-variant-numeric: tabular-nums; } /* OpenType tnum */
+  .super-number { font-feature-settings: 'sups' 1; }  /* normal digit input, raised */
+  .sub-number { font-feature-settings: 'subs' 1; }    /* normal digit input, lowered */
+  .fraction { font-feature-settings: 'frac' 1; }      /* e.g. 1/2 or 12/34 */
+
+  Use <span class="super-number">2</span> for an exponent, and
+  <span class="fraction">1/2</span> for a fraction. Unicode ⁰¹²³⁴⁵⁶⁷⁸⁹,
+  ₀₁₂₃₄₅₆₇₈₉, ½, ¼, ¾, and the fraction slash ⁄ (U+2044) are directly encoded too.
+  For a precomposed fraction, plain ½/¼/¾ needs no CSS feature.
+
 CHARACTERS INCLUDED
   A-Z, a-z, 0-9
   . , : ; … ! ? ' " ‘ ’ “ ” - – — ( ) [ ] { } / \ | _ % + − = < > ≤ ≥ ≠ ≈ & @ # $ * ~
@@ -89,6 +112,9 @@ CHARACTERS INCLUDED
   Music: ♩ ♪ ♫ ♬ ♭ ♮ ♯    Player: ⏮ ▶ ⏸ ⏹ ⏺ ⏭
   Icons: 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊
   Accented letters: ÀÁÂÃÄÅ Ç ÈÉÊË ÌÍÎÏ Ñ ÒÓÔÕÖØ ÙÚÛÜ ÝŸ ÆŒ ÐÞ (and lowercase), ß æ œ ð þ ¡ ¿ º ª
+  Numeric additions: ⁰¹²³⁴⁵⁶⁷⁸⁹ ₀₁₂₃₄₅₆₇₈₉ ½ ¼ ¾ ⁄ (U+2044)
+  Unencoded alternates available through OpenType: zero.tf–nine.tf and zero.numr–nine.numr /
+  zero.dnom–nine.dnom. Use tnum or frac to select these from normal digits.
 
 LANGUAGES
   Covered: English, Spanish, French, Portuguese, German, Italian, Dutch, Catalan, Danish,
