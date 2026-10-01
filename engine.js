@@ -160,16 +160,35 @@ def('y',420,'low',[o([[0,500],[210,0]]),RAW([['M',420,500],['C',341.7,313.3,263.
 def('z',400,'low',[o([[0,500],[400,500],[0,0],[400,0]])],[],[50,50]);
 
 /* ----- numerals ----- */
+/* 0.32: continuous bowls and terminals soften the figure texture. The existing
+   widths, heights, and angular 1/4/7 keep the family recognizable. */
 def('0',360,'cap',[R(0,0,360,700)],[],[56,56]);
 def('1',300,'cap',[o([[0,520],[150,700],[150,0]]),o([[0,0],[300,0]])],[],[40,40]);
-def('2',400,'cap',[o([[0,560],[0,700],[400,700],[400,420],[0,0],[400,0]])]);
-def('3',420,'cap',[o([[0,560],[0,700],[380,700],[380,350],[110,350]]),o([[110,350],[420,350],[420,0],[0,0],[0,140]])]);
+def('2',400,'cap',[RAW([['M',0,546],['C',0,648,71,700,191,700],
+  ['C',318,700,400,640,400,538],['C',400,456,342,396,261,324],
+  LN(261,324,0,0),LN(0,0,400,0)])]);
+def('3',420,'cap',[RAW([['M',0,592],['C',46,670,111,700,207,700],
+  ['C',325,700,380,633,380,536],['C',380,433,308,360,188,350],
+  ['C',329,349,420,284,420,175],['C',420,65,329,0,208,0],
+  ['C',116,0,44,28,0,108]])]);
 def('4',420,'cap',[o([[320,0],[320,700],[0,200],[420,200]])],[],[30,40]);
-def('5',400,'cap',[o([[400,700],[0,700,0],[0,360],[400,360],[400,0],[0,0],[0,120]])]);
-def('6',400,'cap',[o([[400,700],[0,700],[0,0],[400,0],[400,360],[0,360]])]);
+def('5',400,'cap',[RAW([['M',400,700],LN(400,700,0,700),LN(0,700,0,384),
+  ['C',100,395,186,402,247,389],['C',350,367,400,299,400,188],
+  ['C',400,71,325,0,201,0],['C',108,0,42,34,0,108]])]);
+const SIX_FIGURE = [
+  [['M',375,700],['C',276,700,178,681,100,610],['C',24,540,0,401,0,179]],
+  [['M',206,358],['C',83,358,0,287,0,179],['C',0,71,83,0,206,0],
+   ['C',329,0,400,71,400,179],['C',400,287,329,358,206,358],['Z']]
+];
+def('6',400,'cap',SIX_FIGURE.map(RAW));
 def('7',400,'cap',[o([[0,700],[400,700],[120,0]])],[],[40,20]);
-def('8',420,'cap',[R(20,350,400,700),R(0,0,420,350)]);
-def('9',400,'cap',[o([[0,0],[400,0],[400,700],[0,700],[0,340],[400,340]])]);
+def('8',420,'cap',[RAW([['M',210,350],['C',88,350,20,419,20,521],
+  ['C',20,632,86,700,210,700],['C',334,700,400,632,400,521],
+  ['C',400,419,332,350,210,350],['Z']]),
+  RAW([['M',210,350],['C',74,350,0,277,0,175],
+  ['C',0,70,77,0,210,0],['C',343,0,420,70,420,175],
+  ['C',420,277,346,350,210,350],['Z']])]);
+def('9',400,'cap',SIX_FIGURE.map(path => RAW(path.map(seg => seg.map((v,i) => i ? (i%2 ? 400-v : 700-v) : v)))));
 
 /* Numeric alternates keep the original digit drawings as their source. The font builder
    measures the finished outlines for the exact shared advances and optical centering. */
@@ -193,18 +212,25 @@ for(const ch of Object.keys(FRACTION_PARTS)) G[ch] = { comp:true, w:0, kind:'cap
 const QUOTE_RISE = 60;
 const qy = y => y + QUOTE_RISE;
 def('.',0,'cap',[],[[0,0]],[50,50]);
-def(',',80,'cap',[o([[80,20],[10,-150]])],[[80,20]],[36,40]);
+const COMMA_TAIL = RAW([['M',80,20],['C',83,-42,45,-110,10,-150]]);
+def(',',80,'cap',[COMMA_TAIL],[[80,20]],[36,40]);
 def(':',0,'low',[],[[0,0],[0,470]],[50,50]);
-def(';',80,'low',[o([[80,20],[10,-150]])],[[80,20],[80,470]],[36,40]);
+def(';',80,'low',[COMMA_TAIL],[[80,20],[80,470]],[36,40]);
 def('…',480,'cap',[],[[0,0],[240,0],[480,0]],[40,40]);
 def('!',0,'cap',[o([[0,700],[0,230]])],[[0,0]],[56,56]);
 def('?',380,'cap',[o([[0,560],[0,700],[380,700],[380,420],[190,420],[190,240]])],[[190,0]],[50,50]);
 def("'",0,'cap',[o([[0,qy(700)],[0,qy(510)]])],[],[50,50]);
 def('"',200,'cap',[o([[0,qy(700)],[0,qy(510)]]),o([[200,qy(700)],[200,qy(510)]])],[],[50,50]);
-def('’',80,'cap',[o([[80,qy(650)],[10,qy(490)]])],[[80,qy(650)]],[40,40]);
-def('‘',80,'cap',[o([[10,qy(520)],[80,qy(690)]])],[[10,qy(520)]],[40,40]);
-def('”',270,'cap',[o([[80,qy(650)],[10,qy(490)]]),o([[270,qy(650)],[200,qy(490)]])],[[80,qy(650)],[270,qy(650)]],[40,40]);
-def('“',270,'cap',[o([[10,qy(520)],[80,qy(690)]]),o([[200,qy(520)],[270,qy(690)]])],[[10,qy(520)],[200,qy(520)]],[40,40]);
+/** Draw a lighter curved quote while retaining the established raised endpoints. */
+function curvedQuote(opening, dx = 0){
+  return RAW(opening
+    ? [['M',10+dx,qy(520)],['C',10+dx,qy(582),43+dx,qy(644),80+dx,qy(690)]]
+    : [['M',80+dx,qy(650)],['C',80+dx,qy(588),47+dx,qy(533),10+dx,qy(490)]]);
+}
+def('’',80,'cap',[curvedQuote(false)],[[80,qy(650)]],[40,40]);
+def('‘',80,'cap',[curvedQuote(true)],[[10,qy(520)]],[40,40]);
+def('”',270,'cap',[curvedQuote(false),curvedQuote(false,190)],[[80,qy(650)],[270,qy(650)]],[40,40]);
+def('“',270,'cap',[curvedQuote(true),curvedQuote(true,190)],[[10,qy(520)],[200,qy(520)]],[40,40]);
 def('-',240,'low',[o([[0,265],[240,265]])],[],[50,50]);
 def('–',480,'low',[o([[0,265],[480,265]])],[],[40,40]);
 def('—',860,'low',[o([[0,265],[860,265]])],[],[24,24]);
@@ -456,6 +482,23 @@ acc('Ç', 'C', ['cedilla']); acc('ç', 'c', ['cedilla']);
 acc('ÝŸ', 'Y', ['acute','dier']); acc('ýÿ', 'y', ['acute','dier']);
 window.getBaseMap = () => Object.fromEntries(Object.entries(ACC).map(([k, v]) => [k, v.base]));
 
+/* Keep nominal widths and weight controls stable. Optical stroke calibration
+   gives Light more substance and Medium more counter room at reading sizes.
+   These are static masters: the correction also applies at larger sizes. */
+const READING_LETTERS = new Set([...('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÆŒÐÞØæœßðþøﬁﬂ')]);
+const TEXT_MARKS = new Set([...`.,:;…!?'"‘’“”-–—()[]¡¿`]);
+const QUIET_MARKS = new Set([...`'"‘’“”-–—`]);
+/** Interpolate stroke corrections without changing any glyph advance. */
+function readingStroke(S){
+  const anchors = [[40,0],[70,4],[85,0],[100,-3],[115,0]];
+  if(S <= 40 || S >= 115) return S;
+  for(let i=1; i<anchors.length; i++){
+    const [x0,d0] = anchors[i-1], [x1,d1] = anchors[i];
+    if(S <= x1) return S + d0 + (d1-d0)*(S-x0)/(x1-x0);
+  }
+  return S;
+}
+
 /* ---------- joined letters: fi and fl ---------- */
 const LIG = { 'ﬁ':'i', 'ﬂ':'l' };
 for(const ch in LIG) G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] };
@@ -500,7 +543,7 @@ function numericVariant(spec, S){
   const scale = 0.60, advance = Math.round(widest * scale + 22);
   const rise = { sup:380, sub:-190, numr:300, dnom:-190 }[spec.type];
   const dx = (advance - (base.w + S) * scale) / 2;
-  const lighterStroke = Math.min(S * 0.52, 70) / S;
+  const lighterStroke = Math.min(readingStroke(S) * 0.52, 70) / (readingStroke(S) * 0.96);
   return { body:moveNumericBody(base.body, scale, dx, -rise, lighterStroke),
     clipId:ensureClip(900, -310), sb0:0, sb1:0, w:advance - S };
 }
@@ -522,12 +565,17 @@ function glyph(ch, S){
   if(NUMERIC_VARIANTS[ch]) return (cache[ck] = numericVariant(NUMERIC_VARIANTS[ch], S));
   if(FRACTION_PARTS[ch]) return (cache[ck] = composedFraction(FRACTION_PARTS[ch], S));
   let g = LIG[ch] ? buildLig(ch, S) : pickBase(ch);
+  const bch = ACC[ch] ? ACC[ch].base : ch;
+  const isFigure = DIGITS.includes(ch), isMark = TEXT_MARKS.has(ch);
+  const drawS = READING_LETTERS.has(bch) || isFigure || isMark ? readingStroke(S) : S;
+  const strokeS = isFigure ? drawS*0.96
+    : isMark ? Math.min(drawS*(QUIET_MARKS.has(ch) ? 0.86 : 0.92),100) : drawS;
   if(ACC[ch]){                                   // accented letter = base letter + mark
     const a = ACC[ch], b = pickBase(a.base);
     if(!b) return (cache[ck] = null);
     const cx = a.cx !== undefined ? a.cx : b.w / 2;
     /* put the mark a fixed gap above the letter's real top edge, at any weight */
-    const hy0 = S / (2 * P.contrast), os0 = (P.os && OVS.has(a.base)) ? OSV : 0, markW = S * Math.min(1, 80 / S);
+    const hy0 = drawS / (2 * P.contrast), os0 = (P.os && OVS.has(a.base)) ? OSV : 0, markW = Math.min(drawS,80);
     const GAP = 60, lift = GAP + markW / 2;
     let y0;
     if(b.kind === 'cap'){ const target = 700 + os0 + lift; y0 = (target - hy0 + os0) * 700 / (700 - 2*hy0 + 2*os0); }
@@ -538,8 +586,9 @@ function glyph(ch, S){
   }
   if(!g) return (cache[ck] = null);
   const h = S/2, kind = g.kind;
-  const hy = S/(2*P.contrast);
-  const bch = ACC[ch] ? ACC[ch].base : ch;
+  /* Normalize raised quotes with their lighter pen too, keeping even Bold
+     closing quotes above the cap line after their dot is reduced. */
+  const hy = (isFigure || `'"‘’“”`.includes(ch) ? strokeS : drawS)/(2*P.contrast);
   const os = (P.os && OVS.has(bch)) ? OSV : 0;
   const ws = (WIDE.has(bch) ? 1 - (1 - P.ws) * 0.4 : P.ws) * (P.ital ? 0.94 : 1);
   const mx = x => h + x*ws;
@@ -550,15 +599,15 @@ function glyph(ch, S){
       : y <= 740 ? (P.xh-hy) + (y-500)*(P.asc-P.xh)/240
       : (P.asc-hy) + (y-740));
   let body = '', topO = -1e9, botO = 1e9;
-  const seeY = yy => { topO = Math.max(topO, yy + h); botO = Math.min(botO, yy - h); };
-  const stroke = (d, k = 1) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(S * k)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const seeY = yy => { topO = Math.max(topO, yy + strokeS/2); botO = Math.min(botO, yy - strokeS/2); };
+  const stroke = (d, k = 1) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(strokeS * k)}" stroke-linecap="round" stroke-linejoin="round"/>`;
   for(let s of g.shapes){
-    if(s.swFn) s = Object.assign({}, s, { sw: Math.min(1, 80 / S) });
+    if(s.swFn) s = Object.assign({}, s, { sw: Math.min(1, 80 / drawS) });
     if(s.fn) s = Object.assign({ raw: s.fn() }, s.sw ? { sw: s.sw } : {});
     if(s.fill){
       const parts = Array.isArray(s.fill[0][0]) ? s.fill : [s.fill];      // several outlines = shape with holes
       const d = parts.map(pp => pp.map((q, i) => { const yy = my(q[1]); seeY(yy); return `${i ? 'L' : 'M'}${f1(mx(q[0]))} ${f1(-yy)}`; }).join('') + 'Z').join('');
-      const sw = s.nostroke ? 0 : S;
+      const sw = s.nostroke ? 0 : strokeS;
       body += `<path data-fill="1" d="${d}" fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linejoin="round"/>`;
       continue;
     }
@@ -567,6 +616,7 @@ function glyph(ch, S){
       for(const seg of s.raw){
         const pt = (x,y) => `${f1(mx(x))} ${f1(-my(y))}`;
         if(seg[0] === 'M'){ d += `M${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
+        else if(seg[0] === 'Z'){ d += 'Z'; }
         else { d += `C${pt(seg[1],seg[2])} ${pt(seg[3],seg[4])} ${pt(seg[5],seg[6])}`; seeY(my(seg[6])); }
       }
       body += stroke(d, s.sw || 1);
@@ -577,7 +627,9 @@ function glyph(ch, S){
   }
   for(const dp of g.dots){
     const yy = my(dp[1]);
-    const rr = S*0.58*(dp[2] || 1);
+    const dot = isMark ? Math.min(drawS*(QUIET_MARKS.has(ch) ? 0.46 : 0.49), QUIET_MARKS.has(ch) ? 52 : 62)
+      : drawS*0.58;
+    const rr = dot*(dp[2] || 1);
     botO = Math.min(botO, yy - rr - 2); topO = Math.max(topO, yy + rr + 2);
     body += `<circle cx="${f1(mx(dp[0]))}" cy="${f1(-yy)}" r="${f1(rr)}" fill="currentColor"/>`;
   }

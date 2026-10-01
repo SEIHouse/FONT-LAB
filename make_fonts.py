@@ -52,7 +52,8 @@ def export():
         b = p.chromium.launch(); pg = b.new_page(); pg.goto('file://' + tmp)
         pg.evaluate(f"P.round={ROUND}; P.contrast={F}; P.xh={XHT}; P.caprx={CAPR}; P.ws={WS}; P.base={S}; P.os={1 if settings.get('overshoot', True) else 0}; P.ufoot={1 if settings.get('uFoot', True) else 0}; P.ital={1 if ITAL else 0}; P.straight={settings.get('uprightStraightness', 1)}; P.asc={settings.get('ascender', 770)}; P.trk={track_for(S) + (ITAL_EXTRA_SPACE if ITAL else 0)};")
         out = {'glyphs': pg.evaluate(f'exportGlyphs({S})'), 'alternates': pg.evaluate(f'exportAlternates({S})'),
-               'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()')}
+               'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()'),
+               'screenStroke': pg.evaluate(f'readingStroke({S})')}
         b.close()
     os.remove(tmp)
     return out
@@ -213,6 +214,9 @@ AUTO_THRESHOLD = 15      # ignore small corrections (units per 1000)
 AUTO_LOWLOW = 12         # catch visible uneven gaps inside long lowercase words
 AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX = -0.035, 0.025  # gentler than capital/punctuation pairs
 APOSTROPHE_TUCK = 25     # raised apostrophes need less empty space beside lowercase letters
+RHYTHM_WORDS = ('minimum', 'murmur', 'river', 'climate', 'parallel', 'everywhere',
+                'rival', 'arrival', 'vivid', 'willow', 'weary', 'yearly', 'twilight')
+RHYTHM_THRESHOLD = 5    # minimum useful residual in source units; ink separation takes precedence
 
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
@@ -311,7 +315,7 @@ def auto_pairs(paths, hm, cmap):
 
 
 def optical_pairs(paths, hm, cmap, kern, italic):
-    """Small, outline-measured corrections for the reported reading cases.
+    """Small, outline-measured corrections for the reported and broader reading cases.
 
     Measure the central lowercase band to avoid letting tall stems or italic
     exits dominate perceived space. Limit open-edge depth, preserve extra room
@@ -319,6 +323,8 @@ def optical_pairs(paths, hm, cmap, kern, italic):
     The glyph contours and all advances remain untouched.
     """
     focus = set('Li ia an In ne es bl la ad de En nt tr ry Me ei ac cq qu ui it tt ta al ri rn rm cl li fi fl'.split())
+    broader = {a+b for word in RHYTHM_WORDS for a, b in zip(word, word[1:])} - focus
+    focus.update(broader)
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ'
     focus.update(a+b for a in chars for b in chars
                  if 'j' not in (a, b) and ('ﬁ' in (a, b) or 'ﬂ' in (a, b)))
@@ -355,17 +361,19 @@ def optical_pairs(paths, hm, cmap, kern, italic):
         value = max(-60 if italic else -45, min(40, round(current+delta)))
         floor = 100 if pair in ('rn', 'rm') else 55 if pair in ('ry', 'tt', 'fi', 'fl') else 80
         value = max(value, math.ceil(floor-closest))
+        if pair in broader and abs(value-current) < RHYTHM_THRESHOLD and closest+current >= floor:
+            continue
         if value != current: out[pair] = value
     return out
 
-def private_dict():
+def private_dict(stroke_weight):
     """Screen-tuning info: the lines letters must snap to (baseline, lowercase height, capital height,
     descender) and the usual stem thickness, so the auto-tuner can keep small text crisp."""
     os_ = 10 * SC; xh = round(XHT * SC); cap = 700 * SC; asc = round(settings.get('ascender', 770) * SC)
     blues = sorted({(-os_, 0), (xh, xh + os_), (cap, cap + os_), (asc, asc + os_)})
     flat = [v for pair in blues for v in pair]
     return {'BlueValues': flat, 'OtherBlues': [-200*SC - os_, -200*SC],
-            'StdVW': round(S * SC), 'StdHW': round(S * SC / F)}
+            'StdVW': round(stroke_weight * SC), 'StdHW': round(stroke_weight * SC / F)}
 
 def autohint(path_otf):
     """Run Adobe's auto-tuner (otfautohint) on the finished file, in place."""
@@ -425,6 +433,51 @@ def gname(ch):
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
 STYLE_KERN = {}
+RHYTHM_BASELINE = os.path.join(HERE, 'old', '0.31')
+with open(os.path.join(RHYTHM_BASELINE, 'settings.json'), encoding='utf-8') as f:
+    rhythm_settings = json.load(f)
+with open(os.path.join(RHYTHM_BASELINE, 'kern_styles.json'), encoding='utf-8') as f:
+    rhythm_pairs = json.load(f)
+RHYTHM_SETTINGS = ('weight','weights','contrast','lowercaseRoundness','spaceBetweenAllLetters',
+                   'letterSpace','xHeight','capitalRoundness','letterWidth','overshoot','uFoot',
+                   'italicAngle','uprightStraightness','ascender')
+PRESERVE_RHYTHM = all(settings.get(k) == rhythm_settings.get(k) for k in RHYTHM_SETTINGS)
+
+
+def retain_reading_pairs(kern, style):
+    """Keep approved letter rhythm for the default build; custom settings remeasure it."""
+    if not PRESERVE_RHYTHM: return
+    letters = set('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ')
+    previous = rhythm_pairs[style]
+    for pair in kern.keys() | previous.keys():
+        if len(pair) == 2 and all(ch in letters for ch in pair):
+            if pair in previous: kern[pair] = previous[pair]
+            else: kern.pop(pair, None)
+
+
+def clear_text_marks(paths, hm, cmap, kern, basemap):
+    """Keep mark/figure pairs clear of actual ink, including their accented classes."""
+    marks = set('.,:;…!?\'"‘’“”-–—()[]¡¿0123456789')
+    pairs = [pair for pair in kern if len(pair) == 2 and any(ch in marks for ch in pair)
+             and all(ord(ch) in cmap for ch in pair)]
+    members = {}
+    for pair in pairs:
+        for ch in pair:
+            members[ch] = [ch] + [a for a,b in basemap.items() if b == ch and ord(a) in cmap]
+    sampled = {}
+    ys = range(-250*SC,1100*SC+1,2*SC)
+    for ch in {member for group in members.values() for member in group}:
+        name = cmap[ord(ch)]
+        sampled[ch] = hm[name], profiles(paths[name],ys)
+    for pair in pairs:
+        closest = []
+        for a in members[pair[0]]:
+            advance, (_,right) = sampled[a]
+            for b in members[pair[1]]:
+                _, (left,_) = sampled[b]
+                closest.extend(advance-r+l for r,l in zip(right,left) if r is not None and l is not None)
+        if closest:
+            kern[pair] = max(kern[pair], math.ceil((35*SC-min(closest))/SC))
 
 def track_for(thick):
     reg = settings['weight']
@@ -501,7 +554,7 @@ def build(data, out, style='Regular', italic=False):
     ps = f'{FAMILY}-{ps_style}'
     fb.setupCFF(ps, {'FullName': f'{FAMILY} {shown}', 'version': VERSION, 'Weight': style,
                      'ItalicAngle': -SLANT if italic else 0},
-                {n: charstring(paths[n], hm[n]) for n in order}, private_dict())
+                {n: charstring(paths[n], hm[n]) for n in order}, private_dict(data['screenStroke']))
     fb.setupHorizontalMetrics({n: (hm[n], lsb_of(paths[n])) for n in order})
     if italic:
         fb.setupHorizontalHeader(ascent=ASCENT*SC, descent=-DESCENT*SC, lineGap=0,
@@ -538,6 +591,8 @@ def build(data, out, style='Regular', italic=False):
     AUTO = auto_pairs(paths, hm, cmap)
     KERN.update(AUTO); KERN.update(data['kern'])
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
+    retain_reading_pairs(KERN, ps_style)
+    clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     STYLE_KERN[ps_style] = dict(KERN)
     if style == 'Regular' and not italic:

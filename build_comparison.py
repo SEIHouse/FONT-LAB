@@ -13,7 +13,7 @@ from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools.pens.boundsPen import BoundsPen
 
 ROOT = Path(__file__).resolve().parent
-BASELINE_VERSION = '0.29'
+BASELINE_VERSION = '0.31'
 settings = json.loads((ROOT / 'settings.json').read_text(encoding='utf-8'))
 weights = {'Light': 300, 'Regular': 400, 'Medium': 500, 'SemiBold': 600, 'Bold': 700}
 faces = []

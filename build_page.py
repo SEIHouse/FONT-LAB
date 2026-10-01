@@ -377,6 +377,8 @@ const SR_STYLE_KERN = __STYLE_KERN__;
 const SR_CHARS = [...__CHARS__];
 const SR_CHAPTER = __CHAPTER__;
 const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
+const SR_RHYTHM = `minimum · murmur · river · climate · parallel · everywhere. *minimum · murmur · river · climate · parallel · everywhere.*`;
+const SR_TEXTURE = `“Mei’s,” Iñés said: “Entry 12? I counted 312 steps; you counted 314.” 0123456789 · 1,234.56 · 8.50% · ½ ¼ ¾. *“Wait… don’t!” Was it 6, 8, or 9?*`;
 const SR_FONTS = __FONTLIST__;
 const WORDER = __WORDER__;
 const $ = id => document.getElementById(id);
@@ -508,10 +510,14 @@ function renderChamber(){
       `<div class="clabel">${drawText('Chapter 12', 13, 1.3)}</div>` +
       `<div class="title">${drawText('The Last Gate', 32, 1.25)}</div>` +
       `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><div class="para reviewline">${drawText(SR_REVIEW, RD.size, RD.lh)}</div>` +
+      `<div class="para reviewline">${drawText(SR_RHYTHM, RD.size, RD.lh)}</div>` +
+      `<div class="para reviewline">${drawText(SR_TEXTURE, RD.size, RD.lh)}</div>` +
       SR_CHAPTER.map(p => `<div class="para">${drawText(p, RD.size, RD.lh)}</div>`).join('') +
       `<div class="cap">${drawText('4 minutes left in this chapter', 13, 1.3)}</div>`;
   const fileHTML = () => `<div class="clabel" style="font-size:13px">Chapter 12</div><div class="title" style="font-size:32px;line-height:1.25">The Last Gate</div>` +
       `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><p class="reviewline" style="font-size:${RD.size}px">${e_(SR_REVIEW)}</p>` +
+      `<p class="reviewline" style="font-size:${RD.size}px">${e_(SR_RHYTHM).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>` +
+      `<p class="reviewline" style="font-size:${RD.size}px">${e_(SR_TEXTURE).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>` +
       SR_CHAPTER.map(p => `<p style="font-size:${RD.size}px">${e_(p).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>`).join('') +
       `<div class="cap" style="font-size:13px">4 minutes left in this chapter</div>`;
   if(RD.view === 'side'){

@@ -1,11 +1,12 @@
 """Verify the scope of the 0.29 lowercase consistency pass against preserved 0.28.
 
-Run after make_fonts.py. Checks the finished fonts, including every unchanged
-outline and every advance, across all ten weights/styles.
+Run after make_fonts.py, or pass an archived candidate directory containing
+settings.json and the ten WOFF2 files. Checks every contour and advance.
 """
 from pathlib import Path
 import hashlib
 import json
+import sys
 
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.pens.recordingPen import DecomposingRecordingPen
@@ -33,10 +34,12 @@ def bounds(font, name):
     return pen.bounds
 
 
-def verify():
+def verify(candidate=None):
     """Audit the intended 0.29 contours and preserved metrics against the 0.28 archive."""
+    candidate = Path(candidate).resolve() if candidate else ROOT/'fonts'
+    candidate_settings = candidate/'settings.json' if (candidate/'settings.json').exists() else candidate.parent/'settings.json'
     before_settings = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
-    after_settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
+    after_settings = json.loads(candidate_settings.read_text(encoding='utf-8'))
     before_settings.pop('version')
     after_settings.pop('version')
     assert before_settings == after_settings, 'A setting changed outside the version number'
@@ -45,7 +48,9 @@ def verify():
     for filename, digest in hashes.items():
         path = BASELINE/filename
         assert hashlib.sha256(path.read_bytes()).hexdigest() == digest, f'Baseline changed: {filename}'
-        with TTFont(path) as before, TTFont(ROOT/'fonts'/filename.replace('.woff2', '.otf')) as after:
+        candidate_path = candidate/filename.replace('.woff2', '.otf')
+        if not candidate_path.exists(): candidate_path = candidate/filename
+        with TTFont(path) as before, TTFont(candidate_path) as after:
             assert before.getBestCmap() == after.getBestCmap(), f'Character mapping changed: {filename}'
             assert before.getGlyphOrder() == after.getGlyphOrder(), f'Glyph set changed: {filename}'
             for table, fields in {
@@ -86,4 +91,4 @@ def verify():
 
 
 if __name__ == '__main__':
-    verify()
+    verify(sys.argv[1] if len(sys.argv) > 1 else None)

@@ -52,19 +52,62 @@ limits and every weight is measured independently. `rn/rm` retain a separation c
 pair spacing, with their internal construction unchanged. Accented letters inherit
 the same pair classes as their bases. The Lab uses the resulting per-style pairs.
 
-The same preview now compares 0.30 with preserved 0.29 and the references. Its fixed
+The 0.30 preview compared the candidate with preserved 0.29 and the references. Its fixed
 13/15/17px matrix covers Light, Regular, and Medium, upright/italic, with accents and
 joins on/off. Native Windows WPF grayscale proofs at 96 dpi supplement the font audits.
 Physical iPhone/Android and browser checks are deferred at the user's request; they
 remain required evidence before making device-specific readability claims.
 
+## The 0.31 broader spacing rhythm pass
+
+Preserve every 0.30 contour, bearing, advance, and design setting. Inspect `minimum`,
+`murmur`, `river`, `climate`, `parallel`, and `everywhere`, with supporting `rival`,
+`arrival`, `vivid`, `willow`, `weary`, `yearly`, and `twilight`. Use the established
+central-band measurement and minimum ink separation separately at every weight and italic.
+Keep the earlier focused pairs and ligature-neighbor corrections unchanged.
+
+Balance `ll`, protect `yw/tw` where the outlines come close, and give italic `ur/um`
+enough separation. New residuals below five source units retain their current spacing
+unless the minimum ink gap requires correction. This avoids adjusting already balanced
+words merely to make every sample different. See [the inspection notes](SPACING-0.31.md).
+
+The same four-card preview compares 0.31 with preserved 0.30, Literata, and Rubik. It
+includes the broader words in prose and upright/italic word lines, plus the fixed-size
+matrix. Native Windows proofs cover 13/15/17px Light/Regular/Medium and all five weights
+at 20px in Day/Night. Device and sustained-reading comfort results remain deferred.
+
+## The 0.32 punctuation, figures, and reading-weight pass
+
+Refine these two areas together so marks and figures sit comfortably in the prose.
+Smooth the continuous curves of `2/3/5/6/8/9`, keep the characteristic angular `1/4/7`,
+and give full-size figures a 4% lighter stroke. Numeric alternates inherit the new
+curves, with small figures retaining their separately lighter stroke. Quotes, commas,
+dots, and dashes make quieter marks while quotes keep their raised position.
+
+Calibrate letter strokes to 74 source units in Light and 97 in Medium, with 85 unchanged
+in Regular. Keep the nominal 70/85/100 controls so all advances and the established
+letter-pair spacing remain stable. These are static master refinements at every size,
+not an optical-size axis. Other weights keep their letter drawings. Symbols/icons,
+word space, contrast, italic angle, tall-letter alignment, and vertical metrics stay
+as in 0.31. Custom design settings can still remeasure the letter-pair spacing.
+
+The same preview uses preserved 0.31 as its baseline and retains Literata/Rubik, the
+earlier word samples, and all reading controls. It adds dialogue punctuation, decimals,
+proportional/tabular figures, and fractions to the fixed small-size matrix. See
+[the inspection notes](TEXTURE-0.32.md). Native Windows proofs supplement the outline
+and shaping audits; physical browser/device and sustained-reading results remain deferred.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.29 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.31 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
+- Inspect `“Mei’s,”`, `“Entry 12?”`, `312/314`, `1,234.56`, `8.50%`, and `6089`, upright
+  and italic. Compare both figure sets and watch commas, dots, and quote tails at 13/15/17px.
+- Inspect `minimum`, `murmur`, `river`, `climate`, `parallel`, and `everywhere`, upright
+  and italic. Include `rival`, `arrival`, `vivid`, `willow`, `weary`, `yearly`, and `twilight`.
 - Inspect `human`, `minimum`, `humming`, `bud`, `dawn`, `people`, and `quiet`, upright
   and italic. Compare both arches of `m`, the `u` bottom, and `b/d/p/q` counters at
   Light and Bold as well as the main reading weights.

@@ -2,6 +2,24 @@
 
 Newest first.
 
+- **0.32** Punctuation, figure texture, and reading-weight balance together: lighter dots,
+  quotes, commas, and dashes; curved comma/quote tails; continuous `2/3/5/6/8/9` curves
+  and slightly lighter figure strokes. Tabular, small figures, and fractions follow their
+  source digits. Light's letter stroke increases from 70 to 74 source units and Medium's
+  decreases from 100 to 97, with nominal controls and all character advances unchanged.
+  Regular/SemiBold/Bold letter drawings, symbols/icons, vertical metrics, word space, and
+  approved letter-pair rhythm remain unchanged. Static weight adjustments apply at all
+  sizes. Preserved all ten 0.31 styles and thirty subsets; rebuilt the full family and
+  delivery. Updated the same preview and Lab with dialogue, decimals, proportional/tabular
+  figures, and small-size comparisons; added scope, weight, counter, and collision audits.
+- **0.31** Broader spacing rhythm: inspected `minimum`, `murmur`, `river`, `climate`,
+  `parallel`, and `everywhere`, with supporting `r/v/w/y` and narrow-letter words, upright
+  and italic at all five weights. Balance `ll` and protect `yw/tw` and italic `ur/um`
+  separation. Small residuals keep their existing spacing unless ink separation needs
+  correction. All 295 contours, bearings, advances, design settings, earlier focused
+  pairs, and ligature construction match 0.30. Preserved the ten merged 0.30 styles and
+  all per-style pair maps; rebuilt ten full styles and thirty subsets. Updated the same
+  reference preview and Lab, plus fixed small-size and all-weight Windows proofs.
 - **0.30** Optical spacing pass: measured, limited corrections for `Lian`, `Iñés`, `blade`,
   `Entry`, `Mei’s`, `acquittal`, and `ri/rn/cl/li`, separately for upright and real italic
   at every weight. Joined `fi/fl` now receive pair spacing beside neighboring letters;
