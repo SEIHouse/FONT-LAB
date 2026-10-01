@@ -2,12 +2,14 @@
 
 Use [the reading test](../lab/reading-test.html) for sustained reading and [the Lab](../lab/index.html) for isolated characters. Open the files through the same delivery method the app will use, with the SEIReader WOFF2 files available. Record the browser and OS versions, device, screen scale, font file or subset delivery, and date. A pass means the face is legible and consistent at normal zoom without fallback, clipping, or unexpected shifts. Mark an item **Fail** and describe the exact text, size, theme, and screenshot when it differs. Leave untested items blank; this document is a test plan, not a record of completed device tests.
 
-For 0.30, the [same reference preview](../lab/comparison.html) includes a fixed-size
-13/15/17px Light/Regular/Medium comparison with preserved 0.29. Wait for its font-loaded
+For 0.31, the [same reference preview](../lab/comparison.html) includes a fixed-size
+13/15/17px Light/Regular/Medium comparison with preserved 0.30. Wait for its font-loaded
 status before judging. Inspect both upright and italic and compare joins on/off.
-Native Windows WPF [Day](proofs/0.30/windows-day-96.png) and [Night](proofs/0.30/windows-night-96.png)
+Native Windows WPF [Day](proofs/0.31/windows-day-96.png) and [Night](proofs/0.31/windows-night-96.png)
 proofs were inspected at 96 dpi; browser/physical-device checks are deferred at the
 user's request (2026-10-01). No device pass is recorded here.
+The [family Day](proofs/0.31/family/windows-day-96.png) and
+[family Night](proofs/0.31/family/windows-night-96.png) proofs also cover all five weights at 20px.
 
 ## Test sessions
 
@@ -36,6 +38,8 @@ Record **P** (pass), **F** (fail), or **—** (not run) in each session column. 
 | Real italics: visible distinction; no clipping or synthetic slant | | | | | | |
 | `fi` and `fl`: joins form cleanly, remain readable, and do not collide with neighbors | | | | | | |
 | Spacing: `Lian Iñés blade Entry Mei’s acquittal` flows evenly, upright and italic | | | | | | |
+| Broader rhythm: `minimum murmur river climate parallel everywhere`, upright and italic | | | | | | |
+| `ll/yw/tw/ur/um` and `rival arrival vivid willow weary yearly twilight` stay distinct at every weight | | | | | | |
 | `ri/rn/cl/li` stay distinct; `tt/ry` are not crowded; joins on/off keep an even rhythm | | | | | | |
 | Light/Regular/Medium retain useful differences at 13/15/17px in both themes | | | | | | |
 | Kerning: `To`, `AV`, `P.`, `“A` look balanced, with no collision or obvious gap | | | | | | |

@@ -1,4 +1,4 @@
-SEIReader, version 0.30 (working draft)
+SEIReader, version 0.31 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -90,10 +90,10 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.30 with the preserved 0.29 baseline, Literata,
+  Open lab/comparison.html to compare 0.31 with the preserved 0.30 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
-  Focused h/n/m/u and b/d/p/q samples show the lowercase consistency pass beside a/e/c/s.
-  All contours, advances, and design settings match 0.29; real italics keep their pen-like exits.
+  Focused r/v/w/y and narrow-letter samples show the broader rhythm pass, upright and italic.
+  All contours, advances, and design settings match 0.30; real italics keep their pen-like exits.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
   from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
   then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
@@ -110,12 +110,14 @@ OPTICAL SPACING AND SMALL TEXT
       letter-spacing: 0;
     }
 
-  Version 0.30 changes pair spacing; its glyph contours and advances match 0.29.
+  Version 0.31 extends the inspected pair spacing; its glyph contours and advances match 0.30.
   Avoid overriding the pair rhythm with extra CSS tracking. Review Light, Regular,
   and Medium at 13/15/17px in both themes using the comparison page's fixed-size
-  matrix. Check Lian, Iñés, blade, Entry, Mei's / Mei’s, italic acquittal, ri/rn/cl/li,
-  office, affinity, flame, and reflection. Native Windows proof images are in
-  docs/proofs/0.30/; physical browser/device checks are deferred, not recorded as passes.
+  matrix. Check minimum, murmur, river, climate, parallel, and everywhere, upright and italic.
+  Include rival, arrival, vivid, willow, weary, yearly, twilight, and the earlier Lian,
+  Iñés, blade, Entry, Mei's / Mei’s, acquittal, ri/rn/cl/li, office, affinity, flame,
+  and reflection. Native Windows proof images are in docs/proofs/0.31/; its family/
+  images cover all five weights at 20px. Physical browser/device checks remain deferred.
 
   fonts.css already uses font-display: swap. Curly quotes and apostrophes request the
   symbols/icons subset; accented names can request Latin extended as well. If a chapter

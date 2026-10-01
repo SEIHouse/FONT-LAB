@@ -1,4 +1,4 @@
-"""Audit the 0.30 spacing pass against preserved 0.29 in all ten styles.
+"""Audit the 0.31 spacing pass against preserved 0.30 in all ten styles.
 
 Checks every contour/metric, changed shaping, accent classes, ligature neighbors,
 subset shaping, hinting, and actual outline separation in the reported words.
@@ -16,9 +16,13 @@ from build_subsets import STYLES
 from verify_lowercase import recorded
 
 ROOT = Path(__file__).resolve().parent
-BASELINE = ROOT/'old/0.29'
+BASELINE = ROOT/'old/0.30'
+RHYTHM_WORDS = ('minimum', 'murmur', 'river', 'climate', 'parallel', 'everywhere',
+                'rival', 'arrival', 'vivid', 'willow', 'weary', 'yearly', 'twilight')
+PREVIOUS_FOCUS = set('Li ia an In ne es bl la ad de En nt tr ry Me ei ac cq qu ui it tt ta al ri rn rm cl li fi fl'.split())
+ALLOWED_PAIR_CHANGES = {a+b for word in RHYTHM_WORDS for a,b in zip(word, word[1:])} - PREVIOUS_FOCUS
 WORDS = ('Lian', 'Iñés', 'blade', 'Entry', 'Mei’s', "Mei's", 'acquittal',
-         'ri', 'rn', 'cl', 'li', 'office', 'affinity', 'flame', 'reflection')
+         'ri', 'rn', 'cl', 'li', 'office', 'affinity', 'flame', 'reflection') + RHYTHM_WORDS
 
 
 def shaped(font, text, kern=True, liga=True):
@@ -54,9 +58,14 @@ def verify():
     assert before_settings == after_settings, 'Setting changed outside the version number'
     hashes = json.loads((BASELINE/'SHA256.json').read_text(encoding='utf-8'))
     style_pairs = json.loads((ROOT/'kern_styles.json').read_text(encoding='utf-8'))
+    before_pairs = json.loads((BASELINE/'kern_styles.json').read_text(encoding='utf-8'))
     assert len(hashes) == len(style_pairs) == 10
     reports = {}
     for style, _, _ in STYLES:
+        old_pairs, new_pairs = before_pairs[style], style_pairs[style]
+        changed_pairs = {pair for pair in old_pairs.keys() | new_pairs.keys()
+                         if old_pairs.get(pair, 0) != new_pairs.get(pair, 0)}
+        assert changed_pairs and changed_pairs <= ALLOWED_PAIR_CHANGES, (style, 'pair changed outside the inspected rhythm cases', changed_pairs-ALLOWED_PAIR_CHANGES)
         filename = f'SEIReader-{style}.woff2'
         baseline_path = BASELINE/filename
         assert hashlib.sha256(baseline_path.read_bytes()).hexdigest() == hashes[filename], filename
@@ -81,7 +90,8 @@ def verify():
             charstring = after['CFF '].cff.topDictIndex[0].CharStrings['n']
             charstring.decompile()
             assert any(token in charstring.program for token in ('hstem', 'hstemhm', 'vstem', 'vstemhm')), style
-            for base, accent in [('In','Iñ'), ('ne','ñé'), ('es','és'), ('qu','qù'), ('ui','üi')]:
+            for base, accent in [('In','Iñ'), ('ne','ñé'), ('es','és'), ('qu','qù'), ('ui','üi'),
+                                 ('ar','ár'), ('ur','ür'), ('va','và'), ('ev','év'), ('ly','lý')]:
                 assert adjustment(after, base) == adjustment(after, accent), (style, base, accent)
             glyphs = after.getGlyphSet()
             outlines = {}
@@ -107,18 +117,19 @@ def verify():
             with TTFont(ROOT/'fonts'/f'SEIReader-{style}.latin-basic.woff2') as subset:
                 for text in ('Lian', 'blade', 'Entry', 'acquittal', 'ri rn cl li', 'office affinity flame reflection'):
                     assert shaped(after, text) == shaped(subset, text), (style, text, 'subset shaping')
+                for text in RHYTHM_WORDS:
+                    assert shaped(after, text) == shaped(subset, text), (style, text, 'broader subset shaping')
             for pair, value in style_pairs[style].items():
                 if len(pair) == 2 and all(ord(ch) in after.getBestCmap() for ch in pair):
                     assert adjustment(after, pair)[0] == round(value*2), (style, pair, 'Lab spacing does not match font')
             changed = {}
             for text in WORDS:
-                old = sum(p[1] for p in shaped(before, text))
-                new = sum(p[1] for p in shaped(after, text))
-                if old != new: changed[text] = {'before': old, 'after': new}
-            assert len(changed) >= 8, (style, 'expected spacing changes missing')
+                old, new = shaped(before, text), shaped(after, text)
+                if old != new: changed[text] = {'before': sum(p[1] for p in old), 'after': sum(p[1] for p in new)}
+            assert sum(word in changed for word in RHYTHM_WORDS[:6]) >= 3, (style, 'expected broader word spacing changes missing')
             reports[style] = changed
-            print(f'{style}: all 295 contours/metrics preserved; hints, accents, joins, subset shaping and collision checks pass')
-    print('All ten styles pass the 0.30 spacing audit.')
+            print(f'{style}: {len(changed_pairs)} inspected pairs changed; all 295 contours/metrics preserved; shaping and collision checks pass')
+    print('All ten styles pass the 0.31 broader spacing audit.')
     return reports
 
 

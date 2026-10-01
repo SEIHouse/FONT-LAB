@@ -32,7 +32,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <body>
 <main>
 <h1>Literata + Rubik + SEIHouse = SEIReader</h1>
-<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ optical spacing pass with preserved __BASELINE__, Literata, and Rubik. Focus on the rhythm of Lian, Iñés, blade, Entry, Mei’s, and italic acquittal, then inspect ri, rn, cl, li, and fi/fl at small sizes.</p>
+<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ broader spacing pass with preserved __BASELINE__, Literata, and Rubik. Follow minimum, murmur, river, climate, parallel, and everywhere through upright and italic prose, with special attention to r, v, w, y, and narrow letters.</p>
 <div class="controls" aria-label="Comparison reading settings">
   <button id="theme" type="button" aria-pressed="false">Day</button>
   <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
@@ -45,23 +45,23 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 </div>
 <div class="grid" id="comparison-grid">
   <article class="card candidate" aria-labelledby="candidate-title">
-    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · upright and italic optical spacing</p>
-    <div class="large Candidate">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
+    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · broader upright and italic spacing</p>
+    <div class="large Candidate">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
     <div class="sample Candidate" data-family="Candidate"></div>
   </article>
   <article class="card" aria-labelledby="baseline-title">
     <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved baseline · identical letter shapes</p>
-    <div class="large Baseline">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
+    <div class="large Baseline">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
     <div class="sample Baseline" data-family="Baseline"></div>
   </article>
   <article class="card" aria-labelledby="literata-title">
     <h2 id="literata-title">Literata</h2><p class="caption">Reading reference · optical size 20</p>
-    <div class="large Literata">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
+    <div class="large Literata">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
     <div class="sample Literata" data-family="Literata"></div>
   </article>
   <article class="card" aria-labelledby="rubik-title">
     <h2 id="rubik-title">Rubik</h2><p class="caption">Shape reference · softly rounded corners</p>
-    <div class="large Rubik">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
+    <div class="large Rubik">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
     <div class="sample Rubik" data-family="Rubik"></div>
   </article>
 </div>
@@ -78,7 +78,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <footer>
 <p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
 <details><summary>What changed and how to read this comparison</summary><div class="study-notes">
-<p>Candidate __VERSION__ preserves every __BASELINE__ glyph contour and advance, including the refined lowercase and handwriting-style italics. Focused pair adjustments measure the central lowercase space for each weight and style, limit the influence of open edges, and protect the closest ink from crowding. <code>rn/rm</code> keep extra room for distinction. Joined <code>fi/fl</code> now receive pair spacing beside their neighbors; their internal shapes remain unchanged. Accent derivatives share their base letter’s pair classes. Word space, heights, weights, contrast, and raised quotes stay the same.</p>
+<p>Candidate __VERSION__ preserves every __BASELINE__ glyph contour and advance, including the refined lowercase and handwriting-style italics. Broader pair adjustments inspect the requested words and supporting cases such as rival, arrival, vivid, willow, weary, yearly, and twilight. They balance <code>ll</code>, protect the close <code>yw/tw</code> joins, and give italic <code>ur/um</code> enough room. Negligible residuals retain their existing spacing unless the ink needs more separation. All earlier focused pairs, joined <code>fi/fl</code>, and their cursor stops carry forward. Accent derivatives share their base letter’s pair classes. Word space, heights, weights, contrast, and raised quotes stay the same.</p>
 <p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
 <p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
 </div></details>
@@ -89,10 +89,10 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 'use strict';
 const metrics=__METRICS__;
 const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
-const sample=`<p>“Lian,” Iñés said, “the blade is only a tool. Entry into the inner court must be earned.” Mei’s acquittal would come at dawn, when the elders returned from the mountain. He read the notice twice, then watched the rain gather along the open window. For the first time in three days, he let his shoulders relax.</p><p><em>If the seal was broken, why did the gate remain closed? Iñés knew the answer. Lian did not.</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · Mei’s · <em>acquittal</em><br><em>Lian · Iñés · blade · Entry · Mei’s</em><br>ri rn cl li · <em>ri rn cl li</em><br>office · affinity · flame · reflection<br><span class="noliga">fi fl · office · reflection (joins off)</span><br>human · minimum · quiet<br>ñ ù ú û ü · To AV P. “A 0123456789</p>`;
+const sample=`<p>“Lian,” Iñés said, “follow the river along the parallel paths. Listen for the murmur under the bridge.” Willow branches moved everywhere in the wind. The climate had turned cold, and the travelers carried only the minimum they needed. Mei’s blade rested beside the notice. Entry into the inner court would wait until dawn, when the elders returned from the valley.</p><p><em>If the gate remained closed, where would the river lead? A weary rival had followed him through the twilight. Lian could hear the murmur, but he could see no one.</em></p><p class="words">minimum · murmur · river<br>climate · parallel · everywhere<br><em>minimum · murmur · river</em><br><em>climate · parallel · everywhere</em><br>iv vi ir ri ll yw tw ur um · <em>iv vi ir ri ll yw tw ur um</em><br>rival · arrival · vivid · willow<br>weary · yearly · twilight<br><em>rival · arrival · vivid · willow</em><br><em>weary · yearly · twilight</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · Mei’s · <em>acquittal</em><br><em>Lian · Iñés · blade · Entry · Mei’s</em><br>ri rn cl li · <em>ri rn cl li</em><br>office · affinity · flame · reflection<br><span class="noliga">fi fl · office · reflection (joins off)</span><br>ñ ù ú û ü · To AV P. “A 0123456789</p>`;
 const byId=id=>document.getElementById(id);
 document.querySelectorAll('.sample').forEach(el=>{el.innerHTML=sample});
-const proofText=`<p>Lian · Iñés · blade · Entry · Mei’s · acquittal</p><p>ri rn cl li · office affinity · flame reflection</p><p><em>Lian · Iñés · blade · Entry · Mei’s · acquittal</em></p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
+const proofText=`<p>minimum · murmur · river</p><p>climate · parallel · everywhere</p><p><em>minimum · murmur · river</em></p><p><em>climate · parallel · everywhere</em></p><p>ri rn cl li iv vi ll yw tw ur um</p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
 byId('proof-grid').innerHTML=[300,400,500].flatMap(weight=>[13,15,17].flatMap(size=>['Candidate','Baseline'].map(family=>`<article class="proof-case"><h3>${names[family]} · ${weight===300?'Light':weight===400?'Regular':'Medium'} · ${size}px</h3><div class="proof-text ${family}" style="font-size:${size}px;font-weight:${weight}">${proofText}</div></article>`))).join('');
 Promise.all(['Candidate','Baseline'].flatMap(family=>[300,400,500].flatMap(weight=>['normal','italic'].map(style=>document.fonts.load(`${style} ${weight} 17px ${family}`,'Lian Iñés ﬁﬂ'))))).then(loaded=>{
   byId('proof-status').textContent=loaded.every(faces=>faces.length>0)?'Candidate and baseline fonts loaded · real upright and italic.':'Some font faces did not load. Reload before evaluating spacing.';

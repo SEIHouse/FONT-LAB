@@ -213,6 +213,9 @@ AUTO_THRESHOLD = 15      # ignore small corrections (units per 1000)
 AUTO_LOWLOW = 12         # catch visible uneven gaps inside long lowercase words
 AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX = -0.035, 0.025  # gentler than capital/punctuation pairs
 APOSTROPHE_TUCK = 25     # raised apostrophes need less empty space beside lowercase letters
+RHYTHM_WORDS = ('minimum', 'murmur', 'river', 'climate', 'parallel', 'everywhere',
+                'rival', 'arrival', 'vivid', 'willow', 'weary', 'yearly', 'twilight')
+RHYTHM_THRESHOLD = 5    # minimum useful residual in source units; ink separation takes precedence
 
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
@@ -311,7 +314,7 @@ def auto_pairs(paths, hm, cmap):
 
 
 def optical_pairs(paths, hm, cmap, kern, italic):
-    """Small, outline-measured corrections for the reported reading cases.
+    """Small, outline-measured corrections for the reported and broader reading cases.
 
     Measure the central lowercase band to avoid letting tall stems or italic
     exits dominate perceived space. Limit open-edge depth, preserve extra room
@@ -319,6 +322,8 @@ def optical_pairs(paths, hm, cmap, kern, italic):
     The glyph contours and all advances remain untouched.
     """
     focus = set('Li ia an In ne es bl la ad de En nt tr ry Me ei ac cq qu ui it tt ta al ri rn rm cl li fi fl'.split())
+    broader = {a+b for word in RHYTHM_WORDS for a, b in zip(word, word[1:])} - focus
+    focus.update(broader)
     chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ'
     focus.update(a+b for a in chars for b in chars
                  if 'j' not in (a, b) and ('ﬁ' in (a, b) or 'ﬂ' in (a, b)))
@@ -355,6 +360,8 @@ def optical_pairs(paths, hm, cmap, kern, italic):
         value = max(-60 if italic else -45, min(40, round(current+delta)))
         floor = 100 if pair in ('rn', 'rm') else 55 if pair in ('ry', 'tt', 'fi', 'fl') else 80
         value = max(value, math.ceil(floor-closest))
+        if pair in broader and abs(value-current) < RHYTHM_THRESHOLD and closest+current >= floor:
+            continue
         if value != current: out[pair] = value
     return out
 

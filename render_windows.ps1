@@ -5,7 +5,7 @@ Add-Type -AssemblyName PresentationCore, PresentationFramework, WindowsBase
 $proof = Get-Content -LiteralPath $Layout -Raw -Encoding UTF8 | ConvertFrom-Json
 $dpi = [double]$proof.dpi
 $width = 1240
-$height = 1510
+$height = 118 + 154*$proof.rows.Count + 6
 $glyphFaces = @{}
 
 function Brush([string]$Color) {
@@ -32,7 +32,7 @@ foreach ($theme in @('day', 'night')) {
     [System.Windows.Media.TextOptions]::SetTextRenderingMode($visual, [System.Windows.Media.TextRenderingMode]::Grayscale)
     $dc = $visual.RenderOpen()
     $dc.DrawRectangle($bg, $null, [System.Windows.Rect]::new(0, 0, $width, $height))
-    Label $dc 24 12 "SEIReader $($proof.candidate) / $($proof.baseline) - small text" 24 $ink
+    Label $dc 24 12 "SEIReader $($proof.candidate) / $($proof.baseline) - $($proof.title)" 24 $ink
     Label $dc 24 48 "Windows WPF grayscale, HarfBuzz shaping, $dpi dpi. Native sizes; browser/device results separate." 14 $muted
     Label $dc 24 80 "Candidate $($proof.candidate)" 18 $ink
     Label $dc 642 80 "Baseline $($proof.baseline)" 18 $ink

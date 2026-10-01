@@ -52,19 +52,39 @@ limits and every weight is measured independently. `rn/rm` retain a separation c
 pair spacing, with their internal construction unchanged. Accented letters inherit
 the same pair classes as their bases. The Lab uses the resulting per-style pairs.
 
-The same preview now compares 0.30 with preserved 0.29 and the references. Its fixed
+The 0.30 preview compared the candidate with preserved 0.29 and the references. Its fixed
 13/15/17px matrix covers Light, Regular, and Medium, upright/italic, with accents and
 joins on/off. Native Windows WPF grayscale proofs at 96 dpi supplement the font audits.
 Physical iPhone/Android and browser checks are deferred at the user's request; they
 remain required evidence before making device-specific readability claims.
 
+## The 0.31 broader spacing rhythm pass
+
+Preserve every 0.30 contour, bearing, advance, and design setting. Inspect `minimum`,
+`murmur`, `river`, `climate`, `parallel`, and `everywhere`, with supporting `rival`,
+`arrival`, `vivid`, `willow`, `weary`, `yearly`, and `twilight`. Use the established
+central-band measurement and minimum ink separation separately at every weight and italic.
+Keep the earlier focused pairs and ligature-neighbor corrections unchanged.
+
+Balance `ll`, protect `yw/tw` where the outlines come close, and give italic `ur/um`
+enough separation. New residuals below five source units retain their current spacing
+unless the minimum ink gap requires correction. This avoids adjusting already balanced
+words merely to make every sample different. See [the inspection notes](SPACING-0.31.md).
+
+The same four-card preview compares 0.31 with preserved 0.30, Literata, and Rubik. It
+includes the broader words in prose and upright/italic word lines, plus the fixed-size
+matrix. Native Windows proofs cover 13/15/17px Light/Regular/Medium and all five weights
+at 20px in Day/Night. Device and sustained-reading comfort results remain deferred.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.29 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.30 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
+- Inspect `minimum`, `murmur`, `river`, `climate`, `parallel`, and `everywhere`, upright
+  and italic. Include `rival`, `arrival`, `vivid`, `willow`, `weary`, `yearly`, and `twilight`.
 - Inspect `human`, `minimum`, `humming`, `bud`, `dawn`, `people`, and `quiet`, upright
   and italic. Compare both arches of `m`, the `u` bottom, and `b/d/p/q` counters at
   Light and Bold as well as the main reading weights.

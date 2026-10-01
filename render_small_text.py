@@ -1,6 +1,6 @@
 """Render a before/after small-text proof with Windows WPF at native pixel sizes.
 
-python render_small_text.py <output-directory> [dpi]
+python render_small_text.py <output-directory> [dpi] [--full-family]
 HarfBuzz shapes the real fonts; WPF rasterizes their actual glyph indices. This is
 supplemental Windows rasterization evidence, not a Chrome, Safari, or device test.
 """
@@ -8,22 +8,24 @@ from pathlib import Path
 import io
 import json
 import subprocess
-import sys
+import argparse
 
 import uharfbuzz as hb
 from fontTools.ttLib import TTFont
 
 ROOT = Path(__file__).resolve().parent
-BASELINE = '0.29'
+BASELINE = '0.30'
 
 
-def render(output, dpi=96):
-    """Shape the fixed-size comparison and render both themes with Windows WPF."""
+def render(output, dpi=96, full_family=False):
+    """Render small sizes or all five weights at 20px, including each real italic."""
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
     fonts = {}
+    weights = ('Light', 'Regular', 'Medium', 'SemiBold', 'Bold') if full_family else ('Light', 'Regular', 'Medium')
+    sizes = (20,) if full_family else (13, 15, 17)
     for family, folder in [('candidate', ROOT/'fonts'), ('baseline', ROOT/f'old/{BASELINE}')]:
-        for weight in ('Light', 'Regular', 'Medium'):
+        for weight in weights:
             for italic in (False, True):
                 style = ('Italic' if weight == 'Regular' else weight+'Italic') if italic else weight
                 source = folder/f'SEIReader-{style}.{"woff2" if family == "baseline" else "otf"}'
@@ -39,17 +41,17 @@ def render(output, dpi=96):
                 shaper.scale = (face.upem, face.upem)
                 fonts[family, style] = font_path, shaper
     rows = []
-    for weight in ('Light', 'Regular', 'Medium'):
-        for size in (13, 15, 17):
+    for weight in weights:
+        for size in sizes:
             row = {'weight': weight, 'size': size, 'faces': []}
             for family in ('candidate', 'baseline'):
                 lines = []
                 for text, italic, liga in [
-                    ('Lian · Iñés · blade · Entry · Mei’s · acquittal', False, True),
-                    ('ri rn cl li · office affinity · flame reflection', False, True),
-                    ('Lian · Iñés · blade · Entry · Mei’s · acquittal', True, True),
-                    ('a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥', False, True),
-                    ('fi fl · office · reflection (joins off)', False, False),
+                    ('minimum · murmur · river', False, True),
+                    ('climate · parallel · everywhere', False, True),
+                    ('minimum · murmur · river', True, True),
+                    ('climate · parallel · everywhere', True, True),
+                    ('ri rn cl li · iv vi ll yw ur · fi fl', False, False),
                 ]:
                     style = ('Italic' if weight == 'Regular' else weight+'Italic') if italic else weight
                     path, shaper = fonts[family, style]
@@ -65,7 +67,8 @@ def render(output, dpi=96):
                 row['faces'].append({'family': family, 'lines': lines})
             rows.append(row)
     settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
-    spec = {'candidate': settings['version'], 'baseline': BASELINE, 'dpi': dpi, 'rows': rows}
+    spec = {'candidate': settings['version'], 'baseline': BASELINE, 'dpi': dpi, 'rows': rows,
+            'title': 'broader spacing / all weights' if full_family else 'broader spacing / small text'}
     layout = output/f'windows-{dpi}.json'
     layout.write_text(json.dumps(spec, ensure_ascii=False), encoding='utf-8')
     subprocess.run(['powershell', '-NoProfile', '-ExecutionPolicy', 'Bypass', '-File', str(ROOT/'render_windows.ps1'),
@@ -73,6 +76,9 @@ def render(output, dpi=96):
 
 
 if __name__ == '__main__':
-    if len(sys.argv) not in (2, 3):
-        raise SystemExit(__doc__)
-    render(sys.argv[1], int(sys.argv[2]) if len(sys.argv) == 3 else 96)
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('output_directory')
+    parser.add_argument('dpi', type=int, nargs='?', default=96)
+    parser.add_argument('--full-family', action='store_true', help='Proof all five weights at 20px instead of the small-size matrix')
+    args = parser.parse_args()
+    render(args.output_directory, args.dpi, args.full_family)
