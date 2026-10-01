@@ -18,6 +18,7 @@ BASELINE = '0.29'
 
 
 def render(output, dpi=96):
+    """Shape the fixed-size comparison and render both themes with Windows WPF."""
     output = Path(output).resolve()
     output.mkdir(parents=True, exist_ok=True)
     fonts = {}
@@ -57,7 +58,7 @@ def render(output, dpi=96):
                     buffer.guess_segment_properties()
                     hb.shape(shaper, buffer, {'kern': True, 'liga': liga})
                     scale = size/shaper.face.upem
-                    lines.append({'path': str(path), 'text': text,
+                    lines.append({'path': str(path), 'uri': path.as_uri(), 'text': text,
                                   'glyphs': [info.codepoint for info in buffer.glyph_infos],
                                   'advances': [p.x_advance*scale for p in buffer.glyph_positions],
                                   'offsets': [[p.x_offset*scale, -p.y_offset*scale] for p in buffer.glyph_positions]})

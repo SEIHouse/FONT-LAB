@@ -41,6 +41,7 @@ const def = (ch, w, kind, shapes, dots = [], sb = [62,62]) => { G[ch] = { w, kin
 /* 0.29: shared shoulder and bowl construction for the related lowercase.
    Tangents meet the straight stems smoothly; short upright sides retain the
    softly squared rhythm. Widths and bearings stay in the glyph definitions. */
+/** Build a smooth lowercase shoulder, optionally ending in an italic exit foot. */
 function shoulder(x, w, branch = 280, foot = 0){
   const end = x + w;
   const path = [['M',x,branch],
@@ -51,12 +52,14 @@ function shoulder(x, w, branch = 280, foot = 0){
   } else path.push(LN(end,280,end,0));
   return RAW(path);
 }
+/** Build the shared b/p bowl or mirror it onto the right stem for d/q. */
 function bowlOnStem(w, right = false){
   const path = [['M',0,370],['C',0,458,w*0.26,500,w*0.505,500],
     ['C',w*0.825,500,w,422,w,277],LN(w,277,w,223),
     ['C',w,78,w*0.825,0,w*0.505,0],['C',w*0.26,0,0,48,0,132]];
   return RAW(right ? path.map(seg => seg.map((v,i) => i && i%2 ? w-v : v)) : path);
 }
+/** Build the shared u bowl, optionally leaving its right stem to the caller. */
 function uBowl(full = true){
   const path = [['M',0,500],LN(0,500,0,220),
     ['C',0,76,84,0,198,0],['C',316,0,400,76,400,220]];

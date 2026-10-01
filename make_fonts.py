@@ -267,6 +267,7 @@ def auto_pairs(paths, hm, cmap):
         if not xsL: continue
         prof[ch] = dict(name=n, adv=hm[n], Lmin=min(xsL), Rmax=max(xsR), cap=(Lc, Rc), low=(Ll, Rl))
     def gap(a, b, zone):
+        """Average the clipped edge gaps across the cap or lowercase sample band."""
         A, B = prof[a], prof[b]
         RA = A[zone][1]; LB = B[zone][0]; tot = 0; k = 0
         for ra, lb in zip(RA, LB):
@@ -280,6 +281,7 @@ def auto_pairs(paths, hm, cmap):
     caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
+        """Select supported pair types, retaining the separate lowercase limits."""
         if 'j' in (a, b): return False                         # j's tail curls under its neighbour; leave it
         if a in lower and b in lower: return 'lowlow'           # smooth gaps inside words, with a tighter limit
         if a in caps and (b in caps or b in lower): return True    # AV, LT, To, Ya ...
@@ -332,6 +334,7 @@ def optical_pairs(paths, hm, cmap, kern, italic):
         prof[ch] = (hm[name], min(x for x in left if x is not None),
                     max(x for x in right if x is not None), body, (left, right))
     def measured(a, b):
+        """Return the clipped central gap and closest sampled actual ink gap."""
         A, B = prof[a], prof[b]
         gaps = [A[0] - max(r if r is not None else -1e9, A[2]-depth)
                 + min(l if l is not None else 1e9, B[1]+depth)
@@ -428,6 +431,7 @@ def track_for(thick):
     return TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
 def build(data, out, style='Regular', italic=False):
+    """Build and hint one style with the shared character set and OpenType features."""
     TR = track_for(S) + (ITAL_EXTRA_SPACE if italic else 0)
     ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
     shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
@@ -534,8 +538,8 @@ def build(data, out, style='Regular', italic=False):
     AUTO = auto_pairs(paths, hm, cmap)
     KERN.update(AUTO); KERN.update(data['kern'])
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
-    STYLE_KERN[ps_style] = dict(KERN)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
+    STYLE_KERN[ps_style] = dict(KERN)
     if style == 'Regular' and not italic:
         json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')

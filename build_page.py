@@ -439,6 +439,7 @@ function applyToEngine(){
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
 const bm = c => (ACC[c] ? ACC[c].base : c);
+/** Resolve user overrides before the nearest baked weight and italic pair map. */
 function pairVal(k, thick=S_.weight, italic=false){
   if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
   const kb = [...k].map(bm).join('');
@@ -459,6 +460,7 @@ function thickThin(g){
   g._tt = `<g transform="scale(1 ${(1/F).toFixed(5)})">${body}</g>`; g._ttF = F;
   return g._tt;
 }
+/** Draw one word with the selected real italic forms and per-style pair spacing. */
 function drawWord(w, size, thick, ital){
   const Sw = thick || S_.weight, reg = S_.weights.Regular;
   const prevIt = P.ital; let itc = !!ital;
@@ -495,6 +497,7 @@ function drawText(str, size, lh, thick){
 }
 
 /* Reader Chamber */
+/** Refresh the reader sample in the selected live or exported-font view. */
 function renderChamber(){
   const ch = $('chamber'), inner = $('chamberInner');
   ch.classList.toggle('night', RD.night);

@@ -25,8 +25,13 @@ for folder, family in [('fonts', 'Candidate'), (f'old/{BASELINE_VERSION}', 'Base
                           ROOT / folder / f'SEIReader-{name}.woff2'))
 for folder, family, weight_range in [('literata', 'Literata', '200 900'), ('rubik', 'Rubik', '300 900')]:
     for italic in (False, True):
+        path = ROOT / 'references' / folder / ('Italic.woff2' if italic else 'Regular.woff2')
+        with TTFont(path) as reference:
+            axis = next((a for a in reference['fvar'].axes if a.axisTag == 'wght'), None)
+            if axis is None or (axis.minValue, axis.maxValue) != tuple(map(float, weight_range.split())):
+                raise ValueError(f'{family} weight axis does not match declared range {weight_range}: {path}')
         faces.append((family, weight_range, 'italic' if italic else 'normal',
-                      ROOT / 'references' / folder / ('Italic.woff2' if italic else 'Regular.woff2')))
+                      path))
 css = []
 for family, weight, style, path in faces:
     encoded = base64.b64encode(path.read_bytes()).decode('ascii')

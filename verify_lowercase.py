@@ -18,6 +18,7 @@ DERIVATIVES = 'ñùúûü'
 
 
 def recorded(font, name):
+    """Record a decomposed outline for exact glyph-preservation comparisons."""
     glyphs = font.getGlyphSet()
     pen = DecomposingRecordingPen(glyphs)
     glyphs[name].draw(pen)
@@ -25,6 +26,7 @@ def recorded(font, name):
 
 
 def bounds(font, name):
+    """Measure finished ink bounds for the cap, baseline, and descender alignment audit."""
     glyphs = font.getGlyphSet()
     pen = BoundsPen(glyphs)
     glyphs[name].draw(pen)
@@ -32,6 +34,7 @@ def bounds(font, name):
 
 
 def verify():
+    """Audit the intended 0.29 contours and preserved metrics against the 0.28 archive."""
     before_settings = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
     after_settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
     before_settings.pop('version')

@@ -22,6 +22,7 @@ WORDS = ('Lian', 'Iñés', 'blade', 'Entry', 'Mei’s', "Mei's", 'acquittal',
 
 
 def shaped(font, text, kern=True, liga=True):
+    """Return HarfBuzz glyph names, advances, and offsets for the selected features."""
     if not hasattr(font, '_spacing_shaper'):
         font.flavor = None
         data = io.BytesIO()
@@ -39,12 +40,14 @@ def shaped(font, text, kern=True, liga=True):
 
 
 def adjustment(font, text):
+    """Return pair-advance differences with kerning enabled, without ligature substitution."""
     plain = shaped(font, text, kern=False, liga=False)
     spaced = shaped(font, text, liga=False)
     return [b[1]-a[1] for a, b in zip(plain, spaced)]
 
 
 def verify():
+    """Audit font preservation, shaping, hints, collisions, and per-style Lab spacing."""
     before_settings = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
     after_settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
     before_settings.pop('version'); after_settings.pop('version')

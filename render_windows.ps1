@@ -9,9 +9,15 @@ $height = 1510
 $glyphFaces = @{}
 
 function Brush([string]$Color) {
+    <# .SYNOPSIS
+    Convert a theme color to a WPF brush.
+    #>
     return [System.Windows.Media.BrushConverter]::new().ConvertFromString($Color)
 }
 function Label($Context, [double]$X, [double]$Y, [string]$Text, [double]$Size, $Ink) {
+    <# .SYNOPSIS
+    Draw a proof label in Segoe UI at the requested position and proof DPI.
+    #>
     $label = [System.Windows.Media.FormattedText]::new($Text,
         [System.Globalization.CultureInfo]::InvariantCulture, [System.Windows.FlowDirection]::LeftToRight,
         [System.Windows.Media.Typeface]::new('Segoe UI'), $Size, $Ink, $dpi/96)
@@ -40,7 +46,7 @@ foreach ($theme in @('day', 'night')) {
             $baseline = $y+46
             foreach ($line in $face.lines) {
                 if (-not $glyphFaces.ContainsKey($line.path)) {
-                    $glyphFaces[$line.path] = [System.Windows.Media.GlyphTypeface]::new([uri]$line.path)
+                    $glyphFaces[$line.path] = [System.Windows.Media.GlyphTypeface]::new([uri]$line.uri)
                 }
                 $ids = [System.Collections.Generic.List[uint16]]::new()
                 $advances = [System.Collections.Generic.List[double]]::new()

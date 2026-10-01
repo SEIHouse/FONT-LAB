@@ -367,6 +367,7 @@ const def = (ch, w, kind, shapes, dots = [], sb = [62,62]) => { G[ch] = { w, kin
 /* 0.29: shared shoulder and bowl construction for the related lowercase.
    Tangents meet the straight stems smoothly; short upright sides retain the
    softly squared rhythm. Widths and bearings stay in the glyph definitions. */
+/** Build a smooth lowercase shoulder, optionally ending in an italic exit foot. */
 function shoulder(x, w, branch = 280, foot = 0){
   const end = x + w;
   const path = [['M',x,branch],
@@ -377,12 +378,14 @@ function shoulder(x, w, branch = 280, foot = 0){
   } else path.push(LN(end,280,end,0));
   return RAW(path);
 }
+/** Build the shared b/p bowl or mirror it onto the right stem for d/q. */
 function bowlOnStem(w, right = false){
   const path = [['M',0,370],['C',0,458,w*0.26,500,w*0.505,500],
     ['C',w*0.825,500,w,422,w,277],LN(w,277,w,223),
     ['C',w,78,w*0.825,0,w*0.505,0],['C',w*0.26,0,0,48,0,132]];
   return RAW(right ? path.map(seg => seg.map((v,i) => i && i%2 ? w-v : v)) : path);
 }
+/** Build the shared u bowl, optionally leaving its right stem to the caller. */
 function uBowl(full = true){
   const path = [['M',0,500],LN(0,500,0,220),
     ['C',0,76,84,0,198,0],['C',316,0,400,76,400,220]];
@@ -1014,6 +1017,7 @@ function applyToEngine(){
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
 const bm = c => (ACC[c] ? ACC[c].base : c);
+/** Resolve user overrides before the nearest baked weight and italic pair map. */
 function pairVal(k, thick=S_.weight, italic=false){
   if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
   const kb = [...k].map(bm).join('');
@@ -1034,6 +1038,7 @@ function thickThin(g){
   g._tt = `<g transform="scale(1 ${(1/F).toFixed(5)})">${body}</g>`; g._ttF = F;
   return g._tt;
 }
+/** Draw one word with the selected real italic forms and per-style pair spacing. */
 function drawWord(w, size, thick, ital){
   const Sw = thick || S_.weight, reg = S_.weights.Regular;
   const prevIt = P.ital; let itc = !!ital;
@@ -1070,6 +1075,7 @@ function drawText(str, size, lh, thick){
 }
 
 /* Reader Chamber */
+/** Refresh the reader sample in the selected live or exported-font view. */
 function renderChamber(){
   const ch = $('chamber'), inner = $('chamberInner');
   ch.classList.toggle('night', RD.night);
