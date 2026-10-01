@@ -13,6 +13,7 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
+| [`lab/comparison.html`](lab/comparison.html) | The reference preview: current candidate beside preserved 0.27, Literata, and Rubik, with reading controls and word-space trials |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -23,9 +24,12 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `build_subsets.py` | Uses pyftsubset to split each style and writes `fonts.css` |
 | `verify_phase2.py` | Shapes the optional figures/fractions and checks all 30 subset files |
 | `build_page.py` | Builds the Lab page with the current fonts inside it |
+| `build_comparison.py`, `comparison_template.html` | Rebuild the self-contained reference preview with embedded fonts; no network access needed |
+| [`docs/DESIGN-GOALS.md`](docs/DESIGN-GOALS.md) | The approved design direction, reference measurements, and reading experiments |
+| `references/` | Official Literata and Rubik fonts for comparison, with their OFL licenses and source hashes |
 | `emoji_demo.py` | Original SEIHouse emoji art used in the comments demo |
 | `kern_base.json`, `kern_auto.json` | Pair spacing: hand-set pairs and the automatic pass |
-| `old/` | The 0.6 version, kept for side-by-side comparison in the Lab |
+| `old/` | The 0.6 version for the Lab and all ten 0.27 styles for the reference preview |
 
 ## Rebuilding
 
@@ -41,13 +45,14 @@ Then:
 ```
 python make_fonts.py        # builds all 10 full styles, 30 subsets, and fonts.css
 python build_page.py        # builds lab/index.html with the new fonts
+python build_comparison.py  # builds lab/comparison.html with candidate, baseline, and references
 python verify_phase2.py     # checks OpenType shaping and subset coverage
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
 `python make_fonts.py my_changes.json`.
 
-## What SEIReader has (version 0.27)
+## What SEIReader has (version 0.28)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
@@ -55,6 +60,9 @@ To apply changes saved from the Lab (copied with "Copy instead of Save"), put th
 - Automatic pair spacing for capitals, punctuation, quotes, brackets, and gently corrected
   lowercase pairs, plus hand-set pairs
 - Rounder upright letters and slightly wider forms; raised straight and curly quotation marks
+- Individual reading curves for `a`, `e`, `c`, and `s`; modestly narrower `a`/`e`, more side
+  space for `i`, and a 0.220 em word space. Heights, weights, contrast, squared caps, and
+  the handwriting-style italic construction carry forward from 0.27
 - Joined `fi` and `fl`
 - Optional tabular figures (`tnum`), superscript and subscript figures (`sups`, `subs`),
   and stacked fractions (`frac`); Unicode superscripts/subscripts and ½ ¼ ¾ are also included
@@ -78,3 +86,5 @@ To apply changes saved from the Lab (copied with "Copy instead of Save"), put th
 ## License
 
 Not decided yet. Until a license is chosen, all rights are reserved by SEIHouse Productions LLC.
+The third-party reference fonts in `references/` are separately licensed under the SIL Open
+Font License; their license texts are included in each family directory.

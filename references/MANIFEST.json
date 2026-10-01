@@ -1,0 +1,45 @@
+{
+  "retrieved": "2026-09-30",
+  "fonts": [
+    {
+      "family": "literata",
+      "source": "https://github.com/google/fonts/tree/main/ofl/literata",
+      "file": "Literata[opsz,wght].ttf",
+      "version": "Version 3.103;gftools[0.9.29]",
+      "source_sha256": "b41138c9373112f32abb589cc22e8674b06ed4048b0c513be922bdd26f274440",
+      "asset": "literata/Regular.woff2",
+      "asset_sha256": "27408194f16b8593326331453ff48153f72fb9854d391de1679fdaecc43c5983",
+      "processing": "Lossless WOFF2 compression; full original variable font"
+    },
+    {
+      "family": "literata",
+      "source": "https://github.com/google/fonts/tree/main/ofl/literata",
+      "file": "Literata-Italic[opsz,wght].ttf",
+      "version": "Version 3.103;gftools[0.9.29]",
+      "source_sha256": "d483dfaeba9cbf4ce71d32a52ee65df82f7e35b15fff8d1011cdb242d1fcd465",
+      "asset": "literata/Italic.woff2",
+      "asset_sha256": "5c304b49edacb36976bbb316a393fad7026ed7af66f6558f0271804bdbbc9cf7",
+      "processing": "Lossless WOFF2 compression; full original variable font"
+    },
+    {
+      "family": "rubik",
+      "source": "https://github.com/google/fonts/tree/main/ofl/rubik",
+      "file": "Rubik[wght].ttf",
+      "version": "Version 2.300;gftools[0.9.30]",
+      "source_sha256": "1b3a7437ba2af80e465e773ed60c5036d1ba6ace492d89046dbcf18fb31e4e88",
+      "asset": "rubik/Regular.woff2",
+      "asset_sha256": "378f448a6d3d8888256da27a75f8a77147eadc651da20005eb0ae8c0fe4106db",
+      "processing": "Lossless WOFF2 compression; full original variable font"
+    },
+    {
+      "family": "rubik",
+      "source": "https://github.com/google/fonts/tree/main/ofl/rubik",
+      "file": "Rubik-Italic[wght].ttf",
+      "version": "Version 2.300;gftools[0.9.30]",
+      "source_sha256": "08c6c4018a5ada8b517407b46897e46cf6ebb106853fbd3e89addb51d3b59c62",
+      "asset": "rubik/Italic.woff2",
+      "asset_sha256": "01bda6b4b7644ce28febd1a39e248f762c4b06b49149fc07248cc924a00e7cbf",
+      "processing": "Lossless WOFF2 compression; full original variable font"
+    }
+  ]
+}

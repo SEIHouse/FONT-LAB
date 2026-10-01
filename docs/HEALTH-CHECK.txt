@@ -1,12 +1,23 @@
-SEIReader 0.27 health check
+SEIReader 0.28 health check
 Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
 
   Universal offline: 675 passed, 0 failed, 0 warnings  (457 skipped, 30 info)
   OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
 
-  Universal was run with --skip-network because the session cannot access external services.
-  A full run returned 10 connection failures for fontbakery_version and 10 service errors for
-  fontdata_namecheck. Those online checks are unverified; all local universal checks passed.
+  Universal was run with --skip-network. Online-only checks were not run for 0.28.
+  The previous full 0.27 run returned 10 connection failures for fontbakery_version and
+  10 service errors for fontdata_namecheck. Those online checks remain unverified.
+
+  Phase 2 shaping and all 30 web subsets verified after the final rebuild.
+  All 10 preserved 0.27 WOFF2 files match their original SHA-256 hashes.
+  Across all 10 candidate styles, x-height, cap height, weight classes, and the outlines
+  and advances of caps, digits, quotation marks, and sampled brand/system icons match 0.27.
+  Accented derivatives share their updated base advances. The a/e counters and c/s openings
+  have the expected contour structure in every weight and italic.
+
+  The reference preview embeds 24 font faces. Its script, shared sample text, and control
+  logic were checked locally. The in-app browser automation could not connect, so browser
+  rendering and physical-device reading comfort still need manual review.
 
 History
   0.19  First check found and fixed: version number mismatch, missing "normal style" flag on
@@ -29,3 +40,7 @@ History
   0.27  Rounder upright forms, gentler lowercase pair spacing, raised quotes and tighter
         apostrophes; all 10 full styles and 30 subsets rebuilt. OpenType and offline universal
         profiles are clean. Online-only universal checks remain unverified.
+  0.28  Individual a/e/c/s curves, modest a/e width reductions, slightly wider i side space,
+        and 0.220 em word space; recalculated pair spacing, rebuilt all 10 styles and 30
+        subsets. OpenType and offline universal are clean. Preserved 0.27 and bundled licensed
+        Literata/Rubik references in the self-contained comparison preview.

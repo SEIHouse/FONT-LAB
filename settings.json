@@ -1,6 +1,6 @@
 {
   "family": "SEIReader",
-  "version": "0.27",
+  "version": "0.28",
   "weight": 85,
   "contrast": 1.12,
   "lowercaseRoundness": 0.55,
@@ -10,7 +10,7 @@
   "xHeight": 510,
   "capitalRoundness": 245,
   "letterWidth": 0.95,
-  "wordSpace": 205,
+  "wordSpace": 220,
   "overshoot": true,
   "uFoot": false,
   "reader": {

@@ -1,4 +1,4 @@
-SEIReader, version 0.27 (working draft)
+SEIReader, version 0.28 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -88,6 +88,19 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   }
   Use <em> or font-style: italic for inner thoughts, book titles, and sound effects, and
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
+
+READING REFINEMENT PREVIEW
+  Open lab/comparison.html to compare 0.28 with the preserved 0.27 baseline, Literata,
+  and Rubik in the same layout. All comparison fonts are embedded for offline use.
+  The candidate uses a 0.220 em word space; the preview also offers the original 0.205
+  and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
+  then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
+  The reference fonts are comparison assets; use SEIReader for the app's reading text.
+
+  fonts.css already uses font-display: swap. Curly quotes and apostrophes request the
+  symbols/icons subset; accented names can request Latin extended as well. If a chapter
+  uses all three subsets, compare their total transfer size with the full WOFF2 before
+  choosing the delivery. Preload only files needed for the first reading view.
 
 NUMERIC FEATURES (opt in)
   Proportional numbers remain the default. The feature settings below work with either the

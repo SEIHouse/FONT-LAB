@@ -1,4 +1,4 @@
-"""Builds the ONE SEIReader page: live controls for every font setting, a Save button Claude can read,
+"""Builds the SEIReader Lab: live controls for every font setting, a Save button Claude can read,
 the current font file and the 0.6 file for comparison."""
 import base64, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -186,6 +186,7 @@ html = r'''<!DOCTYPE html>
   <div class="meta">
     <span class="badge">Font file: version __VERSION__</span>
     <span class="badge" id="status" role="status">Loading…</span>
+    <a class="badge" href="comparison.html">Compare __VERSION__, 0.27, Literata, and Rubik</a>
   </div>
   <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
 

@@ -2,6 +2,13 @@
 
 Newest first.
 
+- **0.28** Literata/Rubik reference refinement: individual continuous curves for the upright
+  `a` and shared `e`/`c`/`s`, modestly narrower `a`/`e`, slightly more side space for `i`, and
+  word space raised from 0.205 to 0.220 em. Accent and joined-letter derivatives follow the
+  updated source rules, and pair spacing is recalculated for every style. Preserved all ten
+  0.27 styles and added the same reference preview layout with 0.28, 0.27, Literata, and Rubik;
+  Day/Night, 13/15/17/20px, weights, 1.4/1.5/1.6 line height, and 0.205/0.220/0.230 word-space
+  trials. The default chapter line height remains 1.4 for comparison.
 - **0.27** Phase 3 reading feedback pass: rounder, slightly wider upright forms; conservative
   lowercase pair spacing to smooth long words; straight and curly quotes raised, with
   apostrophes tucked closer to adjacent lowercase letters. Rebuilt the full family and web

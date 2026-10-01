@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="color-scheme" content="dark light">
+<title>SEIReader __VERSION__ · reference preview</title>
+<style>
+__FONTS__
+:root{color-scheme:dark;--bg:#14131a;--panel:#1d1b24;--fg:#e8e3db;--muted:#b6afc4;--line:#494151;--accent:#b9a5ee}
+body.day{color-scheme:light;--bg:#faf7f0;--panel:#fffdf8;--fg:#29252b;--muted:#64596b;--line:#dbd3df;--accent:#67449d}
+*{box-sizing:border-box}body{margin:0;padding:32px;background:var(--bg);color:var(--fg);font:16px/1.5 system-ui,sans-serif}
+main{max-width:1660px;margin:auto}h1{font-size:30px;line-height:1.2;margin:0 0 12px}h2{font:600 18px/1.3 system-ui;margin:0 0 6px;color:var(--accent)}
+.intro{max-width:90ch;color:var(--muted)}.controls{display:flex;gap:14px 18px;flex-wrap:wrap;align-items:center;padding:20px 0;position:sticky;top:0;background:var(--bg);z-index:1}
+button,select{font:inherit;color:var(--fg);background:var(--panel);border:1px solid var(--line);border-radius:6px;padding:8px}
+button{cursor:pointer}label{display:flex;align-items:center;gap:8px}input[type=checkbox]{accent-color:var(--accent)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px}
+.grid.stacked{grid-template-columns:1fr;max-width:700px;margin:auto}.card{min-width:0;padding:24px;background:var(--panel);border:1px solid var(--line);border-radius:12px}
+.card.candidate{border-color:var(--accent)}.caption{font-size:13px;color:var(--muted);margin:0 0 20px}
+.large{font-size:clamp(32px,2.9vw,48px);line-height:1.35;font-weight:var(--weight,400);border-bottom:1px solid var(--line);padding-bottom:22px;margin-bottom:22px}
+.identity{font-size:.75em}.sample{font-size:20px;line-height:1.4;font-weight:var(--weight,400);font-synthesis:none;font-kerning:normal;letter-spacing:0;overflow-wrap:break-word}
+.sample p{margin:0 0 1em}.sample p:last-child{margin:0}.words{padding-top:16px;border-top:1px solid var(--line)}
+.Candidate{font-family:Candidate}.Baseline{font-family:Baseline}.Literata{font-family:Literata;font-optical-sizing:none;font-variation-settings:'opsz' 20}.Rubik{font-family:Rubik}
+.metrics{overflow:auto;margin-top:32px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:12px}
+.metrics h2{margin-bottom:12px}footer{margin-top:24px;color:var(--muted);max-width:100ch}footer p{margin:.8em 0}a{color:var(--accent)}
+details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-width:90ch}code{font-size:.92em}
+@media(max-width:1250px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.large{font-size:44px}}
+@media(max-width:760px){body{padding:18px}.grid{grid-template-columns:1fr}.large{font-size:40px}.controls{position:static}.card{padding:22px}}
+</style>
+</head>
+<body>
+<main>
+<h1>Literata + Rubik + SEIHouse = SEIReader</h1>
+<p class="intro">Keep SEIReader's distinctive softness and character. Bring more consistency and polish to its shapes and spacing. Compare candidate __VERSION__ with the preserved 0.27 baseline and both references.</p>
+<div class="controls" aria-label="Comparison reading settings">
+  <button id="theme" type="button" aria-pressed="false">Day</button>
+  <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
+  <label for="leading">Line height <select id="leading"><option selected>1.4</option><option>1.5</option><option>1.6</option></select></label>
+  <label for="weight">Weight <select id="weight"><option value="300">Light</option><option value="400" selected>Regular</option><option value="500">Medium</option><option value="600">SemiBold</option><option value="700">Bold</option></select></label>
+  <label for="space">__VERSION__ word space <select id="space"><option value="0.205">0.205 em · original</option><option value="0.220" selected>0.220 em · candidate</option><option value="0.230">0.230 em · roomier</option></select></label>
+  <label><input id="matched" type="checkbox"> Match lowercase height</label>
+  <label><input id="stacked" type="checkbox"> Full reading width</label>
+</div>
+<div class="grid" id="comparison-grid">
+  <article class="card candidate" aria-labelledby="candidate-title">
+    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · refined bowls, openings, and spacing</p>
+    <div class="large Candidate">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="sample Candidate" data-family="Candidate"></div>
+  </article>
+  <article class="card" aria-labelledby="baseline-title">
+    <h2 id="baseline-title">SEIReader 0.27</h2><p class="caption">Preserved baseline · original word space</p>
+    <div class="large Baseline">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="sample Baseline" data-family="Baseline"></div>
+  </article>
+  <article class="card" aria-labelledby="literata-title">
+    <h2 id="literata-title">Literata</h2><p class="caption">Reading reference · optical size 20</p>
+    <div class="large Literata">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="sample Literata" data-family="Literata"></div>
+  </article>
+  <article class="card" aria-labelledby="rubik-title">
+    <h2 id="rubik-title">Rubik</h2><p class="caption">Shape reference · softly rounded corners</p>
+    <div class="large Rubik">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="sample Rubik" data-family="Rubik"></div>
+  </article>
+</div>
+<div class="metrics">
+  <h2>Measured proportions · Regular 400</h2>
+  <table><thead><tr><th scope="col">Font</th><th scope="col">x-height / em</th><th scope="col">Cap / em</th><th scope="col">x / cap</th><th scope="col">Built-in word space / em</th></tr></thead><tbody id="metric-rows"></tbody></table>
+</div>
+<footer>
+<p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
+<details><summary>What changed and how to read this comparison</summary><div class="study-notes">
+<p>Candidate __VERSION__ keeps the 0.27 heights, weights, contrast, squared caps, raised quotes, and handwriting-style italic construction. Its upright <code>a</code> has a smaller bowl, <code>e</code> has an open exit, and <code>c</code>/<code>s</code> have more flowing terminals. The shared <code>e</code>/<code>c</code>/<code>s</code> curves also refine the italics. The <code>i</code> gets slightly more side space. Pair spacing is recalculated for every style.</p>
+<p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
+<p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
+</div></details>
+<p>References: <a href="https://github.com/google/fonts/tree/main/ofl/literata">Literata 3.103</a> and <a href="https://github.com/google/fonts/tree/main/ofl/rubik">Rubik 2.300</a>, under the SIL Open Font License. Licenses and source hashes are kept in <code>references/</code>. SEIReader is an original SEIHouse design.</p>
+</footer>
+</main>
+<script>
+'use strict';
+const metrics=__METRICS__;
+const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader 0.27',Literata:'Literata',Rubik:'Rubik'};
+const sample=`<p>“Lian,” Iñés said, “the blade is only a tool. Entry into the inner court must be earned.” Mei's acquittal would come at dawn, when the elders returned from the mountain. He read the notice twice, then watched the rain gather along the open window. For the first time in three days, he let his shoulders relax.</p><p><em>If the seal was broken, why did the gate remain closed? Iñés knew the answer. Lian did not.</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · <em>acquittal</em><br>To AV P. “A fi fl 0123456789</p>`;
+const byId=id=>document.getElementById(id);
+document.querySelectorAll('.sample').forEach(el=>{el.innerHTML=sample});
+byId('metric-rows').innerHTML=Object.entries(metrics).map(([name,m])=>`<tr><th scope="row">${names[name]}</th><td>${m.x.toFixed(3)}</td><td>${m.cap.toFixed(3)}</td><td>${(100*m.x/m.cap).toFixed(1)}%</td><td>${m.space.toFixed(3)}</td></tr>`).join('');
+function update(){
+  const size=Number(byId('size').value);
+  document.documentElement.style.setProperty('--weight',byId('weight').value);
+  document.querySelectorAll('.sample').forEach(el=>{
+    const family=el.dataset.family;
+    const scale=byId('matched').checked?metrics.Candidate.inkX/metrics[family].inkX:1;
+    el.style.fontSize=(size*scale)+'px';
+    el.style.lineHeight=byId('leading').value;
+    el.style.wordSpacing=family==='Candidate'?(Number(byId('space').value)-__SPACE__)+'em':'0em';
+  });
+  byId('comparison-grid').classList.toggle('stacked',byId('stacked').checked);
+}
+['size','leading','weight','space','matched','stacked'].forEach(id=>byId(id).addEventListener('change',update));
+byId('theme').addEventListener('click',()=>{
+  const day=document.body.classList.toggle('day');
+  byId('theme').textContent=day?'Night':'Day';
+  byId('theme').setAttribute('aria-pressed',String(day));
+});
+update();
+</script>
+</body>
+</html>
