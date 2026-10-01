@@ -1,35 +1,46 @@
-SEIReader 0.31 health check
+SEIReader 0.32 health check
 Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
 
   Universal offline: 675 passed, 0 failed, 0 warnings  (457 skipped, 30 info)
   OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
 
-  Universal was run with --skip-network. Online-only checks were not run for 0.31.
+  Universal was run with --skip-network. Online-only checks were not run for 0.32.
   The previous full 0.27 run returned 10 connection failures for fontbakery_version and
   10 service errors for fontdata_namecheck. Those online checks remain unverified.
 
   Phase 2 shaping and all 30 web subsets verified after the final rebuild.
-  All 10 preserved 0.30 WOFF2 files match their original SHA-256 hashes.
-  verify_spacing.py passes across all 10 candidate styles:
-    - All 295 contours, bearings, and advances exactly match 0.30.
-    - Only pairs present in the inspected broader words change: 9-12 per upright style,
-      25-29 per italic style. Earlier focused pairs and ligature-neighbor spacing are unchanged.
-    - All design settings except the version number are unchanged; vertical metrics and
-      the italic angle are unchanged too.
-    - Alignment zones/stem widths match the baseline; stem hints remain in every style.
-    - Shaping changes only pair advances; disabling kern matches 0.30 on the test words.
-    - Accent classes inherit base spacing; joined fi/fl receive neighboring pair adjustments.
-    - Actual outline intersections find no collisions in the earlier and broader words/pairs and join
-      samples, both with liga enabled and disabled.
-    - Latin-basic subset word shaping matches full-font shaping.
+  All 10 preserved 0.31 full WOFF2 files and 30 subsets match their SHA-256 manifests,
+  and were also compared byte-for-byte with commit 1c0bbc7dc2f6e9a8f07f5c056c732ddac03cb924.
+  verify_texture.py passes across all 10 candidate styles:
+    - All 295 advances and all nominal design settings except version match 0.31.
+    - 85 intended mark/figure contours change in Regular/SemiBold/Bold and their italics.
+      Light/Medium also change 119 letter/derivative contours (204 total per style).
+    - Unrelated contours/bearings, symbols/icons, private aliases, compact ordinal marks,
+      vertical metrics, contrast, and italic angle are preserved.
+    - Letter-pair spacing and letter-only word shaping exactly match 0.31. Only pairs
+      involving marks/figures change: 940-947 per upright and 772-854 per italic style.
+    - The built n has +5.13%/+4.98% ink in Light/LightItalic and -2.58%/-2.54% in
+      Medium/MediumItalic. Other weights' letter drawings are identical to 0.31.
+    - Letter counters, 0/6/8/9 counters and their tabular/small variants, tall-letter
+      alignment, and raised quotes pass. Weight order remains Light < Regular < Medium
+      < SemiBold < Bold, upright and italic.
+    - Alignment zones match the baseline; standard stems follow the calibrated letter
+      strokes and stem hints remain in every style.
+    - Disabling kern preserves all tested glyph choices, advances, and offsets.
+    - Accent classes inherit base spacing. All changed mark/figure pairs, their accented
+      derivatives, earlier words, broader words, and dialogue cases have no adjacent
+      outline intersections. Word samples are checked with joins both enabled and disabled.
+    - Each subset's local encoded text shapes exactly like the full font.
     - Every generated Lab pair agrees with the corresponding finished font.
-  verify_lowercase.py also passes, preserving the earlier 0.29 scope against 0.28.
+  Historical verify_lowercase.py old/0.31 and verify_spacing.py old/0.31 also pass,
+  preserving their earlier scope audits against 0.28 and 0.30 respectively.
 
   The reference preview embeds 24 font faces. Its script syntax and embedded font bytes
   were checked locally. Fixed 13/15/17px Light/Regular/Medium samples include upright,
-  real italic, accents, and joins on/off. Native Windows WPF grayscale proofs were inspected
-  at 96 dpi in Day and Night, both at small sizes and all five weights at 20px; see
-  docs/proofs/0.31/ and its family/ directory. These use HarfBuzz-shaped glyph indices
+  real italic, dialogue, decimals, proportional/tabular figures, fractions, accents, and
+  joins on/off. Native Windows WPF grayscale proofs were inspected at 96 dpi in Day
+  and Night, both at small sizes and all five weights at 20px; see docs/proofs/0.32/,
+  its family/ and rhythm/ directories. These use HarfBuzz-shaped glyph indices
   and the real candidate/baseline outlines, with no font installation or simulated bold.
   The in-app browser automation could not connect. Physical phone/browser checks are
   deferred at the user's request; no device or sustained-reading comfort pass is claimed.
@@ -73,3 +84,10 @@ History
         earlier focused pairs, and ligature neighbors. All ten styles and thirty subsets
         rebuilt; preservation, permitted-pair, shaping, collision, and FontBakery checks pass.
         Updated the same preview and native Day/Night proofs, including all weights at 20px.
+  0.32  Quieter punctuation, smoother numeral bowls/terminals, and reading-weight calibration
+        together. Light letters draw at 74 and Medium at 97 source units, with all nominal
+        controls, advances, letter pairs, vertical metrics, and unrelated drawings preserved.
+        Updated numeric alternates/fractions and full-height mark/figure clearance, including
+        accents. Ten full styles/thirty subsets rebuilt and autohinted. Texture, counter,
+        weight, shaping, collision, delivery, and both FontBakery profiles pass. Preserved
+        0.31 full/subset fonts and updated the same comparison and Windows Day/Night proofs.

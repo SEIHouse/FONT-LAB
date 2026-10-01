@@ -13,7 +13,7 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The reference preview: current candidate beside preserved 0.30, Literata, and Rubik, with broader spacing samples, fixed 13/15/17px proofs, reading controls, and word-space trials |
+| [`lab/comparison.html`](lab/comparison.html) | The reference preview: current candidate beside preserved 0.31, Literata, and Rubik, with dialogue, proportional/tabular figures, reading weights, fixed 13/15/17px proofs, and existing spacing samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -25,6 +25,7 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `verify_phase2.py` | Shapes the optional figures/fractions and checks all 30 subset files |
 | `verify_lowercase.py` | Checks the scope of the 0.29 curve pass against preserved 0.28: all advances, unchanged outlines, counters, heights, and settings |
 | `verify_spacing.py` | Checks the 0.31 pass against preserved 0.30: every contour and metric, permitted pair changes, shaping, accent classes, joins, hints, subset spacing, and collisions |
+| `verify_texture.py` | Checks 0.32 against preserved 0.31: permitted contours, stable advances and letter rhythm, figure counters, reading weights, hints, shaping, and collisions |
 | `build_page.py` | Builds the Lab page with the current fonts inside it |
 | `build_comparison.py`, `comparison_template.html` | Rebuild the self-contained reference preview with embedded fonts; no network access needed |
 | [`docs/DESIGN-GOALS.md`](docs/DESIGN-GOALS.md) | The approved design direction, reference measurements, and reading experiments |
@@ -32,7 +33,7 @@ any change (weight, letter height, roundness, spacing) rebuilds the whole family
 | `emoji_demo.py` | Original SEIHouse emoji art used in the comments demo |
 | `kern_base.json`, `kern_auto.json`, `kern_styles.json` | Pair spacing: hand-set pairs, the automatic pass, and the finished optical pairs for every weight/style used by the Lab |
 | `render_small_text.py`, `render_windows.ps1` | Optional Windows WPF small-text proof renderer; uses HarfBuzz shaping and the actual glyph indices, with no font installation |
-| `old/` | The 0.6 version for the Lab and all ten styles of 0.27 through 0.30 as preserved baselines |
+| `old/` | The 0.6 version for the Lab and all ten styles of 0.27 through 0.31 as preserved baselines; 0.31 also includes its thirty subsets |
 
 ## Rebuilding
 
@@ -50,22 +51,24 @@ python make_fonts.py        # builds all 10 full styles, 30 subsets, and fonts.c
 python build_page.py        # builds lab/index.html with the new fonts
 python build_comparison.py  # builds lab/comparison.html with candidate, baseline, and references
 python verify_phase2.py     # checks OpenType shaping and subset coverage
-python verify_lowercase.py  # checks the 0.29 refinement scope against preserved 0.28
-python verify_spacing.py    # checks the 0.31 spacing scope against preserved 0.30
+python verify_texture.py    # checks the current 0.32 refinement against preserved 0.31
+python verify_lowercase.py old/0.31  # historical curve preservation against 0.28
+python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
 `python make_fonts.py my_changes.json`.
 
-Optional native Windows proof: `python render_small_text.py path/to/output 96`. This produces
+Optional native Windows proof: `python render_small_text.py path/to/output 96 --texture`. This produces
 Day/Night PNGs at 13/15/17px in Light, Regular, and Medium, including real italics. See the
-checked-in [Day](docs/proofs/0.31/windows-day-96.png) and [Night](docs/proofs/0.31/windows-night-96.png)
+checked-in [Day](docs/proofs/0.32/windows-day-96.png) and [Night](docs/proofs/0.32/windows-night-96.png)
 proofs. Add `--full-family` to proof all five weights at 20px, upright and italic; see
-the [family Day](docs/proofs/0.31/family/windows-day-96.png) and
-[family Night](docs/proofs/0.31/family/windows-night-96.png) images. These are WPF
+the [family Day](docs/proofs/0.32/family/windows-day-96.png) and
+[family Night](docs/proofs/0.32/family/windows-night-96.png) images. Omit `--texture` for the broader
+word-spacing samples. These are WPF
 rasterization evidence; physical browser/device results remain deferred.
 
-## What SEIReader has (version 0.31)
+## What SEIReader has (version 0.32)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
@@ -74,7 +77,7 @@ rasterization evidence; physical browser/device results remain deferred.
   lowercase pairs, plus hand-set pairs
 - Rounder upright letters and slightly wider forms; raised straight and curly quotation marks
 - Individual reading curves for `a`, `e`, `c`, and `s`; modestly narrower `a`/`e`, more side
-  space for `i`, and a 0.220 em word space. Heights, weights, contrast, squared caps, and
+  space for `i`, and a 0.220 em word space. Heights, nominal weights, contrast, squared caps, and
   the handwriting-style italic construction carry forward from 0.27
 - Related `h/n/m` shoulders, the `u` lower curve, and `b/d/p/q` bowls refined to sit
   consistently beside `a/e/c/s`. All advances and global settings carry forward from 0.28;
@@ -82,11 +85,17 @@ rasterization evidence; physical browser/device results remain deferred.
 - Joined `fi` and `fl`
 - Focused optical spacing for the reported snag words and `ri/rn/cl/li`, measured separately
   for every weight and italic. Joined `fi/fl` receive spacing beside neighbors; all glyph
-  contours, bearings, and advances match 0.29, with extra separation at crowded `tt/ry` pairs
+  advances carry forward, with extra separation at crowded `tt/ry` pairs
 - Broader rhythm inspection for `minimum`, `murmur`, `river`, `climate`, `parallel`, and
   `everywhere`, plus supporting `r/v/w/y` and narrow-letter cases. Balance `ll`, protect
   `yw/tw` separation, and open crowded italic `ur/um`. All earlier focused pairs and all
-  0.30 shapes/metrics are preserved. See the [inspection notes](docs/SPACING-0.31.md)
+  character advances are preserved. See the [inspection notes](docs/SPACING-0.31.md)
+- Quieter punctuation and smoother figures, including updated tabular/small figures and
+  fractions. Raised quotes stay raised; mark/figure pairs retain minimum ink separation,
+  including accented letter classes. See the [texture notes](docs/TEXTURE-0.32.md)
+- Firmer Light and slightly lighter Medium letter strokes for small reading sizes, with
+  Regular/SemiBold/Bold letter drawings, symbols/icons, nominal controls, and all advances
+  unchanged. These are static refinements at every size, with no optical-size axis
 - Optional tabular figures (`tnum`), superscript and subscript figures (`sups`, `subs`),
   and stacked fractions (`frac`); Unicode superscripts/subscripts and ½ ¼ ¾ are also included
 - Three WOFF2 deliveries per style: Latin basic, Latin extended, and symbols/icons. The generated

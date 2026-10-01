@@ -1,4 +1,4 @@
-SEIReader, version 0.31 (working draft)
+SEIReader, version 0.32 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -90,10 +90,13 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.31 with the preserved 0.30 baseline, Literata,
+  Open lab/comparison.html to compare 0.32 with the preserved 0.31 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
-  Focused r/v/w/y and narrow-letter samples show the broader rhythm pass, upright and italic.
-  All contours, advances, and design settings match 0.30; real italics keep their pen-like exits.
+  Dialogue, decimals, proportional/tabular figures, and fractions show the refined texture.
+  Light has a firmer letter stroke and Medium a slightly lighter one. Regular keeps its
+  letter drawings; SemiBold/Bold, symbols/icons, and compact ordinal marks keep theirs too.
+  All advances, nominal settings, and letter-pair rhythm match 0.31. The stroke adjustments
+  apply at every size, with no optical-size axis. Real italics keep their pen-like exits.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
   from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
   then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
@@ -110,13 +113,16 @@ OPTICAL SPACING AND SMALL TEXT
       letter-spacing: 0;
     }
 
-  Version 0.31 extends the inspected pair spacing; its glyph contours and advances match 0.30.
+  Version 0.32 carries forward the approved 0.31 letter rhythm and remeasures mark/figure
+  pairs for its lighter punctuation and smoother numerals. All character advances stay stable.
   Avoid overriding the pair rhythm with extra CSS tracking. Review Light, Regular,
   and Medium at 13/15/17px in both themes using the comparison page's fixed-size
   matrix. Check minimum, murmur, river, climate, parallel, and everywhere, upright and italic.
   Include rival, arrival, vivid, willow, weary, yearly, twilight, and the earlier Lian,
   Iñés, blade, Entry, Mei's / Mei’s, acquittal, ri/rn/cl/li, office, affinity, flame,
-  and reflection. Native Windows proof images are in docs/proofs/0.31/; its family/
+  and reflection. Inspect “Mei’s,” and “Entry 12?” alongside 1,234.56, 8.50%, and 6089,
+  upright and italic, with proportional and tabular figures. Native Windows proof images
+  are in docs/proofs/0.32/; its family/
   images cover all five weights at 20px. Physical browser/device checks remain deferred.
 
   fonts.css already uses font-display: swap. Curly quotes and apostrophes request the

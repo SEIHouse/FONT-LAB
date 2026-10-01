@@ -76,13 +76,36 @@ includes the broader words in prose and upright/italic word lines, plus the fixe
 matrix. Native Windows proofs cover 13/15/17px Light/Regular/Medium and all five weights
 at 20px in Day/Night. Device and sustained-reading comfort results remain deferred.
 
+## The 0.32 punctuation, figures, and reading-weight pass
+
+Refine these two areas together so marks and figures sit comfortably in the prose.
+Smooth the continuous curves of `2/3/5/6/8/9`, keep the characteristic angular `1/4/7`,
+and give full-size figures a 4% lighter stroke. Numeric alternates inherit the new
+curves, with small figures retaining their separately lighter stroke. Quotes, commas,
+dots, and dashes make quieter marks while quotes keep their raised position.
+
+Calibrate letter strokes to 74 source units in Light and 97 in Medium, with 85 unchanged
+in Regular. Keep the nominal 70/85/100 controls so all advances and the established
+letter-pair spacing remain stable. These are static master refinements at every size,
+not an optical-size axis. Other weights keep their letter drawings. Symbols/icons,
+word space, contrast, italic angle, tall-letter alignment, and vertical metrics stay
+as in 0.31. Custom design settings can still remeasure the letter-pair spacing.
+
+The same preview uses preserved 0.31 as its baseline and retains Literata/Rubik, the
+earlier word samples, and all reading controls. It adds dialogue punctuation, decimals,
+proportional/tabular figures, and fractions to the fixed small-size matrix. See
+[the inspection notes](TEXTURE-0.32.md). Native Windows proofs supplement the outline
+and shaping audits; physical browser/device and sustained-reading results remain deferred.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.30 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.31 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
+- Inspect `“Mei’s,”`, `“Entry 12?”`, `312/314`, `1,234.56`, `8.50%`, and `6089`, upright
+  and italic. Compare both figure sets and watch commas, dots, and quote tails at 13/15/17px.
 - Inspect `minimum`, `murmur`, `river`, `climate`, `parallel`, and `everywhere`, upright
   and italic. Include `rival`, `arrival`, `vivid`, `willow`, `weary`, `yearly`, and `twilight`.
 - Inspect `human`, `minimum`, `humming`, `bud`, `dawn`, `people`, and `quiet`, upright

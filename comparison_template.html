@@ -25,6 +25,7 @@ button{cursor:pointer}label{display:flex;align-items:center;gap:8px}input[type=c
 .metrics{overflow:auto;margin-top:32px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:12px}
 .metrics h2{margin-bottom:12px}footer{margin-top:24px;color:var(--muted);max-width:100ch}footer p{margin:.8em 0}a{color:var(--accent)}
 details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-width:90ch}code{font-size:.92em}
+.tnum{font-variant-numeric:tabular-nums}.figure-label{display:block;font-family:system-ui,sans-serif;font-size:12px;font-style:normal;font-weight:400;color:var(--muted);margin-top:12px}
 @media(max-width:1250px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.large{font-size:44px}}
 @media(max-width:760px){body{padding:18px}.grid,.proof-grid{grid-template-columns:1fr}.large{font-size:40px}.controls{position:static}.card{padding:22px}}
 </style>
@@ -32,7 +33,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <body>
 <main>
 <h1>Literata + Rubik + SEIHouse = SEIReader</h1>
-<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ broader spacing pass with preserved __BASELINE__, Literata, and Rubik. Follow minimum, murmur, river, climate, parallel, and everywhere through upright and italic prose, with special attention to r, v, w, y, and narrow letters.</p>
+<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ punctuation, figure, and reading-weight refinement with preserved __BASELINE__, Literata, and Rubik. Follow dialogue, decimals, and chapter numbers through upright and italic text, then compare Light, Regular, and Medium at 13, 15, and 17px.</p>
 <div class="controls" aria-label="Comparison reading settings">
   <button id="theme" type="button" aria-pressed="false">Day</button>
   <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
@@ -45,23 +46,23 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 </div>
 <div class="grid" id="comparison-grid">
   <article class="card candidate" aria-labelledby="candidate-title">
-    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · broader upright and italic spacing</p>
-    <div class="large Candidate">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
+    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · calmer marks and balanced reading weights</p>
+    <div class="large Candidate">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Candidate" data-family="Candidate"></div>
   </article>
   <article class="card" aria-labelledby="baseline-title">
-    <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved baseline · identical letter shapes</p>
-    <div class="large Baseline">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
+    <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved baseline · previous marks and reading weights</p>
+    <div class="large Baseline">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Baseline" data-family="Baseline"></div>
   </article>
   <article class="card" aria-labelledby="literata-title">
     <h2 id="literata-title">Literata</h2><p class="caption">Reading reference · optical size 20</p>
-    <div class="large Literata">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
+    <div class="large Literata">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Literata" data-family="Literata"></div>
   </article>
   <article class="card" aria-labelledby="rubik-title">
     <h2 id="rubik-title">Rubik</h2><p class="caption">Shape reference · softly rounded corners</p>
-    <div class="large Rubik">r v w y<br>i l m n<br><span class="identity">h u b d · a e c s</span></div>
+    <div class="large Rubik">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Rubik" data-family="Rubik"></div>
   </article>
 </div>
@@ -78,7 +79,8 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <footer>
 <p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
 <details><summary>What changed and how to read this comparison</summary><div class="study-notes">
-<p>Candidate __VERSION__ preserves every __BASELINE__ glyph contour and advance, including the refined lowercase and handwriting-style italics. Broader pair adjustments inspect the requested words and supporting cases such as rival, arrival, vivid, willow, weary, yearly, and twilight. They balance <code>ll</code>, protect the close <code>yw/tw</code> joins, and give italic <code>ur/um</code> enough room. Negligible residuals retain their existing spacing unless the ink needs more separation. All earlier focused pairs, joined <code>fi/fl</code>, and their cursor stops carry forward. Accent derivatives share their base letter’s pair classes. Word space, heights, weights, contrast, and raised quotes stay the same.</p>
+<p>Candidate __VERSION__ smooths the curves of <code>2/3/5/6/8/9</code> and gives figures a slightly lighter stroke. Quotes, commas, dots, and dashes make quieter marks; quotation marks keep their raised position. All numeric alternates follow the updated figures. Light gains a little substance, while Medium gains a little counter room. Regular, SemiBold, and Bold keep their letter drawings. These are static weight refinements, applied at every size; there is no automatic optical-size switching.</p>
+<p>Every character advance, the established letter-pair rhythm, word space, heights, contrast, and italic angle match __BASELINE__. Only pairs involving punctuation or figures are remeasured. Symbols and icons keep their drawings. The earlier reading words, real <code>fi/fl</code> joins, accents, and cursor stops carry forward. The two figure rows show proportional defaults and optional tabular figures separately.</p>
 <p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
 <p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
 </div></details>
@@ -89,10 +91,10 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 'use strict';
 const metrics=__METRICS__;
 const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
-const sample=`<p>“Lian,” Iñés said, “follow the river along the parallel paths. Listen for the murmur under the bridge.” Willow branches moved everywhere in the wind. The climate had turned cold, and the travelers carried only the minimum they needed. Mei’s blade rested beside the notice. Entry into the inner court would wait until dawn, when the elders returned from the valley.</p><p><em>If the gate remained closed, where would the river lead? A weary rival had followed him through the twilight. Lian could hear the murmur, but he could see no one.</em></p><p class="words">minimum · murmur · river<br>climate · parallel · everywhere<br><em>minimum · murmur · river</em><br><em>climate · parallel · everywhere</em><br>iv vi ir ri ll yw tw ur um · <em>iv vi ir ri ll yw tw ur um</em><br>rival · arrival · vivid · willow<br>weary · yearly · twilight<br><em>rival · arrival · vivid · willow</em><br><em>weary · yearly · twilight</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · Mei’s · <em>acquittal</em><br><em>Lian · Iñés · blade · Entry · Mei’s</em><br>ri rn cl li · <em>ri rn cl li</em><br>office · affinity · flame · reflection<br><span class="noliga">fi fl · office · reflection (joins off)</span><br>ñ ù ú û ü · To AV P. “A 0123456789</p>`;
+const sample=`<p>“Lian,” Iñés said, “follow the river along the parallel paths. Listen for the murmur under the bridge.” Willow branches moved everywhere in the wind. The climate had turned cold, and the travelers carried only the minimum they needed. Mei’s blade rested beside the notice. Entry into the inner court would wait until dawn, when the elders returned from the valley.</p><p><em>If the gate remained closed, where would the river lead? A weary rival had followed him through the twilight. Lian could hear the murmur, but he could see no one.</em></p><p>“Entry 12?” Mei asked. “I counted 312 steps; you counted 314.” The ledger read 1,234.56, then 8.50%—a minimum increase of ¼. “Wait… don’t move!” <em>Was it 6, 8, or 9? He couldn’t tell from the faded inscription.</em></p><p class="words">“Mei’s,” ‘Lian,’ "Iñés" · don’t! Why?<br>(Chapter 12); 3:14—5:09…<br><em>“Mei’s,” ‘Lian,’ "Iñés" · don’t! Why?</em><span class="figure-label">Proportional figures · default</span>0123456789 · 1,234.56 · 6089<br><em>0123456789 · 8.50%</em><span class="figure-label">Tabular figures · tnum</span><span class="tnum">0123456789 · 1,234.56 · 6089<br><em>0123456789 · 8.50%</em></span><br>½ ¼ ¾ · 1⁄2 · ² ₃</p><p class="words">minimum · murmur · river<br>climate · parallel · everywhere<br><em>minimum · murmur · river</em><br><em>climate · parallel · everywhere</em><br>iv vi ir ri ll yw tw ur um · <em>iv vi ir ri ll yw tw ur um</em><br>rival · arrival · vivid · willow<br>weary · yearly · twilight<br><em>rival · arrival · vivid · willow</em><br><em>weary · yearly · twilight</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · Mei’s · <em>acquittal</em><br><em>Lian · Iñés · blade · Entry · Mei’s</em><br>ri rn cl li · <em>ri rn cl li</em><br>office · affinity · flame · reflection<br><span class="noliga">fi fl · office · reflection (joins off)</span><br>ñ ù ú û ü · To AV P. “A 0123456789</p>`;
 const byId=id=>document.getElementById(id);
 document.querySelectorAll('.sample').forEach(el=>{el.innerHTML=sample});
-const proofText=`<p>minimum · murmur · river</p><p>climate · parallel · everywhere</p><p><em>minimum · murmur · river</em></p><p><em>climate · parallel · everywhere</em></p><p>ri rn cl li iv vi ll yw tw ur um</p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
+const proofText=`<p>“Mei’s,” Iñés said: “Wait… don’t!”</p><p><em>“Entry 12?” — 312, 314; 8.50%</em></p><p>0123456789 · 1,234.56 · 6089</p><p class="tnum">0123456789 · 1,234.56 · 6089 (tnum)</p><p><em>½ ¼ ¾ · ² ₃ · fi fl · Á ñ ü ç</em></p><p>minimum · murmur · river</p><p>climate · parallel · everywhere</p><p><em>minimum · murmur · river</em></p><p><em>climate · parallel · everywhere</em></p><p>ri rn cl li iv vi ll yw tw ur um</p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
 byId('proof-grid').innerHTML=[300,400,500].flatMap(weight=>[13,15,17].flatMap(size=>['Candidate','Baseline'].map(family=>`<article class="proof-case"><h3>${names[family]} · ${weight===300?'Light':weight===400?'Regular':'Medium'} · ${size}px</h3><div class="proof-text ${family}" style="font-size:${size}px;font-weight:${weight}">${proofText}</div></article>`))).join('');
 Promise.all(['Candidate','Baseline'].flatMap(family=>[300,400,500].flatMap(weight=>['normal','italic'].map(style=>document.fonts.load(`${style} ${weight} 17px ${family}`,'Lian Iñés ﬁﬂ'))))).then(loaded=>{
   byId('proof-status').textContent=loaded.every(faces=>faces.length>0)?'Candidate and baseline fonts loaded · real upright and italic.':'Some font faces did not load. Reload before evaluating spacing.';

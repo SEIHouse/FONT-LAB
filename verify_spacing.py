@@ -2,11 +2,13 @@
 
 Checks every contour/metric, changed shaping, accent classes, ligature neighbors,
 subset shaping, hinting, and actual outline separation in the reported words.
+Pass old/0.31 to audit that archived build after a later contour refinement.
 """
 from pathlib import Path
 import hashlib
 import io
 import json
+import sys
 
 import pathops
 import uharfbuzz as hb
@@ -50,14 +52,16 @@ def adjustment(font, text):
     return [b[1]-a[1] for a, b in zip(plain, spaced)]
 
 
-def verify():
+def verify(candidate=None):
     """Audit font preservation, shaping, hints, collisions, and per-style Lab spacing."""
+    candidate = Path(candidate).resolve() if candidate else ROOT/'fonts'
+    metadata = candidate if (candidate/'settings.json').exists() else candidate.parent
     before_settings = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
-    after_settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
+    after_settings = json.loads((metadata/'settings.json').read_text(encoding='utf-8'))
     before_settings.pop('version'); after_settings.pop('version')
     assert before_settings == after_settings, 'Setting changed outside the version number'
     hashes = json.loads((BASELINE/'SHA256.json').read_text(encoding='utf-8'))
-    style_pairs = json.loads((ROOT/'kern_styles.json').read_text(encoding='utf-8'))
+    style_pairs = json.loads((metadata/'kern_styles.json').read_text(encoding='utf-8'))
     before_pairs = json.loads((BASELINE/'kern_styles.json').read_text(encoding='utf-8'))
     assert len(hashes) == len(style_pairs) == 10
     reports = {}
@@ -69,7 +73,9 @@ def verify():
         filename = f'SEIReader-{style}.woff2'
         baseline_path = BASELINE/filename
         assert hashlib.sha256(baseline_path.read_bytes()).hexdigest() == hashes[filename], filename
-        with TTFont(baseline_path) as before, TTFont(ROOT/'fonts'/filename.replace('.woff2', '.otf')) as after:
+        candidate_path = candidate/filename.replace('.woff2', '.otf')
+        if not candidate_path.exists(): candidate_path = candidate/filename
+        with TTFont(baseline_path) as before, TTFont(candidate_path) as after:
             assert before.getBestCmap() == after.getBestCmap(), style
             assert before.getGlyphOrder() == after.getGlyphOrder(), style
             for name in after.getGlyphOrder():
@@ -114,7 +120,7 @@ def verify():
             assert shaped(after, 'fl')[0][0] == after.getBestCmap()[ord('ﬂ')], style
             for text in ('eﬂ', 'ﬂe'):
                 assert adjustment(after, text)[0] != 0, (style, text, 'ligature neighbor spacing missing')
-            with TTFont(ROOT/'fonts'/f'SEIReader-{style}.latin-basic.woff2') as subset:
+            with TTFont(candidate/f'SEIReader-{style}.latin-basic.woff2') as subset:
                 for text in ('Lian', 'blade', 'Entry', 'acquittal', 'ri rn cl li', 'office affinity flame reflection'):
                     assert shaped(after, text) == shaped(subset, text), (style, text, 'subset shaping')
                 for text in RHYTHM_WORDS:
@@ -134,4 +140,4 @@ def verify():
 
 
 if __name__ == '__main__':
-    verify()
+    verify(sys.argv[1] if len(sys.argv) > 1 else None)
