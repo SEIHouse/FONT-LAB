@@ -36,16 +36,32 @@ beside the established `a/e/c/s`. Shared continuous curves give related letters 
 stem joins and balanced inner spaces, with short straight sides retaining the softly
 squared character. Italics keep their lower branches and small pen-like exits.
 
-The comparison now uses preserved 0.28 as its immediate baseline. All ten 0.27 styles
+The 0.29 comparison used preserved 0.28 as its immediate baseline. All ten 0.27 styles
 remain under `old/0.27/`. Every advance and every setting except the version number
 matches 0.28. The existing automatic pair-spacing pass measures the new outlines;
 this iteration does not change its rules. `ñ/ù/ú/û/ü` follow their updated base curves.
 `verify_lowercase.py` audits these limits against all ten preserved 0.28 fonts.
 
+## The 0.30 optical spacing pass
+
+Preserve every 0.29 contour, bearing, and advance. Measure the central lowercase band
+for the reported word/pair cases, limit how far open edges affect the calculation,
+and retain room between the closest ink. Upright and italic have separate correction
+limits and every weight is measured independently. `rn/rm` retain a separation cushion;
+`tt/ry` receive room at their crowded edges. Joined `fi/fl` participate in surrounding
+pair spacing, with their internal construction unchanged. Accented letters inherit
+the same pair classes as their bases. The Lab uses the resulting per-style pairs.
+
+The same preview now compares 0.30 with preserved 0.29 and the references. Its fixed
+13/15/17px matrix covers Light, Regular, and Medium, upright/italic, with accents and
+joins on/off. Native Windows WPF grayscale proofs at 96 dpi supplement the font audits.
+Physical iPhone/Android and browser checks are deferred at the user's request; they
+remain required evidence before making device-specific readability claims.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.28 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.29 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
@@ -53,7 +69,7 @@ and use the same text, physical column width, color, and selected weight when co
   and italic. Compare both arches of `m`, the `u` bottom, and `b/d/p/q` counters at
   Light and Bold as well as the main reading weights.
 - Compare 20px at line heights 1.4 and 1.5, then 13/15/17px at Regular and Medium.
-- Compare word spaces 0.205, 0.220, and 0.230 em; both 0.28 and 0.29 use the middle value.
+- Compare word spaces 0.205, 0.220, and 0.230 em; versions 0.28 through 0.30 use the middle value.
 - Check Light comments, real italics, `fi`/`fl`, accents, punctuation, and symbols on phones.
 - Record tiring spots, snag words, and comfort after a chapter. Measurements and automated
   font checks cannot establish sustained reading comfort.

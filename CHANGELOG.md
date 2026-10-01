@@ -2,6 +2,15 @@
 
 Newest first.
 
+- **0.30** Optical spacing pass: measured, limited corrections for `Lian`, `Iñés`, `blade`,
+  `Entry`, `Mei’s`, `acquittal`, and `ri/rn/cl/li`, separately for upright and real italic
+  at every weight. Joined `fi/fl` now receive pair spacing beside neighboring letters;
+  crowded `tt/ry` pairs keep more room at small sizes. Every glyph contour, bearing,
+  advance, weight, height, contrast, and word space matches 0.29. The Lab uses the finished
+  per-style pairs. Preserved all ten 0.29 styles, rebuilt ten full styles and 30 subsets,
+  and added contour/shaping/collision audits. Updated the same comparison preview with
+  a fixed 13/15/17px Light/Regular/Medium matrix and native Windows Day/Night proofs.
+  Physical phone/browser checks are deferred at the user's request.
 - **0.29** Lowercase consistency pass: continuous shoulders for `h/n/m`, a smoother
   `u` lower curve, and shared `b/d/p/q` bowls with smooth stem joins and softly squared
   sides. Italics retain lower branches and pen-like exits; `ñ/ù/ú/û/ü` follow their bases.

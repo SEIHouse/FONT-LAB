@@ -205,7 +205,7 @@ def thin_joins(path):
     return path
 
 # ---------------------------------------------------------------- automatic pair spacing
-AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?\'"‘’“”()-–—/&'
+AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”()-–—/&'
 AUTO_STRENGTH = 0.6      # how much of the difference to correct (1 = all of it)
 AUTO_DEPTH = 0.10        # how far into a letter's open space counts (share of the em)
 AUTO_MIN, AUTO_MAX = -0.12, 0.04   # limits, as share of the em
@@ -274,7 +274,7 @@ def auto_pairs(paths, hm, cmap):
             lb_eff = min(lb if lb is not None else 1e9, B['Lmin'] + depth)
             tot += (A['adv'] - ra_eff) + lb_eff; k += 1
         return tot / max(k, 1)
-    lower = set('abcdefghijklmnopqrstuvwxyz')
+    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ')
     t_low = gap('n', 'n', 'low') if 'n' in prof else 0
     t_cap = gap('H', 'H', 'cap') if 'H' in prof else 0
     caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
@@ -305,6 +305,54 @@ def auto_pairs(paths, hm, cmap):
             limit = AUTO_LOWLOW if w == 'lowlow' else AUTO_THRESHOLD
             if abs(k) >= limit * SC:
                 out[a + b] = round(k / SC)       # stored per 1000, like the hand-set pairs
+    return out
+
+
+def optical_pairs(paths, hm, cmap, kern, italic):
+    """Small, outline-measured corrections for the reported reading cases.
+
+    Measure the central lowercase band to avoid letting tall stems or italic
+    exits dominate perceived space. Limit open-edge depth, preserve extra room
+    for rn/rm, and protect the closest actual ink from small-size crowding.
+    The glyph contours and all advances remain untouched.
+    """
+    focus = set('Li ia an In ne es bl la ad de En nt tr ry Me ei ac cq qu ui it tt ta al ri rn rm cl li fi fl'.split())
+    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ'
+    focus.update(a+b for a in chars for b in chars
+                 if 'j' not in (a, b) and ('ﬁ' in (a, b) or 'ﬂ' in (a, b)))
+    body_y = range(round(XHT*SC*.12), round(XHT*SC*.88), 10*SC)
+    full_y = range(0, 700*SC+1, 5*SC)
+    depth = 60*SC
+    prof = {}
+    for ch in chars:
+        name = cmap.get(ord(ch))
+        if not name: continue
+        left, right = profiles(paths[name], full_y)
+        body = profiles(paths[name], body_y)
+        prof[ch] = (hm[name], min(x for x in left if x is not None),
+                    max(x for x in right if x is not None), body, (left, right))
+    def measured(a, b):
+        A, B = prof[a], prof[b]
+        gaps = [A[0] - max(r if r is not None else -1e9, A[2]-depth)
+                + min(l if l is not None else 1e9, B[1]+depth)
+                for r, l in zip(A[3][1], B[3][0])]
+        closest = min(A[0]-r+l for r, l in zip(A[4][1], B[4][0])
+                      if r is not None and l is not None)
+        return sum(gaps)/len(gaps)/SC, closest/SC
+    target, _ = measured('n', 'n')
+    out = {}
+    for pair in sorted(focus):
+        a, b = pair
+        if a not in prof or b not in prof: continue
+        gap, closest = measured(a, b)
+        current = kern.get(pair, 0)
+        cushion = 20 if a == 'r' and b in 'inmh' else 0
+        residual = .55*(target+cushion-gap-current)
+        delta = max(-25 if italic else -18, min(22, residual))
+        value = max(-60 if italic else -45, min(40, round(current+delta)))
+        floor = 100 if pair in ('rn', 'rm') else 55 if pair in ('ry', 'tt', 'fi', 'fl') else 80
+        value = max(value, math.ceil(floor-closest))
+        if value != current: out[pair] = value
     return out
 
 def private_dict():
@@ -373,6 +421,7 @@ def gname(ch):
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
+STYLE_KERN = {}
 
 def track_for(thick):
     reg = settings['weight']
@@ -484,6 +533,8 @@ def build(data, out, style='Regular', italic=False):
 
     AUTO = auto_pairs(paths, hm, cmap)
     KERN.update(AUTO); KERN.update(data['kern'])
+    KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
+    STYLE_KERN[ps_style] = dict(KERN)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     if style == 'Regular' and not italic:
         json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
@@ -535,7 +586,8 @@ def build(data, out, style='Regular', italic=False):
     addOpenTypeFeaturesFromString(fb.font, fea)
     fb.font['name'].removeNames(platformID=1)
     fb.save(out)
-    autohint(out)
+    if not autohint(out):
+        raise RuntimeError(f'Screen tuning failed for {shown}; stopping the build')
     t = TTFont(out); t.flavor = 'woff2'; t.save(out.replace('.otf', '.woff2'))
 
 if __name__ == '__main__':
@@ -552,5 +604,7 @@ if __name__ == '__main__':
             fname = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             build(data, os.path.join(outdir, f'{FAMILY}-{fname}.otf'), style, italic)
             print('built', FAMILY, VERSION, fname, 'thickness', w)
+    with open(os.path.join(HERE, 'kern_styles.json'), 'w', encoding='utf-8') as f:
+        json.dump(STYLE_KERN, f, ensure_ascii=False)
     from build_subsets import build_subsets
     build_subsets()

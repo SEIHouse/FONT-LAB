@@ -8,6 +8,8 @@ settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8')
 VERSION = settings['version']
 kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
 kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'), encoding='utf-8')))     # hand-set pairs win
+style_kern = json.load(open(os.path.join(HERE, 'kern_styles.json'), encoding='utf-8'))
+kern.update(style_kern['Regular'])
 for k, v in settings.get('pairSpace', {}).items(): kern[k] = v
 b64 = lambda p: base64.b64encode(open(os.path.join(HERE, p), 'rb').read()).decode()
 WEIGHTS = dict(settings.get('weights', {})); WEIGHTS['Regular'] = settings['weight']
@@ -186,7 +188,7 @@ html = r'''<!DOCTYPE html>
   <div class="meta">
     <span class="badge">Font file: version __VERSION__</span>
     <span class="badge" id="status" role="status">Loading…</span>
-    <a class="badge" href="comparison.html">Compare __VERSION__, 0.28, Literata, and Rubik</a>
+    <a class="badge" href="comparison.html">Compare __VERSION__, 0.29, Literata, and Rubik</a>
   </div>
   <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
 
@@ -371,6 +373,7 @@ __ENGINE__
 /* ---------------- page ---------------- */
 const SR_BAKED = __BAKED__;
 const SR_KERN = __KERN__;
+const SR_STYLE_KERN = __STYLE_KERN__;
 const SR_CHARS = [...__CHARS__];
 const SR_CHAPTER = __CHAPTER__;
 const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
@@ -436,7 +439,14 @@ function applyToEngine(){
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
 const bm = c => (ACC[c] ? ACC[c].base : c);
-function pairVal(k){ if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k]; const c = [...k]; const kb = c.map(bm).join(''); return S_.pairSpace[kb] !== undefined ? S_.pairSpace[kb] : (SR_KERN[kb] || 0); }
+function pairVal(k, thick=S_.weight, italic=false){
+  if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
+  const kb = [...k].map(bm).join('');
+  if(S_.pairSpace[kb] !== undefined) return S_.pairSpace[kb];
+  const name = Object.keys(SR_BAKED.weights).reduce((best, n) => Math.abs(SR_BAKED.weights[n]-thick) < Math.abs(SR_BAKED.weights[best]-thick) ? n : best);
+  const style = italic ? (name === 'Regular' ? 'Italic' : name+'Italic') : name;
+  return (SR_STYLE_KERN[style] || SR_KERN)[kb] || 0;
+}
 
 /* draw one word from the rules, spaced exactly like the font file will be */
 /* thick and thin: draw each letter tall, then squash it back, so horizontal strokes come out thinner (same as the font build) */
@@ -464,7 +474,7 @@ function drawWord(w, size, thick, ital){
     if(!g){ x += 420; prev = ''; continue; }
     const o = S_.letterSpace[ch] || S_.letterSpace[bm(ch)] || {};
     const before = o.before || 0, after = o.after || 0;
-    x += pairVal(prev + ch);
+    x += pairVal(prev + ch, Sw, itc);
     const tri = tr + (itc ? 4 : 0);
     const gx = x + tri + g.sb0 + before - (itc ? T9 * 330 : 0);
     parts += `<g transform="translate(${f1(gx)} 0)${itc ? ' skewX(-9)' : ''}" clip-path="url(#${g.clipId})">${thickThin(g)}</g>`;
@@ -840,6 +850,7 @@ let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTime
 html = (html.replace('__ENGINE__', ENGINE)
             .replace('__BAKED__', json.dumps(BAKED, ensure_ascii=False))
             .replace('__KERN__', json.dumps(kern, ensure_ascii=False))
+            .replace('__STYLE_KERN__', json.dumps(style_kern, ensure_ascii=False))
             .replace('__CHARS__', json.dumps(CHARS, ensure_ascii=False))
             .replace('__CHAPTER__', json.dumps(CHAPTER, ensure_ascii=False))
             .replace('__FONTLIST__', json.dumps(FONTLIST)).replace('__WORDER__', json.dumps(WORDER)).replace('__VERSION__', VERSION)

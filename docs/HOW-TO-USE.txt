@@ -1,4 +1,4 @@
-SEIReader, version 0.29 (working draft)
+SEIReader, version 0.30 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -90,14 +90,32 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.29 with the preserved 0.28 baseline, Literata,
+  Open lab/comparison.html to compare 0.30 with the preserved 0.29 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
   Focused h/n/m/u and b/d/p/q samples show the lowercase consistency pass beside a/e/c/s.
-  All advances and global settings match 0.28; the real italics keep their pen-like exits.
+  All contours, advances, and design settings match 0.29; real italics keep their pen-like exits.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
   from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
   then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
   The reference fonts are comparison assets; use SEIReader for the app's reading text.
+
+OPTICAL SPACING AND SMALL TEXT
+  Use the font's own pair spacing and real joins in reading text:
+
+    .reader-text, .comment-text {
+      font-family: "SEIReader", sans-serif;
+      font-synthesis: none;
+      font-kerning: normal;
+      font-variant-ligatures: common-ligatures;
+      letter-spacing: 0;
+    }
+
+  Version 0.30 changes pair spacing; its glyph contours and advances match 0.29.
+  Avoid overriding the pair rhythm with extra CSS tracking. Review Light, Regular,
+  and Medium at 13/15/17px in both themes using the comparison page's fixed-size
+  matrix. Check Lian, Iñés, blade, Entry, Mei's / Mei’s, italic acquittal, ri/rn/cl/li,
+  office, affinity, flame, and reflection. Native Windows proof images are in
+  docs/proofs/0.30/; physical browser/device checks are deferred, not recorded as passes.
 
   fonts.css already uses font-display: swap. Curly quotes and apostrophes request the
   symbols/icons subset; accented names can request Latin extended as well. If a chapter
