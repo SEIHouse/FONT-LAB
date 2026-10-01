@@ -1,8 +1,35 @@
-SEIReader 0.26 health check
+SEIReader 0.30 health check
 Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
 
-  Universal checks:  695 passed, 0 failed, 0 warnings  (437 did not apply, 30 info)
+  Universal offline: 675 passed, 0 failed, 0 warnings  (457 skipped, 30 info)
   OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
+
+  Universal was run with --skip-network. Online-only checks were not run for 0.30.
+  The previous full 0.27 run returned 10 connection failures for fontbakery_version and
+  10 service errors for fontdata_namecheck. Those online checks remain unverified.
+
+  Phase 2 shaping and all 30 web subsets verified after the final rebuild.
+  All 10 preserved 0.29 WOFF2 files match their original SHA-256 hashes.
+  verify_spacing.py passes across all 10 candidate styles:
+    - All 295 contours, bearings, and advances exactly match 0.29.
+    - All design settings except the version number are unchanged; vertical metrics and
+      the italic angle are unchanged too.
+    - Alignment zones/stem widths match the baseline; stem hints remain in every style.
+    - Shaping changes only pair advances; disabling kern matches 0.29 on the test words.
+    - Accent classes inherit base spacing; joined fi/fl receive neighboring pair adjustments.
+    - Actual outline intersections find no collisions in the reported words/pairs and join
+      samples, both with liga enabled and disabled.
+    - Latin-basic subset word shaping matches full-font shaping.
+    - Every generated Lab pair agrees with the corresponding finished font.
+  verify_lowercase.py also passes, preserving the earlier 0.29 scope against 0.28.
+
+  The reference preview embeds 24 font faces. Its script syntax and embedded font bytes
+  were checked locally. Fixed 13/15/17px Light/Regular/Medium samples include upright,
+  real italic, accents, and joins on/off. Native Windows WPF grayscale proofs were inspected
+  at 96 dpi in Day and Night; see docs/proofs/0.30/. These use HarfBuzz-shaped glyph indices
+  and the real candidate/baseline outlines, with no font installation or simulated bold.
+  The in-app browser automation could not connect. Physical phone/browser checks are
+  deferred at the user's request; no device or sustained-reading comfort pass is claimed.
 
 History
   0.19  First check found and fixed: version number mismatch, missing "normal style" flag on
@@ -22,3 +49,18 @@ History
   0.26  Phase 2: tabular figures, superscript/subscript figures, fractions, and three WOFF2
         Unicode subsets per style. All 10 full OTF styles still have 0 FAIL / 0 WARN in both
         profiles. Shaping and all 30 web subsets also verified.
+  0.27  Rounder upright forms, gentler lowercase pair spacing, raised quotes and tighter
+        apostrophes; all 10 full styles and 30 subsets rebuilt. OpenType and offline universal
+        profiles are clean. Online-only universal checks remain unverified.
+  0.28  Individual a/e/c/s curves, modest a/e width reductions, slightly wider i side space,
+        and 0.220 em word space; recalculated pair spacing, rebuilt all 10 styles and 30
+        subsets. OpenType and offline universal are clean. Preserved 0.27 and bundled licensed
+        Literata/Rubik references in the self-contained comparison preview.
+  0.29  Consistent h/n/m shoulders, u lower curve, and b/d/p/q bowls. All advances and global
+        settings match 0.28; only the eight selected letters and five accented derivatives have
+        new outlines. Rebuilt all 10 styles and 30 subsets. OpenType and offline universal are
+        clean. Preserved all ten 0.28 styles and updated the same reference preview.
+  0.30  Measured optical spacing for reported reading words/pairs and ligature neighbors,
+        separately by weight and italic. All contours/metrics match 0.29. Rebuilt all ten
+        styles and 30 subsets; scope/shaping/collision audits and both FontBakery profiles
+        are clean. Preserved 0.29 and added fixed-size comparison/native Windows proofs.

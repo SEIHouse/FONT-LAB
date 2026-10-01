@@ -2,6 +2,34 @@
 
 Newest first.
 
+- **0.30** Optical spacing pass: measured, limited corrections for `Lian`, `Iñés`, `blade`,
+  `Entry`, `Mei’s`, `acquittal`, and `ri/rn/cl/li`, separately for upright and real italic
+  at every weight. Joined `fi/fl` now receive pair spacing beside neighboring letters;
+  crowded `tt/ry` pairs keep more room at small sizes. Every glyph contour, bearing,
+  advance, weight, height, contrast, and word space matches 0.29. The Lab uses the finished
+  per-style pairs. Preserved all ten 0.29 styles, rebuilt ten full styles and 30 subsets,
+  and added contour/shaping/collision audits. Updated the same comparison preview with
+  a fixed 13/15/17px Light/Regular/Medium matrix and native Windows Day/Night proofs.
+  Physical phone/browser checks are deferred at the user's request.
+- **0.29** Lowercase consistency pass: continuous shoulders for `h/n/m`, a smoother
+  `u` lower curve, and shared `b/d/p/q` bowls with smooth stem joins and softly squared
+  sides. Italics retain lower branches and pen-like exits; `ñ/ù/ú/û/ü` follow their bases.
+  All advances and all settings except the version number match 0.28. Preserved all ten
+  0.28 styles and updated the reference preview with focused letters and word samples.
+  Rebuilt all ten styles and 30 subsets; added an audit that checks every unchanged
+  outline, advance, counter count, and vertical alignment against 0.28.
+- **0.28** Literata/Rubik reference refinement: individual continuous curves for the upright
+  `a` and shared `e`/`c`/`s`, modestly narrower `a`/`e`, slightly more side space for `i`, and
+  word space raised from 0.205 to 0.220 em. Accent and joined-letter derivatives follow the
+  updated source rules, and pair spacing is recalculated for every style. Preserved all ten
+  0.27 styles and added the same reference preview layout with 0.28, 0.27, Literata, and Rubik;
+  Day/Night, 13/15/17/20px, weights, 1.4/1.5/1.6 line height, and 0.205/0.220/0.230 word-space
+  trials. The default chapter line height remains 1.4 for comparison.
+- **0.27** Phase 3 reading feedback pass: rounder, slightly wider upright forms; conservative
+  lowercase pair spacing to smooth long words; straight and curly quotes raised, with
+  apostrophes tucked closer to adjacent lowercase letters. Rebuilt the full family and web
+  subsets, with the reported snag words in the original Lab Reader Chamber. Also added a
+  six-browser device checklist and three-chapter reading page with locally saved feedback.
 - **0.26** Phase 2: optional tabular figures (`tnum`), superscript/subscript digits (`sups`,
   `subs`), fractions (`frac`, ½ ¼ ¾, U+2044), and three pyftsubset WOFF2 deliveries per style
   with generated `fonts.css`. Added numeric demos in the Lab.

@@ -1,4 +1,4 @@
-"""Builds the ONE SEIReader page: live controls for every font setting, a Save button Claude can read,
+"""Builds the SEIReader Lab: live controls for every font setting, a Save button Claude can read,
 the current font file and the 0.6 file for comparison."""
 import base64, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
@@ -8,6 +8,8 @@ settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8')
 VERSION = settings['version']
 kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
 kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'), encoding='utf-8')))     # hand-set pairs win
+style_kern = json.load(open(os.path.join(HERE, 'kern_styles.json'), encoding='utf-8'))
+kern.update(style_kern['Regular'])
 for k, v in settings.get('pairSpace', {}).items(): kern[k] = v
 b64 = lambda p: base64.b64encode(open(os.path.join(HERE, p), 'rb').read()).decode()
 WEIGHTS = dict(settings.get('weights', {})); WEIGHTS['Regular'] = settings['weight']
@@ -121,6 +123,8 @@ html = r'''<!DOCTYPE html>
   .chamber .clabel{ color:var(--r-mute); margin-bottom:6px; }
   .chamber .title{ margin-bottom:22px; }
   .chamber .para{ margin-bottom:1em; }
+  .chamber .reviewtag{ color:var(--r-mute); font:12px/1.4 system-ui,sans-serif; letter-spacing:.04em; margin-bottom:5px; }
+  .chamber .reviewline{ border-bottom:1px solid var(--line); padding-bottom:1em; }
   .chamber .cap{ color:var(--r-mute); margin-top:6px; }
   .filemode p{ margin:0 0 1em; line-height:var(--rlh,1.55); }
   .side{ display:grid; grid-template-columns:1fr 1fr; gap:28px; }
@@ -184,6 +188,7 @@ html = r'''<!DOCTYPE html>
   <div class="meta">
     <span class="badge">Font file: version __VERSION__</span>
     <span class="badge" id="status" role="status">Loading…</span>
+    <a class="badge" href="comparison.html">Compare __VERSION__, 0.29, Literata, and Rubik</a>
   </div>
   <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
 
@@ -368,8 +373,10 @@ __ENGINE__
 /* ---------------- page ---------------- */
 const SR_BAKED = __BAKED__;
 const SR_KERN = __KERN__;
+const SR_STYLE_KERN = __STYLE_KERN__;
 const SR_CHARS = [...__CHARS__];
 const SR_CHAPTER = __CHAPTER__;
+const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
 const SR_FONTS = __FONTLIST__;
 const WORDER = __WORDER__;
 const $ = id => document.getElementById(id);
@@ -432,7 +439,15 @@ function applyToEngine(){
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
 const bm = c => (ACC[c] ? ACC[c].base : c);
-function pairVal(k){ if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k]; const c = [...k]; const kb = c.map(bm).join(''); return S_.pairSpace[kb] !== undefined ? S_.pairSpace[kb] : (SR_KERN[kb] || 0); }
+/** Resolve user overrides before the nearest baked weight and italic pair map. */
+function pairVal(k, thick=S_.weight, italic=false){
+  if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
+  const kb = [...k].map(bm).join('');
+  if(S_.pairSpace[kb] !== undefined) return S_.pairSpace[kb];
+  const name = Object.keys(SR_BAKED.weights).reduce((best, n) => Math.abs(SR_BAKED.weights[n]-thick) < Math.abs(SR_BAKED.weights[best]-thick) ? n : best);
+  const style = italic ? (name === 'Regular' ? 'Italic' : name+'Italic') : name;
+  return (SR_STYLE_KERN[style] || SR_KERN)[kb] || 0;
+}
 
 /* draw one word from the rules, spaced exactly like the font file will be */
 /* thick and thin: draw each letter tall, then squash it back, so horizontal strokes come out thinner (same as the font build) */
@@ -445,6 +460,7 @@ function thickThin(g){
   g._tt = `<g transform="scale(1 ${(1/F).toFixed(5)})">${body}</g>`; g._ttF = F;
   return g._tt;
 }
+/** Draw one word with the selected real italic forms and per-style pair spacing. */
 function drawWord(w, size, thick, ital){
   const Sw = thick || S_.weight, reg = S_.weights.Regular;
   const prevIt = P.ital; let itc = !!ital;
@@ -460,7 +476,7 @@ function drawWord(w, size, thick, ital){
     if(!g){ x += 420; prev = ''; continue; }
     const o = S_.letterSpace[ch] || S_.letterSpace[bm(ch)] || {};
     const before = o.before || 0, after = o.after || 0;
-    x += pairVal(prev + ch);
+    x += pairVal(prev + ch, Sw, itc);
     const tri = tr + (itc ? 4 : 0);
     const gx = x + tri + g.sb0 + before - (itc ? T9 * 330 : 0);
     parts += `<g transform="translate(${f1(gx)} 0)${itc ? ' skewX(-9)' : ''}" clip-path="url(#${g.clipId})">${thickThin(g)}</g>`;
@@ -481,6 +497,7 @@ function drawText(str, size, lh, thick){
 }
 
 /* Reader Chamber */
+/** Refresh the reader sample in the selected live or exported-font view. */
 function renderChamber(){
   const ch = $('chamber'), inner = $('chamberInner');
   ch.classList.toggle('night', RD.night);
@@ -490,9 +507,11 @@ function renderChamber(){
   const liveHTML = () =>
       `<div class="clabel">${drawText('Chapter 12', 13, 1.3)}</div>` +
       `<div class="title">${drawText('The Last Gate', 32, 1.25)}</div>` +
+      `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><div class="para reviewline">${drawText(SR_REVIEW, RD.size, RD.lh)}</div>` +
       SR_CHAPTER.map(p => `<div class="para">${drawText(p, RD.size, RD.lh)}</div>`).join('') +
       `<div class="cap">${drawText('4 minutes left in this chapter', 13, 1.3)}</div>`;
   const fileHTML = () => `<div class="clabel" style="font-size:13px">Chapter 12</div><div class="title" style="font-size:32px;line-height:1.25">The Last Gate</div>` +
+      `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><p class="reviewline" style="font-size:${RD.size}px">${e_(SR_REVIEW)}</p>` +
       SR_CHAPTER.map(p => `<p style="font-size:${RD.size}px">${e_(p).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>`).join('') +
       `<div class="cap" style="font-size:13px">4 minutes left in this chapter</div>`;
   if(RD.view === 'side'){
@@ -834,6 +853,7 @@ let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTime
 html = (html.replace('__ENGINE__', ENGINE)
             .replace('__BAKED__', json.dumps(BAKED, ensure_ascii=False))
             .replace('__KERN__', json.dumps(kern, ensure_ascii=False))
+            .replace('__STYLE_KERN__', json.dumps(style_kern, ensure_ascii=False))
             .replace('__CHARS__', json.dumps(CHARS, ensure_ascii=False))
             .replace('__CHAPTER__', json.dumps(CHAPTER, ensure_ascii=False))
             .replace('__FONTLIST__', json.dumps(FONTLIST)).replace('__WORDER__', json.dumps(WORDER)).replace('__VERSION__', VERSION)

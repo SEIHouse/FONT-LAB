@@ -205,12 +205,14 @@ def thin_joins(path):
     return path
 
 # ---------------------------------------------------------------- automatic pair spacing
-AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789.,:;!?\'"‘’“”()-–—/&'
+AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”()-–—/&'
 AUTO_STRENGTH = 0.6      # how much of the difference to correct (1 = all of it)
 AUTO_DEPTH = 0.10        # how far into a letter's open space counts (share of the em)
 AUTO_MIN, AUTO_MAX = -0.12, 0.04   # limits, as share of the em
 AUTO_THRESHOLD = 15      # ignore small corrections (units per 1000)
-AUTO_LOWLOW = 30         # lowercase+lowercase pairs are only touched when really off
+AUTO_LOWLOW = 12         # catch visible uneven gaps inside long lowercase words
+AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX = -0.035, 0.025  # gentler than capital/punctuation pairs
+APOSTROPHE_TUCK = 25     # raised apostrophes need less empty space beside lowercase letters
 
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
@@ -265,6 +267,7 @@ def auto_pairs(paths, hm, cmap):
         if not xsL: continue
         prof[ch] = dict(name=n, adv=hm[n], Lmin=min(xsL), Rmax=max(xsR), cap=(Lc, Rc), low=(Ll, Rl))
     def gap(a, b, zone):
+        """Average the clipped edge gaps across the cap or lowercase sample band."""
         A, B = prof[a], prof[b]
         RA = A[zone][1]; LB = B[zone][0]; tot = 0; k = 0
         for ra, lb in zip(RA, LB):
@@ -272,21 +275,22 @@ def auto_pairs(paths, hm, cmap):
             lb_eff = min(lb if lb is not None else 1e9, B['Lmin'] + depth)
             tot += (A['adv'] - ra_eff) + lb_eff; k += 1
         return tot / max(k, 1)
-    lower = set('abcdefghijklmnopqrstuvwxyz')
+    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ')
     t_low = gap('n', 'n', 'low') if 'n' in prof else 0
     t_cap = gap('H', 'H', 'cap') if 'H' in prof else 0
     caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
+        """Select supported pair types, retaining the separate lowercase limits."""
         if 'j' in (a, b): return False                         # j's tail curls under its neighbour; leave it
+        if a in lower and b in lower: return 'lowlow'           # smooth gaps inside words, with a tighter limit
         if a in caps and (b in caps or b in lower): return True    # AV, LT, To, Ya ...
         if (a in letters or a in digits) and b in lowp: return True  # r. y, P. 7.
         if a in quotes and (b in letters or b in digits): return True   # “A ’s
         if (a in letters or a in lowp) and b in quotes: return True    # L’ s” .”
         if a == '(' and (b in letters or b in digits): return True
         if (a in letters or a in digits) and b == ')': return True
-        # lowercase+lowercase and number+number stay exactly as designed (t/f crossbars fool the measuring;
-        # numbers get their own even-width set later)
+        # Numbers get their own even-width set later.
         return False
     out = {}
     for a in prof:
@@ -296,10 +300,62 @@ def auto_pairs(paths, hm, cmap):
             zone = 'low' if (a in lower or b in lower) else 'cap'
             target = t_low if zone == 'low' else t_cap
             k = AUTO_STRENGTH * (target - gap(a, b, zone))
-            k = max(AUTO_MIN * UPM, min(AUTO_MAX * UPM, k))
+            low, high = (AUTO_LOWLOW_MIN, AUTO_LOWLOW_MAX) if w == 'lowlow' else (AUTO_MIN, AUTO_MAX)
+            k = max(low * UPM, min(high * UPM, k))
+            if ((a in lower and b in "'’") or (a in "'’" and b in lower)):
+                k = max(AUTO_MIN * UPM, k - APOSTROPHE_TUCK * SC)
             limit = AUTO_LOWLOW if w == 'lowlow' else AUTO_THRESHOLD
             if abs(k) >= limit * SC:
                 out[a + b] = round(k / SC)       # stored per 1000, like the hand-set pairs
+    return out
+
+
+def optical_pairs(paths, hm, cmap, kern, italic):
+    """Small, outline-measured corrections for the reported reading cases.
+
+    Measure the central lowercase band to avoid letting tall stems or italic
+    exits dominate perceived space. Limit open-edge depth, preserve extra room
+    for rn/rm, and protect the closest actual ink from small-size crowding.
+    The glyph contours and all advances remain untouched.
+    """
+    focus = set('Li ia an In ne es bl la ad de En nt tr ry Me ei ac cq qu ui it tt ta al ri rn rm cl li fi fl'.split())
+    chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ'
+    focus.update(a+b for a in chars for b in chars
+                 if 'j' not in (a, b) and ('ﬁ' in (a, b) or 'ﬂ' in (a, b)))
+    body_y = range(round(XHT*SC*.12), round(XHT*SC*.88), 10*SC)
+    full_y = range(0, 700*SC+1, 5*SC)
+    depth = 60*SC
+    prof = {}
+    for ch in chars:
+        name = cmap.get(ord(ch))
+        if not name: continue
+        left, right = profiles(paths[name], full_y)
+        body = profiles(paths[name], body_y)
+        prof[ch] = (hm[name], min(x for x in left if x is not None),
+                    max(x for x in right if x is not None), body, (left, right))
+    def measured(a, b):
+        """Return the clipped central gap and closest sampled actual ink gap."""
+        A, B = prof[a], prof[b]
+        gaps = [A[0] - max(r if r is not None else -1e9, A[2]-depth)
+                + min(l if l is not None else 1e9, B[1]+depth)
+                for r, l in zip(A[3][1], B[3][0])]
+        closest = min(A[0]-r+l for r, l in zip(A[4][1], B[4][0])
+                      if r is not None and l is not None)
+        return sum(gaps)/len(gaps)/SC, closest/SC
+    target, _ = measured('n', 'n')
+    out = {}
+    for pair in sorted(focus):
+        a, b = pair
+        if a not in prof or b not in prof: continue
+        gap, closest = measured(a, b)
+        current = kern.get(pair, 0)
+        cushion = 20 if a == 'r' and b in 'inmh' else 0
+        residual = .55*(target+cushion-gap-current)
+        delta = max(-25 if italic else -18, min(22, residual))
+        value = max(-60 if italic else -45, min(40, round(current+delta)))
+        floor = 100 if pair in ('rn', 'rm') else 55 if pair in ('ry', 'tt', 'fi', 'fl') else 80
+        value = max(value, math.ceil(floor-closest))
+        if value != current: out[pair] = value
     return out
 
 def private_dict():
@@ -368,12 +424,14 @@ def gname(ch):
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
+STYLE_KERN = {}
 
 def track_for(thick):
     reg = settings['weight']
     return TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
 def build(data, out, style='Regular', italic=False):
+    """Build and hint one style with the shared character set and OpenType features."""
     TR = track_for(S) + (ITAL_EXTRA_SPACE if italic else 0)
     ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
     shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
@@ -391,7 +449,10 @@ def build(data, out, style='Regular', italic=False):
         o = ovr.get(ch) or ovr.get(data.get('basemap', {}).get(ch, ''), {}) or {}; before, after = o.get('before', 0), o.get('after', 0)
         left = TR + g['sb0'] + before
         name = gname(ch); order.append(name); cmap[ord(ch)] = name
-        paths[name] = outline(g, left)
+        try:
+            paths[name] = outline(g, left)
+        except pathops.PathOpsError as exc:
+            raise RuntimeError(f'Could not union {shown} glyph {name}') from exc
         hm[name] = round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
 
     # Add unencoded alternates without touching the proportional digit outlines or metrics.
@@ -407,7 +468,10 @@ def build(data, out, style='Regular', italic=False):
     for name, g in data['alternates'].items():
         if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
         order.append(name)
-        paths[name] = outline(g, TR + g['sb0'])
+        try:
+            paths[name] = outline(g, TR + g['sb0'])
+        except pathops.PathOpsError as exc:
+            raise RuntimeError(f'Could not union {shown} alternate {name}') from exc
         hm[name] = round((2*TR + g['sb0'] + g['w'] + S + g['sb1']) * SC)
 
     # The small figures share a measured advance within each weight/style.
@@ -473,7 +537,9 @@ def build(data, out, style='Regular', italic=False):
 
     AUTO = auto_pairs(paths, hm, cmap)
     KERN.update(AUTO); KERN.update(data['kern'])
+    KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
+    STYLE_KERN[ps_style] = dict(KERN)
     if style == 'Regular' and not italic:
         json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')
@@ -524,7 +590,8 @@ def build(data, out, style='Regular', italic=False):
     addOpenTypeFeaturesFromString(fb.font, fea)
     fb.font['name'].removeNames(platformID=1)
     fb.save(out)
-    autohint(out)
+    if not autohint(out):
+        raise RuntimeError(f'Screen tuning failed for {shown}; stopping the build')
     t = TTFont(out); t.flavor = 'woff2'; t.save(out.replace('.otf', '.woff2'))
 
 if __name__ == '__main__':
@@ -541,5 +608,7 @@ if __name__ == '__main__':
             fname = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             build(data, os.path.join(outdir, f'{FAMILY}-{fname}.otf'), style, italic)
             print('built', FAMILY, VERSION, fname, 'thickness', w)
+    with open(os.path.join(HERE, 'kern_styles.json'), 'w', encoding='utf-8') as f:
+        json.dump(STYLE_KERN, f, ensure_ascii=False)
     from build_subsets import build_subsets
     build_subsets()

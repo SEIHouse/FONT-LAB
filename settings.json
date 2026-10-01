@@ -1,16 +1,16 @@
 {
   "family": "SEIReader",
-  "version": "0.26",
+  "version": "0.30",
   "weight": 85,
   "contrast": 1.12,
-  "lowercaseRoundness": 0.25,
+  "lowercaseRoundness": 0.55,
   "spaceBetweenAllLetters": 2.8,
   "letterSpace": {},
   "pairSpace": {},
   "xHeight": 510,
-  "capitalRoundness": 235,
-  "letterWidth": 0.9,
-  "wordSpace": 205,
+  "capitalRoundness": 245,
+  "letterWidth": 0.95,
+  "wordSpace": 220,
   "overshoot": true,
   "uFoot": false,
   "reader": {
@@ -27,6 +27,6 @@
     "Bold": 140
   },
   "italicAngle": 9,
-  "uprightStraightness": 0.7,
+  "uprightStraightness": 0.82,
   "ascender": 700
 }
