@@ -31,7 +31,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <body>
 <main>
 <h1>Literata + Rubik + SEIHouse = SEIReader</h1>
-<p class="intro">Keep SEIReader's distinctive softness and character. Bring more consistency and polish to its shapes and spacing. Compare candidate __VERSION__ with the preserved 0.27 baseline and both references.</p>
+<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ lowercase consistency pass with preserved __BASELINE__, Literata, and Rubik. Focus on the shoulders of h/n/m, the lower curve of u, and the bowls of b/d/p/q beside a/e/c/s.</p>
 <div class="controls" aria-label="Comparison reading settings">
   <button id="theme" type="button" aria-pressed="false">Day</button>
   <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
@@ -43,23 +43,23 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 </div>
 <div class="grid" id="comparison-grid">
   <article class="card candidate" aria-labelledby="candidate-title">
-    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · refined bowls, openings, and spacing</p>
-    <div class="large Candidate">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · consistent shoulders and bowls</p>
+    <div class="large Candidate">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
     <div class="sample Candidate" data-family="Candidate"></div>
   </article>
   <article class="card" aria-labelledby="baseline-title">
-    <h2 id="baseline-title">SEIReader 0.27</h2><p class="caption">Preserved baseline · original word space</p>
-    <div class="large Baseline">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved baseline · before this curve pass</p>
+    <div class="large Baseline">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
     <div class="sample Baseline" data-family="Baseline"></div>
   </article>
   <article class="card" aria-labelledby="literata-title">
     <h2 id="literata-title">Literata</h2><p class="caption">Reading reference · optical size 20</p>
-    <div class="large Literata">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="large Literata">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
     <div class="sample Literata" data-family="Literata"></div>
   </article>
   <article class="card" aria-labelledby="rubik-title">
     <h2 id="rubik-title">Rubik</h2><p class="caption">Shape reference · softly rounded corners</p>
-    <div class="large Rubik">a e c s n o<br><span class="identity">H x l · Il1 · rn m</span></div>
+    <div class="large Rubik">h n m u<br>b d p q<br><span class="identity">a e c s · H x l</span></div>
     <div class="sample Rubik" data-family="Rubik"></div>
   </article>
 </div>
@@ -70,7 +70,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <footer>
 <p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
 <details><summary>What changed and how to read this comparison</summary><div class="study-notes">
-<p>Candidate __VERSION__ keeps the 0.27 heights, weights, contrast, squared caps, raised quotes, and handwriting-style italic construction. Its upright <code>a</code> has a smaller bowl, <code>e</code> has an open exit, and <code>c</code>/<code>s</code> have more flowing terminals. The shared <code>e</code>/<code>c</code>/<code>s</code> curves also refine the italics. The <code>i</code> gets slightly more side space. Pair spacing is recalculated for every style.</p>
+<p>Candidate __VERSION__ carries forward the __BASELINE__ heights, advances, weights, contrast, word space, raised quotes, and <code>a/e/c/s</code> curves. The shoulders of <code>h/n/m</code> and the lower curve of <code>u</code> now use continuous curves. The related <code>b/d/p/q</code> bowls share a construction with smooth stem joins and softly squared sides. Italics retain their lower branches and small pen-like exits. Accented <code>n/u</code> follow the same base curves. Pair spacing is recalculated from the finished outlines for every style.</p>
 <p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
 <p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
 </div></details>
@@ -80,8 +80,8 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <script>
 'use strict';
 const metrics=__METRICS__;
-const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader 0.27',Literata:'Literata',Rubik:'Rubik'};
-const sample=`<p>“Lian,” Iñés said, “the blade is only a tool. Entry into the inner court must be earned.” Mei's acquittal would come at dawn, when the elders returned from the mountain. He read the notice twice, then watched the rain gather along the open window. For the first time in three days, he let his shoulders relax.</p><p><em>If the seal was broken, why did the gate remain closed? Iñés knew the answer. Lian did not.</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · <em>acquittal</em><br>To AV P. “A fi fl 0123456789</p>`;
+const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
+const sample=`<p>“Lian,” Iñés said, “the blade is only a tool. Entry into the inner court must be earned.” Mei's acquittal would come at dawn, when the elders returned from the mountain. He read the notice twice, then watched the rain gather along the open window. For the first time in three days, he let his shoulders relax.</p><p><em>If the seal was broken, why did the gate remain closed? Iñés knew the answer. Lian did not.</em></p><p class="words">human · minimum · humming<br>bud · dawn · people · quiet<br><em>human · minimum · quiet</em><br>ñ ù ú û ü · fi fl<br>Lian · Iñés · blade · Entry<br>Mei's · <em>acquittal</em><br>To AV P. “A 0123456789</p>`;
 const byId=id=>document.getElementById(id);
 document.querySelectorAll('.sample').forEach(el=>{el.innerHTML=sample});
 byId('metric-rows').innerHTML=Object.entries(metrics).map(([name,m])=>`<tr><th scope="row">${names[name]}</th><td>${m.x.toFixed(3)}</td><td>${m.cap.toFixed(3)}</td><td>${(100*m.x/m.cap).toFixed(1)}%</td><td>${m.space.toFixed(3)}</td></tr>`).join('');

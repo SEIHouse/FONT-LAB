@@ -24,20 +24,36 @@ Regular / 400; Literata explicitly set to optical size 20; dimensions normalized
 | `e` advance | 0.590 | 0.518 | 0.560 |
 | `i` advance | 0.223 | 0.332 | 0.242 |
 
-The first candidate keeps the overall height and the deliberate alignment of tall lowercase
+The 0.28 candidate keeps the overall height and the deliberate alignment of tall lowercase
 with caps. It targets `a`/`e` widths, the side space of `i`, and individual curves and openings
 for `a`, `e`, `c`, and `s`. Raised quotes carry forward; apostrophe placement should be reviewed
 in `Mei's`. Weight and contrast stay at the 0.27 values while Regular and Medium are compared.
 
+## The 0.29 lowercase consistency pass
+
+Refine the shoulders of `h/n/m`, the lower curve of `u`, and the bowls of `b/d/p/q`
+beside the established `a/e/c/s`. Shared continuous curves give related letters smooth
+stem joins and balanced inner spaces, with short straight sides retaining the softly
+squared character. Italics keep their lower branches and small pen-like exits.
+
+The comparison now uses preserved 0.28 as its immediate baseline. All ten 0.27 styles
+remain under `old/0.27/`. Every advance and every setting except the version number
+matches 0.28. The existing automatic pair-spacing pass measures the new outlines;
+this iteration does not change its rules. `ñ/ù/ú/û/ü` follow their updated base curves.
+`verify_lowercase.py` audits these limits against all ten preserved 0.28 fonts.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.27 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.28 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
+- Inspect `human`, `minimum`, `humming`, `bud`, `dawn`, `people`, and `quiet`, upright
+  and italic. Compare both arches of `m`, the `u` bottom, and `b/d/p/q` counters at
+  Light and Bold as well as the main reading weights.
 - Compare 20px at line heights 1.4 and 1.5, then 13/15/17px at Regular and Medium.
-- Compare word spaces 0.205, 0.220, and 0.230 em; the 0.28 font uses the middle value.
+- Compare word spaces 0.205, 0.220, and 0.230 em; both 0.28 and 0.29 use the middle value.
 - Check Light comments, real italics, `fi`/`fl`, accents, punctuation, and symbols on phones.
 - Record tiring spots, snag words, and comfort after a chapter. Measurements and automated
   font checks cannot establish sustained reading comfort.

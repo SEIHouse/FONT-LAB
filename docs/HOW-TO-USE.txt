@@ -1,4 +1,4 @@
-SEIReader, version 0.28 (working draft)
+SEIReader, version 0.29 (working draft)
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -90,10 +90,12 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.28 with the preserved 0.27 baseline, Literata,
+  Open lab/comparison.html to compare 0.29 with the preserved 0.28 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
+  Focused h/n/m/u and b/d/p/q samples show the lowercase consistency pass beside a/e/c/s.
+  All advances and global settings match 0.28; the real italics keep their pen-like exits.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
-  and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
+  from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
   then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
   The reference fonts are comparison assets; use SEIReader for the app's reading text.
 

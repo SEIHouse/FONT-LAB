@@ -1,6 +1,6 @@
 {
   "family": "SEIReader",
-  "version": "0.29",
+  "version": "0.28",
   "weight": 85,
   "contrast": 1.12,
   "lowercaseRoundness": 0.55,

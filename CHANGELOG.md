@@ -2,6 +2,13 @@
 
 Newest first.
 
+- **0.29** Lowercase consistency pass: continuous shoulders for `h/n/m`, a smoother
+  `u` lower curve, and shared `b/d/p/q` bowls with smooth stem joins and softly squared
+  sides. Italics retain lower branches and pen-like exits; `ñ/ù/ú/û/ü` follow their bases.
+  All advances and all settings except the version number match 0.28. Preserved all ten
+  0.28 styles and updated the reference preview with focused letters and word samples.
+  Rebuilt all ten styles and 30 subsets; added an audit that checks every unchanged
+  outline, advance, counter count, and vertical alignment against 0.28.
 - **0.28** Literata/Rubik reference refinement: individual continuous curves for the upright
   `a` and shared `e`/`c`/`s`, modestly narrower `a`/`e`, slightly more side space for `i`, and
   word space raised from 0.205 to 0.220 em. Accent and joined-letter derivatives follow the
