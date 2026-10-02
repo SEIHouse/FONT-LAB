@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="The SEIHouse type workshop. Shape SEIReader, create display cuts, compare type, and test long-form reading.">
+  <meta name="theme-color" content="#151917">
+  <title>SEIHouse — Font Lab</title>
+  <link rel="icon" href="./site/favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="./fonts-full.css">
+  <link rel="stylesheet" href="./site/home.css">
+  <script src="./site/home.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="masthead wrap">
+    <a class="brand" href="./index.html" aria-label="SEIHouse Font Lab home"><span class="brand-mark" aria-hidden="true">S.</span><span>SEIHOUSE <span class="brand-label">FONT LAB</span></span></a>
+    <nav aria-label="Main navigation"><a href="#workspaces">Workspaces</a><a href="#resources">Resources</a></nav>
+    <button class="theme-button" id="theme" type="button" aria-pressed="false">Day mode</button>
+  </header>
+  <main id="main" class="wrap">
+    <section class="hero" aria-labelledby="hero-title">
+      <div><p class="eyebrow"><span class="dot" aria-hidden="true"></span> THE SEIHOUSE TYPE WORKSHOP</p><h1 id="hero-title">Type with<br><em>your signature.</em></h1><p class="hero-note">Soft enough for another chapter.<br>Distinct enough to put your name on it.</p></div>
+      <div class="hero-side"><span class="hero-monogram" aria-hidden="true">Aa</span><p>Two engines. One point of view.<br>Make the next refinement here.</p><a class="text-link" href="./lab/index.html">Open the Reader Lab <span aria-hidden="true">↗</span></a></div>
+    </section>
+
+    <section class="tester" aria-labelledby="tester-title">
+      <div class="section-heading"><h2 id="tester-title">Try a line.</h2><span class="eyebrow">THE ACTUAL FONT FILES</span></div>
+      <div class="tester-controls">
+        <label>Typeface<select id="family"><option value="reader">SEIReader</option><option value="soft">Display · Soft</option><option value="edge">Display · Edge</option><option value="ink">Display · Ink</option><option value="wide">Display · Wide</option></select></label>
+        <label>Weight<select id="weight"><option value="300">Light</option><option value="400" selected>Regular</option><option value="500">Medium</option><option value="600">SemiBold</option><option value="700">Bold</option></select></label>
+        <label class="size-control" for="size">Size <output id="size-value" for="size">36px</output><input id="size" type="range" min="13" max="80" step="1" value="36"></label>
+        <button id="italic" class="quiet-button" type="button" aria-pressed="false">Italic</button>
+      </div>
+      <label class="sr-only" for="specimen">Your sample text</label>
+      <textarea id="specimen" rows="3" spellcheck="false">A quiet river. A different kind of power.
+“Lian,” Iñés said. 1,234.56 · 8.50% · ☯</textarea>
+      <p class="tester-hint" id="tester-hint">Type your own words. Open a Lab below to change the letter shapes and spacing.</p>
+    </section>
+
+    <section id="workspaces" class="workspaces" aria-labelledby="workspace-title">
+      <div class="section-heading"><h2 id="workspace-title">Choose your workspace.</h2><span class="eyebrow">DRAWN FROM RULES. MADE YOURS.</span></div>
+      <div class="workspace-grid">
+        <article class="workspace reader-workspace">
+          <div class="workspace-top"><span class="eyebrow">01 / LONG-FORM READING</span><span class="tag">SEIReader 0.34</span></div>
+          <h3>Keep the story flowing.</h3>
+          <p class="reader-specimen">The mountain was still asleep when Mei opened the gate. Somewhere beyond the mist, a bell rang once. <em>One more chapter,</em> she thought.</p>
+          <p class="workspace-note">Tune weight, curves, spacing, accents, and the reading setup. Save a draft when the rhythm feels right.</p>
+          <a class="button" href="./lab/index.html">Open Reader Lab <span aria-hidden="true">↗</span></a>
+          <div class="workspace-links"><a href="./lab/comparison.html">Compare with Literata &amp; Rubik <span aria-hidden="true">↗</span></a><a href="./lab/reading-test.html">Read three full chapters <span aria-hidden="true">↗</span></a></div>
+        </article>
+        <article class="workspace display-workspace">
+          <div class="workspace-top"><span class="eyebrow">02 / TITLES &amp; IDENTITY</span><span class="tag">Display 0.1</span></div>
+          <h3 class="display-specimen">MAKE<br>YOUR MARK.</h3>
+          <p class="workspace-note">Soft, Edge, Ink, or Wide. Shape a cut for your cover, title, or next project. Explore the pen, corners, and proportions.</p>
+          <a class="button" href="./display/lab/index.html">Open Display Lab <span aria-hidden="true">↗</span></a>
+          <div class="workspace-links"><span>Four starting cuts. Your own direction.</span><span class="prototype-note">Prototype · built and live spacing may differ.</span></div>
+        </article>
+      </div>
+    </section>
+
+    <section class="workflow" aria-labelledby="workflow-title">
+      <div><p class="eyebrow">FROM A GOOD IDEA TO A FONT FILE</p><h2 id="workflow-title">Tune. Save. Build.</h2></div>
+      <ol><li><span>01</span><div><h3>Explore in the Lab</h3><p>Move a slider and see the drawing change live.</p></div></li><li><span>02</span><div><h3>Keep your draft</h3><p>Save in this browser or download your settings as JSON. Browser drafts stay on this device and site.</p></div></li><li><span>03</span><div><h3>Make the font</h3><p>Use the downloaded settings with the repository’s Python builder to create new OTF and WOFF2 files.</p></div></li></ol>
+    </section>
+
+    <section id="resources" class="resources" aria-labelledby="resources-title">
+      <div class="section-heading"><h2 id="resources-title">Take it from here.</h2><span class="eyebrow">FILES &amp; FIELD NOTES</span></div>
+      <div class="resource-grid">
+        <div><h3>SEIReader for your app</h3><p>Five weights, with real italics. The stylesheet loads the web fonts beside it.</p><a href="./fonts-full.css" download>Download full-family CSS <span aria-hidden="true">↓</span></a><a href="./docs/APP-INSTALL.md" download>App installation guide <span aria-hidden="true">↓</span></a><a href="./docs/HOW-TO-USE.txt" download>Font features &amp; usage <span aria-hidden="true">↓</span></a></div>
+        <div><h3>Display starter files</h3><p>Get the supplied desktop fonts. Use the Display Lab to design your own cut.</p><div class="cut-downloads"><a href="./display/fonts/soft/SEIHouseDisplay-Soft.otf" download>Soft ↓</a><a href="./display/fonts/edge/SEIHouseDisplay-Edge.otf" download>Edge ↓</a><a href="./display/fonts/ink/SEIHouseDisplay-Ink.otf" download>Ink ↓</a><a href="./display/fonts/wide/SEIHouseDisplay-Wide.otf" download>Wide ↓</a></div><a href="./display/README.md" download>Display engine notes <span aria-hidden="true">↓</span></a></div>
+        <div><h3>Make the next pass count</h3><p>Check real devices, inspect the health report, and keep the reading goals in view.</p><a href="./docs/DEVICE-TEST.md" download>Device checklist <span aria-hidden="true">↓</span></a><a href="./docs/HEALTH-CHECK.txt" download>Reader health checks <span aria-hidden="true">↓</span></a><a href="./docs/DESIGN-GOALS.md" download>Design goals <span aria-hidden="true">↓</span></a></div>
+      </div>
+    </section>
+  </main>
+  <footer class="wrap"><span>SEIHOUSE PRODUCTIONS LLC</span><span>A little softness. A lot of character.</span><a href="./FONT-LICENSE.txt" download>Font license status ↗</a></footer>
+</body>
+</html>

@@ -6,6 +6,7 @@ from emoji_demo import EMOJI
 from language_coverage import inventory, required_characters
 from fontTools.ttLib import TTFont
 HERE = os.path.dirname(os.path.abspath(__file__))
+DRAFT_HELPER = open(os.path.join(HERE, 'site', 'drafts.js'), encoding='utf-8').read()
 settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
 VERSION = settings['version']
 kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
@@ -195,11 +196,12 @@ html = r'''<!DOCTYPE html>
 <div class="wrap">
   <h1>SEIReader</h1>
   <div class="meta">
+    <a class="badge" href="../index.html">← Font Lab home</a>
     <span class="badge">Font file: version __VERSION__</span>
     <span class="badge" id="status" role="status">Loading…</span>
     <a class="badge" href="comparison.html">Compare __VERSION__, 0.32, Literata, and Rubik</a>
   </div>
-  <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
+  <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. <b>Save</b> keeps a draft in this browser (or the connected Claude host). <b>Download JSON</b> gives you settings for the Python builder. Browser drafts stay on this device and site; saving does not rebuild font files.</p>
 
   <div class="layout">
     <aside class="controls" id="controls" aria-label="Font settings">
@@ -208,6 +210,7 @@ html = r'''<!DOCTYPE html>
         <div class="savebar">
           <div class="row">
             <button type="button" class="pill primary" id="save" disabled>Save</button>
+            <button type="button" class="pill" id="download">Download JSON</button>
             <button type="button" class="pill" id="reset">Back to font file</button>
           </div>
           <span class="savemsg" id="savemsg" aria-live="polite">Saving turns on once the page connects.</span>
@@ -722,13 +725,15 @@ $('copy').addEventListener('click', async () => {
   catch(e){ setSaveMsg('Could not copy automatically. Select the text and copy it.'); }
 });
 function setSaveMsg(t){ $('savemsg').textContent = t; }
+$('download').addEventListener('click', () => SEIHouseDrafts.downloadJSON(payload(), 'SEIReader-settings.json'));
 
 /* saving, so Claude can read it */
 let DB = null;
 const DOC = 'seireader/settings';
+/** Connect to the host database when present, otherwise use a browser-local draft. */
 async function connect(){
-  try { DB = await claude.use('db'); } catch(e){ DB = null; }
-  if(!DB){ setSaveMsg('Saving isn’t available here. Use “Copy instead of Save” in the settings.'); return; }
+  try { DB = window.claude && typeof window.claude.use === 'function' ? await window.claude.use('db') : null; } catch(e){ DB = null; }
+  if(!DB) DB = SEIHouseDrafts.createLocalDB('seihouse.reader.drafts.v1');
   $('save').disabled = false;
   try {
     const snap = await DB.doc(DOC).get();
@@ -739,21 +744,21 @@ async function connect(){
         if(d.settings.reader){ const r = d.settings.reader; RD.size = r.size ?? RD.size; RD.lh = r.lineSpacing ?? RD.lh; RD.measure = r.lineLength ?? RD.measure; RD.night = !!r.night;
           $('m-night').setAttribute('aria-pressed', String(RD.night)); $('m-day').setAttribute('aria-pressed', String(!RD.night)); }
         buildControls(); syncToggles(); renderWeightRows(); renderLetters(); renderLetterPanel(); renderPairPanel(); changed(true);
-        setSaveMsg('Loaded your saved settings' + (d.savedAt ? ' from ' + new Date(d.savedAt).toLocaleString() : '') + '.');
+        setSaveMsg('Loaded your ' + (DB.local ? 'browser draft' : 'saved settings') + (d.savedAt ? ' from ' + new Date(d.savedAt).toLocaleString() : '') + '.');
         dirty = false; return;
       }
     }
-    setSaveMsg('Nothing saved yet.');
-  } catch(e){ setSaveMsg('Could not load saved settings. You can still save.'); }
+    setSaveMsg(DB.local ? 'Ready to save in this browser. Download JSON to keep a portable copy.' : 'Nothing saved yet.');
+  } catch(e){ setSaveMsg('Could not load saved settings. Try Save, or use Download JSON to keep a copy.'); }
 }
 $('save').addEventListener('click', async () => {
   if(!DB) return;
   $('save').disabled = true; setSaveMsg('Saving…');
   try {
     await DB.doc(DOC).set({ settings: payload(), savedAt: Date.now(), fontFileVersion: '__VERSION__' });
-    dirty = false; setSaveMsg('Saved. Tell Claude “build it”.');
+    dirty = false; setSaveMsg(DB.local ? 'Saved in this browser. Download JSON to build or move this draft.' : 'Saved to the connected host. Download JSON to build locally.');
   } catch(e){
-    setSaveMsg('Save didn’t work (' + (e && e.code ? e.code : 'error') + '). Use “Copy instead of Save” in the settings.');
+    setSaveMsg('Save didn’t work (' + (e && e.code ? e.code : 'error') + '). Use Download JSON to keep a copy.');
   }
   $('save').disabled = false;
 });
@@ -885,13 +890,13 @@ Promise.all(SR_FONTS.map(async f => {
 
 buildControls(); syncToggles(); renderLetters(); renderLetterPanel(); renderPairPanel();
 applyToEngine(); renderWeightRows(); renderLangs(); renderChamber(); renderAllChars(); renderTyped(); renderOut();
-if(window.claude && typeof window.claude.use === 'function') connect(); else setSaveMsg('Saving isn’t available here. Use “Copy instead of Save” in the settings.');
+connect();
 let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => changed(true), 200); });
 </script>
 </body>
 </html>
 '''
-html = (html.replace('__ENGINE__', ENGINE)
+html = (html.replace('__ENGINE__', DRAFT_HELPER + '\n' + ENGINE)
             .replace('__BAKED__', json.dumps(BAKED, ensure_ascii=False))
             .replace('__KERN__', json.dumps(kern, ensure_ascii=False))
             .replace('__STYLE_KERN__', json.dumps(style_kern, ensure_ascii=False))

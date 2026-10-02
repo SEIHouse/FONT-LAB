@@ -2,6 +2,7 @@
 import json, os, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
 engine = open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
+draft_helper = open(os.path.join(HERE, '..', 'site', 'drafts.js'), encoding='utf-8').read()
 presets = [json.load(open(f, encoding='utf-8')) for f in sorted(glob.glob(os.path.join(HERE, 'cuts', '*.json')))]
 order = ['Soft', 'Edge', 'Ink', 'Wide']
 presets.sort(key=lambda c: order.index(c['name']) if c['name'] in order else 99)
@@ -52,14 +53,16 @@ main{ display:grid; gap:16px; min-width:0; }
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="clips"></defs></svg>
 <div class="wrap">
 <aside aria-label="Cut settings">
+  <a class="pill" href="../../index.html" style="display:inline-block;text-decoration:none">← Font Lab home</a>
   <h1>SEIHouse Display Lab</h1>
   <p class="sub">One engine, a different cut for every album or project.</p>
   <div class="sec"><h2>Cut</h2>
     <div class="row" id="presets" role="group" aria-label="Starting cuts"></div>
     <div class="row" id="saved" role="group" aria-label="Saved cuts"></div>
     <label class="ctl"><span>Name of this cut</span><input type="text" id="cutname" maxlength="40" autocomplete="off"></label>
-    <div class="row"><button type="button" class="pill primary" id="save" disabled>Save cut</button></div>
-    <div class="hint" id="savemsg" aria-live="polite">Saving turns on once the page connects.</div>
+    <div class="row"><button type="button" class="pill primary" id="save" disabled>Save cut</button><button type="button" class="pill" id="download">Download JSON</button></div>
+    <div class="hint" id="savemsg" aria-live="polite">Loading drafts…</div>
+    <p class="hint">Browser drafts stay on this device and site. Download JSON to build a font or move your cut.</p>
   </div>
   <div class="sec"><h2>Shape</h2>
     <div class="row" role="group" aria-label="Corners"><button type="button" class="pill" data-k="corners" data-v="soft">Soft corners</button><button type="button" class="pill" data-k="corners" data-v="cut">Cut corners</button></div>
@@ -107,7 +110,7 @@ const SLIDERS = {
 };
 const PALETTES = { Night:['#0f1115','#2b3140','#eef1f6'], Dawn:['#f6d7ad','#e7836a','#2a1714'], Jade:['#0b3a33','#2f8a6c','#eafff6'],
                    Ember:['#2a0d0b','#c2462b','#fff1e6'], Paper:['#f4efe6','#e6dccb','#1b1d22'], Violet:['#17112b','#6b54d6','#f2eeff'] };
-let CUT = JSON.parse(JSON.stringify(PRESETS[0])), SAVED = {}, PAL = 'Night', PAL2 = 'Paper', db = null;
+let CUT = JSON.parse(JSON.stringify(PRESETS[0])), SAVED = Object.create(null), PAL = 'Night', PAL2 = 'Paper', db = null;
 
 function applyToEngine(){
   P.base = CUT.weight; P.ws = CUT.letterWidth; P.xh = CUT.xHeight; P.contrast = CUT.contrast; P.penAngle = CUT.penAngle || 0;
@@ -207,27 +210,29 @@ function changed(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(rende
 function setMsg(t){ $('savemsg').textContent = t; }
 function load(){ buildControls(); renderPresets(); renderAll(); setMsg(SAVED[CUT.name] ? 'Saved' : 'Not saved yet'); }
 $('copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('out').textContent); setMsg('Copied. Paste it to Claude with "build this cut".'); } catch(e){ setMsg('Copy failed: select the text and copy it.'); } });
+$('download').addEventListener('click', () => SEIHouseDrafts.downloadJSON(CUT, slug(CUT.name) + '.json'));
 /* ---- saving cuts ---- */
 const slug = n => n.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '') || 'untitled';
 $('save').addEventListener('click', async () => {
   if(!db) return;
   const body = JSON.parse(JSON.stringify(CUT)); body.savedAt = Date.now();
-  try { await db.doc('cuts/' + slug(CUT.name)).set(body); SAVED[CUT.name] = body; renderPresets(); renderAllCuts(); setMsg('Saved. Tell Claude: build cut "' + CUT.name + '".'); }
-  catch(e){ setMsg(e && e.code === 'invalid_argument' ? 'This view can\u2019t save. Use Copy instead.' : 'Save failed. Use Copy instead.'); }
+  try { await db.doc('cuts/' + slug(CUT.name)).set(body); SAVED[CUT.name] = body; renderPresets(); renderAllCuts(); setMsg(db.local ? 'Saved in this browser. Download JSON to build or move this cut.' : 'Saved to the connected host. Download JSON to build locally.'); }
+  catch(e){ setMsg('Save failed. Use Download JSON to keep a copy.'); }
 });
 (async () => {
+  try { db = window.claude && typeof window.claude.use === 'function' ? await window.claude.use('db') : null; } catch(e){ db = null; }
+  if(!db) db = SEIHouseDrafts.createLocalDB('seihouse.display.drafts.v1');
+  $('save').disabled = false;
   try {
-    db = window.claude && await window.claude.use('db');
-    if(!db){ setMsg('Saving isn\u2019t available here. Use Copy instead.'); return; }
     const snap = await db.collection('cuts').get();
     snap.docs.forEach(d => { const v = d.data(); if(v && v.name) SAVED[v.name] = v; });
-    $('save').disabled = false; setMsg('Ready to save.'); renderPresets(); renderAllCuts();
-  } catch(e){ setMsg('Saving isn\u2019t available here. Use Copy instead.'); }
+    renderPresets(); renderAllCuts(); setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
+  } catch(e){ setMsg('Could not load drafts. Try Save, or use Download JSON to keep a copy.'); }
 })();
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });
 </script></body></html>"""
-html = HTML.replace('__ENGINE__', engine).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
+html = HTML.replace('__ENGINE__', draft_helper + '\n' + engine).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
 out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(html)

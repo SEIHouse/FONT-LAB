@@ -20,8 +20,14 @@ every cut sets its own personality.
 | `build_display_page.py` | Builds the Lab page |
 
 ## Workflow
-1. Shape a cut in the Lab, name it, press **Save cut** (or **Copy** the settings).
-2. Ask Claude to build it, or save the settings as `cuts/<name>.json` and run `python make_display.py cuts/<name>.json`.
+1. Shape a cut in the Lab, name it, and press **Save cut** to keep a browser draft
+   (or save to the connected Claude host). Drafts stay on this browser and site.
+2. **Download JSON** or **Copy** the settings. From the repo root, run
+   `python -X utf8 display/make_display.py path/to/my-cut.json`.
+3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
+
+The hosted Lab previews and saves settings; font compilation uses the local Python
+tools. See the root [homepage](../index.html) and [website guide](../docs/WEBSITE.md).
 
 ## Version 0.1 notes
 - Cuts with an angled pen and flat ends (Ink) still show a few small nicks at some stroke ends; cleanup planned.

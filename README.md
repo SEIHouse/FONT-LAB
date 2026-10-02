@@ -7,6 +7,21 @@ The separate **SEIHouse Display Engine** is a version 0.1 prototype for album co
 posters, chapter titles, and other large text. Its source, four designs, live Lab,
 and prebuilt fonts are under [`display/`](display/README.md).
 
+## Font Lab homepage & Vercel
+
+Open [`index.html`](index.html) for the workshop homepage: an editable specimen
+using the actual font files, Reader/Display workspaces, comparisons, chapter
+reading tests, and downloads. Both Labs can save browser drafts and download JSON
+settings on a normal website.
+
+Import this repository into Vercel with **Other** as the framework and the repo
+root as the Root Directory. `vercel.json` builds the website with
+`node build_site.mjs` and serves only `dist/site`. There are no website dependencies
+or environment variables to configure. See [website setup and draft usage](docs/WEBSITE.md).
+
+Local preview: `node build_site.mjs`, then
+`python -m http.server 8000 --directory dist/site` and open `http://localhost:8000`.
+
 Everything in the font is drawn from rules in code. There are no hand-drawn files to maintain, so
 any change (weight, letter height, roundness, spacing) rebuilds the whole family consistently.
 
@@ -44,8 +59,9 @@ The supplied drawing rules, cut settings, kerning data, and font files are retai
 Function documentation was added without changing the engine logic, and the two
 Python builders use explicit UTF-8 file I/O for Windows. The Lab is rebuilt from
 those documented sources.
-Its **Save cut** button uses the original Claude host database API; in a normal local
-browser, use **Copy** or copy the visible JSON into a file under `display/cuts/`.
+Its **Save cut** button uses browser-local drafts on a normal website and retains
+the original database integration in the Claude host. Use **Download JSON** or
+**Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.
 
 To rebuild with the Python dependencies described below, run from the repository root:
 
@@ -64,6 +80,7 @@ kerning. These display fonts have not received SEIReader's health-check certific
 
 | Folder / file | What it is |
 |---|---|
+| `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
 | [`display/`](display/README.md) | Separate SEIHouse Display 0.1 engine: four designs, cut settings, live Lab, font builder, kerning maps, and supplied OTF/WOFF2 fonts |
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |

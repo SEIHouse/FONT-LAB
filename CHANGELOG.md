@@ -2,6 +2,14 @@
 
 Newest first.
 
+- **Font Lab website** Added a real homepage with an actual-font specimen,
+  Day/Night mode, Reader/Display workspaces, comparison/chapter links, and resource
+  downloads. Added a dependency-free static build and Vercel configuration with an
+  explicit public-file allowlist. Both Labs now save browser-local drafts and
+  download portable JSON while retaining the original host database integration.
+  Added Home links and website deployment/use documentation. Font drawings,
+  settings, kerning and binaries are unchanged; the Reader npm package stays separate.
+
 - **Display 0.1 import** Added the supplied SEIHouse Display Engine under `display/`:
   Soft, Edge, Ink, and Wide cut settings, source/build tools, live Lab, kerning maps,
   and each design's OTF/WOFF2 fonts. The 24 supplied files retain their design rules,
