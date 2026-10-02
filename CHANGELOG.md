@@ -6,7 +6,9 @@ Newest first.
   Soft, Edge, Ink, and Wide cut settings, source/build tools, live Lab, kerning maps,
   and each design's OTF/WOFF2 fonts. The 24 supplied files retain their design rules,
   settings, and font bytes; normalized one extra export-tail blank line and added
-  explicit UTF-8 file I/O to both Python builders for Windows portability.
+  explicit UTF-8 file I/O to both Python builders for Windows portability. Documented
+  all engine/builder functions without changing executable drawing/build logic and
+  rebuilt the Lab to include the engine comments.
   Added repository links and Windows UTF-8 build instructions; documented the original
   local Copy workflow and prototype limitations. SEIReader source/fonts/settings and
   its app distribution scope are unchanged. Corrected the app-install guide's

@@ -19,6 +19,7 @@ const circ = (cx, cy, r) => { const k = 0.5522847498 * r;
   return [['M', cx + r, cy], ['C', cx + r, cy + k, cx + k, cy + r, cx, cy + r], ['C', cx - k, cy + r, cx - r, cy + k, cx - r, cy],
           ['C', cx - r, cy - k, cx - k, cy - r, cx, cy - r], ['C', cx + k, cy - r, cx + r, cy - k, cx + r, cy]]; };
 const LN = (x0,y0,x1,y1) => ['C', x0+(x1-x0)/3, y0+(y1-y0)/3, x0+2*(x1-x0)/3, y0+2*(y1-y0)/3, x1, y1];
+/** Build the open C-shaped capital curve at the supplied dimensions. */
 function cCurve(W, H, x0){
   /* one continuous curve; the ends stop partway round the corner at an angle, so there is no hard drop */
   const R = Math.min(P.caprx, W/2, H/2), END = 38 * Math.PI/180, PI = Math.PI;
@@ -311,6 +312,7 @@ const weightFor = size => P.base + P.boost * clamp((28 - size) / 15, 0, 1);
 /* ---------- drawing ---------- */
 const f1 = v => (+v).toFixed(1);
 
+/** Return corner radii and curve tension for the active letter kind. */
 function radii(kind){
   if(kind === 'low'){
     if(P.ital){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }   // italic curves are locked
@@ -319,6 +321,7 @@ function radii(kind){
   return { rx:P.caprx, ry:P.caprx, k:0.667 };
 }
 
+/** Convert points to an SVG path using the active corner treatment. */
 function pathFrom(pts, closed, kind){
   const n = pts.length, cmds = [], rr = radii(kind);
   const corner = i => {
@@ -355,6 +358,7 @@ function pathFrom(pts, closed, kind){
 }
 
 const clipDone = {};
+/** Create and reuse an SVG clipping box for the glyph ink bounds. */
 function ensureClip(top, bot){
   const id = `c${top}_${bot < 0 ? 'n'+(-bot) : bot}`;
   if(!clipDone[id]){
@@ -366,6 +370,7 @@ function ensureClip(top, bot){
 }
 
 const cache = {};
+/** Select the base glyph with the active u-foot and italic variants. */
 function pickBase(ch){
   return ch === 'u' ? (P.ital ? IT.u : P.ufoot ? U_FOOT : U_PLAIN)
        : (P.ital && ch === 'a') ? A_IT : (P.ital && ch === 'f') ? F_IT : (P.ital && IT[ch]) ? IT[ch] : G[ch];
@@ -381,6 +386,7 @@ const MARK = {
   cedilla: (cx)     => ({ shapes:[RAW([['M',cx,5], LN(cx,5,cx+15,-70), ['C',cx+30,-130,cx-20,-175,cx-80,-160]])] }),
 };
 const ACC = {};
+/** Register accented characters and their base-letter composition rules. */
 function acc(chars, base, marks, opt = {}){ [...chars].forEach((ch, i) => { ACC[ch] = Object.assign({ base, mark: marks[i] }, opt); G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] }; }); }
 const M6 = ['grave','acute','circ','tilde','dier','ring'], M4 = ['grave','acute','circ','dier'], M5 = ['grave','acute','circ','tilde','dier'];
 acc('ÀÁÂÃÄÅ', 'A', M6); acc('àáâãäå', 'a', M6);
@@ -396,6 +402,7 @@ window.getBaseMap = () => Object.fromEntries(Object.entries(ACC).map(([k, v]) =>
 /* ---------- joined letters: fi and fl ---------- */
 const LIG = { 'ﬁ':'i', 'ﬂ':'l' };
 for(const ch in LIG) G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] };
+/** Compose the joined fi or fl glyph using the active cut spacing. */
 function buildLig(ch, S){
   const fb = pickBase('f'), sec = pickBase(LIG[ch]);
   const ws0 = P.ws * (P.ital ? 0.94 : 1), trk = P.trk || 0;
@@ -416,11 +423,13 @@ function buildLig(ch, S){
   return { w: wFinal / ws0, kind:'low', sb:[fb.sb[0], sec.sb[1]], shapes, dots:[] };
 }
 
+/** Calculate horizontal and vertical extents of the angled oval pen. */
 function penHalf(S){
   const a = S/2, b = S/(2*P.contrast), t = (P.penAngle || 0) * Math.PI/180;
   return { hx: Math.sqrt((a*Math.cos(t))**2 + (b*Math.sin(t))**2), hy: Math.sqrt((a*Math.sin(t))**2 + (b*Math.cos(t))**2) };
 }
 
+/** Render and cache a glyph using the active cut shape and pen settings. */
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
@@ -491,6 +500,7 @@ function glyph(ch, S){
   return (cache[ck] = { body, clipId: ensureClip(top, bot), sb0:g.sb[0], sb1:g.sb[1], w:g.w*ws });
 }
 
+/** Lay out a word as SVG with active glyph metrics and hand-set pairs. */
 function word(w, size, ui){
   const S = weightFor(size);
   const extra = P.track + 0.3*(S - P.base);
@@ -511,6 +521,7 @@ function word(w, size, ui){
 
 const esc = s => s.replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
+/** Wrap laid-out SVG words in an accessible text run with configured gaps. */
 function T(str, size, opt = {}){
   const words = str.split(/\s+/).filter(Boolean);
   const colGap = size*0.25, rowGap = opt.ui ? 0 : size*(opt.rowGap ?? 0.28);

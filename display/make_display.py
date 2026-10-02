@@ -41,6 +41,7 @@ ITAL_CENTER = 330
 TRACK = settings['spaceBetweenAllLetters']; VERSION = settings.get('version', '0.1'); FAMILY = 'SEIHouse Display ' + CUT_NAME
 
 def export():
+    """Export glyph geometry, kerning and accent bases through Chromium."""
     from playwright.sync_api import sync_playwright
     page = (open(os.path.join(HERE, 'export_head.html'), encoding='utf-8').read() + open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
             + open(os.path.join(HERE, 'export_tail.js'), encoding='utf-8').read() + '</script></body></html>')
@@ -55,8 +56,10 @@ def export():
 
 TOK = re.compile(r'([MLCZ])|(-?\d+(?:\.\d+)?)')
 def parse(d):
+    """Parse the engine SVG move, line, cubic and close commands."""
     toks = [(m.group(1), m.group(2)) for m in TOK.finditer(d)]; i = 0; cmds = []
     def num():
+        """Consume one numeric token from the SVG command stream."""
         nonlocal i
         v = float(toks[i][1]); i += 1; return v
     while i < len(toks):
@@ -84,6 +87,7 @@ def stroke(cmds, dx, width=None):
     # angled oval pen: map the drawing into "pen space" (where the pen is round), stroke, map back
     t = math.radians(PEN); c, s_ = math.cos(t), math.sin(t)
     def mat(k):   # R(t) * scaleY(k) * R(-t)
+        """Return the rotated oval-pen scale matrix for the given ratio."""
         return (c*c + k*s_*s_, (1 - k)*c*s_, (1 - k)*c*s_, s_*s_ + k*c*c)
     a, b, cc, d = mat(F)            # into pen space
     path = path.transform(scaleX=a, skewX=b, skewY=cc, scaleY=d)
@@ -96,6 +100,7 @@ def stroke(cmds, dx, width=None):
     return path.transform(scaleX=1.0/BIG, scaleY=1.0/BIG)
 
 def circle(cx, cy, r, dx):
+    """Draw a circular dot at the cut scale and horizontal offset."""
     K = 0.5522847498; x, y, R = (cx + dx) * SC, -cy * SC, r * SC
     path = Path(); pen = path.getPen()
     pen.moveTo((x + R, y))
@@ -106,6 +111,7 @@ def circle(cx, cy, r, dx):
     pen.closePath(); return path
 
 def outline(g, dx):
+    """Union glyph strokes, dots and fills, then apply clipping and slant."""
     shapes = [stroke(parse(p['d']), dx, p['w']) for p in g['paths']] + [circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
     for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
         cmds = parse(f['d'])
@@ -151,6 +157,7 @@ def thin_joins(path):
     contours = list(path.contours)
     if not contours: return path
     def signed_area(pts):
+        """Compute signed polygon area to determine contour winding."""
         return sum(pts[i][0]*pts[(i+1) % len(pts)][1] - pts[(i+1) % len(pts)][0]*pts[i][1] for i in range(len(pts))) / 2
     corners = []
     biggest = None
@@ -227,20 +234,28 @@ AUTO_LOWLOW = 30         # lowercase+lowercase pairs are only touched when reall
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
     def __init__(self):
+        """Initialize the contour sampler used for ink profiles."""
         super().__init__(None); self.polys = []; self.cur = []
-    def _moveTo(self, p): self.cur = [p]
-    def _lineTo(self, p): self.cur.append(p)
+    def _moveTo(self, p):
+        """Begin a sampled contour at the supplied point."""
+        self.cur = [p]
+    def _lineTo(self, p):
+        """Append a straight segment endpoint to the sampled contour."""
+        self.cur.append(p)
     def _curveToOne(self, p1, p2, p3):
+        """Sample a cubic curve at six intervals for ink measurements."""
         p0 = self.cur[-1]
         for i in range(1, 7):
             t = i / 6; u = 1 - t
             self.cur.append((u**3*p0[0] + 3*u*u*t*p1[0] + 3*u*t*t*p2[0] + t**3*p3[0], u**3*p0[1] + 3*u*u*t*p1[1] + 3*u*t*t*p2[1] + t**3*p3[1]))
     def _qCurveToOne(self, p1, p2):
+        """Sample a quadratic curve at four intervals for ink measurements."""
         p0 = self.cur[-1]
         for i in range(1, 5):
             t = i / 4; u = 1 - t
             self.cur.append((u*u*p0[0] + 2*u*t*p1[0] + t*t*p2[0], u*u*p0[1] + 2*u*t*p1[1] + t*t*p2[1]))
     def _closePath(self):
+        """Store a completed polygon and reset the current contour."""
         if len(self.cur) > 2: self.polys.append(self.cur)
         self.cur = []
     _endPath = _closePath
@@ -277,6 +292,7 @@ def auto_pairs(paths, hm, cmap):
         if not xsL: continue
         prof[ch] = dict(name=n, adv=hm[n], Lmin=min(xsL), Rmax=max(xsR), cap=(Lc, Rc), low=(Ll, Rl))
     def gap(a, b, zone):
+        """Average the effective ink gap over the selected vertical zone."""
         A, B = prof[a], prof[b]
         RA = A[zone][1]; LB = B[zone][0]; tot = 0; k = 0
         for ra, lb in zip(RA, LB):
@@ -290,6 +306,7 @@ def auto_pairs(paths, hm, cmap):
     caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
+        """Select letter and punctuation pairs eligible for automatic spacing."""
         if 'j' in (a, b): return False                         # j's tail curls under its neighbour; leave it
         if a in caps and (b in caps or b in lower): return True    # AV, LT, To, Ya ...
         if (a in letters or a in digits) and b in lowp: return True  # r. y, P. 7.
@@ -338,6 +355,7 @@ def draw_fitted(path, pen):
         segs = list(contour.segments)
         start = None; run = []; cur = None
         def flush():
+            """Fit queued quadratic segments as cubics and write them to the pen."""
             nonlocal run
             if not run: return
             for c in quadratic_to_curves(run, max_err=0.35, all_cubic=True):
@@ -358,25 +376,30 @@ def draw_fitted(path, pen):
                 flush(); pen.endPath()
 
 def charstring(path, adv):
+    """Encode a glyph outline as a Type 2 charstring with its advance."""
     pen = T2CharStringPen(adv, None)          # whole-number points at 2000 units per em
     if path is not None: draw_fitted(path, pen)
     return pen.getCharString()
 
 def lsb_of(path):
+    """Return the rounded left ink bound, or zero for an empty glyph."""
     if path is None: return 0
     bp = BoundsPen(None); path.draw(bp); return round(bp.bounds[0]) if bp.bounds else 0
 
 def gname(ch):
+    """Map a character to its Adobe glyph name or Unicode fallback."""
     u = ord(ch)
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
 
 def track_for(thick):
+    """Adjust the cut tracking for a supplied stroke thickness."""
     reg = settings['weight']
     return TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
 def build(data, out, style='Regular', italic=False):
+    """Build, hint and save the selected display cut as OTF and WOFF2."""
     TR = track_for(S) + (ITAL_EXTRA_SPACE if italic else 0)
     ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
     shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
