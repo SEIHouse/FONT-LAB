@@ -1,8 +1,8 @@
 """Builds the SEIHouse Display Lab: one page to shape display cuts live and save them."""
 import json, os, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
-engine = open(os.path.join(HERE, 'engine.js')).read()
-presets = [json.load(open(f)) for f in sorted(glob.glob(os.path.join(HERE, 'cuts', '*.json')))]
+engine = open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
+presets = [json.load(open(f, encoding='utf-8')) for f in sorted(glob.glob(os.path.join(HERE, 'cuts', '*.json')))]
 order = ['Soft', 'Edge', 'Ink', 'Wide']
 presets.sort(key=lambda c: order.index(c['name']) if c['name'] in order else 99)
 
@@ -230,5 +230,5 @@ window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = reque
 html = HTML.replace('__ENGINE__', engine).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
 out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
 os.makedirs(os.path.dirname(out), exist_ok=True)
-open(out, 'w').write(html)
+open(out, 'w', encoding='utf-8').write(html)
 print('display lab', len(html))

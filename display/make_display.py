@@ -27,7 +27,7 @@ BIG = 16          # stroke at 16x size for precise round ends, then shrink back
 ASCENT, DESCENT = 950, 250
 
 CUT_FILE = sys.argv[1] if len(sys.argv) > 1 else os.path.join(HERE, 'cuts', 'soft.json')
-settings = json.load(open(CUT_FILE))
+settings = json.load(open(CUT_FILE, encoding='utf-8'))
 CUT_NAME = settings.get('name', 'Soft')
 S = settings['weight']; F = settings['contrast']; ROUND = settings['lowercaseRoundness']
 XHT = settings.get('xHeight', 520); CAPR = settings.get('capitalRoundness', 210)
@@ -42,9 +42,9 @@ TRACK = settings['spaceBetweenAllLetters']; VERSION = settings.get('version', '0
 
 def export():
     from playwright.sync_api import sync_playwright
-    page = (open(os.path.join(HERE, 'export_head.html')).read() + open(os.path.join(HERE, 'engine.js')).read()
-            + open(os.path.join(HERE, 'export_tail.js')).read() + '</script></body></html>')
-    tmp = os.path.join(HERE, '_export.html'); open(tmp, 'w').write(page)
+    page = (open(os.path.join(HERE, 'export_head.html'), encoding='utf-8').read() + open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
+            + open(os.path.join(HERE, 'export_tail.js'), encoding='utf-8').read() + '</script></body></html>')
+    tmp = os.path.join(HERE, '_export.html'); open(tmp, 'w', encoding='utf-8').write(page)
     with sync_playwright() as p:
         b = p.chromium.launch(); pg = b.new_page(); pg.goto('file://' + tmp)
         pg.evaluate(f"P.round={ROUND}; P.contrast={F}; P.xh={XHT}; P.caprx={CAPR}; P.ws={WS}; P.base={S}; P.os={1 if settings.get('overshoot', True) else 0}; P.ufoot={1 if settings.get('uFoot', True) else 0}; P.ital=0; P.corner='{settings.get('corners', 'soft')}'; P.cap='{settings.get('ends', 'round')}'; P.join='{settings.get('joins', 'round')}'; P.penAngle={PEN}; P.straight={settings.get('uprightStraightness', 1)}; P.asc={settings.get('ascender', 770)}; P.trk={track_for(S) + (ITAL_EXTRA_SPACE if ITAL else 0)};")
@@ -442,7 +442,7 @@ def build(data, out, style='Regular', italic=False):
     KERN.update(AUTO); KERN.update(data['kern'])
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     if style == 'Regular' and not italic:
-        json.dump(AUTO, open(os.path.join(HERE, f"kern_auto_{CUT_NAME.lower().replace(' ', '-')}.json"), 'w'), ensure_ascii=False)
+        json.dump(AUTO, open(os.path.join(HERE, f"kern_auto_{CUT_NAME.lower().replace(' ', '-')}.json"), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')
     # pair spacing written with groups, so letters added later (accents) join the right group automatically
     left_groups, right_groups, lines = set(), set(), []

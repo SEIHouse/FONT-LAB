@@ -40,7 +40,8 @@ and Wide**. Each design has its own OTF and WOFF2 files under `display/fonts/<cu
 The display engine is separate from the SEIReader pipeline and excluded from the
 SEIReader app ZIP/npm package.
 
-The supplied engine, cut settings, Lab, kerning data, and fonts are imported unchanged.
+The supplied drawing engine, cut settings, Lab, kerning data, and fonts are imported
+unchanged. The two Python builders use explicit UTF-8 file I/O for Windows.
 Its **Save cut** button uses the original Claude host database API; in a normal local
 browser, use **Copy** or copy the visible JSON into a file under `display/cuts/`.
 
