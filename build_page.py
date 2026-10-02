@@ -749,7 +749,7 @@ async function connect(){
       }
     }
     setSaveMsg(DB.local ? 'Ready to save in this browser. Download JSON to keep a portable copy.' : 'Nothing saved yet.');
-  } catch(e){ setSaveMsg('Could not load saved settings. Try Save, or use Download JSON to keep a copy.'); }
+  } catch(e){ setSaveMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load saved settings.') + ' Use Download JSON to keep a copy.'); }
 }
 $('save').addEventListener('click', async () => {
   if(!DB) return;
@@ -758,7 +758,7 @@ $('save').addEventListener('click', async () => {
     await DB.doc(DOC).set({ settings: payload(), savedAt: Date.now(), fontFileVersion: '__VERSION__' });
     dirty = false; setSaveMsg(DB.local ? 'Saved in this browser. Download JSON to build or move this draft.' : 'Saved to the connected host. Download JSON to build locally.');
   } catch(e){
-    setSaveMsg('Save didn’t work (' + (e && e.code ? e.code : 'error') + '). Use Download JSON to keep a copy.');
+    setSaveMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Save didn’t work (' + (e && e.code ? e.code : 'error') + ').') + ' Use Download JSON to keep a copy.');
   }
   $('save').disabled = false;
 });

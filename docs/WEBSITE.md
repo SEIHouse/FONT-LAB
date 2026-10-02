@@ -72,7 +72,9 @@ node --test tests/site.test.mjs
 node build_site.mjs
 ```
 
-The draft tests cover reloads, storage isolation, failed writes, blocked/corrupt
-storage, and safe document identifiers. Existing app distribution checks remain
+The draft tests cover reloads, storage isolation, interleaved tab saves, original
+draft-format compatibility, failed writes, blocked/corrupt storage, and safe
+document identifiers. Each draft has a separate storage key, so saving a cut does
+not rewrite other cuts. Existing app distribution checks remain
 in place. Desktop/mobile browser checks should exercise theme and font controls,
 navigation, Save/reload, JSON downloads, and chapter feedback against the built site.

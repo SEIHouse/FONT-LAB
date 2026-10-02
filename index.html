@@ -5,6 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="The SEIHouse type workshop. Shape SEIReader, create display cuts, compare type, and test long-form reading.">
   <meta name="theme-color" content="#151917">
+  <script>
+    try {
+      if (localStorage.getItem('seihouse.home.theme') === 'day') {
+        document.documentElement.dataset.theme = 'day';
+        document.querySelector('meta[name="theme-color"]').content = '#f4f3e9';
+      }
+    } catch { /* Keep Night mode when browser storage is unavailable. */ }
+  </script>
   <title>SEIHouse — Font Lab</title>
   <link rel="icon" href="./site/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./fonts-full.css">

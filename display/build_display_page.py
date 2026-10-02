@@ -217,7 +217,7 @@ $('save').addEventListener('click', async () => {
   if(!db) return;
   const body = JSON.parse(JSON.stringify(CUT)); body.savedAt = Date.now();
   try { await db.doc('cuts/' + slug(CUT.name)).set(body); SAVED[CUT.name] = body; renderPresets(); renderAllCuts(); setMsg(db.local ? 'Saved in this browser. Download JSON to build or move this cut.' : 'Saved to the connected host. Download JSON to build locally.'); }
-  catch(e){ setMsg('Save failed. Use Download JSON to keep a copy.'); }
+  catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Save failed.') + ' Use Download JSON to keep a copy.'); }
 });
 (async () => {
   try { db = window.claude && typeof window.claude.use === 'function' ? await window.claude.use('db') : null; } catch(e){ db = null; }
@@ -227,7 +227,7 @@ $('save').addEventListener('click', async () => {
     const snap = await db.collection('cuts').get();
     snap.docs.forEach(d => { const v = d.data(); if(v && v.name) SAVED[v.name] = v; });
     renderPresets(); renderAllCuts(); setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
-  } catch(e){ setMsg('Could not load drafts. Try Save, or use Download JSON to keep a copy.'); }
+  } catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load drafts.') + ' Use Download JSON to keep a copy.'); }
 })();
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });

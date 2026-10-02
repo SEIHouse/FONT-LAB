@@ -13,7 +13,8 @@ function harness(storage) {
 /** Create a minimal storage double with the same get/set persistence contract. */
 function storageMap() {
   const values = new Map();
-  return {getItem:key => values.get(key) ?? null, setItem:(key,value) => values.set(key,value)};
+  return {getItem:key => values.get(key) ?? null, setItem:(key,value) => values.set(key,value),
+    get length() { return values.size; }, key:index => [...values.keys()][index] ?? null};
 }
 
 test('Reader drafts survive a fresh page instance without sharing mutable settings', async () => {
@@ -62,4 +63,48 @@ test('Prototype-like document ids stay ordinary saved records', async () => {
   await db.doc('__proto__').set({name:'safe'});
   assert.equal((await db.doc('__proto__').get()).data().name, 'safe');
   assert.equal((await db.doc('toString').get()).exists, false);
+});
+
+test('Interleaved saves in different tabs preserve both cuts', async () => {
+  const storage = storageMap();
+  const first = harness(storage).createLocalDB('display');
+  const second = harness(storage).createLocalDB('display');
+  const originalSet = storage.setItem;
+  let interleaved = false, otherSave;
+  storage.setItem = (key, value) => {
+    if (!interleaved) {
+      interleaved = true;
+      otherSave = second.doc('cuts/second').set({name:'Second'});
+    }
+    originalSet(key, value);
+  };
+  await first.doc('cuts/first').set({name:'First'});
+  await otherSave;
+  const cuts = await first.collection('cuts').get();
+  assert.equal(cuts.docs.map(doc => doc.data().name).sort().join(','), 'First,Second');
+});
+
+test('Original map-format drafts remain readable and update without replacing other cuts', async () => {
+  const storage = storageMap();
+  const original = JSON.stringify({version:1,documents:{'cuts/soft':{name:'Soft',weight:150},'cuts/edge':{name:'Edge',weight:115}}});
+  storage.setItem('display', original);
+  const db = harness(storage).createLocalDB('display');
+  assert.equal((await db.doc('cuts/soft').get()).data().weight, 150);
+  await db.doc('cuts/soft').set({name:'Soft',weight:155});
+  assert.equal((await db.doc('cuts/soft').get()).data().weight, 155);
+  assert.equal((await db.doc('cuts/edge').get()).data().weight, 115);
+  assert.equal((await db.collection('cuts').get()).docs.length, 2);
+  assert.equal(storage.getItem('display'), original);
+});
+
+test('Corrupt per-document records are reported without erasing them or another cut', async () => {
+  const storage = storageMap();
+  const db = harness(storage).createLocalDB('display');
+  await db.doc('cuts/good').set({name:'Good'});
+  const brokenKey = 'display:doc:' + encodeURIComponent('cuts/broken');
+  storage.setItem(brokenKey, '{broken');
+  await assert.rejects(db.doc('cuts/broken').get(), /Invalid saved draft data/);
+  await assert.rejects(db.doc('cuts/broken').set({name:'Broken'}), /Invalid saved draft data/);
+  assert.equal(storage.getItem(brokenKey), '{broken');
+  assert.equal((await db.doc('cuts/good').get()).data().name, 'Good');
 });

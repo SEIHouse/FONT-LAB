@@ -90,35 +90,61 @@ Bloom</textarea></label>
   function clone(value) { return JSON.parse(JSON.stringify(value)); }
   /** Create the small document interface used by the existing Lab Save workflows. */
   function createLocalDB(key, storage) {
-    /** Read this Lab's document map, rejecting malformed or unsupported records. */
-    function read() {
+    const prefix = key + ':doc:';
+    /** Parse a storage record without replacing malformed or unsupported data. */
+    function parse(raw) {
+      try { return JSON.parse(raw); }
+      catch { throw new Error('Invalid saved draft data'); }
+    }
+    /** Read the original single-map format for drafts saved before per-document storage. */
+    function legacy() {
       const raw = (storage || window.localStorage).getItem(key);
-      if (!raw) return Object.create(null);
-      const saved = JSON.parse(raw);
+      if (raw === null) return Object.create(null);
+      const saved = parse(raw);
       if (!saved || saved.version !== 1 || !saved.documents || typeof saved.documents !== 'object' || Array.isArray(saved.documents)) {
         throw new Error('Invalid saved draft data');
       }
       return saved.documents;
     }
+    /** Read one draft, preferring its dedicated key over the retained original map. */
+    function readDocument(id) {
+      const raw = (storage || window.localStorage).getItem(prefix + encodeURIComponent(id));
+      if (raw !== null) {
+        const saved = parse(raw);
+        if (!saved || saved.version !== 1 || !saved.document || typeof saved.document !== 'object' || Array.isArray(saved.document)) {
+          throw new Error('Invalid saved draft data');
+        }
+        return {exists:true, value:saved.document};
+      }
+      const records = legacy();
+      const exists = Object.hasOwn(records, id), value = records[id];
+      if (exists && (!value || typeof value !== 'object' || Array.isArray(value))) {
+        throw new Error('Invalid saved draft data');
+      }
+      return {exists, value};
+    }
     /** Return an isolated document snapshot with the existing exists/data contract. */
-    function snapshot(records, id) {
-      const exists = Object.hasOwn(records, id);
-      return {exists, data: () => exists ? clone(records[id]) : undefined};
+    function snapshot(record) {
+      return {exists:record.exists, data: () => record.exists ? clone(record.value) : undefined};
     }
     return {
       local: true,
       doc: id => ({
-        get: async () => snapshot(read(), id),
+        get: async () => snapshot(readDocument(id)),
         set: async value => {
-          const records = read();
-          Object.defineProperty(records, id, {value:clone(value), enumerable:true, writable:true, configurable:true});
-          (storage || window.localStorage).setItem(key, JSON.stringify({version:1, documents:records}));
+          // Reject corrupt existing data; never erase another document's saved value.
+          readDocument(id);
+          (storage || window.localStorage).setItem(prefix + encodeURIComponent(id), JSON.stringify({version:1, document:clone(value)}));
         }
       }),
       collection: name => ({get: async () => {
-        const records = read();
-        const prefix = name + '/';
-        return {docs:Object.keys(records).filter(id => id.startsWith(prefix)).map(id => snapshot(records, id))};
+        const store = storage || window.localStorage;
+        const ids = new Set(Object.keys(legacy()));
+        for (let i = 0; i < store.length; i++) {
+          const storedKey = store.key(i);
+          if (storedKey && storedKey.startsWith(prefix)) ids.add(decodeURIComponent(storedKey.slice(prefix.length)));
+        }
+        return {docs:[...ids].filter(id => id.startsWith(name + '/')).map(id => snapshot(readDocument(id))).filter(doc => doc.exists)};
       }})
     };
   }
@@ -788,7 +814,7 @@ $('save').addEventListener('click', async () => {
   if(!db) return;
   const body = JSON.parse(JSON.stringify(CUT)); body.savedAt = Date.now();
   try { await db.doc('cuts/' + slug(CUT.name)).set(body); SAVED[CUT.name] = body; renderPresets(); renderAllCuts(); setMsg(db.local ? 'Saved in this browser. Download JSON to build or move this cut.' : 'Saved to the connected host. Download JSON to build locally.'); }
-  catch(e){ setMsg('Save failed. Use Download JSON to keep a copy.'); }
+  catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Save failed.') + ' Use Download JSON to keep a copy.'); }
 });
 (async () => {
   try { db = window.claude && typeof window.claude.use === 'function' ? await window.claude.use('db') : null; } catch(e){ db = null; }
@@ -798,7 +824,7 @@ $('save').addEventListener('click', async () => {
     const snap = await db.collection('cuts').get();
     snap.docs.forEach(d => { const v = d.data(); if(v && v.name) SAVED[v.name] = v; });
     renderPresets(); renderAllCuts(); setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
-  } catch(e){ setMsg('Could not load drafts. Try Save, or use Download JSON to keep a copy.'); }
+  } catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load drafts.') + ' Use Download JSON to keep a copy.'); }
 })();
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });
