@@ -556,6 +556,7 @@ function latinBase(ch){
   const source=DOTLESS[ch] || LANGUAGE_ALTERNATES[ch] || ch;
   return LANGUAGE_COMPOSED[source]?.base || LANGUAGE_SPECIALS[source] || ACC[source]?.base || source;
 }
+/** Return base-letter mappings for accented and language-specific glyphs. */
 window.getBaseMap = () => Object.fromEntries([...Object.keys(ACC),...Object.keys(LANGUAGE_COMPOSED),...Object.keys(LANGUAGE_SPECIALS)]
   .map(ch=>[ch,latinBase(ch)]));
 
