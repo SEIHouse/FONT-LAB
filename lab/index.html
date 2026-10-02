@@ -558,7 +558,9 @@ def('’',80,'cap',[curvedQuote(false)],[[80,qy(650)]],[40,40]);
 def('‘',80,'cap',[curvedQuote(true)],[[10,qy(520)]],[40,40]);
 def('”',270,'cap',[curvedQuote(false),curvedQuote(false,190)],[[80,qy(650)],[270,qy(650)]],[40,40]);
 def('“',270,'cap',[curvedQuote(true),curvedQuote(true,190)],[[10,qy(520)],[200,qy(520)]],[40,40]);
+/** Place a curved local opening quote below the baseline at a horizontal offset. */
 const lowQuote = dx => RAW([['M',80+dx,20],['C',80+dx,-42,47+dx,-97,10+dx,-140]]);
+/** Reverse the raised quote curve for local reversed quotation forms. */
 const reverseQuote = dx => RAW([['M',10+dx,qy(650)],['C',10+dx,qy(588),43+dx,qy(533),80+dx,qy(490)]]);
 def('‚',80,'cap',[lowQuote(0)],[[80,20]],[40,40]);
 def('„',270,'cap',[lowQuote(0),lowQuote(190)],[[80,20],[270,20]],[40,40]);
@@ -801,15 +803,25 @@ const MARK = {
   dier:    (cx, y0) => ({ dots:[[cx-100,y0+55],[cx+100,y0+55]] }),
   ring:    (cx, y0) => ({ shapes:[RAW(circ(cx, y0+65, 58))] }),
   cedilla: (cx)     => ({ shapes:[RAW([['M',cx,5], LN(cx,5,cx+15,-70), ['C',cx+30,-130,cx-20,-175,cx-80,-160]])] }),
+  /** Draw a centered horizontal macron above the attachment point. */
   macron:  (cx,y) => ({ shapes:[o([[cx-100,y+30],[cx+100,y+30]])] }),
+  /** Draw a shallow rounded breve with smooth symmetric ends. */
   breve:   (cx,y) => ({ shapes:[RAW([['M',cx-100,y+100],['C',cx-80,y-15,cx+80,y-15,cx+100,y+100]])] }),
+  /** Place a single above-dot for dotted letters and combining accents. */
   dot:     (cx,y) => ({ dots:[[cx,y+40]] }),
+  /** Draw a compact hook above for the shared combining-mark repertoire. */
   hook:    (cx,y) => ({ shapes:[RAW([['M',cx-30,y+100],['C',cx+75,y+140,cx+90,y+45,cx+10,y]])] }),
+  /** Draw parallel acute strokes for Hungarian double-acute vowels. */
   double:  (cx,y) => ({ shapes:[o([[cx-100,y],[cx-10,y+110]]),o([[cx+30,y],[cx+120,y+110]])] }),
+  /** Draw a centered caron with two symmetric diagonal strokes. */
   caron:   (cx,y) => ({ shapes:[o([[cx-95,y+105],[cx,y],[cx+95,y+105]])] }),
+  /** Draw a right-side horn that can attach beside the base's upper bowl. */
   horn:    (cx,y) => ({ shapes:[RAW([['M',cx,y],['C',cx+105,y,cx+130,y+65,cx+105,y+130]])] }),
+  /** Place a below-dot for Igbo vowels and combining sequences. */
   below:   (cx) => ({ dots:[[cx,-45]] }),
+  /** Draw a compact below-comma for Romanian and combining accents. */
   comma:   (cx) => ({ shapes:[RAW([['M',cx+15,-15],['C',cx+30,-55,cx+10,-95,cx-25,-110]])] }),
+  /** Draw an attached ogonek that curves left and returns toward its anchor. */
   ogonek:  (cx) => ({ shapes:[RAW([['M',cx,0],['C',cx-80,-55,cx-80,-125,cx+5,-110]])] }),
 };
 // Compact, light marks leave room for two levels inside the existing line metrics.
@@ -955,8 +967,11 @@ function composedFraction(parts, S){
 function inkBounds(g){
   if(g.ink) return g.ink;
   const box=[Infinity,Infinity,-Infinity,-Infinity];
+  /** Expand the ink box by a point and its horizontal and vertical pen radii. */
   const add=(x,y,rx=0,ry=0) => { box[0]=Math.min(box[0],x-rx); box[1]=Math.min(box[1],y-ry); box[2]=Math.max(box[2],x+rx); box[3]=Math.max(box[3],y+ry); };
+  /** Evaluate one coordinate of a cubic Bezier at parameter t. */
   const at=(p,t) => (1-t)**3*p[0]+3*(1-t)**2*t*p[1]+3*(1-t)*t*t*p[2]+t**3*p[3];
+  /** Return derivative roots; the caller limits them to the curve segment. */
   const extrema=p => {
     const a=-p[0]+3*p[1]-3*p[2]+p[3], b=2*(p[0]-2*p[1]+p[2]), c=p[1]-p[0];
     if(Math.abs(a)<1e-9) return Math.abs(b)<1e-9 ? [] : [-c/b];
@@ -967,6 +982,7 @@ function inkBounds(g){
     const tok=d.match(/[MLCZ]|-?\d+(?:\.\d+)?/g) || []; let i=0,pt=[0,0];
     while(i<tok.length){
       const op=tok[i++]; if(op==='Z') continue;
+      /** Read the next SVG point and restore the font's upward y axis. */
       const end=() => [+tok[i++],-tok[i++]];
       if(op==='M'||op==='L'){pt=end();add(...pt,sw/2,sw/(2*P.contrast));}
       else if(op==='C'){
@@ -984,6 +1000,7 @@ function inkBounds(g){
 function combiningGlyph(ch,S){
   const spec=COMBINING[ch], mk=MARK[spec.mark](0,0), scale=.72, sw=Math.min(readingStroke(S)*.72,58);
   let body='';
+  /** Scale a mark point into SVG coordinates without altering its advance. */
   const point=(x,y) => `${f1(x*scale)} ${f1(-y*scale)}`;
   for(const shape of mk.shapes || []){
     const d=shape.raw ? shape.raw.map(seg => seg[0]+' '+seg.slice(1).map((v,i)=>f1(v*scale*(i%2 ? -1 : 1))).join(' ')).join(' ')
@@ -1009,6 +1026,7 @@ function latinAnchors(ch,S){
 /** Keep existing precomposed letters; attach only the remaining combining marks. */
 function latinClusters(text){
   const clusters=[];
+  /** Return the canonical combining class for the supported mark repertoire. */
   const ccc=ch=>COMBINING[ch].place==='horn' ? 216 : ['\u0327','\u0328'].includes(ch) ? 202 : COMBINING[ch].place==='bottom' ? 220 : 230;
   for(const ch of text.normalize('NFD')){
     if(COMBINING[ch]){
