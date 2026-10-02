@@ -27,7 +27,7 @@ BIG = 16          # stroke at 16x size for precise round ends, then shrink back
 ASCENT, DESCENT = 950, 250
 
 settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
-if len(sys.argv) > 1:
+if __name__ == '__main__' and len(sys.argv) > 1:
     ch = json.load(open(sys.argv[1], encoding='utf-8'))
     for k in ('weights', 'weight', 'xHeight', 'ascender', 'lowercaseRoundness', 'capitalRoundness', 'letterWidth', 'wordSpace', 'overshoot', 'uFoot',
               'spaceBetweenAllLetters', 'letterSpace', 'pairSpace'):
@@ -43,6 +43,7 @@ ITAL_CENTER = 330   # slant around this height so letters stay centered in their
 TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMILY = settings['family']
 
 def export():
+    """Evaluate the configured drawing engine in Chromium and capture glyphs, anchors and pairs."""
     from playwright.sync_api import sync_playwright
     page = (open(os.path.join(HERE, 'export_head.html'), encoding='utf-8').read()
             + open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
@@ -60,8 +61,10 @@ def export():
 
 TOK = re.compile(r'([MLCZ])|(-?\d+(?:\.\d+)?)')
 def parse(d):
+    """Parse the engine's absolute SVG move, line, cubic and close commands."""
     toks = [(m.group(1), m.group(2)) for m in TOK.finditer(d)]; i = 0; cmds = []
     def num():
+        """Consume the next numeric token from the SVG path stream."""
         nonlocal i
         v = float(toks[i][1]); i += 1; return v
     while i < len(toks):
@@ -91,6 +94,7 @@ def stroke(cmds, dx, width=None):
     return path.transform(scaleX=1.0/BIG, scaleY=1.0/(BIG*F))
 
 def circle(cx, cy, r, dx):
+    """Create a filled dot from four cubic arcs at the shared font-unit scale."""
     K = 0.5522847498; x, y, R = (cx + dx) * SC, -cy * SC, r * SC
     path = Path(); pen = path.getPen()
     pen.moveTo((x + R, y))
@@ -101,6 +105,7 @@ def circle(cx, cy, r, dx):
     pen.closePath(); return path
 
 def outline(g, dx):
+    """Merge a glyph's strokes, fills and dots, then apply its real italic shear."""
     shapes = [stroke(parse(p['d']), dx, p['w']) for p in g['paths']] + [circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
     for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
         cmds = parse(f['d'])
@@ -140,6 +145,7 @@ def thin_joins(path):
     contours = list(path.contours)
     if not contours: return path
     def signed_area(pts):
+        """Measure polygon orientation for the optional concave-join carving pass."""
         return sum(pts[i][0]*pts[(i+1) % len(pts)][1] - pts[(i+1) % len(pts)][0]*pts[i][1] for i in range(len(pts))) / 2
     corners = []
     biggest = None
@@ -206,7 +212,7 @@ def thin_joins(path):
     return path
 
 # ---------------------------------------------------------------- automatic pair spacing
-AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”()-–—/&'
+AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”‚„‛‟ʻʼ()-–—/&'
 AUTO_STRENGTH = 0.6      # how much of the difference to correct (1 = all of it)
 AUTO_DEPTH = 0.10        # how far into a letter's open space counts (share of the em)
 AUTO_MIN, AUTO_MAX = -0.12, 0.04   # limits, as share of the em
@@ -221,20 +227,28 @@ RHYTHM_THRESHOLD = 5    # minimum useful residual in source units; ink separatio
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
     def __init__(self):
+        """Initialize the flattened contour collection used for ink-profile measurements."""
         super().__init__(None); self.polys = []; self.cur = []
-    def _moveTo(self, p): self.cur = [p]
-    def _lineTo(self, p): self.cur.append(p)
+    def _moveTo(self, p):
+        """Start a new flattened contour at the supplied point."""
+        self.cur = [p]
+    def _lineTo(self, p):
+        """Append a straight segment endpoint to the current contour."""
+        self.cur.append(p)
     def _curveToOne(self, p1, p2, p3):
+        """Sample a cubic curve into six linear edges for ink-profile measurement."""
         p0 = self.cur[-1]
         for i in range(1, 7):
             t = i / 6; u = 1 - t
             self.cur.append((u**3*p0[0] + 3*u*u*t*p1[0] + 3*u*t*t*p2[0] + t**3*p3[0], u**3*p0[1] + 3*u*u*t*p1[1] + 3*u*t*t*p2[1] + t**3*p3[1]))
     def _qCurveToOne(self, p1, p2):
+        """Sample a quadratic curve into four linear edges for ink-profile measurement."""
         p0 = self.cur[-1]
         for i in range(1, 5):
             t = i / 4; u = 1 - t
             self.cur.append((u*u*p0[0] + 2*u*t*p1[0] + t*t*p2[0], u*u*p0[1] + 2*u*t*p1[1] + t*t*p2[1]))
     def _closePath(self):
+        """Store a nonempty polygon and clear the current contour."""
         if len(self.cur) > 2: self.polys.append(self.cur)
         self.cur = []
     _endPath = _closePath
@@ -392,6 +406,7 @@ def draw_fitted(path, pen):
         segs = list(contour.segments)
         start = None; run = []; cur = None
         def flush():
+            """Fit pending quadratic segments to cubic curves and emit them through the font pen."""
             nonlocal run
             if not run: return
             for c in quadratic_to_curves(run, max_err=0.35, all_cubic=True):
@@ -412,11 +427,13 @@ def draw_fitted(path, pen):
                 flush(); pen.endPath()
 
 def charstring(path, adv):
+    """Encode the fitted outline and advance as a CFF Type 2 charstring."""
     pen = T2CharStringPen(adv, None)          # whole-number points at 2000 units per em
     if path is not None: draw_fitted(path, pen)
     return pen.getCharString()
 
 def lsb_of(path):
+    """Return the rounded left ink bound, or zero for an empty glyph."""
     if path is None: return 0
     bp = BoundsPen(None); path.draw(bp); return round(bp.bounds[0]) if bp.bounds else 0
 
@@ -428,11 +445,13 @@ def center_ink(path, advance):
     return path.transform(translateX=(advance - (right - left)) / 2 - left)
 
 def gname(ch):
+    """Use the Adobe glyph name when available, otherwise a Unicode-derived name."""
     u = ord(ch)
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
 STYLE_KERN = {}
+LANGUAGE_KERN = {}
 RHYTHM_BASELINE = os.path.join(HERE, 'old', '0.31')
 with open(os.path.join(RHYTHM_BASELINE, 'settings.json'), encoding='utf-8') as f:
     rhythm_settings = json.load(f)
@@ -479,7 +498,49 @@ def clear_text_marks(paths, hm, cmap, kern, basemap):
         if closest:
             kern[pair] = max(kern[pair], math.ceil((35*SC-min(closest))/SC))
 
+
+SEPARATE_LATIN = set('ĄąĘę')
+
+
+def ogonek_pairs(paths,hm,cmap,kern,basemap):
+    """Give new connected tails their own classes and measured punctuation room.
+
+    Every old pair remains frozen. Ordinary inherited values are copied to the
+    new classes; only their own punctuation pairs receive extra ink clearance.
+    """
+    def variants(ch):
+        """List a base character and its separate ogonek derivatives for inherited pair values."""
+        return [ch]+[new for new in sorted(SEPARATE_LATIN) if basemap.get(new)==ch]
+    for pair,value in list(kern.items()):
+        for a in variants(pair[0]):
+            for b in variants(pair[1]):
+                if a+b!=pair: kern[a+b]=value
+    punctuation='.,:;…!?\'"‘’“”‚„‛‟-–—()[]0123456789'
+    ys=range(-320*SC,1100*SC+1,2*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys))
+             for ch in SEPARATE_LATIN|set(punctuation) if ord(ch) in cmap}
+    for new in sorted(SEPARATE_LATIN):
+        for other in punctuation:
+            for a,b in ((new,other),(other,new)):
+                advance,(_,right)=sampled[a];_,(left,_)=sampled[b]
+                gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                if gaps: kern[a+b]=max(kern.get(a+b,0),math.ceil((35*SC-min(gaps))/SC))
+
+
+def hungarian_caps(paths,hm,cmap,kern):
+    """Add clearance for uppercase Hungarian TY/TTY digraphs, only under lang=hu."""
+    ys=range(0,700*SC+1,2*SC)
+    sampled={ch:profiles(paths[cmap[ord(ch)]],ys) for ch in 'TY'}
+    pairs={}
+    for pair in ('TT','TY'):
+        a,b=pair;right=sampled[a][1];left=sampled[b][0]
+        gaps=[hm[cmap[ord(a)]]+kern.get(pair,0)*SC-r+l for r,l in zip(right,left) if r is not None and l is not None]
+        delta=max(0,math.ceil((35*SC-min(gaps))/SC))
+        if delta: pairs[pair]=delta
+    return pairs
+
 def track_for(thick):
+    """Adjust the configured tracking by stroke weight relative to Regular."""
     reg = settings['weight']
     return TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
@@ -490,7 +551,7 @@ def build(data, out, style='Regular', italic=False):
     shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
     KERN = {}
     ovr = settings.get('letterSpace', {})
-    order = ['.notdef', 'space']; cmap = {32: 'space', 160: 'space'}; paths = {}; hm = {}
+    order = ['.notdef', 'space']; cmap = {32: 'space', 160: 'space'}; paths = {}; hm = {}; records = {}; origins = {}
     PRIVATE = {0xE000:'Ⓢ', 0xE001:'🎧', 0xE002:'💻', 0xE003:'📖', 0xE004:'🔖', 0xE005:'🔍', 0xE006:'🔔',
                0xE007:'🎤', 0xE008:'💿', 0xE009:'🔊', 0xE00A:'⚙', 0xE00B:'⌂', 0xE00C:'⚡', 0xE00D:'☀', 0xE00E:'☯', 0xE00F:'♥'}
     nd = Path(); pen = nd.getPen()
@@ -500,13 +561,15 @@ def build(data, out, style='Regular', italic=False):
     paths['.notdef'] = nd; paths['space'] = None; hm['.notdef'] = 520*SC; hm['space'] = round(WORD*SC)
     for ch, g in data['glyphs'].items():
         o = ovr.get(ch) or ovr.get(data.get('basemap', {}).get(ch, ''), {}) or {}; before, after = o.get('before', 0), o.get('after', 0)
-        left = TR + g['sb0'] + before
+        left = 0 if g.get('mark') else TR + g['sb0'] + before
         name = gname(ch); order.append(name); cmap[ord(ch)] = name
+        records[name] = g; origins[name] = left
         try:
             paths[name] = outline(g, left)
         except pathops.PathOpsError as exc:
             raise RuntimeError(f'Could not union {shown} glyph {name}') from exc
-        hm[name] = round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
+        hm[name] = 0 if g.get('mark') else round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
+        if ch in '\u2009\u202f': hm[name] = 120 * SC
 
     # Add unencoded alternates without touching the proportional digit outlines or metrics.
     digits = '0123456789'
@@ -521,6 +584,7 @@ def build(data, out, style='Regular', italic=False):
     for name, g in data['alternates'].items():
         if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
         order.append(name)
+        records[name] = g; origins[name] = TR + g['sb0']
         try:
             paths[name] = outline(g, TR + g['sb0'])
         except pathops.PathOpsError as exc:
@@ -593,8 +657,24 @@ def build(data, out, style='Regular', italic=False):
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
     retain_reading_pairs(KERN, ps_style)
     clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
+    # Additive foundation: retain every approved old pair when geometry is unchanged.
+    latin_dir = os.path.join(HERE, 'old', '0.33')
+    with open(os.path.join(latin_dir, 'settings.json'), encoding='utf-8') as file: latin_settings = json.load(file)
+    if all(settings.get(k) == latin_settings.get(k) for k in RHYTHM_SETTINGS):
+        with open(os.path.join(latin_dir, 'kern_styles.json'), encoding='utf-8') as file: old_kern = json.load(file)[ps_style]
+        with TTFont(os.path.join(latin_dir, f'SEIReader-{ps_style}.woff2')) as old_font: old_codes = set(old_font.getBestCmap())
+        for pair in list(KERN):
+            if all(ord(ch) in old_codes for ch in pair) and pair not in old_kern: del KERN[pair]
+        KERN.update(old_kern)
+    ogonek_pairs(paths,hm,cmap,KERN,data['basemap'])
+    # User-reported decimal fix: numeric separators override frozen/automatic pairs.
+    numeric_pairs = {pair: value for pair, value in data['kern'].items()
+                     if len(pair) == 2 and ((pair[0] in digits and pair[1] in '.,')
+                                           or (pair[0] in '.,' and pair[1] in digits))}
+    KERN.update(numeric_pairs)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     STYLE_KERN[ps_style] = dict(KERN)
+    LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
     if style == 'Regular' and not italic:
         json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')
@@ -606,10 +686,27 @@ def build(data, out, style='Regular', italic=False):
         left_groups.add(a); right_groups.add(b)
         lines.append(f'  pos @L_{gname(a)} @R_{gname(b)} {round(v*SC)};')
     bm = data.get('basemap', {})
-    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap])
+    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap and a not in SEPARATE_LATIN]
+                                + (['i.dotless','i.loclTRK','i.below.dotless'] if c == 'i' else ['j.dotless'] if c == 'j' else []))
     cls = [f'@L_{gname(c)} = [{members(c)}];' for c in sorted(left_groups)] + \
           [f'@R_{gname(c)} = [{members(c)}];' for c in sorted(right_groups)]
-    fea = '\n'.join(cls) + '\nfeature kern {\n' + '\n'.join(lines) + '\n} kern;\n'
+    from latin_layout import latin_features
+    fea = latin_features(records, origins, hm, cmap, SC, TAN if italic else 0, ITAL_CENTER)
+    fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
+    # Equal adjustments for every tabular digit preserve formatted-number alignment.
+    # Separate classes leave ordinary digit widths and digit-to-digit spacing intact.
+    # Zero's final separator overrides control the shared tabular margin.
+    fea += '@tabular_figures = [' + ' '.join(name + '.tf' for name in digit_names) + '];\n'
+    fea += 'feature kern {\n lookupflag IgnoreMarks;\n'
+    for separator in '.,':
+        fea += f' pos @tabular_figures {gname(separator)} {round(KERN.get("0" + separator, 0)*SC)};\n'
+        fea += f' pos {gname(separator)} @tabular_figures {round(KERN.get(separator + "0", 0)*SC)};\n'
+    fea += '} kern;\n'
+    hu=LANGUAGE_KERN[ps_style]['hu']
+    if hu:
+        fea+='feature kern {\n script latn; language HUN; lookup HungarianCaps {\n lookupflag IgnoreMarks;\n'
+        fea+='\n'.join(f' pos {gname(pair[0])} {gname(pair[1])} {value*SC};' for pair,value in hu.items())
+        fea+='\n } HungarianCaps;\n} kern;\n'
     if ord('ﬁ') in cmap and ord('ﬂ') in cmap:   # joined fi / fl, switched on automatically
         fea += f"feature liga {{\n  sub {gname('f')} {gname('i')} by {gname('ﬁ')};\n  sub {gname('f')} {gname('l')} by {gname('ﬂ')};\n}} liga;\n"
         # where the text cursor can stop inside a joined letter (between the f and the i / l)
@@ -665,5 +762,7 @@ if __name__ == '__main__':
             print('built', FAMILY, VERSION, fname, 'thickness', w)
     with open(os.path.join(HERE, 'kern_styles.json'), 'w', encoding='utf-8') as f:
         json.dump(STYLE_KERN, f, ensure_ascii=False)
+    with open(os.path.join(HERE, 'kern_languages.json'), 'w', encoding='utf-8') as f:
+        json.dump(LANGUAGE_KERN,f,ensure_ascii=False)
     from build_subsets import build_subsets
     build_subsets()

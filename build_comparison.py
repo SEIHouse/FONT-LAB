@@ -11,9 +11,10 @@ import sys
 from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools.pens.boundsPen import BoundsPen
+from language_coverage import inventory, exemplars
 
 ROOT = Path(__file__).resolve().parent
-BASELINE_VERSION = '0.31'
+BASELINE_VERSION = '0.33'
 settings = json.loads((ROOT / 'settings.json').read_text(encoding='utf-8'))
 weights = {'Light': 300, 'Regular': 400, 'Medium': 500, 'SemiBold': 600, 'Bold': 700}
 faces = []
@@ -57,9 +58,14 @@ for family, path in zip(families, regular_paths):
                        'space': font['hmtx'][font.getBestCmap()[32]][0]/upm}
 
 template = (ROOT/'comparison_template.html').read_text(encoding='utf-8')
+languages = {code:{'name':row['name'],'sample':row['sample'],
+                   'alphabet':' '.join(exemplars(row['exemplars']['main']))}
+             for code,row in inventory()['locales'].items()}
+options = ''.join(f'<option value="{code}">{row["name"]}</option>' for code,row in languages.items())
 page = (template.replace('__FONTS__', '\n'.join(css)).replace('__VERSION__', settings['version'])
         .replace('__BASELINE__', BASELINE_VERSION)
-        .replace('__SPACE__', str(settings['wordSpace']/1000)).replace('__METRICS__', json.dumps(metrics)))
+        .replace('__SPACE__', str(settings['wordSpace']/1000)).replace('__METRICS__', json.dumps(metrics))
+        .replace('__LANGUAGE_OPTIONS__', options).replace('__LANGUAGES__', json.dumps(languages,ensure_ascii=False)))
 outputs = [ROOT/'lab/comparison.html']
 if len(sys.argv) > 1: outputs.append(Path(sys.argv[1]).resolve())
 for output in outputs:

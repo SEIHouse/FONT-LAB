@@ -1,4 +1,15 @@
-SEIReader, version 0.32 (working draft)
+SEIReader, version 0.34 (working draft)
+
+EASIEST APP INSTALL
+  Use the App distribution Actions run's seireader-app-packages download.
+  Extract SEIReader-0.34-web-full.zip into public/seireader/0.34/ and link its fonts.css,
+  or install seihouse-seireader-0.34.0.tgz and import @seihouse/seireader/styles.css.
+  The default is ten full WOFF2 fonts (444,032 font bytes), with no build dependencies,
+  OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
+  faces the page uses. Full language/symbol coverage stays together in each face.
+  docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
+  At the repository root, fonts-full.css is the full delivery; fonts.css is the existing
+  optional subset delivery. Choose one route so the same faces are not registered twice.
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
@@ -15,7 +26,9 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
 
     @import url('/fonts.css');
 
-  fonts.css contains all 30 @font-face rules with nonoverlapping unicode-range values.
+  fonts.css contains all 30 @font-face rules. Latin extended intentionally overlaps basic
+  Latin and is declared last for each weight/style. It includes base letters, combining
+  accents, and prose punctuation so they can shape in one face. Keep the generated order.
   Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
   each weight, style, and character range. Keep the three subset files for every style.
 
@@ -90,13 +103,14 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.32 with the preserved 0.31 baseline, Literata,
+  Open lab/comparison.html to compare 0.34 with the preserved 0.33 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
-  Dialogue, decimals, proportional/tabular figures, and fractions show the refined texture.
-  Light has a firmer letter stroke and Medium a slightly lighter one. Regular keeps its
-  letter drawings; SemiBold/Bold, symbols/icons, and compact ordinal marks keep theirs too.
-  All advances, nominal settings, and letter-pair rhythm match 0.31. The stroke adjustments
-  apply at every size, with no optical-size axis. Real italics keep their pen-like exits.
+  Choose a language in the new selector. Its encoded (NFC) and decomposed (NFD) rows
+  should match. The main alphabet and real italic are shown beside the original reading
+  and foundation rows. Baseline 0.33 lacks the new encoded letters, so those rows may use
+  browser fallback; only the candidate claims the audited additional alphabet coverage.
+  All 323 existing outlines/metrics, nominal settings, weights, and default pairs match 0.33.
+  The earlier dialogue, figure, weight, and word samples remain for comparison.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
   from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
   then check 13/15/17px at Regular and Medium. Default chapter line-height stays 1.4.
@@ -113,8 +127,10 @@ OPTICAL SPACING AND SMALL TEXT
       letter-spacing: 0;
     }
 
-  Version 0.32 carries forward the approved 0.31 letter rhythm and remeasures mark/figure
-  pairs for its lighter punctuation and smoother numerals. All character advances stay stable.
+  Version 0.34 carries forward every existing 0.33 default pair value and character advance.
+  New ogonek/punctuation pairs have their own measured room. Hungarian uppercase TY/TTY
+  receive extra clearance only for lang="hu"; other text keeps the established capital spacing.
+  New marks have zero advance and are ignored by pair spacing.
   Avoid overriding the pair rhythm with extra CSS tracking. Review Light, Regular,
   and Medium at 13/15/17px in both themes using the comparison page's fixed-size
   matrix. Check minimum, murmur, river, climate, parallel, and everywhere, upright and italic.
@@ -122,13 +138,56 @@ OPTICAL SPACING AND SMALL TEXT
   Iñés, blade, Entry, Mei's / Mei’s, acquittal, ri/rn/cl/li, office, affinity, flame,
   and reflection. Inspect “Mei’s,” and “Entry 12?” alongside 1,234.56, 8.50%, and 6089,
   upright and italic, with proportional and tabular figures. Native Windows proof images
-  are in docs/proofs/0.32/; its family/
+  are in docs/proofs/0.34/; its family/
   images cover all five weights at 20px. Physical browser/device checks remain deferred.
 
-  fonts.css already uses font-display: swap. Curly quotes and apostrophes request the
-  symbols/icons subset; accented names can request Latin extended as well. If a chapter
-  uses all three subsets, compare their total transfer size with the full WOFF2 before
-  choosing the delivery. Preload only files needed for the first reading view.
+  fonts.css already uses font-display: swap. Ordinary Latin prose, accented names, and
+  dialogue quotes request Latin extended. System icons, math/music marks, superscripts,
+  and precomposed fractions can request symbols/icons as well. Latin basic remains an
+  optional standalone delivery for deliberately ASCII-only content. Do not preload it
+  expecting fonts.css to select it ahead of Latin extended. For Regular, extended is
+  31,032 bytes; extended+symbols is 44,768 bytes vs 42,344 bytes for the full WOFF2.
+  Compare actual transfer sizes for the app. Preload only faces needed for its first view.
+
+LATIN FOUNDATION (automatic)
+  Use ordinary Unicode text; ccmp, mark, and mkmk run through the text shaper without
+  opt-in CSS. Keep default shaping enabled. The two forms below must render identically:
+
+    Cafe\u0301       (e followed by U+0301 acute)
+    Café            (precomposed U+00E9)
+
+  This notation is JavaScript escape syntax. In HTML use Cafe&#x0301; or actual Unicode.
+  Added combining marks: U+0300/0301/0302/0303/0304/0306/0307/0308/0309/030A/030B/030C,
+  U+031B, U+0323/0326/0327/0328. They attach above, below, or at the side as appropriate;
+  i/j use dotless alternates under above marks. Above and below marks can stack.
+  Use 1.5 line height for passages with frequent tall stacked accents and check line
+  clearance. Font metrics and the app's default 1.4 line height are unchanged.
+  Low/reversed quotes: ‚ „ ‛ ‟. Lexical apostrophes: ʻ (U+02BB), ʼ (U+02BC).
+  French example: «&#x202F;Iñés entre.&#x202F;» (narrow nonbreaking spaces).
+  German example: „Lian sagt: ‚Warte!‘“; Polish dialogue example: „Lian wraca.”
+  Choose quotation conventions using the content's locale; the font does not rewrite text.
+  A dotted circle ◌ makes isolated accents visible in the Lab. U+2009 is a breaking thin
+  space; U+202F is a narrow nonbreaking space, both 0.120 em. Normal spaces stay 0.220 em.
+  The ten new Latin inventories listed below have complete encoded coverage of the pinned
+  CLDR main/auxiliary/index exemplars, both cases, and NFC/NFD forms. Keep actual chapter
+  text; no blanket NFD conversion is needed. Characters outside those inventories can still
+  use fallback. See docs/LANGUAGES-0.34.md and languages.json for the exact audited scope.
+
+LOCAL FORMS AND LANGUAGE TAGS
+  Put the language on the actual chapter or passage. Standard locl/ccmp/mark/mkmk features
+  apply automatically; no special CSS switch is needed. Keep them enabled:
+
+    <article lang="tr" class="reader-text">İpek · Işık · fikir · fi · fı</article>
+    <article lang="ro" class="reader-text">Ștefan · țară · ş ţ</article>
+    <article lang="hu" class="reader-text">TY · TTY · Őrző · tűz</article>
+    <article lang="ig" class="reader-text">ị́ · ọ̀ · ụ́ · Ị́ · Ọ̀ · Ụ́</article>
+    <article lang="ku-Latn" class="reader-text">çiya · şev · rê</article>
+    <article lang="uz-Latn" class="reader-text">oʻqish · gʻoya</article>
+
+  Turkish uses a real dotted i alternate so fi words keep the visible dot; fl still joins.
+  Romanian legacy ŞşŢţ display as ȘșȚț under lang="ro"; use modern comma letters in new
+  content. Kurdish here means Kurmanji in Latin script; Uzbek here means Latin script.
+  Locale-aware case conversion belongs to the app. A font does not correct stored spelling.
 
 NUMERIC FEATURES (opt in)
   Proportional numbers remain the default. The feature settings below work with either the
@@ -154,14 +213,22 @@ CHARACTERS INCLUDED
   Icons: 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊
   Accented letters: ÀÁÂÃÄÅ Ç ÈÉÊË ÌÍÎÏ Ñ ÒÓÔÕÖØ ÙÚÛÜ ÝŸ ÆŒ ÐÞ (and lowercase), ß æ œ ð þ ¡ ¿ º ª
   Numeric additions: ⁰¹²³⁴⁵⁶⁷⁸⁹ ₀₁₂₃₄₅₆₇₈₉ ½ ¼ ¾ ⁄ (U+2044)
+  Latin foundation: the 17 combining marks listed above; ‚ „ ‛ ‟ ʻ ʼ ◌; U+2009/U+202F.
+  Language additions: 94 letters including macron/breve/caron/double-acute/ogonek/comma/dot
+  forms, Łł, İı, ƁƊƘƳ ɓɗƙƴ, and Ịị Ọọ Ụụ Ṅṅ; exact inventory in languages.json.
+  Total: 401 encoded codepoints and 419 glyphs in each full font, including private aliases.
   Unencoded alternates available through OpenType: zero.tf–nine.tf and zero.numr–nine.numr /
   zero.dnom–nine.dnom. Use tnum or frac to select these from normal digits.
 
 LANGUAGES
   Covered: English, Spanish, French, Portuguese, German, Italian, Dutch, Catalan, Danish,
   Norwegian, Swedish, Finnish and Icelandic (everyday text).
-  Not yet: Central European (Polish, Czech, Hungarian...), Turkish, Vietnamese, Russian and
-  other Cyrillic, Greek. Missing characters show in a backup font.
+  Additional audited CLDR main/auxiliary/index inventories: Polish, Czech, Hungarian,
+  Romanian, Turkish, Hausa (Latin/Boko), Kurdish (Kurmanji, Latin), Māori, Igbo, Uzbek (Latin).
+  This is alphabet/shaping coverage, not native-reader or physical-device certification.
+  Not yet: the rest of the Latin inventories, Vietnamese's full encoded repertoire,
+  Kurdish in Arabic, Uzbek in Cyrillic, Russian/other Cyrillic, Greek, and other scripts.
+  Missing characters show in a backup font.
 
 ICONS AND PHONES (read this before using symbols in the app)
   Many symbols also exist as color emoji, and phones (especially iPhone) can swap in the

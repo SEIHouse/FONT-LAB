@@ -2,6 +2,44 @@
 
 Newest first.
 
+- **0.34** Multilingual Phase 2: the first ten Latin language inventories. Added 94
+  encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish
+  (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin), including CLDR main/auxiliary/index
+  exemplars and both cases. Dedicated side carons, barred letters, and hooked Hausa
+  forms; Igbo dot removal under tones above dot-below i; Turkish dotted-i and Romanian
+  comma forms through `locl`, and Hungarian-only uppercase digraph spacing. New ogonek
+  punctuation clearance preserves every old nonnumeric pair value. All 323 old outlines/metrics
+  and design settings match 0.33. Preserved
+  its ten full fonts/thirty subsets; rebuilt the family and web delivery. Added a
+  pinned alphabet inventory, independent coverage/shaping/collision audit, native
+  Windows proofs, and a language selector in the same comparison; Lab language and
+  Every character rows include the additions. All ten styles pass 18,290 language
+  strings, and OpenType/offline universal FontBakery remain at 0 FAIL / 0 WARN.
+  Native-reader/device certification and the remaining alphabet/script batches are
+  separate follow-up work.
+  Added a runtime-only distribution: ten full WOFF2 files, relative app CSS, installation
+  guidance, integrity manifest, and a private npm tarball with zero dependencies/scripts.
+  Full-family font data is 31.3% smaller than all thirty overlapping subsets. Optional
+  explicit weight/subset ZIPs, shipped-payload audits, and an Actions artifact build
+  keep engineering files out of application installs. Documented the actual NovelExpanded
+  HARNESS reader and a scoped host integration without altering its source or font bytes.
+  Corrected user-reported crowded decimal points: explicit 24-unit separation on both
+  sides of numeric periods and commas replaces automatic tightening, in all ten styles
+  and both figure modes. Tabular adjustments are uniform to retain column alignment.
+  Added price/percentage/decimal-comma Lab samples and an independent numeric-clearance,
+  alignment, unchanged-outline/metric, and full/subset shaping regression check.
+- **0.33** Multilingual Phase 1: an additive Latin foundation. Seventeen zero-width combining
+  marks, canonical composition, above/below and ligature attachment, mark stacking, and
+  unencoded dotless `i/j` forms. Added low/reversed quotes `‚ „ ‛ ‟`, lexical apostrophes
+  `ʻ ʼ`, dotted circle `◌`, thin space, and narrow nonbreaking space. Every existing contour,
+  metric, design setting, and per-style pair value matches 0.32. Latin extended now includes
+  basic Latin and prose punctuation and is preferred in `fonts.css` so accent sequences
+  stay in one face. Preserved the ten 0.32 full fonts/thirty subsets; rebuilt all ten styles
+  and thirty subsets. Updated the same comparison/Lab with NFC/NFD, stacks, and quotation
+  samples; added preservation, shaping, collision, and delivery audits plus Windows proofs.
+  Corrected the proof renderer's vertical offset direction and row sizing for combining marks.
+  OpenType and offline universal FontBakery profiles remain at 0 FAIL / 0 WARN. Complete
+  additional language alphabets and physical browser/device checks remain future work.
 - **0.32** Punctuation, figure texture, and reading-weight balance together: lighter dots,
   quotes, commas, and dashes; curved comma/quote tails; continuous `2/3/5/6/8/9` curves
   and slightly lighter figure strokes. Tabular, small figures, and fractions follow their

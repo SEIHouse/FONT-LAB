@@ -1,49 +1,92 @@
-SEIReader 0.32 health check
-Checked with FontBakery 1.1.0 (Google's font checker), all 10 full OTF files.
+SEIReader 0.34 health check
+Checked with FontBakery 1.1.0, all 10 full OTF files.
 
-  Universal offline: 675 passed, 0 failed, 0 warnings  (457 skipped, 30 info)
-  OpenType checks:   257 passed, 0 failed, 0 warnings  (201 did not apply)
+  Universal offline: 705 passed, 0 failed, 0 warnings (427 skipped, 30 info)
+  OpenType checks:   287 passed, 0 failed, 0 warnings (171 did not apply)
 
-  Universal was run with --skip-network. Online-only checks were not run for 0.32.
-  The previous full 0.27 run returned 10 connection failures for fontbakery_version and
-  10 service errors for fontdata_namecheck. Those online checks remain unverified.
+  Universal was run with --skip-network. Online-only checks remain unverified.
+  No online-only pass is claimed for 0.34. There are no FAIL, WARN, ERROR, or FATAL
+  results in either completed profile.
 
-  Phase 2 shaping and all 30 web subsets verified after the final rebuild.
-  All 10 preserved 0.31 full WOFF2 files and 30 subsets match their SHA-256 manifests,
-  and were also compared byte-for-byte with commit 1c0bbc7dc2f6e9a8f07f5c056c732ddac03cb924.
-  verify_texture.py passes across all 10 candidate styles:
-    - All 295 advances and all nominal design settings except version match 0.31.
-    - 85 intended mark/figure contours change in Regular/SemiBold/Bold and their italics.
-      Light/Medium also change 119 letter/derivative contours (204 total per style).
-    - Unrelated contours/bearings, symbols/icons, private aliases, compact ordinal marks,
-      vertical metrics, contrast, and italic angle are preserved.
-    - Letter-pair spacing and letter-only word shaping exactly match 0.31. Only pairs
-      involving marks/figures change: 940-947 per upright and 772-854 per italic style.
-    - The built n has +5.13%/+4.98% ink in Light/LightItalic and -2.58%/-2.54% in
-      Medium/MediumItalic. Other weights' letter drawings are identical to 0.31.
-    - Letter counters, 0/6/8/9 counters and their tabular/small variants, tall-letter
-      alignment, and raised quotes pass. Weight order remains Light < Regular < Medium
-      < SemiBold < Bold, upright and italic.
-    - Alignment zones match the baseline; standard stems follow the calibrated letter
-      strokes and stem hints remain in every style.
-    - Disabling kern preserves all tested glyph choices, advances, and offsets.
-    - Accent classes inherit base spacing. All changed mark/figure pairs, their accented
-      derivatives, earlier words, broader words, and dialogue cases have no adjacent
-      outline intersections. Word samples are checked with joins both enabled and disabled.
-    - Each subset's local encoded text shapes exactly like the full font.
-    - Every generated Lab pair agrees with the corresponding finished font.
-  Historical verify_lowercase.py old/0.31 and verify_spacing.py old/0.31 also pass,
-  preserving their earlier scope audits against 0.28 and 0.30 respectively.
+  All ten styles and thirty WOFF2 subsets rebuilt and autohinted.
+  Phase 2 shaping and all thirty subset ranges pass verify_phase2.py.
+  verify_languages.py passes in all ten styles:
+    - Every old cmap entry, all 323 contours and horizontal metrics, old nonnumeric per-style
+      pair values, settings except version, vertical metrics, and hint values match 0.33.
+    - Existing prose and numeric features shape identically except approved numeric
+      period/comma spacing when kerning is on; joins and kerning-off layouts are preserved.
+    - Added 94 encoded letters and two unencoded alternates: 401 codepoints / 419 glyphs.
+    - The pinned CLDR 48 main/auxiliary/index alphabets, casing, NFC/NFD forms, and samples
+      pass for Polish, Czech, Hungarian, Romanian, Turkish, Hausa (Latin), Kurdish
+      (Kurmanji, Latin), Maori, Igbo, and Uzbek (Latin): 18,290 full-font language strings.
+    - All 17 combining marks have zero advances and GDEF mark classification.
+    - All new canonically composed letters match their decomposed spellings. Tested Igbo
+      tone stacks remove the i dot and retain dot-below; mark advances/classes stay correct.
+    - Turkish fi retains its dot through locl; default fi and all fl joins are preserved.
+      Romanian legacy cedillas display as comma forms only for Romanian. Hungarian-only
+      uppercase TT/TY clearance preserves the default capital spacing.
+    - User-reported decimal crowding is corrected with 24 source units on each side of
+      numeric periods and commas. All 40 separator pairs per style replace automatic
+      tightening; tabular forms share equal adjustments for stable formatted columns.
+      verify_decimals.py checks actual separator-band ink clearance (at least 0.07 em),
+      both figure modes, prices/percentages/decimal-comma samples, unchanged numeric
+      outlines/metrics and digit-to-digit rhythm, and matching basic/extended subsets.
+      Before/after native Windows Day/Night proofs were inspected at 13/15/17/20px,
+      including all ten styles. FontBakery profiles were rerun after this correction.
+      The optional --overrides regression builds custom and default scratch fonts:
+      proportional and tabular margins follow pairSpace, tabular columns stay aligned,
+      and the default GPOS/GSUB/GDEF/hmtx tables match the shipped Regular exactly.
+    - New letters beside selected prose/punctuation neighbors, locale samples, exemplar
+      sequences, and tone stacks have no contour intersections or clipping.
+    - Latin extended includes all 95 Latin-basic codepoints, complete tested Latin clusters,
+      prose punctuation, and middle dot: 298 codepoints. Symbols/icons retains 104, including
+      the same middle dot. All 18,290 strings shape identically in Latin extended and full.
+      All thirty subset ranges and CSS weight/style/precedence checks pass.
+  Preserved ten 0.33 full WOFF2 fonts and thirty subsets match SHA-256 manifests and the
+  original bytes at commit 922147b. Historical verify_latin.py old/0.33 passes its
+  foundation scope audit against preserved 0.32.
 
-  The reference preview embeds 24 font faces. Its script syntax and embedded font bytes
-  were checked locally. Fixed 13/15/17px Light/Regular/Medium samples include upright,
-  real italic, dialogue, decimals, proportional/tabular figures, fractions, accents, and
-  joins on/off. Native Windows WPF grayscale proofs were inspected at 96 dpi in Day
-  and Night, both at small sizes and all five weights at 20px; see docs/proofs/0.32/,
-  its family/ and rhythm/ directories. These use HarfBuzz-shaped glyph indices
-  and the real candidate/baseline outlines, with no font installation or simulated bold.
-  The in-app browser automation could not connect. Physical phone/browser checks are
-  deferred at the user's request; no device or sustained-reading comfort pass is claimed.
+  The same four-card reference preview embeds 24 real font faces. Its script syntax,
+  comparison controls, 18 fixed small-text samples, per-style Lab pair lookup, and embedded
+  font bytes were checked locally. Its ten-language selector sets the text language;
+  new rows cover NFC/NFD, casing, local forms, and real italics. Independent Lab checks
+  compare 2,010 word widths with HarfBuzz. New accent drawings survive a warmed base-letter
+  contrast cache; the cache fix affects live SVG display, not the generated font outlines.
+  Native Windows WPF grayscale Day/Night proofs at 96 dpi were inspected at 13/15/17px
+  Light/Regular/Medium and at 20px across all five weights, upright and italic; see
+  docs/proofs/0.34/ and family/. Proofs use positive-up vertical offsets and enough row height
+  for accent lines, with 1.5 leading and at least 21px baseline separation.
+  Each row includes all ten distinct language tags. Mixed Polish/Czech, Hungarian/Maori,
+  and Uzbek/Kurdish lines were separated before the final proof render.
+  These use HarfBuzz positions and real outlines, without installed fonts or synthetic styles.
+  Baseline 0.33 lacks new encoded letters, shown as boxes in WPF or browser fallback.
+  Browser automation could not connect; browser/device and sustained-reading comfort checks
+  remain deferred at the user's request. No physical phone/browser pass is claimed.
+
+  This is multilingual Phase 2's first ten alphabet inventories. Alphabet/shaping coverage
+  is separate from native-reader certification. Additional spelling traditions and missing
+  codepoints outside this inventory can still use fallback. Remaining Latin alphabets and
+  other scripts require later work; see docs/LANGUAGES-0.34.md.
+  Subsets are generated to fresh sibling files, validated, and replaced atomically after
+  intermittent direct writes to existing WOFF2 files failed. The final thirty-file run passes.
+  Arbitrary stacks can exceed fixed clipping bounds; check 1.4/1.5 line clearance in real text.
+
+  App distribution follow-up (font bytes unchanged):
+    - Full family: 444,456 font bytes / 10 WOFF2 files, 31.3% less than all thirty subsets
+      (646,568 font bytes). Regular plus real italic is 86,932 font bytes.
+    - Standard-library packaging writes runtime-only full/subset/selected-weight ZIPs,
+      relative CSS, integrity hashes, and install guidance. Exact shipped-file scope,
+      hashes, source bytes, weight/style mappings, and subset priority all pass.
+    - The actual private npm tarball contains 15 files, no dependencies or install scripts.
+      Its styles.css export resolves in a fresh installation and Development's Vite 8.1.5
+      consumer build; all ten emitted font assets match their source bytes and CSS URLs.
+    - Sources, OTFs, old fonts, Lab, proofs, reference fonts, and tooling remain outside
+      the runtime package. Generated archives/caches are ignored by Git. Actions builds
+      the installable ZIP/tarball without installing any font-building dependencies.
+    - Development/NovelExpanded source was inspected, not modified. Its current Windows
+      check:app fails on InlineAudio.tsx / inlineAudio.ts case-insensitive resolution;
+      this is a separate existing app issue, not a font-package validation pass.
+      The handoff targets the actual HARNESS chapter prose and preserves the host/SEN boundary.
 
 History
   0.19  First check found and fixed: version number mismatch, missing "normal style" flag on
@@ -91,3 +134,19 @@ History
         accents. Ten full styles/thirty subsets rebuilt and autohinted. Texture, counter,
         weight, shaping, collision, delivery, and both FontBakery profiles pass. Preserved
         0.31 full/subset fonts and updated the same comparison and Windows Day/Night proofs.
+  0.33  Additive Latin foundation: seventeen combining accents, canonical composition,
+        base/ligature/mark attachment, independent above/below stacks, and dotless i/j.
+        Low/reversed quotes, lexical apostrophes, dotted circle, thin/narrow spaces added.
+        All 295 old outlines/metrics, pairs, settings, vertical metrics, and hint values
+        match 0.32. Ten full styles/thirty subsets rebuilt. Latin extended overlaps basic
+        and prose punctuation so clusters shape in one face. Preservation, shaping,
+        contour collision, delivery, historical texture, and both FontBakery profiles pass.
+        Same preview/Lab updated; corrected native mark offset direction and row layout.
+  0.34  First Latin language batch: 94 encoded letters for ten locales, Czech side carons,
+        barred/hooked forms, Igbo dot-below tone stacks, Turkish/Romanian localized forms,
+        and Hungarian-only capital spacing. All 323 old contours/metrics, default pairs,
+        settings, vertical metrics, and hint values match 0.33. Ten full styles/thirty
+        subsets rebuilt. All 18,290 language strings, canonical/local shaping, contour
+        clearance, preservation, delivery, and both FontBakery profiles pass. Same preview
+        gains a language selector; Lab includes new alphabets and cache-safe accent drawings.
+        Native Windows Day/Night proofs inspected. Actual browser/device checks remain open.

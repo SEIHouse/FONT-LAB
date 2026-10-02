@@ -6,7 +6,7 @@ import uharfbuzz as hb
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont
 
-from build_subsets import HERE, STYLES, SUBSETS, group_for
+from build_subsets import HERE, STYLES, SUBSETS, subset_groups
 
 DIGITS = '0123456789'
 NAMES = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
@@ -16,6 +16,7 @@ ADDED_UNICODE = SUPERS + SUBS + '½¼¾⁄'
 
 
 def shape(path, text, features=None):
+    """Decompress a web font when needed and return its HarfBuzz glyph names and advances."""
     font = TTFont(path)
     if path.endswith('.woff2'):
         # HarfBuzz accepts SFNT bytes; browsers decompress WOFF2 before shaping too.
@@ -39,6 +40,7 @@ def shape(path, text, features=None):
 
 
 def ink_center(font, name):
+    """Measure the horizontal midpoint of a glyph's actual outline bounds."""
     glyphs = font.getGlyphSet()
     pen = BoundsPen(glyphs)
     glyphs[name].draw(pen)
@@ -47,6 +49,7 @@ def ink_center(font, name):
 
 
 def verify_style(style):
+    """Audit one style's figures, fractions, tabular centering and subset feature delivery."""
     source = os.path.join(HERE, 'fonts', f'SEIReader-{style}.otf')
     font = TTFont(source)
     cmap = font.getBestCmap()
@@ -87,7 +90,7 @@ def verify_style(style):
     for name in SUBSETS:
         subset_path = os.path.join(HERE, 'fonts', f'SEIReader-{style}.{name}.woff2')
         subset = TTFont(subset_path)
-        expected = {code for code in cmap if group_for(code) == name}
+        expected = subset_groups(set(cmap))[name]
         assert set(subset.getBestCmap()) == expected, (style, name)
         subset.close()
     basic = os.path.join(HERE, 'fonts', f'SEIReader-{style}.latin-basic.woff2')
