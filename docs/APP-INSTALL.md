@@ -48,7 +48,7 @@ Keep the app's existing size, line height, spacing, and width for its first tria
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.
 The CSS registers all styles, but the browser requests the faces that rendered
 text uses. Do not preload all ten. A Regular-only page uses 42,344 font bytes;
-Regular with its italic uses 86,920. Icons and all supported letters are in each
+Regular with its italic uses 86,932. Icons and all supported letters are in each
 full file. Missing scripts, such as Chinese, still use the host's fallback fonts.
 
 Set `lang` on the actual passage, for example `tr`, `ro`, `hu`, `ig`, `ku-Latn`, or

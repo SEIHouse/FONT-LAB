@@ -2,6 +2,26 @@
 
 Newest first.
 
+- **Font Lab website** Added a real homepage with an actual-font specimen,
+  Day/Night mode, Reader/Display workspaces, comparison/chapter links, and resource
+  downloads. Added a dependency-free static build and Vercel configuration with an
+  explicit public-file allowlist. Both Labs now save browser-local drafts and
+  download portable JSON while retaining the original host database integration.
+  Added Home links and website deployment/use documentation. Font drawings,
+  settings, kerning and binaries are unchanged; the Reader npm package stays separate.
+
+- **Display 0.1 import** Added the supplied SEIHouse Display Engine under `display/`:
+  Soft, Edge, Ink, and Wide cut settings, source/build tools, live Lab, kerning maps,
+  and each design's OTF/WOFF2 fonts. The 24 supplied files retain their design rules,
+  settings, and font bytes; normalized one extra export-tail blank line and added
+  explicit UTF-8 file I/O to both Python builders for Windows portability. Documented
+  all engine/builder functions without changing executable drawing/build logic and
+  rebuilt the Lab to include the engine comments.
+  Added repository links and Windows UTF-8 build instructions; documented the original
+  local Copy workflow and prototype limitations. SEIReader source/fonts/settings and
+  its app distribution scope are unchanged. Corrected the app-install guide's
+  Regular-plus-italic font-size count to 86,932 bytes.
+
 - **0.34** Multilingual Phase 2: the first ten Latin language inventories. Added 94
   encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish
   (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin), including CLDR main/auxiliary/index

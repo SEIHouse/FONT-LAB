@@ -143,11 +143,12 @@
 <div class="wrap">
   <h1>SEIReader</h1>
   <div class="meta">
+    <a class="badge" href="../index.html">← Font Lab home</a>
     <span class="badge">Font file: version 0.34</span>
     <span class="badge" id="status" role="status">Loading…</span>
     <a class="badge" href="comparison.html">Compare 0.34, 0.32, Literata, and Rubik</a>
   </div>
-  <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
+  <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. <b>Save</b> keeps a draft in this browser (or the connected Claude host). <b>Download JSON</b> gives you settings for the Python builder. Browser drafts stay on this device and site; saving does not rebuild font files.</p>
 
   <div class="layout">
     <aside class="controls" id="controls" aria-label="Font settings">
@@ -156,6 +157,7 @@
         <div class="savebar">
           <div class="row">
             <button type="button" class="pill primary" id="save" disabled>Save</button>
+            <button type="button" class="pill" id="download">Download JSON</button>
             <button type="button" class="pill" id="reset">Back to font file</button>
           </div>
           <span class="savemsg" id="savemsg" aria-live="polite">Saving turns on once the page connects.</span>
@@ -331,6 +333,100 @@
   </div>
 </div>
 <script>
+/* Browser-local draft storage; no network, credentials, or font generation. */
+(() => {
+  /** Copy JSON-compatible settings so UI edits cannot mutate stored snapshots. */
+  function clone(value) { return JSON.parse(JSON.stringify(value)); }
+  /** Create the small document interface used by the existing Lab Save workflows. */
+  function createLocalDB(key, storage) {
+    const prefix = key + ':doc:';
+    /** Parse a storage record without replacing malformed or unsupported data. */
+    function parse(raw) {
+      try { return JSON.parse(raw); }
+      catch { throw new Error('Invalid saved draft data'); }
+    }
+    /** Read the original single-map format for drafts saved before per-document storage. */
+    function legacy() {
+      const raw = (storage || window.localStorage).getItem(key);
+      if (raw === null) return Object.create(null);
+      const saved = parse(raw);
+      if (!saved || saved.version !== 1 || !saved.documents || typeof saved.documents !== 'object' || Array.isArray(saved.documents)) {
+        throw new Error('Invalid saved draft data');
+      }
+      return saved.documents;
+    }
+    /** Read one draft, preferring its dedicated key over the retained original map. */
+    function readDocument(id) {
+      const raw = (storage || window.localStorage).getItem(prefix + encodeURIComponent(id));
+      if (raw !== null) {
+        const saved = parse(raw);
+        if (!saved || saved.version !== 1 || !saved.document || typeof saved.document !== 'object' || Array.isArray(saved.document)) {
+          throw new Error('Invalid saved draft data');
+        }
+        return {exists:true, value:saved.document};
+      }
+      const records = legacy();
+      const exists = Object.hasOwn(records, id), value = records[id];
+      if (exists && (!value || typeof value !== 'object' || Array.isArray(value))) {
+        throw new Error('Invalid saved draft data');
+      }
+      return {exists, value};
+    }
+    /** Return an isolated document snapshot with the existing exists/data contract. */
+    function snapshot(record) {
+      return {exists:record.exists, data: () => record.exists ? clone(record.value) : undefined};
+    }
+    return {
+      local: true,
+      doc: id => ({
+        get: async () => snapshot(readDocument(id)),
+        set: async value => {
+          // Reject corrupt existing data; never erase another document's saved value.
+          readDocument(id);
+          (storage || window.localStorage).setItem(prefix + encodeURIComponent(id), JSON.stringify({version:1, document:clone(value)}));
+        }
+      }),
+      collection: name => ({get: async () => {
+        const store = storage || window.localStorage;
+        const ids = new Set(), docs = [];
+        let invalid = 0;
+        try { Object.keys(legacy()).forEach(id => ids.add(id)); }
+        catch (e) {
+          if (!e || e.message !== 'Invalid saved draft data') throw e;
+          invalid++;
+        }
+        for (let i = 0; i < store.length; i++) {
+          const storedKey = store.key(i);
+          if (storedKey && storedKey.startsWith(prefix)) {
+            try { ids.add(decodeURIComponent(storedKey.slice(prefix.length))); }
+            catch (e) { if (!(e instanceof URIError)) throw e; invalid++; }
+          }
+        }
+        for (const id of ids) {
+          if (!id.startsWith(name + '/')) continue;
+          try {
+            const doc = snapshot(readDocument(id));
+            if (doc.exists) docs.push(doc);
+          } catch (e) {
+            if (!e || e.message !== 'Invalid saved draft data') throw e;
+            invalid++;
+          }
+        }
+        return {docs, invalid};
+      }})
+    };
+  }
+  /** Download portable settings even when clipboard or browser storage is unavailable. */
+  function downloadJSON(value, filename) {
+    const url = URL.createObjectURL(new Blob([JSON.stringify(value, null, 2) + '\n'], {type:'application/json'}));
+    const link = document.createElement('a');
+    link.href = url; link.download = filename;
+    document.body.append(link); link.click(); link.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  }
+  window.SEIHouseDrafts = {createLocalDB, downloadJSON};
+})();
+
 /* ---------- SEIHouse Soft, refinement 2: glyph engine ----------
    Units: 1000 per em. Baseline 0, capitals 700, x-height XH, ascenders ASC, descenders -200.
    Letters are centre-line strokes. Coordinates in the tables below use the OLD scale
@@ -1573,13 +1669,15 @@ $('copy').addEventListener('click', async () => {
   catch(e){ setSaveMsg('Could not copy automatically. Select the text and copy it.'); }
 });
 function setSaveMsg(t){ $('savemsg').textContent = t; }
+$('download').addEventListener('click', () => SEIHouseDrafts.downloadJSON(payload(), 'SEIReader-settings.json'));
 
 /* saving, so Claude can read it */
 let DB = null;
 const DOC = 'seireader/settings';
+/** Connect to the host database when present, otherwise use a browser-local draft. */
 async function connect(){
-  try { DB = await claude.use('db'); } catch(e){ DB = null; }
-  if(!DB){ setSaveMsg('Saving isn’t available here. Use “Copy instead of Save” in the settings.'); return; }
+  try { DB = window.claude && typeof window.claude.use === 'function' ? await window.claude.use('db') : null; } catch(e){ DB = null; }
+  if(!DB) DB = SEIHouseDrafts.createLocalDB('seihouse.reader.drafts.v1');
   $('save').disabled = false;
   try {
     const snap = await DB.doc(DOC).get();
@@ -1590,21 +1688,21 @@ async function connect(){
         if(d.settings.reader){ const r = d.settings.reader; RD.size = r.size ?? RD.size; RD.lh = r.lineSpacing ?? RD.lh; RD.measure = r.lineLength ?? RD.measure; RD.night = !!r.night;
           $('m-night').setAttribute('aria-pressed', String(RD.night)); $('m-day').setAttribute('aria-pressed', String(!RD.night)); }
         buildControls(); syncToggles(); renderWeightRows(); renderLetters(); renderLetterPanel(); renderPairPanel(); changed(true);
-        setSaveMsg('Loaded your saved settings' + (d.savedAt ? ' from ' + new Date(d.savedAt).toLocaleString() : '') + '.');
+        setSaveMsg('Loaded your ' + (DB.local ? 'browser draft' : 'saved settings') + (d.savedAt ? ' from ' + new Date(d.savedAt).toLocaleString() : '') + '.');
         dirty = false; return;
       }
     }
-    setSaveMsg('Nothing saved yet.');
-  } catch(e){ setSaveMsg('Could not load saved settings. You can still save.'); }
+    setSaveMsg(DB.local ? 'Ready to save in this browser. Download JSON to keep a portable copy.' : 'Nothing saved yet.');
+  } catch(e){ setSaveMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load saved settings.') + ' Use Download JSON to keep a copy.'); }
 }
 $('save').addEventListener('click', async () => {
   if(!DB) return;
   $('save').disabled = true; setSaveMsg('Saving…');
   try {
     await DB.doc(DOC).set({ settings: payload(), savedAt: Date.now(), fontFileVersion: '0.34' });
-    dirty = false; setSaveMsg('Saved. Tell Claude “build it”.');
+    dirty = false; setSaveMsg(DB.local ? 'Saved in this browser. Download JSON to build or move this draft.' : 'Saved to the connected host. Download JSON to build locally.');
   } catch(e){
-    setSaveMsg('Save didn’t work (' + (e && e.code ? e.code : 'error') + '). Use “Copy instead of Save” in the settings.');
+    setSaveMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Save didn’t work (' + (e && e.code ? e.code : 'error') + ').') + ' Use Download JSON to keep a copy.');
   }
   $('save').disabled = false;
 });
@@ -1736,7 +1834,7 @@ Promise.all(SR_FONTS.map(async f => {
 
 buildControls(); syncToggles(); renderLetters(); renderLetterPanel(); renderPairPanel();
 applyToEngine(); renderWeightRows(); renderLangs(); renderChamber(); renderAllChars(); renderTyped(); renderOut();
-if(window.claude && typeof window.claude.use === 'function') connect(); else setSaveMsg('Saving isn’t available here. Use “Copy instead of Save” in the settings.');
+connect();
 let rt; window.addEventListener('resize', () => { clearTimeout(rt); rt = setTimeout(() => changed(true), 200); });
 </script>
 </body>

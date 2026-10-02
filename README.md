@@ -3,6 +3,25 @@
 Home of **SEIReader**, the reading font of SEIHouse Productions LLC. It is built for reading
 hundreds of chapters on a phone: calm, soft, and distinctly SEIHouse.
 
+The separate **SEIHouse Display Engine** is a version 0.1 prototype for album covers,
+posters, chapter titles, and other large text. Its source, four designs, live Lab,
+and prebuilt fonts are under [`display/`](display/README.md).
+
+## Font Lab homepage & Vercel
+
+Open [`index.html`](index.html) for the workshop homepage: an editable specimen
+using the actual font files, Reader/Display workspaces, comparisons, chapter
+reading tests, and downloads. Both Labs can save browser drafts and download JSON
+settings on a normal website.
+
+Import this repository into Vercel with **Other** as the framework and the repo
+root as the Root Directory. `vercel.json` builds the website with
+`node build_site.mjs` and serves only `dist/site`. There are no website dependencies
+or environment variables to configure. See [website setup and draft usage](docs/WEBSITE.md).
+
+Local preview: `node build_site.mjs`, then
+`python -m http.server 8000 --directory dist/site` and open `http://localhost:8000`.
+
 Everything in the font is drawn from rules in code. There are no hand-drawn files to maintain, so
 any change (weight, letter height, roundness, spacing) rebuilds the whole family consistently.
 
@@ -21,7 +40,7 @@ are needed to package the checked-in fonts.
 
 The default uses ten full WOFF2 files: **444,456 font bytes (434.0 KiB)** for all
 five weights and their real italics. That is **31.3% less** than storing all thirty
-overlapping subsets. Regular plus italic uses **86,920 bytes**; the browser requests
+overlapping subsets. Regular plus italic uses **86,932 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -29,10 +48,40 @@ See [APP-INSTALL.md](docs/APP-INSTALL.md) for both installation routes, explicit
 weight-only bundles, and the inspected Development/NovelExpanded host handoff.
 The developer sections below describe the full source repository.
 
+## Display font Lab
+
+Open [`display/lab/index.html`](display/lab/index.html) to explore **Soft, Edge, Ink,
+and Wide**. Each design has its own OTF and WOFF2 files under `display/fonts/<cut>/`.
+The display engine is separate from the SEIReader pipeline and excluded from the
+SEIReader app ZIP/npm package.
+
+The supplied drawing rules, cut settings, kerning data, and font files are retained.
+Function documentation was added without changing the engine logic, and the two
+Python builders use explicit UTF-8 file I/O for Windows. The Lab is rebuilt from
+those documented sources.
+Its **Save cut** button uses browser-local drafts on a normal website and retains
+the original database integration in the Claude host. Use **Download JSON** or
+**Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.
+
+To rebuild with the Python dependencies described below, run from the repository root:
+
+```sh
+python -X utf8 display/build_display_page.py
+python -X utf8 display/make_display.py display/cuts/soft.json
+```
+
+Choose `edge.json`, `ink.json`, or `wide.json` for another design. The builder uses
+Chromium and `otfautohint`; run it in the environment where those dependencies are
+installed. The explicit UTF-8 mode supports the supplied Unicode sources on Windows.
+The imported 0.1 notes record unfinished Ink stroke ends and different live/built
+kerning. These display fonts have not received SEIReader's health-check certification.
+
 ## What's inside
 
 | Folder / file | What it is |
 |---|---|
+| `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
+| [`display/`](display/README.md) | Separate SEIHouse Display 0.1 engine: four designs, cut settings, live Lab, font builder, kerning maps, and supplied OTF/WOFF2 fonts |
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
 | `fonts-full.css` | Recommended app stylesheet for the ten full web fonts; no Unicode face splitting |
