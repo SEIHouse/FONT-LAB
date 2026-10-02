@@ -1,0 +1,9 @@
+# yaml-language-server: $schema=https://coderabbit.ai/integrations/schema.v2.json
+reviews:
+  path_filters:
+    # Frozen historical source is copied intact for preservation audits.
+    - "!old/**/engine.js"
+    # Generated HTML embeds fonts and engine.js; review its sources instead.
+    # VM, font-byte and shaping audits independently check these build outputs.
+    - "!lab/index.html"
+    - "!lab/comparison.html"

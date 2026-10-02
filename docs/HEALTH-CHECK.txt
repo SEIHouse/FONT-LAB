@@ -44,6 +44,8 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
   Light/Regular/Medium and at 20px across all five weights, upright and italic; see
   docs/proofs/0.34/ and family/. Proofs use positive-up vertical offsets and enough row height
   for accent lines, with 1.5 leading and at least 21px baseline separation.
+  Each row includes all ten distinct language tags. Mixed Polish/Czech, Hungarian/Maori,
+  and Uzbek/Kurdish lines were separated before the final proof render.
   These use HarfBuzz positions and real outlines, without installed fonts or synthetic styles.
   Baseline 0.33 lacks new encoded letters, shown as boxes in WPF or browser fallback.
   Browser automation could not connect; browser/device and sustained-reading comfort checks

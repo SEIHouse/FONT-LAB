@@ -69,15 +69,18 @@ def render(output, dpi=96, full_family=False, texture=False, latin=False, langua
                     ]
                 if languages:
                     samples=[
-                        ('Łódź · gęś · Děvče · kůň · ďťľĽ · Ą,Ę,ą,',False,{},'cs'),
-                        ('Őrző · tűz · ĀĒĪŌŪ āēīōū · TY TTY',True,{},'hu'),
+                        ('Łódź · gęś · Ą,Ę,ą, · żółć',False,{},'pl'),
+                        ('Děvče · kůň · ďť · Příliš žluťoučký',False,{},'cs'),
+                        ('Őrző · tűz · TY TTY · gyűrű',True,{},'hu'),
+                        ('ĀĒĪŌŪ āēīōū · Māori · whānau',True,{},'mi'),
                         ('ȘșȚț · ŞşŢţ · Ștefan · țară',False,{},'ro'),
                         ('İpek · Işık · fikir · fi · fı',True,{},'tr'),
                         ('ƁƊƘƳ · ɓɗƙƴ · ƙarfi · ƴaƴa',False,{},'ha'),
                         ('ƁƊƘƳ · ɓɗƙƴ · ƙarfi · ƴaƴa',True,{},'ha'),
                         ('ị́ ọ̀ ụ́ · Ị́ Ọ̀ Ụ́ · Ṅṅ · ń m̀',False,{},'ig'),
                         ('ị́ ọ̀ ụ́ · Ị́ Ọ̀ Ụ́ · Ṅṅ · ń m̀',True,{},'ig'),
-                        ('oʻqish gʻoya · Ç Ê Î Ş Û · ç ê î ş û',False,{},'uz'),
+                        ('Ç Ê Î Ş Û · ç ê î ş û · çîrok · şev',False,{},'ku'),
+                        ('oʻqish · gʻoya · oʻzbek · yoʻl',False,{},'uz'),
                     ]
                 for text, italic, features, *locales in samples:
                     style = ('Italic' if weight == 'Regular' else weight+'Italic') if italic else weight
