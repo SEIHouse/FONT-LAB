@@ -107,4 +107,25 @@ test('Corrupt per-document records are reported without erasing them or another 
   await assert.rejects(db.doc('cuts/broken').set({name:'Broken'}), /Invalid saved draft data/);
   assert.equal(storage.getItem(brokenKey), '{broken');
   assert.equal((await db.doc('cuts/good').get()).data().name, 'Good');
+  const cuts = await db.collection('cuts').get();
+  assert.equal(cuts.invalid, 1);
+  assert.equal(cuts.docs.map(doc => doc.data().name).join(','), 'Good');
+});
+
+test('Valid per-document cuts remain available with corrupt legacy data or malformed keys', async () => {
+  const storage = storageMap();
+  const db = harness(storage).createLocalDB('display');
+  await db.doc('cuts/good').set({name:'Good'});
+  storage.setItem('display', '{broken');
+  storage.setItem('display:doc:%ZZ', '{broken-key');
+  const cuts = await db.collection('cuts').get();
+  assert.equal(cuts.invalid, 2);
+  assert.equal(cuts.docs.map(doc => doc.data().name).join(','), 'Good');
+  assert.equal(storage.getItem('display'), '{broken');
+  assert.equal(storage.getItem('display:doc:%ZZ'), '{broken-key');
+});
+
+test('Collection loading still rejects genuine storage-access failures', async () => {
+  const broken = {getItem:() => {throw new Error('storage unavailable');}};
+  await assert.rejects(harness(broken).createLocalDB('display').collection('cuts').get(), /storage unavailable/);
 });

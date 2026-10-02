@@ -75,6 +75,7 @@ node build_site.mjs
 The draft tests cover reloads, storage isolation, interleaved tab saves, original
 draft-format compatibility, failed writes, blocked/corrupt storage, and safe
 document identifiers. Each draft has a separate storage key, so saving a cut does
-not rewrite other cuts. Existing app distribution checks remain
+not rewrite other cuts. Unreadable records are kept and reported; valid cuts still
+load, while genuine storage-access errors remain errors. Existing app distribution checks remain
 in place. Desktop/mobile browser checks should exercise theme and font controls,
 navigation, Save/reload, JSON downloads, and chapter feedback against the built site.

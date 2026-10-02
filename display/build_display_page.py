@@ -62,6 +62,7 @@ main{ display:grid; gap:16px; min-width:0; }
     <label class="ctl"><span>Name of this cut</span><input type="text" id="cutname" maxlength="40" autocomplete="off"></label>
     <div class="row"><button type="button" class="pill primary" id="save" disabled>Save cut</button><button type="button" class="pill" id="download">Download JSON</button></div>
     <div class="hint" id="savemsg" aria-live="polite">Loading drafts…</div>
+    <p class="hint" id="draftwarning" hidden></p>
     <p class="hint">Browser drafts stay on this device and site. Download JSON to build a font or move your cut.</p>
   </div>
   <div class="sec"><h2>Shape</h2>
@@ -226,7 +227,11 @@ $('save').addEventListener('click', async () => {
   try {
     const snap = await db.collection('cuts').get();
     snap.docs.forEach(d => { const v = d.data(); if(v && v.name) SAVED[v.name] = v; });
-    renderPresets(); renderAllCuts(); setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
+    renderPresets(); renderAllCuts();
+    if(snap.invalid){
+      const warning = 'Invalid saved draft data: ' + snap.invalid + ' unreadable record(s) were kept. Valid cuts are available below.';
+      $('draftwarning').textContent = warning; $('draftwarning').hidden = false; setMsg(warning);
+    } else setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
   } catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load drafts.') + ' Use Download JSON to keep a copy.'); }
 })();
 renderPalettes(); load();

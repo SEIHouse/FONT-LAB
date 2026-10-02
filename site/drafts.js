@@ -53,12 +53,31 @@
       }),
       collection: name => ({get: async () => {
         const store = storage || window.localStorage;
-        const ids = new Set(Object.keys(legacy()));
+        const ids = new Set(), docs = [];
+        let invalid = 0;
+        try { Object.keys(legacy()).forEach(id => ids.add(id)); }
+        catch (e) {
+          if (!e || e.message !== 'Invalid saved draft data') throw e;
+          invalid++;
+        }
         for (let i = 0; i < store.length; i++) {
           const storedKey = store.key(i);
-          if (storedKey && storedKey.startsWith(prefix)) ids.add(decodeURIComponent(storedKey.slice(prefix.length)));
+          if (storedKey && storedKey.startsWith(prefix)) {
+            try { ids.add(decodeURIComponent(storedKey.slice(prefix.length))); }
+            catch (e) { if (!(e instanceof URIError)) throw e; invalid++; }
+          }
         }
-        return {docs:[...ids].filter(id => id.startsWith(name + '/')).map(id => snapshot(readDocument(id))).filter(doc => doc.exists)};
+        for (const id of ids) {
+          if (!id.startsWith(name + '/')) continue;
+          try {
+            const doc = snapshot(readDocument(id));
+            if (doc.exists) docs.push(doc);
+          } catch (e) {
+            if (!e || e.message !== 'Invalid saved draft data') throw e;
+            invalid++;
+          }
+        }
+        return {docs, invalid};
       }})
     };
   }
