@@ -83,6 +83,7 @@ python build_comparison.py  # builds lab/comparison.html with candidate, baselin
 python verify_phase2.py     # checks OpenType shaping and subset coverage
 python verify_languages.py # checks 0.34 alphabets, local forms, preservation, and delivery
 python verify_decimals.py # numeric separators, tabular alignment, and subset shaping
+python verify_decimals.py --overrides # also build scratch fonts to validate pairSpace overrides
 python verify_latin.py old/0.33 # historical foundation audit against preserved 0.32
 python verify_texture.py old/0.32    # historical 0.32 texture/weight scope against 0.31
 python verify_lowercase.py old/0.31  # historical curve preservation against 0.28

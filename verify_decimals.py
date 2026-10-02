@@ -1,5 +1,6 @@
 """Audit decimal visibility, tabular alignment, and unchanged figure drawings."""
 from pathlib import Path
+import argparse
 
 import pathops
 from fontTools.ttLib import TTFont
@@ -68,5 +69,42 @@ def verify():
             print(f'{style}: separators clear in both figure modes; tabular columns stable; outlines/metrics and subsets pass')
 
 
+def verify_overrides():
+    """Build a scratch font with custom separator margins and shape actual GPOS rules."""
+    import make_fonts
+    output = ROOT/'dist'/'decimal-overrides'
+    output.mkdir(parents=True, exist_ok=True)
+    previous = make_fonts.settings.get('pairSpace', {})
+    overrides = {'0.':90, '.0':78, '0,':82, ',0':74}
+    try:
+        data = make_fonts.export()
+        make_fonts.settings['pairSpace'] = overrides
+        custom = output/'SEIReader-Regular.otf'
+        make_fonts.build(data, str(custom))
+        with TTFont(custom) as font:
+            for tabular in (False, True):
+                for pair, value in overrides.items():
+                    before = sum(row[1] for row in shape(font, pair, kern=False, tnum=tabular))
+                    after = sum(row[1] for row in shape(font, pair, tnum=tabular))
+                    assert after-before == value*2, (pair, tabular, 'custom margin ignored')
+            for separator in '.,':
+                widths = {sum(row[1] for row in shape(font, digit+separator+digit, tnum=True)) for digit in '0123456789'}
+                assert len(widths) == 1, (separator, 'custom tabular columns drift')
+        # The same source block with normal settings must reproduce shipped layout.
+        make_fonts.settings['pairSpace'] = previous
+        normal = output/'SEIReader-Default.otf'
+        make_fonts.build(data, str(normal))
+        with TTFont(normal) as rebuilt, TTFont(ROOT/'fonts'/'SEIReader-Regular.otf') as shipped:
+            for tag in ('GPOS', 'GSUB', 'GDEF', 'hmtx'):
+                assert rebuilt.getTableData(tag) == shipped.getTableData(tag), (tag, 'default layout changed')
+        print('Scratch custom build: both figure modes honor margins; tabular columns stable; default layout unchanged')
+    finally:
+        make_fonts.settings['pairSpace'] = previous
+
+
 if __name__ == '__main__':
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument('--overrides', action='store_true', help='Also build scratch fonts to test pairSpace overrides')
+    args = parser.parse_args()
     verify()
+    if args.overrides: verify_overrides()

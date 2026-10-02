@@ -27,7 +27,7 @@ BIG = 16          # stroke at 16x size for precise round ends, then shrink back
 ASCENT, DESCENT = 950, 250
 
 settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
-if len(sys.argv) > 1:
+if __name__ == '__main__' and len(sys.argv) > 1:
     ch = json.load(open(sys.argv[1], encoding='utf-8'))
     for k in ('weights', 'weight', 'xHeight', 'ascender', 'lowercaseRoundness', 'capitalRoundness', 'letterWidth', 'wordSpace', 'overshoot', 'uFoot',
               'spaceBetweenAllLetters', 'letterSpace', 'pairSpace'):
@@ -695,11 +695,12 @@ def build(data, out, style='Regular', italic=False):
     fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
     # Equal adjustments for every tabular digit preserve formatted-number alignment.
     # Separate classes leave ordinary digit widths and digit-to-digit spacing intact.
+    # Zero's final separator overrides control the shared tabular margin.
     fea += '@tabular_figures = [' + ' '.join(name + '.tf' for name in digit_names) + '];\n'
     fea += 'feature kern {\n lookupflag IgnoreMarks;\n'
     for separator in '.,':
-        fea += f' pos @tabular_figures {gname(separator)} {round(numeric_pairs["0" + separator]*SC)};\n'
-        fea += f' pos {gname(separator)} @tabular_figures {round(numeric_pairs[separator + "0"]*SC)};\n'
+        fea += f' pos @tabular_figures {gname(separator)} {round(KERN.get("0" + separator, 0)*SC)};\n'
+        fea += f' pos {gname(separator)} @tabular_figures {round(KERN.get(separator + "0", 0)*SC)};\n'
     fea += '} kern;\n'
     hu=LANGUAGE_KERN[ps_style]['hu']
     if hu:

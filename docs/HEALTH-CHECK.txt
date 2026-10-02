@@ -33,6 +33,9 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
       outlines/metrics and digit-to-digit rhythm, and matching basic/extended subsets.
       Before/after native Windows Day/Night proofs were inspected at 13/15/17/20px,
       including all ten styles. FontBakery profiles were rerun after this correction.
+      The optional --overrides regression builds custom and default scratch fonts:
+      proportional and tabular margins follow pairSpace, tabular columns stay aligned,
+      and the default GPOS/GSUB/GDEF/hmtx tables match the shipped Regular exactly.
     - New letters beside selected prose/punctuation neighbors, locale samples, exemplar
       sequences, and tone stacks have no contour intersections or clipping.
     - Latin extended includes all 95 Latin-basic codepoints, complete tested Latin clusters,
