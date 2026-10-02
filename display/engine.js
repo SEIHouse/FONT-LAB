@@ -1,0 +1,520 @@
+/* ---------- SEIHouse Soft, refinement 2: glyph engine ----------
+   Units: 1000 per em. Baseline 0, capitals 700, x-height XH, ascenders ASC, descenders -200.
+   Letters are centre-line strokes. Coordinates in the tables below use the OLD scale
+   (x-height 500, ascender 740); the mapping function stretches lowercase to the new x-height. */
+
+const XH = 520, ASC = 770;
+const OVS = new Set([...'oceasOCGQS0']);
+const OSV = 10;
+const WIDE = new Set([...'mwMWOCGDQ']);   // these get back 60% of the width the slider takes away
+
+const o = p => ({ z:0, p });
+const c = p => ({ z:1, p });
+const R = (x0,y0,x1,y1,m) => ({ z:1, p:[[x0,y0,m],[x1,y0,m],[x1,y1,m],[x0,y1,m]] });
+const RAW = r => ({ raw:r });
+const FILL = p => ({ fill:p });
+const THIN = (shape, k) => Object.assign({}, shape, { sw:k });   // this part uses a thinner line than the letters
+const arcPts = (cx, cy, r, a0, a1, n = 48) => { const o = []; for(let i = 0; i <= n; i++){ const a = (a0 + (a1 - a0) * i / n) * Math.PI/180; o.push([cx + r*Math.cos(a), cy + r*Math.sin(a)]); } return o; };
+const circ = (cx, cy, r) => { const k = 0.5522847498 * r;
+  return [['M', cx + r, cy], ['C', cx + r, cy + k, cx + k, cy + r, cx, cy + r], ['C', cx - k, cy + r, cx - r, cy + k, cx - r, cy],
+          ['C', cx - r, cy - k, cx - k, cy - r, cx, cy - r], ['C', cx + k, cy - r, cx + r, cy - k, cx + r, cy]]; };
+const LN = (x0,y0,x1,y1) => ['C', x0+(x1-x0)/3, y0+(y1-y0)/3, x0+2*(x1-x0)/3, y0+2*(y1-y0)/3, x1, y1];
+function cCurve(W, H, x0){
+  /* one continuous curve; the ends stop partway round the corner at an angle, so there is no hard drop */
+  const R = Math.min(P.caprx, W/2, H/2), END = 38 * Math.PI/180, PI = Math.PI;
+  const arc = (cx, cy, a0, a1) => {
+    const k = 4/3 * Math.tan((a1 - a0)/4);
+    const p0 = [cx + R*Math.cos(a0), cy + R*Math.sin(a0)], p3 = [cx + R*Math.cos(a1), cy + R*Math.sin(a1)];
+    return ['C', p0[0] - k*R*Math.sin(a0), p0[1] + k*R*Math.cos(a0), p3[0] + k*R*Math.sin(a1), p3[1] - k*R*Math.cos(a1), p3[0], p3[1]];
+  };
+  const c1 = [x0+W-R, H-R], c2 = [x0+R, H-R], c3 = [x0+R, R], c4 = [x0+W-R, R];
+  return [['M', c1[0] + R*Math.cos(END), c1[1] + R*Math.sin(END)],
+    arc(c1[0], c1[1], END, PI/2), LN(x0+W-R, H, x0+R, H),
+    arc(c2[0], c2[1], PI/2, PI), LN(x0, H-R, x0, R),
+    arc(c3[0], c3[1], PI, 1.5*PI), LN(x0+R, 0, x0+W-R, 0),
+    arc(c4[0], c4[1], 1.5*PI, 2*PI - END)];
+}
+
+const G = {};
+const def = (ch, w, kind, shapes, dots = [], sb = [62,62]) => { G[ch] = { w, kind, shapes, dots, sb }; };
+
+/* ----- capitals (squared curves, unchanged in spirit) ----- */
+def('A',540,'cap',[o([[0,0],[270,700],[540,0]]),o([[115,230],[425,230]])],[],[15,15]);
+def('B',440,'cap',[c([[0,350,0],[0,700,0],[400,700],[400,350]]),c([[0,0,0],[0,350,0],[440,350],[440,0]])],[],[66,52]);
+def('C',480,'cap',[{ fn: () => cCurve(480, 700, 0) }],[],[52,44]);
+def('D',500,'cap',[c([[0,0,0],[0,700,0],[500,700,1.6],[500,0,1.6]])],[],[66,52]);
+def('E',480,'cap',[o([[480,700],[0,700],[0,0],[480,0]]),o([[0,350],[400,350]])],[],[66,40]);
+def('F',480,'cap',[o([[480,700],[0,700],[0,0]]),o([[0,350],[400,350]])],[],[66,35]);
+def('G',500,'cap',[o([[500,540],[500,700],[0,700],[0,0],[500,0],[500,320],[270,320]])],[],[52,62]);
+def('H',480,'cap',[o([[0,0],[0,700]]),o([[480,0],[480,700]]),o([[0,350],[480,350]])],[],[66,66]);
+def('I',240,'cap',[o([[0,700],[240,700]]),o([[120,700],[120,0]]),o([[0,0],[240,0]])],[],[56,56]);
+def('J',440,'cap',[o([[440,700],[440,0],[0,0],[0,200]])],[],[40,66]);
+def('K',490,'cap',[o([[0,0],[0,700]]),o([[470,700],[0,215]]),o([[130,340],[490,0]])],[],[66,20]);
+def('L',420,'cap',[o([[0,700],[0,0],[420,0]])],[],[66,30]);
+def('M',580,'cap',[o([[0,0],[0,700],[290,240],[580,700],[580,0]])],[],[66,66]);
+def('N',500,'cap',[o([[0,0],[0,700],[500,0],[500,700]])],[],[66,66]);
+def('O',560,'cap',[R(0,0,560,700)],[],[52,52]);
+def('P',430,'cap',[o([[0,0],[0,700,0],[430,700],[430,300],[0,300,0]])],[],[66,40]);
+def('Q',560,'cap',[R(0,0,560,700),o([[340,190],[590,-60]])],[],[52,52]);
+def('R',450,'cap',[o([[0,0],[0,700,0],[430,700],[430,300],[0,300,0]]),o([[220,300],[450,0]])],[],[66,40]);
+def('S',480,'cap',[o([[480,560],[480,700],[0,700],[0,350],[480,350],[480,0],[0,0],[0,140]])],[],[50,50]);
+def('T',500,'cap',[o([[0,700],[500,700]]),o([[250,700],[250,0]])],[],[10,10]);
+def('U',480,'cap',[o([[0,700],[0,0],[480,0],[480,700]])],[],[66,66]);
+def('V',520,'cap',[o([[0,700],[260,0],[520,700]])],[],[15,15]);
+def('W',700,'cap',[o([[0,700],[175,0],[350,520],[525,0],[700,700]])],[],[15,15]);
+def('X',500,'cap',[o([[0,700],[500,0]]),o([[500,700],[0,0]])],[],[25,25]);
+def('Y',500,'cap',[o([[0,700],[250,340],[500,700]]),o([[250,340],[250,0]])],[],[15,15]);
+def('Z',480,'cap',[o([[0,700],[480,700],[0,0],[480,0]])],[],[50,50]);
+
+/* ----- lowercase (calmer: rounder bowls, straight stems, open counters) ----- */
+def('a',420,'low',[o([[25,500],[420,500],[420,0]]),o([[420,285],[0,285],[0,0],[420,0]])],[],[46,66]);
+def('b',420,'low',[o([[0,740],[0,0]]),o([[0,500],[420,500],[420,0],[0,0]])],[],[66,50]);
+def('c',420,'low',[o([[420,410],[420,500],[0,500],[0,0],[420,0],[420,90]])],[],[50,40]);
+def('d',420,'low',[o([[420,740],[420,0]]),o([[420,500],[0,500],[0,0],[420,0]])],[],[50,66]);
+def('e',420,'low',[o([[0,265],[420,265],[420,500],[0,500],[0,0],[405,0]])],[],[50,50]);
+def('f',350,'low',[o([[375,740],[150,740,1],[150,0]]),o([[0,500],[340,500]])],[],[30,14]);
+def('g',420,'low',[o([[420,200],[420,-195,1],[75,-195,0.8],[75,-125]]),o([[420,200],[420,500],[0,500],[0,0],[420,0]])],[],[50,66]);
+def('h',400,'low',[o([[0,0],[0,740]]),o([[0,300],[0,500],[400,500],[400,0]])],[],[66,66]);
+def('i',0,'low',[o([[0,0],[0,500]])],[[0,720]],[66,66]);
+def('j',160,'low',[o([[160,500],[160,-205,0.5],[0,-205,0.5],[0,-110]])],[[160,720]],[30,66]);
+def('k',420,'low',[o([[0,0],[0,740]]),o([[415,500],[0,185]]),o([[165,309],[425,0]])],[],[66,20]);
+def('l',95,'low',[o([[0,740],[0,0,0.55],[95,0]])],[],[66,40]);
+def('m',640,'low',[o([[0,0],[0,500]]),o([[0,300],[0,500],[320,500,0.7],[320,0]]),o([[320,250],[320,500,0.7],[640,500],[640,0]])],[],[66,66]);
+def('n',400,'low',[o([[0,0],[0,500]]),o([[0,300],[0,500],[400,500],[400,0]])],[],[66,66]);
+def('o',420,'low',[R(0,0,420,500)],[],[50,50]);
+def('p',420,'low',[o([[0,500],[0,-200]]),o([[0,500],[420,500],[420,0],[0,0]])],[],[66,50]);
+def('q',420,'low',[o([[420,200],[420,-200]]),o([[420,200],[420,500],[0,500],[0,0],[420,0]])],[],[50,66]);
+def('r',300,'low',[o([[0,0],[0,500]]),o([[0,320],[0,500],[300,500],[300,440]])],[],[66,30]);
+def('s',420,'low',[o([[420,435],[420,500],[0,500],[0,255],[420,255],[420,0],[0,0],[0,65]])],[],[46,46]);
+def('t',350,'low',[o([[150,710],[150,0,1.15],[360,0]]),o([[0,500],[350,500]])],[],[30,22]);
+def('u',400,'low',[o([[0,500],[0,0],[400,0],[400,500]])],[],[66,66]);
+const U_PLAIN = G['u'];
+def('u',400,'low',[o([[400,500],[400,0,0.5],[465,0]]),o([[0,500],[0,0],[400,0,1],[400,200]])],[],[66,12]);
+const U_FOOT = G['u'];
+const A_UP = G['a'], F_UP = G['f'];
+def('a',410,'low',[o([[410,500],[410,0,0.6],[465,0]]),o([[410,500],[0,500],[0,0],[410,0]])],[],[48,28]);
+const A_IT = G['a'];
+def('f',350,'low',[o([[375,740],[150,740,1],[150,-195,1],[-40,-195]]),o([[0,500],[340,500]])],[],[30,14]);
+const F_IT = G['f'];
+G['a'] = A_UP; G['f'] = F_UP;
+/* the rest of the italic letters: lower-branching arches and small exit strokes, like a pen moving fast */
+const IT = {};
+{
+  const keep = {};
+  for(const ch of 'dhimnu') keep[ch] = G[ch];
+  def('d',420,'low',[o([[420,740],[420,0,0.6],[475,0]]),o([[420,500],[0,500],[0,0],[420,0]])],[],[50,28]);
+  def('h',400,'low',[o([[0,0],[0,740]]),o([[0,210],[0,500],[400,500],[400,0,0.6],[455,0]])],[],[66,28]);
+  def('i',45,'low',[o([[0,500],[0,0,0.6],[55,0]])],[[0,720]],[66,32]);
+  def('m',640,'low',[o([[0,0],[0,500]]),o([[0,210],[0,500],[320,500,0.7],[320,0]]),o([[320,210],[320,500,0.7],[640,500],[640,0,0.6],[695,0]])],[],[66,28]);
+  def('n',400,'low',[o([[0,0],[0,500]]),o([[0,210],[0,500],[400,500],[400,0,0.6],[455,0]])],[],[66,28]);
+  def('u',400,'low',[o([[400,500],[400,0,0.6],[455,0]]),o([[0,500],[0,0],[400,0,1],[400,210]])],[],[66,28]);
+  for(const ch of 'dhimnu'){ IT[ch] = G[ch]; G[ch] = keep[ch]; }
+}
+def('v',420,'low',[o([[0,500],[210,0],[420,500]])],[],[15,15]);
+def('w',640,'low',[o([[0,500],[160,0],[320,400],[480,0],[640,500]])],[],[15,15]);
+def('x',420,'low',[o([[0,500],[420,0]]),o([[420,500],[0,0]])],[],[20,20]);
+def('y',420,'low',[o([[0,500],[210,0]]),RAW([['M',420,500],['C',341.7,313.3,263.3,126.7,185,-60],['C',156.8,-127.2,115,-195,50,-195]])],[],[15,15]);
+def('z',400,'low',[o([[0,500],[400,500],[0,0],[400,0]])],[],[50,50]);
+
+/* ----- numerals ----- */
+def('0',360,'cap',[R(0,0,360,700)],[],[56,56]);
+def('1',300,'cap',[o([[0,520],[150,700],[150,0]]),o([[0,0],[300,0]])],[],[40,40]);
+def('2',400,'cap',[o([[0,560],[0,700],[400,700],[400,420],[0,0],[400,0]])]);
+def('3',420,'cap',[o([[0,560],[0,700],[380,700],[380,350],[110,350]]),o([[110,350],[420,350],[420,0],[0,0],[0,140]])]);
+def('4',420,'cap',[o([[320,0],[320,700],[0,200],[420,200]])],[],[30,40]);
+def('5',400,'cap',[o([[400,700],[0,700,0],[0,360],[400,360],[400,0],[0,0],[0,120]])]);
+def('6',400,'cap',[o([[400,700],[0,700],[0,0],[400,0],[400,360],[0,360]])]);
+def('7',400,'cap',[o([[0,700],[400,700],[120,0]])],[],[40,20]);
+def('8',420,'cap',[R(20,350,400,700),R(0,0,420,350)]);
+def('9',400,'cap',[o([[0,0],[400,0],[400,700],[0,700],[0,340],[400,340]])]);
+
+/* ----- punctuation ----- */
+def('.',0,'cap',[],[[0,0]],[50,50]);
+def(',',80,'cap',[o([[80,20],[10,-150]])],[[80,20]],[36,40]);
+def(':',0,'low',[],[[0,0],[0,470]],[50,50]);
+def(';',80,'low',[o([[80,20],[10,-150]])],[[80,20],[80,470]],[36,40]);
+def('…',480,'cap',[],[[0,0],[240,0],[480,0]],[40,40]);
+def('!',0,'cap',[o([[0,700],[0,230]])],[[0,0]],[56,56]);
+def('?',380,'cap',[o([[0,560],[0,700],[380,700],[380,420],[190,420],[190,240]])],[[190,0]],[50,50]);
+def("'",0,'cap',[o([[0,700],[0,510]])],[],[50,50]);
+def('"',200,'cap',[o([[0,700],[0,510]]),o([[200,700],[200,510]])],[],[50,50]);
+def('’',80,'cap',[o([[80,650],[10,490]])],[[80,650]],[40,40]);
+def('‘',80,'cap',[o([[10,520],[80,690]])],[[10,520]],[40,40]);
+def('”',270,'cap',[o([[80,650],[10,490]]),o([[270,650],[200,490]])],[[80,650],[270,650]],[40,40]);
+def('“',270,'cap',[o([[10,520],[80,690]]),o([[200,520],[270,690]])],[[10,520],[200,520]],[40,40]);
+def('-',240,'low',[o([[0,265],[240,265]])],[],[50,50]);
+def('–',480,'low',[o([[0,265],[480,265]])],[],[40,40]);
+def('—',860,'low',[o([[0,265],[860,265]])],[],[24,24]);
+def('/',300,'low',[o([[0,-90],[300,760]])],[],[10,10]);
+def('\\',300,'low',[o([[0,760],[300,-90]])],[],[10,10]);
+/* common symbols */
+def('&',480,'cap',[RAW([['M',470,10], LN(470,10,150,420), ['C',90,500,100,700,250,700], ['C',390,700,410,560,300,480],
+    LN(300,480,120,340), ['C',20,260,30,0,210,0], ['C',330,0,410,80,470,230]])],[],[40,30]);
+def('@',640,'cap',[R(180,130,440,450), o([[440,450],[440,130,0.6],[640,130],[640,640],[0,640],[0,-80],[520,-80]])],[],[40,40]);
+def('#',520,'cap',[o([[150,30],[210,670]]), o([[330,30],[390,670]]), o([[40,460],[520,460]]), o([[0,230],[480,230]])],[],[30,30]);
+def('$',420,'cap',[o([[420,520],[420,630],[0,630],[0,340],[420,340],[420,60],[0,60],[0,170]]), o([[210,-70],[210,770]])],[],[45,45]);
+def('*',300,'cap',[o([[150,380],[150,680]]), o([[20,455],[280,605]]), o([[20,605],[280,455]])],[],[30,30]);
+def('~',500,'cap',[RAW([['M',0,260],['C',90,380,170,380,250,310],['C',330,240,410,240,500,360]])],[],[40,40]);
+def('_',520,'cap',[o([[0,-140],[520,-140]])],[],[10,10]);
+def('|',0,'cap',[o([[0,-180],[0,880]])],[],[80,80]);
+def('{',200,'low',[RAW([['M',200,760],['C',110,760,90,720,90,640], LN(90,640,90,390), ['C',90,320,70,290,0,290],
+    ['C',70,290,90,260,90,190], LN(90,190,90,-60), ['C',90,-140,110,-180,200,-180]])],[],[40,30]);
+def('}',200,'low',[RAW([['M',0,760],['C',90,760,110,720,110,640], LN(110,640,110,390), ['C',110,320,130,290,200,290],
+    ['C',130,290,110,260,110,190], LN(110,190,110,-60), ['C',110,-140,90,-180,0,-180]])],[],[30,40]);
+def('<',420,'cap',[o([[420,560],[0,320],[420,80]])],[],[50,50]);
+def('>',420,'cap',[o([[0,560],[420,320],[0,80]])],[],[50,50]);
+/* novel and system-screen symbols */
+{ const pts = []; for(let i = 0; i < 10; i++){ const a = (90 + i*36) * Math.PI/180, r = i % 2 ? 135 : 330; pts.push([320 + r*Math.cos(a), 310 + r*Math.sin(a)]); }
+  def('★',640,'cap',[FILL(pts)],[],[30,30]); }
+def('•',220,'low',[],[[110,250,1.8]],[40,40]);
+def('·',0,'low',[],[[0,260]],[60,60]);
+/* cultivation */
+{ const R = 320, cx = 320, cy = 330, hole = 50;
+  const dark = [...arcPts(cx, cy, R, 90, 270, 64), ...arcPts(cx, cy - R/2, R/2, -90, 90, 32), ...arcPts(cx, cy + R/2, R/2, -90, -270, 32)];
+  def('☯',640,'cap',[{ fill:[dark, arcPts(cx, cy - R/2, hole + 42, 0, 360, 32)], nostroke:true }, RAW(circ(cx, cy, R))],[[cx, cy + R/2, 0.95]],[40,40]); }
+def('⚡',380,'cap',[FILL([[240,700],[30,300],[190,300],[110,-40],[370,400],[210,400],[320,700]])],[],[40,40]);
+def('☀',680,'cap',[FILL(arcPts(340, 320, 60, 0, 360, 40)),
+    ...[0,45,90,135,180,225,270,315].map(a => { const r = a*Math.PI/180; return o([[340 + 235*Math.cos(r), 320 + 235*Math.sin(r)], [340 + 335*Math.cos(r), 320 + 335*Math.sin(r)]]); })],[],[40,40]);
+{ const cx = 320, cy = 330, R = 310;
+  const moon = sgn => [...arcPts(cx, cy, R, 60*sgn + (sgn < 0 ? 180 : 0), sgn < 0 ? 180 + 300 : 300, 48)];
+  const outerL = arcPts(cx, cy, R, 60, 300, 48), innerL = arcPts(cx + 155, cy, Math.hypot(0, R*Math.sin(Math.PI/3)), 270, 90, 48);
+  const outerR = arcPts(cx, cy, R, 120, -120, 48), innerR = arcPts(cx - 155, cy, Math.hypot(0, R*Math.sin(Math.PI/3)), -90, 90, 48);
+  def('☾',600,'cap',[FILL([...outerL, ...innerL])],[],[30,30]);
+  def('☽',600,'cap',[FILL([...outerR, ...innerR])],[],[30,30]); }
+def('⚔',640,'cap',[o([[60,20],[560,620]]), o([[580,20],[80,620]]), o([[20,150],[180,10]]), o([[620,150],[460,10]])],[],[30,30]);
+/* scene breaks, ratings, bullets */
+def('✦',400,'cap',[FILL([[200,660],[250,370],[400,320],[250,270],[200,-20],[150,270],[0,320],[150,370]])],[],[40,40]);
+{ const pts = []; for(let i = 0; i < 10; i++){ const a = (90 + i*36) * Math.PI/180, r = i % 2 ? 135 : 330; pts.push([320 + r*Math.cos(a), 310 + r*Math.sin(a)]); }
+  def('☆',640,'cap',[c(pts.map(p => [p[0], p[1], 0]))],[],[30,30]); }
+def('◆',440,'cap',[FILL([[220,560],[440,320],[220,80],[0,320]])],[],[40,40]);
+def('◇',440,'cap',[c([[220,560,0],[440,320,0],[220,80,0],[0,320,0]])],[],[40,40]);
+/* stat screens */
+def('▲',480,'cap',[FILL([[0,40],[480,40],[240,480]])],[],[40,40]);
+def('▼',480,'cap',[FILL([[0,480],[480,480],[240,40]])],[],[40,40]);
+def('▶',440,'cap',[FILL([[0,20],[0,500],[440,260]])],[],[40,40]);
+def('◀',440,'cap',[FILL([[440,20],[440,500],[0,260]])],[],[40,40]);
+def('↑',400,'cap',[o([[200,0],[200,680]]), o([[20,500],[200,680],[380,500]])],[],[40,40]);
+def('↓',400,'cap',[o([[200,680],[200,0]]), o([[20,180],[200,0],[380,180]])],[],[40,40]);
+def('−',420,'cap',[o([[30,300],[390,300]])],[],[50,50]);
+def('≤',420,'cap',[o([[420,620],[0,420],[420,220]]), o([[0,40],[420,40]])],[],[50,50]);
+def('≥',420,'cap',[o([[0,620],[420,420],[0,220]]), o([[0,40],[420,40]])],[],[50,50]);
+def('≠',420,'cap',[o([[30,220],[390,220]]), o([[30,400],[390,400]]), o([[90,40],[330,580]])],[],[50,50]);
+def('≈',420,'cap',[RAW([['M',10,380],['C',90,480,160,480,210,420],['C',260,360,330,360,410,460]]),
+                    RAW([['M',10,170],['C',90,270,160,270,210,210],['C',260,150,330,150,410,250]])],[],[50,50]);
+/* hearts and quests */
+{ const heart = []; for(let i = 0; i < 72; i++){ const t = i/72 * 2*Math.PI;
+    heart.push([280 + 17.5*16*Math.pow(Math.sin(t),3), 330 + 17.5*(13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t))]); }
+  def('♥',560,'cap',[FILL(heart)],[],[30,30]);
+  def('♡',560,'cap',[c(heart.map(p => [p[0], p[1], 0]))],[],[30,30]); }
+def('✓',460,'cap',[o([[0,300],[160,80],[460,620]])],[],[40,40]);
+def('✗',440,'cap',[o([[0,560],[440,40]]), o([[40,40],[440,580]])],[],[40,40]);
+/* music, for SEA */
+def('♪',400,'cap',[o([[260,120],[260,700],[400,560]])],[[130,120,2.2]],[40,40]);
+/* brand */
+def('©',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, { swFn: true, fn: () => cCurve(260, 330, 190).map(seg => seg[0] === 'M' ? ['M', seg[1], seg[2] + 155] : ['C', seg[1], seg[2] + 155, seg[3], seg[4] + 155, seg[5], seg[6] + 155]) }],[],[40,40]);
+def('®',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, Object.assign(o([[210,160],[210,490],[420,490,0.5],[420,330,0.5],[210,330]]), { swFn:true }), Object.assign(o([[320,330],[430,160]]), { swFn:true })],[],[40,40]);
+def('™',560,'cap',[o([[0,700],[220,700]]), o([[110,700],[110,440]]), o([[300,440],[300,700],[430,540],[560,700],[560,440]])],[],[40,40]);
+/* languages: letters with their own shapes */
+{ const sh = (shapes, dx) => shapes.map(s => s.p ? Object.assign({}, s, { p: s.p.map(q => [q[0] + dx, q[1], q[2]]) })
+                                   : s.raw ? { raw: s.raw.map(seg => seg[0] === 'M' ? ['M', seg[1] + dx, seg[2]] : ['C', seg[1] + dx, seg[2], seg[3] + dx, seg[4], seg[5] + dx, seg[6]]) } : s);
+  def('Ø',560,'cap',[R(0,0,560,700), o([[-10,-30],[570,730]])],[],[52,52]);
+  def('ø',420,'low',[R(0,0,420,500), o([[-10,-40],[430,540]])],[],[50,50]);
+  def('ß',420,'low',[o([[0,0],[0,740],[360,740],[360,420],[190,420]]), o([[190,420],[420,420],[420,0],[170,0]])],[],[66,40]);
+  def('æ',800,'low',[...A_UP.shapes, ...sh(G['e'].shapes, 380)],[],[46,50]);
+  def('œ',800,'low',[...G['o'].shapes, ...sh(G['e'].shapes, 380)],[],[50,50]);
+  def('Æ',720,'cap',[o([[0,0],[330,700],[720,700]]), o([[330,700],[330,0],[720,0]]), o([[330,350],[660,350]]), o([[110,230],[330,230]])],[],[15,40]);
+  def('Œ',720,'cap',[o([[720,700],[0,700],[0,0],[720,0]]), o([[390,700],[390,0]]), o([[390,350],[660,350]])],[],[52,40]);
+  def('Ð',500,'cap',[...G['D'].shapes, o([[-50,350],[170,350]])],[],[100,52]);
+  def('ð',420,'low',[R(0,0,420,500), o([[420,250],[420,560],[240,760]]), o([[170,660],[420,740]])],[],[50,50]);
+  def('Þ',430,'cap',[o([[0,0],[0,700]]), o([[0,540],[430,540],[430,160],[0,160]])],[],[66,40]);
+  def('þ',410,'low',[o([[0,740],[0,-200]]), o([[0,500],[410,500],[410,0],[0,0]])],[],[66,48]);
+  def('¡',0,'cap',[o([[0,330],[0,-190]])],[[0,510]],[56,56]);
+  def('¿',380,'cap',[o([[190,340],[190,160],[0,160],[0,-120],[380,-120],[380,20]])],[[190,510]],[50,50]);
+  def('º',240,'cap',[R(0,400,240,700), o([[0,300],[240,300]])],[],[40,40]);
+  def('ª',240,'cap',[R(0,400,240,600), o([[240,700],[240,400]]), o([[0,700],[240,700]]), o([[0,300],[240,300]])],[],[40,40]); }
+/* SEIHouse brand mark: circled S, drawn with SEIReader's own S */
+def('Ⓢ',660,'cap',[{ fn: () => circ(330, 320, 330), swFn: true },
+    { p: [[480,560],[480,700],[0,700],[0,350],[480,350],[480,0],[0,0],[0,140]].map(p => [196 + p[0]*0.56, 124 + p[1]*0.56, 0.55]), z: 0, swFn: true }],[],[40,40]);
+/* music */
+def('♩',300,'cap',[o([[260,120],[260,700]])],[[130,120,2.2]],[40,40]);
+def('♫',620,'cap',[o([[240,80],[240,640],[580,720],[580,160]])],[[110,80,2.2],[450,160,2.2]],[40,40]);
+def('♬',620,'cap',[o([[240,80],[240,640],[580,720],[580,160]]), o([[240,520],[580,600]])],[[110,80,2.2],[450,160,2.2]],[40,40]);
+def('♭',260,'cap',[o([[0,0],[0,720]]), RAW([['M',0,320],['C',120,420,260,380,260,260],['C',260,150,120,60,0,0]])],[],[50,40]);
+def('♮',260,'cap',[o([[0,700],[0,180],[260,230]]), o([[260,0],[260,520],[0,470]])],[],[50,50]);
+def('♯',360,'cap',[o([[100,-40],[100,660]]), o([[260,0],[260,700]]), o([[0,420],[360,480]]), o([[0,200],[360,260]])],[],[40,40]);
+/* player controls (SEA / SAP) */
+def('⏸',440,'cap',[o([[80,40],[80,600]]), o([[360,40],[360,600]])],[],[50,50]);
+def('⏹',500,'cap',[FILL([[0,40],[500,40],[500,540],[0,540]])],[],[50,50]);
+def('⏺',500,'cap',[FILL(arcPts(250, 290, 250, 0, 360, 48))],[],[50,50]);
+def('⏭',480,'cap',[FILL([[0,40],[0,560],[370,300]]), o([[480,40],[480,560]])],[],[40,40]);
+def('⏮',480,'cap',[FILL([[480,40],[480,560],[110,300]]), o([[0,40],[0,560]])],[],[40,40]);
+/* utilities */
+def('🎧',640,'cap',[RAW([['M',70,300],['C',70,520,180,660,320,660],['C',460,660,570,520,570,300]]),
+    FILL([[20,30],[190,30],[190,330],[20,330]]), FILL([[450,30],[620,30],[620,330],[450,330]])],[],[40,40]);
+def('💻',680,'cap',[c([[100,230,0.25],[580,230,0.25],[580,660,0.25],[100,660,0.25]]), o([[0,70],[680,70]])],[],[30,30]);
+def('📖',660,'cap',[RAW([['M',330,90],['C',250,150,130,150,20,120], LN(20,120,20,610), ['C',130,640,250,640,330,580]]),
+    RAW([['M',330,90],['C',410,150,530,150,640,120], LN(640,120,640,610), ['C',530,640,410,640,330,580]]), o([[330,90],[330,580]])],[],[30,30]);
+def('🔖',400,'cap',[c([[0,700,0.3],[400,700,0.3],[400,-40,0],[200,140,0],[0,-40,0]])],[],[60,60]);
+def('🔍',620,'cap',[{ fn: () => circ(250, 410, 220), swFn: true }, o([[410,250],[600,40]])],[],[40,40]);
+def('🔔',600,'cap',[RAW([['M',70,150],['C',110,210,120,290,120,380],['C',120,540,210,650,300,650],['C',390,650,480,540,480,380],['C',480,290,490,210,530,150]]),
+    o([[20,150],[580,150]])],[[300,40,1.3]],[40,40]);
+def('⚙',640,'cap',[{ fn: () => circ(320, 320, 205), swFn: true }, { fn: () => circ(320, 320, 70), swFn: true },
+    ...[0,45,90,135,180,225,270,315].map(a => { const r = a*Math.PI/180; return Object.assign(o([[320 + 240*Math.cos(r), 320 + 240*Math.sin(r)], [320 + 315*Math.cos(r), 320 + 315*Math.sin(r)]]), { swFn:true }); })],[],[40,40]);
+def('⌂',600,'cap',[o([[20,300],[300,620],[580,300]]), o([[90,350],[90,0],[510,0],[510,350]])],[],[40,40]);
+def('🎤',520,'cap',[c([[150,330],[370,330],[370,720],[150,720]]),
+    RAW([['M',50,470],['C',50,290,150,200,260,200],['C',370,200,470,290,470,470]]), o([[260,200],[260,20]]), o([[120,20],[400,20]])],[],[40,40]);
+def('💿',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, { fn: () => circ(320, 320, 80), swFn: true }],[],[40,40]);
+def('🔊',640,'cap',[FILL([[0,210],[130,210],[300,50],[300,590],[130,430],[0,430]]),
+    o(arcPts(320, 320, 150, -45, 45, 16).map(p => [p[0], p[1], 0])), o(arcPts(320, 320, 280, -50, 50, 24).map(p => [p[0], p[1], 0]))],[],[30,30]);
+def('×',420,'cap',[o([[20,110],[400,490]]), o([[20,490],[400,110]])],[],[50,50]);
+def('÷',420,'cap',[o([[0,300],[420,300]])],[[210,510],[210,90]],[50,50]);
+def('±',420,'cap',[o([[0,400],[420,400]]), o([[210,220],[210,580]]), o([[0,60],[420,60]])],[],[50,50]);
+def('°',200,'cap',[R(0,470,200,700)],[],[40,40]);
+def('→',580,'cap',[o([[0,300],[580,300]]), o([[400,480],[580,300],[400,120]])],[],[40,40]);
+def('←',580,'cap',[o([[0,300],[580,300]]), o([[180,480],[0,300],[180,120]])],[],[40,40]);
+def('∞',520,'cap',[RAW([['M',260,300],['C',340,440,520,440,520,300],['C',520,160,340,160,260,300],
+    ['C',180,440,0,440,0,300],['C',0,160,180,160,260,300]])],[],[40,40]);
+def('‹',170,'low',[o([[170,430],[0,250],[170,70]])],[],[40,40]);
+def('›',170,'low',[o([[0,430],[170,250],[0,70]])],[],[40,40]);
+def('«',370,'low',[o([[170,430],[0,250],[170,70]]), o([[370,430],[200,250],[370,70]])],[],[40,40]);
+def('»',370,'low',[o([[0,430],[170,250],[0,70]]), o([[200,430],[370,250],[200,70]])],[],[40,40]);
+/* money */
+def('¥',500,'cap',[o([[0,700],[250,380],[500,700]]), o([[250,380],[250,0]]), o([[80,320],[420,320]]), o([[80,170],[420,170]])],[],[15,15]);
+def('€',530,'cap',[{ fn: () => cCurve(460, 700, 70) }, o([[0,420],[380,420]]), o([[0,270],[380,270]])],[],[30,30]);
+def('£',480,'cap',[RAW([['M',470,560],['C',450,660,390,700,300,700],['C',190,700,140,630,140,520], LN(140,520,140,100),
+    ['C',140,40,110,10,40,0]]), o([[40,0],[480,0]]), o([[20,350],[340,350]])],[],[40,30]);
+def('[',150,'low',[o([[150,760],[0,760,0.3],[0,-180,0.3],[150,-180]])],[],[46,36]);
+def(']',150,'low',[o([[0,760],[150,760,0.3],[150,-180,0.3],[0,-180]])],[],[36,46]);
+def('+',420,'cap',[o([[30,300],[390,300]]),o([[210,120],[210,480]])],[],[50,50]);
+def('=',420,'cap',[o([[30,220],[390,220]]),o([[30,400],[390,400]])],[],[50,50]);
+def('%',560,'cap',[R(0,430,210,700),R(350,0,560,270),o([[500,700],[60,0]])],[],[36,36]);
+def('(',150,'low',[RAW([['M',150,760],['C',-20,560,-20,20,150,-180]])],[],[46,36]);
+def(')',150,'low',[RAW([['M',0,760],['C',170,560,170,20,0,-180]])],[],[36,46]);
+
+/* ----- pair spacing (added after the first letter of each pair, in font units) ----- */
+const KERN = {
+  'Th':30,'Te':-35,'To':-35,'Ta':-35,'Tr':-20,'Ty':-30,'Tu':-20,'Tw':-25,
+  'Yo':-40,'Ye':-40,'Ya':-40,'Wa':-20,'Wo':-25,'Va':-25,'Vo':-25,'Av':-20,'Aw':-20,'Ay':-20,
+  'rn':26,'rm':26,'rh':10,'ri':8,'ll':6,'oo':-6,'te':-8,'er':-14,'re':-6,'rt':-8,'ry':-20,
+  'ov':-10,'ow':-10,'ev':-10,'ew':-10,'vo':-10,'wo':-10,'yo':-8,
+  'T.':-40,'T,':-40,'F.':-40,'F,':-40,'P.':-45,'P,':-45,'r.':-30,'r,':-30,'y.':-30,'y,':-30,
+  '“T':-10,'“A':-30,'‘T':-10
+};
+
+/* ---------- settings the sliders control ---------- */
+const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770, corner:'soft', cap:'round', join:'round', penAngle:0 };
+const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
+
+const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
+const weightFor = size => P.base + P.boost * clamp((28 - size) / 15, 0, 1);
+
+/* ---------- drawing ---------- */
+const f1 = v => (+v).toFixed(1);
+
+function radii(kind){
+  if(kind === 'low'){
+    if(P.ital){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }   // italic curves are locked
+    const v = P.round; return { rx:(210 + 50*v) * P.straight, ry:(210 + 60*v) * P.straight, k:0.667 - 0.115*v };
+  }
+  return { rx:P.caprx, ry:P.caprx, k:0.667 };
+}
+
+function pathFrom(pts, closed, kind){
+  const n = pts.length, cmds = [], rr = radii(kind);
+  const corner = i => {
+    const p = pts[i], prev = pts[(i-1+n)%n], next = pts[(i+1)%n];
+    const m = p[2] === undefined ? 1 : p[2];
+    const ax = p[0]-prev[0], ay = p[1]-prev[1], bx = next[0]-p[0], by = next[1]-p[1];
+    const l1 = Math.hypot(ax,ay), l2 = Math.hypot(bx,by);
+    const axis = (Math.abs(ax)<0.01 || Math.abs(ay)<0.01) && (Math.abs(bx)<0.01 || Math.abs(by)<0.01);
+    const perp = Math.abs(ax*bx + ay*by) < 1e-3*l1*l2;
+    if(!axis || !perp || m === 0) return [['L',p]];
+    const er = (vx,vy) => Math.abs(vy) < 0.01 ? rr.rx : rr.ry;
+    const r1 = Math.min(er(ax,ay)*m, l1/2), r2 = Math.min(er(bx,by)*m, l2/2);
+    if(r1 < 3 || r2 < 3) return [['L',p]];
+    const p1 = [p[0]-ax/l1*r1, p[1]-ay/l1*r1];
+    const p2 = [p[0]+bx/l2*r2, p[1]+by/l2*r2];
+    const c1 = [p1[0]+(p[0]-p1[0])*rr.k, p1[1]+(p[1]-p1[1])*rr.k];
+    const c2 = [p2[0]+(p[0]-p2[0])*rr.k, p2[1]+(p[1]-p2[1])*rr.k];
+    if(P.corner === 'cut') return [['L',p1],['L',p2]];
+    return [['L',p1],['C',c1,c2,p2]];
+  };
+  if(closed){ for(let i=0;i<n;i++) cmds.push(...corner(i)); }
+  else {
+    cmds.push(['L',pts[0]]);
+    for(let i=1;i<n-1;i++) cmds.push(...corner(i));
+    cmds.push(['L',pts[n-1]]);
+  }
+  const Pt = q => `${f1(q[0])} ${f1(-q[1])}`;
+  let d = '';
+  cmds.forEach((cm,i) => {
+    if(i === 0){ d += `M${Pt(cm[1])}`; return; }
+    d += cm[0] === 'L' ? `L${Pt(cm[1])}` : `C${Pt(cm[1])} ${Pt(cm[2])} ${Pt(cm[3])}`;
+  });
+  return d + (closed ? 'Z' : '');
+}
+
+const clipDone = {};
+function ensureClip(top, bot){
+  const id = `c${top}_${bot < 0 ? 'n'+(-bot) : bot}`;
+  if(!clipDone[id]){
+    clipDone[id] = 1;
+    document.getElementById('clips').insertAdjacentHTML('beforeend',
+      `<clipPath id="${id}" clipPathUnits="userSpaceOnUse"><rect x="-500" y="${-top}" width="6000" height="${top-bot}"/></clipPath>`);
+  }
+  return id;
+}
+
+const cache = {};
+function pickBase(ch){
+  return ch === 'u' ? (P.ital ? IT.u : P.ufoot ? U_FOOT : U_PLAIN)
+       : (P.ital && ch === 'a') ? A_IT : (P.ital && ch === 'f') ? F_IT : (P.ital && IT[ch]) ? IT[ch] : G[ch];
+}
+/* ---------- languages: accent marks, drawn in SEIReader's style ---------- */
+const MARK = {
+  acute:   (cx, y0) => ({ shapes:[o([[cx-45,y0],[cx+55,y0+110]])] }),
+  grave:   (cx, y0) => ({ shapes:[o([[cx+45,y0],[cx-55,y0+110]])] }),
+  circ:    (cx, y0) => ({ shapes:[o([[cx-95,y0],[cx,y0+105],[cx+95,y0]])] }),
+  tilde:   (cx, y0) => ({ shapes:[RAW([['M',cx-115,y0+25],['C',cx-80,y0+105,cx-35,y0+105,cx,y0+60],['C',cx+35,y0+15,cx+80,y0+15,cx+115,y0+95]])] }),
+  dier:    (cx, y0) => ({ dots:[[cx-100,y0+55],[cx+100,y0+55]] }),
+  ring:    (cx, y0) => ({ shapes:[RAW(circ(cx, y0+65, 58))] }),
+  cedilla: (cx)     => ({ shapes:[RAW([['M',cx,5], LN(cx,5,cx+15,-70), ['C',cx+30,-130,cx-20,-175,cx-80,-160]])] }),
+};
+const ACC = {};
+function acc(chars, base, marks, opt = {}){ [...chars].forEach((ch, i) => { ACC[ch] = Object.assign({ base, mark: marks[i] }, opt); G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] }; }); }
+const M6 = ['grave','acute','circ','tilde','dier','ring'], M4 = ['grave','acute','circ','dier'], M5 = ['grave','acute','circ','tilde','dier'];
+acc('ÀÁÂÃÄÅ', 'A', M6); acc('àáâãäå', 'a', M6);
+acc('ÈÉÊË', 'E', M4);    acc('èéêë', 'e', M4);
+acc('ÌÍÎÏ', 'I', M4);    acc('ìíîï', 'i', M4, { nodot:true });
+acc('ÒÓÔÕÖ', 'O', M5);   acc('òóôõö', 'o', M5);
+acc('ÙÚÛÜ', 'U', M4);    acc('ùúûü', 'u', M4);
+acc('Ñ', 'N', ['tilde']); acc('ñ', 'n', ['tilde']);
+acc('Ç', 'C', ['cedilla']); acc('ç', 'c', ['cedilla']);
+acc('ÝŸ', 'Y', ['acute','dier']); acc('ýÿ', 'y', ['acute','dier']);
+window.getBaseMap = () => Object.fromEntries(Object.entries(ACC).map(([k, v]) => [k, v.base]));
+
+/* ---------- joined letters: fi and fl ---------- */
+const LIG = { 'ﬁ':'i', 'ﬂ':'l' };
+for(const ch in LIG) G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] };
+function buildLig(ch, S){
+  const fb = pickBase('f'), sec = pickBase(LIG[ch]);
+  const ws0 = P.ws * (P.ital ? 0.94 : 1), trk = P.trk || 0;
+  const D = fb.w*ws0 + S + fb.sb[1] + 2*trk + sec.sb[0];      // distance from the f to the next letter, as normally spaced
+  const dx = D / ws0;
+  const shift = shapes => shapes.map(sh => sh.p ? Object.assign({}, sh, { p: sh.p.map(q => [q[0] + dx, q[1], q[2]]) }) : sh);
+  const fsh = fb.shapes[0];
+  let shapes;
+  if(ch === 'ﬁ'){        // the f's arm reaches over the i and takes the place of its dot
+    const p = fsh.p.map((q, i) => i === 0 ? [dx, q[1], q[2]] : q);
+    shapes = [Object.assign({}, fsh, { p }), ...fb.shapes.slice(1), ...shift(sec.shapes)];
+  } else {               // the f's arm flows into the top of the l as one stroke
+    const lp = sec.shapes[0].p.map(q => [q[0] + dx, q[1], q[2]]).reverse();
+    lp[lp.length - 1] = [lp[lp.length - 1][0], lp[lp.length - 1][1], 0.8];
+    shapes = [Object.assign({}, fsh, { p: [...lp, ...fsh.p.slice(1)] }), ...fb.shapes.slice(1), ...shift(sec.shapes.slice(1))];
+  }
+  const wFinal = fb.w*ws0 + fb.sb[1] + 2*trk + sec.sb[0] + sec.w*ws0 + S;
+  return { w: wFinal / ws0, kind:'low', sb:[fb.sb[0], sec.sb[1]], shapes, dots:[] };
+}
+
+function penHalf(S){
+  const a = S/2, b = S/(2*P.contrast), t = (P.penAngle || 0) * Math.PI/180;
+  return { hx: Math.sqrt((a*Math.cos(t))**2 + (b*Math.sin(t))**2), hy: Math.sqrt((a*Math.sin(t))**2 + (b*Math.cos(t))**2) };
+}
+
+function glyph(ch, S){
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}`;
+  if(cache[ck] !== undefined) return cache[ck];
+  let g = LIG[ch] ? buildLig(ch, S) : pickBase(ch);
+  if(ACC[ch]){                                   // accented letter = base letter + mark
+    const a = ACC[ch], b = pickBase(a.base);
+    if(!b) return (cache[ck] = null);
+    const cx = a.cx !== undefined ? a.cx : b.w / 2;
+    /* put the mark a fixed gap above the letter's real top edge, at any weight */
+    const hy0 = penHalf(S).hy, os0 = (P.os && OVS.has(a.base)) ? OSV : 0, markW = S * Math.min(1, 80 / S);
+    const GAP = 60, lift = GAP + markW / 2;
+    let y0;
+    if(b.kind === 'cap'){ const target = 700 + os0 + lift; y0 = (target - hy0 + os0) * 700 / (700 - 2*hy0 + 2*os0); }
+    else { const target = P.xh + os0 + lift; y0 = 500 + (target - (P.xh - hy0)) * 240 / (P.asc - P.xh); }
+    const mk = MARK[a.mark](cx, y0);
+    const markShapes = (mk.shapes || []).map(m => Object.assign({}, m, { swFn:true }));   // marks get lighter as weight goes up
+    g = { w:b.w, kind:b.kind, sb:b.sb, shapes:[...b.shapes, ...markShapes], dots:[...(a.nodot ? [] : b.dots), ...(mk.dots || []).map(d => [d[0], d[1], 0.85])] };
+  }
+  if(!g) return (cache[ck] = null);
+  const h = penHalf(S).hx, kind = g.kind;
+  const hy = penHalf(S).hy;
+  const bch = ACC[ch] ? ACC[ch].base : ch;
+  const os = (P.os && OVS.has(bch)) ? OSV : 0;
+  const ws = (WIDE.has(bch) ? 1 - (1 - P.ws) * 0.4 : P.ws) * (P.ital ? 0.94 : 1);
+  const mx = x => h + x*ws;
+  const my = y => kind === 'cap'
+    ? hy - os + y*(700 - 2*hy + 2*os)/700
+    : (y < 0 ? hy + y
+      : y <= 500 ? hy - os + y*(P.xh - 2*hy + 2*os)/500
+      : y <= 740 ? (P.xh-hy) + (y-500)*(P.asc-P.xh)/240
+      : (P.asc-hy) + (y-740));
+  let body = '', topO = -1e9, botO = 1e9;
+  const seeY = yy => { topO = Math.max(topO, yy + h); botO = Math.min(botO, yy - h); };
+  const capS = P.cap === 'flat' ? 'square' : 'round', joinS = P.join === 'sharp' ? 'miter' : 'round';
+  const stroke = (d, k = 1) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(S * k)}" stroke-linecap="${capS}" stroke-linejoin="${joinS}" stroke-miterlimit="4"/>`;
+  for(let s of g.shapes){
+    if(s.swFn) s = Object.assign({}, s, { sw: Math.min(1, 80 / S) });
+    if(s.fn) s = Object.assign({ raw: s.fn() }, s.sw ? { sw: s.sw } : {});
+    if(s.fill){
+      const parts = Array.isArray(s.fill[0][0]) ? s.fill : [s.fill];      // several outlines = shape with holes
+      const d = parts.map(pp => pp.map((q, i) => { const yy = my(q[1]); seeY(yy); return `${i ? 'L' : 'M'}${f1(mx(q[0]))} ${f1(-yy)}`; }).join('') + 'Z').join('');
+      const sw = s.nostroke ? 0 : S;
+      body += `<path data-fill="1" d="${d}" fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linejoin="round"/>`;
+      continue;
+    }
+    if(s.raw){
+      let d = '';
+      for(const seg of s.raw){
+        const pt = (x,y) => `${f1(mx(x))} ${f1(-my(y))}`;
+        if(seg[0] === 'M'){ d += `M${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
+        else { d += `C${pt(seg[1],seg[2])} ${pt(seg[3],seg[4])} ${pt(seg[5],seg[6])}`; seeY(my(seg[6])); }
+      }
+      body += stroke(d, s.sw || 1);
+    } else {
+      const pts = s.p.map(q => { const yy = my(q[1]); seeY(yy); return [mx(q[0]), yy, q[2]]; });
+      body += stroke(pathFrom(pts, s.z, kind), s.sw || 1);
+    }
+  }
+  for(const dp of g.dots){
+    const yy = my(dp[1]);
+    const rr = S*0.58*(dp[2] || 1);
+    botO = Math.min(botO, yy - rr - 2); topO = Math.max(topO, yy + rr + 2);
+    body += `<circle cx="${f1(mx(dp[0]))}" cy="${f1(-yy)}" r="${f1(rr)}" fill="currentColor"/>`;
+  }
+  const hasDot = g.dots.length > 0;
+  const top = hasDot ? 1000 : Math.round(topO);
+  const bot = Math.round(Math.min(0, botO)) - (hasDot ? 30 : 0);
+  return (cache[ck] = { body, clipId: ensureClip(top, bot), sb0:g.sb[0], sb1:g.sb[1], w:g.w*ws });
+}
+
+function word(w, size, ui){
+  const S = weightFor(size);
+  const extra = P.track + 0.3*(S - P.base);
+  let x = 0, parts = '', prev = '';
+  for(const ch of w){
+    const g = glyph(ch, S);
+    if(!g){ x += 380; prev = ''; continue; }
+    x += (KERN[prev + ch] || 0);
+    parts += `<g transform="translate(${f1(x + extra + g.sb0)} 0)" clip-path="url(#${g.clipId})">${g.body}</g>`;
+    x += extra + g.sb0 + g.w + S + g.sb1 + extra;
+    prev = ch;
+  }
+  const W = Math.max(x, 1);
+  const vb = ui ? `0 -700 ${f1(W)} 700` : `0 -840 ${f1(W)} 1100`;
+  const hgt = (ui ? 0.7 : 1.1) * size;
+  return `<svg aria-hidden="true" focusable="false" viewBox="${vb}" width="${f1(W*size/1000)}" height="${f1(hgt)}">${parts}</svg>`;
+}
+
+const esc = s => s.replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
+
+function T(str, size, opt = {}){
+  const words = str.split(/\s+/).filter(Boolean);
+  const colGap = size*0.25, rowGap = opt.ui ? 0 : size*(opt.rowGap ?? 0.28);
+  return `<span class="run${opt.nw ? ' nw' : ''}" role="img" aria-label="${esc(str)}" style="gap:${f1(rowGap)}px ${f1(colGap)}px">${
+    words.map(w => word(w, size, !!opt.ui)).join('')
+  }</span>`;
+}
