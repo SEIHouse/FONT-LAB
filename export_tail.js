@@ -11,6 +11,7 @@ function exportRecord(ch, S){
              : latin ? {anchors:latinAnchors(ch,S)} : {}) };
 }
 window.exportGlyphs = S => Object.fromEntries(Object.keys(G).map(ch => [ch, exportRecord(ch, S)]));
+/** Export drawing records for numeric, dotless, and language-specific alternates. */
 window.exportAlternates = S => Object.fromEntries(Object.keys(NUMERIC_VARIANTS)
   .filter(name => name.endsWith('.tf') || name.endsWith('.numr') || name.endsWith('.dnom'))
   .concat(Object.keys(DOTLESS),Object.keys(LANGUAGE_ALTERNATES)).map(name => [name, exportRecord(name, S)]));
