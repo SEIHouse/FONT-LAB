@@ -3,6 +3,7 @@ import json
 import os
 import subprocess
 import sys
+import tempfile
 import unicodedata
 
 from fontTools.ttLib import TTFont
@@ -34,10 +35,12 @@ def group_for(codepoint):
     return 'symbols-icons'
 
 
-def subset_groups(codes):
+def subset_groups(codes, include_interpunct=True):
     """Keep Latin graphemes and surrounding prose in one preferred web font face."""
     groups = {name:{c for c in codes if group_for(c)==name} for name in SUBSETS}
     groups['latin-extended'].update(groups['latin-basic'])
+    # Keep the Latin word separator in the same face, also retaining its icon delivery.
+    if include_interpunct and 0x00B7 in codes: groups['latin-extended'].add(0x00B7)
     return groups
 
 
@@ -74,16 +77,24 @@ def build_subsets():
             output_name = f'SEIReader-{style}.{name}.woff2'
             output = os.path.join(HERE, 'fonts', output_name)
             code_list = ','.join(f'U+{code:04X}' for code in sorted(groups[name]))
-            subprocess.run([sys.executable, '-m', 'fontTools.subset', source,
-                            f'--output-file={output}', '--flavor=woff2',
-                            f'--unicodes={code_list}', '--layout-features=*',
-                            '--name-IDs=*', '--name-languages=*'], check=True,
-                           capture_output=True, text=True)
-            subset_font = TTFont(output)
-            actual = set(subset_font.getBestCmap())
-            subset_font.close()
-            if actual != groups[name]:
-                raise ValueError(f'Subset coverage mismatch: {output_name}')
+            # Write a fresh sibling and replace it after validation. Directly truncating
+            # an existing file in the synced Windows checkout can return EINVAL.
+            descriptor, temporary = tempfile.mkstemp(prefix='.subset-',suffix='.woff2',dir=os.path.dirname(output))
+            os.close(descriptor)
+            try:
+                subprocess.run([sys.executable, '-m', 'fontTools.subset', source,
+                                f'--output-file={temporary}', '--flavor=woff2',
+                                f'--unicodes={code_list}', '--layout-features=*',
+                                '--name-IDs=*', '--name-languages=*'], check=True,
+                               capture_output=True, text=True)
+                with TTFont(temporary) as subset_font:
+                    if set(subset_font.getBestCmap()) != groups[name]:
+                        raise ValueError(f'Subset coverage mismatch: {output_name}')
+                os.replace(temporary,output)
+            except subprocess.CalledProcessError as exc:
+                raise RuntimeError(f'pyftsubset failed for {output_name}:\n{exc.stderr}') from exc
+            finally:
+                if os.path.exists(temporary): os.remove(temporary)
             css.append(f'''@font-face {{
   font-family: "SEIReader";
   src: url("./fonts/{output_name}") format("woff2");

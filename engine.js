@@ -513,7 +513,39 @@ acc('ÙÚÛÜ', 'U', M4);    acc('ùúûü', 'u', M4);
 acc('Ñ', 'N', ['tilde']); acc('ñ', 'n', ['tilde']);
 acc('Ç', 'C', ['cedilla']); acc('ç', 'c', ['cedilla']);
 acc('ÝŸ', 'Y', ['acute','dier']); acc('ýÿ', 'y', ['acute','dier']);
-window.getBaseMap = () => Object.fromEntries(Object.entries(ACC).map(([k, v]) => [k, v.base]));
+/* 0.34: encoded alphabets reuse the 0.33 attachment construction. These are
+   precisely the missing letters in the ten pinned CLDR exemplar inventories. */
+const LANGUAGE_COMPOSED = Object.fromEntries([...`ĀāĂăĄąĆćČčĎďĒēĔĕĘęĚěĞğĪīĬĭİĽľŃńŇňŌōŎŏŐőŔŕŘřŚśŞşŠšŢţŤťŪūŬŭŮůŰűŹźŻżŽžǸǹȘșȚțḾḿṄṅỊịỌọỤụ`]
+  .map(ch => { const [base,...marks]=ch.normalize('NFD'); return [ch,{base,marks}]; }));
+const LANGUAGE_SPECIALS = { 'ı':'i','Ł':'L','ł':'l','Ɓ':'B','Ɗ':'D','Ƙ':'K','ƙ':'k','Ƴ':'Y','ƴ':'y','ɓ':'b','ɗ':'d' };
+for(const ch of Object.keys(LANGUAGE_COMPOSED)) G[ch]={comp:true};
+G['ı']={comp:true};
+/** Add only the distinctive stroke, retaining the family's existing skeleton. */
+function hooked(ch,base,shape,before=0,after=0){
+  const g=G[base];
+  def(ch,g.w,g.kind,[...g.shapes,RAW(shape)],g.dots,[g.sb[0]+before,g.sb[1]+after]);
+}
+hooked('Ł','L',[['M',-70,285],LN(-70,285,195,465)],70);
+hooked('ł','l',[['M',-70,285],LN(-70,285,145,415)],70,50);
+const capHook=[['M',-155,565],['C',-175,650,-110,700,-55,700],['C',-20,700,0,675,0,625]];
+hooked('Ɓ','B',capHook,175);
+hooked('Ɗ','D',capHook,175);
+hooked('Ƙ','K',[['M',0,570],['C',0,660,30,700,100,700],['C',165,700,185,640,150,600]]);
+hooked('ƙ','k',[['M',0,620],['C',0,715,30,740,100,740],['C',165,740,185,685,150,650]]);
+hooked('Ƴ','Y',[['M',500,700],['C',575,700,605,635,560,585]],0,100);
+hooked('ƴ','y',[['M',420,500],['C',490,545,570,505,535,435]],0,155);
+hooked('ɓ','b',[['M',0,630],['C',0,715,45,740,105,740],['C',170,740,195,680,160,645]]);
+hooked('ɗ','d',[['M',420,630],['C',420,715,375,740,315,740],['C',250,740,225,680,260,645]]);
+// Real italic d has its established exit foot; the hook follows that skeleton.
+IT['ɗ']={...G['ɗ'],shapes:[...IT.d.shapes,G['ɗ'].shapes.at(-1)],sb:[...IT.d.sb]};
+const LANGUAGE_ALTERNATES={'i.loclTRK':'i','i.below.dotless':'ị'};
+/** Map new derivatives to the approved optical pair and letter-space classes. */
+function latinBase(ch){
+  const source=DOTLESS[ch] || LANGUAGE_ALTERNATES[ch] || ch;
+  return LANGUAGE_COMPOSED[source]?.base || LANGUAGE_SPECIALS[source] || ACC[source]?.base || source;
+}
+window.getBaseMap = () => Object.fromEntries([...Object.keys(ACC),...Object.keys(LANGUAGE_COMPOSED),...Object.keys(LANGUAGE_SPECIALS)]
+  .map(ch=>[ch,latinBase(ch)]));
 
 /* Keep nominal widths and weight controls stable. Optical stroke calibration
    gives Light more substance and Medium more counter room at reading sizes.
@@ -662,8 +694,17 @@ function latinClusters(text){
   }
   return clusters.map(c=>{
     if(['i','j'].includes(c.base) && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base+='.dotless';
+    if(c.base==='ị' && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base='i.below.dotless';
     return c;
   });
+}
+
+/** Mirror language-specific OpenType forms in the Lab's live SVG construction. */
+function languageClusters(text,locale=''){
+  if(locale==='ro') text=text.replace(/[ŞşŢţ]/g,ch=>'ȘșȚț'['ŞşŢţ'.indexOf(ch)]);
+  const clusters=latinClusters(text);
+  if(locale==='tr') for(const c of clusters) if(c.base==='i') c.base='i.loclTRK';
+  return clusters;
 }
 
 /** Overlay accents without adding width or interrupting the word's pair rhythm. */
@@ -683,19 +724,47 @@ function clusterGlyph(cluster,S){
     if(kind==='top') anchors.top=[dx+m.anchors.top[0],dy+m.anchors.top[1]];
     else if(kind==='bottom'||kind==='ogonek') anchors.bottom=[dx+m.anchors.bottom[0],dy+m.anchors.bottom[1]];
   }
-  return {...g,body,clipId:ensureClip(1250,-500)};
+  const result={...g,body,anchors,clipId:ensureClip(1250,-500)};
+  delete result.ink;
+  delete result._tt; delete result._ttF;
+  return result;
+}
+
+/** Compose new encoded letters without redrawing any 0.33 outline or advance. */
+function languageGlyph(ch,S,removeDot=false){
+  const spec=LANGUAGE_COMPOSED[ch];
+  const top=spec.marks.some(mark=>COMBINING[mark].place==='top');
+  const base=spec.base==='i' && (top||removeDot) ? 'i.dotless' : spec.base;
+  if(!['ď','ť','ľ','Ľ'].includes(ch)) return clusterGlyph({base,marks:spec.marks},S);
+  // Czech/Slovak tall stems use a compact side caron, not a floating accent.
+  const g=glyph(base,S),b=inkBounds(g),ws=P.ws*(P.ital ? 0.94 : 1);
+  const stem=(ch==='ď'?420:ch==='ť'?150:0)*ws+S/2;
+  const cx=stem+96,y=b[3]+12,sw=Math.min(readingStroke(S)*.66,58);
+  const d=`M${f1(cx+15)} ${f1(-y-10)}C${f1(cx+37)} ${f1(-y+25)} ${f1(cx+25)} ${f1(-y+65)} ${f1(cx-8)} ${f1(-y+82)}`;
+  const body=g.body+`<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const extra=ch==='ď'?90:ch==='ľ'?55:0;
+  const result={...g,body,sb1:g.sb1+extra,clipId:ensureClip(1100,-320)};
+  // A copied cached base must not retain its old cached ink bounds.
+  delete result.ink;
+  delete result._tt; delete result._ttF;
+  const actual=inkBounds(result),anchors=latinAnchors(base,S);
+  return {...result,anchors:{...anchors,top:[anchors.top[0],actual[3]+20]}};
 }
 
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
+  if(LANGUAGE_COMPOSED[ch]) return (cache[ck]=languageGlyph(ch,S));
+  if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));
+  if(ch==='i.loclTRK') return (cache[ck]=glyph('i',S));
+  if(ch==='i.below.dotless') return (cache[ck]=languageGlyph('ị',S,true));
   if(COMBINING[ch]) return (cache[ck] = combiningGlyph(ch,S));
   if(ch === 'ʻ' || ch === 'ʼ') return (cache[ck] = glyph(ch === 'ʻ' ? '‘' : '’',S));
   if(ch === '\u2009' || ch === '\u202f') return (cache[ck] = { body:'',clipId:ensureClip(700,0),sb0:0,sb1:0,w:120-S });
   if(NUMERIC_VARIANTS[ch]) return (cache[ck] = numericVariant(NUMERIC_VARIANTS[ch], S));
   if(FRACTION_PARTS[ch]) return (cache[ck] = composedFraction(FRACTION_PARTS[ch], S));
   let g = DOTLESS[ch] ? Object.assign({},pickBase(DOTLESS[ch]),{dots:[]}) : LIG[ch] ? buildLig(ch, S) : pickBase(ch);
-  const bch = DOTLESS[ch] || (ACC[ch] ? ACC[ch].base : ch);
+  const bch = latinBase(ch);
   const isFigure = DIGITS.includes(ch), isMark = TEXT_MARKS.has(ch);
   const drawS = READING_LETTERS.has(bch) || isFigure || isMark ? readingStroke(S) : S;
   const strokeS = isFigure ? drawS*0.96

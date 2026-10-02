@@ -3,12 +3,15 @@ the current font file and the 0.6 file for comparison."""
 import base64, json, os, sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 from emoji_demo import EMOJI
+from language_coverage import inventory, required_characters
+from fontTools.ttLib import TTFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
 VERSION = settings['version']
 kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
 kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'), encoding='utf-8')))     # hand-set pairs win
 style_kern = json.load(open(os.path.join(HERE, 'kern_styles.json'), encoding='utf-8'))
+language_kern = json.load(open(os.path.join(HERE, 'kern_languages.json'), encoding='utf-8'))
 kern.update(style_kern['Regular'])
 for k, v in settings.get('pairSpace', {}).items(): kern[k] = v
 b64 = lambda p: base64.b64encode(open(os.path.join(HERE, p), 'rb').read()).decode()
@@ -33,6 +36,12 @@ BAKED = {
   'letterSpace': settings.get('letterSpace', {}), 'pairSpace': settings.get('pairSpace', {}),
 }
 CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉½¼¾⁄.,:;…!?'\"‘’“”-–—()[]/%+=&@#$*~_|\\{}<>★•·×÷±°→←∞«»‹›¥€£☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀↑↓♥♡✓✗♪©®™−≤≥≠≈Ⓢ♩♫♬♭♮♯⏮⏸⏹⏺⏭🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÆŒÐÞàáâãäåçèéêëìíîïñòóôõöøùúûüýÿæœßðþ¡¿ºª‚„‛‟ʻʼ◌\u0300\u0301\u0302\u0303\u0304\u0306\u0307\u0308\u0309\u030a\u030b\u030c\u031b\u0323\u0326\u0327\u0328"
+with TTFont(os.path.join(HERE,'old/0.33/SEIReader-Regular.woff2')) as baseline:
+    NEW_LETTERS = ''.join(sorted(required_characters()-set(map(chr,baseline.getBestCmap()))))
+CHARS += NEW_LETTERS
+LANGUAGE_SAMPLES = [[row['name'],row['sample'],code] for code,row in inventory()['locales'].items()]
+NEW_LETTER_ROWS = [' '.join(NEW_LETTERS[i:i+12] for i in range(start,min(start+24,len(NEW_LETTERS)),12))
+                   for start in range(0,len(NEW_LETTERS),24)]
 CHAPTER = [
   "The lantern burned low as the last gate opened—slowly, then all at once. Beyond it lay the hall of quiet books, thousands of them, and every shelf seemed to hum.",
   "“Don’t stop now,” Ren whispered. His voice came back to him twice, as if the room were deciding whether to answer.",
@@ -329,6 +338,7 @@ html = r'''<!DOCTYPE html>
 
       <section class="card" id="langCard">
         <h2>Languages</h2>
+        <p class="sub">0.34 adds ten Latin alphabet inventories. New rows include real language-specific forms, accents, and italic. Complete CLDR main/auxiliary/index coverage is audited; native-reader and device checks remain to do.</p>
         <div id="langs" style="display:grid;gap:12px"></div>
       </section>
 
@@ -374,6 +384,7 @@ __ENGINE__
 const SR_BAKED = __BAKED__;
 const SR_KERN = __KERN__;
 const SR_STYLE_KERN = __STYLE_KERN__;
+const SR_LANGUAGE_KERN = __LANGUAGE_KERN__;
 const SR_CHARS = [...__CHARS__];
 const SR_CHAPTER = __CHAPTER__;
 const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
@@ -441,15 +452,16 @@ function applyToEngine(){
   if(key !== lastKey){ for(const k in cache) delete cache[k]; lastKey = key; }
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
-const bm = c => DOTLESS[c] || (ACC[c] ? ACC[c].base : c);
+const bm = c => latinBase(c);
 /** Resolve user overrides before the nearest baked weight and italic pair map. */
-function pairVal(k, thick=S_.weight, italic=false){
+function pairVal(k, thick=S_.weight, italic=false, locale=''){
   if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
   const kb = [...k].map(bm).join('');
   if(S_.pairSpace[kb] !== undefined) return S_.pairSpace[kb];
   const name = Object.keys(SR_BAKED.weights).reduce((best, n) => Math.abs(SR_BAKED.weights[n]-thick) < Math.abs(SR_BAKED.weights[best]-thick) ? n : best);
   const style = italic ? (name === 'Regular' ? 'Italic' : name+'Italic') : name;
-  return (SR_STYLE_KERN[style] || SR_KERN)[kb] || 0;
+  const pairs=SR_STYLE_KERN[style] || SR_KERN;
+  return (pairs[k] ?? pairs[kb] ?? 0)+(SR_LANGUAGE_KERN[style]?.[locale]?.[k] || 0);
 }
 
 /* draw one word from the rules, spaced exactly like the font file will be */
@@ -464,13 +476,13 @@ function thickThin(g){
   return g._tt;
 }
 /** Draw one word with the selected real italic forms and per-style pair spacing. */
-function drawWord(w, size, thick, ital){
+function drawWord(w, size, thick, ital, locale=''){
   const Sw = thick || S_.weight, reg = S_.weights.Regular;
   const prevIt = P.ital; let itc = !!ital;
   const T9 = Math.tan(9 * Math.PI / 180);
   const tr = S_.spaceBetweenAllLetters + (Sw - reg) * (Sw > reg ? 0.25 : 0.1);
   let x = 0, parts = '', prev = '';
-  const clusters=latinClusters(w);
+  const clusters=languageClusters(w,locale);
   // Only join unaccented letters; keep the marks on their original component.
   for(let i=0;i<clusters.length-1;i++){
     const a=clusters[i], b=clusters[i+1];
@@ -487,7 +499,7 @@ function drawWord(w, size, thick, ital){
     if(!g){ x += 420; prev = ''; continue; }
     const o = S_.letterSpace[ch] || S_.letterSpace[bm(ch)] || {};
     const before = o.before || 0, after = o.after || 0;
-    x += pairVal((DOTLESS[prev] || prev) + (DOTLESS[ch] || ch), Sw, itc);
+    x += pairVal((DOTLESS[prev] || LANGUAGE_ALTERNATES[prev] || prev) + (DOTLESS[ch] || LANGUAGE_ALTERNATES[ch] || ch), Sw, itc, locale);
     if(ch==='\u2009'||ch==='\u202f'){ x+=120; prev=''; continue; }
     const tri = tr + (itc ? 4 : 0);
     const gx = x + tri + g.sb0 + before - (itc ? T9 * 330 : 0);
@@ -499,13 +511,13 @@ function drawWord(w, size, thick, ital){
   const W = Math.max(x, 1);
   return `<svg aria-hidden="true" focusable="false" viewBox="0 -900 ${f1(W)} 1160" width="${f1(W*size/1000)}" height="${f1(1.16*size)}">${parts}</svg>`;
 }
-function drawText(str, size, lh, thick){
+function drawText(str, size, lh, thick, locale=''){
   str = str.replace(/\*([^*\n]+?)\*/g, '\u2063$1\u2063');   // only a matched pair of stars means italic; a lone * stays an asterisk
   const words = []; let it = false;
   for(const w of str.split(/[^\S\u2009\u202f]+/).filter(Boolean)){ words.push([w, it]); if((w.split('\u2063').length - 1) % 2) it = !it; }
   str = str.replace(/\u2063/g, '');
   const col = size * S_.wordSpace / 1000, row = Math.max(0, size * (lh - 1.16));
-  return `<span class="run" role="img" aria-label="${e_(str)}" style="gap:${f1(row)}px ${f1(col)}px">${words.map(([w, i]) => drawWord(w, size, thick, i)).join('')}</span>`;
+  return `<span class="run" role="img" aria-label="${e_(str)}" style="gap:${f1(row)}px ${f1(col)}px">${words.map(([w, i]) => drawWord(w, size, thick, i, locale)).join('')}</span>`;
 }
 
 /* Reader Chamber */
@@ -558,6 +570,7 @@ function renderAllChars(){
     '*àáâãäå ç èéêë ìíîï ñ òóôõöø ùúûü ýÿ æœ ß ðþ*',
     '*ABCDEFGHIJKLM NOPQRSTUVWXYZ*', '*abcdefghijklm nopqrstuvwxyz*', '*0123456789 . , : ; ! ? “ ” ( )*', '*& @ # $ ~ { } < > ★ • → ¥ € £*'];
   const sz = window.innerWidth > 700 ? 34 : 24;
+  rows.push(...__NEW_LETTER_ROWS__,...__NEW_LETTER_ROWS__.map(r=>'*'+r+'*'));
   $('allchars').innerHTML = rows.map(r => drawText(r, sz, 1.3)).join('');
 }
 function renderTyped(){
@@ -750,9 +763,10 @@ const LANGS = [
   ['Norsk · Svenska · Dansk', 'Blåbær og smørbrød på øya. Fältet är öppet. Æbler i København.'],
   ['Íslenska', 'Þetta er fræðibók um það.'],
 ];
+LANGS.push(...__LANGUAGES__);
 function renderLangs(){
   const el = $('langs'); if(!el) return;
-  el.innerHTML = LANGS.map(([n, t]) => `<div><div class="hint">${e_(n)}</div>${drawText(t, 18, 1.45)}</div>`).join('');
+  el.innerHTML = LANGS.map(([n,t,locale='']) => `<div lang="${locale||'en'}"><div class="hint">${e_(n)}</div>${drawText(t,18,1.45,undefined,locale)}${locale?drawText('*'+t+'*',18,1.45,undefined,locale):''}</div>`).join('');
 }
 
 /* ---------------- weights ---------------- */
@@ -875,7 +889,10 @@ html = (html.replace('__ENGINE__', ENGINE)
             .replace('__BAKED__', json.dumps(BAKED, ensure_ascii=False))
             .replace('__KERN__', json.dumps(kern, ensure_ascii=False))
             .replace('__STYLE_KERN__', json.dumps(style_kern, ensure_ascii=False))
+            .replace('__LANGUAGE_KERN__', json.dumps(language_kern, ensure_ascii=False))
             .replace('__CHARS__', json.dumps(CHARS, ensure_ascii=False))
+            .replace('__LANGUAGES__', json.dumps(LANGUAGE_SAMPLES, ensure_ascii=False))
+            .replace('__NEW_LETTER_ROWS__', json.dumps(NEW_LETTER_ROWS, ensure_ascii=False))
             .replace('__CHAPTER__', json.dumps(CHAPTER, ensure_ascii=False))
             .replace('__FONTLIST__', json.dumps(FONTLIST)).replace('__WORDER__', json.dumps(WORDER)).replace('__VERSION__', VERSION)
             .replace('__EMOJI__', json.dumps(EMOJI, ensure_ascii=False))

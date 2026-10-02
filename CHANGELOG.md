@@ -2,6 +2,21 @@
 
 Newest first.
 
+- **0.34** Multilingual Phase 2: the first ten Latin language inventories. Added 94
+  encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish
+  (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin), including CLDR main/auxiliary/index
+  exemplars and both cases. Dedicated side carons, barred letters, and hooked Hausa
+  forms; Igbo dot removal under tones above dot-below i; Turkish dotted-i and Romanian
+  comma forms through `locl`, and Hungarian-only uppercase digraph spacing. New ogonek
+  punctuation clearance preserves every old pair value. All 323 old outlines/metrics
+  and design settings match 0.33. Preserved
+  its ten full fonts/thirty subsets; rebuilt the family and web delivery. Added a
+  pinned alphabet inventory, independent coverage/shaping/collision audit, native
+  Windows proofs, and a language selector in the same comparison; Lab language and
+  Every character rows include the additions. All ten styles pass 18,290 language
+  strings, and OpenType/offline universal FontBakery remain at 0 FAIL / 0 WARN.
+  Native-reader/device certification and the remaining alphabet/script batches are
+  separate follow-up work.
 - **0.33** Multilingual Phase 1: an additive Latin foundation. Seventeen zero-width combining
   marks, canonical composition, above/below and ligature attachment, mark stacking, and
   unencoded dotless `i/j` forms. Added low/reversed quotes `‚ „ ‛ ‟`, lexical apostrophes

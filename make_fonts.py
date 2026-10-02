@@ -433,6 +433,7 @@ def gname(ch):
 
 WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500, 'SemiBold':600, 'Bold':700, 'ExtraBold':800, 'Black':900}
 STYLE_KERN = {}
+LANGUAGE_KERN = {}
 RHYTHM_BASELINE = os.path.join(HERE, 'old', '0.31')
 with open(os.path.join(RHYTHM_BASELINE, 'settings.json'), encoding='utf-8') as f:
     rhythm_settings = json.load(f)
@@ -478,6 +479,46 @@ def clear_text_marks(paths, hm, cmap, kern, basemap):
                 closest.extend(advance-r+l for r,l in zip(right,left) if r is not None and l is not None)
         if closest:
             kern[pair] = max(kern[pair], math.ceil((35*SC-min(closest))/SC))
+
+
+SEPARATE_LATIN = set('ĄąĘę')
+
+
+def ogonek_pairs(paths,hm,cmap,kern,basemap):
+    """Give new connected tails their own classes and measured punctuation room.
+
+    Every old pair remains frozen. Ordinary inherited values are copied to the
+    new classes; only their own punctuation pairs receive extra ink clearance.
+    """
+    def variants(ch):
+        return [ch]+[new for new in sorted(SEPARATE_LATIN) if basemap.get(new)==ch]
+    for pair,value in list(kern.items()):
+        for a in variants(pair[0]):
+            for b in variants(pair[1]):
+                if a+b!=pair: kern[a+b]=value
+    punctuation='.,:;…!?\'"‘’“”‚„‛‟-–—()[]0123456789'
+    ys=range(-320*SC,1100*SC+1,2*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys))
+             for ch in SEPARATE_LATIN|set(punctuation) if ord(ch) in cmap}
+    for new in sorted(SEPARATE_LATIN):
+        for other in punctuation:
+            for a,b in ((new,other),(other,new)):
+                advance,(_,right)=sampled[a];_,(left,_)=sampled[b]
+                gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                if gaps: kern[a+b]=max(kern.get(a+b,0),math.ceil((35*SC-min(gaps))/SC))
+
+
+def hungarian_caps(paths,hm,cmap,kern):
+    """Add clearance for uppercase Hungarian TY/TTY digraphs, only under lang=hu."""
+    ys=range(0,700*SC+1,2*SC)
+    sampled={ch:profiles(paths[cmap[ord(ch)]],ys) for ch in 'TY'}
+    pairs={}
+    for pair in ('TT','TY'):
+        a,b=pair;right=sampled[a][1];left=sampled[b][0]
+        gaps=[hm[cmap[ord(a)]]+kern.get(pair,0)*SC-r+l for r,l in zip(right,left) if r is not None and l is not None]
+        delta=max(0,math.ceil((35*SC-min(gaps))/SC))
+        if delta: pairs[pair]=delta
+    return pairs
 
 def track_for(thick):
     reg = settings['weight']
@@ -597,7 +638,7 @@ def build(data, out, style='Regular', italic=False):
     retain_reading_pairs(KERN, ps_style)
     clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
     # Additive foundation: retain every approved old pair when geometry is unchanged.
-    latin_dir = os.path.join(HERE, 'old', '0.32')
+    latin_dir = os.path.join(HERE, 'old', '0.33')
     with open(os.path.join(latin_dir, 'settings.json'), encoding='utf-8') as file: latin_settings = json.load(file)
     if all(settings.get(k) == latin_settings.get(k) for k in RHYTHM_SETTINGS):
         with open(os.path.join(latin_dir, 'kern_styles.json'), encoding='utf-8') as file: old_kern = json.load(file)[ps_style]
@@ -605,8 +646,10 @@ def build(data, out, style='Regular', italic=False):
         for pair in list(KERN):
             if all(ord(ch) in old_codes for ch in pair) and pair not in old_kern: del KERN[pair]
         KERN.update(old_kern)
+    ogonek_pairs(paths,hm,cmap,KERN,data['basemap'])
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     STYLE_KERN[ps_style] = dict(KERN)
+    LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
     if style == 'Regular' and not italic:
         json.dump(AUTO, open(os.path.join(HERE, 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
     print(f'    {len(AUTO)} automatic pairs')
@@ -618,13 +661,18 @@ def build(data, out, style='Regular', italic=False):
         left_groups.add(a); right_groups.add(b)
         lines.append(f'  pos @L_{gname(a)} @R_{gname(b)} {round(v*SC)};')
     bm = data.get('basemap', {})
-    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap]
-                                + ([c+'.dotless'] if c in 'ij' else []))
+    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap and a not in SEPARATE_LATIN]
+                                + (['i.dotless','i.loclTRK','i.below.dotless'] if c == 'i' else ['j.dotless'] if c == 'j' else []))
     cls = [f'@L_{gname(c)} = [{members(c)}];' for c in sorted(left_groups)] + \
           [f'@R_{gname(c)} = [{members(c)}];' for c in sorted(right_groups)]
     from latin_layout import latin_features
     fea = latin_features(records, origins, hm, cmap, SC, TAN if italic else 0, ITAL_CENTER)
     fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
+    hu=LANGUAGE_KERN[ps_style]['hu']
+    if hu:
+        fea+='feature kern {\n script latn; language HUN; lookup HungarianCaps {\n lookupflag IgnoreMarks;\n'
+        fea+='\n'.join(f' pos {gname(pair[0])} {gname(pair[1])} {value*SC};' for pair,value in hu.items())
+        fea+='\n } HungarianCaps;\n} kern;\n'
     if ord('ﬁ') in cmap and ord('ﬂ') in cmap:   # joined fi / fl, switched on automatically
         fea += f"feature liga {{\n  sub {gname('f')} {gname('i')} by {gname('ﬁ')};\n  sub {gname('f')} {gname('l')} by {gname('ﬂ')};\n}} liga;\n"
         # where the text cursor can stop inside a joined letter (between the f and the i / l)
@@ -680,5 +728,7 @@ if __name__ == '__main__':
             print('built', FAMILY, VERSION, fname, 'thickness', w)
     with open(os.path.join(HERE, 'kern_styles.json'), 'w', encoding='utf-8') as f:
         json.dump(STYLE_KERN, f, ensure_ascii=False)
+    with open(os.path.join(HERE, 'kern_languages.json'), 'w', encoding='utf-8') as f:
+        json.dump(LANGUAGE_KERN,f,ensure_ascii=False)
     from build_subsets import build_subsets
     build_subsets()

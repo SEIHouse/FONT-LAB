@@ -33,12 +33,13 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <body>
 <main>
 <h1>Literata + Rubik + SEIHouse = SEIReader</h1>
-<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ Latin foundation with preserved __BASELINE__, Literata, and Rubik. Look at combining accents, stacked marks, and local quotation marks in upright and italic. The established reading words, numbers, and small-text samples remain below.</p>
+<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ language expansion with preserved __BASELINE__, Literata, and Rubik. Choose one of the ten new Latin alphabets and inspect upright, italic, and composed/decomposed text. The established reading samples remain below.</p>
 <div class="controls" aria-label="Comparison reading settings">
   <button id="theme" type="button" aria-pressed="false">Day</button>
   <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
   <label for="leading">Line height <select id="leading"><option selected>1.4</option><option>1.5</option><option>1.6</option></select></label>
   <label for="weight">Weight <select id="weight"><option value="300">Light</option><option value="400" selected>Regular</option><option value="500">Medium</option><option value="600">SemiBold</option><option value="700">Bold</option></select></label>
+  <label for="language">Language <select id="language">__LANGUAGE_OPTIONS__</select></label>
   <label for="space">__VERSION__ word space <select id="space"><option value="0.205">0.205 em · original</option><option value="0.220" selected>0.220 em · candidate</option><option value="0.230">0.230 em · roomier</option></select></label>
   <label><input id="matched" type="checkbox"> Match lowercase height</label>
   <label><input id="stacked" type="checkbox"> Full reading width</label>
@@ -46,12 +47,12 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 </div>
 <div class="grid" id="comparison-grid">
   <article class="card candidate" aria-labelledby="candidate-title">
-    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · combining accents and local quotes</p>
+    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · ten additional Latin alphabets</p>
     <div class="large Candidate">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Candidate" data-family="Candidate"></div>
   </article>
   <article class="card" aria-labelledby="baseline-title">
-    <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved baseline · new marks/quotes may use fallback here</p>
+    <h2 id="baseline-title">SEIReader __BASELINE__</h2><p class="caption">Preserved foundation · new encoded letters may use fallback here</p>
     <div class="large Baseline">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Baseline" data-family="Baseline"></div>
   </article>
@@ -79,8 +80,8 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <footer>
 <p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
 <details><summary>What changed and how to read this comparison</summary><div class="study-notes">
-<p>Candidate __VERSION__ adds seventeen zero-width combining marks, above/below attachment and stacking, dot removal under above accents on <code>i/j</code>, low and reversed quotation marks, lexical apostrophes, a dotted circle, and thin/narrow nonbreaking spaces. The NFC and NFD rows should look identical. The next row deliberately uses accents outside the existing precomposed set, including a capital with two above marks.</p>
-<p>Every existing outline, character advance, pair adjustment, word space, height, weight, contrast, and italic angle matches __BASELINE__. The earlier reading refinements, real <code>fi/fl</code> joins, and cursor stops carry forward. Baseline __BASELINE__ lacks the new glyphs: its foundation rows can use browser fallback and are not evidence of SEIReader coverage. This is a Latin foundation; complete alphabets for the next language expansion are still to come.</p>
+<p>Candidate __VERSION__ adds 94 encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin). Their pinned CLDR main, auxiliary, and index alphabets, both cases, and canonical forms are audited in every style and Latin extended subset. Turkish retains the dot in <code>fi</code> words; Romanian legacy cedillas use comma forms under <code>lang="ro"</code>. Hungarian uppercase digraphs get extra clearance under <code>lang="hu"</code>. The language selector sets the actual text language.</p>
+<p>All 323 existing outlines and metrics, every approved pair value, and the design settings match __BASELINE__. The foundation, numeric features, joins, and cursor stops carry forward. Baseline __BASELINE__ lacks the new encoded letters: its language rows can use browser fallback and are not evidence of SEIReader coverage. Alphabet and shaping coverage is separate from native-reader or device certification. Cyrillic, Greek, Vietnamese's full encoded repertoire, and the remaining Latin alphabets come later.</p>
 <p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
 <p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
 </div></details>
@@ -93,10 +94,23 @@ const metrics=__METRICS__;
 const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
 const sample=`<p>“Lian,” Iñés said, “follow the river along the parallel paths. Listen for the murmur under the bridge.” Willow branches moved everywhere in the wind. The climate had turned cold, and the travelers carried only the minimum they needed. Mei’s blade rested beside the notice. Entry into the inner court would wait until dawn, when the elders returned from the valley.</p><p><em>If the gate remained closed, where would the river lead? A weary rival had followed him through the twilight. Lian could hear the murmur, but he could see no one.</em></p><p>“Entry 12?” Mei asked. “I counted 312 steps; you counted 314.” The ledger read 1,234.56, then 8.50%—a minimum increase of ¼. “Wait… don’t move!” <em>Was it 6, 8, or 9? He couldn’t tell from the faded inscription.</em></p><p class="words">“Mei’s,” ‘Lian,’ "Iñés" · don’t! Why?<br>(Chapter 12); 3:14—5:09…<br><em>“Mei’s,” ‘Lian,’ "Iñés" · don’t! Why?</em><span class="figure-label">Proportional figures · default</span>0123456789 · 1,234.56 · 6089<br><em>0123456789 · 8.50%</em><span class="figure-label">Tabular figures · tnum</span><span class="tnum">0123456789 · 1,234.56 · 6089<br><em>0123456789 · 8.50%</em></span><br>½ ¼ ¾ · 1⁄2 · ² ₃</p><p class="words">minimum · murmur · river<br>climate · parallel · everywhere<br><em>minimum · murmur · river</em><br><em>climate · parallel · everywhere</em><br>iv vi ir ri ll yw tw ur um · <em>iv vi ir ri ll yw tw ur um</em><br>rival · arrival · vivid · willow<br>weary · yearly · twilight<br><em>rival · arrival · vivid · willow</em><br><em>weary · yearly · twilight</em></p><p class="words">Lian · Iñés · blade · Entry<br>Mei's · Mei’s · <em>acquittal</em><br><em>Lian · Iñés · blade · Entry · Mei’s</em><br>ri rn cl li · <em>ri rn cl li</em><br>office · affinity · flame · reflection<br><span class="noliga">fi fl · office · reflection (joins off)</span><br>ñ ù ú û ü · To AV P. “A 0123456789</p>`;
 const byId=id=>document.getElementById(id);
+const languages=__LANGUAGES__;
+const escapeHTML=text=>text.replace(/[&<>"']/g,ch=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[ch]));
+/** Compare actual encoded language text with its canonical decomposed spelling. */
+function renderLanguage(){
+  const code=byId('language').value,row=languages[code];
+  document.querySelectorAll('.language-sample').forEach(el=>{
+    el.lang=code;
+    el.innerHTML=`<p class="words"><span class="figure-label">${escapeHTML(row.name)} · encoded text (NFC)</span>${escapeHTML(row.sample.normalize('NFC'))}<br><em>${escapeHTML(row.sample.normalize('NFC'))}</em><span class="figure-label">Same text · decomposed (NFD)</span>${escapeHTML(row.sample.normalize('NFD'))}<br><em>${escapeHTML(row.sample.normalize('NFD'))}</em><span class="figure-label">Main alphabet · lower / upper</span>${escapeHTML(row.alphabet)}<br>${escapeHTML(row.alphabet.toLocaleUpperCase(code))}</p>`;
+  });
+}
 const latinSample=`<p class="words"><span class="figure-label">Latin foundation · NFC</span>Café · Iñés · João · Müller · garçon<span class="figure-label">The same text · NFD</span>Cafe\u0301 · In\u0303e\u0301s · Joa\u0303o · Mu\u0308ller · garc\u0327on<span class="figure-label">Attached accents · dotless i/j · stacked capital</span>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301<br><em>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</em><br>i\u0323\u0304 · fl\u0301 · ◌\u0307 ◌\u0326 ◌\u0328<span class="figure-label">Local dialogue and lexical apostrophes</span><span lang="de">„Lian sagt: ‚Warte!‘“</span><br><span lang="pl">„Lian wraca.”</span><br><span lang="fr">«\u202fIñés entre.\u202f»</span><br>Meiʼs · Hawaiʻi · ‛ ‟<br><em>„Lian sagt: ‚Warte!‘“ «\u202fIñés entre.\u202f»</em></p>`;
-document.querySelectorAll('.sample').forEach(el=>{el.innerHTML=latinSample+sample});
+document.querySelectorAll('.sample').forEach(el=>{el.innerHTML='<div class="language-sample"></div>'+latinSample+sample});
+renderLanguage();
+byId('language').addEventListener('change',renderLanguage);
 const proofText=`<p>“Mei’s,” Iñés said: “Wait… don’t!”</p><p><em>“Entry 12?” — 312, 314; 8.50%</em></p><p>0123456789 · 1,234.56 · 6089</p><p class="tnum">0123456789 · 1,234.56 · 6089 (tnum)</p><p><em>½ ¼ ¾ · ² ₃ · fi fl · Á ñ ü ç</em></p><p>minimum · murmur · river</p><p>climate · parallel · everywhere</p><p><em>minimum · murmur · river</em></p><p><em>climate · parallel · everywhere</em></p><p>ri rn cl li iv vi ll yw tw ur um</p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
-const latinProof=`<p>Café · Cafe\u0301 · Iñés · In\u0303e\u0301s</p><p>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</p><p><em>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</em></p><p>„Lian: ‚Warte!‘“ «\u202fIñés entre.\u202f»</p>`;
+const languageProof=`<p lang="pl">Łucja · gęś · źródło · ŻÓŁĆ</p><p lang="cs"><em>Děvče · pojď · kůň · Jiří · ďťľĽ</em></p><p lang="hu">Őrző · tűz · erő · ŐŰőű</p><p lang="tr">İpek · Işık · fikir · fi · fı</p><p lang="ro"><em>Ștefan · țară · ş ţ · ș ț</em></p><p lang="ha">ƁƊƘƳ · ɓɗƙƴ · r\u0303</p><p lang="ig"><em>ị́ · ọ̀ · ụ́ · Ị́ · Ọ̀ · Ụ́ · Ṅ</em></p><p lang="mi">Whāia · māramatanga · ĀĒĪŌŪ</p>`;
+const latinProof=`<p>Café · Cafe\u0301 · Iñés · In\u0303e\u0301s</p><p>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</p><p><em>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</em></p><p>„Lian: ‚Warte!‘“ «\u202fIñés entre.\u202f»</p>`+languageProof;
 byId('proof-grid').innerHTML=[300,400,500].flatMap(weight=>[13,15,17].flatMap(size=>['Candidate','Baseline'].map(family=>`<article class="proof-case"><h3>${names[family]} · ${weight===300?'Light':weight===400?'Regular':'Medium'} · ${size}px</h3><div class="proof-text ${family}" style="font-size:${size}px;font-weight:${weight}">${latinProof+proofText}</div></article>`))).join('');
 Promise.all(['Candidate','Baseline'].flatMap(family=>[300,400,500].flatMap(weight=>['normal','italic'].map(style=>document.fonts.load(`${style} ${weight} 17px ${family}`,'Lian Iñés ﬁﬂ'))))).then(loaded=>{
   byId('proof-status').textContent=loaded.every(faces=>faces.length>0)?'Candidate and baseline fonts loaded · real upright and italic.':'Some font faces did not load. Reload before evaluating spacing.';

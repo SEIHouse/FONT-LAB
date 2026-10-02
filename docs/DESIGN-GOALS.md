@@ -115,10 +115,24 @@ controls/samples. New rows compare NFC/NFD, stacked marks, and local dialogue pu
 Baseline rows may use fallback for additions. Physical device and sustained-reading
 comfort results remain deferred.
 
+## The 0.34 language batch
+
+Complete encoded main/auxiliary/index inventories for ten selected glossary locales,
+while preserving 0.33's 323 outlines/metrics, default pairs, weights, and design settings.
+New Latin letters follow the family skeleton and lighter accent pen. Dedicated side
+carons and Hausa hooks remain legible in all real italics. Language-aware behavior keeps
+Turkish i dotted, uses Romanian comma forms, and clears Hungarian uppercase digraphs.
+New connected ogoneks receive their own punctuation room without changing old pairs.
+
+The same four-card preview gets a ten-language selector, NFC/NFD and alphabet rows,
+and new fixed small-text samples. Native Windows proofs and independent shaping/coverage
+audits supplement it; they do not substitute for native-reader or browser/device results.
+Exact scope and limitations are in [the language notes](LANGUAGES-0.34.md).
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.32 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.33 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
@@ -130,7 +144,7 @@ and use the same text, physical column width, color, and selected weight when co
   and italic. Compare both arches of `m`, the `u` bottom, and `b/d/p/q` counters at
   Light and Bold as well as the main reading weights.
 - Compare 20px at line heights 1.4 and 1.5, then 13/15/17px at Regular and Medium.
-- Compare word spaces 0.205, 0.220, and 0.230 em; versions 0.28 through 0.30 use the middle value.
+- Compare word spaces 0.205, 0.220, and 0.230 em; versions 0.28 onward use the middle value.
 - Check Light comments, real italics, `fi`/`fl`, accents, punctuation, and symbols on phones.
 - Check NFC/NFD pairs, `n̄ m̀ x̣ g̃ ī j́ Ấ`, stacked above/below marks, and local quotes,
   in full-font and subset delivery. Compare 1.4/1.5 leading for stacked capitals.

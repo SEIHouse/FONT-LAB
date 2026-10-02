@@ -2,12 +2,14 @@
 
 Checks old contours/metrics/spacing, canonical equivalence, zero-width marks,
 attachment, stacks, dotless forms, joined-letter marks, and web delivery.
+Pass old/0.33 to audit the archived foundation after later language additions.
 """
 from pathlib import Path
 import hashlib
 import io
 import json
 import unicodedata
+import sys
 
 import pathops
 import uharfbuzz as hb
@@ -36,7 +38,7 @@ LATIN_TEXTS = ('Café Iñés João Müller garçon',
                *CLUSTERS)
 
 
-def shape(font, text, **features):
+def shape(font, text, language=None, **features):
     """Shape SFNT bytes with the real layout tables, retaining glyph positions."""
     if not text: return []
     if not hasattr(font,'_latin_shaper'):
@@ -46,6 +48,7 @@ def shape(font, text, **features):
         font._latin_shaper = hb.Font(face)
         font._latin_shaper.scale = (face.upem,face.upem)
     buffer = hb.Buffer(); buffer.add_str(text); buffer.guess_segment_properties()
+    if language: buffer.language=language
     hb.shape(font._latin_shaper,buffer,features)
     return [(font.getGlyphOrder()[info.codepoint],pos.x_advance,pos.x_offset,pos.y_offset)
             for info,pos in zip(buffer.glyph_infos,buffer.glyph_positions)]
@@ -66,9 +69,11 @@ def positioned_ink(font, text):
     return ink
 
 
-def verify():
+def verify(candidate=ROOT):
+    candidate=Path(candidate).resolve()
+    font_dir=ROOT/'fonts' if candidate==ROOT else candidate
     previous = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
-    current = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
+    current = json.loads((candidate/'settings.json').read_text(encoding='utf-8'))
     assert current['version']=='0.33'
     previous.pop('version'); current.pop('version')
     assert current==previous, 'Nominal setting changed'
@@ -78,11 +83,11 @@ def verify():
         for filename,digest in hashes.items():
             assert hashlib.sha256((BASELINE/filename).read_bytes()).hexdigest()==digest, filename
     old_pairs = json.loads((BASELINE/'kern_styles.json').read_text(encoding='utf-8'))
-    pairs = json.loads((ROOT/'kern_styles.json').read_text(encoding='utf-8'))
-    css = (ROOT/'fonts.css').read_text(encoding='utf-8')
+    pairs = json.loads((candidate/'kern_styles.json').read_text(encoding='utf-8'))
+    css = (candidate/'fonts.css').read_text(encoding='utf-8')
     assert css.count('@font-face')==30
     for style,weight,slant in STYLES:
-        with TTFont(BASELINE/f'SEIReader-{style}.woff2') as before, TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
+        with TTFont(BASELINE/f'SEIReader-{style}.woff2') as before, TTFont(font_dir/f'SEIReader-{style}.{"otf" if candidate==ROOT else "woff2"}') as after:
             old_cmap,cmap = before.getBestCmap(),after.getBestCmap()
             assert {c:cmap[c] for c in old_cmap}==old_cmap, (style,'existing Unicode changed')
             assert set(cmap)-set(old_cmap)==set(map(ord,ADDITIONS)), (style,'addition scope')
@@ -168,9 +173,9 @@ def verify():
                 assert bounds(after,cmap[ord(ch)])[3]>after['OS/2'].sCapHeight, (style,ch,'reversed quote too low')
             for ch in '\u2009\u202f':
                 assert after['hmtx'][cmap[ord(ch)]][0]==240 and not recorded(after,cmap[ord(ch)]), (style,ch,'narrow space')
-            groups = subset_groups(set(cmap))
+            groups = subset_groups(set(cmap),include_interpunct=False) # Historical 0.33 delivery.
             for subset_name in SUBSETS:
-                path = ROOT/'fonts'/f'SEIReader-{style}.{subset_name}.woff2'
+                path = font_dir/f'SEIReader-{style}.{subset_name}.woff2'
                 with TTFont(path) as subset:
                     assert set(subset.getBestCmap())==groups[subset_name], (style,subset_name,'coverage')
                     texts = LATIN_TEXTS if subset_name=='latin-extended' else [''.join(c for c in t if ord(c) in groups[subset_name]) for t in PROSE]
@@ -187,4 +192,4 @@ def verify():
 
 
 if __name__=='__main__':
-    verify()
+    verify(sys.argv[1] if len(sys.argv)>1 else ROOT)
