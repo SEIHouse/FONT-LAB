@@ -2,6 +2,18 @@
 
 Newest first.
 
+- **0.33** Multilingual Phase 1: an additive Latin foundation. Seventeen zero-width combining
+  marks, canonical composition, above/below and ligature attachment, mark stacking, and
+  unencoded dotless `i/j` forms. Added low/reversed quotes `‚ „ ‛ ‟`, lexical apostrophes
+  `ʻ ʼ`, dotted circle `◌`, thin space, and narrow nonbreaking space. Every existing contour,
+  metric, design setting, and per-style pair value matches 0.32. Latin extended now includes
+  basic Latin and prose punctuation and is preferred in `fonts.css` so accent sequences
+  stay in one face. Preserved the ten 0.32 full fonts/thirty subsets; rebuilt all ten styles
+  and thirty subsets. Updated the same comparison/Lab with NFC/NFD, stacks, and quotation
+  samples; added preservation, shaping, collision, and delivery audits plus Windows proofs.
+  Corrected the proof renderer's vertical offset direction and row sizing for combining marks.
+  OpenType and offline universal FontBakery profiles remain at 0 FAIL / 0 WARN. Complete
+  additional language alphabets and physical browser/device checks remain future work.
 - **0.32** Punctuation, figure texture, and reading-weight balance together: lighter dots,
   quotes, commas, and dashes; curved comma/quote tails; continuous `2/3/5/6/8/9` curves
   and slightly lighter figure strokes. Tabular, small figures, and fractions follow their

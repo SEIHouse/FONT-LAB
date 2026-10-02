@@ -18,6 +18,7 @@ STYLES = (
 SUBSETS = ('latin-basic', 'latin-extended', 'symbols-icons')
 LANGUAGE_PUNCTUATION = {0x00A1, 0x00AA, 0x00BA, 0x00BF}
 PRECOMPOSED_FRACTIONS = {0x00BC, 0x00BD, 0x00BE}
+LATIN_TEXT_PUNCTUATION = set(map(ord, '.,:;…!?\'"‘’“”‚„‛‟-–—()[]{}«»‹›ʻʼ\u2009\u202f'))
 
 
 def group_for(codepoint):
@@ -26,10 +27,18 @@ def group_for(codepoint):
         return 'latin-basic'
     if codepoint in PRECOMPOSED_FRACTIONS:
         return 'symbols-icons'
-    if codepoint <= 0x024F and (unicodedata.category(chr(codepoint)).startswith('L')
-                                or codepoint in LANGUAGE_PUNCTUATION):
+    if (unicodedata.name(chr(codepoint),'').startswith('LATIN ')
+            or 0x0300 <= codepoint <= 0x036F or codepoint == 0x25CC
+            or codepoint in LANGUAGE_PUNCTUATION or codepoint in LATIN_TEXT_PUNCTUATION):
         return 'latin-extended'
     return 'symbols-icons'
+
+
+def subset_groups(codes):
+    """Keep Latin graphemes and surrounding prose in one preferred web font face."""
+    groups = {name:{c for c in codes if group_for(c)==name} for name in SUBSETS}
+    groups['latin-extended'].update(groups['latin-basic'])
+    return groups
 
 
 def unicode_range(codes):
@@ -53,14 +62,15 @@ def build_subsets():
         font = TTFont(source)
         codes = set(font.getBestCmap())
         font.close()
-        groups = {name: {code for code in codes if group_for(code) == name} for name in SUBSETS}
+        groups = subset_groups(codes)
         if expected is None:
             expected = groups
         elif groups != expected:
             raise ValueError(f'Unicode coverage changed unexpectedly in {style}')
         if set().union(*groups.values()) != codes or any(not group for group in groups.values()):
             raise ValueError(f'Invalid subset partition in {style}')
-        for name in SUBSETS:
+        # The last face is preferred for Latin, including complete accent clusters.
+        for name in ('latin-basic','symbols-icons','latin-extended'):
             output_name = f'SEIReader-{style}.{name}.woff2'
             output = os.path.join(HERE, 'fonts', output_name)
             code_list = ','.join(f'U+{code:04X}' for code in sorted(groups[name]))

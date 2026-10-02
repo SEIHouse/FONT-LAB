@@ -97,10 +97,28 @@ proportional/tabular figures, and fractions to the fixed small-size matrix. See
 [the inspection notes](TEXTURE-0.32.md). Native Windows proofs supplement the outline
 and shaping audits; physical browser/device and sustained-reading results remain deferred.
 
+## The 0.33 Latin foundation
+
+Add reliable combining accents and local quotation marks while keeping the 0.32 reader
+design intact. Preserve every old outline, bearing, advance, pair value, nominal weight,
+height, contrast, and italic angle. New marks use lighter strokes, optical base attachment,
+above/below stacking, and italic shear shared with the letter drawing. Canonical forms
+of the existing accented text must shape identically; above accents on i/j remove the dot.
+
+Keep complete Latin clusters and prose in the same web face. The generated Latin extended
+subset includes basic Latin and is preferred in fonts.css. Complete encoded alphabets,
+locale-specific letter refinements, and new scripts belong to later expansion steps.
+See [the foundation notes](LATIN-FOUNDATION-0.33.md).
+
+The same four-card preview uses preserved 0.32 and retains Literata/Rubik and the earlier
+controls/samples. New rows compare NFC/NFD, stacked marks, and local dialogue punctuation.
+Baseline rows may use fallback for additions. Physical device and sustained-reading
+comfort results remain deferred.
+
 ## Reading experiments
 
 Use [the reference preview](../lab/comparison.html) for matched samples, then
-[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.31 baseline
+[the chapter test](../lab/reading-test.html) for sustained reading. Preserve the 0.32 baseline
 and use the same text, physical column width, color, and selected weight when comparing.
 
 - Inspect `Lian`, `Iñés`, `blade`, `Entry`, `Mei's`, and italic `acquittal`.
@@ -114,6 +132,8 @@ and use the same text, physical column width, color, and selected weight when co
 - Compare 20px at line heights 1.4 and 1.5, then 13/15/17px at Regular and Medium.
 - Compare word spaces 0.205, 0.220, and 0.230 em; versions 0.28 through 0.30 use the middle value.
 - Check Light comments, real italics, `fi`/`fl`, accents, punctuation, and symbols on phones.
+- Check NFC/NFD pairs, `n̄ m̀ x̣ g̃ ī j́ Ấ`, stacked above/below marks, and local quotes,
+  in full-font and subset delivery. Compare 1.4/1.5 leading for stacked capitals.
 - Record tiring spots, snag words, and comfort after a chapter. Measurements and automated
   font checks cannot establish sustained reading comfort.
 

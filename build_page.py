@@ -32,7 +32,7 @@ BAKED = {
   'overshoot': settings.get('overshoot', True), 'uFoot': settings.get('uFoot', True),
   'letterSpace': settings.get('letterSpace', {}), 'pairSpace': settings.get('pairSpace', {}),
 }
-CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉½¼¾⁄.,:;…!?'\"‘’“”-–—()[]/%+=&@#$*~_|\\{}<>★•·×÷±°→←∞«»‹›¥€£☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀↑↓♥♡✓✗♪©®™−≤≥≠≈Ⓢ♩♫♬♭♮♯⏮⏸⏹⏺⏭🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÆŒÐÞàáâãäåçèéêëìíîïñòóôõöøùúûüýÿæœßðþ¡¿ºª"
+CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789⁰¹²³⁴⁵⁶⁷⁸⁹₀₁₂₃₄₅₆₇₈₉½¼¾⁄.,:;…!?'\"‘’“”-–—()[]/%+=&@#$*~_|\\{}<>★•·×÷±°→←∞«»‹›¥€£☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀↑↓♥♡✓✗♪©®™−≤≥≠≈Ⓢ♩♫♬♭♮♯⏮⏸⏹⏺⏭🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖØÙÚÛÜÝŸÆŒÐÞàáâãäåçèéêëìíîïñòóôõöøùúûüýÿæœßðþ¡¿ºª‚„‛‟ʻʼ◌\u0300\u0301\u0302\u0303\u0304\u0306\u0307\u0308\u0309\u030a\u030b\u030c\u031b\u0323\u0326\u0327\u0328"
 CHAPTER = [
   "The lantern burned low as the last gate opened—slowly, then all at once. Beyond it lay the hall of quiet books, thousands of them, and every shelf seemed to hum.",
   "“Don’t stop now,” Ren whispered. His voice came back to him twice, as if the room were deciding whether to answer.",
@@ -188,7 +188,7 @@ html = r'''<!DOCTYPE html>
   <div class="meta">
     <span class="badge">Font file: version __VERSION__</span>
     <span class="badge" id="status" role="status">Loading…</span>
-    <a class="badge" href="comparison.html">Compare __VERSION__, 0.29, Literata, and Rubik</a>
+    <a class="badge" href="comparison.html">Compare __VERSION__, 0.32, Literata, and Rubik</a>
   </div>
   <p class="note">Move any slider and the text changes live, drawn from the exact rules the font file is built from. Press <b>Save</b> when you like it, then tell Claude “build it”. Claude reads your saved settings and makes the new font file. No copying needed.</p>
 
@@ -379,6 +379,7 @@ const SR_CHAPTER = __CHAPTER__;
 const SR_REVIEW = `“Lian,” Iñés said. "Entry" was written beside the blade; Mei's acquittal waited.`;
 const SR_RHYTHM = `minimum · murmur · river · climate · parallel · everywhere. *minimum · murmur · river · climate · parallel · everywhere.*`;
 const SR_TEXTURE = `“Mei’s,” Iñés said: “Entry 12? I counted 312 steps; you counted 314.” 0123456789 · 1,234.56 · 8.50% · ½ ¼ ¾. *“Wait… don’t!” Was it 6, 8, or 9?*`;
+const SR_LATIN = `Café · Cafe\u0301 · Iñés · In\u0303e\u0301s. n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301 · *n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301*. „Lian sagt: ‚Warte!‘“ «\u202fIñés entre.\u202f» Meiʼs · Hawaiʻi.`;
 const SR_FONTS = __FONTLIST__;
 const WORDER = __WORDER__;
 const $ = id => document.getElementById(id);
@@ -440,7 +441,7 @@ function applyToEngine(){
   if(key !== lastKey){ for(const k in cache) delete cache[k]; lastKey = key; }
   P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
-const bm = c => (ACC[c] ? ACC[c].base : c);
+const bm = c => DOTLESS[c] || (ACC[c] ? ACC[c].base : c);
 /** Resolve user overrides before the nearest baked weight and italic pair map. */
 function pairVal(k, thick=S_.weight, italic=false){
   if(S_.pairSpace[k] !== undefined) return S_.pairSpace[k];
@@ -469,16 +470,25 @@ function drawWord(w, size, thick, ital){
   const T9 = Math.tan(9 * Math.PI / 180);
   const tr = S_.spaceBetweenAllLetters + (Sw - reg) * (Sw > reg ? 0.25 : 0.1);
   let x = 0, parts = '', prev = '';
-  w = w.replace(/fi/g, 'ﬁ').replace(/fl/g, 'ﬂ');     // joined fi / fl, like the font does
-  for(const ch of w){
+  const clusters=latinClusters(w);
+  // Only join unaccented letters; keep the marks on their original component.
+  for(let i=0;i<clusters.length-1;i++){
+    const a=clusters[i], b=clusters[i+1];
+    if(a.base==='f' && !a.marks.length && ['i','l'].includes(b.base)){
+      clusters.splice(i,2,{base:b.base==='i'?'ﬁ':'ﬂ',marks:b.marks,component:1});
+    }
+  }
+  for(const cluster of clusters){
+    const ch=cluster.base;
     if(ch === '\u2063'){ itc = !itc; continue; }   // italic on/off marker (made from a pair of *stars*)
     P.ital = itc ? 1 : 0;
     P.trk = tr + (itc ? 4 : 0);
-    const g = glyph(ch, Sw);
+    const g = clusterGlyph(cluster, Sw);
     if(!g){ x += 420; prev = ''; continue; }
     const o = S_.letterSpace[ch] || S_.letterSpace[bm(ch)] || {};
     const before = o.before || 0, after = o.after || 0;
-    x += pairVal(prev + ch, Sw, itc);
+    x += pairVal((DOTLESS[prev] || prev) + (DOTLESS[ch] || ch), Sw, itc);
+    if(ch==='\u2009'||ch==='\u202f'){ x+=120; prev=''; continue; }
     const tri = tr + (itc ? 4 : 0);
     const gx = x + tri + g.sb0 + before - (itc ? T9 * 330 : 0);
     parts += `<g transform="translate(${f1(gx)} 0)${itc ? ' skewX(-9)' : ''}" clip-path="url(#${g.clipId})">${thickThin(g)}</g>`;
@@ -492,7 +502,7 @@ function drawWord(w, size, thick, ital){
 function drawText(str, size, lh, thick){
   str = str.replace(/\*([^*\n]+?)\*/g, '\u2063$1\u2063');   // only a matched pair of stars means italic; a lone * stays an asterisk
   const words = []; let it = false;
-  for(const w of str.split(/\s+/).filter(Boolean)){ words.push([w, it]); if((w.split('\u2063').length - 1) % 2) it = !it; }
+  for(const w of str.split(/[^\S\u2009\u202f]+/).filter(Boolean)){ words.push([w, it]); if((w.split('\u2063').length - 1) % 2) it = !it; }
   str = str.replace(/\u2063/g, '');
   const col = size * S_.wordSpace / 1000, row = Math.max(0, size * (lh - 1.16));
   return `<span class="run" role="img" aria-label="${e_(str)}" style="gap:${f1(row)}px ${f1(col)}px">${words.map(([w, i]) => drawWord(w, size, thick, i)).join('')}</span>`;
@@ -512,12 +522,14 @@ function renderChamber(){
       `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><div class="para reviewline">${drawText(SR_REVIEW, RD.size, RD.lh)}</div>` +
       `<div class="para reviewline">${drawText(SR_RHYTHM, RD.size, RD.lh)}</div>` +
       `<div class="para reviewline">${drawText(SR_TEXTURE, RD.size, RD.lh)}</div>` +
+      `<div class="reviewtag">LATIN FOUNDATION · COMBINING ACCENTS AND LOCAL QUOTES</div><div class="para reviewline">${drawText(SR_LATIN, RD.size, RD.lh)}</div>` +
       SR_CHAPTER.map(p => `<div class="para">${drawText(p, RD.size, RD.lh)}</div>`).join('') +
       `<div class="cap">${drawText('4 minutes left in this chapter', 13, 1.3)}</div>`;
   const fileHTML = () => `<div class="clabel" style="font-size:13px">Chapter 12</div><div class="title" style="font-size:32px;line-height:1.25">The Last Gate</div>` +
       `<div class="reviewtag">__VERSION__ REVIEW WORDS</div><p class="reviewline" style="font-size:${RD.size}px">${e_(SR_REVIEW)}</p>` +
       `<p class="reviewline" style="font-size:${RD.size}px">${e_(SR_RHYTHM).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>` +
       `<p class="reviewline" style="font-size:${RD.size}px">${e_(SR_TEXTURE).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>` +
+      `<div class="reviewtag">LATIN FOUNDATION · COMBINING ACCENTS AND LOCAL QUOTES</div><p class="reviewline" style="font-size:${RD.size}px">${e_(SR_LATIN).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>` +
       SR_CHAPTER.map(p => `<p style="font-size:${RD.size}px">${e_(p).replace(/\*([^*]+)\*/g, '<i>$1</i>')}</p>`).join('') +
       `<div class="cap" style="font-size:13px">4 minutes left in this chapter</div>`;
   if(RD.view === 'side'){
@@ -536,6 +548,9 @@ function renderChamber(){
 function renderAllChars(){
   const rows = ['ABCDEFGHIJKLM NOPQRSTUVWXYZ','abcdefghijklm nopqrstuvwxyz','0123456789 Il1 O0o bd pq nu',". , : ; … ! ? ' \" ‘ ’ “ ” - – — ( ) [ ] / % + =",
     '⁰¹²³⁴⁵⁶⁷⁸⁹', '₀₁₂₃₄₅₆₇₈₉', '½ ¼ ¾ ⁄',
+    '‚ „ ‛ ‟ ʻ ʼ · «\u202fLian\u202f»',
+    '◌\u0300 ◌\u0301 ◌\u0302 ◌\u0303 ◌\u0304 ◌\u0306 ◌\u0307 ◌\u0308 ◌\u0309 ◌\u030a ◌\u030b ◌\u030c',
+    '◌\u031b ◌\u0323 ◌\u0326 ◌\u0327 ◌\u0328 · n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301',
     "& @ # $ * ~ _ | \\ { } < >", '★ • · × ÷ ± ° → ← ∞ « » ‹ › ¥ € £',
     '☯ ⚡ ☀ ☾ ☽ ⚔ ✦ ☆ ◆ ◇ ▲ ▼ ▶ ◀ ↑ ↓', '♥ ♡ ✓ ✗ ♪ © ® ™ − ≤ ≥ ≠ ≈',
     'Ⓢ ♩ ♪ ♫ ♬ ♭ ♮ ♯ ⏮ ▶ ⏸ ⏹ ⏺ ⏭', '🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊',

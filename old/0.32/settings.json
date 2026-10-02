@@ -1,0 +1,32 @@
+{
+  "family": "SEIReader",
+  "version": "0.32",
+  "weight": 85,
+  "contrast": 1.12,
+  "lowercaseRoundness": 0.55,
+  "spaceBetweenAllLetters": 2.8,
+  "letterSpace": {},
+  "pairSpace": {},
+  "xHeight": 510,
+  "capitalRoundness": 245,
+  "letterWidth": 0.95,
+  "wordSpace": 220,
+  "overshoot": true,
+  "uFoot": false,
+  "reader": {
+    "lineLength": 60,
+    "lineSpacing": 1.4,
+    "night": true,
+    "size": 20
+  },
+  "weights": {
+    "Light": 70,
+    "Regular": 85,
+    "Medium": 100,
+    "SemiBold": 115,
+    "Bold": 140
+  },
+  "italicAngle": 9,
+  "uprightStraightness": 0.82,
+  "ascender": 700
+}

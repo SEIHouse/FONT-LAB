@@ -206,7 +206,7 @@ def thin_joins(path):
     return path
 
 # ---------------------------------------------------------------- automatic pair spacing
-AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”()-–—/&'
+AUTO_CHARS = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzﬁﬂ0123456789.,:;!?\'"‘’“”‚„‛‟ʻʼ()-–—/&'
 AUTO_STRENGTH = 0.6      # how much of the difference to correct (1 = all of it)
 AUTO_DEPTH = 0.10        # how far into a letter's open space counts (share of the em)
 AUTO_MIN, AUTO_MAX = -0.12, 0.04   # limits, as share of the em
@@ -490,7 +490,7 @@ def build(data, out, style='Regular', italic=False):
     shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
     KERN = {}
     ovr = settings.get('letterSpace', {})
-    order = ['.notdef', 'space']; cmap = {32: 'space', 160: 'space'}; paths = {}; hm = {}
+    order = ['.notdef', 'space']; cmap = {32: 'space', 160: 'space'}; paths = {}; hm = {}; records = {}; origins = {}
     PRIVATE = {0xE000:'Ⓢ', 0xE001:'🎧', 0xE002:'💻', 0xE003:'📖', 0xE004:'🔖', 0xE005:'🔍', 0xE006:'🔔',
                0xE007:'🎤', 0xE008:'💿', 0xE009:'🔊', 0xE00A:'⚙', 0xE00B:'⌂', 0xE00C:'⚡', 0xE00D:'☀', 0xE00E:'☯', 0xE00F:'♥'}
     nd = Path(); pen = nd.getPen()
@@ -500,13 +500,15 @@ def build(data, out, style='Regular', italic=False):
     paths['.notdef'] = nd; paths['space'] = None; hm['.notdef'] = 520*SC; hm['space'] = round(WORD*SC)
     for ch, g in data['glyphs'].items():
         o = ovr.get(ch) or ovr.get(data.get('basemap', {}).get(ch, ''), {}) or {}; before, after = o.get('before', 0), o.get('after', 0)
-        left = TR + g['sb0'] + before
+        left = 0 if g.get('mark') else TR + g['sb0'] + before
         name = gname(ch); order.append(name); cmap[ord(ch)] = name
+        records[name] = g; origins[name] = left
         try:
             paths[name] = outline(g, left)
         except pathops.PathOpsError as exc:
             raise RuntimeError(f'Could not union {shown} glyph {name}') from exc
-        hm[name] = round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
+        hm[name] = 0 if g.get('mark') else round((left + g['w'] + S + g['sb1'] + after + TR) * SC)
+        if ch in '\u2009\u202f': hm[name] = 120 * SC
 
     # Add unencoded alternates without touching the proportional digit outlines or metrics.
     digits = '0123456789'
@@ -521,6 +523,7 @@ def build(data, out, style='Regular', italic=False):
     for name, g in data['alternates'].items():
         if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
         order.append(name)
+        records[name] = g; origins[name] = TR + g['sb0']
         try:
             paths[name] = outline(g, TR + g['sb0'])
         except pathops.PathOpsError as exc:
@@ -593,6 +596,15 @@ def build(data, out, style='Regular', italic=False):
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
     retain_reading_pairs(KERN, ps_style)
     clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
+    # Additive foundation: retain every approved old pair when geometry is unchanged.
+    latin_dir = os.path.join(HERE, 'old', '0.32')
+    with open(os.path.join(latin_dir, 'settings.json'), encoding='utf-8') as file: latin_settings = json.load(file)
+    if all(settings.get(k) == latin_settings.get(k) for k in RHYTHM_SETTINGS):
+        with open(os.path.join(latin_dir, 'kern_styles.json'), encoding='utf-8') as file: old_kern = json.load(file)[ps_style]
+        with TTFont(os.path.join(latin_dir, f'SEIReader-{ps_style}.woff2')) as old_font: old_codes = set(old_font.getBestCmap())
+        for pair in list(KERN):
+            if all(ord(ch) in old_codes for ch in pair) and pair not in old_kern: del KERN[pair]
+        KERN.update(old_kern)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     STYLE_KERN[ps_style] = dict(KERN)
     if style == 'Regular' and not italic:
@@ -606,10 +618,13 @@ def build(data, out, style='Regular', italic=False):
         left_groups.add(a); right_groups.add(b)
         lines.append(f'  pos @L_{gname(a)} @R_{gname(b)} {round(v*SC)};')
     bm = data.get('basemap', {})
-    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap])
+    members = lambda c: ' '.join([gname(c)] + [gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap]
+                                + ([c+'.dotless'] if c in 'ij' else []))
     cls = [f'@L_{gname(c)} = [{members(c)}];' for c in sorted(left_groups)] + \
           [f'@R_{gname(c)} = [{members(c)}];' for c in sorted(right_groups)]
-    fea = '\n'.join(cls) + '\nfeature kern {\n' + '\n'.join(lines) + '\n} kern;\n'
+    from latin_layout import latin_features
+    fea = latin_features(records, origins, hm, cmap, SC, TAN if italic else 0, ITAL_CENTER)
+    fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
     if ord('ﬁ') in cmap and ord('ﬂ') in cmap:   # joined fi / fl, switched on automatically
         fea += f"feature liga {{\n  sub {gname('f')} {gname('i')} by {gname('ﬁ')};\n  sub {gname('f')} {gname('l')} by {gname('ﬂ')};\n}} liga;\n"
         # where the text cursor can stop inside a joined letter (between the f and the i / l)

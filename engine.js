@@ -231,6 +231,12 @@ def('’',80,'cap',[curvedQuote(false)],[[80,qy(650)]],[40,40]);
 def('‘',80,'cap',[curvedQuote(true)],[[10,qy(520)]],[40,40]);
 def('”',270,'cap',[curvedQuote(false),curvedQuote(false,190)],[[80,qy(650)],[270,qy(650)]],[40,40]);
 def('“',270,'cap',[curvedQuote(true),curvedQuote(true,190)],[[10,qy(520)],[200,qy(520)]],[40,40]);
+const lowQuote = dx => RAW([['M',80+dx,20],['C',80+dx,-42,47+dx,-97,10+dx,-140]]);
+const reverseQuote = dx => RAW([['M',10+dx,qy(650)],['C',10+dx,qy(588),43+dx,qy(533),80+dx,qy(490)]]);
+def('‚',80,'cap',[lowQuote(0)],[[80,20]],[40,40]);
+def('„',270,'cap',[lowQuote(0),lowQuote(190)],[[80,20],[270,20]],[40,40]);
+def('‛',80,'cap',[reverseQuote(0)],[[10,qy(650)]],[40,40]);
+def('‟',270,'cap',[reverseQuote(0),reverseQuote(190)],[[10,qy(650)],[200,qy(650)]],[40,40]);
 def('-',240,'low',[o([[0,265],[240,265]])],[],[50,50]);
 def('–',480,'low',[o([[0,265],[480,265]])],[],[40,40]);
 def('—',860,'low',[o([[0,265],[860,265]])],[],[24,24]);
@@ -468,7 +474,34 @@ const MARK = {
   dier:    (cx, y0) => ({ dots:[[cx-100,y0+55],[cx+100,y0+55]] }),
   ring:    (cx, y0) => ({ shapes:[RAW(circ(cx, y0+65, 58))] }),
   cedilla: (cx)     => ({ shapes:[RAW([['M',cx,5], LN(cx,5,cx+15,-70), ['C',cx+30,-130,cx-20,-175,cx-80,-160]])] }),
+  macron:  (cx,y) => ({ shapes:[o([[cx-100,y+30],[cx+100,y+30]])] }),
+  breve:   (cx,y) => ({ shapes:[RAW([['M',cx-100,y+100],['C',cx-80,y-15,cx+80,y-15,cx+100,y+100]])] }),
+  dot:     (cx,y) => ({ dots:[[cx,y+40]] }),
+  hook:    (cx,y) => ({ shapes:[RAW([['M',cx-30,y+100],['C',cx+75,y+140,cx+90,y+45,cx+10,y]])] }),
+  double:  (cx,y) => ({ shapes:[o([[cx-100,y],[cx-10,y+110]]),o([[cx+30,y],[cx+120,y+110]])] }),
+  caron:   (cx,y) => ({ shapes:[o([[cx-95,y+105],[cx,y],[cx+95,y+105]])] }),
+  horn:    (cx,y) => ({ shapes:[RAW([['M',cx,y],['C',cx+105,y,cx+130,y+65,cx+105,y+130]])] }),
+  below:   (cx) => ({ dots:[[cx,-45]] }),
+  comma:   (cx) => ({ shapes:[RAW([['M',cx+15,-15],['C',cx+30,-55,cx+10,-95,cx-25,-110]])] }),
+  ogonek:  (cx) => ({ shapes:[RAW([['M',cx,0],['C',cx-80,-55,cx-80,-125,cx+5,-110]])] }),
 };
+// Compact, light marks leave room for two levels inside the existing line metrics.
+const COMBINING = Object.fromEntries([
+  ['\u0300','grave','top'],['\u0301','acute','top'],['\u0302','circ','top'],
+  ['\u0303','tilde','top'],['\u0304','macron','top'],['\u0306','breve','top'],
+  ['\u0307','dot','top'],['\u0308','dier','top'],['\u0309','hook','top'],
+  ['\u030a','ring','top'],['\u030b','double','top'],['\u030c','caron','top'],
+  ['\u031b','horn','horn'],['\u0323','below','bottom'],['\u0326','comma','bottom'],
+  ['\u0327','cedilla','bottom'],['\u0328','ogonek','ogonek'],
+].map(([ch,mark,place]) => [ch,{mark,place}]));
+for(const ch of Object.keys(COMBINING)) G[ch] = { comp:true };
+const DOTLESS = { 'i.dotless':'i', 'j.dotless':'j' };
+def('◌',440,'low',[],Array.from({length:12},(_,i) => {
+  const t=i*Math.PI/6; return [220+190*Math.cos(t),250+190*Math.sin(t),.24];
+}),[38,38]);
+// Lexical apostrophes keep the established apostrophe drawing and advance.
+G['ʻ'] = { comp:true }; G['ʼ'] = { comp:true };
+G['\u2009'] = G['\u202f'] = { comp:true };
 const ACC = {};
 function acc(chars, base, marks, opt = {}){ [...chars].forEach((ch, i) => { ACC[ch] = Object.assign({ base, mark: marks[i] }, opt); G[ch] = { comp:true, w:0, kind:'low', shapes:[], dots:[], sb:[0,0] }; }); }
 const M6 = ['grave','acute','circ','tilde','dier','ring'], M4 = ['grave','acute','circ','dier'], M5 = ['grave','acute','circ','tilde','dier'];
@@ -486,8 +519,8 @@ window.getBaseMap = () => Object.fromEntries(Object.entries(ACC).map(([k, v]) =>
    gives Light more substance and Medium more counter room at reading sizes.
    These are static masters: the correction also applies at larger sizes. */
 const READING_LETTERS = new Set([...('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÆŒÐÞØæœßðþøﬁﬂ')]);
-const TEXT_MARKS = new Set([...`.,:;…!?'"‘’“”-–—()[]¡¿`]);
-const QUIET_MARKS = new Set([...`'"‘’“”-–—`]);
+const TEXT_MARKS = new Set([...`.,:;…!?'"‘’“”‚„‛‟-–—()[]¡¿`]);
+const QUIET_MARKS = new Set([...`'"‘’“”‚„‛‟-–—`]);
 /** Interpolate stroke corrections without changing any glyph advance. */
 function readingStroke(S){
   const anchors = [[40,0],[70,4],[85,0],[100,-3],[115,0]];
@@ -559,13 +592,110 @@ function composedFraction(parts, S){
     w:nAdvance + slashAdvance + denominator.w };
 }
 
+/** Measure SVG ink, including cubic extrema and the same oval pen as the font. */
+function inkBounds(g){
+  if(g.ink) return g.ink;
+  const box=[Infinity,Infinity,-Infinity,-Infinity];
+  const add=(x,y,rx=0,ry=0) => { box[0]=Math.min(box[0],x-rx); box[1]=Math.min(box[1],y-ry); box[2]=Math.max(box[2],x+rx); box[3]=Math.max(box[3],y+ry); };
+  const at=(p,t) => (1-t)**3*p[0]+3*(1-t)**2*t*p[1]+3*(1-t)*t*t*p[2]+t**3*p[3];
+  const extrema=p => {
+    const a=-p[0]+3*p[1]-3*p[2]+p[3], b=2*(p[0]-2*p[1]+p[2]), c=p[1]-p[0];
+    if(Math.abs(a)<1e-9) return Math.abs(b)<1e-9 ? [] : [-c/b];
+    const d=b*b-4*a*c; return d<0 ? [] : [(-b+Math.sqrt(d))/(2*a),(-b-Math.sqrt(d))/(2*a)];
+  };
+  for(const el of g.body.matchAll(/<path\b[^>]*>/g)){
+    const d=el[0].match(/\bd="([^"]+)"/)[1], sw=+(el[0].match(/stroke-width="([^"]+)"/)?.[1] || 0);
+    const tok=d.match(/[MLCZ]|-?\d+(?:\.\d+)?/g) || []; let i=0,pt=[0,0];
+    while(i<tok.length){
+      const op=tok[i++]; if(op==='Z') continue;
+      const end=() => [+tok[i++],-tok[i++]];
+      if(op==='M'||op==='L'){pt=end();add(...pt,sw/2,sw/(2*P.contrast));}
+      else if(op==='C'){
+        const p1=end(),p2=end(),p3=end(),xs=[pt[0],p1[0],p2[0],p3[0]],ys=[pt[1],p1[1],p2[1],p3[1]];
+        for(const t of [0,1,...extrema(xs),...extrema(ys)].filter(t=>t>=0&&t<=1)) add(at(xs,t),at(ys,t),sw/2,sw/(2*P.contrast));
+        pt=p3;
+      }
+    }
+  }
+  for(const m of g.body.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g)) add(+m[1],-m[2],+m[3],+m[3]);
+  return (g.ink=Number.isFinite(box[0]) ? box : [0,0,0,0]);
+}
+
+/** Build a zero-advance mark from shared accent shapes, with lighter strokes. */
+function combiningGlyph(ch,S){
+  const spec=COMBINING[ch], mk=MARK[spec.mark](0,0), scale=.72, sw=Math.min(readingStroke(S)*.72,58);
+  let body='';
+  const point=(x,y) => `${f1(x*scale)} ${f1(-y*scale)}`;
+  for(const shape of mk.shapes || []){
+    const d=shape.raw ? shape.raw.map(seg => seg[0]+' '+seg.slice(1).map((v,i)=>f1(v*scale*(i%2 ? -1 : 1))).join(' ')).join(' ')
+      : shape.p.map((p,i)=>(i?'L':'M')+point(p[0],p[1])).join(' ');
+    body+=`<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  }
+  for(const dot of mk.dots || []) body+=`<circle cx="${f1(dot[0]*scale)}" cy="${f1(-dot[1]*scale)}" r="${f1(sw*.46)}" fill="currentColor"/>`;
+  const g={body,sb0:0,sb1:0,w:-S,clipId:ensureClip(300,-300)},b=inkBounds(g);
+  g.mark=spec.place;
+  g.attach=spec.place==='top' ? [0,b[1]] : spec.place==='bottom' ? [0,b[3]] : [0,0];
+  g.anchors={top:[0,b[3]+20],bottom:[0,b[1]-20],horn:[0,b[3]+20],ogonek:[0,b[1]-20]};
+  return g;
+}
+
+/** Optical attachment points in the source coordinates, before italic shear. */
+function latinAnchors(ch,S){
+  const g=glyph(ch,S); if(g.anchors) return g.anchors;
+  const b=inkBounds(g),cx=S/2+g.w/2;
+  const topGap=ACC[ch] && ACC[ch].mark!=='cedilla' ? 20 : 60;
+  return {top:[cx,b[3]+topGap],bottom:[cx,b[1]-38],horn:[b[2]-S*.18,b[3]-S*.7],ogonek:[b[2]-S*.3,b[1]+S*.1]};
+}
+
+/** Keep existing precomposed letters; attach only the remaining combining marks. */
+function latinClusters(text){
+  const clusters=[];
+  const ccc=ch=>COMBINING[ch].place==='horn' ? 216 : ['\u0327','\u0328'].includes(ch) ? 202 : COMBINING[ch].place==='bottom' ? 220 : 230;
+  for(const ch of text.normalize('NFD')){
+    if(COMBINING[ch]){
+      if(!clusters.length) clusters.push({base:'◌',marks:[]});
+      const c=clusters.at(-1), composed=(c.base+ch).normalize('NFC');
+      const blocked=c.marks.length && ccc(c.marks.at(-1))>=ccc(ch);
+      if(!blocked && [...composed].length===1 && G[composed]) c.base=composed;
+      else c.marks.push(ch);
+    } else clusters.push({base:ch,marks:[]});
+  }
+  return clusters.map(c=>{
+    if(['i','j'].includes(c.base) && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base+='.dotless';
+    return c;
+  });
+}
+
+/** Overlay accents without adding width or interrupting the word's pair rhythm. */
+function clusterGlyph(cluster,S){
+  const g=glyph(cluster.base,S); if(!g || !cluster.marks.length) return g;
+  const anchors=Object.fromEntries(Object.entries(latinAnchors(cluster.base,S)).map(([k,v])=>[k,[...v]]));
+  if(LIG[cluster.base] && cluster.component!==undefined){
+    const first=glyph('f',S),cut=2*P.trk+first.sb0+first.w+S+first.sb1;
+    const advance=2*P.trk+g.sb0+g.w+S+g.sb1;
+    const cx=(cluster.component ? cut+advance : cut)/2-P.trk-g.sb0;
+    for(const a of Object.values(anchors)) a[0]=cx;
+  }
+  let body=g.body;
+  for(const ch of cluster.marks){
+    const m=glyph(ch,S),kind=COMBINING[ch].place,a=anchors[kind],dx=a[0]-m.attach[0],dy=a[1]-m.attach[1];
+    body+=moveNumericBody(m.body,1,dx,-dy,1);
+    if(kind==='top') anchors.top=[dx+m.anchors.top[0],dy+m.anchors.top[1]];
+    else if(kind==='bottom'||kind==='ogonek') anchors.bottom=[dx+m.anchors.bottom[0],dy+m.anchors.bottom[1]];
+  }
+  return {...g,body,clipId:ensureClip(1250,-500)};
+}
+
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
+  if(COMBINING[ch]) return (cache[ck] = combiningGlyph(ch,S));
+  if(ch === 'ʻ' || ch === 'ʼ') return (cache[ck] = glyph(ch === 'ʻ' ? '‘' : '’',S));
+  if(ch === '\u2009' || ch === '\u202f') return (cache[ck] = { body:'',clipId:ensureClip(700,0),sb0:0,sb1:0,w:120-S });
   if(NUMERIC_VARIANTS[ch]) return (cache[ck] = numericVariant(NUMERIC_VARIANTS[ch], S));
   if(FRACTION_PARTS[ch]) return (cache[ck] = composedFraction(FRACTION_PARTS[ch], S));
-  let g = LIG[ch] ? buildLig(ch, S) : pickBase(ch);
-  const bch = ACC[ch] ? ACC[ch].base : ch;
+  let g = DOTLESS[ch] ? Object.assign({},pickBase(DOTLESS[ch]),{dots:[]}) : LIG[ch] ? buildLig(ch, S) : pickBase(ch);
+  const bch = DOTLESS[ch] || (ACC[ch] ? ACC[ch].base : ch);
   const isFigure = DIGITS.includes(ch), isMark = TEXT_MARKS.has(ch);
   const drawS = READING_LETTERS.has(bch) || isFigure || isMark ? readingStroke(S) : S;
   const strokeS = isFigure ? drawS*0.96
@@ -588,7 +718,7 @@ function glyph(ch, S){
   const h = S/2, kind = g.kind;
   /* Normalize raised quotes with their lighter pen too, keeping even Bold
      closing quotes above the cap line after their dot is reduced. */
-  const hy = (isFigure || `'"‘’“”`.includes(ch) ? strokeS : drawS)/(2*P.contrast);
+  const hy = (isFigure || `'"‘’“”‛‟`.includes(ch) ? strokeS : drawS)/(2*P.contrast);
   const os = (P.os && OVS.has(bch)) ? OSV : 0;
   const ws = (WIDE.has(bch) ? 1 - (1 - P.ws) * 0.4 : P.ws) * (P.ital ? 0.94 : 1);
   const mx = x => h + x*ws;
@@ -648,17 +778,20 @@ function word(w, size, ui){
   const S = weightFor(size);
   const extra = P.track + 0.3*(S - P.base);
   let x = 0, parts = '', prev = '';
-  for(const ch of w){
-    const g = glyph(ch, S);
+  const clusters=latinClusters(w);
+  for(const cluster of clusters){
+    const ch=cluster.base, g = clusterGlyph(cluster, S);
     if(!g){ x += 380; prev = ''; continue; }
-    x += (KERN[prev + ch] || 0);
+    if(ch==='\u2009'||ch==='\u202f'){ x+=120; prev=''; continue; }
+    x += (KERN[(DOTLESS[prev] || prev) + (DOTLESS[ch] || ch)] || 0);
     parts += `<g transform="translate(${f1(x + extra + g.sb0)} 0)" clip-path="url(#${g.clipId})">${g.body}</g>`;
     x += extra + g.sb0 + g.w + S + g.sb1 + extra;
     prev = ch;
   }
   const W = Math.max(x, 1);
-  const vb = ui ? `0 -700 ${f1(W)} 700` : `0 -840 ${f1(W)} 1100`;
-  const hgt = (ui ? 0.7 : 1.1) * size;
+  const marked=clusters.some(c=>c.marks.length);
+  const vb = marked ? `0 -1120 ${f1(W)} 1440` : ui ? `0 -700 ${f1(W)} 700` : `0 -840 ${f1(W)} 1100`;
+  const hgt = (marked ? 1.44 : ui ? 0.7 : 1.1) * size;
   return `<svg aria-hidden="true" focusable="false" viewBox="${vb}" width="${f1(W*size/1000)}" height="${f1(hgt)}">${parts}</svg>`;
 }
 

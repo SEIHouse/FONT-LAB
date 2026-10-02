@@ -2,10 +2,12 @@
 
 Check every advance, permitted contour/pair changes, counter survival, weight
 order, hinting, accent inheritance, subset shaping, and actual ink separation.
+Pass old/0.32 to audit that archived build after later additive work.
 """
 from pathlib import Path
 import hashlib
 import json
+import sys
 
 import pathops
 from fontTools.pens.areaPen import AreaPen
@@ -60,10 +62,12 @@ def separated(font, text, liga):
         x += advance
 
 
-def verify():
+def verify(candidate=None):
     """Check the finished family, stable reading layout, and intended weight changes."""
+    candidate = Path(candidate).resolve() if candidate else ROOT/'fonts'
+    metadata = candidate if (candidate/'settings.json').exists() else candidate.parent
     previous_settings = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))
-    settings = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))
+    settings = json.loads((metadata/'settings.json').read_text(encoding='utf-8'))
     previous_settings.pop('version'); settings.pop('version')
     assert previous_settings == settings, 'A nominal design setting changed'
     for manifest, count in [('SHA256.json', 10), ('SUBSET-SHA256.json', 30)]:
@@ -72,11 +76,13 @@ def verify():
         for filename, digest in hashes.items():
             assert hashlib.sha256((BASELINE/filename).read_bytes()).hexdigest() == digest, filename
     old_pairs = json.loads((BASELINE/'kern_styles.json').read_text(encoding='utf-8'))
-    pairs = json.loads((ROOT/'kern_styles.json').read_text(encoding='utf-8'))
+    pairs = json.loads((metadata/'kern_styles.json').read_text(encoding='utf-8'))
     assert old_pairs.keys() == pairs.keys() and len(pairs) == 10
     mass = {}
     for style, _, _ in STYLES:
-        with TTFont(BASELINE/f'SEIReader-{style}.woff2') as before, TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
+        candidate_path = candidate/f'SEIReader-{style}.otf'
+        if not candidate_path.exists(): candidate_path = candidate/f'SEIReader-{style}.woff2'
+        with TTFont(BASELINE/f'SEIReader-{style}.woff2') as before, TTFont(candidate_path) as after:
             assert before.getBestCmap() == after.getBestCmap(), style
             assert before.getGlyphOrder() == after.getGlyphOrder(), style
             cmap = after.getBestCmap()
@@ -149,7 +155,7 @@ def verify():
                 'latin-extended':['Áurea Éloi Iñés João Müller Søren Þóra'],
                 'symbols-icons':['“Mei’s,” ½ ¼ ¾ · ² ₃ · ☯ ⚡ ▲ ♥'],
             }.items():
-                with TTFont(ROOT/'fonts'/f'SEIReader-{style}.{subset_name}.woff2') as subset:
+                with TTFont(candidate/f'SEIReader-{style}.{subset_name}.woff2') as subset:
                     for text in texts:
                         # Each CSS subset can contain shaping closure but only its own encoded range.
                         codes = subset.getBestCmap()
@@ -172,4 +178,4 @@ def verify():
 
 
 if __name__ == '__main__':
-    verify()
+    verify(sys.argv[1] if len(sys.argv)>1 else None)

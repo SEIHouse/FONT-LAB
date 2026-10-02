@@ -5,7 +5,12 @@ Add-Type -AssemblyName PresentationCore, PresentationFramework, WindowsBase
 $proof = Get-Content -LiteralPath $Layout -Raw -Encoding UTF8 | ConvertFrom-Json
 $dpi = [double]$proof.dpi
 $width = 1240
-$height = 118 + 154*$proof.rows.Count + 6
+$lineHeight = if ($proof.lineHeight) {[double]$proof.lineHeight} else {1.4}
+$height = 124
+foreach ($row in $proof.rows) {
+    $step = [Math]::Max(21, [Math]::Ceiling([double]$row.size*$lineHeight))
+    $height += 58 + $step*$row.faces[0].lines.Count
+}
 $glyphFaces = @{}
 
 function Brush([string]$Color) {
@@ -41,7 +46,9 @@ foreach ($theme in @('day', 'night')) {
         $column = 0
         foreach ($face in $row.faces) {
             $x = 24 + 618*$column
-            $dc.DrawRectangle($panel, $null, [System.Windows.Rect]::new($x, $y, 572, 148))
+            $step = [Math]::Max(21, [Math]::Ceiling([double]$row.size*$lineHeight))
+            $rowHeight = 58 + $step*$face.lines.Count
+            $dc.DrawRectangle($panel, $null, [System.Windows.Rect]::new($x, $y, 572, $rowHeight-6))
             Label $dc ($x+12) ($y+7) "$($row.weight) / $($row.size)px" 13 $muted
             $baseline = $y+46
             foreach ($line in $face.lines) {
@@ -59,11 +66,11 @@ foreach ($theme in @('day', 'night')) {
                     $advances, $offsets, $null, $null, $null, $null,
                     [System.Windows.Markup.XmlLanguage]::GetLanguage('en'))
                 $dc.DrawGlyphRun($ink, $run)
-                $baseline += 21
+                $baseline += $step
             }
             $column++
         }
-        $y += 154
+        $y += $rowHeight
     }
     $dc.Close()
     $bitmap = [System.Windows.Media.Imaging.RenderTargetBitmap]::new(

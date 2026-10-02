@@ -2,15 +2,17 @@
 
 Use [the reading test](../lab/reading-test.html) for sustained reading and [the Lab](../lab/index.html) for isolated characters. Open the files through the same delivery method the app will use, with the SEIReader WOFF2 files available. Record the browser and OS versions, device, screen scale, font file or subset delivery, and date. A pass means the face is legible and consistent at normal zoom without fallback, clipping, or unexpected shifts. Mark an item **Fail** and describe the exact text, size, theme, and screenshot when it differs. Leave untested items blank; this document is a test plan, not a record of completed device tests.
 
-For 0.32, the [same reference preview](../lab/comparison.html) includes a fixed-size
-13/15/17px Light/Regular/Medium comparison with preserved 0.31. Wait for its font-loaded
+For 0.33, the [same reference preview](../lab/comparison.html) includes a fixed-size
+13/15/17px Light/Regular/Medium comparison with preserved 0.32. Wait for its font-loaded
 status before judging. Inspect both upright and italic, dialogue punctuation, decimals,
 proportional/tabular figures, and joins on/off.
-Native Windows WPF [Day](proofs/0.32/windows-day-96.png) and [Night](proofs/0.32/windows-night-96.png)
+Native Windows WPF [Day](proofs/0.33/windows-day-96.png) and [Night](proofs/0.33/windows-night-96.png)
 proofs were inspected at 96 dpi; browser/physical-device checks are deferred at the
 user's request (2026-10-01). No device pass is recorded here.
-The [family Day](proofs/0.32/family/windows-day-96.png) and
-[family Night](proofs/0.32/family/windows-night-96.png) proofs also cover all five weights at 20px.
+The [family Day](proofs/0.33/family/windows-day-96.png) and
+[family Night](proofs/0.33/family/windows-night-96.png) proofs also cover all five weights at 20px.
+The new proofs include combining accents and local quotes. Baseline 0.32's new-character
+rows deliberately have missing glyphs; the browser comparison may instead show fallback.
 
 ## Test sessions
 
@@ -49,6 +51,10 @@ Record **P** (pass), **F** (fail), or **—** (not run) in each session column. 
 | Kerning: `To`, `AV`, `P.`, `“A` look balanced, with no collision or obvious gap | | | | | | |
 | Tall lowercase `l b d h k f` align with caps in `Hlbdfk` | | | | | | |
 | Accents: `Áurea`, `Éloi`, `Iñés`, `João`, `Müller`, `Søren`, `Þóra` render and clear preceding lines | | | | | | |
+| NFC/NFD pairs `Café / Café`, `Iñés / Iñés`, `garçon / garçon` match in the full font and fonts.css delivery | | | | | | |
+| New combinations `n̄ m̀ x̣ g̃ ī j́ Ấ` attach clearly, upright and italic, without dots under above accents on i/j | | | | | | |
+| `ị̄`, `fĺ`, low quotes `„…“ / ‚…‘`, lexical `ʻ/ʼ`, and French `« … »` have clear placement and spacing | | | | | | |
+| Stacks clear adjacent lines at 1.4/1.5 leading; accents stay in SEIReader through subset loading and copy/paste | | | | | | |
 | Common symbols/icons `☯ ⚡ ▲ ♥ Ⓢ` match SEIReader strokes rather than color emoji | | | | | | |
 | Same symbols with `font-variant-emoji: text` still use SEIReader | | | | | | |
 | Private icons U+E000–E00F all render as the intended monochrome SEIReader icons | | | | | | |

@@ -6,7 +6,7 @@ import uharfbuzz as hb
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont
 
-from build_subsets import HERE, STYLES, SUBSETS, group_for
+from build_subsets import HERE, STYLES, SUBSETS, subset_groups
 
 DIGITS = '0123456789'
 NAMES = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
@@ -87,7 +87,7 @@ def verify_style(style):
     for name in SUBSETS:
         subset_path = os.path.join(HERE, 'fonts', f'SEIReader-{style}.{name}.woff2')
         subset = TTFont(subset_path)
-        expected = {code for code in cmap if group_for(code) == name}
+        expected = subset_groups(set(cmap))[name]
         assert set(subset.getBestCmap()) == expected, (style, name)
         subset.close()
     basic = os.path.join(HERE, 'fonts', f'SEIReader-{style}.latin-basic.woff2')
