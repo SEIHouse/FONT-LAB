@@ -106,6 +106,9 @@ def build_subsets():
             print('subset', style, name, len(groups[name]), 'encoded characters')
     with open(os.path.join(HERE, 'fonts.css'), 'w', encoding='utf-8', newline='\n') as file:
         file.write('\n\n'.join(css) + '\n')
+    # The app's default delivery uses existing full WOFF2 files. Keep both CSS options current.
+    from build_distribution import write_full_css
+    write_full_css()
 
 
 if __name__ == '__main__':

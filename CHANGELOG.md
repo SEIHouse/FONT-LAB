@@ -17,6 +17,12 @@ Newest first.
   strings, and OpenType/offline universal FontBakery remain at 0 FAIL / 0 WARN.
   Native-reader/device certification and the remaining alphabet/script batches are
   separate follow-up work.
+  Added a runtime-only distribution: ten full WOFF2 files, relative app CSS, installation
+  guidance, integrity manifest, and a private npm tarball with zero dependencies/scripts.
+  Full-family font data is 31.3% smaller than all thirty overlapping subsets. Optional
+  explicit weight/subset ZIPs, shipped-payload audits, and an Actions artifact build
+  keep engineering files out of application installs. Documented the actual NovelExpanded
+  HARNESS reader and a scoped host integration without altering its source or font bytes.
 - **0.33** Multilingual Phase 1: an additive Latin foundation. Seventeen zero-width combining
   marks, canonical composition, above/below and ligature attachment, mark stacking, and
   unencoded dotless `i/j` forms. Added low/reversed quotes `‚ „ ‛ ‟`, lexical apostrophes

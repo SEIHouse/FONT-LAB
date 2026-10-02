@@ -1,5 +1,16 @@
 SEIReader, version 0.34 (working draft)
 
+EASIEST APP INSTALL
+  Use the App distribution Actions run's seireader-app-packages download.
+  Extract SEIReader-0.34-web-full.zip into public/seireader/0.34/ and link its fonts.css,
+  or install seihouse-seireader-0.34.0.tgz and import @seihouse/seireader/styles.css.
+  The default is ten full WOFF2 fonts (444,032 font bytes), with no build dependencies,
+  OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
+  faces the page uses. Full language/symbol coverage stays together in each face.
+  docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
+  At the repository root, fonts-full.css is the full delivery; fonts.css is the existing
+  optional subset delivery. Choose one route so the same faces are not registered twice.
+
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
   There are also 30 smaller WOFF2 files: Latin basic, Latin extended, and symbols/icons for each style.

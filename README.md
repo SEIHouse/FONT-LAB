@@ -6,12 +6,38 @@ hundreds of chapters on a phone: calm, soft, and distinctly SEIHouse.
 Everything in the font is drawn from rules in code. There are no hand-drawn files to maintain, so
 any change (weight, letter height, roundness, spacing) rebuilds the whole family consistently.
 
+## Installing in an app
+
+Use the **App distribution** Actions run's `seireader-app-packages` download, or build
+the packages locally with `python build_distribution.py` and
+`npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
+are needed to package the checked-in fonts.
+
+- **Static assets:** extract `SEIReader-0.34-web-full.zip` into your app's public assets
+  and load its `fonts.css`.
+- **Vite/npm:** install `seihouse-seireader-0.34.0.tgz` and import
+  `@seihouse/seireader/styles.css`. This private package has zero dependencies and
+  no installation scripts; it is not published to the npm registry.
+
+The default uses ten full WOFF2 files: **444,032 font bytes (433.6 KiB)** for all
+five weights and their real italics. That is **31.3% less** than storing all thirty
+overlapping subsets. Regular plus italic uses **86,920 bytes**; the browser requests
+the styles used by rendered text. The package includes no old versions, Lab, OTFs,
+reference fonts, proof images, or font engineering tools.
+
+See [APP-INSTALL.md](docs/APP-INSTALL.md) for both installation routes, explicit
+weight-only bundles, and the inspected Development/NovelExpanded host handoff.
+The developer sections below describe the full source repository.
+
 ## What's inside
 
 | Folder / file | What it is |
 |---|---|
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
+| `fonts-full.css` | Recommended app stylesheet for the ten full web fonts; no Unicode face splitting |
+| `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
+| [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, and the current Development/NovelExpanded reader integration points |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
 | [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.34 beside preserved 0.33, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
@@ -60,6 +86,9 @@ python verify_latin.py old/0.33 # historical foundation audit against preserved 
 python verify_texture.py old/0.32    # historical 0.32 texture/weight scope against 0.31
 python verify_lowercase.py old/0.31  # historical curve preservation against 0.28
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
+python build_distribution.py       # runtime-only app ZIP; standard library only
+npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
+python verify_distribution.py --npm dist/seihouse-seireader-0.34.0.tgz
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run

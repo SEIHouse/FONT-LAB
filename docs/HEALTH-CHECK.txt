@@ -57,6 +57,23 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
   intermittent direct writes to existing WOFF2 files failed. The final thirty-file run passes.
   Arbitrary stacks can exceed fixed clipping bounds; check 1.4/1.5 line clearance in real text.
 
+  App distribution follow-up (font bytes unchanged):
+    - Full family: 444,032 font bytes / 10 WOFF2 files, 31.3% less than all thirty subsets
+      (646,472 font bytes). Regular plus real italic is 86,920 font bytes.
+    - Standard-library packaging writes runtime-only full/subset/selected-weight ZIPs,
+      relative CSS, integrity hashes, and install guidance. Exact shipped-file scope,
+      hashes, source bytes, weight/style mappings, and subset priority all pass.
+    - The actual private npm tarball contains 15 files, no dependencies or install scripts.
+      Its styles.css export resolves in a fresh installation and Development's Vite 8.1.5
+      consumer build; all ten emitted font assets match their source bytes and CSS URLs.
+    - Sources, OTFs, old fonts, Lab, proofs, reference fonts, and tooling remain outside
+      the runtime package. Generated archives/caches are ignored by Git. Actions builds
+      the installable ZIP/tarball without installing any font-building dependencies.
+    - Development/NovelExpanded source was inspected, not modified. Its current Windows
+      check:app fails on InlineAudio.tsx / inlineAudio.ts case-insensitive resolution;
+      this is a separate existing app issue, not a font-package validation pass.
+      The handoff targets the actual HARNESS chapter prose and preserves the host/SEN boundary.
+
 History
   0.19  First check found and fixed: version number mismatch, missing "normal style" flag on
         Light/Medium/SemiBold, empty language/region info, missing style table (STAT),

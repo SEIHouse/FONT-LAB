@@ -1,0 +1,42 @@
+name: App distribution
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Build runtime-only ZIP choices
+        run: |
+          python build_distribution.py
+          python build_distribution.py --weights 400
+          python build_distribution.py --delivery subsets
+          git diff --exit-code -- fonts-full.css
+      - name: Pack dependency-free npm installation
+        run: npm pack --ignore-scripts --pack-destination dist
+      - name: Audit shipped file scope and font bytes
+        run: python verify_distribution.py --npm dist/*.tgz
+      - name: Upload app packages
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: seireader-app-packages
+          path: |
+            dist/SEIReader-*-web-full.zip
+            dist/*.tgz
+          if-no-files-found: error
+          retention-days: 30

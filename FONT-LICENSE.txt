@@ -1,0 +1,9 @@
+SEIReader working draft
+
+All rights are reserved by SEIHouse Productions LLC. The font license has not
+yet been selected; this package does not grant a public redistribution license.
+
+This records the existing license status in the repository README. The package
+is prepared for SEIHouse's own application use. It contains no Literata/Rubik
+reference fonts or CLDR locale data; their separate licenses remain in the
+development repository.
