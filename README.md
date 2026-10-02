@@ -19,7 +19,7 @@ are needed to package the checked-in fonts.
   `@seihouse/seireader/styles.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses ten full WOFF2 files: **444,032 font bytes (433.6 KiB)** for all
+The default uses ten full WOFF2 files: **444,456 font bytes (434.0 KiB)** for all
 five weights and their real italics. That is **31.3% less** than storing all thirty
 overlapping subsets. Regular plus italic uses **86,920 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
@@ -82,6 +82,7 @@ python build_page.py        # builds lab/index.html with the new fonts
 python build_comparison.py  # builds lab/comparison.html with candidate, baseline, and references
 python verify_phase2.py     # checks OpenType shaping and subset coverage
 python verify_languages.py # checks 0.34 alphabets, local forms, preservation, and delivery
+python verify_decimals.py # numeric separators, tabular alignment, and subset shaping
 python verify_latin.py old/0.33 # historical foundation audit against preserved 0.32
 python verify_texture.py old/0.32    # historical 0.32 texture/weight scope against 0.31
 python verify_lowercase.py old/0.31  # historical curve preservation against 0.28
@@ -145,7 +146,9 @@ rasterization evidence; physical browser/device results remain deferred.
   Kurdish (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin). New side carons, hooks, barred
   letters, Igbo tone stacks, Turkish dotted `fi`, Romanian comma forms, and Hungarian
   capital digraph spacing follow the existing design. All 323 old outlines/metrics and
-  default pair values match 0.33. See the [language notes](docs/LANGUAGES-0.34.md)
+  nonnumeric pair values match 0.33. Numeric periods/commas have explicit separation
+  on both sides, including equal adjustments for tabular figures; digit drawings,
+  advances, and digit-to-digit spacing stay unchanged. See the [language notes](docs/LANGUAGES-0.34.md)
 - Three WOFF2 deliveries per style: Latin basic, Latin extended, and symbols/icons. The generated
   `fonts.css` registers all 30. Latin extended deliberately also includes Latin basic and
   prose punctuation, and is declared last so base letters and combining accents shape together

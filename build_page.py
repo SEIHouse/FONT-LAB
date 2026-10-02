@@ -308,11 +308,17 @@ html = r'''<!DOCTYPE html>
             <div class="stat-line"><span>Energy</span><strong>1,111</strong></div>
             <div class="stat-line"><span>Power</span><strong>8,888</strong></div>
             <div class="stat-line"><span>Health</span><strong>4,090</strong></div>
+            <div class="stat-line"><span>Price</span><strong>1,234.56</strong></div>
+            <div class="stat-line"><span>Bonus</span><strong>8.50%</strong></div>
+            <div class="stat-line"><span>Decimal comma</span><strong>1.234,56</strong></div>
           </div>
           <div class="number-panel tabular"><h3>tnum on · equal-width figures</h3>
             <div class="stat-line"><span>Energy</span><strong>1,111</strong></div>
             <div class="stat-line"><span>Power</span><strong>8,888</strong></div>
             <div class="stat-line"><span>Health</span><strong>4,090</strong></div>
+            <div class="stat-line"><span>Price</span><strong>1,234.56</strong></div>
+            <div class="stat-line"><span>Bonus</span><strong>8.50%</strong></div>
+            <div class="stat-line"><span>Decimal comma</span><strong>1.234,56</strong></div>
           </div>
         </div>
         <div class="number-samples" aria-label="Superscript, subscript, and fraction examples">

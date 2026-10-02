@@ -69,7 +69,9 @@ def verify():
             for name in before.getGlyphOrder():
                 assert recorded(before,name)==recorded(font,name),(style,name,'old outline')
                 assert before['hmtx'][name]==font['hmtx'][name],(style,name,'old metrics')
-            assert {p:v for p,v in pairs[style].items() if all(ord(ch) in old_cmap for ch in p)}==old_pairs[style],(style,'old pair values')
+            numeric_pairs = {a+b for a in '0123456789' for b in '.,'} | {a+b for a in '.,' for b in '0123456789'}
+            assert {p:v for p,v in pairs[style].items() if all(ord(ch) in old_cmap for ch in p) and p not in numeric_pairs}=={p:v for p,v in old_pairs[style].items() if p not in numeric_pairs},(style,'old nonnumeric pair values')
+            assert all(pairs[style][p] == 24 for p in numeric_pairs),(style,'numeric separator spacing')
             for table,fields in {'head':['unitsPerEm'],'hhea':['ascent','descent','lineGap'],
                                  'post':['italicAngle'],'OS/2':['sxHeight','sCapHeight','usWeightClass','usWidthClass','sTypoAscender','sTypoDescender','sTypoLineGap','usWinAscent','usWinDescent']}.items():
                 for field in fields:
@@ -79,7 +81,17 @@ def verify():
             for text in PROSE:
                 for kern in (True,False):
                     for liga in (True,False):
-                        assert shape(before,text,kern=kern,liga=liga)==shape(font,text,kern=kern,liga=liga),(style,text,'old prose')
+                        expected = shape(before,text,kern=kern,liga=liga)
+                        # Keep all old prose positions except the approved decimal correction.
+                        if kern:
+                            by_name = {(old_cmap[ord(a)],old_cmap[ord(b)]):a+b for a,b in numeric_pairs}
+                            adjusted = []
+                            for i,(name,advance,dx,dy) in enumerate(expected):
+                                pair = by_name.get((name,expected[i+1][0])) if i+1 < len(expected) else None
+                                if pair: advance += 48-round(old_pairs[style].get(pair,0)*2)
+                                adjusted.append((name,advance,dx,dy))
+                            expected = adjusted
+                        assert expected==shape(font,text,kern=kern,liga=liga),(style,text,'old prose')
             for feature,text in [('tnum','0123456789'),('sups','123'),('subs','456'),('frac','12/34')]:
                 assert shape(before,text,**{feature:1})==shape(font,text,**{feature:1}),(style,feature)
             for code in additions:
@@ -133,7 +145,7 @@ def verify():
                 assert f'font-weight: {weight};' in block and f'font-style: {slant};' in block
                 assert f'unicode-range: {unicode_range(groups[subset_name])};' in block
             assert css.index(f'SEIReader-{style}.latin-extended.woff2')>css.index(f'SEIReader-{style}.latin-basic.woff2')
-            print(f'{style}: 323 old glyphs/metrics and pairs preserved; 94 letters; all ten alphabets, casing, canonical shaping, local forms, ink clearance, and subsets pass')
+            print(f'{style}: 323 old glyphs/metrics and nonnumeric pairs preserved; decimal fix; 94 letters; all ten alphabets, casing, canonical shaping, local forms, ink clearance, and subsets pass')
     print(f'All ten styles pass; {total} full-font language strings audited with matching Latin-extended shaping.')
 
 

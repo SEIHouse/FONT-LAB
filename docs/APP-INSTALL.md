@@ -140,15 +140,15 @@ real italic, the actual language tags, unsupported-script fallback, and
 
 | Delivery | Font files | Font bytes | Intended use |
 |---|---:|---:|---|
-| Full family (default) | 10 | 444,032 (433.6 KiB) | All weights, languages and symbols in one face per style |
-| Regular + italic only | 2 | 86,920 (84.9 KiB) | Explicit 400-only experiments; no other weights supplied |
-| Existing three subsets, all styles | 30 | 646,472 (631.3 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
+| Full family (default) | 10 | 444,456 (434.0 KiB) | All weights, languages and symbols in one face per style |
+| Regular + italic only | 2 | 86,932 (84.9 KiB) | Explicit 400-only experiments; no other weights supplied |
+| Existing three subsets, all styles | 30 | 646,568 (631.4 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
 
 The full family is 31.3% smaller than storing all thirty subset files. The
 subsets intentionally overlap basic letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
-For Regular, Latin extended alone is 31,032 bytes, while extended plus symbols
-is 44,768 versus 42,344 for the full face. Measure actual reading content before
+For Regular, Latin extended alone is 31,020 bytes, while extended plus symbols
+is 44,804 versus 42,164 for the full face. Measure actual reading content before
 choosing subsets.
 
 For a controlled smaller ZIP: `python build_distribution.py --weights 400`

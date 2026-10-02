@@ -398,6 +398,12 @@ const KERN = {
   'T.':-40,'T,':-40,'F.':-40,'F,':-40,'P.':-45,'P,':-45,'r.':-30,'r,':-30,'y.':-30,'y,':-30,
   '“T':-10,'“A':-30,'‘T':-10
 };
+/* Keep decimal/thousands separators readable instead of tucking them into digits.
+   This also supplies the font builder's explicit numeric override after auto spacing. */
+for(const digit of DIGITS) for(const separator of '.,'){
+  KERN[digit + separator] = 24;
+  KERN[separator + digit] = 24;
+}
 
 /* ---------- settings the sliders control ---------- */
 const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770 };

@@ -11,9 +11,10 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
   All ten styles and thirty WOFF2 subsets rebuilt and autohinted.
   Phase 2 shaping and all thirty subset ranges pass verify_phase2.py.
   verify_languages.py passes in all ten styles:
-    - Every old cmap entry, all 323 contours and horizontal metrics, old default per-style
+    - Every old cmap entry, all 323 contours and horizontal metrics, old nonnumeric per-style
       pair values, settings except version, vertical metrics, and hint values match 0.33.
-    - Existing prose and numeric features shape identically, with kerning and joins on/off.
+    - Existing prose and numeric features shape identically except approved numeric
+      period/comma spacing when kerning is on; joins and kerning-off layouts are preserved.
     - Added 94 encoded letters and two unencoded alternates: 401 codepoints / 419 glyphs.
     - The pinned CLDR 48 main/auxiliary/index alphabets, casing, NFC/NFD forms, and samples
       pass for Polish, Czech, Hungarian, Romanian, Turkish, Hausa (Latin), Kurdish
@@ -24,6 +25,14 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
     - Turkish fi retains its dot through locl; default fi and all fl joins are preserved.
       Romanian legacy cedillas display as comma forms only for Romanian. Hungarian-only
       uppercase TT/TY clearance preserves the default capital spacing.
+    - User-reported decimal crowding is corrected with 24 source units on each side of
+      numeric periods and commas. All 40 separator pairs per style replace automatic
+      tightening; tabular forms share equal adjustments for stable formatted columns.
+      verify_decimals.py checks actual separator-band ink clearance (at least 0.07 em),
+      both figure modes, prices/percentages/decimal-comma samples, unchanged numeric
+      outlines/metrics and digit-to-digit rhythm, and matching basic/extended subsets.
+      Before/after native Windows Day/Night proofs were inspected at 13/15/17/20px,
+      including all ten styles. FontBakery profiles were rerun after this correction.
     - New letters beside selected prose/punctuation neighbors, locale samples, exemplar
       sequences, and tone stacks have no contour intersections or clipping.
     - Latin extended includes all 95 Latin-basic codepoints, complete tested Latin clusters,
@@ -60,8 +69,8 @@ Checked with FontBakery 1.1.0, all 10 full OTF files.
   Arbitrary stacks can exceed fixed clipping bounds; check 1.4/1.5 line clearance in real text.
 
   App distribution follow-up (font bytes unchanged):
-    - Full family: 444,032 font bytes / 10 WOFF2 files, 31.3% less than all thirty subsets
-      (646,472 font bytes). Regular plus real italic is 86,920 font bytes.
+    - Full family: 444,456 font bytes / 10 WOFF2 files, 31.3% less than all thirty subsets
+      (646,568 font bytes). Regular plus real italic is 86,932 font bytes.
     - Standard-library packaging writes runtime-only full/subset/selected-weight ZIPs,
       relative CSS, integrity hashes, and install guidance. Exact shipped-file scope,
       hashes, source bytes, weight/style mappings, and subset priority all pass.

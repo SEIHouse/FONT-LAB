@@ -2,8 +2,12 @@
 
 Multilingual Phase 2 completes ten Latin alphabet inventories from the reader app's
 glossary locales. It adds 94 encoded letters and two unencoded language/mark alternates,
-while retaining all 323 glyph outlines and metrics from 0.33, every approved old pair
-value, and all design settings except the version. The family remains five weights,
+while retaining all 323 glyph outlines and metrics from 0.33, every approved old
+nonnumeric pair value, and all design settings except the version. A subsequent
+user-reported decimal correction adds 24 source units on both sides of periods and
+commas beside digits, replacing tight automatic pairs. Tabular digits share those
+adjustments so formatted columns remain aligned. Digit-to-digit spacing is unchanged.
+The family remains five weights,
 each with its real italic. No global spacing or weight changes are part of this phase.
 
 ## What is covered

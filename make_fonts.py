@@ -667,6 +667,11 @@ def build(data, out, style='Regular', italic=False):
             if all(ord(ch) in old_codes for ch in pair) and pair not in old_kern: del KERN[pair]
         KERN.update(old_kern)
     ogonek_pairs(paths,hm,cmap,KERN,data['basemap'])
+    # User-reported decimal fix: numeric separators override frozen/automatic pairs.
+    numeric_pairs = {pair: value for pair, value in data['kern'].items()
+                     if len(pair) == 2 and ((pair[0] in digits and pair[1] in '.,')
+                                           or (pair[0] in '.,' and pair[1] in digits))}
+    KERN.update(numeric_pairs)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     STYLE_KERN[ps_style] = dict(KERN)
     LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
@@ -688,6 +693,14 @@ def build(data, out, style='Regular', italic=False):
     from latin_layout import latin_features
     fea = latin_features(records, origins, hm, cmap, SC, TAN if italic else 0, ITAL_CENTER)
     fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
+    # Equal adjustments for every tabular digit preserve formatted-number alignment.
+    # Separate classes leave ordinary digit widths and digit-to-digit spacing intact.
+    fea += '@tabular_figures = [' + ' '.join(name + '.tf' for name in digit_names) + '];\n'
+    fea += 'feature kern {\n lookupflag IgnoreMarks;\n'
+    for separator in '.,':
+        fea += f' pos @tabular_figures {gname(separator)} {round(numeric_pairs["0" + separator]*SC)};\n'
+        fea += f' pos {gname(separator)} @tabular_figures {round(numeric_pairs[separator + "0"]*SC)};\n'
+    fea += '} kern;\n'
     hu=LANGUAGE_KERN[ps_style]['hu']
     if hu:
         fea+='feature kern {\n script latn; language HUN; lookup HungarianCaps {\n lookupflag IgnoreMarks;\n'
