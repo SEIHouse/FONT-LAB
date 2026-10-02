@@ -24,6 +24,7 @@ LATIN_TEXT_PUNCTUATION = set(map(ord, '.,:;…!?\'"‘’“”‚„‛‟-–�
 
 def group_for(codepoint):
     # Keep U+2044 with ASCII digits so directly typed fractions can shape as one run.
+    """Assign a codepoint to its primary web delivery while keeping fractions with digits."""
     if 0x20 <= codepoint <= 0x7E or codepoint in (0xA0, 0x2044):
         return 'latin-basic'
     if codepoint in PRECOMPOSED_FRACTIONS:
@@ -45,6 +46,7 @@ def subset_groups(codes, include_interpunct=True):
 
 
 def unicode_range(codes):
+    """Compress sorted codepoints into CSS unicode-range spans."""
     spans = []
     for code in sorted(codes):
         if spans and code == spans[-1][1] + 1:
@@ -56,6 +58,7 @@ def unicode_range(codes):
 
 
 def build_subsets():
+    """Build and validate thirty WOFF2 subsets, then refresh both app stylesheets."""
     with open(os.path.join(HERE, 'settings.json'), encoding='utf-8') as file:
         version = json.load(file)['version']
     css = [f'/* SEIReader {version}: keep this file next to the fonts/ directory. */']

@@ -4,6 +4,7 @@ import unicodedata
 def latin_features(records, origins, advances, cmap, scale, slant, center):
     """Use exported source anchors with the exact outline offset and italic shear."""
     def point(name, xy):
+        """Convert one source anchor to the translated and sheared OpenType coordinates."""
         x, y = xy
         return f'<anchor {round((x+origins[name]+slant*(y-center))*scale)} {round(y*scale)}>'
 
@@ -48,6 +49,7 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
     for lig in sorted(ligatures):
         anchors = records[lig]['anchors']
         def component(x):
+            """Format every mark anchor for one component of an fi or fl ligature."""
             return ' '.join(f'{point(lig,[x,xy[1]])} mark @MC_{kind}' for kind,xy in anchors.items())
         cut = advances['f']/scale
         first = cut/2-origins[lig]

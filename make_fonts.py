@@ -43,6 +43,7 @@ ITAL_CENTER = 330   # slant around this height so letters stay centered in their
 TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMILY = settings['family']
 
 def export():
+    """Evaluate the configured drawing engine in Chromium and capture glyphs, anchors and pairs."""
     from playwright.sync_api import sync_playwright
     page = (open(os.path.join(HERE, 'export_head.html'), encoding='utf-8').read()
             + open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
@@ -60,8 +61,10 @@ def export():
 
 TOK = re.compile(r'([MLCZ])|(-?\d+(?:\.\d+)?)')
 def parse(d):
+    """Parse the engine's absolute SVG move, line, cubic and close commands."""
     toks = [(m.group(1), m.group(2)) for m in TOK.finditer(d)]; i = 0; cmds = []
     def num():
+        """Consume the next numeric token from the SVG path stream."""
         nonlocal i
         v = float(toks[i][1]); i += 1; return v
     while i < len(toks):
@@ -91,6 +94,7 @@ def stroke(cmds, dx, width=None):
     return path.transform(scaleX=1.0/BIG, scaleY=1.0/(BIG*F))
 
 def circle(cx, cy, r, dx):
+    """Create a filled dot from four cubic arcs at the shared font-unit scale."""
     K = 0.5522847498; x, y, R = (cx + dx) * SC, -cy * SC, r * SC
     path = Path(); pen = path.getPen()
     pen.moveTo((x + R, y))
@@ -101,6 +105,7 @@ def circle(cx, cy, r, dx):
     pen.closePath(); return path
 
 def outline(g, dx):
+    """Merge a glyph's strokes, fills and dots, then apply its real italic shear."""
     shapes = [stroke(parse(p['d']), dx, p['w']) for p in g['paths']] + [circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
     for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
         cmds = parse(f['d'])
@@ -140,6 +145,7 @@ def thin_joins(path):
     contours = list(path.contours)
     if not contours: return path
     def signed_area(pts):
+        """Measure polygon orientation for the optional concave-join carving pass."""
         return sum(pts[i][0]*pts[(i+1) % len(pts)][1] - pts[(i+1) % len(pts)][0]*pts[i][1] for i in range(len(pts))) / 2
     corners = []
     biggest = None
@@ -221,20 +227,28 @@ RHYTHM_THRESHOLD = 5    # minimum useful residual in source units; ink separatio
 from fontTools.pens.basePen import BasePen
 class _Flat(BasePen):
     def __init__(self):
+        """Initialize the flattened contour collection used for ink-profile measurements."""
         super().__init__(None); self.polys = []; self.cur = []
-    def _moveTo(self, p): self.cur = [p]
-    def _lineTo(self, p): self.cur.append(p)
+    def _moveTo(self, p):
+        """Start a new flattened contour at the supplied point."""
+        self.cur = [p]
+    def _lineTo(self, p):
+        """Append a straight segment endpoint to the current contour."""
+        self.cur.append(p)
     def _curveToOne(self, p1, p2, p3):
+        """Sample a cubic curve into six linear edges for ink-profile measurement."""
         p0 = self.cur[-1]
         for i in range(1, 7):
             t = i / 6; u = 1 - t
             self.cur.append((u**3*p0[0] + 3*u*u*t*p1[0] + 3*u*t*t*p2[0] + t**3*p3[0], u**3*p0[1] + 3*u*u*t*p1[1] + 3*u*t*t*p2[1] + t**3*p3[1]))
     def _qCurveToOne(self, p1, p2):
+        """Sample a quadratic curve into four linear edges for ink-profile measurement."""
         p0 = self.cur[-1]
         for i in range(1, 5):
             t = i / 4; u = 1 - t
             self.cur.append((u*u*p0[0] + 2*u*t*p1[0] + t*t*p2[0], u*u*p0[1] + 2*u*t*p1[1] + t*t*p2[1]))
     def _closePath(self):
+        """Store a nonempty polygon and clear the current contour."""
         if len(self.cur) > 2: self.polys.append(self.cur)
         self.cur = []
     _endPath = _closePath
@@ -392,6 +406,7 @@ def draw_fitted(path, pen):
         segs = list(contour.segments)
         start = None; run = []; cur = None
         def flush():
+            """Fit pending quadratic segments to cubic curves and emit them through the font pen."""
             nonlocal run
             if not run: return
             for c in quadratic_to_curves(run, max_err=0.35, all_cubic=True):
@@ -412,11 +427,13 @@ def draw_fitted(path, pen):
                 flush(); pen.endPath()
 
 def charstring(path, adv):
+    """Encode the fitted outline and advance as a CFF Type 2 charstring."""
     pen = T2CharStringPen(adv, None)          # whole-number points at 2000 units per em
     if path is not None: draw_fitted(path, pen)
     return pen.getCharString()
 
 def lsb_of(path):
+    """Return the rounded left ink bound, or zero for an empty glyph."""
     if path is None: return 0
     bp = BoundsPen(None); path.draw(bp); return round(bp.bounds[0]) if bp.bounds else 0
 
@@ -428,6 +445,7 @@ def center_ink(path, advance):
     return path.transform(translateX=(advance - (right - left)) / 2 - left)
 
 def gname(ch):
+    """Use the Adobe glyph name when available, otherwise a Unicode-derived name."""
     u = ord(ch)
     return UV2AGL.get(u, f'uni{u:04X}' if u <= 0xFFFF else f'u{u:05X}')
 
@@ -491,6 +509,7 @@ def ogonek_pairs(paths,hm,cmap,kern,basemap):
     new classes; only their own punctuation pairs receive extra ink clearance.
     """
     def variants(ch):
+        """List a base character and its separate ogonek derivatives for inherited pair values."""
         return [ch]+[new for new in sorted(SEPARATE_LATIN) if basemap.get(new)==ch]
     for pair,value in list(kern.items()):
         for a in variants(pair[0]):
@@ -521,6 +540,7 @@ def hungarian_caps(paths,hm,cmap,kern):
     return pairs
 
 def track_for(thick):
+    """Adjust the configured tracking by stroke weight relative to Regular."""
     reg = settings['weight']
     return TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 

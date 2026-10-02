@@ -70,6 +70,7 @@ def positioned_ink(font, text):
 
 
 def verify(candidate=ROOT):
+    """Audit a 0.33 candidate or archive against 0.32 geometry, shaping and delivery."""
     candidate=Path(candidate).resolve()
     font_dir=ROOT/'fonts' if candidate==ROOT else candidate
     previous = json.loads((BASELINE/'settings.json').read_text(encoding='utf-8'))

@@ -1078,6 +1078,7 @@ function languageGlyph(ch,S,removeDot=false){
   return {...result,anchors:{...anchors,top:[anchors.top[0],actual[3]+20]}};
 }
 
+/** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
@@ -1170,6 +1171,7 @@ function glyph(ch, S){
   return (cache[ck] = { body, clipId: ensureClip(top, bot), sb0:g.sb[0], sb1:g.sb[1], w:g.w*ws });
 }
 
+/** Render accent clusters and approved pair spacing as one scaled SVG word. */
 function word(w, size, ui){
   const S = weightFor(size);
   const extra = P.track + 0.3*(S - P.base);
@@ -1193,6 +1195,7 @@ function word(w, size, ui){
 
 const esc = s => s.replace(/[&<>"]/g, m => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[m]));
 
+/** Wrap SVG words in an accessible text run with the requested row and column gaps. */
 function T(str, size, opt = {}){
   const words = str.split(/\s+/).filter(Boolean);
   const colGap = size*0.25, rowGap = opt.ui ? 0 : size*(opt.rowGap ?? 0.28);

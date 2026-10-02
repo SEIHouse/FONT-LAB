@@ -1,3 +1,4 @@
+/** Extract shared drawing primitives, metrics and Latin anchors for the native font builder. */
 function exportRecord(ch, S){
   const g = glyph(ch, S);
   const paths = [...g.body.matchAll(/<path d="([^"]+)" fill="none" stroke="currentColor" stroke-width="([^"]+)"/g)].map(m => ({ d:m[1], w:+m[2] }));

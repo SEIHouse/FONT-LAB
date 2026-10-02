@@ -16,6 +16,7 @@ ADDED_UNICODE = SUPERS + SUBS + '½¼¾⁄'
 
 
 def shape(path, text, features=None):
+    """Decompress a web font when needed and return its HarfBuzz glyph names and advances."""
     font = TTFont(path)
     if path.endswith('.woff2'):
         # HarfBuzz accepts SFNT bytes; browsers decompress WOFF2 before shaping too.
@@ -39,6 +40,7 @@ def shape(path, text, features=None):
 
 
 def ink_center(font, name):
+    """Measure the horizontal midpoint of a glyph's actual outline bounds."""
     glyphs = font.getGlyphSet()
     pen = BoundsPen(glyphs)
     glyphs[name].draw(pen)
@@ -47,6 +49,7 @@ def ink_center(font, name):
 
 
 def verify_style(style):
+    """Audit one style's figures, fractions, tabular centering and subset feature delivery."""
     source = os.path.join(HERE, 'fonts', f'SEIReader-{style}.otf')
     font = TTFont(source)
     cmap = font.getBestCmap()
