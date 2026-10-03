@@ -157,6 +157,12 @@ For the 0.35 export repair, see [stroke-join notes](docs/STROKE-JOINS-0.35.md) a
 the Chromium [Day](docs/proofs/0.35/stroke-joins-day.png) /
 [Night](docs/proofs/0.35/stroke-joins-night.png) proofs.
 
+The [final paragraph-spacing inspection](docs/PARAGRAPH-SPACING-0.35.md) records
+the sentence-ending, apostrophe and narrow-letter candidates in full paragraphs,
+with Day/Night proofs across all ten styles. It found no demonstrated spacing
+defect and preserves the 0.35 fonts. Open **Paragraph spacing** in each reference
+preview card to inspect the exact text with the existing reading controls.
+
 ## What SEIReader has (version 0.35)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
