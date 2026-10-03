@@ -1,33 +1,37 @@
-# Install SEIReader in an app
+# Install SEIHouse Sans in an app
 
-SEIReader 0.35 ships as static web fonts: five weights (300/400/500/600/700),
+SEIHouse Sans 0.36 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
 each with its real italic. The app needs WOFF2 files and CSS. It needs no Python,
 font-building tools, JavaScript runtime library, or reference fonts.
 
 ## Recommended: the full web family
 
-Use the `SEIReader-0.35-web-full.zip` from a successful **App distribution** GitHub
+Use the `SEIReader-0.36-web-full.zip` from a successful **App distribution** GitHub
 Actions run, or build it with `python build_distribution.py` in the font repository.
 Actions retains these downloads for 30 days; its manual Run workflow button can
 regenerate them from the current branch. This does not create a public npm release.
 Extract the bundle into an app-owned, versioned asset directory such as
-`public/seireader/0.35/`. Keep its `fonts.css` next to its `fonts/` directory:
+`public/seireader/0.36/`. Keep its `sans.css` next to its `fonts/` directory.
+Asset/package names retain SEIReader for compatibility; the actual family is
+SEIHouse Sans. Existing `fonts.css` / `"SEIReader"` integrations still work.
 
 ```text
-public/seireader/0.35/
+public/seireader/0.36/
   fonts.css
+  sans.css
   fonts/SEIReader-Regular.woff2
   fonts/SEIReader-Italic.woff2
   ...the other eight styles
   README.md
   FONT-LICENSE.txt
+  LICENSE
   manifest.json
 ```
 
 In a Vite app hosted at the domain root, load the CSS from its HTML head:
 
 ```html
-<link rel="stylesheet" href="/seireader/0.35/fonts.css">
+<link rel="stylesheet" href="/seireader/0.36/sans.css">
 ```
 
 The URL starts at the site root, including from `/app/` or its query-string
@@ -38,7 +42,7 @@ Apply the face to the intended prose:
 
 ```css
 .chapter-prose {
-  font-family: "SEIReader", "Noto Serif", ui-serif, Georgia, serif;
+  font-family: "SEIHouse Sans", system-ui, sans-serif;
   font-synthesis: none;
   font-kerning: normal;
 }
@@ -60,24 +64,26 @@ fractions. Ordinary prose and numbers remain the defaults.
 
 ## Alternative: install the private npm tarball
 
-The same Actions run includes `seihouse-seireader-0.35.0.tgz`. Copy it into the
+The same Actions run includes `seihouse-seireader-0.36.0.tgz`. Copy it into the
 app's `vendor/` folder and install it:
 
 ```sh
-npm install ./vendor/seihouse-seireader-0.35.0.tgz
+npm install ./vendor/seihouse-seireader-0.36.0.tgz
 ```
 
 Import its CSS from the host entry point, before the host's prose overrides:
 
 ```ts
-import '@seihouse/seireader/styles.css';
+import '@seihouse/seireader/sans.css';
 ```
 
 Vite processes the relative CSS font URLs and emits the font assets. Use either
 this install route or the static ZIP route in an app, so the same faces are not
 registered twice. The package has zero dependencies and no installation scripts.
-It is marked private and UNLICENSED, reflecting the existing pending license;
-this workflow does not publish anything to the npm registry.
+It is marked private with `SEE LICENSE IN LICENSE`. Both the operative ecosystem
+license and its short notice ship with it; this workflow does not publish to npm.
+Existing imports of `@seihouse/seireader/styles.css` continue to register the
+legacy `"SEIReader"` alias. Use one family stylesheet per integration.
 
 ## First target: Development's NovelExpanded app
 
@@ -105,7 +111,7 @@ needed for this initial trial.
 
 For a host-only trial through the ZIP route:
 
-1. Extract into `public/seireader/0.35/` and add the stylesheet link above to
+1. Extract into `public/seireader/0.36/` and add the stylesheet link above to
    `app/index.html`.
 2. Add `class="seireader-host"` to that HTML document's existing `<html>` tag.
 3. Create `src/novel-expanded/seireader.css` with this scoped rule, then import
@@ -113,7 +119,7 @@ For a host-only trial through the ZIP route:
 
 ```css
 .seireader-host [data-chapter-number] > .sen-text-highlight-root {
-  font-family: "SEIReader", var(--font-serif, Georgia), serif;
+  font-family: "SEIHouse Sans", var(--font-serif, Georgia), serif;
   font-synthesis: none;
   font-kerning: normal;
 }
@@ -132,7 +138,7 @@ NovelExpanded reader's font configuration.
 
 After integration, run Development's `npm run check:app` and `npm run build`.
 Inspect `/app/?story=<id>&read=1` in browser developer tools: font requests must
-return WOFF2 bytes, and computed/rendered prose fonts must be SEIReader. Check
+return WOFF2 bytes, and computed/rendered prose fonts must be SEIHouse Sans. Check
 real italic, the actual language tags, unsupported-script fallback, and
 13/15/17px Day/Night before changing typography preferences.
 
@@ -140,15 +146,15 @@ real italic, the actual language tags, unsupported-script fallback, and
 
 | Delivery | Font files | Font bytes | Intended use |
 |---|---:|---:|---|
-| Full family (default) | 10 | 427,248 (417.2 KiB) | All weights, languages and symbols in one face per style |
-| Regular + italic only | 2 | 84,000 (82.0 KiB) | Explicit 400-only experiments; no other weights supplied |
-| Existing three subsets, all styles | 30 | 625,108 (610.5 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
+| Full family (default) | 10 | 431,780 (421.7 KiB) | All weights, languages and symbols in one face per style |
+| Regular + italic only | 2 | 85,008 (83.0 KiB) | Explicit 400-only experiments; no other weights supplied |
+| Existing three subsets, all styles | 30 | 638,180 (623.2 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
 
-The full family is 31.7% smaller than storing all thirty subset files. The
+The full family is 32.3% smaller than storing all thirty subset files. The
 subsets intentionally overlap basic letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
-For Regular, Latin extended alone is 30,432 bytes, while extended plus symbols
-is 43,384 versus 40,940 for the full face. Measure actual reading content before
+For Regular, Latin extended alone is 30,812 bytes, while extended plus symbols
+is 44,180 versus 41,440 for the full face. Measure actual reading content before
 choosing subsets.
 
 For a controlled smaller ZIP: `python build_distribution.py --weights 400`
@@ -165,3 +171,12 @@ archives and npm caches stay in ignored `dist/`; they are not committed again.
 The application bundle excludes OTF desktop files, old versions, Lab pages,
 proof images, reference fonts, Python dependencies, and build/audit scripts.
 Keep those in the development repo for comparisons and engineering checks.
+
+## Permission and customization
+
+The included `LICENSE` permits ecosystem users to customize the font and use it
+in personal/commercial creative projects and embedded creative documents without
+fees or user-count limits. Authorized SEIHouse products may ship it. Independent
+app/product embedding and standalone font redistribution require written
+permission. Distribute `LICENSE` and `FONT-LICENSE.txt` alongside the font assets.
+The license covers Sans; Display and reference fonts/data retain their own notices.

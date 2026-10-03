@@ -38,7 +38,7 @@ jobs:
           python build_distribution.py
           python build_distribution.py --weights 400
           python build_distribution.py --delivery subsets
-          git diff --exit-code -- fonts-full.css
+          git diff --exit-code -- fonts-full.css fonts-sans.css
       - name: Pack dependency-free npm installation
         run: npm pack --ignore-scripts --pack-destination dist
       - name: Audit shipped file scope and font bytes

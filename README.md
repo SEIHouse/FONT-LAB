@@ -1,6 +1,6 @@
 # SEIHouse Font Lab
 
-Home of **SEIReader**, the reading font of SEIHouse Productions LLC. It is built for reading
+Home of **SEIHouse Sans** (formerly SEIReader), the reading font of SEIHouse Productions LLC. It is built for reading
 hundreds of chapters on a phone: calm, soft, and distinctly SEIHouse.
 
 The separate **SEIHouse Display Engine** is a version 0.1 prototype for album covers,
@@ -32,15 +32,15 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.35-web-full.zip` into your app's public assets
-  and load its `fonts.css`.
-- **Vite/npm:** install `seihouse-seireader-0.35.0.tgz` and import
-  `@seihouse/seireader/styles.css`. This private package has zero dependencies and
+- **Static assets:** extract `SEIReader-0.36-web-full.zip` into your app's public assets
+  and load its `sans.css` for `font-family: "SEIHouse Sans"`.
+- **Vite/npm:** install `seihouse-seireader-0.36.0.tgz` and import
+  `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses ten full WOFF2 files: **427,248 font bytes (417.2 KiB)** for all
-five weights and their real italics. That is **31.7% less** than storing all thirty
-overlapping subsets. Regular plus italic uses **84,000 bytes**; the browser requests
+The default uses ten full WOFF2 files: **431,780 font bytes (421.7 KiB)** for all
+five weights and their real italics. That is **32.3% less** than storing all thirty
+overlapping subsets. Regular plus italic uses **85,008 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -88,7 +88,7 @@ kerning. These display fonts have not received SEIReader's health-check certific
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, and the current Development/NovelExpanded reader integration points |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.35 beside preserved 0.34, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.36 beside preserved 0.34, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -137,7 +137,8 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.35.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.36.0.tgz
+python verify_license.py           # legal metadata in all fifty current fonts
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
@@ -163,7 +164,7 @@ with Day/Night proofs across all ten styles. It found no demonstrated spacing
 defect and preserves the 0.35 fonts. Open **Paragraph spacing** in each reference
 preview card to inspect the exact text with the existing reading controls.
 
-## What SEIReader has (version 0.35)
+## What SEIHouse Sans has (version 0.36)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
@@ -227,12 +228,31 @@ preview card to inspect the exact text with the existing reading controls.
   inventories are implemented. More Latin batches can add Vietnamese's full encoded
   repertoire and African open-vowel/stroke/tone letters. Cyrillic and Greek require later
   script work. Actual device/native-reader evaluation remains separate
-- **Phase 5:** trademark check for the name, license decision, license info inside the files
+- **Phase 5 completed:** recorded name screening, selected ecosystem license, and embedded legal metadata in all styles and subsets. Name screening is preliminary; no registered-trademark claim is made.
 - **Later:** a separate SEIHouse display font
 
 ## License
 
-Not decided yet. Until a license is chosen, all rights are reserved by SEIHouse Productions LLC.
+SEIHouse Sans is owned by **SEIHouse Productions LLC, Ohio**, and uses the
+[SEIHouse Sans Ecosystem License 1.0](LICENSE). Ecosystem users may install,
+customize, and use it for personal or commercial creative work, including PDF/EPUB
+document embedding, without fees or user-count limits. Authorized SEIHouse apps,
+websites, SEA/SEN tools, and official font deliveries may distribute it.
+Independent app/product embedding and standalone font redistribution require
+written permission. See the full license for collaboration, notices, and scope.
+
+The font's current family name is **SEIHouse Sans**. Existing `SEIReader-*` asset
+paths, `@seihouse/seireader`, and its `styles.css` / `font-family: "SEIReader"`
+alias continue working. New integrations can use `sans.css` / `"SEIHouse Sans"`.
+The license is shipped in every runtime ZIP and npm package. Font metadata carries
+the owner, studio designer credit, project/license URLs, and license summary.
+`fsType=0` permits installable document embedding subject to this EULA; it does
+not grant unrestricted standalone redistribution. Vendor ID `SEIH` is a project
+identifier; no Microsoft vendor registration or SEIHouse Sans trademark registration
+is claimed. The [name screen](docs/NAME-CHECK.md) records its limited scope.
+
+The separate Display prototype and archived earlier releases are outside this
+license's scope and retain their existing permissions.
 The third-party reference fonts in `references/` are separately licensed under the SIL Open
 Font License; their license texts are included in each family directory.
 The pinned CLDR locale data is separately covered by the [Unicode license](references/cldr/LICENSE.txt).

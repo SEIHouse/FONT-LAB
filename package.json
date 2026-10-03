@@ -1,15 +1,16 @@
 {
   "name": "@seihouse/seireader",
-  "version": "0.35.0",
-  "description": "SEIReader web fonts: five weights with real italics and Latin language coverage.",
+  "version": "0.36.0",
+  "description": "SEIHouse Sans web fonts (formerly SEIReader): five weights with real italics and Latin language coverage.",
   "private": true,
-  "license": "UNLICENSED",
+  "license": "SEE LICENSE IN LICENSE",
   "repository": {
     "type": "git",
     "url": "https://github.com/SEIHouse/seihouse-font-lab.git"
   },
   "exports": {
     "./styles.css": "./fonts-full.css",
+    "./sans.css": "./fonts-sans.css",
     "./package.json": "./package.json"
   },
   "sideEffects": [
@@ -17,6 +18,8 @@
   ],
   "files": [
     "fonts-full.css",
+    "fonts-sans.css",
+    "LICENSE",
     "FONT-LICENSE.txt",
     "docs/APP-INSTALL.md",
     "fonts/SEIReader-Light.woff2",

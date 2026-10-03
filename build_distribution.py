@@ -50,12 +50,12 @@ def version(root=ROOT):
     return value
 
 
-def full_stylesheet(faces, font_version):
+def full_stylesheet(faces, font_version, family='SEIReader'):
     """Register full fonts, with relative URLs and no Unicode face splitting."""
-    blocks = [f'/* SEIReader {font_version}: full web family; keep next to fonts/. */']
+    blocks = [f'/* SEIHouse Sans {font_version}: full web family; keep next to fonts/. */']
     for face in faces:
         blocks.append(f'''@font-face {{
-  font-family: "SEIReader";
+  font-family: "{family}";
   src: url("./fonts/SEIReader-{face['style']}.woff2") format("woff2");
   font-style: {face['slant']};
   font-weight: {face['weight']};
@@ -82,6 +82,7 @@ def replace_bytes(path, data):
 def write_full_css(root=ROOT):
     """Refresh the dependency-free app stylesheet alongside the existing subset CSS."""
     replace_bytes(root/'fonts-full.css', full_stylesheet(family_faces(root), version(root)))
+    replace_bytes(root/'fonts-sans.css', full_stylesheet(family_faces(root), version(root), 'SEIHouse Sans'))
 
 
 def build_archive(delivery='full', weights=WEIGHTS, output_dir=None, root=ROOT):
@@ -99,8 +100,10 @@ def build_archive(delivery='full', weights=WEIGHTS, output_dir=None, root=ROOT):
         css = full_stylesheet(faces, font_version)
     else:
         css = ('\n\n'.join(f['blocks'][s] for f in faces for s in SUBSETS) + '\n').encode('utf-8')
-    files = {'fonts.css': css, 'FONT-LICENSE.txt': (root/'FONT-LICENSE.txt').read_bytes()}
-    intro = (f'SEIReader {font_version} app bundle\nDelivery: {delivery}\nWeights: {", ".join(map(str, weights))}\n'
+    sans_css = css.replace(b'font-family: "SEIReader";', b'font-family: "SEIHouse Sans";')
+    files = {'fonts.css': css, 'sans.css': sans_css,
+             'LICENSE': (root/'LICENSE').read_bytes(), 'FONT-LICENSE.txt': (root/'FONT-LICENSE.txt').read_bytes()}
+    intro = (f'SEIHouse Sans {font_version} app bundle (legacy SEIReader asset paths)\nDelivery: {delivery}\nWeights: {", ".join(map(str, weights))}\n'
              'Only these selected weights and their real italics are included.\n\n')
     files['README.md'] = intro.encode('utf-8') + (root/'docs/APP-INSTALL.md').read_bytes()
     font_entries = []
@@ -113,7 +116,7 @@ def build_archive(delivery='full', weights=WEIGHTS, output_dir=None, root=ROOT):
                 raise ValueError(f'Invalid WOFF2 file: {name}')
             files[name] = data
             font_entries.append({'path': name, 'weight': face['weight'], 'style': face['slant']})
-    manifest = {'family': 'SEIReader', 'version': font_version, 'delivery': delivery,
+    manifest = {'family': 'SEIHouse Sans', 'legacy_css_family': 'SEIReader', 'version': font_version, 'delivery': delivery,
                 'weights': list(weights), 'fonts': font_entries,
                 'font_bytes': sum(len(files[f['path']]) for f in font_entries),
                 'files': {name: {'bytes': len(data), 'sha256': hashlib.sha256(data).hexdigest()}

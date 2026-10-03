@@ -14,13 +14,13 @@ import zipfile
 ROOT = Path(__file__).resolve().parent
 
 
-def css_fonts(css):
+def css_fonts(css, family='SEIReader'):
     """Read shipped CSS independently and validate its relative asset references."""
     faces = []
     for block in re.findall(r'@font-face\s*\{([^}]+)\}', css):
         url = re.search(r'src:\s*url\("(\./fonts/SEIReader-[A-Za-z.-]+\.woff2)"\)', block)
         assert url, 'Invalid relative WOFF2 source'
-        assert 'font-family: "SEIReader";' in block and 'font-display: swap;' in block
+        assert f'font-family: "{family}";' in block and 'font-display: swap;' in block
         assert 'format("woff2")' in block
         weight = int(re.search(r'font-weight:\s*(\d+);', block).group(1))
         slant = re.search(r'font-style:\s*(normal|italic);', block).group(1)
@@ -36,14 +36,17 @@ def verify_zip(path):
         assert len(names) == len(set(names)), 'Duplicate archive paths'
         data = {name: archive.read(name) for name in names}
     manifest = json.loads(data['manifest.json'])
-    assert manifest['family'] == 'SEIReader'
+    assert manifest['family'] == 'SEIHouse Sans' and manifest['legacy_css_family'] == 'SEIReader'
     assert manifest['version'] == json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['version']
     weights = set(manifest['weights'])
     assert weights and weights <= {300, 400, 500, 600, 700}
     faces = css_fonts(data['fonts.css'].decode('utf-8'))
     assert {(w, s) for _, w, s, _ in faces} == {(w, s) for w in weights for s in ('normal', 'italic')}
     font_paths = {p for p, _, _, _ in faces}
-    assert set(data) == font_paths | {'fonts.css', 'README.md', 'FONT-LICENSE.txt', 'manifest.json'}, 'Unexpected package contents'
+    assert set(data) == font_paths | {'fonts.css', 'sans.css', 'README.md', 'LICENSE', 'FONT-LICENSE.txt', 'manifest.json'}, 'Unexpected package contents'
+    canonical = css_fonts(data['sans.css'].decode('utf-8'), 'SEIHouse Sans')
+    assert [(p,w,s) for p,w,s,_ in canonical] == [(p,w,s) for p,w,s,_ in faces]
+    assert data['sans.css'] == data['fonts.css'].replace(b'font-family: "SEIReader";', b'font-family: "SEIHouse Sans";')
     assert set(manifest['files']) == set(data) - {'manifest.json'}
     assert manifest['fonts'] == [{'path': p, 'weight': w, 'style': s} for p, w, s, _ in faces]
     for name, item in manifest['files'].items():
@@ -64,6 +67,7 @@ def verify_zip(path):
         assert data[name] == (ROOT/name).read_bytes(), name
         assert data[name][:4] == b'wOF2' and int.from_bytes(data[name][8:12], 'big') == len(data[name])
     assert data['FONT-LICENSE.txt'] == (ROOT/'FONT-LICENSE.txt').read_bytes()
+    assert data['LICENSE'] == (ROOT/'LICENSE').read_bytes()
     assert manifest['font_bytes'] == sum(len(data[name]) for name in font_paths)
     print(f'{path.name}: exact runtime allowlist, font bytes, CSS mapping, weights and hashes pass')
 
@@ -78,22 +82,25 @@ def verify_npm(path):
         data = {name: archive.extractfile(member).read() for name, member in zip(names, members)}
     meta = json.loads(data['package.json'])
     assert meta == json.loads((ROOT/'package.json').read_text(encoding='utf-8'))
-    assert meta['name'] == '@seihouse/seireader' and meta['private'] and meta['license'] == 'UNLICENSED'
+    assert meta['name'] == '@seihouse/seireader' and meta['private'] and meta['license'] == 'SEE LICENSE IN LICENSE'
     font_version = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['version']
     assert meta['version'] == (font_version if font_version.count('.') == 2 else font_version + '.0')
     assert not any(meta.get(key) for key in ('dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies', 'scripts'))
     assert meta['sideEffects'] == ['*.css']
     assert meta['exports']['./styles.css'] == './fonts-full.css'
+    assert meta['exports']['./sans.css'] == './fonts-sans.css'
     faces = css_fonts(data['fonts-full.css'].decode('utf-8'))
     assert len(faces) == 10 and {(w, s) for _, w, s, _ in faces} == {
         (w, s) for w in (300, 400, 500, 600, 700) for s in ('normal', 'italic')}
     assert all('unicode-range' not in block for _, _, _, block in faces)
-    assert set(data) == {p for p, _, _, _ in faces} | {'package.json', 'README.md', 'FONT-LICENSE.txt', 'fonts-full.css', 'docs/APP-INSTALL.md'}
+    assert set(data) == {p for p, _, _, _ in faces} | {'package.json', 'README.md', 'LICENSE', 'FONT-LICENSE.txt', 'fonts-full.css', 'fonts-sans.css', 'docs/APP-INSTALL.md'}
+    canonical = css_fonts(data['fonts-sans.css'].decode('utf-8'), 'SEIHouse Sans')
+    assert [(p,w,s) for p,w,s,_ in canonical] == [(p,w,s) for p,w,s,_ in faces]
     for name, content in data.items():
         if name != 'package.json':
             assert content == (ROOT/name).read_bytes(), name
     assert all(target.removeprefix('./') in data for target in meta['exports'].values())
-    print(f'{path.name}: zero dependencies/scripts; exact 15-file payload, exports and source bytes pass')
+    print(f'{path.name}: zero dependencies/scripts; exact 17-file payload, licensed canonical/legacy CSS, exports and source bytes pass')
 
 
 def main():
