@@ -1,10 +1,10 @@
-SEIReader, version 0.34 (working draft)
+SEIReader, version 0.35 (working draft)
 
 EASIEST APP INSTALL
   Use the App distribution Actions run's seireader-app-packages download.
-  Extract SEIReader-0.34-web-full.zip into public/seireader/0.34/ and link its fonts.css,
-  or install seihouse-seireader-0.34.0.tgz and import @seihouse/seireader/styles.css.
-  The default is ten full WOFF2 fonts (444,032 font bytes), with no build dependencies,
+  Extract SEIReader-0.35-web-full.zip into public/seireader/0.35/ and link its fonts.css,
+  or install seihouse-seireader-0.35.0.tgz and import @seihouse/seireader/styles.css.
+  The default is ten full WOFF2 fonts (427,248 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
@@ -103,13 +103,14 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.34 with the preserved 0.33 baseline, Literata,
+  Open lab/comparison.html to compare 0.35 with the preserved 0.34 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
   Choose a language in the new selector. Its encoded (NFC) and decomposed (NFD) rows
   should match. The main alphabet and real italic are shown beside the original reading
-  and foundation rows. Baseline 0.33 lacks the new encoded letters, so those rows may use
-  browser fallback; only the candidate claims the audited additional alphabet coverage.
-  All 323 existing outlines/metrics, nominal settings, weights, and default pairs match 0.33.
+  and foundation rows. Both 0.34 and 0.35 cover the same ten audited Latin inventories;
+  the baseline includes their encoded letters and supports the same language shaping.
+  Version 0.35 repairs exported stroke overlaps while preserving widths, nominal settings,
+  weights, kerning and layout tables. Its contour segmentation can differ from 0.34.
   The earlier dialogue, figure, weight, and word samples remain for comparison.
   The candidate uses a 0.220 em word space; the preview also offers the original 0.205
   from 0.27 and a roomier 0.230 without changing the font files. Compare line-height 1.4 and 1.5,
@@ -127,7 +128,7 @@ OPTICAL SPACING AND SMALL TEXT
       letter-spacing: 0;
     }
 
-  Version 0.34 carries forward every existing 0.33 default pair value and character advance.
+  Version 0.35 carries forward every existing 0.33 default pair value and character advance.
   New ogonek/punctuation pairs have their own measured room. Hungarian uppercase TY/TTY
   receive extra clearance only for lang="hu"; other text keeps the established capital spacing.
   New marks have zero advance and are ignored by pair spacing.
@@ -146,7 +147,7 @@ OPTICAL SPACING AND SMALL TEXT
   and precomposed fractions can request symbols/icons as well. Latin basic remains an
   optional standalone delivery for deliberately ASCII-only content. Do not preload it
   expecting fonts.css to select it ahead of Latin extended. For Regular, extended is
-  31,032 bytes; extended+symbols is 44,768 bytes vs 42,344 bytes for the full WOFF2.
+  30,432 bytes; extended+symbols is 43,384 bytes vs 40,940 bytes for the full WOFF2.
   Compare actual transfer sizes for the app. Preload only faces needed for its first view.
 
 LATIN FOUNDATION (automatic)

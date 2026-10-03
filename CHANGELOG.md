@@ -2,6 +2,13 @@
 
 Newest first.
 
+- **0.35** Fixed missing ink at sharp joins in v/V/w/W and figures by resolving
+  self-overlapping stroke outlines before CFF export and hinting. Applied the
+  same repair to numeric alternates, accents and symbols through the shared
+  builder. Drawing rules, weight controls, advances, kerning and OpenType layout
+  remain unchanged. Preserved the ten 0.34 full web fonts for comparison and
+  added an audit for rasterizer fill-rule agreement and design preservation.
+
 - **Font Lab website** Added a real homepage with an actual-font specimen,
   Day/Night mode, Reader/Display workspaces, comparison/chapter links, and resource
   downloads. Added a dependency-free static build and Vercel configuration with an

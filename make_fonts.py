@@ -126,6 +126,9 @@ def outline(g, dx):
     r = shapes[0]                           # merge one at a time (the batch merge could drop simple fills)
     for s in shapes[1:]:
         r = pathops.op(r, s, PathOp.UNION, fix_winding=True)
+    # A single stroked path can overlap itself at tight turns (v/w/2/3/4/5).
+    # Resolve its winding before CFF export and hinting, even when no union ran.
+    r.simplify(fix_winding=True)
     r.convertConicsToQuads(0.02)
     r = thin_joins(r)
     if ITAL:
