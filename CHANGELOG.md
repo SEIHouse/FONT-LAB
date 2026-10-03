@@ -2,6 +2,12 @@
 
 Newest first.
 
+- **0.35 paragraph inspection** Inspected sentence endings, straight/curly
+  apostrophes and narrow-letter runs in full paragraphs across all ten styles.
+  Added the exact samples to the existing comparison and recorded measured
+  geometry, shaping checks and Day/Night browser proofs. No demonstrated spacing
+  defect was found; font bytes, spacing settings and the version remain unchanged.
+
 - **0.35** Fixed missing ink at sharp joins in v/V/w/W and figures by resolving
   self-overlapping stroke outlines before CFF export and hinting. Applied the
   same repair to numeric alternates, accents and symbols through the shared

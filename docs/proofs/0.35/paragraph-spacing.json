@@ -1,0 +1,585 @@
+{
+  "date": "2026-10-03",
+  "version": "0.35",
+  "font_source_commit": "f18c6e8a57295790ca529c8e6a6961b771f857b3",
+  "units_per_em": 2000,
+  "collision_area_tolerance": 0.01,
+  "paragraphs": [
+    "The gate will remain closed until morning, Iñés said. Lian placed Mei’s entry beside the lamp and read it again. The note asked for a minimum of three witnesses before anyone opened the inner court. Two parallel paths followed the river, where willow branches moved in the wind. He listened for the murmur beneath the bridge, then turned back to the ledger.",
+    "The gate will remain closed until morning, Iñés said. Lian placed Mei's entry beside the lamp and read it again. The note asked for a minimum of three witnesses before anyone opened the inner court. Two parallel paths followed the river, where willow branches moved in the wind. He listened for the murmur beneath the bridge, then turned back to the ledger."
+  ],
+  "browser": {
+    "name": "HeadlessChrome/154.0.0.0",
+    "platform": "Windows",
+    "viewports_px": [
+      1280,
+      390
+    ],
+    "device_scale_factor": 1,
+    "sizes_px": [
+      13,
+      15,
+      17,
+      20
+    ],
+    "letter_spacing_em": 0,
+    "word_spacing_added_em": 0,
+    "line_height": 1.4,
+    "regular_additional_line_height": 1.5,
+    "kerning_delta_checks": 50,
+    "kerning_diagnostic_size_px": 2000,
+    "max_kerning_delta_error_px": 0
+  },
+  "styles": {
+    "Light": {
+      "sha256": {
+        "otf": "a245348c1a4150623c67ea7f798071206805a3ee01e0ecb56772fb67d77a3797",
+        "woff2": "72c27357b80aa9ab0331bb78532f576b3e524db00b7aedbaae2bfd9801c91cfb"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.1635,
+          "collisions": [],
+          "period_to_L_ink_em": 0.3355,
+          "kern_em": -0.085
+        },
+        "Mei’s entry": {
+          "width_em": 4.941,
+          "collisions": [],
+          "kern_em": -0.158
+        },
+        "Mei's entry": {
+          "width_em": 4.923,
+          "collisions": [],
+          "kern_em": -0.12
+        },
+        "minimum": {
+          "width_em": 4.098,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.131,
+            0.131,
+            0.1305,
+            0.131,
+            0.131,
+            0.1305
+          ],
+          "kern_em": 0.0
+        },
+        "parallel": {
+          "width_em": 3.4325,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0865,
+            0.131,
+            0.0505,
+            0.133,
+            0.093,
+            0.058,
+            0.1015
+          ],
+          "kern_em": -0.086
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "LightItalic": {
+      "sha256": {
+        "otf": "ddc2345117ca96a6a0dedfbb55789915b1202eadd7b77c3fc38974f1fd8057f5",
+        "woff2": "2263e9bccf2a724c8c66dbc35e0247385d0b419893062577d0cd66622d3f9e65"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 3.956,
+          "collisions": [],
+          "period_to_L_ink_em": 0.374521728515625,
+          "kern_em": -0.116
+        },
+        "Mei’s entry": {
+          "width_em": 4.6975,
+          "collisions": [],
+          "kern_em": -0.259
+        },
+        "Mei's entry": {
+          "width_em": 4.682,
+          "collisions": [],
+          "kern_em": -0.223
+        },
+        "minimum": {
+          "width_em": 3.803,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0745,
+            0.0214,
+            0.0743,
+            0.0214,
+            0.0765,
+            0.0547
+          ],
+          "kern_em": -0.015
+        },
+        "parallel": {
+          "width_em": 3.2745,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.063,
+            0.0518,
+            0.0241,
+            0.0462,
+            0.093,
+            0.0522,
+            0.0606
+          ],
+          "kern_em": -0.137
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "Regular": {
+      "sha256": {
+        "otf": "6790044d1744bce9da6b949e68290c41c7b82a9555d760bad8425603449a9ad0",
+        "woff2": "9ec6df6775d1e9f23c401727cbcc72cc4a4f1a129a2d2ecfda00467747313890"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.3335,
+          "collisions": [],
+          "period_to_L_ink_em": 0.3425,
+          "kern_em": -0.077
+        },
+        "Mei’s entry": {
+          "width_em": 5.111,
+          "collisions": [],
+          "kern_em": -0.168
+        },
+        "Mei's entry": {
+          "width_em": 5.097,
+          "collisions": [],
+          "kern_em": -0.126
+        },
+        "minimum": {
+          "width_em": 4.219,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.137,
+            0.137,
+            0.1365,
+            0.137,
+            0.133,
+            0.1375
+          ],
+          "kern_em": -0.005
+        },
+        "parallel": {
+          "width_em": 3.5815,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0945,
+            0.138,
+            0.0595,
+            0.14,
+            0.1001,
+            0.0661,
+            0.1095
+          ],
+          "kern_em": -0.081
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "Italic": {
+      "sha256": {
+        "otf": "dbb48a8ddd9725c8c0223f054efa427644350941d2778d39789c144f8868925f",
+        "woff2": "c79d16fafd4ef154e23fcd0a205e709b2b66e38a155f725bc152fa193ec38d10"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.112,
+          "collisions": [],
+          "period_to_L_ink_em": 0.3816824951171875,
+          "kern_em": -0.122
+        },
+        "Mei’s entry": {
+          "width_em": 4.8585,
+          "collisions": [],
+          "kern_em": -0.278
+        },
+        "Mei's entry": {
+          "width_em": 4.849,
+          "collisions": [],
+          "kern_em": -0.236
+        },
+        "minimum": {
+          "width_em": 3.916,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0784,
+            0.0269,
+            0.0782,
+            0.0269,
+            0.0829,
+            0.0602
+          ],
+          "kern_em": -0.028
+        },
+        "parallel": {
+          "width_em": 3.4105,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0676,
+            0.0572,
+            0.031,
+            0.0548,
+            0.1013,
+            0.0589,
+            0.0687
+          ],
+          "kern_em": -0.145
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "Medium": {
+      "sha256": {
+        "otf": "c7bdaf5707291ecbd09863c4fff4fb96d2619641dfd6cb9684516e4b2ca456dd",
+        "woff2": "a4a086d643c1572dd1cbfb2a81fa1e3108834f28503ec7a70651d8c1d820005b"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.543,
+          "collisions": [],
+          "period_to_L_ink_em": 0.353,
+          "kern_em": -0.07
+        },
+        "Mei’s entry": {
+          "width_em": 5.321,
+          "collisions": [],
+          "kern_em": -0.183
+        },
+        "Mei's entry": {
+          "width_em": 5.312,
+          "collisions": [],
+          "kern_em": -0.136
+        },
+        "minimum": {
+          "width_em": 4.3765,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.1465,
+            0.146,
+            0.1465,
+            0.146,
+            0.143,
+            0.148
+          ],
+          "kern_em": -0.005
+        },
+        "parallel": {
+          "width_em": 3.7725,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.105,
+            0.148,
+            0.072,
+            0.15,
+            0.1114,
+            0.0774,
+            0.127
+          ],
+          "kern_em": -0.07
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "MediumItalic": {
+      "sha256": {
+        "otf": "b0decb353d96630a812bb57f48946efe1451b5774abfcf7053a13a2fc7978b06",
+        "woff2": "962e43077d1aaa7b86f52ad7b1ff9cb141db376c5c5103c6f6256a704235d89c"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.3005,
+          "collisions": [],
+          "period_to_L_ink_em": 0.392142578125,
+          "kern_em": -0.136
+        },
+        "Mei’s entry": {
+          "width_em": 5.0575,
+          "collisions": [],
+          "kern_em": -0.304
+        },
+        "Mei's entry": {
+          "width_em": 5.056,
+          "collisions": [],
+          "kern_em": -0.254
+        },
+        "minimum": {
+          "width_em": 4.0615,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0855,
+            0.0379,
+            0.0876,
+            0.0379,
+            0.0922,
+            0.0642
+          ],
+          "kern_em": -0.04
+        },
+        "parallel": {
+          "width_em": 3.5805,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0741,
+            0.0623,
+            0.0434,
+            0.0668,
+            0.1133,
+            0.0705,
+            0.0799
+          ],
+          "kern_em": -0.155
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "SemiBold": {
+      "sha256": {
+        "otf": "eace155c3b697f1b19f89c705280e4f98f73ac132f2dcced0f66d260e09fea89",
+        "woff2": "6a08792820f5f0bece60bdc0d3e8f282d46089504edd78d40e9610ef0753bf8f"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.7525,
+          "collisions": [],
+          "period_to_L_ink_em": 0.358,
+          "kern_em": -0.063
+        },
+        "Mei’s entry": {
+          "width_em": 5.554,
+          "collisions": [],
+          "kern_em": -0.175
+        },
+        "Mei's entry": {
+          "width_em": 5.539,
+          "collisions": [],
+          "kern_em": -0.134
+        },
+        "minimum": {
+          "width_em": 4.534,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.1495,
+            0.1495,
+            0.149,
+            0.1495,
+            0.148,
+            0.1525
+          ],
+          "kern_em": -0.005
+        },
+        "parallel": {
+          "width_em": 3.9635,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.1095,
+            0.153,
+            0.0795,
+            0.155,
+            0.117,
+            0.084,
+            0.1365
+          ],
+          "kern_em": -0.059
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "SemiBoldItalic": {
+      "sha256": {
+        "otf": "81eb68c0ae18730f3670bd13add0057027d27a4e8d62c38416c183fe2ff9313b",
+        "woff2": "b66fc4b4cce4535dd6e201a9b5f1ca7b71a441cb9b82660d3b1d5153b32c776e"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.491,
+          "collisions": [],
+          "period_to_L_ink_em": 0.396627685546875,
+          "kern_em": -0.148
+        },
+        "Mei’s entry": {
+          "width_em": 5.2635,
+          "collisions": [],
+          "kern_em": -0.323
+        },
+        "Mei's entry": {
+          "width_em": 5.269,
+          "collisions": [],
+          "kern_em": -0.266
+        },
+        "minimum": {
+          "width_em": 4.212,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0901,
+            0.0431,
+            0.0921,
+            0.0431,
+            0.0959,
+            0.064
+          ],
+          "kern_em": -0.047
+        },
+        "parallel": {
+          "width_em": 3.7485,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0795,
+            0.062,
+            0.0483,
+            0.0734,
+            0.1199,
+            0.0763,
+            0.082
+          ],
+          "kern_em": -0.167
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "Bold": {
+      "sha256": {
+        "otf": "1b9ded94b04b9269aa01ab51592383dc51c80cfe7006f195b3264e788ed931fa",
+        "woff2": "ccdca53055316a8881328a3fb4db97e068a5b3dc49ce0bda113604aa31fed5ea"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 5.097,
+          "collisions": [],
+          "period_to_L_ink_em": 0.377,
+          "kern_em": -0.056
+        },
+        "Mei’s entry": {
+          "width_em": 5.929,
+          "collisions": [],
+          "kern_em": -0.175
+        },
+        "Mei's entry": {
+          "width_em": 5.895,
+          "collisions": [],
+          "kern_em": -0.153
+        },
+        "minimum": {
+          "width_em": 4.7965,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.16,
+            0.1595,
+            0.16,
+            0.1595,
+            0.16,
+            0.165
+          ],
+          "kern_em": -0.005
+        },
+        "parallel": {
+          "width_em": 4.2795,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.129,
+            0.165,
+            0.096,
+            0.167,
+            0.131,
+            0.099,
+            0.149
+          ],
+          "kern_em": -0.043
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    },
+    "BoldItalic": {
+      "sha256": {
+        "otf": "325e8f287f51c8c5879a27ae3e9dc2192d9d30a62411e28b1de63682424bf8b4",
+        "woff2": "db727325c5a8438b254eb93a60a44f348ceabdcf79a9825ff96f33f04a8ed320"
+      },
+      "word_space_em": 0.22,
+      "candidate_measurements": {
+        "said. Lian": {
+          "width_em": 4.8245,
+          "collisions": [],
+          "period_to_L_ink_em": 0.41588134765625,
+          "kern_em": -0.152
+        },
+        "Mei’s entry": {
+          "width_em": 5.6015,
+          "collisions": [],
+          "kern_em": -0.36
+        },
+        "Mei's entry": {
+          "width_em": 5.606,
+          "collisions": [],
+          "kern_em": -0.304
+        },
+        "minimum": {
+          "width_em": 4.4605,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.102,
+            0.0559,
+            0.104,
+            0.0559,
+            0.102,
+            0.0727
+          ],
+          "kern_em": -0.061
+        },
+        "parallel": {
+          "width_em": 4.0395,
+          "collisions": [],
+          "adjacent_bbox_gaps_em": [
+            0.0925,
+            0.0707,
+            0.0612,
+            0.0896,
+            0.1361,
+            0.0907,
+            0.096
+          ],
+          "kern_em": -0.176
+        }
+      },
+      "paragraph_collision_count": 0,
+      "full_web_and_latin_extended_shaping_match": true,
+      "supported_latin_basic_candidates_match": true
+    }
+  }
+}
