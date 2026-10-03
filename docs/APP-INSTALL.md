@@ -147,7 +147,7 @@ real italic, the actual language tags, unsupported-script fallback, and
 The full family is 31.7% smaller than storing all thirty subset files. The
 subsets intentionally overlap basic letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
-For Regular, Latin extended alone is 31,020 bytes, while extended plus symbols
+For Regular, Latin extended alone is 30,432 bytes, while extended plus symbols
 is 44,804 versus 42,164 for the full face. Measure actual reading content before
 choosing subsets.
 

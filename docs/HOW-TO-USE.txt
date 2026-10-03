@@ -103,7 +103,7 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.35 with the preserved 0.33 baseline, Literata,
+  Open lab/comparison.html to compare 0.35 with the preserved 0.34 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
   Choose a language in the new selector. Its encoded (NFC) and decomposed (NFD) rows
   should match. The main alphabet and real italic are shown beside the original reading
@@ -138,7 +138,7 @@ OPTICAL SPACING AND SMALL TEXT
   Iñés, blade, Entry, Mei's / Mei’s, acquittal, ri/rn/cl/li, office, affinity, flame,
   and reflection. Inspect “Mei’s,” and “Entry 12?” alongside 1,234.56, 8.50%, and 6089,
   upright and italic, with proportional and tabular figures. Native Windows proof images
-  are in docs/proofs/0.35/; its family/
+  are in docs/proofs/0.34/; its family/
   images cover all five weights at 20px. Physical browser/device checks remain deferred.
 
   fonts.css already uses font-display: swap. Ordinary Latin prose, accented names, and
@@ -171,7 +171,7 @@ LATIN FOUNDATION (automatic)
   The ten new Latin inventories listed below have complete encoded coverage of the pinned
   CLDR main/auxiliary/index exemplars, both cases, and NFC/NFD forms. Keep actual chapter
   text; no blanket NFD conversion is needed. Characters outside those inventories can still
-  use fallback. See docs/LANGUAGES-0.35.md and languages.json for the exact audited scope.
+  use fallback. See docs/LANGUAGES-0.34.md and languages.json for the exact audited scope.
 
 LOCAL FORMS AND LANGUAGE TAGS
   Put the language on the actual chapter or passage. Standard locl/ccmp/mark/mkmk features
