@@ -61,7 +61,7 @@ def build_subsets():
     """Build and validate thirty WOFF2 subsets, then refresh both app stylesheets."""
     with open(os.path.join(HERE, 'settings.json'), encoding='utf-8') as file:
         version = json.load(file)['version']
-    css = [f'/* SEIReader {version}: keep this file next to the fonts/ directory. */']
+    css = [f'/* SEIHouse Sans {version}: legacy SEIReader CSS alias; keep next to fonts/. */']
     expected = None
     for style, weight, slant in STYLES:
         source = os.path.join(HERE, 'fonts', f'SEIReader-{style}.otf')

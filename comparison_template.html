@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <meta name="color-scheme" content="dark light">
-<title>SEIReader __VERSION__ · reference preview</title>
+<title>SEIHouse Sans __VERSION__ · reference preview</title>
 <style>
 __FONTS__
 :root{color-scheme:dark;--bg:#14131a;--panel:#1d1b24;--fg:#e8e3db;--muted:#b6afc4;--line:#494151;--accent:#b9a5ee}
@@ -34,8 +34,8 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <body>
 <main>
 <a href="../index.html">← Font Lab home</a>
-<h1>Literata + Rubik + SEIHouse = SEIReader</h1>
-<p class="intro">Keep SEIReader's distinctive softness and character. Compare the __VERSION__ language expansion with preserved __BASELINE__, Literata, and Rubik. Choose one of the ten new Latin alphabets and inspect upright, italic, and composed/decomposed text. The established reading samples remain below.</p>
+<h1>Literata + Rubik + SEIHouse = SEIHouse Sans</h1>
+<p class="intro">Keep SEIHouse Sans's distinctive softness and character. Compare the current __VERSION__ family with preserved SEIReader __BASELINE__, Literata, and Rubik. Choose one of the ten additional Latin alphabets and inspect upright, italic, and composed/decomposed text. The established reading samples remain below.</p>
 <div class="controls" aria-label="Comparison reading settings">
   <button id="theme" type="button" aria-pressed="false">Day</button>
   <label for="size">Text size <select id="size"><option>13</option><option>15</option><option>17</option><option selected>20</option></select>px</label>
@@ -49,7 +49,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 </div>
 <div class="grid" id="comparison-grid">
   <article class="card candidate" aria-labelledby="candidate-title">
-    <h2 id="candidate-title">SEIReader __VERSION__</h2><p class="caption">Candidate · ten additional Latin alphabets</p>
+    <h2 id="candidate-title">SEIHouse Sans __VERSION__</h2><p class="caption">Current family · ecosystem license and updated name; existing language coverage retained</p>
     <div class="large Candidate">0123<br>‘ “ ! ?<br><span class="identity">r v w y · a e c s</span></div>
     <div class="sample Candidate" data-family="Candidate"></div>
   </article>
@@ -82,7 +82,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <footer>
 <p>The same text, column width, color, and selected weight are used in every card. Matching lowercase height uses the Regular outline of <code>x</code> as the reference. Equal weight numbers can still look different in darkness. Word-space trials affect only the candidate.</p>
 <details><summary>What changed and how to read this comparison</summary><div class="study-notes">
-<p>Candidate __VERSION__ adds 94 encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin). Their pinned CLDR main, auxiliary, and index alphabets, both cases, and canonical forms are audited in every style and Latin extended subset. Turkish retains the dot in <code>fi</code> words; Romanian legacy cedillas use comma forms under <code>lang="ro"</code>. Hungarian uppercase digraphs get extra clearance under <code>lang="hu"</code>. The language selector sets the actual text language.</p>
+<p>Candidate __VERSION__ retains the 94 encoded letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish (Kurmanji, Latin), Māori, Igbo, and Uzbek (Latin). Their pinned CLDR main, auxiliary, and index alphabets, both cases, and canonical forms are audited in every style and Latin extended subset. Turkish retains the dot in <code>fi</code> words; Romanian legacy cedillas use comma forms under <code>lang="ro"</code>. Hungarian uppercase digraphs get extra clearance under <code>lang="hu"</code>. The language selector sets the actual text language.</p>
 <p>All 323 existing outlines and metrics, every approved pair value, and the design settings match __BASELINE__. The foundation, numeric features, joins, and cursor stops carry forward. Baseline __BASELINE__ lacks the new encoded letters: its language rows can use browser fallback and are not evidence of SEIReader coverage. Alphabet and shaping coverage is separate from native-reader or device certification. Cyrillic, Greek, Vietnamese's full encoded repertoire, and the remaining Latin alphabets come later.</p>
 <p>Compare 20px at 1.4 and 1.5 line height, then 13/15/17px at Regular and Medium. Use <em>Full reading width</em> for longer lines. The sample can help identify differences; sustained reading and the <a href="https://fonts.google.com/knowledge/readability_and_accessibility/how_type_influences_readability">readability guidance</a> still call for feedback from readers.</p>
 <p><a href="https://m3.material.io/styles/typography/applying-type">Material's body-text guidance</a> suggests around 1.5 line height. <a href="https://fonts.google.com/knowledge/using_type/using_web_fonts#optimizing-font-loading">Google's web-font guide</a> covers weight/style mapping and font loading. This page embeds the real fonts and makes no network font requests.</p>
@@ -93,7 +93,7 @@ details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-wi
 <script>
 'use strict';
 const metrics=__METRICS__;
-const names={Candidate:'SEIReader __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
+const names={Candidate:'SEIHouse Sans __VERSION__',Baseline:'SEIReader __BASELINE__',Literata:'Literata',Rubik:'Rubik'};
 const paragraphText='The gate will remain closed until morning, Iñés said. Lian placed Mei’s entry beside the lamp and read it again. The note asked for a minimum of three witnesses before anyone opened the inner court. Two parallel paths followed the river, where willow branches moved in the wind. He listened for the murmur beneath the bridge, then turned back to the ledger.';
 const straightParagraphText=paragraphText.replace('Mei’s', "Mei's");
 const paragraphSample=`<details class="paragraph-inspection"><summary>Paragraph spacing · sentence endings, apostrophes, narrow letters</summary><p class="caption">Curly apostrophe · upright and real italic</p><p lang="en">${paragraphText}</p><p lang="en"><em>${paragraphText}</em></p><p class="caption">Straight apostrophe · upright and real italic</p><p lang="en">${straightParagraphText}</p><p lang="en"><em>${straightParagraphText}</em></p></details>`;

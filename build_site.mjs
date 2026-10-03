@@ -7,7 +7,7 @@ const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist', 'site');
 const pages = [
   'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
-  'fonts-full.css', 'FONT-LICENSE.txt',
+  'fonts-full.css', 'fonts-sans.css', 'LICENSE', 'FONT-LICENSE.txt',
   'lab/index.html', 'lab/comparison.html', 'lab/reading-test.html',
   'display/lab/index.html', 'display/README.md',
   'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md',

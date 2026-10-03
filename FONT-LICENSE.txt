@@ -1,9 +1,17 @@
-SEIReader working draft
+SEIHouse Sans (formerly SEIReader)
+Copyright 2026 SEIHouse Productions LLC, Ohio.
 
-All rights are reserved by SEIHouse Productions LLC. The font license has not
-yet been selected; this package does not grant a public redistribution license.
+Licensed under the SEIHouse Sans Ecosystem License, version 1.0.
+The full, operative text is included in LICENSE beside this notice:
+https://github.com/SEIHouse/seihouse-font-lab/blob/main/LICENSE
 
-This records the existing license status in the repository README. The package
-is prepared for SEIHouse's own application use. It contains no Literata/Rubik
-reference fonts or CLDR locale data; their separate licenses remain in the
-development repository.
+Ecosystem users may use and customize the font for personal or commercial
+creative work without fees or user-count limits. Authorized SEIHouse apps and
+websites may distribute it. Independent app/product embedding and standalone
+font redistribution require separate written permission. See LICENSE for
+the definitions, document embedding, collaboration, and other terms.
+
+Legacy SEIReader filenames and the @seihouse/seireader package name remain
+for existing integrations. They refer to this licensed SEIHouse Sans release.
+Display fonts, third-party reference fonts/data, and archived earlier releases
+are outside this license's scope and retain their existing notices.

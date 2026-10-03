@@ -1,3 +1,41 @@
+SEIHouse Sans 0.36 Phase 5 licensing and family-name health check
+Checked 3 October 2026 with FontBakery 1.1.0, all 10 full OTF files.
+
+  Universal offline: 705 passed, 0 failed, 0 warnings (427 skipped, 30 info)
+  OpenType checks:   287 passed, 0 failed, 0 warnings (171 skipped)
+  Neither profile contains FAIL, WARN, ERROR or FATAL. Universal used
+  --skip-network; online-only checks remain unverified.
+
+  verify_license.py --baseline dist/phase5-baseline/fonts:
+    All 50 current OTF/WOFF2/subset fonts contain name IDs 0/7/8/9/11/12/13/14,
+    SEIHouse Sans names, Version 0.36, SEIH vendor ID and fsType 0.
+    Installable document embedding is explicitly licensed. No vendor-ID or
+    trademark registration is claimed. Ownership: SEIHouse Productions LLC, Ohio.
+    Every glyph program, hint parameter/subroutine, metric, cmap and GPOS/GSUB/
+    GDEF table matches the saved 0.35 fonts. No spacing or outline change.
+    The optional pre-rebuild baseline is an ignored local verification fixture.
+
+  verify_phase2.py: all 10 styles and 30 subsets pass.
+  verify_stroke_joins.py: all 10 styles pass; 18,290 language strings preserved.
+  node --test tests/site.test.mjs: 10 tests passed.
+  build_site.mjs: 37 public files; license and canonical stylesheet included.
+  Chromium: all 10 styles load under each of SEIHouse Sans and SEIReader;
+  license link returns HTTP 200 with the operative text; no page errors observed.
+
+  Runtime delivery audits: full, 400-only and subset ZIPs pass exact file,
+  stylesheet mapping, license bytes, font bytes and manifest hash checks.
+  npm 0.36.0 payload: 17 files, zero dependencies and installation scripts.
+  Full WOFF2 family: 431,780 bytes; Regular/Italic: 85,008; subsets: 638,180.
+  Canonical CSS family: SEIHouse Sans. SEIReader CSS alias, asset filenames,
+  @seihouse/seireader and its styles.css export remain supported.
+
+  License: SEIHouse Sans Ecosystem License 1.0. Creative use/customization and
+  document embedding are permitted; unrelated product embedding and standalone
+  font redistribution require written permission. Separate Display, third-party
+  materials and archived earlier releases retain their existing notices.
+
+Previous release checks follow.
+
 SEIReader 0.35 stroke-join repair health check
 Checked with FontBakery 1.1.0, all 10 full OTF files.
 

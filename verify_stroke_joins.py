@@ -46,7 +46,9 @@ def verify(fonts=ROOT / 'fonts'):
     before_settings = json.loads((BASELINE / 'settings.json').read_text(encoding='utf-8'))
     settings = json.loads((ROOT / 'settings.json').read_text(encoding='utf-8'))
     assert before_settings.pop('version') == '0.34'
-    assert settings.pop('version') == '0.35'
+    assert settings.pop('version') == '0.36'
+    assert before_settings.pop('family') == 'SEIReader'
+    assert settings.pop('family') == 'SEIHouse Sans'
     assert settings == before_settings, 'Design settings changed'
     for name in ('kern_styles.json', 'kern_languages.json'):
         assert json.loads((ROOT / name).read_text(encoding='utf-8')) == json.loads(

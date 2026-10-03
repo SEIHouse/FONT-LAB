@@ -56,7 +56,7 @@ html = r'''<!DOCTYPE html>
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>SEIReader</title>
+<title>SEIHouse Sans</title>
 <meta name="color-scheme" content="light dark">
 <style>
   :root{
@@ -194,7 +194,7 @@ html = r'''<!DOCTYPE html>
 <body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false"><defs id="clips"></defs></svg>
 <div class="wrap">
-  <h1>SEIReader</h1>
+  <h1>SEIHouse Sans</h1>
   <div class="meta">
     <a class="badge" href="../index.html">← Font Lab home</a>
     <span class="badge">Font file: version __VERSION__</span>

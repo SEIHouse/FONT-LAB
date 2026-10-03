@@ -1,10 +1,14 @@
-SEIReader, version 0.35 (working draft)
+SEIHouse Sans, version 0.36 (formerly SEIReader)
 
 EASIEST APP INSTALL
   Use the App distribution Actions run's seireader-app-packages download.
-  Extract SEIReader-0.35-web-full.zip into public/seireader/0.35/ and link its fonts.css,
-  or install seihouse-seireader-0.35.0.tgz and import @seihouse/seireader/styles.css.
-  The default is ten full WOFF2 fonts (427,248 font bytes), with no build dependencies,
+  Extract SEIReader-0.36-web-full.zip into public/seireader/0.36/ and link its sans.css,
+  or install seihouse-seireader-0.36.0.tgz and import @seihouse/seireader/sans.css.
+  Use font-family: "SEIHouse Sans". Legacy asset paths and SEIReader CSS still work.
+  LICENSE permits ecosystem creative use/customization and authorized SEIHouse
+  app/web distribution. Unrelated app embedding and standalone redistribution
+  require permission; see the included full license.
+  The default is ten full WOFF2 fonts (431,780 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.

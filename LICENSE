@@ -1,0 +1,111 @@
+SEIHouse Sans Ecosystem License, version 1.0
+Effective 3 October 2026
+
+Copyright 2026 SEIHouse Productions LLC, Ohio. All rights reserved except
+for the permissions expressly granted below.
+
+1. Covered material
+
+This license covers SEIHouse Sans (formerly SEIReader): its font binaries,
+official subsets, runtime stylesheets, and original drawing/build source
+and documentation supplied with this release (the "Font Software"). It also
+applies to authorized modifications of that material.
+
+This license does not cover the separate SEIHouse Display Engine, third-party
+reference fonts or data, or archived earlier releases. Those materials retain
+their own notices and existing permissions. Their presence in the same
+repository does not grant rights to them under this license.
+
+2. SEIHouse ecosystem permission
+
+An ecosystem user is anyone who lawfully receives the Font Software through
+an official SEIHouse app, service, creative tool, website, or font distribution,
+or as part of a creative document embedded under this license. No paid
+membership, registration, or minimum activity is required.
+
+SEIHouse Productions LLC grants ecosystem users a worldwide, non-exclusive,
+royalty-free license to install, use, copy for their own use, and customize
+the Font Software for personal or commercial creative work. This includes
+work made with SEA, SEN, and other SEIHouse tools, and continued work in other
+creative tools. There is no limit on users, devices, audience size, projects,
+revenue, or the number of copies of permitted creative output.
+
+You may publish, sell, and share your creative output, including artwork,
+logos, covers, music/video graphics, printed material, books, and documents.
+You retain your rights in your own output. You may embed full fonts or subsets
+in creative documents such as PDF and EPUB, including editable documents.
+Installable document embedding is permitted; recipients remain subject to
+this license. This document permission does not authorize embedding the font
+in an unrelated application, service, game, website, template platform, or
+other software product.
+
+You may make working copies, backups, subsets, format conversions, and
+modified fonts for these permitted uses. You may share working font copies
+with collaborators and service providers solely to complete those projects,
+provided they receive this license and follow its limits. Such collaborators
+may not redistribute or independently repurpose those working copies.
+
+3. SEIHouse products and distribution
+
+SEIHouse Productions LLC and developers, contractors, hosts, stores, and
+distributors acting with its authorization may build, modify, subset, convert,
+bundle, and distribute the Font Software through SEIHouse products and
+official font deliveries, including apps, games, websites, services, updates,
+installers, app stores, CDNs, browser caches, and offline installations.
+There is no user-count, installation, domain-count, or traffic limit for these
+authorized SEIHouse deliveries. End users receive the permissions in section 2.
+
+4. Uses requiring separate written permission
+
+Contact SEIHouse Productions LLC before embedding or bundling the Font Software
+in an independently operated product outside authorized SEIHouse distribution,
+or before redistributing font files as a standalone download, font package,
+font library, font service, or source repository. These restrictions also apply
+to modified fonts, subsets, and renamed versions. Selling your creative output
+as allowed in section 2 is permitted without additional permission.
+
+Receiving a copy through an unofficial standalone redistribution does not
+establish ecosystem permission. Obtain an authorized copy or written permission.
+No license is granted to material not owned or licensable by SEIHouse Productions
+LLC. Rights outside the grants above remain reserved, subject to applicable law.
+
+5. Attribution and names
+
+Preserve this license and copyright notices in font copies and metadata you
+are permitted to share. Public attribution in your artwork or documents is
+appreciated but is not required. Identify a modified font as modified when
+sharing a permitted working copy; do not imply that SEIHouse made or endorsed it.
+You may retain the family name for your own permitted modifications.
+
+This license grants no right to claim ownership of SEIHouse's names, logos,
+or marks, or to imply sponsorship or endorsement. No registered-trademark
+claim or SIL OFL Reserved Font Name is made by this license.
+
+6. Term and termination
+
+Permission continues while you comply with this license. If you breach it,
+SEIHouse Productions LLC may terminate your permission by written notice.
+Where the breach can be corrected, you have 30 days after receiving notice
+to correct it before termination takes effect. Termination does not transfer
+ownership of your output or revoke rights in creative output made lawfully
+before termination; new use of the Font Software must then stop unless
+separately authorized. Leaving the ecosystem alone does not terminate rights
+already granted to an authorized copy. Mandatory rights under applicable law
+are not limited by this license.
+
+7. Disclaimer and liability
+
+To the extent permitted by applicable law, the Font Software is provided
+"as is", without warranties, including merchantability, fitness for a
+particular purpose, or noninfringement. SEIHouse Productions LLC is not liable
+for indirect, incidental, special, or consequential losses arising from use
+of the Font Software. These exclusions do not apply where prohibited by law.
+
+8. Owner and contact
+
+Owner: SEIHouse Productions LLC, Ohio, United States.
+Project and permission requests: https://github.com/SEIHouse/seihouse-font-lab
+License: https://github.com/SEIHouse/seihouse-font-lab/blob/main/LICENSE
+
+Any separate grant must come from SEIHouse Productions LLC or its authorized
+representative. This license does not create a support or update obligation.

@@ -2,6 +2,16 @@
 
 Newest first.
 
+- **0.36** Renamed the current family to SEIHouse Sans and added the SEIHouse
+  Sans Ecosystem License 1.0: broad ecosystem creative use and customization,
+  authorized SEIHouse app/web distribution, and document embedding without fees
+  or user-count limits. Unrelated app/product embedding and standalone font
+  redistribution require permission. Added all requested name-table legal/owner
+  fields and retained installable document embedding with vendor ID SEIH.
+  Kept SEIReader filenames, npm identity, and legacy CSS working; added canonical
+  Sans CSS and shipped the operative license in ZIP/npm/site deliveries.
+  Rebuilt ten full styles and thirty subsets without changing drawings or spacing.
+
 - **0.35 paragraph inspection** Inspected sentence endings, straight/curly
   apostrophes and narrow-letter runs in full paragraphs across all ten styles.
   Added the exact samples to the existing comparison and recorded measured

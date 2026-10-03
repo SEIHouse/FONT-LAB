@@ -20,10 +20,11 @@ Lab pages are copied, so commit rebuilt pages when changing a Lab template.
 
 The configuration follows Vercel's [build settings](https://vercel.com/docs/builds/configure-a-build)
 and [vercel.json reference](https://vercel.com/docs/project-configuration/vercel-json).
-Only the output directory is served; the build copies an explicit list of 35
+Only the output directory is served; the build copies an explicit list of 37
 public files. Archived font versions, proof images, development scripts, and the
 source repository are excluded. The dependency-free SEIReader npm package remains
-separate and retains its existing 15-file allowlist.
+separate and uses a 17-file allowlist, including the operative Sans license and
+both canonical and legacy family stylesheets.
 
 ## Work on the hosted Labs
 

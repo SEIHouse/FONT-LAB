@@ -41,6 +41,15 @@ ITAL = False   # set per build
 ITAL_EXTRA_SPACE = 4   # italic gets a little extra room between letters
 ITAL_CENTER = 330   # slant around this height so letters stay centered in their space
 TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMILY = settings['family']
+ASSET_PREFIX = 'SEIReader'  # Existing app URLs remain stable after the family rename.
+PROJECT_URL = 'https://github.com/SEIHouse/seihouse-font-lab'
+LICENSE_URL = PROJECT_URL + '/blob/main/LICENSE'
+OWNER = 'SEIHouse Productions LLC'
+LICENSE_DESCRIPTION = ('Licensed under the SEIHouse Sans Ecosystem License, version 1.0. '
+    'Ecosystem users may use and customize this font for personal or commercial creative work. '
+    'Authorized SEIHouse app/web distribution and installable document embedding are permitted. '
+    'Independent product embedding and standalone font redistribution require written permission. '
+    'All recipients remain subject to the license at ' + LICENSE_URL)
 
 def export():
     """Evaluate the configured drawing engine in Chromium and capture glyphs, anchors and pairs."""
@@ -618,7 +627,7 @@ def build(data, out, style='Regular', italic=False):
         if ord(ch) in cmap: cmap[code] = cmap[ord(ch)]
     fb = FontBuilder(UPM, isTTF=False)
     fb.setupGlyphOrder(order); fb.setupCharacterMap(cmap)
-    ps = f'{FAMILY}-{ps_style}'
+    ps = f'{FAMILY.replace(" ", "")}-{ps_style}'
     fb.setupCFF(ps, {'FullName': f'{FAMILY} {shown}', 'version': VERSION, 'Weight': style,
                      'ItalicAngle': -SLANT if italic else 0},
                 {n: charstring(paths[n], hm[n]) for n in order}, private_dict(data['screenStroke']))
@@ -629,7 +638,12 @@ def build(data, out, style='Regular', italic=False):
     else:
         fb.setupHorizontalHeader(ascent=ASCENT*SC, descent=-DESCENT*SC, lineGap=0)
     names = {'uniqueFontIdentifier': f'{FAMILY} {shown} {VERSION}', 'fullName': f'{FAMILY} {shown}',
-             'psName': ps, 'version': f'Version {VERSION}', 'copyright': 'SEIHouse Productions LLC'}
+             'psName': ps, 'version': f'Version {VERSION}',
+             'copyright': f'Copyright 2026 {OWNER}. All rights reserved except as licensed.',
+             'trademark': f'SEIHouse Sans is a font family name used by {OWNER}. No trademark registration is claimed.',
+             'manufacturer': OWNER, 'designer': OWNER,
+             'vendorURL': PROJECT_URL, 'designerURL': PROJECT_URL,
+             'licenseDescription': LICENSE_DESCRIPTION, 'licenseInfoURL': LICENSE_URL}
     if style in ('Regular', 'Bold'):
         names.update({'familyName': FAMILY,
                       'styleName': (('Italic' if style == 'Regular' else 'Bold Italic') if italic else style)})
@@ -639,7 +653,7 @@ def build(data, out, style='Regular', italic=False):
     fb.setupNameTable(names)
     fb.setupOS2(sTypoAscender=ASCENT*SC, sTypoDescender=-DESCENT*SC, sTypoLineGap=0,
                 usWinAscent=1100*SC, usWinDescent=320*SC, sxHeight=round(XHT*SC), sCapHeight=700*SC,
-                achVendID='SEIH', fsType=0,
+                achVendID='SEIH', fsType=0,  # Installable document embedding, subject to the ecosystem EULA.
                 fsSelection=((0x40 if (style != 'Bold' and not italic) else 0) | (0x20 if style == 'Bold' else 0)
                              | (0x01 if italic else 0) | 0x80),  # + use typographic line metrics
                 usWeightClass=WCLASS.get(style, 400), version=4)
@@ -761,7 +775,7 @@ if __name__ == '__main__':
             if style == 'Regular' and not italic:
                 json.dump(data['kern'], open(os.path.join(HERE, 'kern_base.json'), 'w', encoding='utf-8'), ensure_ascii=False)
             fname = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
-            build(data, os.path.join(outdir, f'{FAMILY}-{fname}.otf'), style, italic)
+            build(data, os.path.join(outdir, f'{ASSET_PREFIX}-{fname}.otf'), style, italic)
             print('built', FAMILY, VERSION, fname, 'thickness', w)
     with open(os.path.join(HERE, 'kern_styles.json'), 'w', encoding='utf-8') as f:
         json.dump(STYLE_KERN, f, ensure_ascii=False)
