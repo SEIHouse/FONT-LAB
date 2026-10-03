@@ -2,6 +2,16 @@
 
 Newest first.
 
+- **0.39 — Phase 4, step 3** Completed Vietnamese with 88 missing encoded
+  letters, including Ơ/ơ/Ư/ư, all tones and circumflex/breve tone stacks.
+  Composites reuse the existing vowel and mark drawings with lighter tones and
+  fixed-gap attachment. Added stacked canonical composition and measured horn/
+  tone clearance confined to new glyph pairs. Added the pinned Vietnamese
+  alphabet/sample, Every character additions and a seventh web delivery
+  (seventy subsets). Rebuilt all ten styles, with all Step 2 glyphs, settings,
+  weights, advances and spacing preserved. Runtime packages retain their
+  dependency-free allowlist; language and font health results are documented.
+
 - **0.38 — Phase 4, step 2** Added 169 Cyrillic and monotonic Greek characters,
   including common Slavic alphabets, Russian cursive italic forms, stress marks,
   tonos/diaeresis stacks and canonical Greek punctuation. Identical skeletons

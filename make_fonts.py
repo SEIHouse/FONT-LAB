@@ -569,6 +569,31 @@ def script_clearance(paths, hm, cmap, kern, basemap):
                 result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
     return result
 
+def vietnamese_clearance(paths,hm,cmap,kern,basemap):
+    """Add literal clearance only for new Vietnamese glyphs and their neighbors.
+
+    Every derivative remains in its root letter's kerning class; literal pairs
+    override it only where horns or a tone stack need extra ink separation.
+    """
+    from build_subsets import VIETNAMESE_NEW
+    new={chr(code) for code in cmap if code in VIETNAMESE_NEW}
+    if not new: return {}
+    import unicodedata
+    others={chr(code) for code in cmap if unicodedata.category(chr(code)).startswith('L')
+            or chr(code) in '0123456789.,:;…!?\'"‘’“”‚„‛‟-–—()[]{}«»‹›'}
+    ys=range(-360*SC,1100*SC+1,4*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys)) for ch in others|new}
+    result={}
+    for changed in sorted(new):
+        for other in sorted(others):
+            for a,b in ((changed,other),(other,changed)):
+                advance,(_,right)=sampled[a];_,(left,_)=sampled[b]
+                inherited=kern.get(a+b,kern.get(basemap.get(a,a)+basemap.get(b,b),0))
+                gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                if gaps and min(gaps)+inherited*SC<35*SC:
+                    result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+    return result
+
 def track_for(thick):
     """Adjust the configured tracking by stroke weight relative to Regular."""
     reg = settings['weight']
@@ -707,14 +732,16 @@ def build(data, out, style='Regular', italic=False):
                      if len(pair) == 2 and ((pair[0] in digits and pair[1] in '.,')
                                            or (pair[0] in '.,' and pair[1] in digits))}
     KERN.update(numeric_pairs)
-    for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     if PRESERVE_RHYTHM:
         with open(os.path.join(HERE,'old','0.34','kern_styles.json'),encoding='utf-8') as file: approved=json.load(file)[ps_style]
         with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{ps_style}.woff2')) as font: approved_codes=set(font.getBestCmap())
         for pair in list(KERN):
             if all(ord(ch) in approved_codes for ch in pair) and pair not in approved: del KERN[pair]
         KERN.update(approved)
+    # Explicit Lab changes take precedence over the preserved default pair map.
+    for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
     script_exceptions=script_clearance(paths,hm,cmap,KERN,data["basemap"])
+    script_exceptions.update(vietnamese_clearance(paths,hm,cmap,KERN,data["basemap"]))
     KERN.update(script_exceptions)
     STYLE_KERN[ps_style] = dict(KERN)
     LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}

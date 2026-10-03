@@ -1,3 +1,49 @@
+SEIHouse Sans 0.39 — Phase 4, step 3
+FontBakery 1.1.0, all ten full OTF styles:
+  Universal offline: 705 PASS, 0 FAIL, 0 WARN (427 SKIP, 30 INFO)
+  OpenType:          287 PASS, 0 FAIL, 0 WARN (171 SKIP)
+Universal used --skip-network; online-only checks remain unverified.
+Neither completed profile contains ERROR or FATAL.
+
+  Added 88 missing Vietnamese letters: 714 encoded codepoints / 732 glyphs.
+  Full U+1EA0–1EF9 and Ơ/ơ/Ư/ư are covered, reusing existing circumflex, breve,
+  horn, hook, tone and dot-below construction. Every added letter uses ACC
+  with established fixed gaps and lighter tone strokes; no old recipe changed.
+  Stacked ccmp composition handles NFC, NFD and structural-parent/tone input.
+  New-only literal pair exceptions provide measured horn/tone clearance.
+  verify_phase4.py against step 2: all 644 old outlines/advances and pair values
+  are unchanged, including Cyrillic/Greek. All 33,300 language strings pass
+  full/subset shaping, canonical equivalence, coverage, winding, collision and
+  clipping checks. Final audit against the licensed 0.36 starting commit also passes:
+  every one of its 419 glyphs, metrics, old pairs and established layouts is
+  preserved through all three steps. Settings, weights, hint zones, numeric
+  features and vertical metrics remain unchanged.
+  The highest/lowest encoded Vietnamese ink fits 1.4em in every style:
+  maximum combined extent 1.3798em. This does not certify device comfort.
+  verify_phase4_engine.mjs: 19,860 existing SVG glyph cases match step 2 over
+  five weights, both italics and three contrasts; new advances match their
+  root letter. New tall NFC/NFD Lab SVGs allow overflow; old word geometry stays.
+  Regular/Italic Vietnamese outline grids were inspected in individual cells.
+  All ten full OTF/WOFF2 styles and seventy WOFF2 subsets rebuilt/autohinted.
+  Legacy Latin extended and prior latin-ext-2/Cyrillic/Greek inventories stay
+  intact; the Vietnamese face includes 442 characters and all mark ingredients.
+  The Lab and the existing reference preview include the Vietnamese sample.
+  Runtime ZIP/npm file allowlists, font hashes, CSS mappings and numeric
+  features pass. Full WOFF2 family: 712,464 bytes; Regular/Italic: 141,632.
+  Physical iPhone/Android/Windows/Mac browser and native-reader results remain
+  unverified. FontBakery and outline proofs are engineering evidence only.
+
+  Explicit Lab pair overrides follow the preserved default map. The optional
+  --custom-spacing probe builds Regular with To=33: native kerning is 66 font
+  units, every outline/advance is unchanged, and settings.json stays untouched.
+
+  verify_license.py: all 90 full/subset fonts retain the licensed Sans name and
+  legal records. Runtime npm 0.39.0 contains 17 files, zero dependencies/scripts;
+  full, 400-only and subset ZIPs pass exact allowlists, hashes and CSS mappings.
+  node --test tests/site.test.mjs: 10 passed. Website build: 37 public files.
+
+Previous release results follow.
+
 SEIHouse Sans 0.38 — Phase 4, step 2
 FontBakery 1.1.0, all ten full OTF styles:
   Universal offline: 705 PASS, 0 FAIL, 0 WARN (427 SKIP, 30 INFO)
@@ -88,7 +134,7 @@ Checked 3 October 2026 with FontBakery 1.1.0, all 10 full OTF files.
   Runtime delivery audits: full, 400-only and subset ZIPs pass exact file,
   stylesheet mapping, license bytes, font bytes and manifest hash checks.
   npm 0.36.0 payload: 17 files, zero dependencies and installation scripts.
-  Full WOFF2 family: 658,048 bytes; Regular/Italic: 130,052; subsets: 638,180.
+  Full WOFF2 family: 431,780 bytes; Regular/Italic: 85,008; subsets: 638,180.
   Canonical CSS family: SEIHouse Sans. SEIReader CSS alias, asset filenames,
   @seihouse/seireader and its styles.css export remain supported.
 

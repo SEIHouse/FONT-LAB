@@ -20,6 +20,13 @@ from verify_stroke_joins import missing_ink, outline
 
 ROOT = Path(__file__).resolve().parent
 
+VIETNAMESE_PROSE = (
+    'Tưởng tượng, đường phố, vườn cây, thuyền trưởng.',
+    '“Ánh sáng vẫn còn; Nguyễn mỉm cười và mở cửa.”',
+    'Ắ Ấ Ẫ Ẩ Ễ Ỗ Ở Ử ự ỵ ợ ậ',
+    'Chương 12: 1,234.56 · 8.50% · 1/2',
+)
+
 def historical(ref, file):
     """Read a committed file without disturbing another agent's branch."""
     return subprocess.check_output(['git','show',f'{ref}:{file}'],cwd=ROOT)
@@ -51,6 +58,8 @@ def verify(baseline=None):
     if release['step']>=2:
         required.update(range(0x400,0x460));required.update([0x490,0x491])
         required.update(map(ord,'ΑΒΓΔΕΖΗΘΙΚΛΜΝΞΟΠΡΣΤΥΦΧΨΩαβγδεζηθικλμνξοπρσςτυφχψωΆΈΉΊΌΎΏάέήίόύώΪΫϊϋΐΰ'))
+    if release['step']>=3:
+        required.update(range(0x1EA0,0x1EFA));required.update([0x1A0,0x1A1,0x1AF,0x1B0])
     css=(ROOT/'fonts.css').read_text(encoding='utf-8');total=0
     for style,weight,slant in STYLES:
         before=TTFont(io.BytesIO(historical(ref,f'fonts/SEIReader-{style}.woff2')))
@@ -94,6 +103,13 @@ def verify(baseline=None):
             if not unicodedata.combining(chr(code)):
                 for neighbor in ('a','n','i','l','.',',','’','“'):
                     check_ink(font,chr(code)+neighbor);check_ink(font,neighbor+chr(code))
+        if release['step']>=3:
+            # The combined highest/lowest Vietnamese ink must fit the established
+            # reader baseline interval; this is geometric proof, not a device test.
+            from build_subsets import VIETNAMESE_CODES
+            boxes=[bounds(font,cmap[code]) for code in VIETNAMESE_CODES]
+            interval=font['head'].unitsPerEm*json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['reader']['lineSpacing']
+            assert max(b[3] for b in boxes)-min(b[1] for b in boxes)<=interval,(style,'Vietnamese line interval')
         gdef=font['GDEF'].table.GlyphClassDef.classDefs
         for code,name in cmap.items():
             if unicodedata.combining(chr(code)):
@@ -115,7 +131,9 @@ def verify(baseline=None):
         for code,row in inventory()['locales'].items():
             delivery={'Latn':'vietnamese' if code=='vi' else 'latin-ext-2','Cyrl':'cyrillic','Grek':'greek'}[row['script']]
             with TTFont(ROOT/'fonts'/f'SEIReader-{style}.{delivery}.woff2') as web:
-                for text in [*test_strings(row),row['sample']]:
+                examples=[*test_strings(row),row['sample']]
+                if code=='vi': examples.extend(VIETNAMESE_PROSE)
+                for text in examples:
                     shaped=shape(font,text,language=code)
                     assert all(name!='.notdef' for name,_,_,_ in shaped),(style,code,text,'fallback')
                     assert shaped==shape(font,unicodedata.normalize('NFD',text),language=code),(style,code,text,'NFD mismatch')
@@ -125,6 +143,38 @@ def verify(baseline=None):
         print(f'{style}: {len(before.getGlyphOrder())} previous glyphs/metrics, old pairs/layout preserved; {len(additions)} additions and {len(SUBSETS)} deliveries pass',flush=True)
     print(f'Phase 4 step {release["step"]}: all ten styles; {total:,} language strings; unchanged settings and old design.',flush=True)
 
+
+def verify_custom_spacing():
+    """Build a real Regular probe so approved defaults cannot erase Lab overrides."""
+    import make_fonts as builder
+    from build_distribution import replace_bytes
+    output=ROOT/'dist'/'phase4'/'custom-spacing'
+    assert output.resolve().is_relative_to(ROOT.resolve())
+    output.mkdir(parents=True,exist_ok=True)
+    auto=ROOT/'kern_auto.json';saved=auto.read_bytes()
+    settings_file=ROOT/'settings.json';saved_settings=settings_file.read_bytes()
+    requested=33
+    try:
+        builder.settings['pairSpace']={**builder.settings.get('pairSpace',{}),'To':requested}
+        data=builder.export()
+        target=output/'SEIReader-Regular.otf'
+        builder.build(data,str(target),'Regular',False)
+        with TTFont(target) as probe:
+            on=sum(row[1] for row in shape(probe,'To',kern=1))
+            off=sum(row[1] for row in shape(probe,'To',kern=0))
+            assert on-off==requested*builder.SC,('Lab override lost',on-off)
+            with TTFont(ROOT/'fonts'/'SEIReader-Regular.otf') as full:
+                for name in full.getGlyphOrder():
+                    assert full['hmtx'][name]==probe['hmtx'][name],('custom spacing metrics',name)
+                    assert recorded(full,name)==recorded(probe,name),('custom spacing outline',name)
+    finally:
+        replace_bytes(auto,saved)
+        assert settings_file.read_bytes()==saved_settings,'Custom probe changed settings.json'
+    print('Explicit Lab To=33 override exports as 66 font units; all Regular outlines/advances and saved settings are unchanged.',flush=True)
+
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__);parser.add_argument('--baseline')
-    verify(parser.parse_args().baseline)
+    parser.add_argument('--custom-spacing',action='store_true',help='Build a real one-style Lab-override regression instead of the full audit')
+    args=parser.parse_args()
+    if args.custom_spacing: verify_custom_spacing()
+    else: verify(args.baseline)

@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "version": "0.34",
+  "version": "0.38",
   "cldr_version": "48",
   "source_ref": "release-48",
-  "scope": "Latin main, auxiliary, and index exemplars with case variants; not universal transliteration, translation, or native-reader certification. Phase 4 adds Slovak, Croatian and Slovenian; all Latin Extended-A codepoints are encoded.",
+  "scope": "Latin main, auxiliary and index exemplars with case variants; modern common Slavic Cyrillic, monotonic Greek and full Vietnamese. Alphabet and shaping coverage does not certify universal transliteration, translation, regional styles or native-reader comfort.",
   "locales": {
     "pl": {
       "name": "Polish",
@@ -245,6 +245,18 @@
       },
       "sample": "«Η ήρεμη λίμνη λάμπει· η Μαΐα διαβάζει μια ιστορία.»",
       "scope": "Monotonic main/index alphabets; polytonic auxiliary repertoire is deferred."
+    },
+    "vi": {
+      "name": "Vietnamese",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/vi.xml",
+      "source_sha256": "9c1a5a1e5274b868ca1c131262328ef008d37b9fb553d9922b287fef7fcb7d2c",
+      "exemplars": {
+        "main": "[aàảãáạ ăằẳẵắặ âầẩẫấậ b c d đ eèẻẽéẹ êềểễếệ g h iìỉĩíị k l m n oòỏõóọ ôồổỗốộ ơờởỡớợ p q r s t uùủũúụ ưừửữứự v x yỳỷỹýỵ]",
+        "auxiliary": "[f j w z]",
+        "index": "[A Ă Â B C D Đ E Ê F G H I J K L M N O Ô Ơ P Q R S T U Ư V W X Y Z]"
+      },
+      "sample": "“Nguyễn đọc truyện giữa đêm; những ước mơ vẫn sáng.”"
     }
   }
 }

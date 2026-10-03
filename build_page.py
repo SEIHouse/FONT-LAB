@@ -352,7 +352,7 @@ html = r'''<!DOCTYPE html>
 
       <section class="card" id="langCard">
         <h2>Languages</h2>
-        <p class="sub">Phase 4 adds complete Latin Extended-A, common Slavic Cyrillic and monotonic Greek. Rows include language-specific forms, accents and real italics. The modern scope is recorded in languages.json; native-reader and device checks remain to do.</p>
+        <p class="sub">Phase 4 adds complete Latin Extended-A, common Slavic Cyrillic, monotonic Greek and full Vietnamese. Rows include language-specific forms, accents and real italics. The modern scope is recorded in languages.json; native-reader and device checks remain to do.</p>
         <div id="langs" style="display:grid;gap:12px"></div>
       </section>
 
@@ -523,7 +523,8 @@ function drawWord(w, size, thick, ital, locale=''){
   }
   P.ital = prevIt;
   const W = Math.max(x, 1);
-  return `<svg aria-hidden="true" focusable="false" viewBox="0 -900 ${f1(W)} 1160" width="${f1(W*size/1000)}" height="${f1(1.16*size)}">${parts}</svg>`;
+  const overflow=clusters.some(c=>VIETNAMESE_ADDED.has(c.base)) ? ' overflow="visible"' : '';
+  return `<svg${overflow} aria-hidden="true" focusable="false" viewBox="0 -900 ${f1(W)} 1160" width="${f1(W*size/1000)}" height="${f1(1.16*size)}">${parts}</svg>`;
 }
 function drawText(str, size, lh, thick, locale=''){
   str = str.replace(/\*([^*\n]+?)\*/g, '\u2063$1\u2063');   // only a matched pair of stars means italic; a lone * stays an asterisk

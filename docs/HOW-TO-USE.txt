@@ -1,14 +1,14 @@
-SEIHouse Sans, version 0.38 (formerly SEIReader)
+SEIHouse Sans, version 0.39 (formerly SEIReader)
 
 EASIEST APP INSTALL
   Use the App distribution Actions run's seireader-app-packages download.
-  Extract SEIReader-0.38-web-full.zip into public/seireader/0.38/ and link its sans.css,
-  or install seihouse-seireader-0.38.0.tgz and import @seihouse/seireader/sans.css.
+  Extract SEIReader-0.39-web-full.zip into public/seireader/0.39/ and link its sans.css,
+  or install seihouse-seireader-0.39.0.tgz and import @seihouse/seireader/sans.css.
   Use font-family: "SEIHouse Sans". Legacy asset paths and SEIReader CSS still work.
   LICENSE permits ecosystem creative use/customization and authorized SEIHouse
   app/web distribution. Unrelated app embedding and standalone redistribution
   require permission; see the included full license.
-  The default is ten full WOFF2 fonts (658,048 font bytes), with no build dependencies,
+  The default is ten full WOFF2 fonts (712,464 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
@@ -17,8 +17,8 @@ EASIEST APP INSTALL
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
-  There are also 60 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
-  latin-ext-2, cyrillic and greek for each style.
+  There are also 70 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
+  latin-ext-2, cyrillic, greek and vietnamese for each style.
     Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
   Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
   and screen tuning for crisp small text on Windows and lower-resolution screens.
@@ -31,11 +31,12 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
 
     @import url('/fonts.css');
 
-  fonts.css contains all 60 @font-face rules. Latin-ext-2 intentionally overlaps basic
-  Latin and is declared last for each weight/style. It includes base letters, combining
-  accents, and prose punctuation so they can shape in one face. Keep the generated order.
+  fonts.css contains all 70 @font-face rules. Latin-ext-2 completes Latin coverage;
+  Cyrillic, Greek and Vietnamese faces follow it. Each includes base Latin letters,
+  combining accents and prose punctuation so complete clusters can shape in one face.
+  Vietnamese is the final preferred face for shared Latin text. Keep the generated order.
   Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
-  each weight, style, and character range. Keep all six subset files for every style.
+  each weight, style, and character range. Keep all seven subset files for every style.
 
   If you instead want the full .woff2 files, add all ten and register them exactly like this,
   all under one family name. Do not add, swap, or restyle other fonts for reading text.
@@ -108,12 +109,12 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   font-weight: 700 for bold. The browser then picks the real SEIReader file automatically.
 
 READING REFINEMENT PREVIEW
-  Open lab/comparison.html to compare 0.35 with the preserved 0.34 baseline, Literata,
+  Open lab/comparison.html to compare 0.39 with the preserved 0.34 baseline, Literata,
   and Rubik in the same layout. All comparison fonts are embedded for offline use.
   Choose a language in the new selector. Its encoded (NFC) and decomposed (NFD) rows
   should match. The main alphabet and real italic are shown beside the original reading
-  and foundation rows. Both 0.34 and 0.35 cover the same ten audited Latin inventories;
-  the baseline includes their encoded letters and supports the same language shaping.
+  and foundation rows. Phase 4 adds Latin Extended-A, Cyrillic, Greek and Vietnamese to those ten Latin
+  inventories; the old baseline/reference rows can use fallback for missing characters.
   Version 0.35 repairs exported stroke overlaps while preserving widths, nominal settings,
   weights, kerning and layout tables. Its contour segmentation can differ from 0.34.
   The earlier dialogue, figure, weight, and word samples remain for comparison.
@@ -222,7 +223,7 @@ CHARACTERS INCLUDED
   Latin foundation: the 18 combining marks listed above; ‚ „ ‛ ‟ ʻ ʼ ◌; U+2009/U+202F.
   Language additions: 94 letters including macron/breve/caron/double-acute/ogonek/comma/dot
   forms, Łł, İı, ƁƊƘƳ ɓɗƙƴ, and Ịị Ọọ Ụụ Ṅṅ; exact inventory in languages.json.
-  Total: 626 encoded codepoints and 644 glyphs in each full font, including private aliases.
+  Total: 714 encoded codepoints and 732 glyphs in each full font, including private aliases.
   Unencoded alternates available through OpenType: zero.tf–nine.tf and zero.numr–nine.numr /
   zero.dnom–nine.dnom. Use tnum or frac to select these from normal digits.
 
@@ -231,12 +232,12 @@ LANGUAGES
   Norwegian, Swedish, Finnish and Icelandic (everyday text).
   Additional audited CLDR main/auxiliary/index inventories: Polish, Czech, Hungarian,
   Romanian, Turkish, Hausa (Latin/Boko), Kurdish (Kurmanji, Latin), Māori, Igbo, Uzbek (Latin),
-  Slovak, Croatian and Slovenian. Modern Cyrillic: Russian, Ukrainian, Belarusian,
+  Slovak, Croatian, Slovenian and Vietnamese. Modern Cyrillic: Russian, Ukrainian, Belarusian,
   Bulgarian, Serbian and Macedonian. Greek is the monotonic repertoire; the historical
   Bulgarian and polytonic Greek auxiliary letters are excluded explicitly in languages.json.
   This is alphabet/shaping coverage, not native-reader or physical-device certification.
-  Not yet: the rest of the Latin inventories, Vietnamese's full encoded repertoire,
-  Kurdish in Arabic, non-Slavic Cyrillic inventories, polytonic Greek and other scripts.
+  Not yet: the remaining Latin inventories, Kurdish in Arabic, non-Slavic Cyrillic
+  inventories, polytonic Greek and other scripts.
   Missing characters show in a backup font.
 
 ICONS AND PHONES (read this before using symbols in the app)
@@ -294,3 +295,21 @@ PHASE 4 — STEP 2 (0.38)
   Coverage is modern/common Slavic and monotonic Greek; polytonic Greek,
   historical Bulgarian yat/yus and regional stylistic certification are deferred.
   Existing glyphs, font settings, weights and pair values stay unchanged.
+
+
+PHASE 4 — STEP 3 (0.39)
+  Vietnamese (vi): the full encoded set, including Ơơ Ưư and all stacked tones.
+  Example: <article lang="vi" class="reader-text">
+    “Nguyễn đọc truyện giữa đêm; những ước mơ vẫn sáng.”
+  </article>
+  Ordinary Unicode and decomposed input produce identical shapes and positions.
+  For example Ấ and A&#x0302;&#x0301;, Ậ and A&#x0323;&#x0302;,
+  ợ and o&#x031B;&#x0323; need no opt-in feature or text conversion.
+  Keep automatic ccmp/mark/mkmk and kerning enabled; real italic styles retain
+  the same light tone marks. Horn pairs have clearance on new glyphs only.
+  fonts.css now has seven subsets per style. Its final vietnamese delivery
+  contains complete Latin text and all accent ingredients, including horns.
+  The full fonts-full.css route is the simplest option for mixed chapters.
+  Existing line metrics and default size/line height remain unchanged.
+  For passages with frequent stacked capitals, inspect 1.5 line height in the
+  reader app; font checks do not certify device comfort.

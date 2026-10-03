@@ -1,7 +1,7 @@
 {
   "name": "@seihouse/seireader",
-  "version": "0.38.0",
-  "description": "SEIHouse Sans web fonts (formerly SEIReader): five weights with real italics and Latin, Cyrillic and Greek coverage.",
+  "version": "0.39.0",
+  "description": "SEIHouse Sans web fonts (formerly SEIReader): five weights with real italics and Latin, Cyrillic, Greek and Vietnamese coverage.",
   "private": true,
   "license": "SEE LICENSE IN LICENSE",
   "repository": {
