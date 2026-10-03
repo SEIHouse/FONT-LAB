@@ -40,7 +40,8 @@ SLANT = settings.get('italicAngle', 9); TAN = math.tan(math.radians(SLANT))
 ITAL = False   # set per build
 ITAL_EXTRA_SPACE = 4   # italic gets a little extra room between letters
 ITAL_CENTER = 330   # slant around this height so letters stay centered in their space
-TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMILY = settings['family']
+from phase4_support import release_version
+TRACK = settings['spaceBetweenAllLetters']; VERSION = release_version(); FAMILY = settings['family']
 ASSET_PREFIX = 'SEIReader'  # Existing app URLs remain stable after the family rename.
 PROJECT_URL = 'https://github.com/SEIHouse/seihouse-font-lab'
 LICENSE_URL = PROJECT_URL + '/blob/main/LICENSE'
@@ -63,7 +64,7 @@ def export():
         pg.evaluate(f"P.round={ROUND}; P.contrast={F}; P.xh={XHT}; P.caprx={CAPR}; P.ws={WS}; P.base={S}; P.os={1 if settings.get('overshoot', True) else 0}; P.ufoot={1 if settings.get('uFoot', True) else 0}; P.ital={1 if ITAL else 0}; P.straight={settings.get('uprightStraightness', 1)}; P.asc={settings.get('ascender', 770)}; P.trk={track_for(S) + (ITAL_EXTRA_SPACE if ITAL else 0)};")
         out = {'glyphs': pg.evaluate(f'exportGlyphs({S})'), 'alternates': pg.evaluate(f'exportAlternates({S})'),
                'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()'),
-               'screenStroke': pg.evaluate(f'readingStroke({S})')}
+               'screenStroke': pg.evaluate(f'readingStroke({S})'), 'scriptchars':pg.evaluate('getScriptChars()')}
         b.close()
     os.remove(tmp)
     return out
@@ -281,14 +282,14 @@ def profiles(path, ys):
         L.append(min(xs) if xs else None); R.append(max(xs) if xs else None)
     return L, R
 
-def auto_pairs(paths, hm, cmap):
+def auto_pairs(paths, hm, cmap, extra_chars=""):
     """Measure the real empty space between letter shapes and even it out (per style)."""
     step = 10 * SC
     capY = [y for y in range(0, 700*SC + 1, step)]
     lowY = [y for y in range(0, round(XHT*SC) + 1, step)]
     depth = AUTO_DEPTH * UPM
     prof = {}
-    for ch in AUTO_CHARS:
+    for ch in AUTO_CHARS + extra_chars:
         n = cmap.get(ord(ch))
         if not n: continue
         p = paths.get(n)
@@ -305,10 +306,10 @@ def auto_pairs(paths, hm, cmap):
             lb_eff = min(lb if lb is not None else 1e9, B['Lmin'] + depth)
             tot += (A['adv'] - ra_eff) + lb_eff; k += 1
         return tot / max(k, 1)
-    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ')
+    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ') | {ch for ch in extra_chars if ch.islower()}
     t_low = gap('n', 'n', 'low') if 'n' in prof else 0
     t_cap = gap('H', 'H', 'cap') if 'H' in prof else 0
-    caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
+    caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ') | {ch for ch in extra_chars if ch.isupper()}; digits = set('0123456789')
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
         """Select supported pair types, retaining the separate lowercase limits."""
@@ -511,7 +512,7 @@ def clear_text_marks(paths, hm, cmap, kern, basemap):
             kern[pair] = max(kern[pair], math.ceil((35*SC-min(closest))/SC))
 
 
-SEPARATE_LATIN = set('ĄąĘę')
+SEPARATE_LATIN = set('ĄąĘęĮįŲų')
 
 
 def ogonek_pairs(paths,hm,cmap,kern,basemap):
@@ -550,6 +551,48 @@ def hungarian_caps(paths,hm,cmap,kern):
         delta=max(0,math.ceil((35*SC-min(gaps))/SC))
         if delta: pairs[pair]=delta
     return pairs
+
+
+def script_clearance(paths, hm, cmap, kern, basemap):
+    """Protect new-script neighbors, including aliases, without changing Latin pairs."""
+    chars=[chr(code) for code in cmap if 0x370<=code<=0x3ff or 0x400<=code<=0x491]
+    ys=range(-250*SC,1100*SC+1,4*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys)) for ch in chars}
+    result={}
+    for a in chars:
+        advance,(_,right)=sampled[a]
+        for b in chars:
+            _,(left,_)=sampled[b]
+            inherited=kern.get(basemap.get(a,a)+basemap.get(b,b),0)
+            gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+            if gaps and min(gaps)+inherited*SC<35*SC:
+                result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+    return result
+
+def vietnamese_clearance(paths,hm,cmap,kern,basemap):
+    """Add literal clearance only for new Vietnamese glyphs and their neighbors.
+
+    Every derivative remains in its root letter's kerning class; literal pairs
+    override it only where horns or a tone stack need extra ink separation.
+    """
+    from build_subsets import VIETNAMESE_NEW
+    new={chr(code) for code in cmap if code in VIETNAMESE_NEW}
+    if not new: return {}
+    import unicodedata
+    others={chr(code) for code in cmap if unicodedata.category(chr(code)).startswith('L')
+            or chr(code) in '0123456789.,:;…!?\'"‘’“”‚„‛‟-–—()[]{}«»‹›'}
+    ys=range(-360*SC,1100*SC+1,4*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys)) for ch in others|new}
+    result={}
+    for changed in sorted(new):
+        for other in sorted(others):
+            for a,b in ((changed,other),(other,changed)):
+                advance,(_,right)=sampled[a];_,(left,_)=sampled[b]
+                inherited=kern.get(a+b,kern.get(basemap.get(a,a)+basemap.get(b,b),0))
+                gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                if gaps and min(gaps)+inherited*SC<35*SC:
+                    result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+    return result
 
 def track_for(thick):
     """Adjust the configured tracking by stroke weight relative to Regular."""
@@ -669,7 +712,7 @@ def build(data, out, style='Regular', italic=False):
     ], elidedFallbackName=2)
     fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-SLANT if italic else 0)
 
-    AUTO = auto_pairs(paths, hm, cmap)
+    AUTO = auto_pairs(paths, hm, cmap, data.get("scriptchars",""))
     KERN.update(AUTO); KERN.update(data['kern'])
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
     retain_reading_pairs(KERN, ps_style)
@@ -689,7 +732,17 @@ def build(data, out, style='Regular', italic=False):
                      if len(pair) == 2 and ((pair[0] in digits and pair[1] in '.,')
                                            or (pair[0] in '.,' and pair[1] in digits))}
     KERN.update(numeric_pairs)
+    if PRESERVE_RHYTHM:
+        with open(os.path.join(HERE,'old','0.34','kern_styles.json'),encoding='utf-8') as file: approved=json.load(file)[ps_style]
+        with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{ps_style}.woff2')) as font: approved_codes=set(font.getBestCmap())
+        for pair in list(KERN):
+            if all(ord(ch) in approved_codes for ch in pair) and pair not in approved: del KERN[pair]
+        KERN.update(approved)
+    # Explicit Lab changes take precedence over the preserved default pair map.
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
+    script_exceptions=script_clearance(paths,hm,cmap,KERN,data["basemap"])
+    script_exceptions.update(vietnamese_clearance(paths,hm,cmap,KERN,data["basemap"]))
+    KERN.update(script_exceptions)
     STYLE_KERN[ps_style] = dict(KERN)
     LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
     if style == 'Regular' and not italic:
@@ -699,7 +752,11 @@ def build(data, out, style='Regular', italic=False):
     left_groups, right_groups, lines = set(), set(), []
     for pair, v in KERN.items():
         a, b = pair[0], pair[1]
-        if ord(a) not in cmap or ord(b) not in cmap or v == 0: continue
+        if ord(a) not in cmap or ord(b) not in cmap: continue
+        if v == 0 and pair not in script_exceptions: continue
+        if pair in script_exceptions:
+            lines.append(f'  pos {gname(a)} {gname(b)} {round(v*SC)};')
+            continue
         left_groups.add(a); right_groups.add(b)
         lines.append(f'  pos @L_{gname(a)} @R_{gname(b)} {round(v*SC)};')
     bm = data.get('basemap', {})

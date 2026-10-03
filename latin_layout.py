@@ -13,7 +13,8 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
         if record.get('mark'): classes[record['mark']].append(name)
     lines = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;',
              'languagesystem latn TRK;', 'languagesystem latn ROM;',
-             'languagesystem latn HUN;']
+             'languagesystem latn HUN;', 'languagesystem cyrl dflt;',
+             'languagesystem grek dflt;']
     for kind, names in classes.items():
         lines.append(f'@{kind.upper()} = [{" ".join(names)}];')
         for name in names:
@@ -29,11 +30,33 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
     lines.append('feature ccmp {')
     for code, name in cmap.items():
         chars = unicodedata.normalize('NFD',chr(code))
+        if len(chars)==1 and chars!=chr(code) and ord(chars) in cmap:
+            lines.append(f' sub {name} by {cmap[ord(chars)]};')
         if len(chars)==2 and all(ord(ch) in cmap for ch in chars):
             base, mark = (cmap[ord(ch)] for ch in chars)
             if records.get(mark,{}).get('mark'):
                 lines.append(f' sub {base} {mark} by {name};')
                 if base=='i': lines.append(f' sub i.loclTRK {mark} by {name};')
+    # A later lookup completes new stacked Vietnamese forms after the earlier
+    # base+mark lookup has composed the canonical prefix. Also accept structural
+    # parents plus a tone in input order when normalization is not performed.
+    stacks=set()
+    for code,name in cmap.items():
+        if not 0x1EA0<=code<=0x1EF9: continue
+        chars=unicodedata.normalize('NFD',chr(code))
+        if len(chars)!=3: continue
+        sequences={chars,unicodedata.normalize('NFC',chars[:-1])+chars[-1]}
+        structural=next(mark for mark in chars[1:] if mark in ('\u0302','\u0306','\u031b'))
+        tone=next(mark for mark in chars[1:] if mark!=structural)
+        sequences.add(unicodedata.normalize('NFC',chars[0]+structural)+tone)
+        for sequence in sequences:
+            if all(ord(ch) in cmap for ch in sequence):
+                stacks.add((tuple(cmap[ord(ch)] for ch in sequence),name))
+    if stacks:
+        lines.append(' lookup VietnameseStacks {')
+        for sequence,name in sorted(stacks,key=lambda row:(-len(row[0]),row[0])):
+            lines.append(f'  sub {" ".join(sequence)} by {name};')
+        lines.append(' } VietnameseStacks;')
     lines += [' lookup Dotless {', '  lookupflag UseMarkFilteringSet @TOP;',
               '  sub i\' @TOP by i.dotless;', '  sub j\' @TOP by j.dotless;',
               '  sub i.loclTRK\' @TOP by i.dotless;',

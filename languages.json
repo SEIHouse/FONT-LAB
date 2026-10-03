@@ -1,9 +1,9 @@
 {
   "schema": 1,
-  "version": "0.34",
+  "version": "0.38",
   "cldr_version": "48",
   "source_ref": "release-48",
-  "scope": "Latin main, auxiliary, and index exemplars with case variants; not universal transliteration, translation, or native-reader certification.",
+  "scope": "Latin main, auxiliary and index exemplars with case variants; modern common Slavic Cyrillic, monotonic Greek and full Vietnamese. Alphabet and shaping coverage does not certify universal transliteration, translation, regional styles or native-reader comfort.",
   "locales": {
     "pl": {
       "name": "Polish",
@@ -124,6 +124,139 @@
         "index": "[A B D E F G H I J K L M N O P Q R S T U V X Y Z {Oʻ} {Gʻ} {Sh} {Ch}]"
       },
       "sample": "Oʻzbekiston · oʻqish · gʻoya · “Yoʻl ochiq.” · Oʻ Gʻ Sh Ch"
+    },
+    "sk": {
+      "name": "Slovak",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sk.xml",
+      "source_sha256": "803ae40f86913a166212c6a845c353be0bf4812123ba6a3de9e77a084f7b1934",
+      "exemplars": {
+        "main": "[aá ä b c č dď {dz} {dž} eé f g h {ch} ií j k lĺľ m nň oó ô p q rŕ s š tť uú v w x yý z ž]",
+        "auxiliary": "[àăâåā æ ç èĕêëē ìĭîïī ñ òŏöőøō œ ř ùŭûüűū ÿ]",
+        "index": "[A Ä B C Č DĎ E F G H {CH} I J K LĽ M N O Ô P Q R S Š TŤ U V W X Y Z Ž]"
+      },
+      "sample": "„Ľudovít kráča cez hĺbku lesa; kôň čaká pri rieke.“"
+    },
+    "hr": {
+      "name": "Croatian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/hr.xml",
+      "source_sha256": "9c1ac8d30cb6e16890116e2d2fcc1eac9f3316df42ea0a00f5ea78541beab880",
+      "exemplars": {
+        "main": "[a b c č ć d {dž} đ e f g h i j k l {lj} m n {nj} o p r s š t u v z ž]",
+        "auxiliary": "[q w x y]",
+        "index": "[A B C Č Ć D {DŽ} Đ E F G H I J K L {LJ} M N {NJ} O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Đuro čita priču o učenju, želji i strpljenju.“"
+    },
+    "sl": {
+      "name": "Slovenian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sl.xml",
+      "source_sha256": "ad6125d044801afe5c9df6e827f8b49aa4d6cad391d748667e6f2c53f02649f6",
+      "exemplars": {
+        "main": "[a b c č d e f g h i j k l m n o p r s š t u v z ž]",
+        "auxiliary": "[áàăâåäā æ ç ć đ éèĕêëē íìĭîïī ñ óòŏôöøō œ q úùŭûüū w x yÿ]",
+        "index": "[A B C Č Ć D Đ E F G H I J K L M N O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Špela čaka ob reki; čez gozd že prihaja večer.“"
+    },
+    "ru": {
+      "name": "Russian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ru.xml",
+      "source_sha256": "c3c8a1c92689b2d9f9c1357e0f7329e2a3bcd105bbf92049fbe7dc5c2334d253",
+      "exemplars": {
+        "main": "[а б в г д её ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ы ь э ю я]",
+        "auxiliary": "[{а́} {е́} {и́} {о́} {у́} {ы́} {э́} {ю́} {я́}]",
+        "index": "[А Б В Г Д ЕЁ Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ы Э Ю Я]"
+      },
+      "sample": "«Тихая река несёт свет; ёж ждёт у старой двери.»"
+    },
+    "uk": {
+      "name": "Ukrainian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/uk.xml",
+      "source_sha256": "a1ae6c5b71b48a9fd4fbc8142f684886b4877a7578ab10ec0b14f87db103925a",
+      "exemplars": {
+        "main": "[а б в г ґ д е є ж з и і ї й к л м н о п р с т у ф х ц ч ш щ ь ю я ʼ]",
+        "auxiliary": "[{а́} {е́}ё {є́} {и́} {і́} {ї́} {о́} {у́} ъ ы э {ю́} {я́}]",
+        "index": "[А Б В Г Ґ Д Е Є Ж З И І Ї Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ю Я]"
+      },
+      "sample": "«Її мрія живе: ґанок, ніч і світло над рікою.»"
+    },
+    "be": {
+      "name": "Belarusian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/be.xml",
+      "source_sha256": "75cc7944c69d08ddf4367db5495d3e5c7d0c2af44467e4db43f7472156020331",
+      "exemplars": {
+        "main": "[а б в г д {дж} {дз} е ё ж з і й к л м н о п р с т у ў ф х ц ч ш ы ь э ю я]",
+        "auxiliary": "[{а́} {е́} {ё́} {і́} {о́} {у́} {ы́} {э́} {ю́} {я́}]",
+        "index": "[А Б В Г Д Е Ё Ж З І Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Ы Ь Э Ю Я]"
+      },
+      "sample": "«Ціхая рака нясе святло; сябры ідуць у лес.»"
+    },
+    "bg": {
+      "name": "Bulgarian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bg.xml",
+      "source_sha256": "05bcf474ad3dc89fbc0216955a3a6279d1aad884e916cade8ff36a22dbca95b7",
+      "exemplars": {
+        "main": "[а б в г д е ж з и й к л м н о п р с т у ф х ц ч ш щ ъ ь ю я]",
+        "auxiliary": "[{а̀} ѐё ѝ {о̀} {у̀} {ъ̀} ы э {ю̀} {я̀}]",
+        "index": "[А Б В Г Д Е Ж З И Й К Л М Н О П Р С Т У Ф Х Ц Ч Ш Щ Ю Я]"
+      },
+      "sample": "„Тихата река носи светлина; новият ден идва.“",
+      "scope": "Modern main/index and auxiliary stress/grave forms; historical yat and yus are deferred."
+    },
+    "sr": {
+      "name": "Serbian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sr.xml",
+      "source_sha256": "1d29d4aea9518d6afcc38e83dc29bdd83ceb970289b1b6b4f3e183f4739591e3",
+      "exemplars": {
+        "main": "[а б в г д ђ е ж з и ј к л љ м н њ о п р с т ћ у ф х ц ч џ ш]",
+        "auxiliary": "[{а̂} {е̂} {и̂} {о̂} {у̂}]",
+        "index": "[А Б В Г Д Ђ Е Ж З И Ј К Л Љ М Н Њ О П Р С Т Ћ У Ф Х Ц Ч Џ Ш]"
+      },
+      "sample": "„Љиљана чита причу; Ђорђе чува њену књигу.“"
+    },
+    "mk": {
+      "name": "Macedonian",
+      "script": "Cyrl",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mk.xml",
+      "source_sha256": "e25b1ef5f4be4ac27cbbb5e5d38fec6c5780d015186811100254d024a0ea7a1b",
+      "exemplars": {
+        "main": "[а б в г д ѓ е ж з ѕ и ј к л љ м н њ о п р с т ќ у ф х ц ч џ ш]",
+        "auxiliary": "[ѐ ѝ]",
+        "index": "[А Б В Г Д Ѓ Е Ж З Ѕ И Ј К Л Љ М Н Њ О П Р С Т Ќ У Ф Х Ц Ч Џ Ш]"
+      },
+      "sample": "„Ѓорѓи чита книга; ѕвездите светат над градот.“"
+    },
+    "el": {
+      "name": "Greek (monotonic)",
+      "script": "Grek",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/el.xml",
+      "source_sha256": "3bd9361576fa8427fb09722465b5ef4a2cfaecf3d3630868a1ee4f43204ab8c6",
+      "exemplars": {
+        "main": "[αά β γ δ εέ ζ ηή θ ιίϊΐ κ λ μ ν ξ οό π ρ σς τ υύϋΰ φ χ ψ ωώ]",
+        "index": "[Α Β Γ Δ Ε Ζ Η Θ Ι Κ Λ Μ Ν Ξ Ο Π Ρ Σ Τ Υ Φ Χ Ψ Ω]"
+      },
+      "sample": "«Η ήρεμη λίμνη λάμπει· η Μαΐα διαβάζει μια ιστορία.»",
+      "scope": "Monotonic main/index alphabets; polytonic auxiliary repertoire is deferred."
+    },
+    "vi": {
+      "name": "Vietnamese",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/vi.xml",
+      "source_sha256": "9c1a5a1e5274b868ca1c131262328ef008d37b9fb553d9922b287fef7fcb7d2c",
+      "exemplars": {
+        "main": "[aàảãáạ ăằẳẵắặ âầẩẫấậ b c d đ eèẻẽéẹ êềểễếệ g h iìỉĩíị k l m n oòỏõóọ ôồổỗốộ ơờởỡớợ p q r s t uùủũúụ ưừửữứự v x yỳỷỹýỵ]",
+        "auxiliary": "[f j w z]",
+        "index": "[A Ă Â B C D Đ E Ê F G H I J K L M N O Ô Ơ P Q R S T U Ư V W X Y Z]"
+      },
+      "sample": "“Nguyễn đọc truyện giữa đêm; những ước mơ vẫn sáng.”"
     }
   }
 }

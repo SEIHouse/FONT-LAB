@@ -2,6 +2,36 @@
 
 Newest first.
 
+- **0.39 — Phase 4, step 3** Completed Vietnamese with 88 missing encoded
+  letters, including Ơ/ơ/Ư/ư, all tones and circumflex/breve tone stacks.
+  Composites reuse the existing vowel and mark drawings with lighter tones and
+  fixed-gap attachment. Added stacked canonical composition and measured horn/
+  tone clearance confined to new glyph pairs. Added the pinned Vietnamese
+  alphabet/sample, Every character additions and a seventh web delivery
+  (seventy subsets). Rebuilt all ten styles, with all Step 2 glyphs, settings,
+  weights, advances and spacing preserved. Runtime packages retain their
+  dependency-free allowlist; language and font health results are documented.
+
+- **0.38 — Phase 4, step 2** Added 169 Cyrillic and monotonic Greek characters,
+  including common Slavic alphabets, Russian cursive italic forms, stress marks,
+  tonos/diaeresis stacks and canonical Greek punctuation. Identical skeletons
+  reuse existing Latin drawings. New shapes receive automatic pair measurements
+  and literal clearance exceptions, including zero overrides that cancel inherited
+  tightening, without changing old pairs. Added seven
+  pinned language inventories/samples, Every character additions and two new
+  script deliveries (sixty subsets). All Step 1 glyphs and metrics are preserved;
+  design settings remain unchanged. Polytonic Greek and historical Bulgarian
+  yat/yus are outside the modern alphabet scope.
+
+- **0.37 — Phase 4, step 1** Complete Latin Extended-A through additive ACC/MARK
+  recipes and special barred, joined and tailed letters. Added Slovak, Croatian,
+  Slovenian samples and a fourth `latin-ext-2` web delivery across ten styles.
+  Existing carons and Turkish/Romanian forms are retained; new ogoneks receive
+  separate punctuation clearance. Release metadata is separate from unchanged
+  design settings. Added an independent Git-baseline preservation, canonical
+  shaping, collision and subset audit. Existing glyphs, weights and spacing
+  are preserved.
+
 - **0.36** Renamed the current family to SEIHouse Sans and added the SEIHouse
   Sans Ecosystem License 1.0: broad ecosystem creative use and customization,
   authorized SEIHouse app/web distribution, and document embedding without fees

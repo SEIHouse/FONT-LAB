@@ -109,4 +109,4 @@ if __name__ == '__main__':
         verify_style(style)
     css = open(os.path.join(HERE, 'fonts.css'), encoding='utf-8').read()
     assert css.count('@font-face') == len(STYLES) * len(SUBSETS)
-    print('Phase 2 shaping and 30 web subsets verified')
+    print(f'Phase 2 shaping and {len(STYLES)*len(SUBSETS)} web subsets verified')

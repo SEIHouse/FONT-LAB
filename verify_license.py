@@ -43,7 +43,8 @@ def audit(baseline=None):
                 family = font['name'].getDebugName(16) or font['name'].getDebugName(1)
                 assert family == 'SEIHouse Sans', (filename, family)
                 assert font['name'].getDebugName(6) == f'SEIHouseSans-{style}', filename
-                assert font['name'].getDebugName(5) == 'Version 0.36', filename
+                from phase4_support import release_version
+                assert font['name'].getDebugName(5) == f'Version {release_version()}', filename
                 assert font['OS/2'].fsType == 0 and font['OS/2'].achVendID == 'SEIH', filename
                 assert font['OS/2'].usWeightClass == weight, filename
                 assert bool(font['OS/2'].fsSelection & 1) == (slant == 'italic'), filename

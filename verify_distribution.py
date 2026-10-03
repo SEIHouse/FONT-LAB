@@ -18,7 +18,7 @@ def css_fonts(css, family='SEIReader'):
     """Read shipped CSS independently and validate its relative asset references."""
     faces = []
     for block in re.findall(r'@font-face\s*\{([^}]+)\}', css):
-        url = re.search(r'src:\s*url\("(\./fonts/SEIReader-[A-Za-z.-]+\.woff2)"\)', block)
+        url = re.search(r'src:\s*url\("(\./fonts/SEIReader-[A-Za-z0-9.-]+\.woff2)"\)', block)
         assert url, 'Invalid relative WOFF2 source'
         assert f'font-family: "{family}";' in block and 'font-display: swap;' in block
         assert 'format("woff2")' in block
@@ -37,7 +37,7 @@ def verify_zip(path):
         data = {name: archive.read(name) for name in names}
     manifest = json.loads(data['manifest.json'])
     assert manifest['family'] == 'SEIHouse Sans' and manifest['legacy_css_family'] == 'SEIReader'
-    assert manifest['version'] == json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['version']
+    assert manifest['version'] == __import__('phase4_support').release_version()
     weights = set(manifest['weights'])
     assert weights and weights <= {300, 400, 500, 600, 700}
     faces = css_fonts(data['fonts.css'].decode('utf-8'))
@@ -58,7 +58,7 @@ def verify_zip(path):
         assert {p: (w, s) for p, w, s, _ in faces} == {p: ws for p, ws in full.items() if ws[0] in weights}
         assert all('unicode-range' not in block for _, _, _, block in faces)
     else:
-        assert manifest['delivery'] == 'subsets' and len(faces) == len(weights) * 6
+        assert manifest['delivery'] == 'subsets' and len(faces) == len(weights) * 2 * len(__import__('phase4_support').face_order())
         expected = [p for p, (w, _, _) in source.items() if w in weights]
         assert [p for p, _, _, _ in faces] == expected, 'Subset priority changed'
         for p, w, s, block in faces:
@@ -83,7 +83,7 @@ def verify_npm(path):
     meta = json.loads(data['package.json'])
     assert meta == json.loads((ROOT/'package.json').read_text(encoding='utf-8'))
     assert meta['name'] == '@seihouse/seireader' and meta['private'] and meta['license'] == 'SEE LICENSE IN LICENSE'
-    font_version = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['version']
+    font_version = __import__('phase4_support').release_version()
     assert meta['version'] == (font_version if font_version.count('.') == 2 else font_version + '.0')
     assert not any(meta.get(key) for key in ('dependencies', 'devDependencies', 'peerDependencies', 'optionalDependencies', 'scripts'))
     assert meta['sideEffects'] == ['*.css']
@@ -109,7 +109,7 @@ def main():
     parser.add_argument('archives', type=Path, nargs='*')
     parser.add_argument('--npm', type=Path)
     args = parser.parse_args()
-    font_version = json.loads((ROOT/'settings.json').read_text(encoding='utf-8'))['version']
+    font_version = __import__('phase4_support').release_version()
     paths = args.archives or sorted((ROOT/'dist').glob(f'SEIReader-{font_version}-web-*.zip'))
     assert paths, 'Build the distribution first'
     for path in paths:
