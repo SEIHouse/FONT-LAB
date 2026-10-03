@@ -8,7 +8,8 @@ from fontTools.ttLib import TTFont
 HERE = os.path.dirname(os.path.abspath(__file__))
 DRAFT_HELPER = open(os.path.join(HERE, 'site', 'drafts.js'), encoding='utf-8').read()
 settings = json.load(open(os.path.join(HERE, 'settings.json'), encoding='utf-8'))
-VERSION = settings['version']
+from phase4_support import release_version
+VERSION = release_version()
 kern = json.load(open(os.path.join(HERE, 'kern_auto.json'), encoding='utf-8'))           # automatic pair spacing
 kern.update(json.load(open(os.path.join(HERE, 'kern_base.json'), encoding='utf-8')))     # hand-set pairs win
 style_kern = json.load(open(os.path.join(HERE, 'kern_styles.json'), encoding='utf-8'))
@@ -40,6 +41,10 @@ CHARS = "ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789⁰¹²³
 with TTFont(os.path.join(HERE,'old/0.33/SEIReader-Regular.woff2')) as baseline:
     NEW_LETTERS = ''.join(sorted(required_characters()-set(map(chr,baseline.getBestCmap()))))
 CHARS += NEW_LETTERS
+with TTFont(os.path.join(HERE,'fonts/SEIReader-Regular.otf')) as current:
+    PHASE4_ADDED = ''.join(chr(code) for code in current.getBestCmap() if chr(code) not in CHARS and code not in range(0xE000,0xE010))
+    CHARS += PHASE4_ADDED
+NEW_LETTERS += PHASE4_ADDED
 LANGUAGE_SAMPLES = [[row['name'],row['sample'],code] for code,row in inventory()['locales'].items()]
 NEW_LETTER_ROWS = [' '.join(NEW_LETTERS[i:i+12] for i in range(start,min(start+24,len(NEW_LETTERS)),12))
                    for start in range(0,len(NEW_LETTERS),24)]

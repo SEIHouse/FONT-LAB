@@ -1,3 +1,36 @@
+SEIHouse Sans 0.37 — Phase 4, step 1
+FontBakery 1.1.0, all ten full OTF styles:
+  Universal offline: 705 PASS, 0 FAIL, 0 WARN (427 SKIP, 30 INFO)
+  OpenType:          287 PASS, 0 FAIL, 0 WARN (171 SKIP)
+Universal used --skip-network; online-only checks remain unverified.
+Neither completed profile contains ERROR or FATAL.
+
+  All ten full styles and forty WOFF2 subsets rebuilt and autohinted.
+  Full Latin Extended-A: all 128 codepoints; 457 encoded characters / 475 glyphs.
+  Added 55 letters and one light turned-comma mark (U+0312); all existing
+  accents, carons, Turkish forms and Romanian local forms are unchanged.
+  Newly added Latvian cedilla-named letters use comma forms; small g uses the
+  turned comma above. New I/U ogonek classes have measured punctuation room.
+  Added pinned CLDR 48 Slovak, Croatian and Slovenian inventories and samples.
+  verify_phase4.py: 23,840 full-font language strings across all ten styles;
+  exact preservation of all 419 prior outlines/advances, approved pair values,
+  existing prose/local shaping, numeric features, vertical metrics and hint zones.
+  Settings are unchanged; release metadata is recorded separately in phase4.json.
+  New outlines have unambiguous winding; added glyphs and samples fit clipping
+  bounds and tested neighbors do not intersect. Full/subset shaping matches.
+  Legacy Latin extended retains its 298-character inventory; latin-ext-2 holds
+  complete Latin text and accents. All forty unicode-ranges/face mappings pass.
+  Numeric/fraction features continue to pass verify_phase2.py.
+  Font and outline checks do not certify native-reader comfort or physical devices.
+
+  Full WOFF2 family: 462,196 bytes; Regular plus Italic: 90,660 bytes.
+
+  Licensing integration: all full/subset fonts retain SEIHouse Sans family names,
+  legal name records, vendor ID and embedding permissions from licensed 0.36.
+  Settings match licensed main exactly; SEIReader URLs/CSS remain supported.
+
+Previous release results follow.
+
 SEIHouse Sans 0.36 Phase 5 licensing and family-name health check
 Checked 3 October 2026 with FontBakery 1.1.0, all 10 full OTF files.
 
@@ -25,7 +58,7 @@ Checked 3 October 2026 with FontBakery 1.1.0, all 10 full OTF files.
   Runtime delivery audits: full, 400-only and subset ZIPs pass exact file,
   stylesheet mapping, license bytes, font bytes and manifest hash checks.
   npm 0.36.0 payload: 17 files, zero dependencies and installation scripts.
-  Full WOFF2 family: 431,780 bytes; Regular/Italic: 85,008; subsets: 638,180.
+  Full WOFF2 family: 462,196 bytes; Regular/Italic: 90,660; subsets: 638,180.
   Canonical CSS family: SEIHouse Sans. SEIReader CSS alias, asset filenames,
   @seihouse/seireader and its styles.css export remain supported.
 

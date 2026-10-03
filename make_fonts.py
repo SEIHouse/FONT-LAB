@@ -40,7 +40,8 @@ SLANT = settings.get('italicAngle', 9); TAN = math.tan(math.radians(SLANT))
 ITAL = False   # set per build
 ITAL_EXTRA_SPACE = 4   # italic gets a little extra room between letters
 ITAL_CENTER = 330   # slant around this height so letters stay centered in their space
-TRACK = settings['spaceBetweenAllLetters']; VERSION = settings['version']; FAMILY = settings['family']
+from phase4_support import release_version
+TRACK = settings['spaceBetweenAllLetters']; VERSION = release_version(); FAMILY = settings['family']
 ASSET_PREFIX = 'SEIReader'  # Existing app URLs remain stable after the family rename.
 PROJECT_URL = 'https://github.com/SEIHouse/seihouse-font-lab'
 LICENSE_URL = PROJECT_URL + '/blob/main/LICENSE'
@@ -511,7 +512,7 @@ def clear_text_marks(paths, hm, cmap, kern, basemap):
             kern[pair] = max(kern[pair], math.ceil((35*SC-min(closest))/SC))
 
 
-SEPARATE_LATIN = set('ĄąĘę')
+SEPARATE_LATIN = set('ĄąĘęĮįŲų')
 
 
 def ogonek_pairs(paths,hm,cmap,kern,basemap):
@@ -690,6 +691,12 @@ def build(data, out, style='Regular', italic=False):
                                            or (pair[0] in '.,' and pair[1] in digits))}
     KERN.update(numeric_pairs)
     for k, v in settings.get('pairSpace', {}).items(): KERN[k] = v
+    if PRESERVE_RHYTHM:
+        with open(os.path.join(HERE,'old','0.34','kern_styles.json'),encoding='utf-8') as file: approved=json.load(file)[ps_style]
+        with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{ps_style}.woff2')) as font: approved_codes=set(font.getBestCmap())
+        for pair in list(KERN):
+            if all(ord(ch) in approved_codes for ch in pair) and pair not in approved: del KERN[pair]
+        KERN.update(approved)
     STYLE_KERN[ps_style] = dict(KERN)
     LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
     if style == 'Regular' and not italic:

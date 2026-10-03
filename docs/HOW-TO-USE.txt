@@ -1,14 +1,14 @@
-SEIHouse Sans, version 0.36 (formerly SEIReader)
+SEIHouse Sans, version 0.37 (formerly SEIReader)
 
 EASIEST APP INSTALL
   Use the App distribution Actions run's seireader-app-packages download.
-  Extract SEIReader-0.36-web-full.zip into public/seireader/0.36/ and link its sans.css,
-  or install seihouse-seireader-0.36.0.tgz and import @seihouse/seireader/sans.css.
+  Extract SEIReader-0.37-web-full.zip into public/seireader/0.37/ and link its sans.css,
+  or install seihouse-seireader-0.37.0.tgz and import @seihouse/seireader/sans.css.
   Use font-family: "SEIHouse Sans". Legacy asset paths and SEIReader CSS still work.
   LICENSE permits ecosystem creative use/customization and authorized SEIHouse
   app/web distribution. Unrelated app embedding and standalone redistribution
   require permission; see the included full license.
-  The default is ten full WOFF2 fonts (431,780 font bytes), with no build dependencies,
+  The default is ten full WOFF2 fonts (462,196 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
@@ -17,7 +17,8 @@ EASIEST APP INSTALL
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
-  There are also 30 smaller WOFF2 files: Latin basic, Latin extended, and symbols/icons for each style.
+  There are also 40 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
+  and latin-ext-2 (the complete Latin Extended-A repertoire) for each style.
     Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
   Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
   and screen tuning for crisp small text on Windows and lower-resolution screens.
@@ -30,11 +31,11 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
 
     @import url('/fonts.css');
 
-  fonts.css contains all 30 @font-face rules. Latin extended intentionally overlaps basic
+  fonts.css contains all 40 @font-face rules. Latin-ext-2 intentionally overlaps basic
   Latin and is declared last for each weight/style. It includes base letters, combining
   accents, and prose punctuation so they can shape in one face. Keep the generated order.
   Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
-  each weight, style, and character range. Keep the three subset files for every style.
+  each weight, style, and character range. Keep all four subset files for every style.
 
   If you instead want the full .woff2 files, add all ten and register them exactly like this,
   all under one family name. Do not add, swap, or restyle other fonts for reading text.
@@ -150,8 +151,8 @@ OPTICAL SPACING AND SMALL TEXT
   dialogue quotes request Latin extended. System icons, math/music marks, superscripts,
   and precomposed fractions can request symbols/icons as well. Latin basic remains an
   optional standalone delivery for deliberately ASCII-only content. Do not preload it
-  expecting fonts.css to select it ahead of Latin extended. For Regular, extended is
-  30,432 bytes; extended+symbols is 43,384 bytes vs 40,940 bytes for the full WOFF2.
+  expecting fonts.css to select it ahead of Latin extended. Use the full WOFF2 for mixed-script chapters;
+  measure current subset transfer sizes for the app rather than assuming they are smaller.
   Compare actual transfer sizes for the app. Preload only faces needed for its first view.
 
 LATIN FOUNDATION (automatic)
@@ -163,7 +164,7 @@ LATIN FOUNDATION (automatic)
 
   This notation is JavaScript escape syntax. In HTML use Cafe&#x0301; or actual Unicode.
   Added combining marks: U+0300/0301/0302/0303/0304/0306/0307/0308/0309/030A/030B/030C,
-  U+031B, U+0323/0326/0327/0328. They attach above, below, or at the side as appropriate;
+  U+0312/031B, U+0323/0326/0327/0328. They attach above, below, or at the side as appropriate;
   i/j use dotless alternates under above marks. Above and below marks can stack.
   Use 1.5 line height for passages with frequent tall stacked accents and check line
   clearance. Font metrics and the app's default 1.4 line height are unchanged.
@@ -267,3 +268,15 @@ ICONS AND PHONES (read this before using symbols in the app)
 
 THE SOURCE ZIP
   The rules SEIReader is built from, including the emoji demo art. Ask Claude to rebuild from it.
+
+PHASE 4 — STEP 1 (0.37)
+  Central European and Turkish alphabets: Polish, Czech, Slovak, Hungarian,
+  Romanian, Croatian, Slovenian, Turkish. All Latin Extended-A codepoints are
+  encoded. Existing settings, weights, letter shapes, metrics and pair spacing
+  remain unchanged. New ACC/MARK recipes use the established light accents.
+  Use actual Unicode and language tags: lang="sk", lang="hr", lang="sl",
+  lang="pl", lang="cs", lang="hu", lang="ro", lang="tr".
+  Keep fonts.css beside fonts/ and retain the generated unicode-range order;
+  latin-ext-2 includes whole Latin words, prose punctuation and combining marks.
+  Existing latin-extended retains its original character inventory.
+  Release identifiers now come from phase4.json; design settings stay untouched.

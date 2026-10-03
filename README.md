@@ -32,15 +32,15 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.36-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.37-web-full.zip` into your app's public assets
   and load its `sans.css` for `font-family: "SEIHouse Sans"`.
-- **Vite/npm:** install `seihouse-seireader-0.36.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.37.0.tgz` and import
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses ten full WOFF2 files: **431,780 font bytes (421.7 KiB)** for all
-five weights and their real italics. That is **32.3% less** than storing all thirty
-overlapping subsets. Regular plus italic uses **85,008 bytes**; the browser requests
+The default uses ten full WOFF2 files: **462,196 font bytes (451.4 KiB)** for all
+five weights and their real italics. That is **54.2% less** than storing all thirty
+overlapping subsets. Regular plus italic uses **90,660 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -88,7 +88,7 @@ kerning. These display fonts have not received SEIReader's health-check certific
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, and the current Development/NovelExpanded reader integration points |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.36 beside preserved 0.34, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.37 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -97,7 +97,7 @@ kerning. These display fonts have not received SEIReader's health-check certific
 | `engine.js` | The letter rules: every character, mark, and symbol is drawn here |
 | `make_fonts.py` | Builds all 10 styles from the rules as full OTF and WOFF2 files |
 | `build_subsets.py` | Uses pyftsubset to split each style and writes `fonts.css` |
-| `verify_phase2.py` | Shapes the optional figures/fractions and checks all 30 subset files |
+| `verify_phase2.py` | Shapes the optional figures/fractions and checks all current subset files |
 | `latin_layout.py`, `verify_latin.py` | Build and audit Latin composition, base/mark/ligature attachment, stacking, dotless forms, and preserved 0.32 outlines/spacing |
 | `languages.json`, `language_coverage.py`, `verify_languages.py` | Pinned CLDR inventories and encoded coverage, casing, shaping, local forms, collision, preservation, and web delivery audits for the ten additional Latin locales |
 | `verify_lowercase.py` | Checks the scope of the 0.29 curve pass against preserved 0.28: all advances, unchanged outlines, counters, heights, and settings |
@@ -126,7 +126,7 @@ python -m playwright install chromium
 Then:
 
 ```
-python make_fonts.py        # builds all 10 full styles, 30 subsets, and fonts.css
+python make_fonts.py        # builds all 10 full styles, 40 subsets, and fonts.css
 python build_page.py        # builds lab/index.html with the new fonts
 python build_comparison.py  # builds lab/comparison.html with candidate, baseline, and references
 python verify_phase2.py     # checks OpenType shaping and subset coverage
@@ -137,8 +137,8 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.36.0.tgz
-python verify_license.py           # legal metadata in all fifty current fonts
+python verify_distribution.py --npm dist/seihouse-seireader-0.37.0.tgz
+python verify_license.py           # legal metadata in all current full/subset fonts
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
@@ -164,7 +164,7 @@ with Day/Night proofs across all ten styles. It found no demonstrated spacing
 defect and preserves the 0.35 fonts. Open **Paragraph spacing** in each reference
 preview card to inspect the exact text with the existing reading controls.
 
-## What SEIHouse Sans has (version 0.36)
+## What SEIHouse Sans has (version 0.37)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
@@ -208,9 +208,9 @@ preview card to inspect the exact text with the existing reading controls.
   nonnumeric pair values match 0.33. Numeric periods/commas have explicit separation
   on both sides, including equal adjustments for tabular figures; digit drawings,
   advances, and digit-to-digit spacing stay unchanged. See the [language notes](docs/LANGUAGES-0.34.md)
-- Three WOFF2 deliveries per style: Latin basic, Latin extended, and symbols/icons. The generated
-  `fonts.css` registers all 30. Latin extended deliberately also includes Latin basic and
-  prose punctuation, and is declared last so base letters and combining accents shape together
+- Four WOFF2 deliveries per style: Latin basic, legacy Latin extended, symbols/icons,
+  and `latin-ext-2` with the complete Latin Extended-A repertoire. The generated
+  `fonts.css` registers all 40; keep its order so Latin words and accents shape together
 - Screen tuning (alignment zones and Adobe autohinting) for crisp small text
 - Established Latin coverage: English, Spanish, French, Portuguese, German, Italian,
   Dutch, Catalan, Danish, Norwegian, Swedish, Finnish, Icelandic. Additional audited
@@ -220,6 +220,22 @@ preview card to inspect the exact text with the existing reading controls.
   brand mark, with private in-app codes (U+E000–E00F) so phones can't swap in color emoji
 - FontBakery: 0 failures and 0 warnings in OpenType and offline universal checks on all 10
   full OTF styles; online-only universal checks remain unverified in this session
+
+## Phase 4: additive language expansion
+
+Step 1 (0.37) completes all 128 Latin Extended-A characters. Polish, Czech, Slovak,
+Hungarian, Romanian, Croatian, Slovenian, and Turkish are covered, including
+`İ ı Ğ ğ Ş ş Đ đ Ĺ ĺ` and the established apostrophe-style carons on `ď ľ ť Ľ`.
+The Lab adds Slovak, Croatian, and Slovenian samples to the existing ten-language
+inventory. New accents use ACC/MARK and the existing fixed-gap, lighter-mark
+attachment. `ģ` uses a turned comma above; new ogoneks receive their own
+punctuation clearance without changing approved pairs.
+
+`phase4.json` records release metadata separately from unchanged `settings.json`.
+Run `python verify_phase4.py` to compare all old glyphs, advances, settings,
+spacing and shaping with the starting commit. FontBakery results are in
+[the health check](docs/HEALTH-CHECK.txt). Alphabet coverage does not certify
+sustained reading on a physical device.
 
 ## Roadmap
 

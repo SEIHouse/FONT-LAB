@@ -556,6 +556,78 @@ hooked('ɓ','b',[['M',0,630],['C',0,715,45,740,105,740],['C',170,740,195,680,160
 hooked('ɗ','d',[['M',420,630],['C',420,715,375,740,315,740],['C',250,740,225,680,260,645]]);
 // Real italic d has its established exit foot; the hook follows that skeleton.
 IT['ɗ']={...G['ɗ'],shapes:[...IT.d.shapes,G['ɗ'].shapes.at(-1)],sb:[...IT.d.sb]};
+/* Phase 4, step 1: add the remaining Extended-A composites through ACC.
+   Existing accent recipes and the fixed-gap, light-mark construction stay intact. */
+acc('Ĉ','C',['circ'],{additive:true,marks:["\u0302"]});
+acc('ĉ','c',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ċ','C',['dot'],{additive:true,marks:["\u0307"]});
+acc('ċ','c',['dot'],{additive:true,marks:["\u0307"]});
+acc('Ė','E',['dot'],{additive:true,marks:["\u0307"]});
+acc('ė','e',['dot'],{additive:true,marks:["\u0307"]});
+acc('Ĝ','G',['circ'],{additive:true,marks:["\u0302"]});
+acc('ĝ','g',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ġ','G',['dot'],{additive:true,marks:["\u0307"]});
+acc('ġ','g',['dot'],{additive:true,marks:["\u0307"]});
+acc('Ģ','G',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('ģ','g',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('Ĥ','H',['circ'],{additive:true,marks:["\u0302"]});
+acc('ĥ','h',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ĩ','I',['tilde'],{additive:true,marks:["\u0303"]});
+acc('ĩ','i',['tilde'],{additive:true,marks:["\u0303"]});
+acc('Į','I',['ogonek'],{additive:true,marks:["\u0328"]});
+acc('į','i',['ogonek'],{additive:true,marks:["\u0328"]});
+acc('Ĵ','J',['circ'],{additive:true,marks:["\u0302"]});
+acc('ĵ','j',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ķ','K',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('ķ','k',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('Ĺ','L',['acute'],{additive:true,marks:["\u0301"]});
+acc('ĺ','l',['acute'],{additive:true,marks:["\u0301"]});
+acc('Ļ','L',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('ļ','l',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('Ņ','N',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('ņ','n',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('Ŗ','R',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('ŗ','r',['cedilla'],{additive:true,marks:["\u0327"]});
+acc('Ŝ','S',['circ'],{additive:true,marks:["\u0302"]});
+acc('ŝ','s',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ũ','U',['tilde'],{additive:true,marks:["\u0303"]});
+acc('ũ','u',['tilde'],{additive:true,marks:["\u0303"]});
+acc('Ų','U',['ogonek'],{additive:true,marks:["\u0328"]});
+acc('ų','u',['ogonek'],{additive:true,marks:["\u0328"]});
+acc('Ŵ','W',['circ'],{additive:true,marks:["\u0302"]});
+acc('ŵ','w',['circ'],{additive:true,marks:["\u0302"]});
+acc('Ŷ','Y',['circ'],{additive:true,marks:["\u0302"]});
+acc('ŷ','y',['circ'],{additive:true,marks:["\u0302"]});
+// Latvian small g uses the turned comma above its bowl, clear of the descender.
+MARK.commaAbove=(cx,y)=>({shapes:[RAW([['M',cx-15,y],['C',cx-30,y+40,cx-10,y+80,cx+25,y+95]])]});
+COMBINING['\u0312']={mark:'commaAbove',place:'top'}; G['\u0312']={comp:true};
+ACC['ģ'].mark='commaAbove'; ACC['ģ'].marks=['\u0312'];
+for(const ch of 'ĢĶķĻļŅņŖŗ'){ ACC[ch].mark='comma'; ACC[ch].marks=['\u0326']; }
+const PHASE4_SPECIALS = {'Đ':'D','đ':'d','Ħ':'H','ħ':'h','Ŧ':'T','ŧ':'t','ĸ':'k','Ŋ':'N','ŋ':'n','ſ':'f','Ĳ':'I','ĳ':'i','Ŀ':'L','ŀ':'l','ŉ':'n'};
+hooked('Đ','D',[['M',-50,350],LN(-50,350,170,350)],50);
+hooked('đ','d',[['M',250,630],LN(250,630,560,630)],0,90);
+IT['đ']={...G['đ'],shapes:[...IT.d.shapes,G['đ'].shapes.at(-1)],sb:[IT.d.sb[0],IT.d.sb[1]+90]};
+hooked('Ħ','H',[['M',-55,540],LN(-55,540,535,540)],55,55);
+hooked('ħ','h',[['M',-55,620],LN(-55,620,185,620)],55);
+IT['ħ']={...G['ħ'],shapes:[...IT.h.shapes,G['ħ'].shapes.at(-1)],sb:[IT.h.sb[0]+55,IT.h.sb[1]]};
+hooked('Ŧ','T',[['M',80,360],LN(80,360,420,360)]);
+hooked('ŧ','t',[['M',25,270],LN(25,270,310,270)]);
+def('ĸ',420,'low',[o([[0,0],[0,500]]),o([[415,500],[0,185]]),o([[165,309],[425,0]])],[],[66,20]);
+hooked('Ŋ','N',[['M',500,0],['C',500,-125,455,-195,350,-195]],0,20);
+def('ŋ',400,'low',[o([[0,0],[0,500]]),shoulder(0,400),RAW([['M',400,0],['C',400,-140,360,-200,260,-200]])],[],[66,66]);
+IT['ŋ']={...G['ŋ'],shapes:[o([[0,0],[0,500]]),shoulder(0,400,250),G['ŋ'].shapes.at(-1)]};
+def('ſ',350,'low',[o([[375,740],[150,740,1],[150,0]])],[],[30,14]);
+const PHASE4_JOINED={'Ĳ':['I','J'],'ĳ':['i','j'],'Ŀ':['L','·'],'ŀ':['l','·'],'ŉ':['ʼ','n']};
+for(const ch of Object.keys(PHASE4_JOINED)) G[ch]={comp:true};
+/** Join new special letters from existing drawings, retaining each component's metrics. */
+function phase4Joined(ch,S){
+  const parts=PHASE4_JOINED[ch].map(base=>glyph(base,S));
+  const first=parts[0],second=parts[1],dx=first.w+S+first.sb1+second.sb0;
+  const body=first.body+moveNumericBody(second.body,1,dx,0,1);
+  return {...first,body,w:dx+second.w,sb1:second.sb1,clipId:ensureClip(1250,-500),ink:undefined};
+}
+Object.assign(LANGUAGE_SPECIALS,PHASE4_SPECIALS);
+const PHASE4_LETTERS=Object.keys(PHASE4_SPECIALS);
 const LANGUAGE_ALTERNATES={'i.loclTRK':'i','i.below.dotless':'ị'};
 /** Map new derivatives to the approved optical pair and letter-space classes. */
 function latinBase(ch){
@@ -757,9 +829,9 @@ function clusterGlyph(cluster,S){
 
 /** Compose new encoded letters without redrawing any 0.33 outline or advance. */
 function languageGlyph(ch,S,removeDot=false){
-  const spec=LANGUAGE_COMPOSED[ch];
+  const spec=LANGUAGE_COMPOSED[ch] || ACC[ch];
   const top=spec.marks.some(mark=>COMBINING[mark].place==='top');
-  const base=spec.base==='i' && (top||removeDot) ? 'i.dotless' : spec.base;
+  const base=['i','j'].includes(spec.base) && (top||removeDot) ? spec.base+'.dotless' : spec.base;
   if(!['ď','ť','ľ','Ľ'].includes(ch)) return clusterGlyph({base,marks:spec.marks},S);
   // Czech/Slovak tall stems use a compact side caron, not a floating accent.
   const g=glyph(base,S),b=inkBounds(g),ws=P.ws*(P.ital ? 0.94 : 1);
@@ -780,7 +852,8 @@ function languageGlyph(ch,S,removeDot=false){
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
-  if(LANGUAGE_COMPOSED[ch]) return (cache[ck]=languageGlyph(ch,S));
+  if(PHASE4_JOINED[ch]) return (cache[ck]=phase4Joined(ch,S));
+  if(LANGUAGE_COMPOSED[ch] || ACC[ch]?.additive) return (cache[ck]=languageGlyph(ch,S));
   if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));
   if(ch==='i.loclTRK') return (cache[ck]=glyph('i',S));
   if(ch==='i.below.dotless') return (cache[ck]=languageGlyph('ị',S,true));

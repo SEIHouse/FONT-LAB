@@ -2,6 +2,15 @@
 
 Newest first.
 
+- **0.37 — Phase 4, step 1** Complete Latin Extended-A through additive ACC/MARK
+  recipes and special barred, joined and tailed letters. Added Slovak, Croatian,
+  Slovenian samples and a fourth `latin-ext-2` web delivery across ten styles.
+  Existing carons and Turkish/Romanian forms are retained; new ogoneks receive
+  separate punctuation clearance. Release metadata is separate from unchanged
+  design settings. Added an independent Git-baseline preservation, canonical
+  shaping, collision and subset audit. Existing glyphs, weights and spacing
+  are preserved.
+
 - **0.36** Renamed the current family to SEIHouse Sans and added the SEIHouse
   Sans Ecosystem License 1.0: broad ecosystem creative use and customization,
   authorized SEIHouse app/web distribution, and document embedding without fees

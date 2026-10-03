@@ -3,7 +3,7 @@
   "version": "0.34",
   "cldr_version": "48",
   "source_ref": "release-48",
-  "scope": "Latin main, auxiliary, and index exemplars with case variants; not universal transliteration, translation, or native-reader certification.",
+  "scope": "Latin main, auxiliary, and index exemplars with case variants; not universal transliteration, translation, or native-reader certification. Phase 4 adds Slovak, Croatian and Slovenian; all Latin Extended-A codepoints are encoded.",
   "locales": {
     "pl": {
       "name": "Polish",
@@ -124,6 +124,42 @@
         "index": "[A B D E F G H I J K L M N O P Q R S T U V X Y Z {Oʻ} {Gʻ} {Sh} {Ch}]"
       },
       "sample": "Oʻzbekiston · oʻqish · gʻoya · “Yoʻl ochiq.” · Oʻ Gʻ Sh Ch"
+    },
+    "sk": {
+      "name": "Slovak",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sk.xml",
+      "source_sha256": "803ae40f86913a166212c6a845c353be0bf4812123ba6a3de9e77a084f7b1934",
+      "exemplars": {
+        "main": "[aá ä b c č dď {dz} {dž} eé f g h {ch} ií j k lĺľ m nň oó ô p q rŕ s š tť uú v w x yý z ž]",
+        "auxiliary": "[àăâåā æ ç èĕêëē ìĭîïī ñ òŏöőøō œ ř ùŭûüűū ÿ]",
+        "index": "[A Ä B C Č DĎ E F G H {CH} I J K LĽ M N O Ô P Q R S Š TŤ U V W X Y Z Ž]"
+      },
+      "sample": "„Ľudovít kráča cez hĺbku lesa; kôň čaká pri rieke.“"
+    },
+    "hr": {
+      "name": "Croatian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/hr.xml",
+      "source_sha256": "9c1ac8d30cb6e16890116e2d2fcc1eac9f3316df42ea0a00f5ea78541beab880",
+      "exemplars": {
+        "main": "[a b c č ć d {dž} đ e f g h i j k l {lj} m n {nj} o p r s š t u v z ž]",
+        "auxiliary": "[q w x y]",
+        "index": "[A B C Č Ć D {DŽ} Đ E F G H I J K L {LJ} M N {NJ} O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Đuro čita priču o učenju, želji i strpljenju.“"
+    },
+    "sl": {
+      "name": "Slovenian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sl.xml",
+      "source_sha256": "ad6125d044801afe5c9df6e827f8b49aa4d6cad391d748667e6f2c53f02649f6",
+      "exemplars": {
+        "main": "[a b c č d e f g h i j k l m n o p r s š t u v z ž]",
+        "auxiliary": "[áàăâåäā æ ç ć đ éèĕêëē íìĭîïī ñ óòŏôöøō œ q úùŭûüū w x yÿ]",
+        "index": "[A B C Č Ć D Đ E F G H I J K L M N O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Špela čaka ob reki; čez gozd že prihaja večer.“"
     }
   }
 }

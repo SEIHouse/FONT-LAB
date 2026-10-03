@@ -1,22 +1,22 @@
 # Install SEIHouse Sans in an app
 
-SEIHouse Sans 0.36 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
+SEIHouse Sans 0.37 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
 each with its real italic. The app needs WOFF2 files and CSS. It needs no Python,
 font-building tools, JavaScript runtime library, or reference fonts.
 
 ## Recommended: the full web family
 
-Use the `SEIReader-0.36-web-full.zip` from a successful **App distribution** GitHub
+Use the `SEIReader-0.37-web-full.zip` from a successful **App distribution** GitHub
 Actions run, or build it with `python build_distribution.py` in the font repository.
 Actions retains these downloads for 30 days; its manual Run workflow button can
 regenerate them from the current branch. This does not create a public npm release.
 Extract the bundle into an app-owned, versioned asset directory such as
-`public/seireader/0.36/`. Keep its `sans.css` next to its `fonts/` directory.
+`public/seireader/0.37/`. Keep its `sans.css` next to its `fonts/` directory.
 Asset/package names retain SEIReader for compatibility; the actual family is
 SEIHouse Sans. Existing `fonts.css` / `"SEIReader"` integrations still work.
 
 ```text
-public/seireader/0.36/
+public/seireader/0.37/
   fonts.css
   sans.css
   fonts/SEIReader-Regular.woff2
@@ -31,7 +31,7 @@ public/seireader/0.36/
 In a Vite app hosted at the domain root, load the CSS from its HTML head:
 
 ```html
-<link rel="stylesheet" href="/seireader/0.36/sans.css">
+<link rel="stylesheet" href="/seireader/0.37/sans.css">
 ```
 
 The URL starts at the site root, including from `/app/` or its query-string
@@ -51,8 +51,8 @@ Apply the face to the intended prose:
 Keep the app's existing size, line height, spacing, and width for its first trial.
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.
 The CSS registers all styles, but the browser requests the faces that rendered
-text uses. Do not preload all ten. A Regular-only page uses 40,940 font bytes;
-Regular with its italic uses 84,000. Icons and all supported letters are in each
+text uses. Do not preload all ten. A Regular-only page uses 44,120 font bytes;
+Regular with its italic uses 90,660. Icons and all supported letters are in each
 full file. Missing scripts, such as Chinese, still use the host's fallback fonts.
 
 Set `lang` on the actual passage, for example `tr`, `ro`, `hu`, `ig`, `ku-Latn`, or
@@ -64,11 +64,11 @@ fractions. Ordinary prose and numbers remain the defaults.
 
 ## Alternative: install the private npm tarball
 
-The same Actions run includes `seihouse-seireader-0.36.0.tgz`. Copy it into the
+The same Actions run includes `seihouse-seireader-0.37.0.tgz`. Copy it into the
 app's `vendor/` folder and install it:
 
 ```sh
-npm install ./vendor/seihouse-seireader-0.36.0.tgz
+npm install ./vendor/seihouse-seireader-0.37.0.tgz
 ```
 
 Import its CSS from the host entry point, before the host's prose overrides:
@@ -111,7 +111,7 @@ needed for this initial trial.
 
 For a host-only trial through the ZIP route:
 
-1. Extract into `public/seireader/0.36/` and add the stylesheet link above to
+1. Extract into `public/seireader/0.37/` and add the stylesheet link above to
    `app/index.html`.
 2. Add `class="seireader-host"` to that HTML document's existing `<html>` tag.
 3. Create `src/novel-expanded/seireader.css` with this scoped rule, then import
@@ -146,15 +146,16 @@ real italic, the actual language tags, unsupported-script fallback, and
 
 | Delivery | Font files | Font bytes | Intended use |
 |---|---:|---:|---|
-| Full family (default) | 10 | 431,780 (421.7 KiB) | All weights, languages and symbols in one face per style |
-| Regular + italic only | 2 | 85,008 (83.0 KiB) | Explicit 400-only experiments; no other weights supplied |
-| Existing three subsets, all styles | 30 | 638,180 (623.2 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
+| Full family (default) | 10 | 462,196 (451.4 KiB) | All weights, languages and symbols in one face per style |
+| Regular + italic only | 2 | 90,660 (88.5 KiB) | Explicit 400-only experiments; no other weights supplied |
+| Four subsets, all styles | 40 | 1,009,580 (985.9 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
 
-The full family is 32.3% smaller than storing all thirty subset files. The
-subsets intentionally overlap basic letters and prose punctuation to preserve
+The full family is 54.2% smaller than storing all 40 subset files. The
+subsets intentionally overlap Latin letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
-For Regular, Latin extended alone is 30,812 bytes, while extended plus symbols
-is 44,180 versus 41,440 for the full face. Measure actual reading content before
+For Regular, the preferred latin-ext-2 face alone is 33,640 bytes
+and the full face is 44,120 bytes. The browser can request additional script
+faces for mixed-language passages. Measure actual reading content before
 choosing subsets.
 
 For a controlled smaller ZIP: `python build_distribution.py --weights 400`
