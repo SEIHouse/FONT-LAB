@@ -13,7 +13,8 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
         if record.get('mark'): classes[record['mark']].append(name)
     lines = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;',
              'languagesystem latn TRK;', 'languagesystem latn ROM;',
-             'languagesystem latn HUN;']
+             'languagesystem latn HUN;', 'languagesystem cyrl dflt;',
+             'languagesystem grek dflt;']
     for kind, names in classes.items():
         lines.append(f'@{kind.upper()} = [{" ".join(names)}];')
         for name in names:
@@ -29,6 +30,8 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
     lines.append('feature ccmp {')
     for code, name in cmap.items():
         chars = unicodedata.normalize('NFD',chr(code))
+        if len(chars)==1 and chars!=chr(code) and ord(chars) in cmap:
+            lines.append(f' sub {name} by {cmap[ord(chars)]};')
         if len(chars)==2 and all(ord(ch) in cmap for ch in chars):
             base, mark = (cmap[ord(ch)] for ch in chars)
             if records.get(mark,{}).get('mark'):

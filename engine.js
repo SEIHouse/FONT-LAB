@@ -631,12 +631,13 @@ const PHASE4_LETTERS=Object.keys(PHASE4_SPECIALS);
 const LANGUAGE_ALTERNATES={'i.loclTRK':'i','i.below.dotless':'ị'};
 /** Map new derivatives to the approved optical pair and letter-space classes. */
 function latinBase(ch){
-  const source=DOTLESS[ch] || LANGUAGE_ALTERNATES[ch] || ch;
-  return LANGUAGE_COMPOSED[source]?.base || LANGUAGE_SPECIALS[source] || ACC[source]?.base || source;
+  const source=DOTLESS[ch] || LANGUAGE_ALTERNATES[ch] || scriptReuse(ch) || ch;
+  const base=LANGUAGE_COMPOSED[source]?.base || LANGUAGE_SPECIALS[source] || ACC[source]?.base || source;
+  return base===source ? source : latinBase(base);
 }
 /** Return base-letter mappings for accented and language-specific glyphs. */
-window.getBaseMap = () => Object.fromEntries([...Object.keys(ACC),...Object.keys(LANGUAGE_COMPOSED),...Object.keys(LANGUAGE_SPECIALS)]
-  .map(ch=>[ch,latinBase(ch)]));
+window.getBaseMap = () => Object.fromEntries([...Object.keys(ACC),...Object.keys(LANGUAGE_COMPOSED),...Object.keys(LANGUAGE_SPECIALS),...PHASE4_SCRIPT]
+  .map(ch=>[ch,latinBase(ch)]).filter(([ch,base])=>ch!==base));
 
 /* Keep nominal widths and weight controls stable. Optical stroke calibration
    gives Light more substance and Medium more counter room at reading sizes.
@@ -644,6 +645,202 @@ window.getBaseMap = () => Object.fromEntries([...Object.keys(ACC),...Object.keys
 const READING_LETTERS = new Set([...('ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyzÆŒÐÞØæœßðþøﬁﬂ')]);
 const TEXT_MARKS = new Set([...`.,:;…!?'"‘’“”‚„‛‟-–—()[]¡¿`]);
 const QUIET_MARKS = new Set([...`'"‘’“”‚„‛‟-–—`]);
+/* Phase 4, step 2: original Cyrillic and monotonic Greek constructions.
+   Identical skeletons resolve directly to existing Latin drawings in every master. */
+const SCRIPT_REUSE={
+  'А':'A','В':'B','Е':'E','К':'K','М':'M','Н':'H','О':'O','Р':'P','С':'C','Т':'T','Х':'X',
+  'а':'a','е':'e','о':'o','р':'p','с':'c','х':'x','у':'y',
+  'І':'I','і':'i','Ј':'J','ј':'j','Ѕ':'S','ѕ':'s','Ё':'Ë','ё':'ë','Ї':'Ï','ї':'ï',
+  'Α':'A','Β':'B','Ε':'E','Ζ':'Z','Η':'H','Ι':'I','Κ':'K','Μ':'M','Ν':'N','Ο':'O','Ρ':'P','Τ':'T','Υ':'Y','Χ':'X',
+  'ο':'o','ρ':'p','ν':'v','Γ':'Г','Π':'П','Φ':'Ф','φ':'ф','κ':'к','Ϊ':'Ï','Ϋ':'Ÿ',';':';','·':'·'
+};
+const SCRIPT_ITALIC_REUSE={'д':'g','и':'u','п':'n','т':'m'};
+for(const ch of Object.keys(SCRIPT_REUSE)) G[ch]={comp:true};
+// Capitals retain the family's 700-unit cap construction and softened corners.
+def('Б',440,'cap',[o([[430,700],[0,700],[0,0]]),o([[0,360],[440,360],[440,0],[0,0]])],[],[66,52]);
+def('Г',450,'cap',[o([[0,0],[0,700],[450,700]])],[],[66,30]);
+def('Д',590,'cap',[o([[0,0],[120,180],[180,700],[460,700],[460,0]]),o([[0,-110],[0,0],[590,0],[590,-110]])],[],[45,45]);
+def('Ж',700,'cap',[o([[350,0],[350,700]]),o([[0,700],[350,350],[0,0]]),o([[700,700],[350,350],[700,0]])],[],[25,25]);
+def('З',470,'cap',[o([[0,600],[0,700],[440,700],[440,350],[160,350]]),o([[160,350],[470,350],[470,0],[0,0],[0,100]])],[],[50,50]);
+def('И',500,'cap',[o([[0,700],[0,0],[500,700],[500,0]])],[],[66,66]);
+def('Л',510,'cap',[o([[0,0],[95,70],[180,700],[510,700],[510,0]])],[],[30,66]);
+def('П',480,'cap',[o([[0,0],[0,700],[480,700],[480,0]])],[],[66,66]);
+def('У',500,'cap',[o([[0,700],[265,280],[500,700]]),o([[265,280],[120,0],[10,0]])],[],[25,25]);
+def('Ф',650,'cap',[R(0,130,650,570),o([[325,0],[325,700]])],[],[52,52]);
+def('Ц',480,'cap',[o([[0,700],[0,0],[480,0],[480,700]]),o([[480,0],[560,0],[560,-110]])],[],[66,45]);
+def('Ч',480,'cap',[o([[0,700],[0,320],[480,320]]),o([[480,700],[480,0]])],[],[66,66]);
+def('Ш',720,'cap',[o([[0,700],[0,0],[720,0],[720,700]]),o([[360,0],[360,700]])],[],[66,66]);
+def('Щ',720,'cap',[...G['Ш'].shapes,o([[720,0],[800,0],[800,-110]])],[],[66,45]);
+def('Ъ',530,'cap',[o([[-110,700],[0,700],[0,0]]),o([[0,360],[530,360],[530,0],[0,0]])],[],[140,52]);
+def('Ь',440,'cap',[o([[0,700],[0,0]]),o([[0,360],[440,360],[440,0],[0,0]])],[],[66,52]);
+def('Ы',680,'cap',[...G['Ь'].shapes,o([[680,700],[680,0]])],[],[66,66]);
+def('Э',500,'cap',[o([[0,560],[0,700],[500,700],[500,0],[0,0],[0,140]]),o([[500,350],[170,350]])],[],[50,52]);
+def('Ю',760,'cap',[o([[0,700],[0,0]]),o([[0,350],[210,350]]),R(210,0,760,700)],[],[66,52]);
+def('Я',450,'cap',[o([[450,0],[450,700,0],[20,700],[20,320],[450,320,0]]),o([[240,320],[0,0]])],[],[40,66]);
+// Lowercase: the same bowls and shoulders, at the existing x-height.
+def('б',420,'low',[R(0,0,420,500),RAW([['M',0,240],LN(0,240,0,520),['C',0,675,120,740,255,740],['C',330,740,395,750,435,775]])],[],[50,50]);
+def('в',390,'low',[c([[0,245,0],[0,500,0],[350,500],[350,245]]),c([[0,0,0],[0,245,0],[390,245],[390,0]])],[],[66,50]);
+def('г',370,'low',[o([[0,0],[0,500],[370,500]])],[],[66,30]);
+def('д',530,'low',[o([[0,0],[90,100],[155,500],[420,500],[420,0]]),o([[0,-110],[0,0],[530,0],[530,-110]])],[],[45,45]);
+def('ж',620,'low',[o([[310,0],[310,500]]),o([[0,500],[310,250],[0,0]]),o([[620,500],[310,250],[620,0]])],[],[25,25]);
+def('з',420,'low',[o([[0,410],[0,500],[390,500],[390,250],[135,250]]),o([[135,250],[420,250],[420,0],[0,0],[0,80]])],[],[46,46]);
+def('и',400,'low',[o([[0,500],[0,0],[400,500],[400,0]])],[],[66,66]);
+def('к',420,'low',[o([[0,0],[0,500]]),o([[415,500],[0,185]]),o([[165,309],[425,0]])],[],[66,20]);
+def('л',450,'low',[o([[0,0],[80,60],[160,500],[450,500],[450,0]])],[],[30,66]);
+def('м',530,'low',[o([[0,0],[0,500],[265,140],[530,500],[530,0]])],[],[66,66]);
+def('н',400,'low',[o([[0,0],[0,500]]),o([[400,0],[400,500]]),o([[0,250],[400,250]])],[],[66,66]);
+def('п',400,'low',[o([[0,0],[0,500],[400,500],[400,0]])],[],[66,66]);
+def('т',450,'low',[o([[0,500],[450,500]]),o([[225,500],[225,0]])],[],[10,10]);
+def('ф',560,'low',[R(0,0,560,500),o([[280,740],[280,-200]])],[],[50,50]);
+def('ц',400,'low',[o([[0,500],[0,0],[400,0],[400,500]]),o([[400,0],[475,0],[475,-110]])],[],[66,45]);
+def('ч',400,'low',[o([[0,500],[0,230],[400,230]]),o([[400,500],[400,0]])],[],[66,66]);
+def('ш',640,'low',[o([[0,500],[0,0],[640,0],[640,500]]),o([[320,0],[320,500]])],[],[66,66]);
+def('щ',640,'low',[...G['ш'].shapes,o([[640,0],[715,0],[715,-110]])],[],[66,45]);
+def('ъ',470,'low',[o([[-95,500],[0,500],[0,0]]),o([[0,280],[470,280],[470,0],[0,0]])],[],[125,50]);
+def('ь',390,'low',[o([[0,500],[0,0]]),o([[0,280],[390,280],[390,0],[0,0]])],[],[66,50]);
+def('ы',600,'low',[...G['ь'].shapes,o([[600,500],[600,0]])],[],[66,66]);
+def('э',420,'low',[o([[0,400],[0,500],[420,500],[420,0],[0,0],[0,100]]),o([[420,250],[135,250]])],[],[46,50]);
+def('ю',650,'low',[o([[0,500],[0,0]]),o([[0,250],[210,250]]),R(210,0,650,500)],[],[66,50]);
+def('я',400,'low',[o([[400,0],[400,500,0],[15,500],[15,245],[400,245,0]]),o([[220,245],[0,0]])],[],[40,66]);
+// Russian cursive forms are drawn before the shared italic shear.
+IT['б']={...G['б'],shapes:[bowlOnStem(420),RAW([['M',0,270],['C',0,555,55,700,250,740],['C',325,755,395,750,445,715]])]};
+IT['в']={...G['в'],w:400,shapes:[RAW([['M',0,0],LN(0,0,0,560),['C',0,700,80,740,155,740],['C',290,740,300,550,130,420],['C',60,368,0,335,0,275],['C',0,500,400,500,400,250],['C',400,80,260,0,0,0]])]};
+IT['г']={...G['г'],shapes:[RAW([['M',10,420],['C',100,535,375,535,375,425],['C',375,320,0,200,0,90],['C',0,-20,250,-20,385,75]])]};
+// Additional common Slavic letters, including Ukrainian and Serbian/Macedonian.
+def('Ґ',450,'cap',[o([[0,0],[0,700],[450,700],[450,790]])],[],[66,30]);
+def('ґ',370,'low',[o([[0,0],[0,500],[370,500],[370,620]])],[],[66,30]);
+def('Є',500,'cap',[...G['C'].shapes,o([[0,350],[330,350]])],[],[52,44]);
+def('є',420,'low',[...G['c'].shapes,o([[0,250],[280,250]])],[],[50,40]);
+def('Џ',480,'cap',[...G['Ц'].shapes.slice(0,1),o([[240,0],[240,-110]])],[],[66,66]);
+def('џ',400,'low',[...G['ц'].shapes.slice(0,1),o([[200,0],[200,-110]])],[],[66,66]);
+def('Ћ',480,'cap',[o([[0,0],[0,700]]),o([[-80,520],[400,520]]),o([[0,280],[480,280],[480,0]])],[],[110,66]);
+def('ћ',400,'low',[o([[0,0],[0,740]]),o([[-70,590],[280,590]]),shoulder(0,400)],[],[100,66]);
+def('Ђ',480,'cap',[...G['Ћ'].shapes,RAW([['M',480,0],['C',480,-130,440,-195,315,-195]])],[],[110,66]);
+def('ђ',400,'low',[o([[0,0],[0,740]]),o([[-70,590],[280,590]]),shoulder(0,400),RAW([['M',400,0],['C',400,-130,360,-195,255,-195]])],[],[100,66]);
+/** Translate shared source shapes when a Slavic digraph needs a joined bowl. */
+function scriptShift(shapes,dx){
+  return shapes.map(s=>s.p ? {...s,p:s.p.map(q=>[q[0]+dx,q[1],q[2]])}
+    : s.raw ? {...s,raw:s.raw.map(seg=>seg.map((v,i)=>i && i%2 ? v+dx : v))} : s);
+}
+def('Љ',800,'cap',[...G['Л'].shapes,o([[510,360],[800,360],[800,0],[510,0]])],[],[30,52]);
+def('љ',690,'low',[...G['л'].shapes,o([[450,280],[690,280],[690,0],[450,0]])],[],[30,50]);
+def('Њ',780,'cap',[...G['H'].shapes,o([[480,360],[780,360],[780,0],[480,0]])],[],[66,52]);
+def('њ',650,'low',[...G['н'].shapes,o([[400,280],[650,280],[650,0],[400,0]])],[],[66,50]);
+// Greek capitals reuse Latin only when the shape really is identical.
+def('Γ',450,'cap',[o([[0,0],[0,700],[450,700]])],[],[66,30]);
+def('Δ',540,'cap',[c([[0,0,0],[270,700,0],[540,0,0]])],[],[15,15]);
+def('Θ',560,'cap',[R(0,0,560,700),o([[0,350],[560,350]])],[],[52,52]);
+def('Λ',540,'cap',[o([[0,0],[270,700],[540,0]])],[],[15,15]);
+def('Ξ',480,'cap',[o([[0,700],[480,700]]),o([[40,350],[440,350]]),o([[0,0],[480,0]])],[],[50,50]);
+def('Π',480,'cap',[o([[0,0],[0,700],[480,700],[480,0]])],[],[66,66]);
+def('Σ',480,'cap',[o([[480,700],[0,700],[265,350],[0,0],[480,0]])],[],[50,50]);
+def('Φ',650,'cap',[...G['Ф'].shapes],[],[52,52]);
+def('Ψ',650,'cap',[o([[0,700],[0,220],[650,220],[650,700]]),o([[325,700],[325,0]])],[],[66,66]);
+def('Ω',560,'cap',[o([[0,0],[160,0],[160,100],[0,220],[0,700],[560,700],[560,220],[400,100],[400,0],[560,0]])],[],[52,52]);
+def('α',410,'low',[...A_IT.shapes],[],[48,28]);
+def('β',400,'low',[RAW([['M',0,-200],LN(0,-200,0,555),['C',0,675,65,740,175,740],['C',330,740,385,620,340,520],['C',315,460,240,400,95,350],['C',270,410,400,310,400,180],['C',400,65,315,0,180,0],['C',80,0,0,45,0,150]])],[],[66,50]);
+def('γ',420,'low',[RAW([['M',0,500],['C',115,500,190,335,215,100],['C',230,-40,245,-145,210,-200]]),RAW([['M',420,500],['C',350,340,280,180,215,100]])],[],[30,30]);
+def('δ',420,'low',[R(0,0,420,500),RAW([['M',420,245],['C',420,525,85,555,85,675],['C',85,740,220,765,360,710]])],[],[50,50]);
+def('ε',400,'low',[RAW([['M',390,430],['C',345,485,295,500,210,500],['C',85,500,0,450,0,380],['C',0,305,70,250,190,250],['C',75,250,0,205,0,130],['C',0,55,90,0,215,0],['C',300,0,355,20,400,75]]),o([[190,250],[330,250]])],[],[50,40]);
+def('ζ',400,'low',[RAW([['M',0,500],LN(0,500,400,500),['C',270,380,0,260,0,115],['C',0,25,140,0,300,0],['C',390,0,390,-110,300,-150]])],[],[46,46]);
+def('η',400,'low',[o([[0,0],[0,500]]),shoulder(0,400),o([[400,0],[400,-200]])],[],[66,66]);
+def('θ',420,'low',[R(0,0,420,740),o([[0,365],[420,365]])],[],[50,50]);
+def('ι',95,'low',[o([[0,500],[0,0,.55],[95,0]])],[],[66,40]);
+def('κ',420,'low',[...G['ĸ'].shapes],[],[66,20]);
+def('λ',450,'low',[RAW([['M',100,740],['C',220,740,225,520,270,400],LN(270,400,450,0)]),o([[270,400],[0,0]])],[],[25,25]);
+def('μ',465,'low',[...U_FOOT.shapes,o([[0,220],[0,-200]])],[],[66,40]);
+def('ξ',400,'low',[RAW([['M',0,740],['C',90,695,280,695,390,740],['C',315,600,0,560,0,420],['C',0,340,160,330,335,340],['C',160,325,0,255,0,115],['C',0,20,150,0,300,0],['C',385,0,390,-105,300,-150]])],[],[46,46]);
+def('π',480,'low',[o([[-20,500],[500,500]]),o([[70,500],[70,0]]),o([[420,500],[420,0,.55],[480,0]])],[],[50,40]);
+def('σ',490,'low',[R(0,0,420,500),o([[210,500],[490,500]])],[],[50,35]);
+def('ς',400,'low',[RAW([['M',400,500],['C',190,530,0,440,0,235],['C',0,75,125,35,285,0],['C',410,-25,405,-115,290,-170]])],[],[50,45]);
+def('τ',370,'low',[o([[0,500],[370,500]]),o([[170,500],[170,0,.6],[255,0]])],[],[30,30]);
+def('υ',400,'low',[...U_PLAIN.shapes],[],[66,66]);
+def('φ',560,'low',[R(0,0,560,500),o([[280,740],[280,-200]])],[],[50,50]);
+def('χ',420,'low',[o([[0,500],[420,-200]]),o([[420,500],[0,-200]])],[],[25,25]);
+def('ψ',500,'low',[o([[0,500],[0,100],[500,100],[500,500]]),o([[250,500],[250,-200]])],[],[66,66]);
+def('ω',560,'low',[RAW([['M',0,500],LN(0,500,0,220),['C',0,75,40,0,135,0],['C',220,0,280,65,280,220],LN(280,220,280,320),LN(280,320,280,220),['C',280,65,340,0,425,0],['C',520,0,560,75,560,220],LN(560,220,560,500)])],[],[50,50]);
+const PHASE4_SCRIPT=new Set([...Object.keys(SCRIPT_REUSE),...Object.keys(SCRIPT_ITALIC_REUSE),
+  ...'БГДЖЗИЛПУФЦЧШЩЪЫЬЭЮЯбвгджзиклмнптфцчшщъыьэюяҐґЄєЏџЋћЂђЉљЊњΓΔΘΛΞΠΣΦΨΩαβγδεζηθικλμξπσςτυφχψω']);
+for(const ch of PHASE4_SCRIPT) READING_LETTERS.add(ch);
+for(const ch of 'бвзфэюβδεθσςφωФЭЮΘΦΩ') OVS.add(ch);
+for(const ch of 'ЖШЩЫЮжмшщыюЉљЊњΦΩφω') WIDE.add(ch);
+acc('Ѐ','Е',['grave'],{additive:true,marks:["\u0300"]});
+PHASE4_SCRIPT.add('Ѐ');
+acc('Ё','Е',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('Ё');
+acc('Ѓ','Г',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ѓ');
+acc('Ї','І',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('Ї');
+acc('Ќ','К',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ќ');
+acc('Ѝ','И',['grave'],{additive:true,marks:["\u0300"]});
+PHASE4_SCRIPT.add('Ѝ');
+acc('Ў','У',['breve'],{additive:true,marks:["\u0306"]});
+PHASE4_SCRIPT.add('Ў');
+acc('Й','И',['breve'],{additive:true,marks:["\u0306"]});
+PHASE4_SCRIPT.add('Й');
+acc('й','и',['breve'],{additive:true,marks:["\u0306"]});
+PHASE4_SCRIPT.add('й');
+acc('ѐ','е',['grave'],{additive:true,marks:["\u0300"]});
+PHASE4_SCRIPT.add('ѐ');
+acc('ё','е',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('ё');
+acc('ѓ','г',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ѓ');
+acc('ї','і',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('ї');
+acc('ќ','к',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ќ');
+acc('ѝ','и',['grave'],{additive:true,marks:["\u0300"]});
+PHASE4_SCRIPT.add('ѝ');
+acc('ў','у',['breve'],{additive:true,marks:["\u0306"]});
+PHASE4_SCRIPT.add('ў');
+acc('Ά','Α',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ά');
+acc('Έ','Ε',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Έ');
+acc('Ή','Η',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ή');
+acc('Ί','Ι',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ί');
+acc('Ό','Ο',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ό');
+acc('Ύ','Υ',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ύ');
+acc('Ώ','Ω',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('Ώ');
+acc('ά','α',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ά');
+acc('έ','ε',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('έ');
+acc('ή','η',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ή');
+acc('ί','ι',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ί');
+acc('ό','ο',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ό');
+acc('ύ','υ',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ύ');
+acc('ώ','ω',['acute'],{additive:true,marks:["\u0301"]});
+PHASE4_SCRIPT.add('ώ');
+acc('Ϊ','Ι',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('Ϊ');
+acc('Ϋ','Υ',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('Ϋ');
+acc('ϊ','ι',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('ϊ');
+acc('ϋ','υ',['dier'],{additive:true,marks:["\u0308"]});
+PHASE4_SCRIPT.add('ϋ');
+acc('ΐ','ι',['dier','acute'],{additive:true,marks:["\u0308", "\u0301"]});
+PHASE4_SCRIPT.add('ΐ');
+acc('ΰ','υ',['dier','acute'],{additive:true,marks:["\u0308", "\u0301"]});
+PHASE4_SCRIPT.add('ΰ');
+Object.assign(LANGUAGE_SPECIALS,SCRIPT_REUSE);
+/** Choose the established cursive skeleton before applying the family's italic shear. */
+function scriptReuse(ch){ return (P.ital && SCRIPT_ITALIC_REUSE[ch]) || SCRIPT_REUSE[ch]; }
+window.getScriptChars=()=>[...PHASE4_SCRIPT].filter(ch=>G[ch] && !ACC[ch] && latinBase(ch)===ch).join('');
+
 /** Interpolate stroke corrections without changing any glyph advance. */
 function readingStroke(S){
   const anchors = [[40,0],[70,4],[85,0],[100,-3],[115,0]];
@@ -831,7 +1028,8 @@ function clusterGlyph(cluster,S){
 function languageGlyph(ch,S,removeDot=false){
   const spec=LANGUAGE_COMPOSED[ch] || ACC[ch];
   const top=spec.marks.some(mark=>COMBINING[mark].place==='top');
-  const base=['i','j'].includes(spec.base) && (top||removeDot) ? spec.base+'.dotless' : spec.base;
+  const dotBase=scriptReuse(spec.base) || spec.base;
+  const base=['i','j'].includes(dotBase) && (top||removeDot) ? dotBase+'.dotless' : spec.base;
   if(!['ď','ť','ľ','Ľ'].includes(ch)) return clusterGlyph({base,marks:spec.marks},S);
   // Czech/Slovak tall stems use a compact side caron, not a floating accent.
   const g=glyph(base,S),b=inkBounds(g),ws=P.ws*(P.ital ? 0.94 : 1);
@@ -852,6 +1050,7 @@ function languageGlyph(ch,S,removeDot=false){
 function glyph(ch, S){
   const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
+  if(scriptReuse(ch)) return (cache[ck]=glyph(scriptReuse(ch),S));
   if(PHASE4_JOINED[ch]) return (cache[ck]=phase4Joined(ch,S));
   if(LANGUAGE_COMPOSED[ch] || ACC[ch]?.additive) return (cache[ck]=languageGlyph(ch,S));
   if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));

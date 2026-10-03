@@ -1,14 +1,14 @@
-SEIHouse Sans, version 0.37 (formerly SEIReader)
+SEIHouse Sans, version 0.38 (formerly SEIReader)
 
 EASIEST APP INSTALL
   Use the App distribution Actions run's seireader-app-packages download.
-  Extract SEIReader-0.37-web-full.zip into public/seireader/0.37/ and link its sans.css,
-  or install seihouse-seireader-0.37.0.tgz and import @seihouse/seireader/sans.css.
+  Extract SEIReader-0.38-web-full.zip into public/seireader/0.38/ and link its sans.css,
+  or install seihouse-seireader-0.38.0.tgz and import @seihouse/seireader/sans.css.
   Use font-family: "SEIHouse Sans". Legacy asset paths and SEIReader CSS still work.
   LICENSE permits ecosystem creative use/customization and authorized SEIHouse
   app/web distribution. Unrelated app embedding and standalone redistribution
   require permission; see the included full license.
-  The default is ten full WOFF2 fonts (462,196 font bytes), with no build dependencies,
+  The default is ten full WOFF2 fonts (658,048 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
@@ -17,8 +17,8 @@ EASIEST APP INSTALL
 
 WHAT YOU HAVE
   Five weights, each in upright and italic, each as full .woff2 (websites and apps) and .otf (computers).
-  There are also 40 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
-  and latin-ext-2 (the complete Latin Extended-A repertoire) for each style.
+  There are also 60 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
+  latin-ext-2, cyrillic and greek for each style.
     Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
   Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
   and screen tuning for crisp small text on Windows and lower-resolution screens.
@@ -31,11 +31,11 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
 
     @import url('/fonts.css');
 
-  fonts.css contains all 40 @font-face rules. Latin-ext-2 intentionally overlaps basic
+  fonts.css contains all 60 @font-face rules. Latin-ext-2 intentionally overlaps basic
   Latin and is declared last for each weight/style. It includes base letters, combining
   accents, and prose punctuation so they can shape in one face. Keep the generated order.
   Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
-  each weight, style, and character range. Keep all four subset files for every style.
+  each weight, style, and character range. Keep all six subset files for every style.
 
   If you instead want the full .woff2 files, add all ten and register them exactly like this,
   all under one family name. Do not add, swap, or restyle other fonts for reading text.
@@ -219,10 +219,10 @@ CHARACTERS INCLUDED
   Icons: 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊
   Accented letters: ÀÁÂÃÄÅ Ç ÈÉÊË ÌÍÎÏ Ñ ÒÓÔÕÖØ ÙÚÛÜ ÝŸ ÆŒ ÐÞ (and lowercase), ß æ œ ð þ ¡ ¿ º ª
   Numeric additions: ⁰¹²³⁴⁵⁶⁷⁸⁹ ₀₁₂₃₄₅₆₇₈₉ ½ ¼ ¾ ⁄ (U+2044)
-  Latin foundation: the 17 combining marks listed above; ‚ „ ‛ ‟ ʻ ʼ ◌; U+2009/U+202F.
+  Latin foundation: the 18 combining marks listed above; ‚ „ ‛ ‟ ʻ ʼ ◌; U+2009/U+202F.
   Language additions: 94 letters including macron/breve/caron/double-acute/ogonek/comma/dot
   forms, Łł, İı, ƁƊƘƳ ɓɗƙƴ, and Ịị Ọọ Ụụ Ṅṅ; exact inventory in languages.json.
-  Total: 401 encoded codepoints and 419 glyphs in each full font, including private aliases.
+  Total: 626 encoded codepoints and 644 glyphs in each full font, including private aliases.
   Unencoded alternates available through OpenType: zero.tf–nine.tf and zero.numr–nine.numr /
   zero.dnom–nine.dnom. Use tnum or frac to select these from normal digits.
 
@@ -230,10 +230,13 @@ LANGUAGES
   Covered: English, Spanish, French, Portuguese, German, Italian, Dutch, Catalan, Danish,
   Norwegian, Swedish, Finnish and Icelandic (everyday text).
   Additional audited CLDR main/auxiliary/index inventories: Polish, Czech, Hungarian,
-  Romanian, Turkish, Hausa (Latin/Boko), Kurdish (Kurmanji, Latin), Māori, Igbo, Uzbek (Latin).
+  Romanian, Turkish, Hausa (Latin/Boko), Kurdish (Kurmanji, Latin), Māori, Igbo, Uzbek (Latin),
+  Slovak, Croatian and Slovenian. Modern Cyrillic: Russian, Ukrainian, Belarusian,
+  Bulgarian, Serbian and Macedonian. Greek is the monotonic repertoire; the historical
+  Bulgarian and polytonic Greek auxiliary letters are excluded explicitly in languages.json.
   This is alphabet/shaping coverage, not native-reader or physical-device certification.
   Not yet: the rest of the Latin inventories, Vietnamese's full encoded repertoire,
-  Kurdish in Arabic, Uzbek in Cyrillic, Russian/other Cyrillic, Greek, and other scripts.
+  Kurdish in Arabic, non-Slavic Cyrillic inventories, polytonic Greek and other scripts.
   Missing characters show in a backup font.
 
 ICONS AND PHONES (read this before using symbols in the app)
@@ -280,3 +283,14 @@ PHASE 4 — STEP 1 (0.37)
   latin-ext-2 includes whole Latin words, prose punctuation and combining marks.
   Existing latin-extended retains its original character inventory.
   Release identifiers now come from phase4.json; design settings stay untouched.
+
+PHASE 4 — STEP 2 (0.38)
+  Added alphabets: Russian (ru), Ukrainian (uk), Belarusian (be), Bulgarian (bg),
+  Serbian Cyrillic (sr), Macedonian (mk), and monotonic Greek (el).
+  Keep language tags on the actual passage, e.g. <article lang="ru"> or lang="el".
+  New script faces include complete Latin, punctuation and combining marks so
+  mixed names and canonical accent sequences have matching shapes and metrics.
+  The real italic files contain Russian-style cursive forms for б в г д и п т.
+  Coverage is modern/common Slavic and monotonic Greek; polytonic Greek,
+  historical Bulgarian yat/yus and regional stylistic certification are deferred.
+  Existing glyphs, font settings, weights and pair values stay unchanged.

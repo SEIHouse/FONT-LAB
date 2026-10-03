@@ -75,6 +75,13 @@ def verify(baseline=None):
             assert shape(before,row['sample'],language=code)==shape(font,row['sample'],language=code),(style,code,'existing local shaping changed')
         for feature,text in [('tnum','0123456789'),('sups','123'),('subs','456'),('frac','12/34')]:
             assert shape(before,text,**{feature:1})==shape(font,text,**{feature:1}),(style,feature)
+        # Literal zero overrides must cancel inherited class tightening. A
+        # skipped zero used to leave the font narrower than the Lab's pair map.
+        for pair,value in current_pairs[style].items():
+            if value!=0 or not any(ord(ch) not in old_cmap for ch in pair): continue
+            on=sum(row[1] for row in shape(font,pair,kern=1))
+            off=sum(row[1] for row in shape(font,pair,kern=0))
+            assert on==off,(style,pair,'zero override was not exported')
         additions=set(cmap)-set(old_cmap)
         for code in additions:
             name=cmap[code];b=bounds(font,name)

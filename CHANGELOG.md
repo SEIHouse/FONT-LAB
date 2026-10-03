@@ -2,6 +2,17 @@
 
 Newest first.
 
+- **0.38 — Phase 4, step 2** Added 169 Cyrillic and monotonic Greek characters,
+  including common Slavic alphabets, Russian cursive italic forms, stress marks,
+  tonos/diaeresis stacks and canonical Greek punctuation. Identical skeletons
+  reuse existing Latin drawings. New shapes receive automatic pair measurements
+  and literal clearance exceptions, including zero overrides that cancel inherited
+  tightening, without changing old pairs. Added seven
+  pinned language inventories/samples, Every character additions and two new
+  script deliveries (sixty subsets). All Step 1 glyphs and metrics are preserved;
+  design settings remain unchanged. Polytonic Greek and historical Bulgarian
+  yat/yus are outside the modern alphabet scope.
+
 - **0.37 — Phase 4, step 1** Complete Latin Extended-A through additive ACC/MARK
   recipes and special barred, joined and tailed letters. Added Slovak, Croatian,
   Slovenian samples and a fourth `latin-ext-2` web delivery across ten styles.

@@ -1,3 +1,33 @@
+SEIHouse Sans 0.38 — Phase 4, step 2
+FontBakery 1.1.0, all ten full OTF styles:
+  Universal offline: 705 PASS, 0 FAIL, 0 WARN (427 SKIP, 30 INFO)
+  OpenType:          287 PASS, 0 FAIL, 0 WARN (171 SKIP)
+Universal used --skip-network; online-only checks remain unverified.
+Neither completed profile contains ERROR or FATAL.
+
+  Added 169 encoded Cyrillic/monotonic Greek characters: 626 codepoints / 644 glyphs.
+  Russian and common Slavic U+0400–045F plus Ukrainian Ґ/ґ; modern Greek capitals,
+  lowercase, final sigma, tonos, diaeresis, stacked dialytika/tonos and punctuation.
+  Latin lookalikes reuse the existing drawings; italic б в г д и п т has cursive forms.
+  Automatic pair measurement and new-script clearance preserve every old pair.
+  Literal zero overrides cancel inherited class tightening; a regression detects
+  their omission in the earlier export and passes in the corrected family.
+  verify_phase4.py against step 1: all 475 old outlines/advances are identical;
+  settings, weights, line metrics, hint zones, numeric features and prior shaping
+  are unchanged. All 30,070 language strings pass NFC/NFD, no fallback, clipping,
+  collision and full/subset shaping checks in all ten styles.
+  Greek canonical punctuation matches semicolon/middle-dot shaping.
+  All ten full OTF/WOFF2 styles and sixty subsets rebuilt and autohinted.
+  Cyrillic/Greek deliveries include complete Latin words and combining accents.
+  Full WOFF2 family: 658,048 bytes; Regular plus Italic: 130,052 bytes.
+  All runtime ZIP and npm file allowlists, font hashes and CSS mappings pass.
+  The Lab includes all new encoded glyphs and seven new script language samples.
+  Pinned CLDR 48 scope is modern Slavic and monotonic Greek; polytonic Greek and
+  historical Bulgarian yat/yus are excluded explicitly, not claimed as covered.
+  Font/outline audits do not certify physical devices or native-reader comfort.
+
+Previous release results follow.
+
 SEIHouse Sans 0.37 — Phase 4, step 1
 FontBakery 1.1.0, all ten full OTF styles:
   Universal offline: 705 PASS, 0 FAIL, 0 WARN (427 SKIP, 30 INFO)
@@ -58,7 +88,7 @@ Checked 3 October 2026 with FontBakery 1.1.0, all 10 full OTF files.
   Runtime delivery audits: full, 400-only and subset ZIPs pass exact file,
   stylesheet mapping, license bytes, font bytes and manifest hash checks.
   npm 0.36.0 payload: 17 files, zero dependencies and installation scripts.
-  Full WOFF2 family: 462,196 bytes; Regular/Italic: 90,660; subsets: 638,180.
+  Full WOFF2 family: 658,048 bytes; Regular/Italic: 130,052; subsets: 638,180.
   Canonical CSS family: SEIHouse Sans. SEIReader CSS alias, asset filenames,
   @seihouse/seireader and its styles.css export remain supported.
 

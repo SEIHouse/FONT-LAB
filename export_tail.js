@@ -5,7 +5,7 @@ function exportRecord(ch, S){
   const circles = [...g.body.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g)].map(m => [+m[1], +m[2], +m[3]]);
   const fills = [...g.body.matchAll(/<path data-fill="1" d="([^"]+)"[^>]*stroke-width="([^"]+)"/g)].map(m => ({ d:m[1], sw:+m[2] }));
   const latin=READING_LETTERS.has(ch) || ACC[ch] || DOTLESS[ch] || LANGUAGE_COMPOSED[ch]
-    || LANGUAGE_SPECIALS[ch] || LANGUAGE_ALTERNATES[ch] || ch==='◌';
+    || LANGUAGE_SPECIALS[ch] || LANGUAGE_ALTERNATES[ch] || PHASE4_SCRIPT.has(ch) || ch==='◌';
   return { paths, circles, fills, sb0:g.sb0, sb1:g.sb1, w:g.w,
            ...(COMBINING[ch] ? {mark:g.mark,attach:g.attach,anchors:g.anchors}
              : latin ? {anchors:latinAnchors(ch,S)} : {}) };

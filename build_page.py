@@ -352,7 +352,7 @@ html = r'''<!DOCTYPE html>
 
       <section class="card" id="langCard">
         <h2>Languages</h2>
-        <p class="sub">0.34 adds ten Latin alphabet inventories. New rows include real language-specific forms, accents, and italic. Complete CLDR main/auxiliary/index coverage is audited; native-reader and device checks remain to do.</p>
+        <p class="sub">Phase 4 adds complete Latin Extended-A, common Slavic Cyrillic and monotonic Greek. Rows include language-specific forms, accents and real italics. The modern scope is recorded in languages.json; native-reader and device checks remain to do.</p>
         <div id="langs" style="display:grid;gap:12px"></div>
       </section>
 

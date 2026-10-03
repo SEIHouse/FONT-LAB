@@ -64,7 +64,7 @@ def export():
         pg.evaluate(f"P.round={ROUND}; P.contrast={F}; P.xh={XHT}; P.caprx={CAPR}; P.ws={WS}; P.base={S}; P.os={1 if settings.get('overshoot', True) else 0}; P.ufoot={1 if settings.get('uFoot', True) else 0}; P.ital={1 if ITAL else 0}; P.straight={settings.get('uprightStraightness', 1)}; P.asc={settings.get('ascender', 770)}; P.trk={track_for(S) + (ITAL_EXTRA_SPACE if ITAL else 0)};")
         out = {'glyphs': pg.evaluate(f'exportGlyphs({S})'), 'alternates': pg.evaluate(f'exportAlternates({S})'),
                'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()'),
-               'screenStroke': pg.evaluate(f'readingStroke({S})')}
+               'screenStroke': pg.evaluate(f'readingStroke({S})'), 'scriptchars':pg.evaluate('getScriptChars()')}
         b.close()
     os.remove(tmp)
     return out
@@ -282,14 +282,14 @@ def profiles(path, ys):
         L.append(min(xs) if xs else None); R.append(max(xs) if xs else None)
     return L, R
 
-def auto_pairs(paths, hm, cmap):
+def auto_pairs(paths, hm, cmap, extra_chars=""):
     """Measure the real empty space between letter shapes and even it out (per style)."""
     step = 10 * SC
     capY = [y for y in range(0, 700*SC + 1, step)]
     lowY = [y for y in range(0, round(XHT*SC) + 1, step)]
     depth = AUTO_DEPTH * UPM
     prof = {}
-    for ch in AUTO_CHARS:
+    for ch in AUTO_CHARS + extra_chars:
         n = cmap.get(ord(ch))
         if not n: continue
         p = paths.get(n)
@@ -306,10 +306,10 @@ def auto_pairs(paths, hm, cmap):
             lb_eff = min(lb if lb is not None else 1e9, B['Lmin'] + depth)
             tot += (A['adv'] - ra_eff) + lb_eff; k += 1
         return tot / max(k, 1)
-    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ')
+    lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ') | {ch for ch in extra_chars if ch.islower()}
     t_low = gap('n', 'n', 'low') if 'n' in prof else 0
     t_cap = gap('H', 'H', 'cap') if 'H' in prof else 0
-    caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
+    caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ') | {ch for ch in extra_chars if ch.isupper()}; digits = set('0123456789')
     lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
     def wanted(a, b):
         """Select supported pair types, retaining the separate lowercase limits."""
@@ -552,6 +552,23 @@ def hungarian_caps(paths,hm,cmap,kern):
         if delta: pairs[pair]=delta
     return pairs
 
+
+def script_clearance(paths, hm, cmap, kern, basemap):
+    """Protect new-script neighbors, including aliases, without changing Latin pairs."""
+    chars=[chr(code) for code in cmap if 0x370<=code<=0x3ff or 0x400<=code<=0x491]
+    ys=range(-250*SC,1100*SC+1,4*SC)
+    sampled={ch:(hm[cmap[ord(ch)]],profiles(paths[cmap[ord(ch)]],ys)) for ch in chars}
+    result={}
+    for a in chars:
+        advance,(_,right)=sampled[a]
+        for b in chars:
+            _,(left,_)=sampled[b]
+            inherited=kern.get(basemap.get(a,a)+basemap.get(b,b),0)
+            gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+            if gaps and min(gaps)+inherited*SC<35*SC:
+                result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+    return result
+
 def track_for(thick):
     """Adjust the configured tracking by stroke weight relative to Regular."""
     reg = settings['weight']
@@ -670,7 +687,7 @@ def build(data, out, style='Regular', italic=False):
     ], elidedFallbackName=2)
     fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-SLANT if italic else 0)
 
-    AUTO = auto_pairs(paths, hm, cmap)
+    AUTO = auto_pairs(paths, hm, cmap, data.get("scriptchars",""))
     KERN.update(AUTO); KERN.update(data['kern'])
     KERN.update(optical_pairs(paths, hm, cmap, KERN, italic))
     retain_reading_pairs(KERN, ps_style)
@@ -697,6 +714,8 @@ def build(data, out, style='Regular', italic=False):
         for pair in list(KERN):
             if all(ord(ch) in approved_codes for ch in pair) and pair not in approved: del KERN[pair]
         KERN.update(approved)
+    script_exceptions=script_clearance(paths,hm,cmap,KERN,data["basemap"])
+    KERN.update(script_exceptions)
     STYLE_KERN[ps_style] = dict(KERN)
     LANGUAGE_KERN[ps_style]={'hu':hungarian_caps(paths,hm,cmap,KERN)}
     if style == 'Regular' and not italic:
@@ -706,7 +725,11 @@ def build(data, out, style='Regular', italic=False):
     left_groups, right_groups, lines = set(), set(), []
     for pair, v in KERN.items():
         a, b = pair[0], pair[1]
-        if ord(a) not in cmap or ord(b) not in cmap or v == 0: continue
+        if ord(a) not in cmap or ord(b) not in cmap: continue
+        if v == 0 and pair not in script_exceptions: continue
+        if pair in script_exceptions:
+            lines.append(f'  pos {gname(a)} {gname(b)} {round(v*SC)};')
+            continue
         left_groups.add(a); right_groups.add(b)
         lines.append(f'  pos @L_{gname(a)} @R_{gname(b)} {round(v*SC)};')
     bm = data.get('basemap', {})

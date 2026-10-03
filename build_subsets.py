@@ -28,6 +28,8 @@ def group_for(codepoint):
     """Assign a codepoint to its primary web delivery while keeping fractions with digits."""
     if 0x20 <= codepoint <= 0x7E or codepoint in (0xA0, 0x2044):
         return 'latin-basic'
+    if 0x0400<=codepoint<=0x052f: return 'cyrillic'
+    if 0x0370<=codepoint<=0x03ff: return 'greek'
     if codepoint in PRECOMPOSED_FRACTIONS:
         return 'symbols-icons'
     if (unicodedata.name(chr(codepoint),'').startswith('LATIN ')
@@ -46,6 +48,9 @@ def subset_groups(codes, include_interpunct=True):
     groups['latin-ext-2'].update(groups['latin-extended'])
     with TTFont(os.path.join(HERE,'old','0.34','SEIReader-Regular.woff2')) as legacy:
         groups['latin-extended'].intersection_update(legacy.getBestCmap())
+    shared=groups['latin-ext-2'] | (codes & LATIN_TEXT_PUNCTUATION) | {c for c in codes if 0x0300<=c<=0x036f} | (codes & {0x25cc,0x00b7})
+    for script in ('cyrillic','greek'):
+        if script in groups: groups[script].update(shared)
     return groups
 
 

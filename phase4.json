@@ -1,7 +1,8 @@
 {
   "schema": 1,
-  "step": 1,
-  "version": "0.37",
+  "step": 2,
+  "version": "0.38",
   "baseline_commit": "bc61d90d25730f7768b92f51e190221045810e9a",
-  "scope": "Additive alphabets; preserve all existing glyphs, metrics, settings and pair spacing."
+  "scope": "Additive alphabets; preserve all existing glyphs, metrics, settings and pair spacing.",
+  "previous_step_commit": "80c20f328f8ffbc9a210bb4951472b4335bb58e4"
 }
