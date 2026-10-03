@@ -1,3 +1,38 @@
+SEIReader 0.35 stroke-join repair health check
+Checked with FontBakery 1.1.0, all 10 full OTF files.
+
+  Universal offline: 705 passed, 0 failed, 0 warnings (427 skipped, 30 info)
+  OpenType checks:   287 passed, 0 failed, 0 warnings (171 did not apply)
+
+  Universal used --skip-network. Online-only checks remain unverified.
+  Neither completed profile contains FAIL, WARN, ERROR or FATAL results.
+
+  All ten full OTF/WOFF2 styles and thirty web subsets rebuilt and autohinted.
+  Self-overlapping strokes are simplified with corrected winding before export.
+  Chromium no longer shows missing patches at the v/V/w/W or 2/3/4/5 joins.
+
+  verify_stroke_joins.py passes:
+    - Every full/subset glyph agrees under nonzero and even/odd fill rules.
+    - All 80 reported glyph/style cases reproduce the defect in archived 0.34
+      and render with unambiguous solid contours in 0.35.
+    - Settings, horizontal metrics, kerning JSON and GPOS/GSUB/GDEF tables are
+      unchanged; silhouettes stay within subpixel curve-fitting tolerances.
+    - All 18,290 language strings preserve positions, NFC/NFD behavior and subset
+      shaping. Existing tnum/sups/subs/frac layouts and line metrics are preserved.
+    - Phase 2 features, centering and all thirty subsets pass verify_phase2.py.
+    - Three runtime ZIP choices pass exact file-scope, hashes and CSS/font audits.
+
+  Chromium before/after Day/Night proofs cover all ten styles at 13/15/17/20/68px.
+  The Regular screenshots are in docs/proofs/0.35/; these are isolated desktop
+  browser checks, not physical iPhone or sustained-reading certification.
+  Original drawing rules and all Display assets remain unchanged.
+
+  FontBakery alone did not identify the original fill-rule ambiguity. The new
+  saved-CFF outline audit directly checks that failure, including numeric
+  alternates, combining marks and symbols.
+
+Previous release: 0.34 (historical results below)
+
 SEIReader 0.34 health check
 Checked with FontBakery 1.1.0, all 10 full OTF files.
 

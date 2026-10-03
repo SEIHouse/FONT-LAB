@@ -32,15 +32,15 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.34-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.35-web-full.zip` into your app's public assets
   and load its `fonts.css`.
-- **Vite/npm:** install `seihouse-seireader-0.34.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.35.0.tgz` and import
   `@seihouse/seireader/styles.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses ten full WOFF2 files: **444,456 font bytes (434.0 KiB)** for all
-five weights and their real italics. That is **31.3% less** than storing all thirty
-overlapping subsets. Regular plus italic uses **86,932 bytes**; the browser requests
+The default uses ten full WOFF2 files: **427,248 font bytes (417.2 KiB)** for all
+five weights and their real italics. That is **31.7% less** than storing all thirty
+overlapping subsets. Regular plus italic uses **84,000 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -88,7 +88,7 @@ kerning. These display fonts have not received SEIReader's health-check certific
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, and the current Development/NovelExpanded reader integration points |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.34 beside preserved 0.33, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.35 beside preserved 0.34, Literata, and Rubik, with a ten-language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -130,16 +130,14 @@ python make_fonts.py        # builds all 10 full styles, 30 subsets, and fonts.c
 python build_page.py        # builds lab/index.html with the new fonts
 python build_comparison.py  # builds lab/comparison.html with candidate, baseline, and references
 python verify_phase2.py     # checks OpenType shaping and subset coverage
-python verify_languages.py # checks 0.34 alphabets, local forms, preservation, and delivery
-python verify_decimals.py # numeric separators, tabular alignment, and subset shaping
-python verify_decimals.py --overrides # also build scratch fonts to validate pairSpace overrides
+python verify_stroke_joins.py # checks repaired outlines, unchanged spacing/languages, and delivery
 python verify_latin.py old/0.33 # historical foundation audit against preserved 0.32
 python verify_texture.py old/0.32    # historical 0.32 texture/weight scope against 0.31
 python verify_lowercase.py old/0.31  # historical curve preservation against 0.28
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.34.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.35.0.tgz
 ```
 
 To apply changes saved from the Lab (copied with "Copy instead of Save"), put them in a file and run
@@ -155,7 +153,11 @@ the [family Day](docs/proofs/0.34/family/windows-day-96.png) and
 at least 21px baseline separation. These are WPF
 rasterization evidence; physical browser/device results remain deferred.
 
-## What SEIReader has (version 0.34)
+For the 0.35 export repair, see [stroke-join notes](docs/STROKE-JOINS-0.35.md) and
+the Chromium [Day](docs/proofs/0.35/stroke-joins-day.png) /
+[Night](docs/proofs/0.35/stroke-joins-night.png) proofs.
+
+## What SEIReader has (version 0.35)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones

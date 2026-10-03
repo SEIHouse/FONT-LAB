@@ -1,6 +1,6 @@
 {
   "name": "@seihouse/seireader",
-  "version": "0.34.0",
+  "version": "0.35.0",
   "description": "SEIReader web fonts: five weights with real italics and Latin language coverage.",
   "private": true,
   "license": "UNLICENSED",
@@ -12,7 +12,9 @@
     "./styles.css": "./fonts-full.css",
     "./package.json": "./package.json"
   },
-  "sideEffects": ["*.css"],
+  "sideEffects": [
+    "*.css"
+  ],
   "files": [
     "fonts-full.css",
     "FONT-LICENSE.txt",
