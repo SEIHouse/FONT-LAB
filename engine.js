@@ -406,7 +406,8 @@ for(const digit of DIGITS) for(const separator of '.,'){
 }
 
 /* ---------- settings the sliders control ---------- */
-const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770 };
+const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770,
+  corner:'soft', cap:'round', join:'round', penAngle:0, obliqueAngle:0 };
 const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
 
 const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
@@ -414,6 +415,20 @@ const weightFor = size => P.base + P.boost * clamp((28 - size) / 15, 0, 1);
 
 /* ---------- drawing ---------- */
 const f1 = v => (+v).toFixed(1);
+
+/** Support radii of the shared oval pen; the unrotated branch retains Reader arithmetic. */
+function penHalf(S){
+  if(!P.penAngle) return {hx:S/2,hy:S/(2*P.contrast)};
+  const a=S/2,b=S/(2*P.contrast),t=P.penAngle*Math.PI/180;
+  return {hx:Math.sqrt((a*Math.cos(t))**2+(b*Math.sin(t))**2),
+    hy:Math.sqrt((a*Math.sin(t))**2+(b*Math.cos(t))**2)};
+}
+
+/** All shared strokes honor cut terminals and bounded sharp joins. */
+function strokePath(d,width){
+  const cap=P.cap==='flat' ? 'butt' : 'round',join=P.join==='sharp' ? 'miter' : 'round';
+  return `<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(width)}" stroke-linecap="${cap}" stroke-linejoin="${join}"${join==='miter' ? ' stroke-miterlimit="2"' : ''}/>`;
+}
 
 function radii(kind){
   if(kind === 'low'){
@@ -438,6 +453,7 @@ function pathFrom(pts, closed, kind){
     if(r1 < 3 || r2 < 3) return [['L',p]];
     const p1 = [p[0]-ax/l1*r1, p[1]-ay/l1*r1];
     const p2 = [p[0]+bx/l2*r2, p[1]+by/l2*r2];
+    if(P.corner === 'cut') return [['L',p1],['L',p2]];
     const c1 = [p1[0]+(p[0]-p1[0])*rr.k, p1[1]+(p[1]-p1[1])*rr.k];
     const c2 = [p2[0]+(p[0]-p2[0])*rr.k, p2[1]+(p[1]-p2[1])*rr.k];
     return [['L',p1],['C',c1,c2,p2]];
@@ -664,10 +680,11 @@ function inkBounds(g){
       const op=tok[i++]; if(op==='Z') continue;
       /** Read the next SVG point and restore the font's upward y axis. */
       const end=() => [+tok[i++],-tok[i++]];
-      if(op==='M'||op==='L'){pt=end();add(...pt,sw/2,sw/(2*P.contrast));}
+      if(op==='M'||op==='L'){pt=end();const h=penHalf(sw);add(...pt,h.hx,h.hy);}
       else if(op==='C'){
         const p1=end(),p2=end(),p3=end(),xs=[pt[0],p1[0],p2[0],p3[0]],ys=[pt[1],p1[1],p2[1],p3[1]];
-        for(const t of [0,1,...extrema(xs),...extrema(ys)].filter(t=>t>=0&&t<=1)) add(at(xs,t),at(ys,t),sw/2,sw/(2*P.contrast));
+        const h=penHalf(sw);
+        for(const t of [0,1,...extrema(xs),...extrema(ys)].filter(t=>t>=0&&t<=1)) add(at(xs,t),at(ys,t),h.hx,h.hy);
         pt=p3;
       }
     }
@@ -685,7 +702,7 @@ function combiningGlyph(ch,S){
   for(const shape of mk.shapes || []){
     const d=shape.raw ? shape.raw.map(seg => seg[0]+' '+seg.slice(1).map((v,i)=>f1(v*scale*(i%2 ? -1 : 1))).join(' ')).join(' ')
       : shape.p.map((p,i)=>(i?'L':'M')+point(p[0],p[1])).join(' ');
-    body+=`<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+    body+=strokePath(d,sw);
   }
   for(const dot of mk.dots || []) body+=`<circle cx="${f1(dot[0]*scale)}" cy="${f1(-dot[1]*scale)}" r="${f1(sw*.46)}" fill="currentColor"/>`;
   const g={body,sb0:0,sb1:0,w:-S,clipId:ensureClip(300,-300)},b=inkBounds(g);
@@ -698,7 +715,7 @@ function combiningGlyph(ch,S){
 /** Optical attachment points in the source coordinates, before italic shear. */
 function latinAnchors(ch,S){
   const g=glyph(ch,S); if(g.anchors) return g.anchors;
-  const b=inkBounds(g),cx=S/2+g.w/2;
+  const b=inkBounds(g),cx=penHalf(S).hx+g.w/2;
   const topGap=ACC[ch] && ACC[ch].mark!=='cedilla' ? 20 : 60;
   return {top:[cx,b[3]+topGap],bottom:[cx,b[1]-38],horn:[b[2]-S*.18,b[3]-S*.7],ogonek:[b[2]-S*.3,b[1]+S*.1]};
 }
@@ -763,10 +780,10 @@ function languageGlyph(ch,S,removeDot=false){
   if(!['ď','ť','ľ','Ľ'].includes(ch)) return clusterGlyph({base,marks:spec.marks},S);
   // Czech/Slovak tall stems use a compact side caron, not a floating accent.
   const g=glyph(base,S),b=inkBounds(g),ws=P.ws*(P.ital ? 0.94 : 1);
-  const stem=(ch==='ď'?420:ch==='ť'?150:0)*ws+S/2;
+  const stem=(ch==='ď'?420:ch==='ť'?150:0)*ws+penHalf(S).hx;
   const cx=stem+96,y=b[3]+12,sw=Math.min(readingStroke(S)*.66,58);
   const d=`M${f1(cx+15)} ${f1(-y-10)}C${f1(cx+37)} ${f1(-y+25)} ${f1(cx+25)} ${f1(-y+65)} ${f1(cx-8)} ${f1(-y+82)}`;
-  const body=g.body+`<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const body=g.body+strokePath(d,sw);
   const extra=ch==='ď'?90:ch==='ľ'?55:0;
   const result={...g,body,sb1:g.sb1+extra,clipId:ensureClip(1100,-320)};
   // A copied cached base must not retain its old cached ink bounds.
@@ -778,7 +795,7 @@ function languageGlyph(ch,S,removeDot=false){
 
 /** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
-  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}${LIG[ch] ? '|' + P.trk : ''}`;
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
   if(LANGUAGE_COMPOSED[ch]) return (cache[ck]=languageGlyph(ch,S));
   if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));
@@ -800,7 +817,7 @@ function glyph(ch, S){
     if(!b) return (cache[ck] = null);
     const cx = a.cx !== undefined ? a.cx : b.w / 2;
     /* put the mark a fixed gap above the letter's real top edge, at any weight */
-    const hy0 = drawS / (2 * P.contrast), os0 = (P.os && OVS.has(a.base)) ? OSV : 0, markW = Math.min(drawS,80);
+    const hy0 = penHalf(drawS).hy, os0 = (P.os && OVS.has(a.base)) ? OSV : 0, markW = Math.min(drawS,80);
     const GAP = 60, lift = GAP + markW / 2;
     let y0;
     if(b.kind === 'cap'){ const target = 700 + os0 + lift; y0 = (target - hy0 + os0) * 700 / (700 - 2*hy0 + 2*os0); }
@@ -810,10 +827,10 @@ function glyph(ch, S){
     g = { w:b.w, kind:b.kind, sb:b.sb, shapes:[...b.shapes, ...markShapes], dots:[...(a.nodot ? [] : b.dots), ...(mk.dots || []).map(d => [d[0], d[1], 0.85])] };
   }
   if(!g) return (cache[ck] = null);
-  const h = S/2, kind = g.kind;
+  const h = penHalf(S).hx, kind = g.kind;
   /* Normalize raised quotes with their lighter pen too, keeping even Bold
      closing quotes above the cap line after their dot is reduced. */
-  const hy = (isFigure || `'"‘’“”‛‟`.includes(ch) ? strokeS : drawS)/(2*P.contrast);
+  const hy = penHalf(isFigure || `'"‘’“”‛‟`.includes(ch) ? strokeS : drawS).hy;
   const os = (P.os && OVS.has(bch)) ? OSV : 0;
   const ws = (WIDE.has(bch) ? 1 - (1 - P.ws) * 0.4 : P.ws) * (P.ital ? 0.94 : 1);
   const mx = x => h + x*ws;
@@ -825,7 +842,7 @@ function glyph(ch, S){
       : (P.asc-hy) + (y-740));
   let body = '', topO = -1e9, botO = 1e9;
   const seeY = yy => { topO = Math.max(topO, yy + strokeS/2); botO = Math.min(botO, yy - strokeS/2); };
-  const stroke = (d, k = 1) => `<path d="${d}" fill="none" stroke="currentColor" stroke-width="${f1(strokeS * k)}" stroke-linecap="round" stroke-linejoin="round"/>`;
+  const stroke = (d, k = 1) => strokePath(d,strokeS*k);
   for(let s of g.shapes){
     if(s.swFn) s = Object.assign({}, s, { sw: Math.min(1, 80 / drawS) });
     if(s.fn) s = Object.assign({ raw: s.fn() }, s.sw ? { sw: s.sw } : {});
@@ -880,7 +897,9 @@ function word(w, size, ui){
     if(!g){ x += 380; prev = ''; continue; }
     if(ch==='\u2009'||ch==='\u202f'){ x+=120; prev=''; continue; }
     x += (KERN[(DOTLESS[prev] || prev) + (DOTLESS[ch] || ch)] || 0);
-    parts += `<g transform="translate(${f1(x + extra + g.sb0)} 0)" clip-path="url(#${g.clipId})">${g.body}</g>`;
+    const shear=P.obliqueAngle ? ` skewX(${-P.obliqueAngle})` : '';
+    const center=P.obliqueAngle ? Math.tan(P.obliqueAngle*Math.PI/180)*330 : 0;
+    parts += `<g transform="translate(${f1(x + extra + g.sb0-center)} 0)${shear}" clip-path="url(#${g.clipId})">${g.body}</g>`;
     x += extra + g.sb0 + g.w + S + g.sb1 + extra;
     prev = ch;
   }

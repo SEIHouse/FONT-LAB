@@ -2,6 +2,41 @@
 
 Newest first.
 
+- **Display Engine Step 2** Consolidated Reader and Display into the root
+  `engine.js` and one `FontBuilderCore` used by both Python entry points.
+  Removed the forked Display engine and rebuilt its Lab from the shared source.
+  Display options are explicit settings for soft/cut corners, round/flat ends,
+  round/sharp joins, rotated pens and oblique slant without italic form swaps;
+  default Reader construction remains unchanged. Display inherits current
+  overlap repair, Latin letters and combining marks, `mark`/`mkmk`/`ccmp`,
+  `locl`, decimal spacing and `frac`/`tnum`/`sups`/`subs`. Cut settings and
+  version 0.1 are retained; twenty old advances per cut adopt Reader 0.28's
+  existing `a`/`e` width and `i` bearing refinements, with each delta documented
+  and all current advances gated. Added frozen ten-style drawing exports and all-fifty
+  Reader delivery fingerprints, with a gate that normalizes only build-time
+  `head` timestamps and checksum bookkeeping. See the shared-engine notes for
+  rebuild validation, expanded Display proofs and the Reader identity reason.
+  All 50 shipped Reader files remain byte-identical; all 50 regenerated files
+  match normalized tables and 0.35 geometry/hints/metrics/layout. Soft, Edge,
+  Ink and Wide now each have 419 glyphs, passing the shape gate with 0 flags
+  across 1,676 outlines and 3,352 OTF/WOFF2 renders. Each cut passes FontBakery
+  OpenType/offline Universal with 0 FAIL / 0 WARN. Added complete 400px proofs
+  and inherited-language/numeric/mark behavior checks; all local regressions
+  and Reader distribution checks pass.
+
+- **Display Engine Step 1** Repaired flat-cap construction for rotated/slanted
+  oval pens, terminal attachments and coincident joins. Bounded sharp miters
+  with clean bevel fallback; removed global cuts through angled terminals.
+  Added curve-preserving outline cleanup after stroking and before CFF export,
+  including fitting/rounding debris and self-overlap winding. Updated the live
+  Lab's cap/join construction and rebuilt Soft, Edge, Ink and Wide OTF/WOFF2.
+  Preserved all cut settings, letter skeletons, inventories, advances and line
+  metrics; recalculated automatic pairs from the repaired ink profiles.
+  Added the 400px all-glyph shape/delivery gate, construction regressions,
+  Actions gate and complete before/after proof sheets. All 964 glyph outlines
+  pass with 0 flags; each cut passes FontBakery OpenType/offline Universal with
+  0 FAIL / 0 WARN. The Display cut version remains 0.1.
+
 - **0.36** Renamed the current family to SEIHouse Sans and added the SEIHouse
   Sans Ecosystem License 1.0: broad ecosystem creative use and customization,
   authorized SEIHouse app/web distribution, and document embedding without fees

@@ -10,6 +10,65 @@ permissions:
   contents: read
 
 jobs:
+  shared-builder:
+    # Exact CFF/hint identity uses the baseline's build platform and tool versions.
+    runs-on: windows-latest
+    timeout-minutes: 15
+    env:
+      PYTHONUTF8: '1'
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - name: Install the preservation baseline's build tools
+        run: pip install 'fonttools[woff]==4.66.1' 'skia-pathops==0.9.2' 'uharfbuzz==0.56.2' 'playwright==1.63.0' 'afdko==5.0.1' 'brotli==1.2.0' 'freetype-py>=2.3'
+      - name: Install Chromium for the shared glyph export
+        run: python -m playwright install chromium
+      - name: Rebuild Reader and all Display cuts from the shared core
+        run: |
+          python make_fonts.py --output-dir dist/reader-candidate
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          foreach ($cut in 'soft','edge','ink','wide') {
+            python display/make_display.py "display/cuts/$cut.json" --output-dir "dist/display-candidate/$cut"
+            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          }
+      - name: Gate rebuilt Reader identity, Display inheritance and shapes
+        run: |
+          python verify_shared_engine.py --reader-fonts dist/reader-candidate --full-fonts-only --display-fonts dist/display-candidate --report dist/reader-rebuild.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python verify_display_shapes.py --fonts dist/display-candidate --report dist/display-rebuild.json
+      - name: Upload rebuild evidence
+        if: always()
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: shared-builder-evidence
+          path: |
+            dist/reader-rebuild.json
+            dist/display-rebuild.json
+          if-no-files-found: warn
+          retention-days: 30
+  display-shapes:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97 # v7.0.0
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: '22'
+      - name: Install outline, raster and shaping verification tools
+        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56'
+      - name: Gate every Display glyph and construction regression
+        run: |
+          python -m unittest discover -s tests -p test_display_shapes.py -v
+          python -m unittest discover -s tests -p test_shared_engine.py -v
+          node --test tests/display-strokes.test.mjs
+          node --test tests/shared-engine.test.mjs
+          python verify_display_shapes.py --report dist/display-shapes.json
+          python verify_shared_engine.py --report dist/shared-engine.json
   website:
     runs-on: ubuntu-latest
     timeout-minutes: 5

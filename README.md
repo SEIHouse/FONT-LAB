@@ -3,9 +3,10 @@
 Home of **SEIHouse Sans** (formerly SEIReader), the reading font of SEIHouse Productions LLC. It is built for reading
 hundreds of chapters on a phone: calm, soft, and distinctly SEIHouse.
 
-The separate **SEIHouse Display Engine** is a version 0.1 prototype for album covers,
-posters, chapter titles, and other large text. Its source, four designs, live Lab,
-and prebuilt fonts are under [`display/`](display/README.md).
+The **SEIHouse Display Engine** is a version 0.1 workshop for album covers,
+posters, chapter titles, and other large text. It shares the Reader drawing
+engine and builder core; its four cut settings, live Lab and prebuilt fonts are
+under [`display/`](display/README.md).
 
 ## Font Lab homepage & Vercel
 
@@ -52,13 +53,12 @@ The developer sections below describe the full source repository.
 
 Open [`display/lab/index.html`](display/lab/index.html) to explore **Soft, Edge, Ink,
 and Wide**. Each design has its own OTF and WOFF2 files under `display/fonts/<cut>/`.
-The display engine is separate from the SEIReader pipeline and excluded from the
-SEIReader app ZIP/npm package.
-
-The supplied drawing rules, cut settings, kerning data, and font files are retained.
-Function documentation was added without changing the engine logic, and the two
-Python builders use explicit UTF-8 file I/O for Windows. The Lab is rebuilt from
-those documented sources.
+Reader and Display now use the root `engine.js` and `font_builder.py`.
+Display cuts inherit the current Reader Latin repertoire, combining mark/local
+forms and numeric features while retaining their cut settings. Display fonts
+remain excluded from the SEIReader app ZIP/npm package. See the
+[shared engine and Reader preservation gate](docs/DISPLAY-SHARED-ENGINE-STEP2.md)
+and [clean-shape construction and proofs](docs/DISPLAY-SHAPES-STEP1.md).
 Its **Save cut** button uses browser-local drafts on a normal website and retains
 the original database integration in the Claude host. Use **Download JSON** or
 **Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.
@@ -73,15 +73,17 @@ python -X utf8 display/make_display.py display/cuts/soft.json
 Choose `edge.json`, `ink.json`, or `wide.json` for another design. The builder uses
 Chromium and `otfautohint`; run it in the environment where those dependencies are
 installed. The explicit UTF-8 mode supports the supplied Unicode sources on Windows.
-The imported 0.1 notes record unfinished Ink stroke ends and different live/built
-kerning. These display fonts have not received SEIReader's health-check certification.
+The live Lab uses hand-set pairs; built fonts also measure automatic spacing.
+Run `python -X utf8 verify_display_shapes.py` and
+`python -X utf8 verify_shared_engine.py` to gate all four rebuilt cuts and Reader
+preservation.
 
 ## What's inside
 
 | Folder / file | What it is |
 |---|---|
 | `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
-| [`display/`](display/README.md) | Separate SEIHouse Display 0.1 engine: four designs, cut settings, live Lab, font builder, kerning maps, and supplied OTF/WOFF2 fonts |
+| [`display/`](display/README.md) | SEIHouse Display 0.1: four cut settings, live Lab, shared-core entry point, kerning maps and OTF/WOFF2 fonts |
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus three smaller WOFF2 subsets per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for the 30 Latin basic, Latin extended, and symbols/icons WOFF2 subsets |
 | `fonts-full.css` | Recommended app stylesheet for the ten full web fonts; no Unicode face splitting |
@@ -94,8 +96,10 @@ kerning. These display fonts have not received SEIReader's health-check certific
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
 | [`docs/DEVICE-TEST.md`](docs/DEVICE-TEST.md) | Pass/fail checklist for iPhone, Android, Windows, and Mac browsers |
 | `settings.json` | The main settings: weights, letter height, roundness, spacing, reading setup |
-| `engine.js` | The letter rules: every character, mark, and symbol is drawn here |
-| `make_fonts.py` | Builds all 10 styles from the rules as full OTF and WOFF2 files |
+| `engine.js` | Shared Reader/Display rules for every character, mark, alternate and symbol |
+| `font_builder.py` | Shared outline, spacing, OpenType layout and hinting core |
+| `make_fonts.py` | Thin Reader entry point: builds all 10 styles as full OTF and WOFF2 files |
+| `verify_shared_engine.py`, `verify_display_shapes.py` | Reader preservation, Display shaping and all-glyph 400px shape/delivery gates |
 | `build_subsets.py` | Uses pyftsubset to split each style and writes `fonts.css` |
 | `verify_phase2.py` | Shapes the optional figures/fractions and checks all 30 subset files |
 | `latin_layout.py`, `verify_latin.py` | Build and audit Latin composition, base/mark/ligature attachment, stacking, dotless forms, and preserved 0.32 outlines/spacing |

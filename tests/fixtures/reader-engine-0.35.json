@@ -1,0 +1,88 @@
+{
+  "commit": "bc61d90",
+  "reason": "The 0.36 licensing rename retained 0.35 drawing construction. These are complete engine exports before the shared engine merge.",
+  "settings": {
+    "family": "SEIHouse Sans",
+    "version": "0.36",
+    "weight": 85,
+    "contrast": 1.12,
+    "lowercaseRoundness": 0.55,
+    "spaceBetweenAllLetters": 2.8,
+    "letterSpace": {},
+    "pairSpace": {},
+    "xHeight": 510,
+    "capitalRoundness": 245,
+    "letterWidth": 0.95,
+    "wordSpace": 220,
+    "overshoot": true,
+    "uFoot": false,
+    "reader": {
+      "lineLength": 60,
+      "lineSpacing": 1.4,
+      "night": true,
+      "size": 20
+    },
+    "weights": {
+      "Light": 70,
+      "Regular": 85,
+      "Medium": 100,
+      "SemiBold": 115,
+      "Bold": 140
+    },
+    "italicAngle": 9,
+    "uprightStraightness": 0.82,
+    "ascender": 700
+  },
+  "styles": {
+    "Light": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "58bdd655c89a758160e5b0aadef6642d4ca17a579a20375d96abdf6ddfedc215"
+    },
+    "Regular": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "424cdcaad78015e5efd63815046669b7a116e566330dbddf11885af175366dea"
+    },
+    "Medium": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "4816d722a83fe729158ee5363b8ac3eff9c84718ec594652a924222c1cc88691"
+    },
+    "SemiBold": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "098a08c0822d75b3b85b62d10180836b984433fbd28ceb1b06ffcb4ebe174760"
+    },
+    "Bold": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "411d1eec2e29e46c437d0dd4f50cb75ca6ab201fdddabc67a3ad543ef695b213"
+    },
+    "LightItalic": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "810f14829e0e37fabc41f823734a30b9d745c5b7348213786f27d1fd1d31d850"
+    },
+    "Italic": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "49c2dae6387c845c5f402f5a1d039f862377c54888edd7cd718d44ae315f8489"
+    },
+    "MediumItalic": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "6011bdfa35027b3bae58dbf3acc572006ef9187abd77d89cb04461d68343ac2e"
+    },
+    "SemiBoldItalic": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "34f2e096a70f0154512dd2ecb253ceb692497151dff00a595a4a075ef273e354"
+    },
+    "BoldItalic": {
+      "glyphs": 383,
+      "alternates": 34,
+      "sha256": "594a8873f196713c93b4257e934a0268c65ed8d62cddeffbf27e4758c0b346a9"
+    }
+  }
+}

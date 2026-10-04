@@ -1,0 +1,89 @@
+{
+  "size_px": 400,
+  "flags": [],
+  "cuts": {
+    "soft": {
+      "glyphs": 419,
+      "rendered": 838,
+      "flags": 0,
+      "sha256": {
+        "otf": "87ccb9d48449827ec7029a0d85ee9fbb005f92651c9362bf15a686db9a0d54f4",
+        "woff2": "864b5d21ea3e92b629ce854a8bdb53493518f320394a6bcc30d1beda79d15b63"
+      },
+      "proofs": [
+        "soft-01.png",
+        "soft-02.png",
+        "soft-03.png",
+        "soft-04.png",
+        "soft-05.png",
+        "soft-06.png",
+        "soft-07.png"
+      ]
+    },
+    "edge": {
+      "glyphs": 419,
+      "rendered": 838,
+      "flags": 0,
+      "sha256": {
+        "otf": "ba952257b4749d52ac0edda6146fb43aad0c41baf25b3add4c0d570f18d53ff2",
+        "woff2": "4c1ce4fcd695aed9109751629f2725e4ccec96588c335dacaadabf06689ff432"
+      },
+      "proofs": [
+        "edge-01.png",
+        "edge-02.png",
+        "edge-03.png",
+        "edge-04.png",
+        "edge-05.png",
+        "edge-06.png",
+        "edge-07.png"
+      ]
+    },
+    "ink": {
+      "glyphs": 419,
+      "rendered": 838,
+      "flags": 0,
+      "sha256": {
+        "otf": "aabffe378b88ebd47db0c646c5a08ddaa06f1786626381192ecbbde20317f353",
+        "woff2": "94f02f34d89ab7204877537abcdd42c3a6f2a4fd480c3fecb42a5413a2525591"
+      },
+      "proofs": [
+        "ink-01.png",
+        "ink-02.png",
+        "ink-03.png",
+        "ink-04.png",
+        "ink-05.png",
+        "ink-06.png",
+        "ink-07.png"
+      ]
+    },
+    "wide": {
+      "glyphs": 419,
+      "rendered": 838,
+      "flags": 0,
+      "sha256": {
+        "otf": "dc22e9692e7c9723f0a730a6e1dc5e062d83620ffc0b5afbb204fc269cefecdd",
+        "woff2": "c3673b4abf7d2834f40eb273e5f0cb42d6cf488db744fd5698e0b2340bb4f901"
+      },
+      "proofs": [
+        "wide-01.png",
+        "wide-02.png",
+        "wide-03.png",
+        "wide-04.png",
+        "wide-05.png",
+        "wide-06.png",
+        "wide-07.png"
+      ]
+    }
+  },
+  "thresholds": {
+    "micro_contour_px2": 1,
+    "tiny_segment_px": 0.4,
+    "spike_turn_degrees": 150,
+    "spike_shoulder_px": 8,
+    "spur_short_shoulder_px": 16,
+    "spur_long_shoulder_px": 24,
+    "spur_root_turn_degrees": 15,
+    "overlap_px2": 0.25
+  },
+  "flag_counts": {}
+}
