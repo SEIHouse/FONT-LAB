@@ -2,7 +2,8 @@
 
 The shared Reader/Display engine builds a different display font ("cut") for
 every album or project. Each cut keeps its own settings while inheriting the
-current Reader letter rules, Latin repertoire and OpenType features.
+current Reader letter rules, Latin/Vietnamese/Cyrillic/Greek repertoire and
+OpenType features.
 
 ## Settings a cut controls
 
@@ -46,22 +47,26 @@ unrotated pen, and the existing true italic behavior. Cut settings select cut
 corners, flat ends, sharp joins, pen angle and oblique slant; oblique slant keeps
 upright letter forms.
 
-The final shared builds pass the 400px shape gate: **419 glyphs per cut,
-1,676 outlines and 3,352 OTF/WOFF2 renders, 0 flags**. Each cut passes
-FontBakery OpenType and offline Universal with **0 FAIL / 0 WARN**. All 50
-shipped Reader files retain their baseline bytes; rebuilding through the
-new core preserves every table after normalizing build timestamps/checksum.
+All four cuts pass the 400px shape gate: **732 glyphs per cut, 2,928 outlines
+and 5,856 OTF/WOFF2 renders, 0 flags**. Each cut passes FontBakery OpenType
+and offline Universal with **0 FAIL / 0 WARN**. All ninety shipped Reader
+files retain their latest 0.39 bytes; all ninety rebuilt deliveries match
+normalized current tables and CFF outlines/hints. The ten styles also retain
+every original 0.35 glyph outline and metric.
 
 All four cuts inherit combining marks and `mark`/`mkmk`/`ccmp`, Turkish and
-Romanian `locl`, Latin language additions, decimal separator spacing and
-`frac`/`tnum`/`sups`/`subs`. Each cut now has 419 font glyphs: the shared engine's
-383 encoded entries, 34 alternates, `.notdef` and space. Unicode/PUA aliases
-reuse glyph IDs.
+Romanian `locl`, the complete Latin Extended-A additions, modern Cyrillic and
+monotonic Greek, Vietnamese tone stacks, decimal separator spacing and
+`frac`/`tnum`/`sups`/`subs`. The shared 0.39 inventory contains 732 font glyphs:
+696 encoded engine entries, 34 alternates, `.notdef` and space. Unicode/PUA
+aliases reuse glyph IDs.
 
 Adopting Reader's existing `a`/`e` widths and `i` bearings also updates twenty
 old advances per cut. Cut JSON, every other old advance, encoded aliases and
-vertical metrics are retained; the [Step 2 notes](../docs/DISPLAY-SHARED-ENGINE-STEP2.md)
-record each inherited change and its exact metric gate.
+typographic line spacing are retained. Edge's Windows clipping ascent grows
+20 font units to fit the new Vietnamese tone stacks. The
+[Step 2 notes](../docs/DISPLAY-SHARED-ENGINE-STEP2.md) record each inherited
+change and its exact metric gate.
 
 Flat faces end perpendicular to the stroke, including an angled pen and slant.
 Attached terminals receive joins rather than protruding caps; sharp joins use

@@ -16,7 +16,8 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent
 WEIGHTS = (300, 400, 500, 600, 700)
-SUBSETS = ('latin-basic', 'symbols-icons', 'latin-extended')
+from phase4_support import face_order
+SUBSETS = face_order()
 
 
 def family_faces(root=ROOT):
@@ -24,7 +25,7 @@ def family_faces(root=ROOT):
     css = (root/'fonts.css').read_text(encoding='utf-8')
     faces = {}
     for block in re.findall(r'@font-face\s*\{([^}]+)\}', css):
-        match = re.search(r'url\("\./fonts/SEIReader-([A-Za-z]+)\.(latin-basic|symbols-icons|latin-extended)\.woff2"\)', block)
+        match = re.search(r'url\("\./fonts/SEIReader-([A-Za-z]+)\.(latin-basic|symbols-icons|latin-extended|latin-ext-2|cyrillic|greek|vietnamese)\.woff2"\)', block)
         if not match:
             raise ValueError('Unexpected font URL in fonts.css')
         style, subset = match.groups()
@@ -44,7 +45,8 @@ def family_faces(root=ROOT):
 
 def version(root=ROOT):
     """Read a safe font version for filenames and package metadata."""
-    value = json.loads((root/'settings.json').read_text(encoding='utf-8'))['version']
+    from phase4_support import release_version
+    value = release_version(root)
     if not re.fullmatch(r'\d+\.\d+(?:\.\d+)?', value):
         raise ValueError(f'Unsupported distribution version: {value}')
     return value
@@ -94,7 +96,7 @@ def build_archive(delivery='full', weights=WEIGHTS, output_dir=None, root=ROOT):
     package = json.loads((root/'package.json').read_text(encoding='utf-8'))
     npm_version = font_version if font_version.count('.') == 2 else font_version + '.0'
     if package['version'] != npm_version:
-        raise ValueError('Update package.json to match settings.json before packaging')
+        raise ValueError('Update package.json to match phase4.json before packaging')
     faces = [f for f in family_faces(root) if f['weight'] in weights]
     if delivery == 'full':
         css = full_stylesheet(faces, font_version)

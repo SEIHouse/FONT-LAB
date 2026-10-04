@@ -2,10 +2,17 @@
 import math
 
 import pathops
+from fontTools.pens.basePen import decomposeQuadraticSegment
 
 
 def contours(path):
-    """Return closed contours as [start, verb, controls..., end] segments."""
+    """Return atomic native curves as [start, verb, controls..., end] segments.
+
+    A pen's grouped qCurveTo describes consecutive quadratics joined at implied
+    midpoints, rather than one Bezier with many controls. Expand that protocol
+    before cleanup samples, measures or splits a segment. A final None denotes
+    an all-off-curve loop whose start is itself an implied midpoint.
+    """
     result = []
     for contour in path.contours:
         segments = []
@@ -13,7 +20,19 @@ def contours(path):
         for verb, points in contour.segments:
             if verb == 'moveTo':
                 first = current = points[0]
-            elif verb in ('lineTo', 'qCurveTo', 'curveTo'):
+            elif verb == 'qCurveTo':
+                if points[-1] is None:
+                    a, b = points[-2], points[0]
+                    first = current = ((a[0]+b[0])/2, (a[1]+b[1])/2)
+                    points = (*points[:-1], current)
+                if len(points) == 1:
+                    segments.append([current, 'lineTo', points[0]])
+                    current = points[0]
+                else:
+                    for control, end in decomposeQuadraticSegment(points):
+                        segments.append([current, verb, control, end])
+                        current = end
+            elif verb in ('lineTo', 'curveTo'):
                 segments.append([current, verb, *points])
                 current = points[-1]
             elif verb == 'closePath' and current != first:

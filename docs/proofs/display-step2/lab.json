@@ -1,7 +1,7 @@
 {
   "Soft": {
-    "glyphs": 383,
-    "instances": 1149,
+    "glyphs": 696,
+    "instances": 2088,
     "sizes": [
       300,
       400,
@@ -9,8 +9,8 @@
     ]
   },
   "Edge": {
-    "glyphs": 383,
-    "instances": 1149,
+    "glyphs": 696,
+    "instances": 2088,
     "sizes": [
       300,
       400,
@@ -18,8 +18,8 @@
     ]
   },
   "Ink": {
-    "glyphs": 383,
-    "instances": 1149,
+    "glyphs": 696,
+    "instances": 2088,
     "sizes": [
       300,
       400,
@@ -27,8 +27,8 @@
     ]
   },
   "Wide": {
-    "glyphs": 383,
-    "instances": 1149,
+    "glyphs": 696,
+    "instances": 2088,
     "sizes": [
       300,
       400,

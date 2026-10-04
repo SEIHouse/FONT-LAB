@@ -17,9 +17,10 @@ def build_cut(cut_file, outdir=None):
     settings = json.loads(Path(cut_file).read_text(encoding='utf-8'))
     name = settings.get('name', 'Soft')
     slug = name.lower().replace(' ', '-')
+    metadata_dir = Path(outdir) if outdir else HERE
     outdir = Path(outdir) if outdir else HERE / 'fonts' / slug
     outdir.mkdir(parents=True, exist_ok=True)
-    builder = FontBuilderCore(settings, display=True, asset_dir=str(HERE))
+    builder = FontBuilderCore(settings, display=True, asset_dir=str(metadata_dir))
     data = builder.export()
     out = outdir / f'SEIHouseDisplay-{name.replace(" ", "")}.otf'
     builder.build(data, str(out))

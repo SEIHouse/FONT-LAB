@@ -1,4 +1,4 @@
-"""Create the three WOFF2 deliveries for each SEIReader style with pyftsubset."""
+"""Create the current WOFF2 deliveries for each reader style with pyftsubset."""
 import json
 import os
 import subprocess
@@ -16,10 +16,15 @@ STYLES = (
     ('SemiBold', 600, 'normal'), ('SemiBoldItalic', 600, 'italic'),
     ('Bold', 700, 'normal'), ('BoldItalic', 700, 'italic'),
 )
-SUBSETS = ('latin-basic', 'latin-extended', 'symbols-icons')
+from phase4_support import face_order
+SUBSETS = FACE_ORDER = face_order()
 LANGUAGE_PUNCTUATION = {0x00A1, 0x00AA, 0x00BA, 0x00BF}
 PRECOMPOSED_FRACTIONS = {0x00BC, 0x00BD, 0x00BE}
 LATIN_TEXT_PUNCTUATION = set(map(ord, '.,:;…!?\'"‘’“”‚„‛‟-–—()[]{}«»‹›ʻʼ\u2009\u202f'))
+# The six dot-below I/O/U forms already belonged to the established Latin face.
+VIETNAMESE_CODES = set(range(0x1EA0,0x1EFA)) | {0x01A0,0x01A1,0x01AF,0x01B0}
+VIETNAMESE_NEW = VIETNAMESE_CODES - {0x1ECA,0x1ECB,0x1ECC,0x1ECD,0x1EE4,0x1EE5}
+
 
 
 def group_for(codepoint):
@@ -27,6 +32,9 @@ def group_for(codepoint):
     """Assign a codepoint to its primary web delivery while keeping fractions with digits."""
     if 0x20 <= codepoint <= 0x7E or codepoint in (0xA0, 0x2044):
         return 'latin-basic'
+    if codepoint in VIETNAMESE_NEW: return 'vietnamese'
+    if 0x0400<=codepoint<=0x052f: return 'cyrillic'
+    if 0x0370<=codepoint<=0x03ff: return 'greek'
     if codepoint in PRECOMPOSED_FRACTIONS:
         return 'symbols-icons'
     if (unicodedata.name(chr(codepoint),'').startswith('LATIN ')
@@ -42,6 +50,14 @@ def subset_groups(codes, include_interpunct=True):
     groups['latin-extended'].update(groups['latin-basic'])
     # Keep the Latin word separator in the same face, also retaining its icon delivery.
     if include_interpunct and 0x00B7 in codes: groups['latin-extended'].add(0x00B7)
+    groups['latin-ext-2'].update(groups['latin-extended'])
+    with TTFont(os.path.join(HERE,'old','0.34','SEIReader-Regular.woff2')) as legacy:
+        groups['latin-extended'].intersection_update(legacy.getBestCmap())
+    shared=groups['latin-ext-2'] | (codes & LATIN_TEXT_PUNCTUATION) | {c for c in codes if 0x0300<=c<=0x036f} | (codes & {0x25cc,0x00b7})
+    for script in ('cyrillic','greek'):
+        if script in groups: groups[script].update(shared)
+    if 'vietnamese' in groups:
+        groups['vietnamese'].update(shared | (codes & VIETNAMESE_CODES))
     return groups
 
 
@@ -58,9 +74,11 @@ def unicode_range(codes):
 
 
 def build_subsets():
-    """Build and validate thirty WOFF2 subsets, then refresh both app stylesheets."""
+    """Build and validate the current WOFF2 subsets, then refresh both app stylesheets."""
     with open(os.path.join(HERE, 'settings.json'), encoding='utf-8') as file:
         version = json.load(file)['version']
+    from phase4_support import release_version
+    version = release_version()
     css = [f'/* SEIHouse Sans {version}: legacy SEIReader CSS alias; keep next to fonts/. */']
     expected = None
     for style, weight, slant in STYLES:
@@ -76,7 +94,7 @@ def build_subsets():
         if set().union(*groups.values()) != codes or any(not group for group in groups.values()):
             raise ValueError(f'Invalid subset partition in {style}')
         # The last face is preferred for Latin, including complete accent clusters.
-        for name in ('latin-basic','symbols-icons','latin-extended'):
+        for name in FACE_ORDER:
             output_name = f'SEIReader-{style}.{name}.woff2'
             output = os.path.join(HERE, 'fonts', output_name)
             code_list = ','.join(f'U+{code:04X}' for code in sorted(groups[name]))

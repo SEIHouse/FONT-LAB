@@ -8,9 +8,11 @@ import unittest
 
 from fontTools.ttLib import TTFont
 
-from verify_shared_engine import FIXTURE, ROOT, audit_features, reader_flags
+from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, ROOT, audit_features,
+                                  reader_flags, legacy_flags)
 from verify_display_shapes import (DESIGN, SHARED_DESIGN, design_flags,
-                                   validate_design_reference)
+                                   validate_design_reference, web_flags,
+                                   blank_flags, outline)
 
 
 class ReaderIdentityTests(unittest.TestCase):
@@ -71,9 +73,9 @@ class DisplayInheritanceTests(unittest.TestCase):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
             failures, report = audit_features(font)
         self.assertEqual(failures, [])
-        self.assertEqual(report['pinned_cldr_locales'], 10)
-        self.assertEqual(report['languages'], 23)
-        self.assertGreater(report['language_strings'], 1800)
+        self.assertEqual(report['pinned_cldr_locales'], 21)
+        self.assertEqual(report['languages'], 34)
+        self.assertGreater(report['language_strings'], 3300)
 
     def test_missing_mark_feature_fails_the_behavior_gate(self):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
@@ -82,6 +84,20 @@ class DisplayInheritanceTests(unittest.TestCase):
             features.FeatureCount = len(features.FeatureRecord)
             failures, _ = audit_features(font)
         self.assertTrue(any(flag['kind']=='display-features' and 'mark' in flag['missing'] for flag in failures))
+
+    def test_phase4_additions_preserve_original_035_contours_and_metrics(self):
+        legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
+        with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
+            failures = legacy_flags(font, legacy['styles']['SEIReader-Regular'])
+        self.assertEqual(failures, [])
+
+    def test_original_metric_mutation_fails_even_with_additive_repertoire(self):
+        legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
+        with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
+            advance, bearing = font['hmtx']['R']
+            font['hmtx']['R'] = advance+1, bearing
+            failures = legacy_flags(font, legacy['styles']['SEIReader-Regular'])
+        self.assertTrue(any(flag['kind']=='reader-035-hmtx' and flag['glyph']=='R' for flag in failures))
 
 
 class DisplayDesignTests(unittest.TestCase):
@@ -115,11 +131,47 @@ class DisplayDesignTests(unittest.TestCase):
         self.font['OS/2'].usWinAscent += 1
         self.assertTrue(any(flag['kind']=='line-metric' for flag in self.failures()))
 
+    def test_edge_clipping_exception_is_exact_and_does_not_allow_other_changes(self):
+        for cut, table, field in (('edge', 'OS/2', 'usWinAscent'),
+                                  ('soft', 'OS/2', 'usWinAscent'),
+                                  ('edge', 'hhea', 'ascent')):
+            with self.subTest(cut=cut, table=table, field=field):
+                changed = copy.deepcopy(self.shared)
+                before = self.original['fonts'][cut]['metrics'][table][field]
+                after = changed['fonts'][cut]['metrics'][table][field]+1
+                changed['fonts'][cut]['metrics'][table][field] = after
+                changed['fonts'][cut]['previous_metric_changes'][f'{table}.{field}'] = dict(
+                    table=table, field=field, before=before, after=after,
+                    delta=after-before, reason='phase4-edge-vietnamese-clipping')
+                with self.assertRaisesRegex(ValueError, 'unapproved clipping'):
+                    validate_design_reference(self.original, changed, self.reader)
+
     def test_unlisted_old_metric_change_cannot_be_blessed_by_fixture(self):
         changed = copy.deepcopy(self.shared)
         changed['fonts']['soft']['advances']['R'] += 1
         with self.assertRaisesRegex(ValueError, 'listed explicitly'):
             validate_design_reference(self.original, changed, self.reader)
+
+    def test_browser_vertical_metrics_cannot_drift(self):
+        for table, field in (('OS/2', 'usWinAscent'), ('hhea', 'ascent')):
+            with self.subTest(table=table), TTFont(ROOT/'display/fonts/soft/SEIHouseDisplay-Soft.woff2') as web:
+                setattr(web[table], field, getattr(web[table], field)+1)
+                failures = web_flags(self.font, web)
+                self.assertTrue(any(flag['kind']=='web-table' and flag['table']==table for flag in failures))
+
+    def test_blank_letter_fails_even_with_valid_glyph_inventory(self):
+        char = self.font['CFF '].cff.topDictIndex[0].CharStrings['R']
+        char.decompile()
+        char.program = ['endchar']
+        self.assertIn('R', self.font.getGlyphOrder())
+        self.assertIn('R', self.font.getBestCmap().values())
+        path = outline(self.font, 'R')
+        self.assertFalse(path)
+        self.assertEqual(blank_flags('R', path), [dict(kind='empty-glyph')])
+
+    def test_only_explicit_space_glyphs_may_have_no_ink(self):
+        for name in ('space', 'uni2009', 'uni202F'):
+            self.assertEqual(blank_flags(name, outline(self.font, name)), [])
 
 
 if __name__ == '__main__':

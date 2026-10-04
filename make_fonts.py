@@ -16,7 +16,9 @@ def build_fonts(settings, outdir=None):
     """Build upright/italic weights, spacing data and the standard web subsets."""
     outdir = Path(outdir) if outdir else HERE / 'fonts'
     outdir.mkdir(parents=True, exist_ok=True)
-    builder = FontBuilderCore(settings)
+    default_output = outdir.resolve() == (HERE / 'fonts').resolve()
+    metadata_dir = HERE if default_output else outdir
+    builder = FontBuilderCore(settings, asset_dir=str(metadata_dir))
     weights = dict(settings.get('weights', {}))
     weights['Regular'] = settings['weight']
     for italic in (False, True):
@@ -25,14 +27,14 @@ def build_fonts(settings, outdir=None):
             builder.S = weight
             data = builder.export()
             if style == 'Regular' and not italic:
-                (HERE / 'kern_base.json').write_text(json.dumps(data['kern'], ensure_ascii=False), encoding='utf-8')
+                (metadata_dir / 'kern_base.json').write_text(json.dumps(data['kern'], ensure_ascii=False), encoding='utf-8')
             name = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             builder.build(data, str(outdir / f'SEIReader-{name}.otf'), style, italic)
             print('built', builder.FAMILY, builder.VERSION, name, 'thickness', weight)
-    (HERE / 'kern_styles.json').write_text(json.dumps(builder.STYLE_KERN, ensure_ascii=False), encoding='utf-8')
-    (HERE / 'kern_languages.json').write_text(json.dumps(builder.LANGUAGE_KERN, ensure_ascii=False), encoding='utf-8')
+    (metadata_dir / 'kern_styles.json').write_text(json.dumps(builder.STYLE_KERN, ensure_ascii=False), encoding='utf-8')
+    (metadata_dir / 'kern_languages.json').write_text(json.dumps(builder.LANGUAGE_KERN, ensure_ascii=False), encoding='utf-8')
     from build_subsets import build_subsets
-    if outdir.resolve() == (HERE / 'fonts').resolve():
+    if default_output:
         build_subsets()
 
 

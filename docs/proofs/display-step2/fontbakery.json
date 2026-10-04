@@ -22,7 +22,7 @@
         "INFO": 0,
         "SKIP": 22
       },
-      "otf_sha256": "87ccb9d48449827ec7029a0d85ee9fbb005f92651c9362bf15a686db9a0d54f4"
+      "otf_sha256": "49753d9e0a24ad4eedb0bc5d761cde941c9a1e735fb4c0f76b27291cb5dd6cc8"
     },
     "edge": {
       "universal": {
@@ -43,7 +43,7 @@
         "INFO": 0,
         "SKIP": 22
       },
-      "otf_sha256": "ba952257b4749d52ac0edda6146fb43aad0c41baf25b3add4c0d570f18d53ff2"
+      "otf_sha256": "8ceb8619a5e60c834aacecac17ad6ee12ac05729f884a15a59a01ed71b52973b"
     },
     "ink": {
       "universal": {
@@ -64,7 +64,7 @@
         "INFO": 0,
         "SKIP": 22
       },
-      "otf_sha256": "aabffe378b88ebd47db0c646c5a08ddaa06f1786626381192ecbbde20317f353"
+      "otf_sha256": "78a1b6bb5aed6e06cc0e9484174814f4d8dcb8a01e6e960ffb78ac0e79df49ac"
     },
     "wide": {
       "universal": {
@@ -85,7 +85,7 @@
         "INFO": 0,
         "SKIP": 22
       },
-      "otf_sha256": "dc22e9692e7c9723f0a730a6e1dc5e062d83620ffc0b5afbb204fc269cefecdd"
+      "otf_sha256": "4ad7641b8ec0c176e0655587dcb61fc373b0cfd3fbe7ac8d027b2fa70c562dcd"
     }
   }
 }

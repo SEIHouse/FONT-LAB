@@ -8,21 +8,28 @@ Newest first.
   Display options are explicit settings for soft/cut corners, round/flat ends,
   round/sharp joins, rotated pens and oblique slant without italic form swaps;
   default Reader construction remains unchanged. Display inherits current
-  overlap repair, Latin letters and combining marks, `mark`/`mkmk`/`ccmp`,
+  overlap repair, Latin, Vietnamese, Cyrillic and Greek letters and combining marks, `mark`/`mkmk`/`ccmp`,
   `locl`, decimal spacing and `frac`/`tnum`/`sups`/`subs`. Cut settings and
   version 0.1 are retained; twenty old advances per cut adopt Reader 0.28's
   existing `a`/`e` width and `i` bearing refinements, with each delta documented
-  and all current advances gated. Added frozen ten-style drawing exports and all-fifty
-  Reader delivery fingerprints, with a gate that normalizes only build-time
+  and all current advances gated. Edge's Windows clipping ascent gains twenty
+  font units to fit newly inherited Vietnamese tone stacks; typographic line
+  spacing remains unchanged. Added frozen ten-style drawing exports and
+  current Reader delivery fingerprints, with a gate that normalizes only build-time
   `head` timestamps and checksum bookkeeping. See the shared-engine notes for
   rebuild validation, expanded Display proofs and the Reader identity reason.
-  All 50 shipped Reader files remain byte-identical; all 50 regenerated files
-  match normalized tables and 0.35 geometry/hints/metrics/layout. Soft, Edge,
-  Ink and Wide now each have 419 glyphs, passing the shape gate with 0 flags
-  across 1,676 outlines and 3,352 OTF/WOFF2 renders. Each cut passes FontBakery
-  OpenType/offline Universal with 0 FAIL / 0 WARN. Added complete 400px proofs
-  and inherited-language/numeric/mark behavior checks; all local regressions
-  and Reader distribution checks pass.
+  The preservation gate covers Reader 0.39's ninety deliveries and the requested
+  original 0.35 glyphs. Preserved the initial 0.36 consolidation's identity
+  reports as historical evidence; current shape, shaping and health reports
+  cover the full shared repertoire. Added complete 400px proofs and inherited
+  script/language/numeric/mark behavior checks.
+  All ninety shipped Reader files remain byte-identical to 0.39; all ninety
+  regenerated files match normalized current tables and CFF outlines/hints,
+  and the ten styles retain the original 0.35 glyph outlines/metrics. Each
+  Display cut has 732 glyphs, passing with 0 flags across 2,928 outlines and
+  5,856 OTF/WOFF2 renders. All four cuts pass FontBakery OpenType/offline
+  Universal with 0 FAIL / 0 WARN; forty-eight final 400px sheets cover every
+  glyph. All local regressions and current Reader distribution checks pass.
 
 - **Display Engine Step 1** Repaired flat-cap construction for rotated/slanted
   oval pens, terminal attachments and coincident joins. Bounded sharp miters
@@ -36,6 +43,36 @@ Newest first.
   Actions gate and complete before/after proof sheets. All 964 glyph outlines
   pass with 0 flags; each cut passes FontBakery OpenType/offline Universal with
   0 FAIL / 0 WARN. The Display cut version remains 0.1.
+
+- **0.39 — Phase 4, step 3** Completed Vietnamese with 88 missing encoded
+  letters, including Ơ/ơ/Ư/ư, all tones and circumflex/breve tone stacks.
+  Composites reuse the existing vowel and mark drawings with lighter tones and
+  fixed-gap attachment. Added stacked canonical composition and measured horn/
+  tone clearance confined to new glyph pairs. Added the pinned Vietnamese
+  alphabet/sample, Every character additions and a seventh web delivery
+  (seventy subsets). Rebuilt all ten styles, with all Step 2 glyphs, settings,
+  weights, advances and spacing preserved. Runtime packages retain their
+  dependency-free allowlist; language and font health results are documented.
+
+- **0.38 — Phase 4, step 2** Added 169 Cyrillic and monotonic Greek characters,
+  including common Slavic alphabets, Russian cursive italic forms, stress marks,
+  tonos/diaeresis stacks and canonical Greek punctuation. Identical skeletons
+  reuse existing Latin drawings. New shapes receive automatic pair measurements
+  and literal clearance exceptions, including zero overrides that cancel inherited
+  tightening, without changing old pairs. Added seven
+  pinned language inventories/samples, Every character additions and two new
+  script deliveries (sixty subsets). All Step 1 glyphs and metrics are preserved;
+  design settings remain unchanged. Polytonic Greek and historical Bulgarian
+  yat/yus are outside the modern alphabet scope.
+
+- **0.37 — Phase 4, step 1** Complete Latin Extended-A through additive ACC/MARK
+  recipes and special barred, joined and tailed letters. Added Slovak, Croatian,
+  Slovenian samples and a fourth `latin-ext-2` web delivery across ten styles.
+  Existing carons and Turkish/Romanian forms are retained; new ogoneks receive
+  separate punctuation clearance. Release metadata is separate from unchanged
+  design settings. Added an independent Git-baseline preservation, canonical
+  shaping, collision and subset audit. Existing glyphs, weights and spacing
+  are preserved.
 
 - **0.36** Renamed the current family to SEIHouse Sans and added the SEIHouse
   Sans Ecosystem License 1.0: broad ecosystem creative use and customization,

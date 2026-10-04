@@ -27,25 +27,35 @@ terminal geometry for its live preview.
 
 ## Inherited repertoire and features
 
-Each Display cut has 419 glyphs: 383 encoded engine entries, 34 unencoded
-alternates, `.notdef` and space. Unicode and private-use aliases reuse existing
-glyph IDs. The 17 combining marks keep zero advances, mark classification and
-attachment; dotless forms support above accents without retaining the dots of
-`i` and `j`.
+The current shared repertoire comes from Reader 0.39 at commit
+`a9427a35817b482f5672e7c4a508254e031a94a9`. It contains 732 font glyphs:
+696 encoded engine entries, 34 unencoded alternates, `.notdef` and space.
+Unicode and private-use aliases reuse glyph IDs, giving 714 encoded codepoints.
+
+Display inherits the original Latin foundation and the complete Latin
+Extended-A additions, modern Cyrillic and monotonic Greek, and Vietnamese
+vowels with horn/breve/circumflex and tone stacks. Reader's true italic
+Cyrillic substitutions stay in the italic styles; Display's oblique cuts keep
+upright letter forms. The shared mark repertoire retains zero advances,
+classification, attachment and dotless forms.
 
 The common layout includes canonical composition (`ccmp`), base and ligature
 mark attachment (`mark`), stacked marks (`mkmk`), Turkish dotted-i and Romanian
 comma forms (`locl`), and Hungarian capital digraph spacing. It also includes
 fractions (`frac`), tabular figures (`tnum`), superscripts (`sups`), subscripts
 (`subs`), and decimal period/comma spacing in proportional and tabular modes.
+New script spacing and stacked Vietnamese composition use the same current
+Reader code.
 
-The Display audit shapes the ten pinned CLDR Latin inventories in
-`languages.json`: Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish
-(Kurmanji, Latin), Māori, Igbo and Uzbek (Latin). It also checks the established
-Latin foundation samples for English, Spanish, French, Portuguese, German,
-Italian, Dutch, Catalan, Danish, Norwegian, Swedish, Finnish and Icelandic.
-That is 23 language samples/inventories in this verification, with the same
-encoded repertoire as Reader. Coverage and shaping checks do not constitute
+The pinned `languages.json` inventory now has 21 locales. It retains Polish,
+Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish (Kurmanji, Latin), Māori,
+Igbo and Uzbek (Latin), and adds Slovak, Croatian, Slovenian, Russian,
+Ukrainian, Belarusian, Bulgarian, Serbian, Macedonian, monotonic Greek and
+Vietnamese. The shared audit also checks the established Latin foundation
+samples for English, Spanish, French, Portuguese, German, Italian, Dutch,
+Catalan, Danish, Norwegian, Swedish, Finnish and Icelandic: 34 language
+inventories/samples altogether. Coverage and shaping checks use the scope
+defined in the [Phase 4 notes](../README.md#phase-4-additive-language-expansion) and do not constitute
 native-reader certification.
 
 ## Display metrics inherited from Reader
@@ -54,8 +64,10 @@ Retiring the 0.25 fork also adopts Reader's existing 0.28 width and bearing
 refinements. Twenty previously encoded glyph advances change in each cut:
 `a` and its six accents, `e` and its four accents, `i` and its four accents,
 `æ`, `œ` and `ﬁ`. These changes come from the inherited Reader construction;
-cut JSON remains unchanged. Every other previous advance, every previous encoded
-mapping and the vertical metrics are retained.
+cut JSON remains unchanged. Every other previous advance and every previous
+encoded mapping are retained. Typographic line spacing and baselines are
+unchanged; Edge has one required clipping-extent adjustment for the newly
+inherited Vietnamese tone stacks.
 
 The table gives advance changes in font units at the 2,000-unit em. Cut width
 scales the inherited `a`/`e` changes; the `i`/`ﬁ` bearing increase is 24 units.
@@ -68,50 +80,75 @@ scales the inherited `a`/`e` changes; the `i`/`ﬁ` bearing increase is 24 units
 | `æ œ` | 2 | −46 | −44 | −40 | −62 |
 | `ﬁ` | 1 | +24 | +24 | +24 | +24 |
 
-[`display-step2-design.json`](../tests/fixtures/display-step2-design.json)
-freezes all 419 current advances per cut and records the before/after value and
+[`display-step2-design-0.39.json`](../tests/fixtures/display-step2-design-0.39.json)
+freezes all 732 current advances per cut and records the before/after value and
 source reason for each of the twenty inherited changes. The design gate
-requires those exact values, the original controls and aliases, the unchanged
+requires those exact values, the original controls and aliases, the protected
 vertical metrics, and Reader's unchanged shared skeleton source.
+
+Edge's new `Ố`/`Ồ` outlines reach font-unit y=2,220, above its original
+`OS/2.usWinAscent` of 2,200. The shared core derives Display clipping extents
+from the final CFF ink bounds, so Edge's `usWinAscent` becomes 2,220. Its
+`hhea` and `sTypo` ascent/descent/line-gap fields, all other protected vertical
+fields and every cut setting stay unchanged. The fixture records this exact
+20-unit exception and its source reason; the gate rejects broader metric
+changes. Reader's metrics remain unchanged.
 
 ## Reader preservation and the byte-identity reason
 
-The preservation baseline is commit
-`bc61d90d25730f7768b92f51e190221045810e9a`, the current 0.36 release. Version
-0.36 changed 0.35 family/licensing metadata; its geometry, metrics, hints and
-layout retain 0.35. Keeping that current metadata avoids reverting the
-SEIHouse Sans name or license as part of this engine change.
+The final preservation baseline is Reader 0.39 at commit
+`a9427a35817b482f5672e7c4a508254e031a94a9`. This keeps the latest Reader
+release and all of its additive scripts while consolidating the engines.
+Reader family/version metadata comes from `phase4.json`; approved design
+settings in `settings.json` remain unchanged. The ten styles have ninety
+font deliveries: ten full OTFs, ten full WOFF2 files and seventy subsets.
 
-`tests/fixtures/reader-engine-0.35.json` fingerprints the complete engine
-exports for all ten styles before consolidation: encoded glyphs, alternates,
-kerning, base mappings and screen stroke weights. The Node regression compares
-the shared engine's exports to that frozen fixture and requires exact equality.
-It also checks option-sensitive glyph caching and oblique slant without
-italic substitutions.
+`tests/fixtures/reader-engine-0.39.json` fingerprints the complete encoded and
+alternate engine exports for all ten styles from that committed release.
+The Node regression requires exact export identity; it also projects the
+historical 383 encoded entries and 34 alternates onto the unchanged original
+`reader-engine-0.35.json` fixture. Option-sensitive caching, oblique slant
+without italic substitutions and all 730 encoded/alternate live drawings
+per cut are checked separately.
 
-`tests/fixtures/reader-0.36-identity.json` fingerprints all 50 current font
-deliveries: ten full OTFs, ten full WOFF2 files and thirty subsets.
-`verify_shared_engine.py` compares every SFNT table, including the complete
-CFF outline and hint programs, metrics, names and layout. Only
-`head.created`, `head.modified` and `head.checkSumAdjustment` are normalized.
-Rebuilding stamps new creation/modification times and consequently a new file
-checksum; those bookkeeping values are the written reason for accepting
-outline/metric identity instead of requiring whole-file byte identity.
-No design, hint, name or layout field is omitted from the comparison.
+`tests/fixtures/reader-0.39-identity.json` fingerprints all ninety files
+directly from that committed release. `verify_shared_engine.py` compares
+every SFNT table, including complete CFF outline and hint programs, metrics,
+names and layout. Only `head.created`, `head.modified` and
+`head.checkSumAdjustment` are normalized. Rebuilding stamps new
+creation/modification times and consequently a new checksum; these bookkeeping
+values are the written reason for accepting outline/metric identity for the
+rebuilt candidate instead of requiring whole-file byte identity. No design,
+hint, name or layout field is omitted from the current-release comparison.
 
-The rebuilt delivery audit is recorded separately in
-[reader-rebuilt.json](proofs/display-step2/reader-rebuilt.json). All 50 rebuilt
-deliveries have identical normalized tables and CFF outline/hint programs,
-and all 50 match the preserved 0.35 geometry, metrics and layout, with zero
-preservation flags. The checked-in
-Reader binaries are retained from the baseline, so shipping this refactor does
-not change the existing Reader asset bytes; the rebuild audit proves that the
-new core reproduces their contents apart from the timestamp bookkeeping above.
+The requested original 0.35 glyphs are protected independently by
+`tests/fixtures/reader-0.35-original-glyphs.json`: all 419 original decomposed
+outlines, complete horizontal metrics, encoded aliases and vertical metrics
+across all ten styles. The complete current font differs from the old release
+because 0.36 introduced the SEIHouse Sans name/license metadata and 0.37–0.39
+added encoded letters, composition/layout and script deliveries. Additional
+glyphs can change CFF subroutine organization and hint records; the current
+0.39 comparison still requires those programs and hints to match exactly.
 
-The optional `--reader-baseline` argument additionally compares the preserved
-0.35 font directory's CFF programs, metrics and layout directly. The 0.35
-reference used locally is an ignored build baseline, while the checked-in
-fingerprints make the current-release preservation gate reproducible in CI.
+The initial consolidation against Reader 0.36 is retained as historical
+evidence in [reader-0.36-rebuilt.json](proofs/display-step2/reader-0.36-rebuilt.json)
+and [shared-engine-0.36.json](proofs/display-step2/shared-engine-0.36.json).
+Those reports cover fifty 0.36 files and the former 419-glyph Display build.
+All fifty rebuilt deliveries matched normalized tables and CFF outline/hint
+programs, and all fifty matched the preserved 0.35 geometry, metrics and
+layout, with zero preservation flags. The historical 0.36 fingerprints and
+ten-style engine export fixture remain available alongside the current
+release fixtures.
+
+Final current-release results are recorded separately in
+[reader-rebuilt.json](proofs/display-step2/reader-rebuilt.json) and
+[shared-engine.json](proofs/display-step2/shared-engine.json). All ninety
+rebuilt deliveries match normalized current-release tables and complete CFF
+outline/hint programs, with zero preservation flags. Every original 0.35
+outline and metric also matches in the ten styles. The checked-in Reader
+binaries are retained from the current 0.39 baseline, keeping those ninety
+delivered files byte-identical while the separate rebuild report proves the
+new core's output.
 
 ## Evidence and historical proofs
 
@@ -123,55 +160,58 @@ renders, with 474 baseline outline events reduced to zero.
 Step 2's expanded builds have a fresh shape report and fresh proofs. The
 shape thresholds remain the Step 1 thresholds at a 400px em, with every glyph
 ID rasterized in both formats. The design gate retains the original cut JSON,
-encoded mappings and vertical metrics while permitting inherited Reader
-additions and the twenty documented advance refinements above. It freezes
+encoded mappings and typographic line spacing while permitting inherited
+Reader additions, the twenty documented advance refinements and Edge's
+20-unit clipping-extent adjustment above. It freezes
 every current advance and fingerprints the unchanged shared Reader skeleton
 source because the old Display fork has been deleted.
 
 The [shape report](proofs/display-step2/shapes.json) records **zero flags** for
-all 1,676 glyph outlines and 3,352 OTF/WOFF2 renders. Both formats agree on
-outlines, metrics, layout and raster output. The
-[shared-engine report](proofs/display-step2/shared-engine.json) records zero
-preservation/feature flags, all 50 shipped Reader files byte-identical to the
-baseline, and 1,842 language shaping strings per cut across the 23 tested
-language inventories/samples. Mark attachment/stacking, local forms, numeric
+all 2,928 glyph outlines and 5,856 OTF/WOFF2 renders. Both formats agree on
+outlines, metrics, vertical metrics, layout and raster output. Empty outlines
+are accepted only for the declared space glyphs; missing letter ink also
+fails the gate.
+
+The [shared-engine report](proofs/display-step2/shared-engine.json) records
+zero preservation/feature flags, all ninety shipped Reader files byte-identical
+to the latest 0.39 baseline, and 3,339 language shaping strings per cut across
+34 inventories/samples. Mark attachment/stacking, local forms, numeric
 substitutions, feature ordering and decimal spacing pass the behavior checks.
+The [rebuilt Reader audit](proofs/display-step2/reader-rebuilt.json) separately
+proves all ninety regenerated deliveries match normalized current tables,
+complete CFF outlines/hints and the original 0.35 glyph outlines/metrics.
 
 FontBakery 1.1.0 checked every cut separately with no excluded check IDs. Each
 Universal run used `--skip-network` and reported 75 PASS / 3 INFO / 49 SKIP;
 each OpenType run reported 31 PASS / 22 SKIP. All four cuts have **0 FAIL /
 0 WARN / 0 ERROR / 0 FATAL**. The
 [FontBakery summary](proofs/display-step2/fontbakery.json) and shape report
-identify the same final OTF hashes.
+identify the same final OTF hashes, including Edge's corrected clipping ascent.
 
 | Cut | Glyphs | OTF + WOFF2 renders | Shape flags | Universal PASS | OpenType PASS |
 |---|---:|---:|---:|---:|---:|
-| Soft | 419 | 838 | 0 | 75 | 31 |
-| Edge | 419 | 838 | 0 | 75 | 31 |
-| Ink | 419 | 838 | 0 | 75 | 31 |
-| Wide | 419 | 838 | 0 | 75 | 31 |
-| Total | 1,676 | 3,352 | 0 | 300 | 124 |
+| Soft | 732 | 1,464 | 0 | 75 | 31 |
+| Edge | 732 | 1,464 | 0 | 75 | 31 |
+| Ink | 732 | 1,464 | 0 | 75 | 31 |
+| Wide | 732 | 1,464 | 0 | 75 | 31 |
+| Total | 2,928 | 5,856 | 0 | 300 | 124 |
 
-GitHub Actions also rebuilds all ten Reader styles and all four Display cuts
-with the shared core, then gates the candidates against the frozen Reader
-tables, inherited features and shape thresholds. The rebuild uses Windows
-and the baseline tool versions for exact CFF/hint reproducibility; a separate
-Linux job checks shipped fonts and construction regressions.
+The final construction and preservation regressions pass: 39 Python tests and
+21 Node tests. The Phase 4 current-baseline audit preserves all 732 glyphs,
+pairs and layout in the ten styles and all seven script/subset deliveries,
+and passes 33,300 language strings. License checks cover all ninety current
+font files. Reader app distribution checks pass with the latest package scope.
 
-The final construction and preservation regressions pass: 24 Python tests and
-20 Node tests. The existing Reader figure/subset, repaired-stroke, language,
-license and distribution audits also pass. These checks protect the default
-Reader path as well as the new option behavior.
-
-The [Chromium Lab report](proofs/display-step2/lab.json) records all 383 encoded
-engine entries at 300/400/800px in every live cut: 1,149 SVG instances per cut.
+The [Chromium Lab report](proofs/display-step2/lab.json) records all 696 encoded
+engine entries at 300/400/800px in every live cut: 2,088 SVG instances per cut.
 It also checks all preset buttons and the 390px layout, with zero page errors.
-The separate Node regression constructs all 417 encoded/alternate live
+The separate Node regression constructs all 730 encoded/alternate live
 drawings per cut and checks finite geometry.
 
-Each proof sheet keeps the 400px em and paginates every glyph ID. The compact
-comparisons use the original 0.1 fonts beside the final shared-engine builds;
-the earlier Step 1 comparison remains available in its historical report.
+Each of the 48 proof sheets keeps the 400px em and paginates every glyph ID.
+The compact comparisons use the original 0.1 fonts beside the final shared
+0.39-engine builds. The earlier Step 1 comparison remains available in its
+historical report.
 
 ![Ink original 0.1 and shared engine: R a y W k e s](proofs/display-step2/ink-before-after.png)
 
@@ -179,10 +219,10 @@ the earlier Step 1 comparison remains available in its historical report.
 
 | Cut | Final 400px glyph sheets | Live 400px specimen |
 |---|---|---|
-| Soft | [1](proofs/display-step2/after/soft-01.png), [2](proofs/display-step2/after/soft-02.png), [3](proofs/display-step2/after/soft-03.png), [4](proofs/display-step2/after/soft-04.png), [5](proofs/display-step2/after/soft-05.png), [6](proofs/display-step2/after/soft-06.png), [7](proofs/display-step2/after/soft-07.png) | [Soft](proofs/display-step2/lab-soft-400.png) |
-| Edge | [1](proofs/display-step2/after/edge-01.png), [2](proofs/display-step2/after/edge-02.png), [3](proofs/display-step2/after/edge-03.png), [4](proofs/display-step2/after/edge-04.png), [5](proofs/display-step2/after/edge-05.png), [6](proofs/display-step2/after/edge-06.png), [7](proofs/display-step2/after/edge-07.png) | [Edge](proofs/display-step2/lab-edge-400.png) |
-| Ink | [1](proofs/display-step2/after/ink-01.png), [2](proofs/display-step2/after/ink-02.png), [3](proofs/display-step2/after/ink-03.png), [4](proofs/display-step2/after/ink-04.png), [5](proofs/display-step2/after/ink-05.png), [6](proofs/display-step2/after/ink-06.png), [7](proofs/display-step2/after/ink-07.png) | [Ink](proofs/display-step2/lab-ink-400.png) |
-| Wide | [1](proofs/display-step2/after/wide-01.png), [2](proofs/display-step2/after/wide-02.png), [3](proofs/display-step2/after/wide-03.png), [4](proofs/display-step2/after/wide-04.png), [5](proofs/display-step2/after/wide-05.png), [6](proofs/display-step2/after/wide-06.png), [7](proofs/display-step2/after/wide-07.png) | [Wide](proofs/display-step2/lab-wide-400.png) |
+| Soft | [1](proofs/display-step2/after/soft-01.png), [2](proofs/display-step2/after/soft-02.png), [3](proofs/display-step2/after/soft-03.png), [4](proofs/display-step2/after/soft-04.png), [5](proofs/display-step2/after/soft-05.png), [6](proofs/display-step2/after/soft-06.png), [7](proofs/display-step2/after/soft-07.png), [8](proofs/display-step2/after/soft-08.png), [9](proofs/display-step2/after/soft-09.png), [10](proofs/display-step2/after/soft-10.png), [11](proofs/display-step2/after/soft-11.png), [12](proofs/display-step2/after/soft-12.png) | [Soft](proofs/display-step2/lab-soft-400.png) |
+| Edge | [1](proofs/display-step2/after/edge-01.png), [2](proofs/display-step2/after/edge-02.png), [3](proofs/display-step2/after/edge-03.png), [4](proofs/display-step2/after/edge-04.png), [5](proofs/display-step2/after/edge-05.png), [6](proofs/display-step2/after/edge-06.png), [7](proofs/display-step2/after/edge-07.png), [8](proofs/display-step2/after/edge-08.png), [9](proofs/display-step2/after/edge-09.png), [10](proofs/display-step2/after/edge-10.png), [11](proofs/display-step2/after/edge-11.png), [12](proofs/display-step2/after/edge-12.png) | [Edge](proofs/display-step2/lab-edge-400.png) |
+| Ink | [1](proofs/display-step2/after/ink-01.png), [2](proofs/display-step2/after/ink-02.png), [3](proofs/display-step2/after/ink-03.png), [4](proofs/display-step2/after/ink-04.png), [5](proofs/display-step2/after/ink-05.png), [6](proofs/display-step2/after/ink-06.png), [7](proofs/display-step2/after/ink-07.png), [8](proofs/display-step2/after/ink-08.png), [9](proofs/display-step2/after/ink-09.png), [10](proofs/display-step2/after/ink-10.png), [11](proofs/display-step2/after/ink-11.png), [12](proofs/display-step2/after/ink-12.png) | [Ink](proofs/display-step2/lab-ink-400.png) |
+| Wide | [1](proofs/display-step2/after/wide-01.png), [2](proofs/display-step2/after/wide-02.png), [3](proofs/display-step2/after/wide-03.png), [4](proofs/display-step2/after/wide-04.png), [5](proofs/display-step2/after/wide-05.png), [6](proofs/display-step2/after/wide-06.png), [7](proofs/display-step2/after/wide-07.png), [8](proofs/display-step2/after/wide-08.png), [9](proofs/display-step2/after/wide-09.png), [10](proofs/display-step2/after/wide-10.png), [11](proofs/display-step2/after/wide-11.png), [12](proofs/display-step2/after/wide-12.png) | [Wide](proofs/display-step2/lab-wide-400.png) |
 
 ## Reproduce
 
@@ -195,9 +235,9 @@ foreach ($cut in 'soft','edge','ink','wide') {
   python -X utf8 display/make_display.py "display/cuts/$cut.json"
 }
 python -X utf8 display/build_display_page.py
+python -X utf8 verify_phase4.py --baseline a9427a3
 node --test tests/shared-engine.test.mjs tests/display-strokes.test.mjs tests/site.test.mjs
-python -X utf8 -m unittest discover -s tests -p test_display_shapes.py -v
-python -X utf8 -m unittest discover -s tests -p test_shared_engine.py -v
+python -X utf8 -m unittest discover -s tests -p 'test_*.py' -v
 python -X utf8 verify_shared_engine.py --report dist/shared-engine.json
 python -X utf8 verify_display_shapes.py --proof-dir dist/display-step2-proofs --report dist/display-shapes.json
 foreach ($cut in 'Soft','Edge','Ink','Wide') {

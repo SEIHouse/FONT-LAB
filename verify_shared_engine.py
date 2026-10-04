@@ -1,9 +1,10 @@
 """Gate the shared engine against frozen Reader output and real Display shaping.
 
-The checked-in Reader fixture was captured before this refactor from all fifty
-0.36 deliveries. The 0.36 release changed 0.35 licensing metadata only. A local
-0.35 font directory can additionally establish that every CFF program, hint,
-metric and layout table still matches that release.
+The current Reader fixture was captured directly from the committed 0.39
+release, before merging the newer Phase 4 additions into this refactor. Every
+table and hint in all ninety deliveries must match that release. A separate
+0.35 fixture protects all original 419 outlines, metrics and encoded aliases
+in every style, while permitting the already approved Phase 4 additions.
 """
 import argparse
 import hashlib
@@ -16,13 +17,15 @@ from fontTools.ttLib import TTFont
 from build_subsets import STYLES, SUBSETS
 from language_coverage import inventory, test_strings
 from verify_latin import CLUSTERS, MARKS, shape
+from verify_lowercase import recorded
 
 ROOT = Path(__file__).resolve().parent
-FIXTURE = ROOT/'tests/fixtures/reader-0.36-identity.json'
+FIXTURE = ROOT/'tests/fixtures/reader-0.39-identity.json'
+LEGACY_FIXTURE = ROOT/'tests/fixtures/reader-0.35-original-glyphs.json'
 CUTS = ('soft', 'edge', 'ink', 'wide')
 DIGITS = '0123456789'
 DIGIT_NAMES = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
-# Exercise every established language documented in README, alongside all ten
+# Exercise every established language documented in README, alongside all
 # CLDR inventories. These are coverage examples, not native-reader certification.
 FOUNDATION = {
     'en': 'The quick brown fox jumps over the lazy dog.',
@@ -86,6 +89,54 @@ def cff_programs(font):
                 private_dict=digest(top.Private.rawDict))
 
 
+def normalized_numbers(value):
+    """Treat equivalent integral CFF coordinates alike when recording geometry."""
+    if isinstance(value, float) and value.is_integer():
+        return int(value)
+    if isinstance(value, (tuple, list)):
+        return [normalized_numbers(item) for item in value]
+    return value
+
+
+def legacy_identity(font, names=None):
+    """Fingerprint decomposed contours and complete metrics, independent of hints.
+
+    Adding glyphs can change CFF hint subroutine numbering. The latest-release
+    table gate still protects all current hints exactly; this historical gate
+    compares the original contours after expanding every subroutine.
+    """
+    names = font.getGlyphOrder() if names is None else names
+    glyphs = {name: dict(outline=digest(normalized_numbers(recorded(font, name))),
+                         hmtx=list(font['hmtx'][name])) for name in names}
+    fields = {'head': ('unitsPerEm',), 'hhea': ('ascent', 'descent', 'lineGap'),
+              'post': ('italicAngle',), 'OS/2': ('sxHeight', 'sCapHeight',
+              'usWeightClass', 'usWidthClass', 'sTypoAscender', 'sTypoDescender',
+              'sTypoLineGap', 'usWinAscent', 'usWinDescent')}
+    metrics = {tag: {field: getattr(font[tag], field) for field in names}
+               for tag, names in fields.items()}
+    return dict(glyphs=glyphs, cmap={str(code): name for code, name in font.getBestCmap().items()},
+                metrics=metrics)
+
+
+def legacy_flags(font, expected):
+    """Require every original glyph, contour, bearing, advance and alias."""
+    found = []
+    names = set(font.getGlyphOrder())
+    missing = set(expected['glyphs'])-names
+    if missing:
+        found.append(dict(kind='reader-035-glyph-inventory', glyphs=sorted(missing)))
+    actual = legacy_identity(font, [name for name in expected['glyphs'] if name in names])
+    for name, row in actual['glyphs'].items():
+        for field in ('outline', 'hmtx'):
+            if row[field] != expected['glyphs'][name][field]:
+                found.append(dict(kind=f'reader-035-{field}', glyph=name))
+    if any(actual['cmap'].get(code)!=name for code, name in expected['cmap'].items()):
+        found.append(dict(kind='reader-035-character-map'))
+    if actual['metrics'] != expected['metrics']:
+        found.append(dict(kind='reader-035-vertical-metrics'))
+    return found
+
+
 def font_identity(file):
     """Capture immutable evidence without a fixture-regeneration CLI shortcut."""
     with TTFont(file, recalcTimestamp=False) as font:
@@ -93,8 +144,8 @@ def font_identity(file):
                     tables=table_hashes(font), programs=cff_programs(font))
 
 
-def reader_flags(directory, fixture, baseline=None):
-    """Check all ten full styles and thirty subsets against the frozen delivery."""
+def reader_flags(directory, fixture, baseline=None, legacy=None):
+    """Check ten full styles and seventy subsets against the frozen delivery."""
     flags, files = [], {}
     for filename, expected in fixture['files'].items():
         file = directory/filename
@@ -112,24 +163,20 @@ def reader_flags(directory, fixture, baseline=None):
         row = dict(glyphs=actual['glyphs'], byte_identical=actual['sha256']==expected['sha256'],
                    normalized_tables_identical=not different,
                    outline_and_hint_programs_identical=expected['programs']==actual['programs'])
-        if baseline is not None:
+        if filename.count('.')==1 and legacy is not None:
+            with TTFont(file) as font:
+                failures = legacy_flags(font, legacy['styles'][filename.removesuffix('.otf').removesuffix('.woff2')])
+            row['matches_035_original_outlines_metrics'] = not failures
+            flags.extend(dict(file=filename, **flag) for flag in failures)
+        if baseline is not None and filename.count('.')==1:
             old_file = baseline/filename
             if not old_file.exists():
                 flags.append(dict(kind='reader-035-missing-file', file=filename))
             else:
-                old = font_identity(old_file)
-                # 0.35 -> 0.36 changed family/version/license strings in name/CFF
-                # and fontRevision in head. All remaining tables are protected.
-                relevant = (set(old['tables']) | set(actual['tables']))-{'head', 'name', 'CFF '}
-                changed = [tag for tag in sorted(relevant)
-                           if old['tables'].get(tag) != actual['tables'].get(tag)]
-                row['matches_035_geometry_metrics_layout'] = not changed and old['programs']==actual['programs']
-                if not row['matches_035_geometry_metrics_layout']:
-                    flags.append(dict(kind='reader-035-identity', file=filename, tables=changed))
                 with TTFont(old_file) as old_font, TTFont(file) as font:
-                    for field in ('unitsPerEm', 'xMin', 'yMin', 'xMax', 'yMax', 'flags', 'macStyle'):
-                        if getattr(old_font['head'], field) != getattr(font['head'], field):
-                            flags.append(dict(kind='reader-035-head-geometry', file=filename, field=field))
+                    failures = legacy_flags(font, legacy_identity(old_font))
+                    row['matches_035_directory_original_outlines_metrics'] = not failures
+                    flags.extend(dict(file=filename, **flag) for flag in failures)
         files[filename] = row
     return flags, files
 
@@ -233,10 +280,11 @@ def verify(reader_fonts, display_fonts, reader_baseline=None, reader_only=False,
     expected_files = {f'SEIReader-{style}{suffix}' for style, *_ in STYLES
                       for suffix in ('.otf', '.woff2', *[f'.{subset}.woff2' for subset in SUBSETS])}
     if set(fixture['files']) != expected_files:
-        raise ValueError('The frozen Reader identity fixture must include all fifty deliveries')
+        raise ValueError(f'The frozen Reader identity fixture must include all {len(expected_files)} deliveries')
     if full_fonts_only:
         fixture['files'] = {name: record for name, record in fixture['files'].items() if name.count('.')==1}
-    found, reader = reader_flags(reader_fonts, fixture, reader_baseline)
+    legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
+    found, reader = reader_flags(reader_fonts, fixture, reader_baseline, legacy)
     skeleton = (ROOT/'engine.js').read_text(encoding='utf-8').split('const P =', 1)[0]
     if digest(skeleton.encode()) != fixture['reader_skeleton_sha256']:
         found.append(dict(kind='shared-reader-skeleton'))
@@ -264,6 +312,7 @@ def verify(reader_fonts, display_fonts, reader_baseline=None, reader_only=False,
           f"{sum(row['normalized_tables_identical'] for row in reader.values())} table-identical")
     print(f'Shared-engine gate: {len(found)} flags')
     return dict(reference=fixture['reference'], normalization=fixture['normalization'],
+                legacy_reference=legacy['reference'],
                 scope=dict(reader_deliveries=len(fixture['files']), display_cuts=len(display)),
                 reader=reader, display=display, flags=found)
 
@@ -272,7 +321,7 @@ if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--reader-fonts', type=Path, default=ROOT/'fonts')
     parser.add_argument('--display-fonts', type=Path, default=ROOT/'display/fonts')
-    parser.add_argument('--reader-baseline', type=Path, help='Optional preserved 0.35 fifty-file directory')
+    parser.add_argument('--reader-baseline', type=Path, help='Optional preserved 0.35 directory for original glyphs')
     parser.add_argument('--reader-only', action='store_true', help='Audit Reader candidates before Display rebuild')
     parser.add_argument('--full-fonts-only', action='store_true', help='Audit twenty full Reader files before subset build')
     parser.add_argument('--report', type=Path)

@@ -24,8 +24,10 @@ ROOT = Path(__file__).resolve().parent
 CUTS = ('soft', 'edge', 'ink', 'wide')
 SIZE = 400
 DESIGN = ROOT/'docs/proofs/display-step1/design.json'
-SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.36-identity.json'
-SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design.json'
+SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.39-identity.json'
+SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design-0.39.json'
+BLANK_GLYPHS = frozenset(('space', 'uni2009', 'uni202F'))
+WEB_TABLES = ('CFF ', 'hmtx', 'GPOS', 'GSUB', 'GDEF', 'OS/2', 'hhea')
 
 
 def design_flags(font, cut, reference, shared_design=None):
@@ -33,8 +35,9 @@ def design_flags(font, cut, reference, shared_design=None):
 
     Step 2 adds combining marks, numeric alternates and Latin letters from the
     shared Reader. Original encoded mappings and vertical metrics remain
-    protected. Advances follow the reviewed Reader 0.28 inheritance deltas;
-    every current advance, including additions, is frozen independently.
+    protected, with one exact Edge clipping-height exception for inherited
+    Vietnamese ink. Advances follow the reviewed Reader 0.28 inheritance
+    deltas; every current advance is frozen independently.
     """
     found = []
     expected = reference['fonts'][cut]
@@ -53,7 +56,7 @@ def design_flags(font, cut, reference, shared_design=None):
         if name in font.getGlyphOrder() and font['hmtx'][name][0] != width:
             found.append(dict(kind='advance-width', glyph=name, before=width,
                               after=font['hmtx'][name][0]))
-    for table, fields in expected['metrics'].items():
+    for table, fields in current['metrics'].items():
         for field, value in fields.items():
             if getattr(font[table], field) != value:
                 found.append(dict(kind='line-metric', table=table, field=field))
@@ -73,8 +76,22 @@ def validate_design_reference(original, shared, reader):
         raise ValueError('Step 2 must use the frozen Reader skeleton tables')
     for cut in CUTS:
         before, after = original['fonts'][cut], shared['fonts'][cut]
-        if after['metrics'] != before['metrics']:
-            raise ValueError(f'{cut}: Step 2 cannot change vertical metrics')
+        metric_changes = after.get('previous_metric_changes', {})
+        changed_metrics = {f'{table}.{field}' for table, fields in before['metrics'].items()
+                           for field, value in fields.items()
+                           if after['metrics'][table][field] != value}
+        if set(metric_changes) != changed_metrics:
+            raise ValueError(f'{cut}: every clipping metric difference must be listed explicitly')
+        for key, row in metric_changes.items():
+            # This is the single reviewed metadata exception, derived from the
+            # final Edge CFF's Vietnamese ink. Never permit arbitrary changes
+            # to baseline/line spacing, other cuts, or later clipping extents.
+            if ((cut, row['table'], row['field'], row['before'], row['after'], row['delta'], row['reason']) !=
+                    ('edge', 'OS/2', 'usWinAscent', 2200, 2220, 20, 'phase4-edge-vietnamese-clipping') or
+                    key != 'OS/2.usWinAscent' or row['reason'] not in shared['reasons'] or
+                    row['before'] != before['metrics'][row['table']][row['field']] or
+                    row['after'] != after['metrics'][row['table']][row['field']]):
+                raise ValueError(f'{cut}/{key}: unapproved clipping metric difference')
         changes = after['previous_advance_changes']
         changed = {name for name, width in before['advances'].items()
                    if after['advances'].get(name) != width}
@@ -93,6 +110,22 @@ def outline(font, name):
     path = pathops.Path()
     font.getGlyphSet()[name].draw(path.getPen())
     return path
+
+
+def blank_flags(name, path):
+    """Only the explicit space glyphs may have no exported ink."""
+    return [] if path or name in BLANK_GLYPHS else [dict(kind='empty-glyph')]
+
+
+def web_flags(font, woff):
+    """Require identical layout and vertical metrics in the browser delivery."""
+    found = []
+    if font.getGlyphOrder() != woff.getGlyphOrder() or font.getBestCmap() != woff.getBestCmap():
+        found.append(dict(kind='web-inventory'))
+    for table in WEB_TABLES:
+        if font[table].compile(font) != woff[table].compile(woff):
+            found.append(dict(kind='web-table', table=table))
+    return found
 
 
 def flags(path, upm=2000):
@@ -290,11 +323,7 @@ def verify(fonts, proof_dir=None):
             summary = dict(glyphs=len(names), rendered=0, flags=0,
                            sha256={file.suffix[1:]: hashlib.sha256(file.read_bytes()).hexdigest()
                                    for file in (otf, web)})
-            if names != woff.getGlyphOrder() or font.getBestCmap() != woff.getBestCmap():
-                report['flags'].append(dict(cut=cut, kind='web-inventory'))
-            for table in ('CFF ', 'hmtx', 'GPOS', 'GSUB', 'GDEF'):
-                if font[table].compile(font) != woff[table].compile(woff):
-                    report['flags'].append(dict(cut=cut, kind='web-table', table=table))
+            report['flags'].extend(dict(cut=cut, **flag) for flag in web_flags(font, woff))
             face = freetype.Face(str(otf))
             stream = io.BytesIO()
             woff.flavor = None
@@ -303,6 +332,7 @@ def verify(fonts, proof_dir=None):
             items = []
             for index, name in enumerate(names):
                 path = outline(font, name)
+                report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in blank_flags(name, path))
                 for flag in flags(path, font['head'].unitsPerEm):
                     report['flags'].append(dict(cut=cut, glyph=name, **flag))
                 bitmap = render(face, index)

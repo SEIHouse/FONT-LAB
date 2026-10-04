@@ -12,6 +12,7 @@ from fontTools.ttLib import TTFont
 from fontTools.varLib.instancer import instantiateVariableFont
 from fontTools.pens.boundsPen import BoundsPen
 from language_coverage import inventory, exemplars
+from phase4_support import release_version
 
 ROOT = Path(__file__).resolve().parent
 BASELINE_VERSION = '0.34'
@@ -62,7 +63,7 @@ languages = {code:{'name':row['name'],'sample':row['sample'],
                    'alphabet':' '.join(exemplars(row['exemplars']['main']))}
              for code,row in inventory()['locales'].items()}
 options = ''.join(f'<option value="{code}">{row["name"]}</option>' for code,row in languages.items())
-page = (template.replace('__FONTS__', '\n'.join(css)).replace('__VERSION__', settings['version'])
+page = (template.replace('__FONTS__', '\n'.join(css)).replace('__VERSION__', release_version())
         .replace('__BASELINE__', BASELINE_VERSION)
         .replace('__SPACE__', str(settings['wordSpace']/1000)).replace('__METRICS__', json.dumps(metrics))
         .replace('__LANGUAGE_OPTIONS__', options).replace('__LANGUAGES__', json.dumps(languages,ensure_ascii=False)))

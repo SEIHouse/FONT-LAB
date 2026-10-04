@@ -1,6 +1,7 @@
 """Shared glyph export, outline construction, spacing and OpenType font builder.
 
-Reader defaults retain the approved 0.35 construction and hint programs.
+Reader defaults retain the current 0.39 construction and hint programs, and
+the original 0.35 outlines and metrics.
 Display options add rotated pens, perpendicular flat caps, bounded joins and
 cleanup without maintaining another glyph or layout implementation.
 """
@@ -47,6 +48,7 @@ class _Flat(BasePen):
 from pathlib import Path as FilePath
 from fontTools.pens.roundingPen import RoundingPen
 from display.outline_cleanup import cleanup
+from phase4_support import release_version
 
 SC = 2            # 2000 units per em: whole-number points, fine enough that rounding is invisible
 UPM = 1000 * SC
@@ -78,7 +80,7 @@ WCLASS = {'Thin':100, 'ExtraLight':200, 'Light':300, 'Regular':400, 'Medium':500
 RHYTHM_SETTINGS = ('weight','weights','contrast','lowercaseRoundness','spaceBetweenAllLetters',
                    'letterSpace','xHeight','capitalRoundness','letterWidth','overshoot','uFoot',
                    'italicAngle','uprightStraightness','ascender')
-SEPARATE_LATIN = set('ĄąĘę')
+SEPARATE_LATIN = set('ĄąĘęĮįŲų')
 MITER_LIMIT = 2
 
 HERE = os.path.dirname(os.path.abspath(__file__))
@@ -108,7 +110,7 @@ class FontBuilderCore:
         self.ITAL = False
         self.ITAL_EXTRA_SPACE = 0 if display else 4
         self.TRACK = settings['spaceBetweenAllLetters']
-        self.VERSION = settings.get('version', '0.1')
+        self.VERSION = settings.get('version', '0.1') if display else release_version()
         self.FAMILY = 'SEIHouse Display '+settings.get('name', 'Soft') if display else settings['family']
         self.STYLE_KERN = {}; self.LANGUAGE_KERN = {}
         self.PRESERVE_RHYTHM = not self.configured_shapes and all(settings.get(k) == rhythm_settings.get(k) for k in RHYTHM_SETTINGS)
@@ -133,7 +135,8 @@ class FontBuilderCore:
                     obliqueAngle=self.settings.get('slant', 0))) + ");")
                 out = {'glyphs': pg.evaluate(f'exportGlyphs({self.S})'), 'alternates': pg.evaluate(f'exportAlternates({self.S})'),
                        'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()'),
-                       'screenStroke': pg.evaluate(f'readingStroke({self.S})')}
+                       'screenStroke': pg.evaluate(f'readingStroke({self.S})'),
+                       'scriptchars': pg.evaluate('getScriptChars()')}
             finally:
                 b.close()
         return out
@@ -232,14 +235,14 @@ class FontBuilderCore:
             L.append(min(xs) if xs else None); R.append(max(xs) if xs else None)
         return L, R
 
-    def auto_pairs(self, paths, hm, cmap):
+    def auto_pairs(self, paths, hm, cmap, extra_chars=''):
         """Measure the real empty space between letter shapes and even it out (per style)."""
         step = 10 * SC
         capY = [y for y in range(0, 700*SC + 1, step)]
         lowY = [y for y in range(0, round(self.XHT*SC) + 1, step)]
         depth = AUTO_DEPTH * UPM
         prof = {}
-        for ch in AUTO_CHARS:
+        for ch in AUTO_CHARS + extra_chars:
             n = cmap.get(ord(ch))
             if not n: continue
             p = paths.get(n)
@@ -256,10 +259,10 @@ class FontBuilderCore:
                 lb_eff = min(lb if lb is not None else 1e9, B['Lmin'] + depth)
                 tot += (A['adv'] - ra_eff) + lb_eff; k += 1
             return tot / max(k, 1)
-        lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ')
+        lower = set('abcdefghijklmnopqrstuvwxyzﬁﬂ') | {ch for ch in extra_chars if ch.islower()}
         t_low = gap('n', 'n', 'low') if 'n' in prof else 0
         t_cap = gap('H', 'H', 'cap') if 'H' in prof else 0
-        caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ'); digits = set('0123456789')
+        caps = set('ABCDEFGHIJKLMNOPQRSTUVWXYZ') | {ch for ch in extra_chars if ch.isupper()}; digits = set('0123456789')
         lowp = set('.,'); quotes = set('\'"‘’“”'); letters = caps | lower
         def wanted(a, b):
             """Select supported pair types, retaining the separate lowercase limits."""
@@ -487,6 +490,47 @@ class FontBuilderCore:
             if delta: pairs[pair]=delta
         return pairs
 
+    def script_clearance(self, paths, hm, cmap, kern, basemap):
+        """Protect new-script neighbors, including aliases, without changing Latin pairs."""
+        chars=[chr(code) for code in cmap if 0x370<=code<=0x3ff or 0x400<=code<=0x491]
+        ys=range(-250*SC,1100*SC+1,4*SC)
+        sampled={ch:(hm[cmap[ord(ch)]],self.profiles(paths[cmap[ord(ch)]],ys)) for ch in chars}
+        result={}
+        for a in chars:
+            advance,(_,right)=sampled[a]
+            for b in chars:
+                _,(left,_)=sampled[b]
+                inherited=kern.get(basemap.get(a,a)+basemap.get(b,b),0)
+                gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                if gaps and min(gaps)+inherited*SC<35*SC:
+                    result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+        return result
+
+    def vietnamese_clearance(self, paths,hm,cmap,kern,basemap):
+        """Add literal clearance only for new Vietnamese glyphs and their neighbors.
+
+        Every derivative remains in its root letter's kerning class; literal pairs
+        override it only where horns or a tone stack need extra ink separation.
+        """
+        from build_subsets import VIETNAMESE_NEW
+        new={chr(code) for code in cmap if code in VIETNAMESE_NEW}
+        if not new: return {}
+        import unicodedata
+        others={chr(code) for code in cmap if unicodedata.category(chr(code)).startswith('L')
+                or chr(code) in '0123456789.,:;…!?\'"‘’“”‚„‛‟-–—()[]{}«»‹›'}
+        ys=range(-360*SC,1100*SC+1,4*SC)
+        sampled={ch:(hm[cmap[ord(ch)]],self.profiles(paths[cmap[ord(ch)]],ys)) for ch in others|new}
+        result={}
+        for changed in sorted(new):
+            for other in sorted(others):
+                for a,b in ((changed,other),(other,changed)):
+                    advance,(_,right)=sampled[a];_,(left,_)=sampled[b]
+                    inherited=kern.get(a+b,kern.get(basemap.get(a,a)+basemap.get(b,b),0))
+                    gaps=[advance-r+l for r,l in zip(right,left) if r is not None and l is not None]
+                    if gaps and min(gaps)+inherited*SC<35*SC:
+                        result[a+b]=max(inherited,math.ceil((35*SC-min(gaps))/SC))
+        return result
+
     def track_for(self, thick):
         """Adjust the configured tracking by stroke weight relative to Regular."""
         reg = self.settings['weight']
@@ -590,8 +634,17 @@ class FontBuilderCore:
             names.update({'familyName': f'{self.FAMILY} {style}', 'styleName': 'Italic' if italic else 'Regular',
                           'typographicFamily': self.FAMILY, 'typographicSubfamily': shown})
         fb.setupNameTable(names)
+        win_ascent, win_descent = 1100*SC, 320*SC
+        if self.display:
+            # Windows clipping must include newly inherited accent stacks.
+            # Keep Reader's approved metrics and both families' line spacing.
+            charstrings = fb.font['CFF '].cff.topDictIndex[0].CharStrings
+            bounds = [charstrings[name].calcBounds(None) for name in order]
+            bounds = [box for box in bounds if box is not None]
+            win_ascent = max(win_ascent, math.ceil(max(box[3] for box in bounds)))
+            win_descent = max(win_descent, math.ceil(-min(box[1] for box in bounds)))
         fb.setupOS2(sTypoAscender=ASCENT*SC, sTypoDescender=-DESCENT*SC, sTypoLineGap=0,
-                    usWinAscent=1100*SC, usWinDescent=320*SC, sxHeight=round(self.XHT*SC), sCapHeight=700*SC,
+                    usWinAscent=win_ascent, usWinDescent=win_descent, sxHeight=round(self.XHT*SC), sCapHeight=700*SC,
                     achVendID='SEIH', fsType=0,  # Installable document embedding, subject to the ecosystem EULA.
                     fsSelection=((0x40 if (style != 'Bold' and not italic) else 0) | (0x20 if style == 'Bold' else 0)
                                  | (0x01 if italic else 0) | 0x80),  # + use typographic line metrics
@@ -608,7 +661,7 @@ class FontBuilderCore:
         ], elidedFallbackName=2)
         fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-self.SLANT if italic else 0)
 
-        AUTO = self.auto_pairs(paths, hm, cmap)
+        AUTO = self.auto_pairs(paths, hm, cmap, data.get('scriptchars', ''))
         KERN.update(AUTO); KERN.update(data['kern'])
         KERN.update(self.optical_pairs(paths, hm, cmap, KERN, italic))
         self.retain_reading_pairs(KERN, ps_style)
@@ -628,17 +681,35 @@ class FontBuilderCore:
                          if len(pair) == 2 and ((pair[0] in digits and pair[1] in '.,')
                                                or (pair[0] in '.,' and pair[1] in digits))}
         KERN.update(numeric_pairs)
+        if self.PRESERVE_RHYTHM:
+            with open(os.path.join(HERE,'old','0.34','kern_styles.json'),encoding='utf-8') as file:
+                approved=json.load(file)[ps_style]
+            with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{ps_style}.woff2')) as font:
+                approved_codes=set(font.getBestCmap())
+            for pair in list(KERN):
+                if all(ord(ch) in approved_codes for ch in pair) and pair not in approved:
+                    del KERN[pair]
+            KERN.update(approved)
         for k, v in self.settings.get('pairSpace', {}).items(): KERN[k] = v
+        script_exceptions = self.script_clearance(paths, hm, cmap, KERN, data['basemap'])
+        script_exceptions.update(self.vietnamese_clearance(paths, hm, cmap, KERN, data['basemap']))
+        KERN.update(script_exceptions)
         self.STYLE_KERN[ps_style] = dict(KERN)
         self.LANGUAGE_KERN[ps_style]={'hu':self.hungarian_caps(paths,hm,cmap,KERN)}
         if style == 'Regular' and not italic:
-            json.dump(AUTO, open(os.path.join(self.asset_dir, 'kern_auto_'+self.settings['name'].lower().replace(' ', '-')+'.json' if self.display else 'kern_auto.json'), 'w', encoding='utf-8'), ensure_ascii=False)
+            name = 'kern_auto_'+self.settings['name'].lower().replace(' ', '-')+'.json' if self.display else 'kern_auto.json'
+            with open(os.path.join(self.asset_dir, name), 'w', encoding='utf-8') as file:
+                json.dump(AUTO, file, ensure_ascii=False)
         print(f'    {len(AUTO)} automatic pairs')
         # pair spacing written with groups, so letters added later (accents) join the right group automatically
         left_groups, right_groups, lines = set(), set(), []
         for pair, v in KERN.items():
             a, b = pair[0], pair[1]
-            if ord(a) not in cmap or ord(b) not in cmap or v == 0: continue
+            if ord(a) not in cmap or ord(b) not in cmap: continue
+            if v == 0 and pair not in script_exceptions: continue
+            if pair in script_exceptions:
+                lines.append(f'  pos {self.gname(a)} {self.gname(b)} {round(v*SC)};')
+                continue
             left_groups.add(a); right_groups.add(b)
             lines.append(f'  pos @L_{self.gname(a)} @R_{self.gname(b)} {round(v*SC)};')
         bm = data.get('basemap', {})

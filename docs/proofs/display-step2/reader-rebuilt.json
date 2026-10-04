@@ -1,360 +1,591 @@
 {
-  "reference": "Reader 0.36 at bc61d90d25730f7768b92f51e190221045810e9a; geometry identical to 0.35",
+  "reference": "Reader 0.39 at a9427a35817b482f5672e7c4a508254e031a94a9; latest Phase 4 release preserved",
   "normalization": "Only head.created, head.modified and head.checkSumAdjustment are zeroed. All SFNT tables including complete CFF outline/hint programs, names, metrics and layout must match.",
+  "legacy_reference": "Reader 0.35 full styles saved before 0.36 metadata release; all original contours and metrics",
   "scope": {
-    "reader_deliveries": 50,
+    "reader_deliveries": 90,
     "display_cuts": 0
   },
   "reader": {
+    "SEIReader-Bold.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Bold.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
     "SEIReader-Bold.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Bold.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Bold.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Bold.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-Bold.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Bold.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Bold.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-BoldItalic.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-BoldItalic.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-BoldItalic.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-BoldItalic.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-BoldItalic.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-BoldItalic.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-BoldItalic.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-BoldItalic.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-BoldItalic.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-Italic.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Italic.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Italic.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Italic.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Italic.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Italic.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-Italic.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Italic.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Italic.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-Light.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Light.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Light.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Light.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Light.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Light.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-Light.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Light.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Light.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-LightItalic.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-LightItalic.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-LightItalic.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-LightItalic.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-LightItalic.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-LightItalic.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-LightItalic.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-LightItalic.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-LightItalic.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-Medium.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Medium.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Medium.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Medium.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Medium.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Medium.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-Medium.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Medium.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Medium.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-MediumItalic.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-MediumItalic.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-MediumItalic.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-MediumItalic.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-MediumItalic.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-MediumItalic.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-MediumItalic.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-MediumItalic.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-MediumItalic.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-Regular.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Regular.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Regular.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Regular.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Regular.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Regular.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-Regular.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-Regular.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-Regular.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBold.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBold.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBold.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBold.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBold.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBold.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-SemiBold.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBold.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBold.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBoldItalic.cyrillic.woff2": {
+      "glyphs": 594,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBoldItalic.greek.woff2": {
+      "glyphs": 567,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBoldItalic.latin-basic.woff2": {
       "glyphs": 148,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBoldItalic.latin-ext-2.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBoldItalic.latin-extended.woff2": {
-      "glyphs": 352,
+      "glyphs": 480,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBoldItalic.otf": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     },
     "SEIReader-SemiBoldItalic.symbols-icons.woff2": {
       "glyphs": 89,
       "byte_identical": false,
       "normalized_tables_identical": true,
-      "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "outline_and_hint_programs_identical": true
+    },
+    "SEIReader-SemiBoldItalic.vietnamese.woff2": {
+      "glyphs": 496,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true
     },
     "SEIReader-SemiBoldItalic.woff2": {
-      "glyphs": 419,
+      "glyphs": 732,
       "byte_identical": false,
       "normalized_tables_identical": true,
       "outline_and_hint_programs_identical": true,
-      "matches_035_geometry_metrics_layout": true
+      "matches_035_original_outlines_metrics": true,
+      "matches_035_directory_original_outlines_metrics": true
     }
   },
   "display": {},

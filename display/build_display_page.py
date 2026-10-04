@@ -192,7 +192,16 @@ function renderAll(){
   $('poster').innerHTML = drawText(($('t-title').value || '').toUpperCase(), Math.min(64, pw / 5.5)) + drawText(($('t-artist').value || '') + ' · Live at the Celestial Library', Math.min(26, pw / 14));
   $('spec').innerHTML = ['ABCDEFG','HIJKLMN','OPQRSTU','VWXYZ','abcdefghijklm','nopqrstuvwxyz','0123456789',
     'ÀÁÂÃÄÅ ÆŒ Ø ÐÞß','ĀĂĄĆČĎ ĒĘĚĞ İıĽŁ','ŃŇŐŘŚȘŞ ŤŢȚŮŰŹŻŽ',
-    'ƁƊƘƙƳƴɓɗ ḾṄỊỌỤ','a\u0301\u0308 i\u0302\u0323 o\u031b\u0301',
+    'ƁƊƘƙƳƴɓɗ ḾṄỊỌỤ','ĈĊĜĠĢĤĨĮĴ ĶĹĻŅŖŜŨŲŴŶ',
+    'ĐđĦħŦŧĸ ŊŋſĲĳĿŀŉ',
+    'ΑΒΓΔΕΖΗΘΙΚΛΜΝ ΞΟΠΡΣΤΥΦΧΨΩ',
+    'αβγδεζηθικλμν ξοπρσςτυφχψω',
+    'АБВГДЕЁЖЗИЙКЛМН ОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+    'абвгдеёжзийклмн опрстуфхцчшщъыьэюя',
+    'ҐґЄєЇїІіЂђЋћЉљЊњЏџ',
+    'ĂăƠơƯư ẮắẦầỂểỘộỚớỰựỸỹ',
+    'Tiếng Việt · Cộng hòa · Thượng Hải',
+    'a\u0301\u0308 i\u0302\u0323 o\u031b\u0301',
     '¹²³⁴⁵⁶⁷⁸⁹⁰ ₁₂₃₄₅₆₇₈₉₀','½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞','& ! ? Ⓢ ♫ ☯ ⚡'].map(r => drawText(r, Math.min(46, sw / 8.5))).join('');
   renderAllCuts(); renderOut();
 }
