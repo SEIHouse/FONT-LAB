@@ -1,7 +1,8 @@
 """Builds the SEIHouse Display Lab: one page to shape display cuts live and save them."""
 import json, os, glob
 HERE = os.path.dirname(os.path.abspath(__file__))
-engine = open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
+engine = open(os.path.join(HERE, '..', 'engine.js'), encoding='utf-8').read()
+stroke_geometry = open(os.path.join(HERE, 'stroke_geometry.js'), encoding='utf-8').read()
 draft_helper = open(os.path.join(HERE, '..', 'site', 'drafts.js'), encoding='utf-8').read()
 presets = [json.load(open(f, encoding='utf-8')) for f in sorted(glob.glob(os.path.join(HERE, 'cuts', '*.json')))]
 order = ['Soft', 'Edge', 'Ink', 'Wide']
@@ -116,46 +117,39 @@ let CUT = JSON.parse(JSON.stringify(PRESETS[0])), SAVED = Object.create(null), P
 function applyToEngine(){
   P.base = CUT.weight; P.ws = CUT.letterWidth; P.xh = CUT.xHeight; P.contrast = CUT.contrast; P.penAngle = CUT.penAngle || 0;
   P.caprx = CUT.capitalRoundness; P.round = CUT.lowercaseRoundness; P.straight = CUT.uprightStraightness || 1;
-  P.corner = CUT.corners === 'cut' ? 'cut' : 'soft'; P.cap = CUT.ends; P.join = CUT.joins; P.os = 1; P.ufoot = 0; P.asc = 700; P.ital = 0;
+  P.corner = CUT.corners === 'cut' ? 'cut' : 'soft'; P.cap = CUT.ends; P.join = CUT.joins;
+  P.os = CUT.overshoot === false ? 0 : 1; P.ufoot = CUT.uFoot ? 1 : 0; P.asc = CUT.ascender || 700;
+  P.ital = 0; P.obliqueAngle = CUT.slant || 0; P.trk = CUT.spaceBetweenAllLetters;
   for(const k in cache) delete cache[k];
 }
 /* angled oval pen, drawn the same way the font builder does it */
-function penMats(){
-  const t = -(CUT.penAngle || 0) * Math.PI/180, c = Math.cos(t), s = Math.sin(t), F = CUT.contrast || 1;
-  const m = k => [c*c + k*s*s, (1-k)*c*s, (1-k)*c*s, s*s + k*c*c];
-  return { into: m(F), out: m(1/F) };
-}
+const penBodies = new WeakMap();
 function penBody(g){
-  if((CUT.contrast || 1) === 1) return g.body;
-  const key = 'pb|' + CUT.contrast + '|' + CUT.penAngle;
-  if(g[key]) return g[key];
-  const M = penMats(), strokes = [];
-  const rest = g.body.replace(/<path d="[^"]+" fill="none"[^>]*\/>/g, m => { strokes.push(m); return ''; });
-  const tx = d => { const t = d.match(/[MLCZ]|-?\d+(?:\.\d+)?/g) || []; let out = '', buf = [];
-    for(const tok of t){ if(/[MLCZ]/.test(tok)){ out += tok; continue; } buf.push(+tok);
-      if(buf.length === 2){ const [x, y] = buf; out += f1(M.into[0]*x + M.into[1]*y) + ' ' + f1(M.into[2]*x + M.into[3]*y) + ' '; buf = []; } }
-    return out.trim(); };
-  const inner = strokes.map(s => s.replace(/ d="([^"]+)"/, (m, d) => ' d="' + tx(d) + '"')).join('');
-  return (g[key] = `<g transform="matrix(${M.out[0].toFixed(5)} ${M.out[2].toFixed(5)} ${M.out[1].toFixed(5)} ${M.out[3].toFixed(5)} 0 0)">${inner}</g>` + rest);
+  const key = [CUT.contrast,CUT.penAngle,CUT.slant,CUT.ends,CUT.joins].join('|');
+  const cached = penBodies.get(g);
+  if(cached && cached.key === key) return cached.body;
+  const body = displayPenBody(g, CUT);
+  penBodies.set(g, {key,body});
+  return body;
 }
 function drawWord(w, size){
   const S = CUT.weight, tr = CUT.spaceBetweenAllLetters, sl = CUT.slant || 0, T = Math.tan(sl * Math.PI/180);
   let x = 0, parts = '', prev = '';
   w = w.replace(/fi/g, 'ﬁ').replace(/fl/g, 'ﬂ');
-  for(const ch of w){
-    P.trk = tr;
-    const g = glyph(ch, S); if(!g){ x += 300; prev = ''; continue; }
-    x += (KERN[prev + ch] || 0);
+  for(const cluster of languageClusters(w)){
+    const ch = cluster.base, g = clusterGlyph(cluster, S); if(!g){ x += 300; prev = ''; continue; }
+    if(ch === '\u2009' || ch === '\u202f'){ x += 120; prev = ''; continue; }
+    x += (KERN[latinBase(prev) + latinBase(ch)] || 0);
     const gx = x + tr + g.sb0 - (sl ? T * 330 : 0);
-    parts += `<g transform="translate(${f1(gx)} 0)${sl ? ` skewX(${-sl})` : ''}" clip-path="url(#${g.clipId})">${penBody(g)}</g>`;
+    parts += `<g transform="translate(${f1(gx)} 0)${sl ? ` skewX(${-sl})` : ''}"${CUT.ends === 'flat' ? '' : ` clip-path="url(#${g.clipId})"`}>${penBody(g)}</g>`;
     x += tr + g.sb0 + g.w + S + g.sb1 + tr; prev = ch;
   }
   const W = Math.max(x, 1);
-  return `<svg viewBox="0 -900 ${f1(W)} 1160" width="${f1(W*size/1000)}" height="${f1(1.16*size)}" aria-hidden="true">${parts}</svg>`;
+  return `<svg viewBox="0 -1100 ${f1(W)} 1400" width="${f1(W*size/1000)}" height="${f1(1.4*size)}" aria-hidden="true">${parts}</svg>`;
 }
 function drawText(str, size, color, lh = 1.12){
   const words = String(str).split(/\s+/).filter(Boolean);
-  const col = size * CUT.wordSpace / 1000, row = Math.max(0, size * (lh - 1.16));
+  const col = size * CUT.wordSpace / 1000, row = Math.max(0, size * (lh - 1.4));
   return `<div class="run" role="img" aria-label="${e_(str)}" style="color:${color || 'inherit'};gap:${f1(row)}px ${f1(col)}px">${words.map(w => drawWord(w, size)).join('')}</div>`;
 }
 /* ---- controls ---- */
@@ -196,7 +190,19 @@ function renderAll(){
   $('tracks').innerHTML = tracks.map((t, i) => `<div class="tr"><span class="num">${String(i + 1).padStart(2, '0')}</span>${drawText(t, Math.min(30, tw / 12))}</div>`).join('');
   const pw = $('poster').clientWidth || 600, sw = $('spec').clientWidth || 600;
   $('poster').innerHTML = drawText(($('t-title').value || '').toUpperCase(), Math.min(64, pw / 5.5)) + drawText(($('t-artist').value || '') + ' · Live at the Celestial Library', Math.min(26, pw / 14));
-  $('spec').innerHTML = ['ABCDEFG','HIJKLMN','OPQRSTU','VWXYZ','abcdefghijklm','nopqrstuvwxyz','0123456789','& ! ? Ⓢ ♫ ☯ ⚡'].map(r => drawText(r, Math.min(46, sw / 8.5))).join('');
+  $('spec').innerHTML = ['ABCDEFG','HIJKLMN','OPQRSTU','VWXYZ','abcdefghijklm','nopqrstuvwxyz','0123456789',
+    'ÀÁÂÃÄÅ ÆŒ Ø ÐÞß','ĀĂĄĆČĎ ĒĘĚĞ İıĽŁ','ŃŇŐŘŚȘŞ ŤŢȚŮŰŹŻŽ',
+    'ƁƊƘƙƳƴɓɗ ḾṄỊỌỤ','ĈĊĜĠĢĤĨĮĴ ĶĹĻŅŖŜŨŲŴŶ',
+    'ĐđĦħŦŧĸ ŊŋſĲĳĿŀŉ',
+    'ΑΒΓΔΕΖΗΘΙΚΛΜΝ ΞΟΠΡΣΤΥΦΧΨΩ',
+    'αβγδεζηθικλμν ξοπρσςτυφχψω',
+    'АБВГДЕЁЖЗИЙКЛМН ОПРСТУФХЦЧШЩЪЫЬЭЮЯ',
+    'абвгдеёжзийклмн опрстуфхцчшщъыьэюя',
+    'ҐґЄєЇїІіЂђЋћЉљЊњЏџ',
+    'ĂăƠơƯư ẮắẦầỂểỘộỚớỰựỸỹ',
+    'Tiếng Việt · Cộng hòa · Thượng Hải',
+    'a\u0301\u0308 i\u0302\u0323 o\u031b\u0301',
+    '¹²³⁴⁵⁶⁷⁸⁹⁰ ₁₂₃₄₅₆₇₈₉₀','½ ⅓ ⅔ ¼ ¾ ⅛ ⅜ ⅝ ⅞','& ! ? Ⓢ ♫ ☯ ⚡'].map(r => drawText(r, Math.min(46, sw / 8.5))).join('');
   renderAllCuts(); renderOut();
 }
 function renderAllCuts(){
@@ -237,7 +243,7 @@ $('save').addEventListener('click', async () => {
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });
 </script></body></html>"""
-html = HTML.replace('__ENGINE__', draft_helper + '\n' + engine).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
+html = HTML.replace('__ENGINE__', draft_helper + '\n' + engine + '\n' + stroke_geometry).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
 out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(html)

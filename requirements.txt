@@ -3,6 +3,7 @@ skia-pathops>=0.9
 brotli>=1.1
 uharfbuzz>=0.56
 playwright>=1.40
+freetype-py>=2.3
 afdko>=4.0
 # optional, for the health check:
 fontbakery>=1.1

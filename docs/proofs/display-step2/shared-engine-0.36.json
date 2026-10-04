@@ -1,0 +1,459 @@
+{
+  "reference": "Reader 0.36 at bc61d90d25730f7768b92f51e190221045810e9a; geometry identical to 0.35",
+  "normalization": "Only head.created, head.modified and head.checkSumAdjustment are zeroed. All SFNT tables including complete CFF outline/hint programs, names, metrics and layout must match.",
+  "scope": {
+    "reader_deliveries": 50,
+    "display_cuts": 4
+  },
+  "reader": {
+    "SEIReader-Bold.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Bold.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Bold.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Bold.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Bold.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-BoldItalic.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-BoldItalic.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-BoldItalic.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-BoldItalic.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-BoldItalic.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Italic.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Italic.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Italic.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Italic.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Italic.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Light.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Light.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Light.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Light.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Light.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-LightItalic.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-LightItalic.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-LightItalic.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-LightItalic.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-LightItalic.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Medium.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Medium.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Medium.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Medium.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Medium.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-MediumItalic.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-MediumItalic.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-MediumItalic.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-MediumItalic.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-MediumItalic.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Regular.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Regular.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Regular.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Regular.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-Regular.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBold.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBold.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBold.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBold.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBold.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBoldItalic.latin-basic.woff2": {
+      "glyphs": 148,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBoldItalic.latin-extended.woff2": {
+      "glyphs": 352,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBoldItalic.otf": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBoldItalic.symbols-icons.woff2": {
+      "glyphs": 89,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    },
+    "SEIReader-SemiBoldItalic.woff2": {
+      "glyphs": 419,
+      "byte_identical": true,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_geometry_metrics_layout": true
+    }
+  },
+  "display": {
+    "soft": {
+      "language_strings": 1842,
+      "languages": 23,
+      "pinned_cldr_locales": 10,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 419,
+      "flags": 0
+    },
+    "edge": {
+      "language_strings": 1842,
+      "languages": 23,
+      "pinned_cldr_locales": 10,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 419,
+      "flags": 0
+    },
+    "ink": {
+      "language_strings": 1842,
+      "languages": 23,
+      "pinned_cldr_locales": 10,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 419,
+      "flags": 0
+    },
+    "wide": {
+      "language_strings": 1842,
+      "languages": 23,
+      "pinned_cldr_locales": 10,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 419,
+      "flags": 0
+    }
+  },
+  "flags": []
+}

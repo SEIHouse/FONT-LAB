@@ -2,6 +2,48 @@
 
 Newest first.
 
+- **Display Engine Step 2** Consolidated Reader and Display into the root
+  `engine.js` and one `FontBuilderCore` used by both Python entry points.
+  Removed the forked Display engine and rebuilt its Lab from the shared source.
+  Display options are explicit settings for soft/cut corners, round/flat ends,
+  round/sharp joins, rotated pens and oblique slant without italic form swaps;
+  default Reader construction remains unchanged. Display inherits current
+  overlap repair, Latin, Vietnamese, Cyrillic and Greek letters and combining marks, `mark`/`mkmk`/`ccmp`,
+  `locl`, decimal spacing and `frac`/`tnum`/`sups`/`subs`. Cut settings and
+  version 0.1 are retained; twenty old advances per cut adopt Reader 0.28's
+  existing `a`/`e` width and `i` bearing refinements, with each delta documented
+  and all current advances gated. Edge's Windows clipping ascent gains twenty
+  font units to fit newly inherited Vietnamese tone stacks; typographic line
+  spacing remains unchanged. Added frozen ten-style drawing exports and
+  current Reader delivery fingerprints, with a gate that normalizes only build-time
+  `head` timestamps and checksum bookkeeping. See the shared-engine notes for
+  rebuild validation, expanded Display proofs and the Reader identity reason.
+  The preservation gate covers Reader 0.39's ninety deliveries and the requested
+  original 0.35 glyphs. Preserved the initial 0.36 consolidation's identity
+  reports as historical evidence; current shape, shaping and health reports
+  cover the full shared repertoire. Added complete 400px proofs and inherited
+  script/language/numeric/mark behavior checks.
+  All ninety shipped Reader files remain byte-identical to 0.39; all ninety
+  regenerated files match normalized current tables and CFF outlines/hints,
+  and the ten styles retain the original 0.35 glyph outlines/metrics. Each
+  Display cut has 732 glyphs, passing with 0 flags across 2,928 outlines and
+  5,856 OTF/WOFF2 renders. All four cuts pass FontBakery OpenType/offline
+  Universal with 0 FAIL / 0 WARN; forty-eight final 400px sheets cover every
+  glyph. All local regressions and current Reader distribution checks pass.
+
+- **Display Engine Step 1** Repaired flat-cap construction for rotated/slanted
+  oval pens, terminal attachments and coincident joins. Bounded sharp miters
+  with clean bevel fallback; removed global cuts through angled terminals.
+  Added curve-preserving outline cleanup after stroking and before CFF export,
+  including fitting/rounding debris and self-overlap winding. Updated the live
+  Lab's cap/join construction and rebuilt Soft, Edge, Ink and Wide OTF/WOFF2.
+  Preserved all cut settings, letter skeletons, inventories, advances and line
+  metrics; recalculated automatic pairs from the repaired ink profiles.
+  Added the 400px all-glyph shape/delivery gate, construction regressions,
+  Actions gate and complete before/after proof sheets. All 964 glyph outlines
+  pass with 0 flags; each cut passes FontBakery OpenType/offline Universal with
+  0 FAIL / 0 WARN. The Display cut version remains 0.1.
+
 - **0.39 — Phase 4, step 3** Completed Vietnamese with 88 missing encoded
   letters, including Ơ/ơ/Ư/ư, all tones and circumflex/breve tone stacks.
   Composites reuse the existing vowel and mark drawings with lighter tones and

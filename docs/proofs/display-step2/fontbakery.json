@@ -1,0 +1,91 @@
+{
+  "tool": "FontBakery",
+  "version": "1.1.0",
+  "universal_skip_network": true,
+  "profiles": {
+    "soft": {
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      },
+      "otf_sha256": "49753d9e0a24ad4eedb0bc5d761cde941c9a1e735fb4c0f76b27291cb5dd6cc8"
+    },
+    "edge": {
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      },
+      "otf_sha256": "8ceb8619a5e60c834aacecac17ad6ee12ac05729f884a15a59a01ed71b52973b"
+    },
+    "ink": {
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      },
+      "otf_sha256": "78a1b6bb5aed6e06cc0e9484174814f4d8dcb8a01e6e960ffb78ac0e79df49ac"
+    },
+    "wide": {
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      },
+      "otf_sha256": "4ad7641b8ec0c176e0655587dcb61fc373b0cfd3fbe7ac8d027b2fa70c562dcd"
+    }
+  }
+}
