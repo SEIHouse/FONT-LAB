@@ -861,7 +861,7 @@ function displayChoices(choices={}){
   if(!choices || typeof choices!=='object' || Array.isArray(choices)) throw new Error('Invalid alternate choices');
   for(const key of Object.keys(choices)) if(!DISPLAY_SETS.some(set=>set.key===key)) throw new Error('Unknown alternate: '+key);
   for(const set of DISPLAY_SETS){
-    const choice=choices[set.key] ?? set.choices[0];
+    const choice=Object.hasOwn(choices,set.key) ? choices[set.key] : set.choices[0];
     if(!set.choices.includes(choice)) throw new Error('Invalid alternate '+set.key+': '+choice);
     result[set.key]=choice;
   }

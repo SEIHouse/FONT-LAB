@@ -48,5 +48,9 @@ test('choices invalidate cached forms and legacy drafts resolve to the original 
   assert.equal(evaluate('displayChoices({}).a'),'double');
   assert.equal(evaluate('displayChoices({}).g'),'single');
   assert.throws(()=>evaluate('displayChoices({a:"broken"})'),/Invalid alternate/);
+  for(const key of evaluate('DISPLAY_SETS.map(set=>set.key)')){
+    assert.throws(()=>evaluate(`displayChoices({${JSON.stringify(key)}:null})`),/Invalid alternate/);
+  }
+  assert.throws(()=>evaluate('displayChoices({a:undefined})'),/Invalid alternate/);
   assert.throws(()=>evaluate('displayChoices({unknown:"single"})'),/Unknown alternate/);
 });
