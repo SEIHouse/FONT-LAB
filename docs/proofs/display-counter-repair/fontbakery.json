@@ -1,0 +1,90 @@
+{
+  "version": "1.1.0",
+  "universal_skip_network": true,
+  "profiles": {
+    "soft": {
+      "otf_sha256": "769450d70b4da0aff70631b79ae4dee5bee56afb546c6ea21a12862c9e6defc6",
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      }
+    },
+    "edge": {
+      "otf_sha256": "c6a6bb7b7873a61645556c9ce87a50292eb00b9e22271c650d09bf96754ff728",
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      }
+    },
+    "ink": {
+      "otf_sha256": "78a1b6bb5aed6e06cc0e9484174814f4d8dcb8a01e6e960ffb78ac0e79df49ac",
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      }
+    },
+    "wide": {
+      "otf_sha256": "4ad7641b8ec0c176e0655587dcb61fc373b0cfd3fbe7ac8d027b2fa70c562dcd",
+      "universal": {
+        "PASS": 75,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 3,
+        "SKIP": 49
+      },
+      "opentype": {
+        "PASS": 31,
+        "FAIL": 0,
+        "WARN": 0,
+        "ERROR": 0,
+        "FATAL": 0,
+        "INFO": 0,
+        "SKIP": 22
+      }
+    }
+  }
+}

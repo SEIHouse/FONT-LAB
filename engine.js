@@ -416,6 +416,17 @@ const weightFor = size => P.base + P.boost * clamp((28 - size) / 15, 0, 1);
 /* ---------- drawing ---------- */
 const f1 = v => (+v).toFixed(1);
 
+/** Preserve vertical counter room in heavy Display masters without reducing stem weight.
+ * Lowercase mapping reserves a pen radius at both height limits. An unmodulated
+ * heavy pen then consumes that room again between stacked bowls and terminals.
+ * Bound its horizontal diameter to 20% of x-height (15% with extended flat
+ * terminals); lighter/contrasting pens
+ * retain their requested ratio. Reader does not opt into this compensation.
+ */
+function displayContrast(weight, contrast, xHeight, ends='round'){
+  return Math.max(contrast, weight / (xHeight * (ends === 'flat' ? .15 : .20)));
+}
+
 /** Support radii of the shared oval pen; the unrotated branch retains Reader arithmetic. */
 function penHalf(S){
   if(!P.penAngle) return {hx:S/2,hy:S/(2*P.contrast)};

@@ -1,0 +1,33 @@
+{
+  "homepage": {
+    "family": "DisplaySoft, SEIReader, sans-serif",
+    "size": "196px",
+    "loaded": true
+  },
+  "Soft": {
+    "contrast": 1.4423076923076923,
+    "requested": 1,
+    "count": 696,
+    "invalid": 0
+  },
+  "Edge": {
+    "contrast": 1.4743589743589745,
+    "requested": 1,
+    "count": 696,
+    "invalid": 0
+  },
+  "Ink": {
+    "contrast": 2.6,
+    "requested": 2.6,
+    "count": 696,
+    "invalid": 0
+  },
+  "Wide": {
+    "contrast": 1,
+    "requested": 1,
+    "count": 696,
+    "invalid": 0
+  },
+  "mobile": true,
+  "errors": []
+}

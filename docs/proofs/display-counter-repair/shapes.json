@@ -1,0 +1,66 @@
+{
+  "size_px": 400,
+  "flags": [],
+  "cuts": {
+    "soft": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "769450d70b4da0aff70631b79ae4dee5bee56afb546c6ea21a12862c9e6defc6",
+        "woff2": "67a5f2838ce2969034a00e5ba7aa6bdee48f37d0c9977cb5514682e7543300c8"
+      },
+      "topology_glyphs": 590
+    },
+    "edge": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "c6a6bb7b7873a61645556c9ce87a50292eb00b9e22271c650d09bf96754ff728",
+        "woff2": "c0eaef12b1b44af8793f7d8b2f575b393a8cc45acf919b3a904d6feb2379b052"
+      },
+      "topology_glyphs": 590
+    },
+    "ink": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "78a1b6bb5aed6e06cc0e9484174814f4d8dcb8a01e6e960ffb78ac0e79df49ac",
+        "woff2": "0b93a984950fc43b500b8af9596c2a6c1da64cca910ab15b50fcd6d43826cf68"
+      },
+      "topology_glyphs": 590
+    },
+    "wide": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "4ad7641b8ec0c176e0655587dcb61fc373b0cfd3fbe7ac8d027b2fa70c562dcd",
+        "woff2": "154639b2723f964d40a25899607a53eaa70b96ad1a90bfc6ea25bf296f22749d"
+      },
+      "topology_glyphs": 590
+    }
+  },
+  "thresholds": {
+    "micro_contour_px2": 1,
+    "tiny_segment_px": 0.4,
+    "spike_turn_degrees": 150,
+    "spike_shoulder_px": 8,
+    "spur_short_shoulder_px": 16,
+    "spur_long_shoulder_px": 24,
+    "spur_root_turn_degrees": 15,
+    "overlap_px2": 0.25,
+    "counter_clearance_px": 6,
+    "counter_min_area_px2": 24,
+    "counter_min_relative_span": 0.2,
+    "aperture_min_area_px2": 200,
+    "aperture_min_relative_area": 0.02
+  },
+  "counter_topology_reference": {
+    "source_commit": "ad1cf46a0e5c5cd3a07aba64d38531521bd3f13f",
+    "sha256": "9ec4c61086e022ac7e56521db4f0da2bc757c666af71618eb8f50e7897f52360"
+  },
+  "flag_counts": {}
+}
