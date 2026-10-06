@@ -35,8 +35,9 @@ OpenType features.
 
 1. Shape a cut in the Lab, name it, and press **Save cut** to keep a browser draft
    (or save to the connected Claude host). Drafts stay on this browser and site.
-2. **Download JSON** or **Copy** the settings. From the repo root, run
-   `python -X utf8 display/make_display.py path/to/my-cut.json`.
+2. **Download JSON** or **Copy** the settings into `display/cuts/my-cut.json`
+   (or replace the corresponding preset JSON). From the repo root, run
+   `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
 
 The hosted Lab previews and saves settings; font compilation uses the local Python

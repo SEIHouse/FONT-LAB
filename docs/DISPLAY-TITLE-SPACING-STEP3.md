@@ -68,6 +68,10 @@ and the OTF hash. Geometry or spacing edits invalidate compiled spacing in the
 live Lab; the draft remains editable and receives a visible draft-spacing label.
 Rebuild that cut and then the Lab to supply its final spacing. Naming and note
 edits do not invalidate it.
+For a custom design, save its downloaded settings in `display/cuts/<slug>.json`
+so the generator includes that cut and its compiled export. Build that JSON,
+then rebuild the Lab. Names containing spaces use the same asset paths as the
+font builder.
 
 ## Gates and proofs
 

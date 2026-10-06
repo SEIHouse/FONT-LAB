@@ -90,6 +90,19 @@ class DisplayTitleSpacingTests(unittest.TestCase):
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True)
             self.assertEqual(result.returncode,0,result.stderr)
             self.assertIn('const SPACING_EXPORTS =',(candidate/'lab.html').read_text(encoding='utf-8'))
+            # Follow make_display.py's public filename convention for a named project cut.
+            named=candidate/'my-cut'
+            named.mkdir()
+            shutil.copy(candidate/'soft/spacing_soft.json',named/'spacing_my-cut.json')
+            shutil.copy(candidate/'soft/SEIHouseDisplay-Soft.otf',named/'SEIHouseDisplay-MyCut.otf')
+            settings=json.loads((ROOT/'display/cuts/soft.json').read_text())
+            settings['name']='My Cut'
+            probe=[sys.executable,'-X','utf8','-c',
+                "import json, runpy, sys; page=runpy.run_path(sys.argv[1]); "
+                "assert page['load_spacing'](json.loads(sys.argv[2]))['policy']=='soft'",
+                str(ROOT/'display/build_display_page.py'),json.dumps(settings)]
+            result=subprocess.run(probe,cwd=ROOT,env=env,capture_output=True,text=True)
+            self.assertEqual(result.returncode,0,result.stderr)
             stale=candidate/'soft/spacing_soft.json'
             data=json.loads(stale.read_text(encoding='utf-8'))
             data['otf_sha256']='stale'

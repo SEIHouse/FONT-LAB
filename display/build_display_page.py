@@ -13,12 +13,13 @@ order = ['Soft', 'Edge', 'Ink', 'Wide']
 presets.sort(key=lambda c: order.index(c['name']) if c['name'] in order else 99)
 spacing_dir = os.environ.get('SPACING_DIR', HERE)
 def load_spacing(cut):
-    slug = cut['name'].lower()
+    slug = cut['name'].lower().replace(' ', '-')
+    filename = 'SEIHouseDisplay-'+cut['name'].replace(' ', '')+'.otf'
     file = os.path.join(spacing_dir, 'spacing_'+slug+'.json')
-    font = os.path.join(HERE, 'fonts', slug, 'SEIHouseDisplay-'+cut['name']+'.otf')
+    font = os.path.join(HERE, 'fonts', slug, filename)
     if spacing_dir != HERE:
         file = os.path.join(spacing_dir, slug, 'spacing_'+slug+'.json')
-        font = os.path.join(spacing_dir, slug, 'SEIHouseDisplay-'+cut['name']+'.otf')
+        font = os.path.join(spacing_dir, slug, filename)
     with open(file, encoding='utf-8') as source:
         record = json.load(source)
     with open(font, 'rb') as source:
