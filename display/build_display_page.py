@@ -43,22 +43,22 @@ html{ scroll-padding-top:env(safe-area-inset-top,0px); }
 *{ box-sizing:border-box; }
 body{ margin:0; background:var(--bg); color:var(--ink); font:14px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif; }
 .wrap{ display:grid; grid-template-columns:330px minmax(0,1fr); gap:18px; padding:18px; max-width:1500px; margin:0 auto; }
-@media (max-width:900px){ .wrap{ grid-template-columns:1fr; padding:12px; } }
+@media (max-width:900px){ .wrap{ grid-template-columns:minmax(0,1fr); padding:12px; } }
 h1{ font-size:20px; margin:0 0 2px; } .sub{ color:var(--mute); font-size:13px; margin:0 0 14px; }
-aside{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; align-self:start; position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; }
+aside{ background:var(--panel); border:1px solid var(--line); border-radius:14px; padding:14px; min-width:0; align-self:start; position:sticky; top:12px; max-height:calc(100vh - 24px); overflow:auto; }
 @media (max-width:900px){ aside{ position:static; max-height:none; } }
 .sec{ border-bottom:1px solid var(--line); padding:10px 0; display:grid; gap:9px; }
 .sec:last-child{ border-bottom:0; }
 .sec h2{ font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); margin:0; }
 .row{ display:flex; flex-wrap:wrap; gap:6px; }
-.pill{ font:inherit; font-size:13px; padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
+.pill{ font:inherit; font-size:13px; padding:6px 11px; max-width:100%; overflow-wrap:anywhere; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
 .pill[aria-pressed="true"]{ background:var(--ink); color:#0d0f13; border-color:var(--ink); }
 .pill.primary{ background:var(--accent); color:#0d0f13; border-color:var(--accent); font-weight:600; }
 .pill:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
-label.ctl{ display:grid; gap:3px; font-size:13px; color:var(--mute); }
+label.ctl{ display:grid; gap:3px; min-width:0; font-size:13px; color:var(--mute); }
 label.ctl span{ display:flex; justify-content:space-between; } label.ctl output{ color:var(--ink); }
-input[type=range]{ width:100%; accent-color:var(--accent); }
-input[type=text], textarea, select{ width:100%; font:inherit; background:#0d0f13; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; }
+input[type=range]{ width:100%; min-width:0; margin:0; accent-color:var(--accent); }
+input[type=text], textarea, select{ width:100%; min-width:0; font:inherit; background:#0d0f13; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; }
 textarea{ min-height:84px; resize:vertical; }
 .hint{ font-size:12px; color:var(--mute); }
 main{ display:grid; gap:16px; min-width:0; }
@@ -66,14 +66,15 @@ main{ display:grid; gap:16px; min-width:0; }
 .card h2{ font-size:12px; letter-spacing:.06em; text-transform:uppercase; color:var(--mute); margin:0 0 10px; }
 .covers{ display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:16px; }
 @media (max-width:1100px){ .covers{ grid-template-columns:1fr; } }
-.cover{ aspect-ratio:1/1; border-radius:12px; padding:7%; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; position:relative; }
+.cover{ aspect-ratio:1/1; min-width:0; border-radius:12px; padding:7%; display:flex; flex-direction:column; justify-content:space-between; overflow:hidden; position:relative; }
+.cover > div{ min-width:0; max-width:100%; }
 .cover .mark{ align-self:flex-end; opacity:.9; }
-.run{ display:flex; flex-wrap:wrap; align-items:flex-start; } .run svg{ display:block; overflow:visible; flex:none; }
+.run{ display:flex; flex-wrap:wrap; align-items:flex-start; min-width:0; max-width:100%; } .run svg{ display:block; overflow:visible; flex:none; max-width:100%; height:auto; }
 .tracks{ display:grid; gap:6px; }
 .tracks .tr{ display:grid; grid-template-columns:2.2em minmax(0,1fr); align-items:start; color:var(--ink); }
 .tracks .num{ color:var(--mute); font-size:14px; padding-top:6px; }
 .all{ display:grid; gap:12px; } .all .hint{ margin-bottom:2px; }
-.out{ font:12px/1.4 ui-monospace,Menlo,monospace; white-space:pre-wrap; background:#0d0f13; border:1px solid var(--line); border-radius:8px; padding:8px; max-height:160px; overflow:auto; }
+.out{ font:12px/1.4 ui-monospace,Menlo,monospace; white-space:pre-wrap; overflow-wrap:anywhere; background:#0d0f13; border:1px solid var(--line); border-radius:8px; padding:8px; max-height:160px; overflow:auto; }
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="clips"></defs></svg>
 <div class="wrap">
@@ -91,7 +92,7 @@ main{ display:grid; gap:16px; min-width:0; }
     <p class="hint">Browser drafts stay on this device and site. Download JSON to build a font or move your cut.</p>
   </div>
   <div class="sec"><h2>Letter designs</h2><div id="ctl-alternates"></div>
-    <p class="hint">Each choice is built into this cut. The shared stylistic set switches related letters together in font apps; these controls choose each design for your saved cut.</p></div>
+    <p class="hint">Every preset uses plain W/w. Crossed W is an optional ss04 design. The shared stylistic set switches M and W together in font apps; these controls choose each design for your saved cut.</p></div>
   <div class="sec"><h2>Shape</h2>
     <div class="row" role="group" aria-label="Corners"><button type="button" class="pill" data-k="corners" data-v="soft">Soft corners</button><button type="button" class="pill" data-k="corners" data-v="cut">Cut corners</button></div>
     <div class="row" role="group" aria-label="Ends"><button type="button" class="pill" data-k="ends" data-v="round">Round ends</button><button type="button" class="pill" data-k="ends" data-v="flat">Flat ends</button></div>
@@ -186,7 +187,7 @@ function buildControls(){
   CUT.alternates = displayChoices(CUT.alternates === undefined ? {} : CUT.alternates);
   $('ctl-alternates').innerHTML = DISPLAY_SETS.map(set=>
     `<label class="ctl">${set.label} · ${set.tag}<select id="alt-${set.key}" aria-label="${set.label} design">${set.choices.map(choice=>
-      `<option value="${choice}"${CUT.alternates[set.key]===choice ? ' selected' : ''}>${choice.replaceAll('-',' ')}</option>`).join('')}</select></label>`).join('');
+      `<option value="${choice}"${CUT.alternates[set.key]===choice ? ' selected' : ''}>${set.key==='W' ? (choice==='plain' ? 'Plain W (preset default)' : 'Crossed W (ss04)') : choice.replaceAll('-',' ')}</option>`).join('')}</select></label>`).join('');
   DISPLAY_SETS.forEach(set=>$('alt-'+set.key).addEventListener('change',event=>{
     CUT.alternates[set.key]=event.target.value; changed();
   }));

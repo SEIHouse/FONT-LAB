@@ -37,12 +37,16 @@ in its smaller superscript, subscript and fraction forms too.
 | R | curved | straight | curved | straight |
 | K/k | branched | joined | branched | joined |
 | M | vertical | splayed | vertical | splayed |
-| W | plain | crossed | crossed | plain |
+| W | plain | plain | plain | plain |
 | y | curved | straight | curved | straight |
 | G | no spur | spur | no spur | spur |
 | Q | long | diagonal | long | long |
 | 4 | open | closed | open | open |
 | 6/9 | closed | open | open | closed |
+
+These are the current defaults after the [pre-Step-5 fixes](DISPLAY-PRE-STEP5.md).
+Edge and Ink now use their already-built plain W designs by default; crossed W
+remains available through `ss04` in every cut. Lowercase w stays plain.
 
 Weights, pen/corner settings, advances, encoded character maps and line metrics
 retain the previous cut values. Only the chosen default drawings and their
@@ -102,6 +106,9 @@ advances and vertical metrics still use the Step 2 preservation fixture.
 
 The native title proofs show each default and set, the corresponding Lab SVG,
 and all-caps/mixed-case titles with all sets enabled:
+
+The following table records the original Step 4 build. The [current proofs](DISPLAY-PRE-STEP5.md)
+show plain W/w defaults and optional crossed W for all four cuts.
 
 | Cut | Letter designs and title proof | Measured widths | Maximum Lab/font difference |
 |---|---|---:|---:|

@@ -22,7 +22,7 @@
       "R": "straight",
       "K": "joined",
       "M": "splayed",
-      "W": "crossed",
+      "W": "plain",
       "y": "straight",
       "G": "spur",
       "Q": "diagonal",
@@ -35,7 +35,7 @@
       "R": "curved",
       "K": "branched",
       "M": "vertical",
-      "W": "crossed",
+      "W": "plain",
       "y": "curved",
       "G": "no-spur",
       "Q": "long",
@@ -900,10 +900,10 @@
       "W": {
         "key": "W",
         "tag": "ss04",
-        "default": "crossed",
+        "default": "plain",
         "choices": {
-          "crossed": "W",
-          "plain": "alt0057.ss04.plain"
+          "plain": "W",
+          "crossed": "alt0057.ss04.crossed"
         }
       },
       "a": {
@@ -1269,10 +1269,10 @@
       "Ŵ": {
         "key": "W",
         "tag": "ss04",
-        "default": "crossed",
+        "default": "plain",
         "choices": {
-          "crossed": "Wcircumflex",
-          "plain": "alt0174.ss04.plain"
+          "plain": "Wcircumflex",
+          "crossed": "alt0174.ss04.crossed"
         }
       },
       "ŷ": {
@@ -1667,10 +1667,10 @@
       "W": {
         "key": "W",
         "tag": "ss04",
-        "default": "crossed",
+        "default": "plain",
         "choices": {
-          "crossed": "W",
-          "plain": "alt0057.ss04.plain"
+          "plain": "W",
+          "crossed": "alt0057.ss04.crossed"
         }
       },
       "a": {
@@ -2036,10 +2036,10 @@
       "Ŵ": {
         "key": "W",
         "tag": "ss04",
-        "default": "crossed",
+        "default": "plain",
         "choices": {
-          "crossed": "Wcircumflex",
-          "plain": "alt0174.ss04.plain"
+          "plain": "Wcircumflex",
+          "crossed": "alt0174.ss04.crossed"
         }
       },
       "ŷ": {
@@ -6309,23 +6309,13 @@
           "closed_counters": 0,
           "white_spaces": [
             [
-              104,
-              183,
+              178,
+              76,
               true
             ],
             [
               178,
-              51,
-              true
-            ],
-            [
-              178,
-              241,
-              true
-            ],
-            [
-              252,
-              183,
+              208,
               true
             ]
           ]
@@ -6335,12 +6325,12 @@
           "white_spaces": [
             [
               178,
-              51,
+              76,
               true
             ],
             [
               178,
-              216,
+              222,
               true
             ]
           ]
@@ -6600,17 +6590,27 @@
             ]
           ]
         },
-        "alt0057.ss04.plain": {
+        "alt0057.ss04.crossed": {
           "closed_counters": 0,
           "white_spaces": [
             [
-              178,
-              76,
+              104,
+              183,
               true
             ],
             [
               178,
-              208,
+              51,
+              true
+            ],
+            [
+              178,
+              241,
+              true
+            ],
+            [
+              252,
+              183,
               true
             ]
           ]
@@ -7150,17 +7150,17 @@
             ]
           ]
         },
-        "alt0174.ss04.plain": {
+        "alt0174.ss04.crossed": {
           "closed_counters": 0,
           "white_spaces": [
             [
               178,
-              76,
+              51,
               true
             ],
             [
               178,
-              222,
+              216,
               true
             ]
           ]
@@ -9340,17 +9340,12 @@
           "white_spaces": [
             [
               132,
-              45,
+              68,
               true
             ],
             [
-              180,
-              201,
-              true
-            ],
-            [
-              252,
-              188,
+              208,
+              195,
               true
             ]
           ]
@@ -9360,12 +9355,12 @@
           "white_spaces": [
             [
               132,
-              45,
+              68,
               true
             ],
             [
-              176,
-              213,
+              178,
+              219,
               true
             ]
           ]
@@ -9595,17 +9590,22 @@
             ]
           ]
         },
-        "alt0057.ss04.plain": {
+        "alt0057.ss04.crossed": {
           "closed_counters": 0,
           "white_spaces": [
             [
               132,
-              68,
+              45,
               true
             ],
             [
-              208,
-              195,
+              180,
+              201,
+              true
+            ],
+            [
+              252,
+              188,
               true
             ]
           ]
@@ -10245,17 +10245,17 @@
             ]
           ]
         },
-        "alt0174.ss04.plain": {
+        "alt0174.ss04.crossed": {
           "closed_counters": 0,
           "white_spaces": [
             [
               132,
-              68,
+              45,
               true
             ],
             [
-              178,
-              219,
+              176,
+              213,
               true
             ]
           ]
@@ -15182,5 +15182,9 @@
         }
       }
     }
+  },
+  "default_revision": {
+    "source_commit": "ac1a9dae9782c5f7eabb51636b9034c32d01cbfb",
+    "reason": "Pre-Step-5: Edge/Ink default W and Wcircumflex now use their approved plain outlines; rekey only their four default/alternate topology records per cut. Other glyphs and all measured counter counts/white-space witnesses are unchanged."
   }
 }

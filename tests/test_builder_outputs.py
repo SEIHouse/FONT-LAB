@@ -48,8 +48,11 @@ class CandidateOutputTests(unittest.TestCase):
             cut = root/'cut.json'
             cut.write_text(json.dumps({'name':'Soft', 'weight':85}), encoding='utf-8')
             candidate = root/'candidate'
-            with patch.object(make_display, 'HERE', root), patch.object(make_display, 'FontBuilderCore', FakeCore):
+            with patch.object(make_display, 'HERE', root), patch.object(make_display, 'FontBuilderCore', FakeCore), \
+                 patch.object(make_display, 'build_cut_subsets') as subsets, patch.object(make_display, 'write_css') as css:
                 make_display.build_cut(cut, candidate)
+            subsets.assert_called_once_with(candidate/'SEIHouseDisplay-Soft.otf')
+            css.assert_called_once_with([candidate/'SEIHouseDisplay-Soft.otf'], candidate/'fonts.css')
             self.assertEqual((root/'kern_auto_soft.json').read_text(encoding='utf-8'), 'approved')
             self.assertTrue((candidate/'kern_auto.json').is_file())
 

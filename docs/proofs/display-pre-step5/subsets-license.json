@@ -1,0 +1,174 @@
+{
+  "basic_limit_bytes": 25000,
+  "cuts": {
+    "soft": {
+      "subsets": {
+        "latin-basic": {
+          "bytes": 22156,
+          "glyphs": 176,
+          "characters": 95,
+          "sha256": "48016885dd15d475a8fa3e95db783e76dcea07abe2c188a2a7e2abd58594d5a3"
+        },
+        "symbols": {
+          "bytes": 14144,
+          "glyphs": 97,
+          "characters": 104,
+          "sha256": "c9cd8d45a9b9c872dd7eeb33b40afbf3841423122ba8b225dc1e1a600ac89600"
+        },
+        "latin-extended": {
+          "bytes": 47216,
+          "glyphs": 571,
+          "characters": 354,
+          "sha256": "84310cb2d5d5c59366c9c4b0a07812ed50199d6f27467a5e5edab8143e91a667"
+        },
+        "cyrillic": {
+          "bytes": 65056,
+          "glyphs": 675,
+          "characters": 452,
+          "sha256": "cfc43667e5b6e00822a080ab42feb2f63e949d3c00d04eff5efd1302a17036aa"
+        },
+        "greek": {
+          "bytes": 58324,
+          "glyphs": 644,
+          "characters": 425,
+          "sha256": "9e971c263dc5814d5b4974a8c33e1fa5de3fe0eb6d9bf096503d081344b829db"
+        },
+        "vietnamese": {
+          "bytes": 47364,
+          "glyphs": 571,
+          "characters": 442,
+          "sha256": "6d24b963726898395ad6ed0a6a80dfa43013d8f994667da85d75403b6753934d"
+        }
+      },
+      "license_files": 8,
+      "measurements": 12181
+    },
+    "edge": {
+      "subsets": {
+        "latin-basic": {
+          "bytes": 17264,
+          "glyphs": 176,
+          "characters": 95,
+          "sha256": "3273b5dd865eb74e568c0c1b5a2c3350f5db50d7388d8eb115fc7eca7ca65a79"
+        },
+        "symbols": {
+          "bytes": 10660,
+          "glyphs": 97,
+          "characters": 104,
+          "sha256": "5a9b3e3a27250277bea988a0748f38fa42cbac221763b6d19be7a01b8f0f5043"
+        },
+        "latin-extended": {
+          "bytes": 37744,
+          "glyphs": 571,
+          "characters": 354,
+          "sha256": "788939165af985e9c28a2dfc13a54954b1b265813dd6118790ee05c2b5098f0f"
+        },
+        "cyrillic": {
+          "bytes": 49916,
+          "glyphs": 675,
+          "characters": 452,
+          "sha256": "c15380074a20d879e33e5d1eb61f913beec2506062b73833d51fe66ec075c4f4"
+        },
+        "greek": {
+          "bytes": 47096,
+          "glyphs": 644,
+          "characters": 425,
+          "sha256": "d23abc71713f128cda24c97faab8b769d5f22e6cf329f73f1119c573bc613e6a"
+        },
+        "vietnamese": {
+          "bytes": 37976,
+          "glyphs": 571,
+          "characters": 442,
+          "sha256": "e83a77aa3996239f48b2394c55d5df7eb2e4bdfbe3c1c65e9ada4cfeec6052fe"
+        }
+      },
+      "license_files": 8,
+      "measurements": 12181
+    },
+    "ink": {
+      "subsets": {
+        "latin-basic": {
+          "bytes": 22416,
+          "glyphs": 176,
+          "characters": 95,
+          "sha256": "99f4d9d285cf20c2618c23465a79b90df7238c660aa79eb731b15e29c4cff150"
+        },
+        "symbols": {
+          "bytes": 14136,
+          "glyphs": 97,
+          "characters": 104,
+          "sha256": "a562321a4bc85bf7a9c474f0cc795bd89fbf987efab9bed10d27cfa408d0e9b1"
+        },
+        "latin-extended": {
+          "bytes": 46332,
+          "glyphs": 571,
+          "characters": 354,
+          "sha256": "db7084c0229fe2a39a8c679f6d046f717ebaf1006aa19ae304428e7c1d07feca"
+        },
+        "cyrillic": {
+          "bytes": 63248,
+          "glyphs": 675,
+          "characters": 452,
+          "sha256": "b2df77b645d169406b293515725e33dcc6e1dd9ecd5accfb8bc42a382583348f"
+        },
+        "greek": {
+          "bytes": 56900,
+          "glyphs": 644,
+          "characters": 425,
+          "sha256": "b18644600f51ebc5a1a224b2fe3ebccb72a7c54b136c1cebe76cac1dba77adee"
+        },
+        "vietnamese": {
+          "bytes": 46236,
+          "glyphs": 571,
+          "characters": 442,
+          "sha256": "f4ff451f0a6054823a978ab99575065f6f94a92b6a50b6c53f587519538dbbdc"
+        }
+      },
+      "license_files": 8,
+      "measurements": 12181
+    },
+    "wide": {
+      "subsets": {
+        "latin-basic": {
+          "bytes": 22140,
+          "glyphs": 176,
+          "characters": 95,
+          "sha256": "b60146b3b1f1798765e02db537b877fd1a4d6c49373d080e96dd8291a173470c"
+        },
+        "symbols": {
+          "bytes": 14408,
+          "glyphs": 97,
+          "characters": 104,
+          "sha256": "d8d270d0435fc57490a6601a7b3706b955bfa0d3c31c0617c05ba446f5e3a28b"
+        },
+        "latin-extended": {
+          "bytes": 45824,
+          "glyphs": 571,
+          "characters": 354,
+          "sha256": "3fb53ab964a36711dd8fb63fb3d10c2d78b0e5ee576ec03d557b00f74499f820"
+        },
+        "cyrillic": {
+          "bytes": 61216,
+          "glyphs": 675,
+          "characters": 452,
+          "sha256": "6865cccbe74a0d19e4988945e2f53a819b2e66019c38e3ac51cd1e5a84c412fa"
+        },
+        "greek": {
+          "bytes": 55984,
+          "glyphs": 644,
+          "characters": 425,
+          "sha256": "1341d63f489956d5e32f4d33823b5f53b3d3855a02c9b2eab09272e3271e8c1d"
+        },
+        "vietnamese": {
+          "bytes": 45692,
+          "glyphs": 571,
+          "characters": 442,
+          "sha256": "a5533811308ff066ef7a6b9b356f9b29160071c8310006b2b3ce81acea238b69"
+        }
+      },
+      "license_files": 8,
+      "measurements": 12181
+    }
+  },
+  "flags": []
+}

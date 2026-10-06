@@ -67,6 +67,11 @@ Each cut now chooses its own letter designs. The Lab has individual controls
 for a/g, R, K/k, M/W, y, G, Q and open/closed 4/6/9; built fonts include the
 other forms through `ss01`–`ss08`. See the [alternate mapping, cut defaults and
 native title proofs](docs/DISPLAY-ALTERNATES-STEP4.md).
+All four presets default to plain W/w; crossed W is optional in `ss04`.
+Display embeds the Reader's ecosystem license metadata and includes six web
+subsets per cut through `display/fonts.css`, with every Latin-basic file below
+25 KB. The phone Lab gates overflow at 360–430px. See the
+[pre-Step-5 fixes, current specimens and delivery checks](docs/DISPLAY-PRE-STEP5.md).
 Its **Save cut** button uses browser-local drafts on a normal website and retains
 the original database integration in the Claude host. Use **Download JSON** or
 **Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.

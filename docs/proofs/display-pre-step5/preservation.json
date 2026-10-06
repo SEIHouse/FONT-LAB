@@ -1,0 +1,32 @@
+{
+  "source_commit": "ac1a9dae9782c5f7eabb51636b9034c32d01cbfb",
+  "cuts": {
+    "soft": {
+      "outlines_and_metrics_checked": 817,
+      "default_alternate_swaps": {}
+    },
+    "edge": {
+      "outlines_and_metrics_checked": 817,
+      "default_alternate_swaps": {
+        "W": "alt0057.ss04.plain",
+        "Wcircumflex": "alt0174.ss04.plain",
+        "alt0057.ss04.crossed": "W",
+        "alt0174.ss04.crossed": "Wcircumflex"
+      }
+    },
+    "ink": {
+      "outlines_and_metrics_checked": 817,
+      "default_alternate_swaps": {
+        "W": "alt0057.ss04.plain",
+        "Wcircumflex": "alt0174.ss04.plain",
+        "alt0057.ss04.crossed": "W",
+        "alt0174.ss04.crossed": "Wcircumflex"
+      }
+    },
+    "wide": {
+      "outlines_and_metrics_checked": 817,
+      "default_alternate_swaps": {}
+    }
+  },
+  "flags": []
+}
