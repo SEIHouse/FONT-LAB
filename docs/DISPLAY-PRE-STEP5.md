@@ -103,7 +103,7 @@ crossed W plus `cpsp`: **60 layouts, zero overflow flags or page errors**.
 - [FontBakery 1.1.0](proofs/display-pre-step5/fontbakery.json): each full cut passes
   OpenType (31 PASS, 22 SKIP) and offline Universal (75 PASS, 3 INFO, 49 SKIP), with
   **0 FAIL / 0 WARN / 0 ERROR / 0 FATAL**. Network checks are skipped.
-- 70 Python tests, 29 Node tests, whitespace checks and the 62-file public website
+- 73 Python tests, 29 Node tests, whitespace checks and the 62-file public website
   build pass. CI gates checked-in and fresh Display deliveries, rebuilt Reader
   identity, subset/license/CSS parity, mobile layout and per-cut FontBakery.
 

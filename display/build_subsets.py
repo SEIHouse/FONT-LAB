@@ -57,6 +57,8 @@ def write_css(sources, output):
         family = family.replace('\\', '\\\\').replace('"', '\\"')
         for name in FACE_ORDER:
             file = source.with_suffix('.'+name+'.woff2')
+            if not file.is_file():
+                raise FileNotFoundError('Build the Display subset before writing CSS: '+str(file))
             path = Path(os.path.relpath(file, output.parent)).as_posix()
             path = path.replace('"', '\\"')
             lines.append(f'''@font-face {{

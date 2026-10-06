@@ -54,7 +54,9 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
 
 Each cut build also writes `latin-basic`, `latin-extended`, `cyrillic`, `greek`,
-`vietnamese` and `symbols` WOFF2 files and refreshes `display/fonts.css`.
+`vietnamese` and `symbols` WOFF2 files. Default builds refresh the subsets for
+every OTF included in `display/fonts.css` before writing that stylesheet, so it
+cannot reference another cut's missing or stale subsets.
 `--output-dir` keeps candidate fonts, subsets, spacing and CSS together without
 changing shipped metadata. To regenerate subsets/CSS from the current OTFs,
 run `python -X utf8 display/build_subsets.py`.

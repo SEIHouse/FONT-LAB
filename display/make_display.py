@@ -26,11 +26,16 @@ def build_cut(cut_file, outdir=None):
     data = builder.export()
     out = outdir / f'SEIHouseDisplay-{name.replace(" ", "")}.otf'
     builder.build(data, str(out))
-    build_cut_subsets(out)
     if not candidate:
-        write_css(sorted((HERE/'fonts').glob('*/SEIHouseDisplay-*.otf')), HERE/'fonts.css')
+        sources = sorted((HERE/'fonts').glob('*/SEIHouseDisplay-*.otf'))
+        css = HERE/'fonts.css'
     else:
-        write_css([out], outdir/'fonts.css')
+        sources = [out]
+        css = outdir/'fonts.css'
+    # Shared CSS must only reference subsets freshly made from each included OTF.
+    for source in sources:
+        build_cut_subsets(source)
+    write_css(sources, css)
     print('built', builder.FAMILY, builder.VERSION, '->', out)
     return out
 

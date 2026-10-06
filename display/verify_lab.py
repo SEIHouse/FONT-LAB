@@ -46,7 +46,8 @@ def verify_mobile(page, output):
         page.locator('#save:not([disabled])').wait_for()
         for cut in ('Soft', 'Edge', 'Ink', 'Wide'):
             page.get_by_role('button', name=cut, exact=True).click()
-            assert page.locator('#alt-W').input_value() == 'plain', cut
+            if page.locator('#alt-W').input_value() != 'plain':
+                flags.append(dict(kind='lab-w-default', cut=cut, width=width))
             for mode in ('default', 'long-title', 'crossed-cpsp'):
                 if mode == 'long-title':
                     page.locator('#t-title').fill('W'*60)
@@ -82,11 +83,14 @@ def verify(url, output):
         snapshot = page.locator('body').aria_snapshot()
         report = {}
         for cut in ('Soft', 'Edge', 'Ink', 'Wide'):
-            assert f'button "{cut}"' in snapshot
+            if f'button "{cut}"' not in snapshot:
+                raise ValueError('Missing Display preset: '+cut)
             button = page.get_by_role('button', name=cut, exact=True)
             button.click()
-            assert button.get_attribute('aria-pressed') == 'true'
-            assert page.locator('#cutname').input_value() == cut
+            if button.get_attribute('aria-pressed') != 'true':
+                raise ValueError('Display preset was not selected: '+cut)
+            if page.locator('#cutname').input_value() != cut:
+                raise ValueError('Display cut name did not update: '+cut)
             report[cut] = page.evaluate("""() => {
               const result = {glyphs:Object.keys(G).length, instances:0, sizes:[300,400,800]};
               for(const ch of Object.keys(G)) for(const size of result.sizes){

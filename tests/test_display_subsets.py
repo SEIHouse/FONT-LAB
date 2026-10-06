@@ -1,6 +1,7 @@
 """Independent regressions for Display web delivery and Reader-identical legal metadata."""
 from pathlib import Path
 import re
+import shutil
 import tempfile
 import unittest
 
@@ -60,6 +61,16 @@ class DisplaySubsetTests(unittest.TestCase):
                           css.read_text(encoding='utf-8'), count=1)
             css.write_text(text, encoding='utf-8')
             self.assertTrue(css_flags(css, [SOFT]))
+
+    def test_missing_web_asset_preserves_existing_stylesheet(self):
+        with tempfile.TemporaryDirectory() as directory:
+            source = Path(directory)/SOFT.name
+            shutil.copyfile(SOFT, source)
+            css = Path(directory)/'fonts.css'
+            css.write_text('approved stylesheet', encoding='utf-8')
+            with self.assertRaises(FileNotFoundError):
+                write_css([source], css)
+            self.assertEqual(css.read_text(encoding='utf-8'), 'approved stylesheet')
 
 
 if __name__ == '__main__':
