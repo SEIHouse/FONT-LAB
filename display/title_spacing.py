@@ -43,6 +43,7 @@ def policy_for(settings):
 class DisplaySpacing:
     """Measure cap-height titles and mixed-case words against this cut's H/n rhythm."""
     def __init__(self, builder, paths, advances, cmap, chars):
+        """Sample expanded outlines in cap/body bands and establish this cut's H/n targets."""
         self.scale = scale = 2
         self.policy_name = policy_for(builder.settings)
         self.policy = policy = POLICIES[self.policy_name]
@@ -81,6 +82,7 @@ class DisplaySpacing:
         return sum(gaps)/len(gaps), min(closest) if closest else math.inf
 
     def adjustment(self, a, b, zone):
+        """Return a source-unit pair correction bounded by optical depth and ink room."""
         gap, closest = self.gap(a, b, zone)
         strength = self.policy['cap_strength' if zone == 'cap' else 'body_strength']
         value = strength * (self.targets[zone]-gap)
@@ -128,6 +130,7 @@ def default_lookups(font, feature):
 def compiled_kerning(font):
     """Keep compiled class lookups compact; the Lab follows their matching order."""
     def value(record):
+        """Read the first glyph's advance-only adjustment in source units."""
         first, other = record.Value1, record.Value2
         if other or (first and any(getattr(first, field, 0) for field in
                                   ('XPlacement', 'YPlacement', 'YAdvance'))):
@@ -181,6 +184,7 @@ def export_spacing(font_path, settings, origins, policy):
 
 
 def write_spacing(font_path, settings, origins, policy, directory):
+    """Save the compiled spacing snapshot using the cut builder's asset slug."""
     slug = settings['name'].lower().replace(' ', '-')
     output = Path(directory)/f'spacing_{slug}.json'
     output.write_text(json.dumps(export_spacing(font_path, settings, origins, policy),

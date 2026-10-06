@@ -34,12 +34,14 @@ SAMPLES = TITLE_PAIRS + ALL_CAPS + MIXED_CASE + (
 
 
 def width_flags(lab, built, **context):
+    """Compare measured title advances and flag errors at or above the 0.5% limit."""
     difference = abs(lab-built)/built*100
     return ([dict(kind='lab-font-width', difference_percent=difference, **context)]
             if difference >= .5 else []), difference
 
 
 def feature_flags(font, spacing):
+    """Require additive capital spacing while preserving lowercase, figures and marks."""
     found = []
     if 'cpsp' not in {record.FeatureTag for record in font['GPOS'].table.FeatureList.FeatureRecord}:
         return [dict(kind='missing-cpsp')]
@@ -87,6 +89,7 @@ def render_proofs(page, cut, directory, fonts, baseline):
 
 
 def verify(fonts, lab, report_path=None, proof_dir=None, baseline=None):
+    """Gate actual Lab widths, native shaping, snapshot identity and optional preservation."""
     report = dict(gate_percent=.5, sizes_px=[48, 96, 192], samples=list(SAMPLES), cuts={}, flags=[])
     with sync_playwright() as runtime:
         browser = runtime.chromium.launch()

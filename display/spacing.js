@@ -38,6 +38,7 @@ function titleClusters(text){
   return result;
 }
 
+/** Position title clusters with compiled spacing, or the labeled live draft fallback. */
 function titleLayout(text, cut, spacing, capitalSpacing=false){
   let width = 0, previous = '', glyphs = [];
   for(const cluster of titleClusters(text)){

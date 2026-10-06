@@ -13,6 +13,7 @@ order = ['Soft', 'Edge', 'Ink', 'Wide']
 presets.sort(key=lambda c: order.index(c['name']) if c['name'] in order else 99)
 spacing_dir = os.environ.get('SPACING_DIR', HERE)
 def load_spacing(cut):
+    """Load a cut's compiled snapshot and reject mismatched settings or OTF bytes."""
     slug = cut['name'].lower().replace(' ', '-')
     filename = 'SEIHouseDisplay-'+cut['name'].replace(' ', '')+'.otf'
     file = os.path.join(spacing_dir, 'spacing_'+slug+'.json')

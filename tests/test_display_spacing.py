@@ -19,6 +19,7 @@ ROOT = Path(__file__).resolve().parents[1]
 
 
 def exported_pair(lookups, first, second):
+    """Resolve the exported lookup plan for comparison with independent native shaping."""
     value = 0
     for lookup in lookups:
         for table in lookup:
@@ -36,17 +37,20 @@ def exported_pair(lookups, first, second):
 
 class DisplayTitleSpacingTests(unittest.TestCase):
     def test_width_gate_rejects_half_percent_and_larger_errors(self):
+        """Enforce the strict title-width limit in both widening and tightening cases."""
         self.assertEqual(width_flags(100.49,100)[0],[])
         self.assertTrue(width_flags(100.5,100)[0])
         self.assertTrue(width_flags(99,100)[0])
 
     def test_cut_policy_comes_from_geometry_and_survives_renaming(self):
+        """Keep a renamed project cut on the optical policy selected by its geometry."""
         for cut in ('soft','edge','ink','wide'):
             settings=json.loads((ROOT/'display/cuts'/f'{cut}.json').read_text())
             settings['name']='Another project'
             self.assertEqual(policy_for(settings),cut)
 
     def test_compiled_pair_export_matches_independent_native_shaping(self):
+        """Check requested pairs, accents and scripts against HarfBuzz's GPOS execution."""
         for cut in ('soft','edge','ink','wide'):
             with self.subTest(cut=cut), TTFont(ROOT/'display/fonts'/cut/f'SEIHouseDisplay-{cut.title()}.otf') as font:
                 data=compiled_kerning(font)
@@ -57,6 +61,7 @@ class DisplayTitleSpacingTests(unittest.TestCase):
                     self.assertEqual(exported_pair(data,plain[0][0],plain[1][0]),expected,pair)
 
     def test_title_pass_uses_cap_height_and_keeps_real_ink_clearance(self):
+        """Reject body-only title spacing, reference-rhythm drift and colliding cap pairs."""
         for cut in ('soft','edge','ink','wide'):
             settings=json.loads((ROOT/'display/cuts'/f'{cut}.json').read_text())
             builder=FontBuilderCore(settings,display=True)
@@ -78,6 +83,7 @@ class DisplayTitleSpacingTests(unittest.TestCase):
                     self.assertGreaterEqual(policy.gap(*pair,'cap')[1]+adjustment,policy.clearance-2)
 
     def test_candidate_lab_loads_matching_exports_and_rejects_stale_fonts(self):
+        """Exercise candidate asset paths, project names and the stale-font build failure."""
         with tempfile.TemporaryDirectory() as directory:
             candidate=Path(directory)
             for cut in ('soft','edge','ink','wide'):
@@ -112,6 +118,7 @@ class DisplayTitleSpacingTests(unittest.TestCase):
             self.assertIn('Stale spacing export for Soft',result.stderr)
 
     def test_cpsp_is_additive_and_only_changes_capitals(self):
+        """Verify native capital feature behavior and fail when the feature is absent."""
         for cut in ('soft','edge','ink','wide'):
             spacing=json.loads((ROOT/'display'/f'spacing_{cut}.json').read_text(encoding='utf-8'))
             with self.subTest(cut=cut), TTFont(ROOT/'display/fonts'/cut/f'SEIHouseDisplay-{cut.title()}.otf') as font:
