@@ -115,7 +115,7 @@ const PALETTES = { Night:['#0f1115','#2b3140','#eef1f6'], Dawn:['#f6d7ad','#e783
 let CUT = JSON.parse(JSON.stringify(PRESETS[0])), SAVED = Object.create(null), PAL = 'Night', PAL2 = 'Paper', db = null;
 
 function applyToEngine(){
-  P.base = CUT.weight; P.ws = CUT.letterWidth; P.xh = CUT.xHeight; P.contrast = CUT.contrast; P.penAngle = CUT.penAngle || 0;
+  P.base = CUT.weight; P.ws = CUT.letterWidth; P.xh = CUT.xHeight; P.contrast = displayContrast(CUT.weight, CUT.contrast, CUT.xHeight, CUT.ends); P.penAngle = CUT.penAngle || 0;
   P.caprx = CUT.capitalRoundness; P.round = CUT.lowercaseRoundness; P.straight = CUT.uprightStraightness || 1;
   P.corner = CUT.corners === 'cut' ? 'cut' : 'soft'; P.cap = CUT.ends; P.join = CUT.joins;
   P.os = CUT.overshoot === false ? 0 : 1; P.ufoot = CUT.uFoot ? 1 : 0; P.asc = CUT.ascender || 700;
@@ -125,10 +125,10 @@ function applyToEngine(){
 /* angled oval pen, drawn the same way the font builder does it */
 const penBodies = new WeakMap();
 function penBody(g){
-  const key = [CUT.contrast,CUT.penAngle,CUT.slant,CUT.ends,CUT.joins].join('|');
+  const key = [P.contrast,CUT.penAngle,CUT.slant,CUT.ends,CUT.joins].join('|');
   const cached = penBodies.get(g);
   if(cached && cached.key === key) return cached.body;
-  const body = displayPenBody(g, CUT);
+  const body = displayPenBody(g, {...CUT, contrast:P.contrast});
   penBodies.set(g, {key,body});
   return body;
 }

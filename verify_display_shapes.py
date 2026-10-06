@@ -15,6 +15,8 @@ import struct
 import zlib
 
 import freetype
+import unicodedata
+from display.counter_geometry import counter_flags
 from fontTools.ttLib import TTFont
 import pathops
 
@@ -302,7 +304,9 @@ def verify(fonts, proof_dir=None):
     report = dict(size_px=SIZE, flags=[], cuts={}, thresholds=dict(
         micro_contour_px2=1, tiny_segment_px=.4, spike_turn_degrees=150,
         spike_shoulder_px=8, spur_short_shoulder_px=16, spur_long_shoulder_px=24,
-        spur_root_turn_degrees=15, overlap_px2=.25))
+        spur_root_turn_degrees=15, overlap_px2=.25, counter_clearance_px=6,
+        counter_min_area_px2=24, counter_min_relative_span=.2,
+        aperture_min_area_px2=200, aperture_min_relative_area=.02))
     for cut in CUTS:
         file = ROOT/f'display/cuts/{cut}.json'
         canonical = json.dumps(json.loads(file.read_text(encoding='utf-8')), sort_keys=True,
@@ -330,12 +334,20 @@ def verify(fonts, proof_dir=None):
             woff.save(stream)
             web_face = freetype.Face(io.BytesIO(stream.getvalue()))
             items = []
+            # Symbols such as beamed music notes legitimately enclose exterior
+            # space between their stems/heads. Test letter/number apertures;
+            # enclosed counter clearance and all outline gates cover every glyph.
+            aperture_names = {name for code, name in font.getBestCmap().items()
+                              if unicodedata.category(chr(code))[0] in 'LN'}
+            aperture_names.update(name for name in names if name.endswith(('.tf', '.numr', '.dnom')))
             for index, name in enumerate(names):
                 path = outline(font, name)
                 report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in blank_flags(name, path))
                 for flag in flags(path, font['head'].unitsPerEm):
                     report['flags'].append(dict(cut=cut, glyph=name, **flag))
                 bitmap = render(face, index)
+                report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in
+                                       counter_flags(bitmap, apertures=name in aperture_names))
                 web_bitmap = render(web_face, index)
                 summary['rendered'] += 2
                 if bitmap != web_bitmap:

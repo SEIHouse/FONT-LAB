@@ -100,13 +100,27 @@ test('all four Display cuts construct every encoded and alternate live outline',
       trk:cut.spaceBetweenAllLetters, ital:0, corner:cut.corners, cap:cut.ends,
       join:cut.joins, penAngle:cut.penAngle, obliqueAngle:cut.slant};
     const evaluate = engine(source+'\n'+helper, options);
+    evaluate(`P.contrast=displayContrast(${cut.weight},${cut.contrast},${cut.xHeight},${JSON.stringify(cut.ends)})`);
     const result = evaluate(`(() => {
       const cut=${JSON.stringify(cut)}, names=Object.keys(G).concat(Object.keys(exportAlternates(${cut.weight})));
+      cut.contrast=P.contrast;
       return names.map(ch => [ch, displayPenBody(glyph(ch,${cut.weight}), cut)]);
     })()`);
     assert.equal(result.length, currentFixture.styles.Regular.glyphs+currentFixture.styles.Regular.alternates, name);
     for(const [ch, body] of result) assert.ok(!/NaN|Infinity|undefined/.test(body), name+' '+ch);
   }
+});
+
+test('Display counter compensation retains stem weight and respects existing thin pens', () => {
+  const evaluate = engine();
+  assert.equal(evaluate('displayContrast(150,1,520)'), 150/104);
+  assert.equal(evaluate('displayContrast(115,1,520,"flat")'), 115/78);
+  assert.equal(evaluate('displayContrast(135,2.6,520,"flat")'), 2.6);
+  assert.equal(evaluate('displayContrast(55,1,470)'), 1);
+  evaluate('P.contrast=displayContrast(150,1,520);P.xh=520;P.ws=1.05');
+  const glyph = JSON.parse(evaluate('JSON.stringify(exportGlyphs(150).a)'));
+  assert.ok(glyph.paths.every(path => path.w === 150), 'full vertical stem thickness retained');
+  assert.equal(glyph.w, 395*1.05, 'skeleton width retained');
 });
 
 test('live accent clusters do not reuse the cached base letter preview', () => {

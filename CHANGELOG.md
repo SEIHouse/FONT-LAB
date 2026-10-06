@@ -2,6 +2,17 @@
 
 Newest first.
 
+- **Display counter repair (2026-10-06)** Fixed the nearly closed Soft `a`
+  opening and related crowded counters through shared heavy-pen compensation.
+  Vertical stems retain their selected weight; horizontal strokes reserve
+  counter room based on x-height and terminal construction. Live Display SVG
+  and OTF/WOFF2 exports share the calculation. Rebuilt all four cuts; Soft and
+  Edge gain clearer counters, while Ink/Wide rebuild with identical normalized
+  tables. Cut JSON, letter skeletons, advances and line metrics are preserved;
+  all ninety Reader assets remain byte-identical. Expanded the all-glyph shape
+  gate with raster counter/aperture checks and immutable pre-fix fixtures.
+  Added [native 400px and homepage proofs](docs/DISPLAY-COUNTER-REPAIR.md).
+
 - **Display Engine Step 2** Consolidated Reader and Display into the root
   `engine.js` and one `FontBuilderCore` used by both Python entry points.
   Removed the forked Display engine and rebuilt its Lab from the shared source.

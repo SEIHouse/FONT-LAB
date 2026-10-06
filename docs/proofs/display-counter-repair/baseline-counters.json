@@ -1,0 +1,221 @@
+{
+  "flags": [
+    {
+      "cut": "soft",
+      "glyph": "a",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "agrave",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "aacute",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "acircumflex",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "atilde",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "adieresis",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "aring",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "amacron",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "abreve",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "aogonek",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni0430",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EA1",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EA3",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EA5",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EA7",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EA9",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EAB",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EAD",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EAF",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EB1",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EB3",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EB5",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "soft",
+      "glyph": "uni1EB7",
+      "kind": "narrow-counter",
+      "area_px2": 150,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "g",
+      "kind": "narrow-aperture",
+      "area_px2": 1623,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "u1F50A",
+      "kind": "narrow-counter",
+      "area_px2": 473,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "gbreve",
+      "kind": "narrow-aperture",
+      "area_px2": 1623,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "gcircumflex",
+      "kind": "narrow-aperture",
+      "area_px2": 1623,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "gdotaccent",
+      "kind": "narrow-aperture",
+      "area_px2": 1623,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "uni0123",
+      "kind": "narrow-aperture",
+      "area_px2": 1623,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "epsilon",
+      "kind": "narrow-aperture",
+      "area_px2": 3234,
+      "clearance_px": 6
+    },
+    {
+      "cut": "edge",
+      "glyph": "epsilontonos",
+      "kind": "narrow-aperture",
+      "area_px2": 3234,
+      "clearance_px": 6
+    }
+  ]
+}

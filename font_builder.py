@@ -128,6 +128,10 @@ class FontBuilderCore:
             b = p.chromium.launch()
             try:
                 pg = b.new_page(); pg.goto(tmp.as_uri())
+                if self.display:
+                    self.F = pg.evaluate('displayContrast(...' + json.dumps([
+                        self.S, self.settings['contrast'], self.XHT,
+                        self.settings.get('ends', 'round')]) + ')')
                 pg.evaluate(f"P.round={self.ROUND}; P.contrast={self.F}; P.xh={self.XHT}; P.caprx={self.CAPR}; P.ws={self.WS}; P.base={self.S}; P.os={1 if self.settings.get('overshoot', True) else 0}; P.ufoot={1 if self.settings.get('uFoot', True) else 0}; P.ital={1 if self.ITAL else 0}; P.straight={self.settings.get('uprightStraightness', 1)}; P.asc={self.settings.get('ascender', 770)}; P.trk={self.track_for(self.S) + (self.ITAL_EXTRA_SPACE if self.ITAL else 0)};")
                 pg.evaluate("Object.assign(P, " + json.dumps(dict(
                     corner=self.settings.get('corners', 'soft'), cap=self.settings.get('ends', 'round'),
@@ -636,6 +640,11 @@ class FontBuilderCore:
         fb.setupNameTable(names)
         win_ascent, win_descent = 1100*SC, 320*SC
         if self.display:
+            # Retain a released family's Windows clipping reservation even if
+            # counter compensation reduces its current accent-stack bounds.
+            # Edge acquired this 1110-unit budget with the Phase 4 repertoire.
+            if self.settings.get('name') == 'Edge':
+                win_ascent = 1110*SC
             # Windows clipping must include newly inherited accent stacks.
             # Keep Reader's approved metrics and both families' line spacing.
             charstrings = fb.font['CFF '].cff.topDictIndex[0].CharStrings

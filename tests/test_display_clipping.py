@@ -30,7 +30,9 @@ class DisplayClippingTests(unittest.TestCase):
                                  (1900, -500, 0))
 
     def test_original_edge_clipping_rejects_inherited_vietnamese_stacks(self):
-        with TTFont(ROOT/'display/fonts/edge/SEIHouseDisplay-Edge.otf') as font:
+        # The counter repair reduces stack bounds; retain the original evidence
+        # instead of expecting newly compensated contours to clip at 2200.
+        with TTFont(ROOT/'tests/fixtures/display-edge-clipping-before.otf') as font:
             font['OS/2'].usWinAscent = 2200
             with self.assertRaises(AssertionError):
                 self.assert_ink_fits(font)
