@@ -10,7 +10,8 @@ Newest first.
   Edge gain clearer counters, while Ink/Wide rebuild with identical normalized
   tables. Cut JSON, letter skeletons, advances and line metrics are preserved;
   all ninety Reader assets remain byte-identical. Expanded the all-glyph shape
-  gate with raster counter/aperture checks and immutable pre-fix fixtures.
+  gate with raster counter/aperture checks, immutable pre-fix fixtures and an
+  approved topology baseline that rejects completely filled or sealed interiors.
   Added [native 400px and homepage proofs](docs/DISPLAY-COUNTER-REPAIR.md).
 
 - **Display Engine Step 2** Consolidated Reader and Display into the root

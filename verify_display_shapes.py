@@ -16,7 +16,7 @@ import zlib
 
 import freetype
 import unicodedata
-from display.counter_geometry import counter_flags
+from display.counter_geometry import counter_flags, topology_flags
 from fontTools.ttLib import TTFont
 import pathops
 
@@ -28,6 +28,7 @@ SIZE = 400
 DESIGN = ROOT/'docs/proofs/display-step1/design.json'
 SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.39-identity.json'
 SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design-0.39.json'
+COUNTER_TOPOLOGY = ROOT/'tests/fixtures/display-counter-topology.json'
 BLANK_GLYPHS = frozenset(('space', 'uni2009', 'uni202F'))
 WEB_TABLES = ('CFF ', 'hmtx', 'GPOS', 'GSUB', 'GDEF', 'OS/2', 'hhea')
 
@@ -301,12 +302,18 @@ def verify(fonts, proof_dir=None):
     shared_design = json.loads(SHARED_DESIGN.read_text(encoding='utf-8'))
     shared = json.loads(SHARED_REFERENCE.read_text(encoding='utf-8'))
     validate_design_reference(reference, shared_design, shared)
+    topology = json.loads(COUNTER_TOPOLOGY.read_text(encoding='utf-8'))
+    if topology['size_px'] != SIZE or set(topology['cuts']) != set(CUTS):
+        raise ValueError('Counter topology fixture must cover all canonical cuts at 400px')
     report = dict(size_px=SIZE, flags=[], cuts={}, thresholds=dict(
         micro_contour_px2=1, tiny_segment_px=.4, spike_turn_degrees=150,
         spike_shoulder_px=8, spur_short_shoulder_px=16, spur_long_shoulder_px=24,
         spur_root_turn_degrees=15, overlap_px2=.25, counter_clearance_px=6,
         counter_min_area_px2=24, counter_min_relative_span=.2,
         aperture_min_area_px2=200, aperture_min_relative_area=.02))
+    report['counter_topology_reference'] = dict(
+        source_commit=topology['source_commit'],
+        sha256=hashlib.sha256(COUNTER_TOPOLOGY.read_bytes()).hexdigest())
     for cut in CUTS:
         file = ROOT/f'display/cuts/{cut}.json'
         canonical = json.dumps(json.loads(file.read_text(encoding='utf-8')), sort_keys=True,
@@ -340,6 +347,10 @@ def verify(fonts, proof_dir=None):
             aperture_names = {name for code, name in font.getBestCmap().items()
                               if unicodedata.category(chr(code))[0] in 'LN'}
             aperture_names.update(name for name in names if name.endswith(('.tf', '.numr', '.dnom')))
+            expected_topology = topology['cuts'][cut]['glyphs']
+            if set(expected_topology) != aperture_names:
+                report['flags'].append(dict(cut=cut, kind='counter-topology-inventory'))
+            summary['topology_glyphs'] = len(aperture_names)
             for index, name in enumerate(names):
                 path = outline(font, name)
                 report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in blank_flags(name, path))
@@ -348,6 +359,12 @@ def verify(fonts, proof_dir=None):
                 bitmap = render(face, index)
                 report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in
                                        counter_flags(bitmap, apertures=name in aperture_names))
+                if name in aperture_names:
+                    if name not in expected_topology:
+                        report['flags'].append(dict(cut=cut, glyph=name, kind='missing-counter-topology'))
+                    else:
+                        report['flags'].extend(dict(cut=cut, glyph=name, **flag) for flag in
+                                               topology_flags(bitmap, expected_topology[name]))
                 web_bitmap = render(web_face, index)
                 summary['rendered'] += 2
                 if bitmap != web_bitmap:

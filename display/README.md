@@ -55,7 +55,9 @@ normalized current tables and CFF outlines/hints. The ten styles also retain
 every original 0.35 glyph outline and metric.
 
 The shape gate also measures substantial white counters and letter/number
-apertures. Heavy Display pens use shared counter compensation: vertical stems
+apertures. An immutable approved topology baseline rejects missing counters and
+filled or sealed interiors, including cases that pass clearance-only analysis.
+Heavy Display pens use shared counter compensation: vertical stems
 keep the selected thickness, while horizontal diameter is bounded by x-height
 (20% for round ends, 15% for extended flat ends). Both the live Lab and exported
 fonts use the same calculation. Soft and Edge gain room in `Aa`, accented `a`,

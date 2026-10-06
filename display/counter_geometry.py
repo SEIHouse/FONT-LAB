@@ -1,4 +1,5 @@
 """Measure white counters and apertures in the actual exported raster."""
+import math
 
 
 def ink_rows(bitmap, padding=4):
@@ -75,6 +76,121 @@ def dilate(rows, width, radius):
     return rows
 
 
+def substantial_counter(component, bitmap, min_area=24):
+    """Exclude small enclosed details from the full-letter counter policy."""
+    bits = 0
+    for row in component['rows'].values():
+        bits |= row
+    span_x = bits.bit_length() - (bits & -bits).bit_length() + 1
+    span_y = max(component['rows']) - min(component['rows']) + 1
+    return component['area'] >= min_area and (
+        span_x >= bitmap['width']*.2 or span_y >= bitmap['height']*.2)
+
+
+def hull_rows(width, ink):
+    """Rasterize the convex envelope of ink, to locate interior white basins."""
+    points = []
+    for y, bits in enumerate(ink):
+        if bits:
+            points.extend((((bits & -bits).bit_length() - .5, y+.5),
+                           (bits.bit_length() - .5, y+.5)))
+    points = sorted(set(points))
+    if len(points) < 3:
+        return [0]*len(ink)
+    cross = lambda a, b, c: (b[0]-a[0])*(c[1]-a[1]) - (b[1]-a[1])*(c[0]-a[0])
+    halves = []
+    for sequence in (points, reversed(points)):
+        half = []
+        for point in sequence:
+            while len(half) >= 2 and cross(half[-2], half[-1], point) <= 0:
+                half.pop()
+            half.append(point)
+        halves.append(half[:-1])
+    hull = halves[0]+halves[1]
+    result = []
+    for y in range(len(ink)):
+        scan, intersections = y+.5, []
+        for a, b in zip(hull, hull[1:]+hull[:1]):
+            if min(a[1], b[1]) <= scan < max(a[1], b[1]):
+                intersections.append(a[0]+(scan-a[1])*(b[0]-a[0])/(b[1]-a[1]))
+        if len(intersections) < 2:
+            result.append(0)
+        else:
+            start = max(0, math.ceil(min(intersections)-.5))
+            end = min(width, math.floor(max(intersections)-.5)+1)
+            result.append(((1 << max(0, end-start))-1) << start)
+    return result
+
+
+def topology_snapshot(bitmap):
+    """Capture approved counter counts and interior-white connectivity witnesses.
+
+    Capture is for a reviewed immutable fixture, never an automatic gate update.
+    Convex-envelope basins find open letter interiors as well as closed counters.
+    Witnesses have at least three pixels of ink clearance and use glyph-space
+    pixel coordinates, so changes to a raster's bounding box do not move them.
+    """
+    padding = 4
+    width, ink = ink_rows(bitmap, padding)
+    components = white_components(width, ink)
+    closed = sum(not c['exterior'] and substantial_counter(c, bitmap) for c in components)
+    envelope = hull_rows(width, ink)
+    mask = (1 << width)-1
+    basins = white_components(width, [bits | (mask ^ hull) for bits, hull in zip(ink, envelope)])
+    grown = dilate(ink, width, 3)
+    witnesses = []
+    for basin in basins:
+        candidates = {y: bits & ~grown[y] for y, bits in basin['rows'].items()}
+        candidates = {y: bits for y, bits in candidates.items() if bits}
+        if not candidates:
+            continue
+        all_bits = 0
+        for bits in basin['rows'].values():
+            all_bits |= bits
+        cx = ((all_bits & -all_bits).bit_length()-1 + all_bits.bit_length()-1)/2
+        cy = (min(basin['rows'])+max(basin['rows']))/2
+        points = []
+        for y, bits in candidates.items():
+            left = bits & ((1 << (int(cx)+1))-1)
+            right = bits & ~((1 << (int(cx)+1))-1)
+            for x in (left.bit_length()-1 if left else None,
+                      (right & -right).bit_length()-1 if right else None):
+                if x is not None:
+                    points.append(((x-cx)**2+(y-cy)**2, x, y))
+        _, x, y = min(points)
+        component = next(c for c in components if c['rows'].get(y, 0) & (1 << x))
+        if component['exterior']:
+            if basin['area'] < max(200, bitmap['width']*bitmap['height']*.02):
+                continue
+        elif not substantial_counter(component, bitmap):
+            continue
+        witnesses.append([bitmap.get('left', 0)+x-padding,
+                          bitmap.get('top', bitmap['height'])-y+padding,
+                          component['exterior']])
+    return dict(closed_counters=closed, white_spaces=sorted(witnesses))
+
+
+def topology_flags(bitmap, expected):
+    """Reject filled counters and filled/sealed apertures against approved topology."""
+    padding = 4
+    width, ink = ink_rows(bitmap, padding)
+    components = white_components(width, ink)
+    closed = sum(not c['exterior'] and substantial_counter(c, bitmap) for c in components)
+    found = []
+    if closed != expected['closed_counters']:
+        found.append(dict(kind='counter-topology', expected=expected['closed_counters'], actual=closed))
+    for x, y, exterior in expected['white_spaces']:
+        col = x-bitmap.get('left', 0)+padding
+        row = bitmap.get('top', bitmap['height'])-y+padding
+        component = next((c for c in components if 0 <= col < width and
+                          c['rows'].get(row, 0) & (1 << col)), None)
+        if component is None:
+            found.append(dict(kind='filled-aperture' if exterior else 'filled-counter', point=[x, y]))
+        elif component['exterior'] != exterior:
+            found.append(dict(kind='sealed-aperture' if exterior else 'opened-counter', point=[x, y]))
+    return found
+
+
 def counter_flags(bitmap, radius=3, min_area=24, apertures=True):
     """Flag substantial counters with no room and apertures that pinch shut.
 
@@ -92,13 +208,7 @@ def counter_flags(bitmap, radius=3, min_area=24, apertures=True):
     found = []
     holes = [item for item in components if not item['exterior']]
     for hole in holes:
-        bits = 0
-        for row in hole['rows'].values():
-            bits |= row
-        span_x = bits.bit_length() - (bits & -bits).bit_length() + 1
-        span_y = max(hole['rows']) - min(hole['rows']) + 1
-        substantial = span_x >= bitmap['width']*.2 or span_y >= bitmap['height']*.2
-        if substantial and hole['area'] >= min_area and not any(bits & ~grown[y] for y, bits in hole['rows'].items()):
+        if substantial_counter(hole, bitmap, min_area) and not any(bits & ~grown[y] for y, bits in hole['rows'].items()):
             found.append(dict(kind='narrow-counter', area_px2=hole['area'], clearance_px=2*radius))
     if not apertures:
         return found

@@ -58,6 +58,13 @@ uses a frozen pre-repair subset rather than assuming new contours must still cli
   diamond dilation of the ink (a six-pixel clearance test).
 - A substantial letter/number basin connected to the outside must not become
   enclosed by that dilation; this detects a pinched aperture.
+- An immutable approved topology fixture records substantial closed-counter
+  counts and white-space witnesses for all 590 letter/number glyphs per cut.
+  Witnesses sit inside reviewed counters or open interior basins, have three
+  pixels of ink clearance and use glyph coordinates. Filled counters, filled
+  interiors, opened counters and sealed apertures fail even when the remaining
+  raster has ample clearance. The gate rejects missing baseline glyphs and
+  never regenerates this fixture from fonts being tested.
 - Closed counters must cover at least 24px² and span 20% of the glyph's width
   or height. Aperture basins must cover at least 200px² and 2% of the glyph box.
   These limits distinguish letter counters from small hooks, accent rings and
@@ -72,6 +79,11 @@ The tests contain an immutable subset of the shipped broken Soft `a`, plus
 adversarial thin counters and open basins; disabling the repair fails the shipped
 `a` family regression. Historical Step 1/2 reports and identity fixtures were
 not rewritten.
+
+Topology regressions also include a completely filled counter and a sealed roomy
+aperture, both of which pass clearance-only analysis. Independent expected counts
+and witness connectivity reject those mutations, including a completely filled
+open interior. A bounding-box shift test protects glyph-coordinate alignment.
 
 ## Evidence
 
