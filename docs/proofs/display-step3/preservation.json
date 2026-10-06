@@ -1,0 +1,241 @@
+{
+  "baseline_commit": "69b649433661166d143705cf43e64b2b96227d1a",
+  "cuts": {
+    "soft": {
+      "changed_tables": [
+        "GPOS"
+      ],
+      "pairs_per_1000": {
+        "LA": {
+          "before": -42.0,
+          "after": -47.0
+        },
+        "LY": {
+          "before": -46.0,
+          "after": -241.0
+        },
+        "LT": {
+          "before": -45.0,
+          "after": -263.0
+        },
+        "TA": {
+          "before": -30.0,
+          "after": -194.0
+        },
+        "AV": {
+          "before": -27.0,
+          "after": -141.0
+        },
+        "AW": {
+          "before": -23.0,
+          "after": -106.0
+        },
+        "AY": {
+          "before": -31.0,
+          "after": -172.0
+        },
+        "PA": {
+          "before": -34.0,
+          "after": -143.0
+        },
+        "FA": {
+          "before": -45.0,
+          "after": -201.0
+        },
+        "VA": {
+          "before": -27.0,
+          "after": -141.0
+        },
+        "RT": {
+          "before": -34.0,
+          "after": -137.0
+        },
+        "HH": {
+          "before": 0.0,
+          "after": 0.0
+        },
+        "nn": {
+          "before": 0.0,
+          "after": 0.0
+        }
+      }
+    },
+    "edge": {
+      "changed_tables": [
+        "GPOS"
+      ],
+      "pairs_per_1000": {
+        "LA": {
+          "before": -43.0,
+          "after": -64.0
+        },
+        "LY": {
+          "before": -47.0,
+          "after": -208.0
+        },
+        "LT": {
+          "before": -50.0,
+          "after": -233.0
+        },
+        "TA": {
+          "before": -32.0,
+          "after": -167.0
+        },
+        "AV": {
+          "before": -25.0,
+          "after": -118.0
+        },
+        "AW": {
+          "before": -21.0,
+          "after": -92.0
+        },
+        "AY": {
+          "before": -28.0,
+          "after": -142.0
+        },
+        "PA": {
+          "before": -41.0,
+          "after": -137.0
+        },
+        "FA": {
+          "before": -46.0,
+          "after": -177.0
+        },
+        "VA": {
+          "before": -25.0,
+          "after": -118.0
+        },
+        "RT": {
+          "before": -41.0,
+          "after": -160.0
+        },
+        "HH": {
+          "before": 0.0,
+          "after": 0.0
+        },
+        "nn": {
+          "before": 0.0,
+          "after": 0.0
+        }
+      }
+    },
+    "ink": {
+      "changed_tables": [
+        "GPOS"
+      ],
+      "pairs_per_1000": {
+        "LA": {
+          "before": -44.0,
+          "after": -50.0
+        },
+        "LY": {
+          "before": -91.0,
+          "after": -255.0
+        },
+        "LT": {
+          "before": -96.0,
+          "after": -272.0
+        },
+        "TA": {
+          "before": 20.0,
+          "after": -101.0
+        },
+        "AV": {
+          "before": -61.0,
+          "after": -107.0
+        },
+        "AW": {
+          "before": -50.0,
+          "after": -79.0
+        },
+        "AY": {
+          "before": -71.0,
+          "after": -151.0
+        },
+        "PA": {
+          "before": 0.0,
+          "after": -83.0
+        },
+        "FA": {
+          "before": 0.0,
+          "after": -115.0
+        },
+        "VA": {
+          "before": 20.0,
+          "after": -73.0
+        },
+        "RT": {
+          "before": -57.0,
+          "after": -111.0
+        },
+        "HH": {
+          "before": 0.0,
+          "after": 0.0
+        },
+        "nn": {
+          "before": 0.0,
+          "after": 0.0
+        }
+      }
+    },
+    "wide": {
+      "changed_tables": [
+        "GPOS"
+      ],
+      "pairs_per_1000": {
+        "LA": {
+          "before": -51.0,
+          "after": -111.0
+        },
+        "LY": {
+          "before": -54.0,
+          "after": -320.0
+        },
+        "LT": {
+          "before": -54.0,
+          "after": -320.0
+        },
+        "TA": {
+          "before": -40.0,
+          "after": -319.0
+        },
+        "AV": {
+          "before": -37.0,
+          "after": -214.0
+        },
+        "AW": {
+          "before": -31.0,
+          "after": -150.0
+        },
+        "AY": {
+          "before": -40.0,
+          "after": -267.0
+        },
+        "PA": {
+          "before": -38.0,
+          "after": -208.0
+        },
+        "FA": {
+          "before": -55.0,
+          "after": -320.0
+        },
+        "VA": {
+          "before": -37.0,
+          "after": -214.0
+        },
+        "RT": {
+          "before": -43.0,
+          "after": -217.0
+        },
+        "HH": {
+          "before": 0.0,
+          "after": 0.0
+        },
+        "nn": {
+          "before": 0.0,
+          "after": 0.0
+        }
+      }
+    }
+  }
+}

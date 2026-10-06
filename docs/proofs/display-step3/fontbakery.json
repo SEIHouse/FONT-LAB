@@ -1,0 +1,26 @@
+{
+  "profile": "FontBakery OpenType",
+  "version": "1.1.0",
+  "cuts": {
+    "soft": {
+      "(not finished)": 0,
+      "PASS": 31,
+      "SKIP": 22
+    },
+    "edge": {
+      "(not finished)": 0,
+      "PASS": 31,
+      "SKIP": 22
+    },
+    "ink": {
+      "(not finished)": 0,
+      "PASS": 31,
+      "SKIP": 22
+    },
+    "wide": {
+      "(not finished)": 0,
+      "PASS": 31,
+      "SKIP": 22
+    }
+  }
+}

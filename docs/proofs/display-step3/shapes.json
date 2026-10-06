@@ -1,0 +1,66 @@
+{
+  "size_px": 400,
+  "flags": [],
+  "cuts": {
+    "soft": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "2862337fe069a4ce26f814d44740fbda41859058d60bd4739399ca7043e3352f",
+        "woff2": "4e1b0b7e78b8f2c13b536fd310d6889f5cb15487794ee2819527c00dee7d2040"
+      },
+      "topology_glyphs": 590
+    },
+    "edge": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "d1aa730979e71304aee8a895c433a091622dd2375855e16c98cd4ffed2c2ceb5",
+        "woff2": "0fad76ad90124bbf326799c82851d83a0f56350725ab8d274871a1f96107e103"
+      },
+      "topology_glyphs": 590
+    },
+    "ink": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "41a88bba7313acfdaf5cb2361b59ca83ee670994cf925342f83d2e3f5b2f3359",
+        "woff2": "e8256f161d18beb0d3e9be1c13e194c18c06969be55e8d511a93550f4e69f44e"
+      },
+      "topology_glyphs": 590
+    },
+    "wide": {
+      "glyphs": 732,
+      "rendered": 1464,
+      "flags": 0,
+      "sha256": {
+        "otf": "6dc185d89acd201d375c97f4dd67519247e4a19ab2cfdeff54ea863daa2d930e",
+        "woff2": "ba35fcd09a80456842861f46cd2e249fadb0931fc7d9a0ee53cd2cd7e96e802f"
+      },
+      "topology_glyphs": 590
+    }
+  },
+  "thresholds": {
+    "micro_contour_px2": 1,
+    "tiny_segment_px": 0.4,
+    "spike_turn_degrees": 150,
+    "spike_shoulder_px": 8,
+    "spur_short_shoulder_px": 16,
+    "spur_long_shoulder_px": 24,
+    "spur_root_turn_degrees": 15,
+    "overlap_px2": 0.25,
+    "counter_clearance_px": 6,
+    "counter_min_area_px2": 24,
+    "counter_min_relative_span": 0.2,
+    "aperture_min_area_px2": 200,
+    "aperture_min_relative_area": 0.02
+  },
+  "counter_topology_reference": {
+    "source_commit": "ad1cf46a0e5c5cd3a07aba64d38531521bd3f13f",
+    "sha256": "9ec4c61086e022ac7e56521db4f0da2bc757c666af71618eb8f50e7897f52360"
+  },
+  "flag_counts": {}
+}
