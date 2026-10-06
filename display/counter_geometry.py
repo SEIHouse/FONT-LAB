@@ -25,6 +25,7 @@ def white_components(width, ink):
     parents, runs, exterior = [], [], []
 
     def root(index):
+        """Find a white-run component owner and compress its union path."""
         while parents[index] != index:
             parents[index] = parents[parents[index]]
             index = parents[index]

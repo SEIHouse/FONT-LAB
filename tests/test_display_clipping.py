@@ -21,6 +21,7 @@ class DisplayClippingTests(unittest.TestCase):
                 self.assertGreaterEqual(pen.bounds[1], -os2.usWinDescent, name)
 
     def test_every_display_cut_fits_windows_clipping_and_retains_line_spacing(self):
+        """Keep all final ink inside clipping metrics and preserve line spacing."""
         for cut in ('soft', 'edge', 'ink', 'wide'):
             with self.subTest(cut=cut), TTFont(ROOT/f'display/fonts/{cut}/SEIHouseDisplay-{cut.title()}.otf') as font:
                 self.assert_ink_fits(font)
@@ -30,6 +31,7 @@ class DisplayClippingTests(unittest.TestCase):
                                  (1900, -500, 0))
 
     def test_original_edge_clipping_rejects_inherited_vietnamese_stacks(self):
+        """Reproduce the original clipping defect using immutable old contours."""
         # The counter repair reduces stack bounds; retain the original evidence
         # instead of expecting newly compensated contours to clip at 2200.
         with TTFont(ROOT/'tests/fixtures/display-edge-clipping-before.otf') as font:
