@@ -16,16 +16,22 @@ OpenType features.
   persist in each cut's `alternates` JSON object. Eight named OpenType sets
   (`ss01`–`ss08`) select the other forms.
 
+All four presets use **plain W/w**. Crossed uppercase W and its accented form
+are opt-in through `ss04`; lowercase w stays plain. The Lab labels both W
+choices and starts every preset with Plain W. `ss04` also switches M.
+
 ## Files
 
 | File | What it is |
 |---|---|
 | `cuts/*.json` | One file per cut (Soft, Edge, Ink, Wide to start) |
-| `fonts/<cut>/` | The built font for each cut (`.otf` + `.woff2`), family "SEIHouse Display <Cut>" |
+| `fonts/<cut>/` | Full OTF/WOFF2 and six web subsets, family "SEIHouse Display <Cut>" |
+| `fonts.css` | Per-cut web faces with exact `unicode-range`, relative to this directory |
 | `lab/index.html` | The Display Lab: shape cuts live on an album cover, track list, poster and alphabet |
 | `../engine.js` | Shared letter, mark, symbol and numeric rules, with Reader defaults and Display options |
 | `../font_builder.py` | `FontBuilderCore`: shared export, outlines, spacing, hinting and OpenType layout |
 | `make_display.py` | Thin cut loader using the same core as `../make_fonts.py` |
+| `build_subsets.py` | Six Display deliveries using the Reader's subset routine and coverage policy |
 | `build_display_page.py` | Builds the Lab page |
 | `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant |
 | `title_spacing.py` | Capital-height and mixed-case optical spacing, plus final-font GPOS/metric exports |
@@ -35,6 +41,8 @@ OpenType features.
 | `outline_cleanup.py` | Resolves overlaps and removes contour/point/spike debris before export |
 | `../verify_display_shapes.py` | Renders every glyph at 400px and gates shapes, design preservation and web delivery |
 | `../verify_shared_engine.py` | Gates Reader preservation and Display repertoire, language, mark and numeric shaping |
+| `../verify_display_subsets.py` | Gates license parity, subset outlines/metrics/shaping, CSS and the 25 KB basic limit |
+| `verify_lab.py` | All live glyphs and phone overflow at 360, 375, 390, 414 and 430px |
 
 ## Workflow
 
@@ -45,8 +53,55 @@ OpenType features.
    `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
 
+Each cut build also writes `latin-basic`, `latin-extended`, `cyrillic`, `greek`,
+`vietnamese` and `symbols` WOFF2 files. Default builds refresh the subsets for
+every OTF included in `display/fonts.css` before writing that stylesheet, so it
+cannot reference another cut's missing or stale subsets.
+`--output-dir` keeps candidate fonts, subsets, spacing and CSS together without
+changing shipped metadata. To regenerate subsets/CSS from the current OTFs,
+run `python -X utf8 display/build_subsets.py`.
+
 The hosted Lab previews and saves settings; font compilation uses the local Python
 tools. See the root [homepage](../index.html) and [website guide](../docs/WEBSITE.md).
+
+## License and web delivery
+
+Every full font and web subset embeds the **SEIHouse Sans Ecosystem License,
+version 1.0**, using exactly the Reader's name records: copyright (0), trademark
+(7), manufacturer (8), designer (9), vendor/designer URLs (11/12), license
+description (13) and license URL (14). `OS/2.fsType` is `0` and the vendor is
+`SEIH`, matching Reader. The operative terms are in [LICENSE](../LICENSE);
+installable document embedding follows those terms. Display family/style names
+remain distinct from Reader.
+
+Keep `fonts.css` next to the `fonts/` directory and include it in your site:
+
+```html
+<link rel="stylesheet" href="/display/fonts.css">
+```
+
+```css
+.title {
+  font-family: "SEIHouse Display Soft", sans-serif;
+  font-weight: 400;
+  font-kerning: normal;
+  font-feature-settings: "cpsp" 1;
+}
+```
+
+Like Reader, extended and script faces overlap Latin/mark coverage to preserve
+complete grapheme clusters and title kerning. Later matching faces take browser
+priority. A project requiring only basic Latin can use its cut's `latin-basic`
+face block alone; all four basic files are strictly below **25,000 bytes**
+(Soft 22,156; Edge 17,264; Ink 22,416; Wide 22,140). Subsets retain applicable
+stylistic, numeric, local-form and mark features, including a visible `.notdef`.
+
+The Lab fits long SVG words proportionally inside their containers on phones.
+Its gate checks all four presets at five widths from 360–430px, with default
+and long titles, crossed W and `cpsp`. It rejects both document overflow and
+individual elements outside the viewport. Run `python -X utf8 display/verify_lab.py`;
+`--lab` checks a candidate HTML file and `--url` checks
+a served page. See the [pre-Step-5 fixes and current proofs](../docs/DISPLAY-PRE-STEP5.md).
 
 ## Shared engine and clean shapes
 

@@ -54,3 +54,18 @@ test('choices invalidate cached forms and legacy drafts resolve to the original 
   assert.throws(()=>evaluate('displayChoices({a:undefined})'),/Invalid alternate/);
   assert.throws(()=>evaluate('displayChoices({unknown:"single"})'),/Unknown alternate/);
 });
+
+test('every preset uses plain W/w and keeps crossed W in ss04',()=>{
+  for(const slug of ['soft','edge','ink','wide']){
+    const cut=JSON.parse(readFileSync(new URL(`display/cuts/${slug}.json`,root),'utf8'));
+    assert.equal(cut.alternates.W,'plain',slug);
+    const evaluate=engine(cut);
+    const manifest=JSON.parse(evaluate('JSON.stringify(displayManifest())'));
+    assert.equal(manifest.W.default,'plain');
+    assert.equal(manifest.W.tag,'ss04');
+    const w=evaluate('glyph("w",P.base).body'), W=evaluate('glyph("W",P.base).body');
+    evaluate('P.alternates.W="crossed"');
+    assert.notEqual(evaluate('glyph("W",P.base).body'),W);
+    assert.equal(evaluate('glyph("w",P.base).body'),w,'lowercase w stays plain');
+  }
+});

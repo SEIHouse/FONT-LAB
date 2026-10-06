@@ -73,6 +73,31 @@ def unicode_range(codes):
                     for start, end in spans)
 
 
+def write_subset(source, output, codes, *, keep_notdef_outline=False):
+    """Keep layout and legal metadata in a validated, atomically replaced WOFF2."""
+    source, output = os.fspath(source), os.fspath(output)
+    code_list = ','.join(f'U+{code:04X}' for code in sorted(codes))
+    # A fresh sibling avoids truncating an open file in the synced Windows checkout.
+    descriptor, temporary = tempfile.mkstemp(prefix='.subset-', suffix='.woff2',
+                                             dir=os.path.dirname(output))
+    os.close(descriptor)
+    try:
+        subprocess.run([sys.executable, '-m', 'fontTools.subset', source,
+                        f'--output-file={temporary}', '--flavor=woff2',
+                        f'--unicodes={code_list}', '--layout-features=*',
+                        '--name-IDs=*', '--name-languages=*',
+                        *(['--notdef-outline'] if keep_notdef_outline else [])], check=True,
+                       capture_output=True, text=True)
+        with TTFont(temporary) as font:
+            if set(font.getBestCmap()) != set(codes):
+                raise ValueError(f'Subset coverage mismatch: {os.path.basename(output)}')
+        os.replace(temporary, output)
+    except subprocess.CalledProcessError as exc:
+        raise RuntimeError(f'pyftsubset failed for {os.path.basename(output)}:\n{exc.stderr}') from exc
+    finally:
+        if os.path.exists(temporary): os.remove(temporary)
+
+
 def build_subsets():
     """Build and validate the current WOFF2 subsets, then refresh both app stylesheets."""
     with open(os.path.join(HERE, 'settings.json'), encoding='utf-8') as file:
@@ -97,25 +122,7 @@ def build_subsets():
         for name in FACE_ORDER:
             output_name = f'SEIReader-{style}.{name}.woff2'
             output = os.path.join(HERE, 'fonts', output_name)
-            code_list = ','.join(f'U+{code:04X}' for code in sorted(groups[name]))
-            # Write a fresh sibling and replace it after validation. Directly truncating
-            # an existing file in the synced Windows checkout can return EINVAL.
-            descriptor, temporary = tempfile.mkstemp(prefix='.subset-',suffix='.woff2',dir=os.path.dirname(output))
-            os.close(descriptor)
-            try:
-                subprocess.run([sys.executable, '-m', 'fontTools.subset', source,
-                                f'--output-file={temporary}', '--flavor=woff2',
-                                f'--unicodes={code_list}', '--layout-features=*',
-                                '--name-IDs=*', '--name-languages=*'], check=True,
-                               capture_output=True, text=True)
-                with TTFont(temporary) as subset_font:
-                    if set(subset_font.getBestCmap()) != groups[name]:
-                        raise ValueError(f'Subset coverage mismatch: {output_name}')
-                os.replace(temporary,output)
-            except subprocess.CalledProcessError as exc:
-                raise RuntimeError(f'pyftsubset failed for {output_name}:\n{exc.stderr}') from exc
-            finally:
-                if os.path.exists(temporary): os.remove(temporary)
+            write_subset(source, output, groups[name])
             css.append(f'''@font-face {{
   font-family: "SEIReader";
   src: url("./fonts/{output_name}") format("woff2");

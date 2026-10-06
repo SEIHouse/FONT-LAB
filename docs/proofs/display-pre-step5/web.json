@@ -1,0 +1,968 @@
+{
+  "measurements": 120,
+  "max_difference_percent": 0,
+  "rows": [
+    {
+      "cut": "Soft",
+      "text": "Ww WAVE WORLD",
+      "features": "normal",
+      "subset_px": 713,
+      "full_px": 713,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 726,
+      "full_px": 726,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 713,
+      "full_px": 713,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "normal",
+      "subset_px": 522,
+      "full_px": 522,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 533,
+      "full_px": 533,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 522,
+      "full_px": 522,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "a glowing railway",
+      "features": "normal",
+      "subset_px": 774,
+      "full_px": 774,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "a glowing railway",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 774,
+      "full_px": 774,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "a glowing railway",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 774,
+      "full_px": 774,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ΚΜ ΆΥ",
+      "features": "normal",
+      "subset_px": 253,
+      "full_px": 253,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 260,
+      "full_px": 260,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 253,
+      "full_px": 253,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "КМ Ќ ў",
+      "features": "normal",
+      "subset_px": 282,
+      "full_px": 282,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "КМ Ќ ў",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 287,
+      "full_px": 287,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "КМ Ќ ў",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 282,
+      "full_px": 282,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Tưởng tượng, đường phố",
+      "features": "normal",
+      "subset_px": 1104,
+      "full_px": 1104,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 1106,
+      "full_px": 1106,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 1104,
+      "full_px": 1104,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "x̂́ i̋",
+      "features": "normal",
+      "subset_px": 98,
+      "full_px": 98,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "x̂́ i̋",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 98,
+      "full_px": 98,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "x̂́ i̋",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 98,
+      "full_px": 98,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "469 4.69 16/49",
+      "features": "normal",
+      "subset_px": 657,
+      "full_px": 657,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "469 4.69 16/49",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 657,
+      "full_px": 657,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "469 4.69 16/49",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 698,
+      "full_px": 698,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "normal",
+      "subset_px": 452,
+      "full_px": 452,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 452,
+      "full_px": 452,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 452,
+      "full_px": 452,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "normal",
+      "subset_px": 439,
+      "full_px": 439,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 441,
+      "full_px": 441,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Soft",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 439,
+      "full_px": 439,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ww WAVE WORLD",
+      "features": "normal",
+      "subset_px": 693,
+      "full_px": 693,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 710,
+      "full_px": 710,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 693,
+      "full_px": 693,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "normal",
+      "subset_px": 507,
+      "full_px": 507,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 520,
+      "full_px": 520,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 507,
+      "full_px": 507,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "a glowing railway",
+      "features": "normal",
+      "subset_px": 749,
+      "full_px": 749,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "a glowing railway",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 749,
+      "full_px": 749,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "a glowing railway",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 749,
+      "full_px": 749,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ΚΜ ΆΥ",
+      "features": "normal",
+      "subset_px": 246,
+      "full_px": 246,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 255,
+      "full_px": 255,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 246,
+      "full_px": 246,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "КМ Ќ ў",
+      "features": "normal",
+      "subset_px": 272,
+      "full_px": 272,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "КМ Ќ ў",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 279,
+      "full_px": 279,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "КМ Ќ ў",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 272,
+      "full_px": 272,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Tưởng tượng, đường phố",
+      "features": "normal",
+      "subset_px": 1060,
+      "full_px": 1060,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 1062,
+      "full_px": 1062,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 1060,
+      "full_px": 1060,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "x̂́ i̋",
+      "features": "normal",
+      "subset_px": 96,
+      "full_px": 96,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "x̂́ i̋",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 96,
+      "full_px": 96,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "x̂́ i̋",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 96,
+      "full_px": 96,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "469 4.69 16/49",
+      "features": "normal",
+      "subset_px": 635,
+      "full_px": 635,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "469 4.69 16/49",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 635,
+      "full_px": 635,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "469 4.69 16/49",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 676,
+      "full_px": 676,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "normal",
+      "subset_px": 444,
+      "full_px": 444,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 444,
+      "full_px": 444,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 444,
+      "full_px": 444,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "normal",
+      "subset_px": 425,
+      "full_px": 425,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 427,
+      "full_px": 427,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Edge",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 425,
+      "full_px": 425,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ww WAVE WORLD",
+      "features": "normal",
+      "subset_px": 655,
+      "full_px": 655,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 674,
+      "full_px": 674,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 655,
+      "full_px": 655,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "normal",
+      "subset_px": 461,
+      "full_px": 461,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 474,
+      "full_px": 474,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 461,
+      "full_px": 461,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "a glowing railway",
+      "features": "normal",
+      "subset_px": 690,
+      "full_px": 690,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "a glowing railway",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 690,
+      "full_px": 690,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "a glowing railway",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 690,
+      "full_px": 690,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ΚΜ ΆΥ",
+      "features": "normal",
+      "subset_px": 225,
+      "full_px": 225,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 231,
+      "full_px": 231,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 225,
+      "full_px": 225,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "КМ Ќ ў",
+      "features": "normal",
+      "subset_px": 250,
+      "full_px": 250,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "КМ Ќ ў",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 254,
+      "full_px": 254,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "КМ Ќ ў",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 250,
+      "full_px": 250,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Tưởng tượng, đường phố",
+      "features": "normal",
+      "subset_px": 977,
+      "full_px": 977,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 978,
+      "full_px": 978,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 977,
+      "full_px": 977,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "x̂́ i̋",
+      "features": "normal",
+      "subset_px": 86,
+      "full_px": 86,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "x̂́ i̋",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 86,
+      "full_px": 86,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "x̂́ i̋",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 86,
+      "full_px": 86,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "469 4.69 16/49",
+      "features": "normal",
+      "subset_px": 579,
+      "full_px": 579,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "469 4.69 16/49",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 579,
+      "full_px": 579,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "469 4.69 16/49",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 615,
+      "full_px": 615,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "normal",
+      "subset_px": 398,
+      "full_px": 398,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 398,
+      "full_px": 398,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 398,
+      "full_px": 398,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "normal",
+      "subset_px": 382,
+      "full_px": 382,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 384,
+      "full_px": 384,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Ink",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 382,
+      "full_px": 382,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ww WAVE WORLD",
+      "features": "normal",
+      "subset_px": 795,
+      "full_px": 795,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 818,
+      "full_px": 818,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ww WAVE WORLD",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 795,
+      "full_px": 795,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "normal",
+      "subset_px": 597,
+      "full_px": 597,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 613,
+      "full_px": 613,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ÁV Ŵŵ LA LY",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 597,
+      "full_px": 597,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "a glowing railway",
+      "features": "normal",
+      "subset_px": 854,
+      "full_px": 854,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "a glowing railway",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 854,
+      "full_px": 854,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "a glowing railway",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 854,
+      "full_px": 854,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ΚΜ ΆΥ",
+      "features": "normal",
+      "subset_px": 289,
+      "full_px": 289,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 296,
+      "full_px": 296,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "ΚΜ ΆΥ",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 289,
+      "full_px": 289,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "КМ Ќ ў",
+      "features": "normal",
+      "subset_px": 326,
+      "full_px": 326,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "КМ Ќ ў",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 331,
+      "full_px": 331,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "КМ Ќ ў",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 326,
+      "full_px": 326,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Tưởng tượng, đường phố",
+      "features": "normal",
+      "subset_px": 1278,
+      "full_px": 1278,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 1281,
+      "full_px": 1281,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Tưởng tượng, đường phố",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 1278,
+      "full_px": 1278,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "x̂́ i̋",
+      "features": "normal",
+      "subset_px": 111,
+      "full_px": 111,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "x̂́ i̋",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 111,
+      "full_px": 111,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "x̂́ i̋",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 111,
+      "full_px": 111,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "469 4.69 16/49",
+      "features": "normal",
+      "subset_px": 763,
+      "full_px": 763,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "469 4.69 16/49",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 763,
+      "full_px": 763,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "469 4.69 16/49",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 813,
+      "full_px": 813,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "normal",
+      "subset_px": 542,
+      "full_px": 542,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 542,
+      "full_px": 542,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "⁴⁶⁹ ₄₆₉ ¼¾",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 542,
+      "full_px": 542,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "normal",
+      "subset_px": 536,
+      "full_px": 536,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss04\" 1, \"cpsp\" 1",
+      "subset_px": 538,
+      "full_px": 538,
+      "difference_percent": 0
+    },
+    {
+      "cut": "Wide",
+      "text": "Ⓢ 🎧 ♫ → ♥",
+      "features": "\"ss08\" 1, \"tnum\" 1",
+      "subset_px": 536,
+      "full_px": 536,
+      "difference_percent": 0
+    }
+  ],
+  "page_errors": [],
+  "flags": []
+}

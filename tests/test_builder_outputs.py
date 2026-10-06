@@ -29,6 +29,30 @@ class FakeCore:
 
 
 class CandidateOutputTests(unittest.TestCase):
+    def test_shared_display_stylesheet_rebuilds_missing_and_stale_subsets(self):
+        with tempfile.TemporaryDirectory() as directory:
+            root = Path(directory)
+            stale = root/'fonts/edge/SEIHouseDisplay-Edge.otf'
+            stale.parent.mkdir(parents=True)
+            stale.write_bytes(b'existing cut')
+            stale.with_suffix('.latin-basic.woff2').write_bytes(b'stale subset')
+            cut = root/'cut.json'
+            cut.write_text(json.dumps({'name':'Soft', 'weight':85}), encoding='utf-8')
+
+            def rebuild_subsets(source):
+                source.with_suffix('.latin-basic.woff2').write_bytes(source.read_bytes())
+
+            def validate_css(sources, output):
+                for source in sources:
+                    self.assertEqual(source.with_suffix('.latin-basic.woff2').read_bytes(), source.read_bytes())
+                output.write_text('valid stylesheet', encoding='utf-8')
+
+            with patch.object(make_display, 'HERE', root), patch.object(make_display, 'FontBuilderCore', FakeCore), \
+                 patch.object(make_display, 'build_cut_subsets', rebuild_subsets), \
+                 patch.object(make_display, 'write_css', validate_css):
+                make_display.build_cut(cut)
+            self.assertEqual((root/'fonts.css').read_text(encoding='utf-8'), 'valid stylesheet')
+
     def test_reader_candidate_metadata_stays_with_candidate_fonts(self):
         with tempfile.TemporaryDirectory() as directory:
             root = Path(directory)
@@ -48,8 +72,11 @@ class CandidateOutputTests(unittest.TestCase):
             cut = root/'cut.json'
             cut.write_text(json.dumps({'name':'Soft', 'weight':85}), encoding='utf-8')
             candidate = root/'candidate'
-            with patch.object(make_display, 'HERE', root), patch.object(make_display, 'FontBuilderCore', FakeCore):
+            with patch.object(make_display, 'HERE', root), patch.object(make_display, 'FontBuilderCore', FakeCore), \
+                 patch.object(make_display, 'build_cut_subsets') as subsets, patch.object(make_display, 'write_css') as css:
                 make_display.build_cut(cut, candidate)
+            subsets.assert_called_once_with(candidate/'SEIHouseDisplay-Soft.otf')
+            css.assert_called_once_with([candidate/'SEIHouseDisplay-Soft.otf'], candidate/'fonts.css')
             self.assertEqual((root/'kern_auto_soft.json').read_text(encoding='utf-8'), 'approved')
             self.assertTrue((candidate/'kern_auto.json').is_file())
 

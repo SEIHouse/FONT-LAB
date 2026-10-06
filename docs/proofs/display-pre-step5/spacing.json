@@ -1,0 +1,7239 @@
+{
+  "gate_percent": 0.5,
+  "sizes_px": [
+    48,
+    96,
+    192
+  ],
+  "samples": [
+    "LA",
+    "LY",
+    "LT",
+    "TA",
+    "AV",
+    "AW",
+    "AY",
+    "PA",
+    "FA",
+    "VA",
+    "RT",
+    "THE LAST LOTUS",
+    "LAY THE LIGHT",
+    "A WAVE AWAY",
+    "PAST THE FALL",
+    "ART AT DAWN",
+    "LAVA / VALLEY",
+    "The Last Lotus",
+    "Office Reflection",
+    "A Tale of Two Cities",
+    "Skybound: Vol. 12",
+    "Roots Through Ruin",
+    "The Artist’s Arrival",
+    "À LA VALLÉE",
+    "À LA VALLÉE",
+    "ĐẠI LỘ ÁNH SÁNG",
+    "ΤΑ ΑΣΤΡΑ",
+    "СЛАВА И ВОЛЯ",
+    "Affinity & Flame",
+    "fí fl̋",
+    "á̈ ị̂",
+    "Live 1,234.56 · ½",
+    "TY LY TTY",
+    "ART  AT DAWN",
+    "LA VA",
+    "A V",
+    "A VA"
+  ],
+  "cuts": {
+    "soft": {
+      "policy": "soft",
+      "capital_space_per_1000": 21,
+      "measurements": 222,
+      "max_difference_percent": 0.03872442958300988,
+      "title_pairs_per_1000": {
+        "LA": -47.0,
+        "LY": -241.0,
+        "LT": -263.0,
+        "TA": -194.0,
+        "AV": -141.0,
+        "AW": -106.0,
+        "AY": -172.0,
+        "PA": -143.0,
+        "FA": -201.0,
+        "VA": -141.0,
+        "RT": -137.0
+      },
+      "widths": [
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 68.484375,
+          "font_px": 68.496,
+          "difference_percent": 0.016971793973363573
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 57.15625,
+          "font_px": 57.168,
+          "difference_percent": 0.020553456479147882
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 55.625,
+          "font_px": 55.632,
+          "difference_percent": 0.012582686223752332
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 61.8125,
+          "font_px": 61.824,
+          "difference_percent": 0.01860119047618735
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 65.84375,
+          "font_px": 65.856,
+          "difference_percent": 0.01860119047618219
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 75.59375,
+          "font_px": 75.6,
+          "difference_percent": 0.008267195767188248
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 63.359375,
+          "font_px": 63.36,
+          "difference_percent": 0.0009864267676758707
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 64.859375,
+          "font_px": 64.872,
+          "difference_percent": 0.01946140091256611
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 64.359375,
+          "font_px": 64.368,
+          "difference_percent": 0.01339951528709141
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 65.84375,
+          "font_px": 65.856,
+          "difference_percent": 0.01860119047618219
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 63.671875,
+          "font_px": 63.672,
+          "difference_percent": 0.00019631863298945243
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 426.140625,
+          "font_px": 426.192,
+          "difference_percent": 0.012054426174120414
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 380.6875,
+          "font_px": 380.736,
+          "difference_percent": 0.012738485459738505
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 332.640625,
+          "font_px": 332.688,
+          "difference_percent": 0.014240068773141256
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 379.3125,
+          "font_px": 379.368,
+          "difference_percent": 0.01462959448345538
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 331.03125,
+          "font_px": 331.08,
+          "difference_percent": 0.014724537876037239
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 359.8125,
+          "font_px": 359.856,
+          "difference_percent": 0.012088168600772126
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 409.25,
+          "font_px": 409.296,
+          "difference_percent": 0.011238810054335316
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 468.828125,
+          "font_px": 468.864,
+          "difference_percent": 0.007651472495217354
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 523.390625,
+          "font_px": 523.464,
+          "difference_percent": 0.014017200800829754
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 464.265625,
+          "font_px": 464.304,
+          "difference_percent": 0.008265059099205182
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 535.28125,
+          "font_px": 535.32,
+          "difference_percent": 0.007238660987829712
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 517.484375,
+          "font_px": 517.536,
+          "difference_percent": 0.009975151487035594
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 311.625,
+          "font_px": 311.664,
+          "difference_percent": 0.012513476051127903
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 311.625,
+          "font_px": 311.664,
+          "difference_percent": 0.012513476051127903
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 454.109375,
+          "font_px": 454.176,
+          "difference_percent": 0.014669423307261441
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 239.953125,
+          "font_px": 239.976,
+          "difference_percent": 0.009532203220321653
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 371.625,
+          "font_px": 371.664,
+          "difference_percent": 0.010493348831198951
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 434.46875,
+          "font_px": 434.52,
+          "difference_percent": 0.011794623952863346
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 101.171875,
+          "font_px": 101.208,
+          "difference_percent": 0.03569381867045926
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 60.984375,
+          "font_px": 61.008,
+          "difference_percent": 0.03872442958300988
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 446.953125,
+          "font_px": 447.024,
+          "difference_percent": 0.01585485343068849
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 250.984375,
+          "font_px": 251.04,
+          "difference_percent": 0.022157823454426403
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 343.515625,
+          "font_px": 343.56,
+          "difference_percent": 0.012916230061707496
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 140.078125,
+          "font_px": 140.112,
+          "difference_percent": 0.024177086901903316
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 78.359375,
+          "font_px": 78.384,
+          "difference_percent": 0.03141585017350523
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 115.125,
+          "font_px": 115.152,
+          "difference_percent": 0.023447269695707432
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 136.984375,
+          "font_px": 136.992,
+          "difference_percent": 0.005566018453625193
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 114.328125,
+          "font_px": 114.336,
+          "difference_percent": 0.0068875944584369945
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 111.25,
+          "font_px": 111.264,
+          "difference_percent": 0.012582686223752332
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 123.640625,
+          "font_px": 123.648,
+          "difference_percent": 0.005964512163557951
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 131.703125,
+          "font_px": 131.712,
+          "difference_percent": 0.006738186345958672
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 151.1875,
+          "font_px": 151.2,
+          "difference_percent": 0.008267195767188248
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 126.71875,
+          "font_px": 126.72,
+          "difference_percent": 0.0009864267676758707
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 129.734375,
+          "font_px": 129.744,
+          "difference_percent": 0.007418454803304795
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 128.734375,
+          "font_px": 128.736,
+          "difference_percent": 0.0012622731792117166
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 131.703125,
+          "font_px": 131.712,
+          "difference_percent": 0.006738186345958672
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 127.34375,
+          "font_px": 127.344,
+          "difference_percent": 0.00019631863298945243
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 852.34375,
+          "font_px": 852.384,
+          "difference_percent": 0.004722050155800033
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 761.4375,
+          "font_px": 761.472,
+          "difference_percent": 0.004530698436709425
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 665.34375,
+          "font_px": 665.376,
+          "difference_percent": 0.0048468835665813545
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 758.6875,
+          "font_px": 758.736,
+          "difference_percent": 0.0063922102022297604
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 662.125,
+          "font_px": 662.16,
+          "difference_percent": 0.005285731545241055
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 719.671875,
+          "font_px": 719.712,
+          "difference_percent": 0.005575146725355293
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 818.5625,
+          "font_px": 818.592,
+          "difference_percent": 0.0036037488761171054
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 937.703125,
+          "font_px": 937.728,
+          "difference_percent": 0.002652688199558059
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1046.859375,
+          "font_px": 1046.928,
+          "difference_percent": 0.006554892026969472
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 928.578125,
+          "font_px": 928.608,
+          "difference_percent": 0.0032171809848662997
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1070.609375,
+          "font_px": 1070.64,
+          "difference_percent": 0.0028604386161641673
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1035.046875,
+          "font_px": 1035.072,
+          "difference_percent": 0.0024273673715344483
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 623.296875,
+          "font_px": 623.328,
+          "difference_percent": 0.004993358231938007
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 623.296875,
+          "font_px": 623.328,
+          "difference_percent": 0.004993358231938007
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 908.296875,
+          "font_px": 908.352,
+          "difference_percent": 0.00606868262523509
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 479.9375,
+          "font_px": 479.952,
+          "difference_percent": 0.0030211354468776424
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 743.296875,
+          "font_px": 743.328,
+          "difference_percent": 0.004187249773985984
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 869,
+          "font_px": 869.04,
+          "difference_percent": 0.004602780079163631
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 202.390625,
+          "font_px": 202.416,
+          "difference_percent": 0.01253606434273813
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 122,
+          "font_px": 122.016,
+          "difference_percent": 0.01311303435615439
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 894,
+          "font_px": 894.048,
+          "difference_percent": 0.005368839256952851
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 502.046875,
+          "font_px": 502.08,
+          "difference_percent": 0.006597554174630354
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 687.078125,
+          "font_px": 687.12,
+          "difference_percent": 0.006094277564327125
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 280.203125,
+          "font_px": 280.224,
+          "difference_percent": 0.007449397624753605
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 156.75,
+          "font_px": 156.768,
+          "difference_percent": 0.011481935088794066
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 230.28125,
+          "font_px": 230.304,
+          "difference_percent": 0.009878247881062441
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 273.96875,
+          "font_px": 273.984,
+          "difference_percent": 0.005566018453625193
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 228.671875,
+          "font_px": 228.672,
+          "difference_percent": 5.466344808155092e-05
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 222.515625,
+          "font_px": 222.528,
+          "difference_percent": 0.005561097929245573
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 247.28125,
+          "font_px": 247.296,
+          "difference_percent": 0.005964512163557951
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 263.421875,
+          "font_px": 263.424,
+          "difference_percent": 0.0008066842808469131
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 302.390625,
+          "font_px": 302.4,
+          "difference_percent": 0.0031001984126908942
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 253.4375,
+          "font_px": 253.44,
+          "difference_percent": 0.0009864267676758707
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 259.484375,
+          "font_px": 259.488,
+          "difference_percent": 0.0013969817486741373
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 257.46875,
+          "font_px": 257.472,
+          "difference_percent": 0.0012622731792117166
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 263.421875,
+          "font_px": 263.424,
+          "difference_percent": 0.0008066842808469131
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 254.6875,
+          "font_px": 254.688,
+          "difference_percent": 0.00019631863298945243
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1704.71875,
+          "font_px": 1704.768,
+          "difference_percent": 0.0028889561512199374
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1522.890625,
+          "font_px": 1522.944,
+          "difference_percent": 0.0035047250588307903
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1330.703125,
+          "font_px": 1330.752,
+          "difference_percent": 0.003672735415761367
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1517.421875,
+          "font_px": 1517.472,
+          "difference_percent": 0.0033031910967701535
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1324.265625,
+          "font_px": 1324.32,
+          "difference_percent": 0.004105880753891532
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1439.375,
+          "font_px": 1439.424,
+          "difference_percent": 0.003404139433549682
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1637.140625,
+          "font_px": 1637.184,
+          "difference_percent": 0.0026493662288398297
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1875.421875,
+          "font_px": 1875.456,
+          "difference_percent": 0.0018195574836148433
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2093.75,
+          "font_px": 2093.856,
+          "difference_percent": 0.005062430272197415
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1857.171875,
+          "font_px": 1857.216,
+          "difference_percent": 0.0023758679658098195
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2141.234375,
+          "font_px": 2141.28,
+          "difference_percent": 0.002130734887553243
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2070.109375,
+          "font_px": 2070.144,
+          "difference_percent": 0.0016725889599843338
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1246.59375,
+          "font_px": 1246.656,
+          "difference_percent": 0.004993358231938007
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1246.59375,
+          "font_px": 1246.656,
+          "difference_percent": 0.004993358231938007
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1816.625,
+          "font_px": 1816.704,
+          "difference_percent": 0.00434853448882982
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 959.875,
+          "font_px": 959.904,
+          "difference_percent": 0.0030211354468776424
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1486.609375,
+          "font_px": 1486.656,
+          "difference_percent": 0.0031362332644504893
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1738.03125,
+          "font_px": 1738.08,
+          "difference_percent": 0.0028048191107387026
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 404.796875,
+          "font_px": 404.832,
+          "difference_percent": 0.008676438621451277
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 244,
+          "font_px": 244.032,
+          "difference_percent": 0.01311303435615439
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1788.03125,
+          "font_px": 1788.096,
+          "difference_percent": 0.0036211702279969104
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1004.109375,
+          "font_px": 1004.16,
+          "difference_percent": 0.00504152724665075
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1374.1875,
+          "font_px": 1374.24,
+          "difference_percent": 0.0038202933985336694
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 560.421875,
+          "font_px": 560.448,
+          "difference_percent": 0.00466144941189532
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 313.5,
+          "font_px": 313.536,
+          "difference_percent": 0.011481935088794066
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 460.578125,
+          "font_px": 460.608,
+          "difference_percent": 0.006485992427401194
+        },
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 70.5,
+          "font_px": 70.512,
+          "difference_percent": 0.0170183798502389
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 59.171875,
+          "font_px": 59.184,
+          "difference_percent": 0.020486955934032002
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 57.640625,
+          "font_px": 57.648,
+          "difference_percent": 0.01279315847905086
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 63.828125,
+          "font_px": 63.84,
+          "difference_percent": 0.01860119047619582
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 67.859375,
+          "font_px": 67.872,
+          "difference_percent": 0.01860119047619031
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 77.609375,
+          "font_px": 77.616,
+          "difference_percent": 0.008535611214182203
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 65.375,
+          "font_px": 65.376,
+          "difference_percent": 0.0015296133137615866
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 66.875,
+          "font_px": 66.888,
+          "difference_percent": 0.01943547422557892
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 66.375,
+          "font_px": 66.384,
+          "difference_percent": 0.013557483731020035
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 67.859375,
+          "font_px": 67.872,
+          "difference_percent": 0.01860119047619031
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 65.6875,
+          "font_px": 65.688,
+          "difference_percent": 0.0007611740348349583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 438.25,
+          "font_px": 438.288,
+          "difference_percent": 0.008670098200272633
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 391.796875,
+          "font_px": 391.824,
+          "difference_percent": 0.00692275103107831
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 341.703125,
+          "font_px": 341.76,
+          "difference_percent": 0.016641795411982355
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 390.40625,
+          "font_px": 390.456,
+          "difference_percent": 0.012741512487967217
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 340.09375,
+          "font_px": 340.152,
+          "difference_percent": 0.01712469719419166
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 369.890625,
+          "font_px": 369.936,
+          "difference_percent": 0.012265635136882766
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 412.28125,
+          "font_px": 412.32,
+          "difference_percent": 0.009398040357002615
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 470.859375,
+          "font_px": 470.88,
+          "difference_percent": 0.00438009683995826
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 527.40625,
+          "font_px": 527.496,
+          "difference_percent": 0.01701434702822029
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 466.28125,
+          "font_px": 466.32,
+          "difference_percent": 0.00830974438153911
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 538.296875,
+          "font_px": 538.344,
+          "difference_percent": 0.008753696521192941
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 520.53125,
+          "font_px": 520.56,
+          "difference_percent": 0.0055228984170788056
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 320.6875,
+          "font_px": 320.736,
+          "difference_percent": 0.015121470617576448
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 320.6875,
+          "font_px": 320.736,
+          "difference_percent": 0.015121470617576448
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 466.21875,
+          "font_px": 466.272,
+          "difference_percent": 0.0114203726580175
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 247,
+          "font_px": 247.032,
+          "difference_percent": 0.012953787363584752
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 381.703125,
+          "font_px": 381.744,
+          "difference_percent": 0.010707437444996698
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 436.484375,
+          "font_px": 436.536,
+          "difference_percent": 0.011826057873806826
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 101.171875,
+          "font_px": 101.208,
+          "difference_percent": 0.03569381867045926
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 60.984375,
+          "font_px": 61.008,
+          "difference_percent": 0.03872442958300988
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 447.953125,
+          "font_px": 448.032,
+          "difference_percent": 0.017604769302188746
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 258.046875,
+          "font_px": 258.096,
+          "difference_percent": 0.019033615398922742
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 352.578125,
+          "font_px": 352.632,
+          "difference_percent": 0.015277966832279827
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 144.109375,
+          "font_px": 144.144,
+          "difference_percent": 0.024021117771121557
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 80.375,
+          "font_px": 80.4,
+          "difference_percent": 0.031094527363191148
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 118.140625,
+          "font_px": 118.176,
+          "difference_percent": 0.0299341659897119
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 141.015625,
+          "font_px": 141.024,
+          "difference_percent": 0.00593870546857337
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 118.359375,
+          "font_px": 118.368,
+          "difference_percent": 0.007286597729111752
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 115.28125,
+          "font_px": 115.296,
+          "difference_percent": 0.01279315847905086
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 127.671875,
+          "font_px": 127.68,
+          "difference_percent": 0.00636356516291261
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 135.734375,
+          "font_px": 135.744,
+          "difference_percent": 0.007090552805280361
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 155.21875,
+          "font_px": 155.232,
+          "difference_percent": 0.008535611214182203
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 130.75,
+          "font_px": 130.752,
+          "difference_percent": 0.0015296133137615866
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 133.765625,
+          "font_px": 133.776,
+          "difference_percent": 0.0077555017342501335
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 132.765625,
+          "font_px": 132.768,
+          "difference_percent": 0.0017888346589544787
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 135.734375,
+          "font_px": 135.744,
+          "difference_percent": 0.007090552805280361
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 131.375,
+          "font_px": 131.376,
+          "difference_percent": 0.0007611740348349583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 876.546875,
+          "font_px": 876.576,
+          "difference_percent": 0.0033225869747770674
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 783.625,
+          "font_px": 783.648,
+          "difference_percent": 0.0029349912205511347
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 683.484375,
+          "font_px": 683.52,
+          "difference_percent": 0.005211990870783855
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 780.875,
+          "font_px": 780.912,
+          "difference_percent": 0.0047380498699001366
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 680.265625,
+          "font_px": 680.304,
+          "difference_percent": 0.005640860556453236
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 739.828125,
+          "font_px": 739.872,
+          "difference_percent": 0.0059300797975808325
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 824.609375,
+          "font_px": 824.64,
+          "difference_percent": 0.0037137417539758392
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 941.734375,
+          "font_px": 941.76,
+          "difference_percent": 0.0027209692490646133
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1054.921875,
+          "font_px": 1054.992,
+          "difference_percent": 0.0066469698348387285
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 932.609375,
+          "font_px": 932.64,
+          "difference_percent": 0.0032836893120589254
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1076.65625,
+          "font_px": 1076.688,
+          "difference_percent": 0.0029488579792940816
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1041.09375,
+          "font_px": 1041.12,
+          "difference_percent": 0.0025213231903998446
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 641.4375,
+          "font_px": 641.472,
+          "difference_percent": 0.005378255013465902
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 641.4375,
+          "font_px": 641.472,
+          "difference_percent": 0.005378255013465902
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 932.5,
+          "font_px": 932.544,
+          "difference_percent": 0.0047182760277244525
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 494.046875,
+          "font_px": 494.064,
+          "difference_percent": 0.0034661501343998696
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 763.453125,
+          "font_px": 763.488,
+          "difference_percent": 0.004567851754062459
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 873.03125,
+          "font_px": 873.072,
+          "difference_percent": 0.004667427199589808
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 202.390625,
+          "font_px": 202.416,
+          "difference_percent": 0.01253606434273813
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 122,
+          "font_px": 122.016,
+          "difference_percent": 0.01311303435615439
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 896.015625,
+          "font_px": 896.064,
+          "difference_percent": 0.00539860992071599
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 516.15625,
+          "font_px": 516.192,
+          "difference_percent": 0.00692571756245879
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 705.21875,
+          "font_px": 705.264,
+          "difference_percent": 0.006416037115180983
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 288.265625,
+          "font_px": 288.288,
+          "difference_percent": 0.007761335886339671
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 160.78125,
+          "font_px": 160.8,
+          "difference_percent": 0.011660447761201098
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 236.328125,
+          "font_px": 236.352,
+          "difference_percent": 0.010101458841052272
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 282.046875,
+          "font_px": 282.048,
+          "difference_percent": 0.00039886827774060404
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 236.734375,
+          "font_px": 236.736,
+          "difference_percent": 0.0006864186266516269
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 230.578125,
+          "font_px": 230.592,
+          "difference_percent": 0.006017121149048085
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 255.359375,
+          "font_px": 255.36,
+          "difference_percent": 0.00024475250627100655
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 271.484375,
+          "font_px": 271.488,
+          "difference_percent": 0.0013352339698253864
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 310.453125,
+          "font_px": 310.464,
+          "difference_percent": 0.003502821583178286
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 261.5,
+          "font_px": 261.504,
+          "difference_percent": 0.0015296133137615866
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 267.546875,
+          "font_px": 267.552,
+          "difference_percent": 0.0019155154885857396
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 265.53125,
+          "font_px": 265.536,
+          "difference_percent": 0.0017888346589544787
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 271.484375,
+          "font_px": 271.488,
+          "difference_percent": 0.0013352339698253864
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 262.75,
+          "font_px": 262.752,
+          "difference_percent": 0.0007611740348349583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1753.109375,
+          "font_px": 1753.152,
+          "difference_percent": 0.00243133510386114
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1567.25,
+          "font_px": 1567.296,
+          "difference_percent": 0.0029349912205511347
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1366.984375,
+          "font_px": 1367.04,
+          "difference_percent": 0.004069010416664005
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1561.78125,
+          "font_px": 1561.824,
+          "difference_percent": 0.002737184215383367
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1360.5625,
+          "font_px": 1360.608,
+          "difference_percent": 0.003344093228905552
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1479.6875,
+          "font_px": 1479.744,
+          "difference_percent": 0.003818228017813521
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1649.234375,
+          "font_px": 1649.28,
+          "difference_percent": 0.002766358653471376
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1883.484375,
+          "font_px": 1883.52,
+          "difference_percent": 0.0018914054536177908
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2109.875,
+          "font_px": 2109.984,
+          "difference_percent": 0.005165915950069934
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1865.234375,
+          "font_px": 1865.28,
+          "difference_percent": 0.002446013467145561
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2153.328125,
+          "font_px": 2153.376,
+          "difference_percent": 0.0022232531615567243
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2082.203125,
+          "font_px": 2082.24,
+          "difference_percent": 0.0017709293837301044
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1282.890625,
+          "font_px": 1282.944,
+          "difference_percent": 0.004160353062952084
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1282.890625,
+          "font_px": 1282.944,
+          "difference_percent": 0.004160353062952084
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1865.015625,
+          "font_px": 1865.088,
+          "difference_percent": 0.003880513948937822
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 988.109375,
+          "font_px": 988.128,
+          "difference_percent": 0.0018848772628690558
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1526.9375,
+          "font_px": 1526.976,
+          "difference_percent": 0.002521323190417713
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1746.09375,
+          "font_px": 1746.144,
+          "difference_percent": 0.0028777695310355537
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 404.796875,
+          "font_px": 404.832,
+          "difference_percent": 0.008676438621451277
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 244,
+          "font_px": 244.032,
+          "difference_percent": 0.01311303435615439
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1792.0625,
+          "font_px": 1792.128,
+          "difference_percent": 0.0036548728662198827
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1032.34375,
+          "font_px": 1032.384,
+          "difference_percent": 0.003898743103342802
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1410.484375,
+          "font_px": 1410.528,
+          "difference_percent": 0.0030928134712689156
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 576.5625,
+          "font_px": 576.576,
+          "difference_percent": 0.002341408591412377
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 321.5625,
+          "font_px": 321.6,
+          "difference_percent": 0.011660447761201098
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 472.671875,
+          "font_px": 472.704,
+          "difference_percent": 0.006796007649609
+        }
+      ]
+    },
+    "edge": {
+      "policy": "edge",
+      "capital_space_per_1000": 25,
+      "measurements": 222,
+      "max_difference_percent": 0.03641842273308637,
+      "title_pairs_per_1000": {
+        "LA": -64.0,
+        "LY": -208.0,
+        "LT": -233.0,
+        "TA": -167.0,
+        "AV": -118.0,
+        "AW": -92.0,
+        "AY": -142.0,
+        "PA": -137.0,
+        "FA": -177.0,
+        "VA": -118.0,
+        "RT": -160.0
+      },
+      "widths": [
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 64.703125,
+          "font_px": 64.704,
+          "difference_percent": 0.0013523120672501235
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 55.859375,
+          "font_px": 55.872,
+          "difference_percent": 0.022596291523482043
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 54.1875,
+          "font_px": 54.192,
+          "difference_percent": 0.00830380868024832
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 59.9375,
+          "font_px": 59.952,
+          "difference_percent": 0.024186015479046873
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 63.734375,
+          "font_px": 63.744,
+          "difference_percent": 0.015099460341365105
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 73.625,
+          "font_px": 73.632,
+          "difference_percent": 0.00950673620165825
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 61.625,
+          "font_px": 61.632,
+          "difference_percent": 0.0113577362409104
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 62.15625,
+          "font_px": 62.16,
+          "difference_percent": 0.006032818532813046
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 62.390625,
+          "font_px": 62.4,
+          "difference_percent": 0.015024038461536186
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 63.734375,
+          "font_px": 63.744,
+          "difference_percent": 0.015099460341365105
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 59.609375,
+          "font_px": 59.616,
+          "difference_percent": 0.01111278851315026
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 405.265625,
+          "font_px": 405.312,
+          "difference_percent": 0.011441802858048076
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 362.78125,
+          "font_px": 362.832,
+          "difference_percent": 0.013987189663533985
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 324.765625,
+          "font_px": 324.816,
+          "difference_percent": 0.015508780355639526
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 362.984375,
+          "font_px": 363.024,
+          "difference_percent": 0.010915256291595296
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 318.609375,
+          "font_px": 318.672,
+          "difference_percent": 0.019651867751175334
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 347.625,
+          "font_px": 347.664,
+          "difference_percent": 0.011217727460993162
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 394.765625,
+          "font_px": 394.8,
+          "difference_percent": 0.008706940222900549
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 454.53125,
+          "font_px": 454.56,
+          "difference_percent": 0.006324797606477093
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 508.5625,
+          "font_px": 508.656,
+          "difference_percent": 0.018381774716115785
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 449.53125,
+          "font_px": 449.568,
+          "difference_percent": 0.008174514200295312
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 515.578125,
+          "font_px": 515.616,
+          "difference_percent": 0.007345582759259886
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 501.703125,
+          "font_px": 501.744,
+          "difference_percent": 0.008146584712528339
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 301.015625,
+          "font_px": 301.056,
+          "difference_percent": 0.013411126169212098
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 301.015625,
+          "font_px": 301.056,
+          "difference_percent": 0.013411126169212098
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 438.03125,
+          "font_px": 438.096,
+          "difference_percent": 0.014779865600234568
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 226.046875,
+          "font_px": 226.08,
+          "difference_percent": 0.01465189313517892
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 356.125,
+          "font_px": 356.16,
+          "difference_percent": 0.009827044025164254
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 420,
+          "font_px": 420.048,
+          "difference_percent": 0.011427265455376963
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 98.09375,
+          "font_px": 98.112,
+          "difference_percent": 0.018601190476185147
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 59.359375,
+          "font_px": 59.376,
+          "difference_percent": 0.027999528428990953
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 434.09375,
+          "font_px": 434.16,
+          "difference_percent": 0.015259351391197948
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 239.21875,
+          "font_px": 239.28,
+          "difference_percent": 0.025597626211969714
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 331.09375,
+          "font_px": 331.152,
+          "difference_percent": 0.017590109677727093
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 134.1875,
+          "font_px": 134.208,
+          "difference_percent": 0.015274797329517174
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 75.140625,
+          "font_px": 75.168,
+          "difference_percent": 0.03641842273308637
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 111.375,
+          "font_px": 111.408,
+          "difference_percent": 0.029620853080569845
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 129.40625,
+          "font_px": 129.408,
+          "difference_percent": 0.0013523120672501235
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 111.734375,
+          "font_px": 111.744,
+          "difference_percent": 0.00861343785796085
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 108.375,
+          "font_px": 108.384,
+          "difference_percent": 0.00830380868024832
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 119.890625,
+          "font_px": 119.904,
+          "difference_percent": 0.011154757139041535
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 127.484375,
+          "font_px": 127.488,
+          "difference_percent": 0.002843404869477555
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 147.25,
+          "font_px": 147.264,
+          "difference_percent": 0.00950673620165825
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 123.25,
+          "font_px": 123.264,
+          "difference_percent": 0.0113577362409104
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 124.3125,
+          "font_px": 124.32,
+          "difference_percent": 0.006032818532813046
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 124.796875,
+          "font_px": 124.8,
+          "difference_percent": 0.002504006410254133
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 127.484375,
+          "font_px": 127.488,
+          "difference_percent": 0.002843404869477555
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 119.21875,
+          "font_px": 119.232,
+          "difference_percent": 0.01111278851315026
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 810.578125,
+          "font_px": 810.624,
+          "difference_percent": 0.0056592205510845525
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 725.625,
+          "font_px": 725.664,
+          "difference_percent": 0.005374388146578481
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 649.59375,
+          "font_px": 649.632,
+          "difference_percent": 0.005887948869505838
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 726.015625,
+          "font_px": 726.048,
+          "difference_percent": 0.004459071576535135
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 637.296875,
+          "font_px": 637.344,
+          "difference_percent": 0.007393966209778538
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 695.296875,
+          "font_px": 695.328,
+          "difference_percent": 0.004476304707990263
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 789.578125,
+          "font_px": 789.6,
+          "difference_percent": 0.002770390070924865
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 909.09375,
+          "font_px": 909.12,
+          "difference_percent": 0.0028874076029572053
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1017.234375,
+          "font_px": 1017.312,
+          "difference_percent": 0.00763040247239901
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 899.109375,
+          "font_px": 899.136,
+          "difference_percent": 0.002961176062349551
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1031.203125,
+          "font_px": 1031.232,
+          "difference_percent": 0.0028000488735775166
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1003.453125,
+          "font_px": 1003.488,
+          "difference_percent": 0.0034753778819533853
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 602.078125,
+          "font_px": 602.112,
+          "difference_percent": 0.005626029708752915
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 602.078125,
+          "font_px": 602.112,
+          "difference_percent": 0.005626029708752915
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 876.125,
+          "font_px": 876.192,
+          "difference_percent": 0.007646725831781992
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 452.125,
+          "font_px": 452.16,
+          "difference_percent": 0.00774062278839902
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 712.28125,
+          "font_px": 712.32,
+          "difference_percent": 0.005439970799647633
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 840.046875,
+          "font_px": 840.096,
+          "difference_percent": 0.005847545994743891
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 196.203125,
+          "font_px": 196.224,
+          "difference_percent": 0.010638352087404978
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 118.734375,
+          "font_px": 118.752,
+          "difference_percent": 0.01484185529506479
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 868.265625,
+          "font_px": 868.32,
+          "difference_percent": 0.006262092316202553
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 478.515625,
+          "font_px": 478.56,
+          "difference_percent": 0.009272609495152597
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 662.25,
+          "font_px": 662.304,
+          "difference_percent": 0.008153355558772652
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 268.40625,
+          "font_px": 268.416,
+          "difference_percent": 0.0036324213161647656
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 150.3125,
+          "font_px": 150.336,
+          "difference_percent": 0.015631651766717707
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 222.796875,
+          "font_px": 222.816,
+          "difference_percent": 0.008583315381302286
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 258.8125,
+          "font_px": 258.816,
+          "difference_percent": 0.0013523120672501235
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 223.484375,
+          "font_px": 223.488,
+          "difference_percent": 0.0016220110252002547
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 216.765625,
+          "font_px": 216.768,
+          "difference_percent": 0.0010956414230885933
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 239.796875,
+          "font_px": 239.808,
+          "difference_percent": 0.004639127969038866
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 254.96875,
+          "font_px": 254.976,
+          "difference_percent": 0.002843404869477555
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 294.515625,
+          "font_px": 294.528,
+          "difference_percent": 0.00420163787484382
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 246.515625,
+          "font_px": 246.528,
+          "difference_percent": 0.005019713785043316
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 248.625,
+          "font_px": 248.64,
+          "difference_percent": 0.006032818532813046
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 249.59375,
+          "font_px": 249.6,
+          "difference_percent": 0.002504006410254133
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 254.96875,
+          "font_px": 254.976,
+          "difference_percent": 0.002843404869477555
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 238.453125,
+          "font_px": 238.464,
+          "difference_percent": 0.004560436795490571
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1621.1875,
+          "font_px": 1621.248,
+          "difference_percent": 0.0037316931154300448
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1451.265625,
+          "font_px": 1451.328,
+          "difference_percent": 0.004297787956959042
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1299.21875,
+          "font_px": 1299.264,
+          "difference_percent": 0.003482740997972415
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1452.046875,
+          "font_px": 1452.096,
+          "difference_percent": 0.003383040790691775
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1274.625,
+          "font_px": 1274.688,
+          "difference_percent": 0.00494238590149918
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1390.609375,
+          "font_px": 1390.656,
+          "difference_percent": 0.003352734249156447
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1579.15625,
+          "font_px": 1579.2,
+          "difference_percent": 0.002770390070924865
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1818.203125,
+          "font_px": 1818.24,
+          "difference_percent": 0.0020280601020772338
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2034.53125,
+          "font_px": 2034.624,
+          "difference_percent": 0.0045585818313370755
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1798.234375,
+          "font_px": 1798.272,
+          "difference_percent": 0.0020922863726919243
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2062.40625,
+          "font_px": 2062.464,
+          "difference_percent": 0.0028000488735775166
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2006.9375,
+          "font_px": 2006.976,
+          "difference_percent": 0.0019183089384284004
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1204.1875,
+          "font_px": 1204.224,
+          "difference_percent": 0.00303099755526652
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1204.1875,
+          "font_px": 1204.224,
+          "difference_percent": 0.00303099755526652
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1752.3125,
+          "font_px": 1752.384,
+          "difference_percent": 0.004080155947555704
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 904.28125,
+          "font_px": 904.32,
+          "difference_percent": 0.00428498761500907
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1424.578125,
+          "font_px": 1424.64,
+          "difference_percent": 0.004343202493268477
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1680.140625,
+          "font_px": 1680.192,
+          "difference_percent": 0.003057686264427356
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 392.421875,
+          "font_px": 392.448,
+          "difference_percent": 0.006656932893014893
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 237.46875,
+          "font_px": 237.504,
+          "difference_percent": 0.01484185529506479
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1736.5625,
+          "font_px": 1736.64,
+          "difference_percent": 0.004462640501203476
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 957.0625,
+          "font_px": 957.12,
+          "difference_percent": 0.0060076061517891745
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1324.546875,
+          "font_px": 1324.608,
+          "difference_percent": 0.004614572764164738
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 536.8125,
+          "font_px": 536.832,
+          "difference_percent": 0.0036324213161647656
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 300.65625,
+          "font_px": 300.672,
+          "difference_percent": 0.005238266283533373
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 445.609375,
+          "font_px": 445.632,
+          "difference_percent": 0.005077059098091027
+        },
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 67.09375,
+          "font_px": 67.104,
+          "difference_percent": 0.015274797329517174
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 58.265625,
+          "font_px": 58.272,
+          "difference_percent": 0.010940074135087977
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 56.578125,
+          "font_px": 56.592,
+          "difference_percent": 0.024517599660727224
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 62.34375,
+          "font_px": 62.352,
+          "difference_percent": 0.013231331793682258
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 66.140625,
+          "font_px": 66.144,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 76.03125,
+          "font_px": 76.032,
+          "difference_percent": 0.0009864267676721326
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 64.03125,
+          "font_px": 64.032,
+          "difference_percent": 0.001171289355316835
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 64.546875,
+          "font_px": 64.56,
+          "difference_percent": 0.020329925650561142
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 64.796875,
+          "font_px": 64.8,
+          "difference_percent": 0.004822530864193145
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 66.140625,
+          "font_px": 66.144,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 62.015625,
+          "font_px": 62.016,
+          "difference_percent": 0.0006046826625358583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 419.671875,
+          "font_px": 419.712,
+          "difference_percent": 0.009560126944187702
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 375.984375,
+          "font_px": 376.032,
+          "difference_percent": 0.012665145519525538
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 335.5625,
+          "font_px": 335.616,
+          "difference_percent": 0.01594083714721153
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 376.1875,
+          "font_px": 376.224,
+          "difference_percent": 0.009701667091942446
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 329.421875,
+          "font_px": 329.472,
+          "difference_percent": 0.015213735916854845
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 359.609375,
+          "font_px": 359.664,
+          "difference_percent": 0.015187786378394075
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 398.34375,
+          "font_px": 398.4,
+          "difference_percent": 0.014118975903608751
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 456.9375,
+          "font_px": 456.96,
+          "difference_percent": 0.004923844537810648
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 513.375,
+          "font_px": 513.456,
+          "difference_percent": 0.015775451061048516
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 451.921875,
+          "font_px": 451.968,
+          "difference_percent": 0.010205368521669174
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 519.1875,
+          "font_px": 519.216,
+          "difference_percent": 0.005489045021726638
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 505.296875,
+          "font_px": 505.344,
+          "difference_percent": 0.0093253308637273
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 311.8125,
+          "font_px": 311.856,
+          "difference_percent": 0.013948745574878964
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 311.8125,
+          "font_px": 311.856,
+          "difference_percent": 0.013948745574878964
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 452.40625,
+          "font_px": 452.496,
+          "difference_percent": 0.019834429475615454
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 234.453125,
+          "font_px": 234.48,
+          "difference_percent": 0.011461531900370935
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 368.125,
+          "font_px": 368.16,
+          "difference_percent": 0.00950673620165825
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 422.40625,
+          "font_px": 422.448,
+          "difference_percent": 0.009882873158348265
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 98.09375,
+          "font_px": 98.112,
+          "difference_percent": 0.018601190476185147
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 59.359375,
+          "font_px": 59.376,
+          "difference_percent": 0.027999528428990953
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 435.296875,
+          "font_px": 435.36,
+          "difference_percent": 0.014499494671079942
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 247.640625,
+          "font_px": 247.68,
+          "difference_percent": 0.015897529069770194
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 341.90625,
+          "font_px": 341.952,
+          "difference_percent": 0.013379070746770945
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 138.984375,
+          "font_px": 139.008,
+          "difference_percent": 0.016995424723763936
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 77.546875,
+          "font_px": 77.568,
+          "difference_percent": 0.027234168729370154
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 114.984375,
+          "font_px": 115.008,
+          "difference_percent": 0.02054204924874406
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 134.203125,
+          "font_px": 134.208,
+          "difference_percent": 0.0036324213161647656
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 116.53125,
+          "font_px": 116.544,
+          "difference_percent": 0.010940074135087977
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 113.171875,
+          "font_px": 113.184,
+          "difference_percent": 0.010712644896802993
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 124.703125,
+          "font_px": 124.704,
+          "difference_percent": 0.0007016615345085322
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 132.28125,
+          "font_px": 132.288,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 152.0625,
+          "font_px": 152.064,
+          "difference_percent": 0.0009864267676721326
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 128.0625,
+          "font_px": 128.064,
+          "difference_percent": 0.001171289355316835
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 129.109375,
+          "font_px": 129.12,
+          "difference_percent": 0.00822877942999113
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 129.59375,
+          "font_px": 129.6,
+          "difference_percent": 0.004822530864193145
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 132.28125,
+          "font_px": 132.288,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 124.03125,
+          "font_px": 124.032,
+          "difference_percent": 0.0006046826625358583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 839.390625,
+          "font_px": 839.424,
+          "difference_percent": 0.003975940645011123
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 752.03125,
+          "font_px": 752.064,
+          "difference_percent": 0.004354682580201223
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 671.1875,
+          "font_px": 671.232,
+          "difference_percent": 0.006629600495800394
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 752.421875,
+          "font_px": 752.448,
+          "difference_percent": 0.0034720007229707677
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 658.90625,
+          "font_px": 658.944,
+          "difference_percent": 0.005728863150732078
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 719.28125,
+          "font_px": 719.328,
+          "difference_percent": 0.006499121402194066
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 796.75,
+          "font_px": 796.8,
+          "difference_percent": 0.006275100401600719
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 913.90625,
+          "font_px": 913.92,
+          "difference_percent": 0.0015045080532168104
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1026.859375,
+          "font_px": 1026.912,
+          "difference_percent": 0.005124587111654607
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 903.90625,
+          "font_px": 903.936,
+          "difference_percent": 0.0032911622061778125
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1038.40625,
+          "font_px": 1038.432,
+          "difference_percent": 0.002479700163324741
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1010.65625,
+          "font_px": 1010.688,
+          "difference_percent": 0.0031414244554192963
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 623.6875,
+          "font_px": 623.712,
+          "difference_percent": 0.003928095018211785
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 623.6875,
+          "font_px": 623.712,
+          "difference_percent": 0.003928095018211785
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 904.921875,
+          "font_px": 904.992,
+          "difference_percent": 0.007748687281209314
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 468.9375,
+          "font_px": 468.96,
+          "difference_percent": 0.004797850562943436
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 736.28125,
+          "font_px": 736.32,
+          "difference_percent": 0.005262657540206706
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 844.859375,
+          "font_px": 844.896,
+          "difference_percent": 0.004334853046997283
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 196.203125,
+          "font_px": 196.224,
+          "difference_percent": 0.010638352087404978
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 118.734375,
+          "font_px": 118.752,
+          "difference_percent": 0.01484185529506479
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 870.671875,
+          "font_px": 870.72,
+          "difference_percent": 0.005527035097393798
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 495.328125,
+          "font_px": 495.36,
+          "difference_percent": 0.006434714147289576
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 683.859375,
+          "font_px": 683.904,
+          "difference_percent": 0.006525038601908508
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 278,
+          "font_px": 278.016,
+          "difference_percent": 0.005755064456728949
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 155.125,
+          "font_px": 155.136,
+          "difference_percent": 0.007090552805277744
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 230,
+          "font_px": 230.016,
+          "difference_percent": 0.0069560378408419984
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 268.40625,
+          "font_px": 268.416,
+          "difference_percent": 0.0036324213161647656
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 233.078125,
+          "font_px": 233.088,
+          "difference_percent": 0.004236597336625593
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 226.359375,
+          "font_px": 226.368,
+          "difference_percent": 0.003810167514840878
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 249.40625,
+          "font_px": 249.408,
+          "difference_percent": 0.0007016615345085322
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 264.5625,
+          "font_px": 264.576,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 304.125,
+          "font_px": 304.128,
+          "difference_percent": 0.0009864267676721326
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 256.125,
+          "font_px": 256.128,
+          "difference_percent": 0.001171289355316835
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 258.234375,
+          "font_px": 258.24,
+          "difference_percent": 0.0021782063197061242
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 259.1875,
+          "font_px": 259.2,
+          "difference_percent": 0.004822530864193145
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 264.5625,
+          "font_px": 264.576,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 248.0625,
+          "font_px": 248.064,
+          "difference_percent": 0.0006046826625358583
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1678.796875,
+          "font_px": 1678.848,
+          "difference_percent": 0.003045242928481694
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1504.078125,
+          "font_px": 1504.128,
+          "difference_percent": 0.0033158747127856845
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1342.40625,
+          "font_px": 1342.464,
+          "difference_percent": 0.00430179133294761
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1504.859375,
+          "font_px": 1504.896,
+          "difference_percent": 0.002433722994808822
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1317.84375,
+          "font_px": 1317.888,
+          "difference_percent": 0.0033576449592013866
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1438.609375,
+          "font_px": 1438.656,
+          "difference_percent": 0.003240872036119063
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1593.546875,
+          "font_px": 1593.6,
+          "difference_percent": 0.0033336470883477067
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1827.8125,
+          "font_px": 1827.84,
+          "difference_percent": 0.0015045080532168104
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2053.734375,
+          "font_px": 2053.824,
+          "difference_percent": 0.0043638111152693275
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1807.828125,
+          "font_px": 1807.872,
+          "difference_percent": 0.002426886416741392
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2076.828125,
+          "font_px": 2076.864,
+          "difference_percent": 0.0017273639487242662
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2021.328125,
+          "font_px": 2021.376,
+          "difference_percent": 0.0023684361543807957
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1247.375,
+          "font_px": 1247.424,
+          "difference_percent": 0.003928095018211785
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1247.375,
+          "font_px": 1247.424,
+          "difference_percent": 0.003928095018211785
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1809.90625,
+          "font_px": 1809.984,
+          "difference_percent": 0.004295618082807561
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 937.890625,
+          "font_px": 937.92,
+          "difference_percent": 0.0031319302285865614
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1472.59375,
+          "font_px": 1472.64,
+          "difference_percent": 0.0031406182094809347
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1689.734375,
+          "font_px": 1689.792,
+          "difference_percent": 0.003410183028438786
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 392.421875,
+          "font_px": 392.448,
+          "difference_percent": 0.006656932893014893
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 237.46875,
+          "font_px": 237.504,
+          "difference_percent": 0.01484185529506479
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1741.359375,
+          "font_px": 1741.44,
+          "difference_percent": 0.004629789140025185
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 990.671875,
+          "font_px": 990.72,
+          "difference_percent": 0.0048575783268761386
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1367.765625,
+          "font_px": 1367.808,
+          "difference_percent": 0.0030980225294772895
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 556,
+          "font_px": 556.032,
+          "difference_percent": 0.005755064456728949
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 310.25,
+          "font_px": 310.272,
+          "difference_percent": 0.007090552805277744
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 460,
+          "font_px": 460.032,
+          "difference_percent": 0.0069560378408419984
+        }
+      ]
+    },
+    "ink": {
+      "policy": "ink",
+      "capital_space_per_1000": 23,
+      "measurements": 222,
+      "max_difference_percent": 0.06467415235578633,
+      "title_pairs_per_1000": {
+        "LA": -50.0,
+        "LY": -255.0,
+        "LT": -272.0,
+        "TA": -101.0,
+        "AV": -107.0,
+        "AW": -79.0,
+        "AY": -151.0,
+        "PA": -83.0,
+        "FA": -115.0,
+        "VA": -73.0,
+        "RT": -111.0
+      },
+      "widths": [
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 59.21875,
+          "font_px": 59.232,
+          "difference_percent": 0.022369665045919973
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 47.65625,
+          "font_px": 47.664,
+          "difference_percent": 0.016259650889563354
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 46.359375,
+          "font_px": 46.368,
+          "difference_percent": 0.018601190476195014
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 56.578125,
+          "font_px": 56.592,
+          "difference_percent": 0.024517599660727224
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 57.640625,
+          "font_px": 57.648,
+          "difference_percent": 0.01279315847905086
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 68.78125,
+          "font_px": 68.784,
+          "difference_percent": 0.0039980227960078295
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 54.671875,
+          "font_px": 54.672,
+          "difference_percent": 0.00022863623060624113
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 58.546875,
+          "font_px": 58.56,
+          "difference_percent": 0.022412909836069455
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 58.9375,
+          "font_px": 58.944,
+          "difference_percent": 0.011027415852338854
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 59.265625,
+          "font_px": 59.28,
+          "difference_percent": 0.02424932523616926
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 55.859375,
+          "font_px": 55.872,
+          "difference_percent": 0.022596291523482043
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 375.1875,
+          "font_px": 375.24,
+          "difference_percent": 0.013991045730734755
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 334.515625,
+          "font_px": 334.56,
+          "difference_percent": 0.013263689622191018
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 299.765625,
+          "font_px": 299.808,
+          "difference_percent": 0.014134045789302729
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 336.140625,
+          "font_px": 336.192,
+          "difference_percent": 0.015281446316392798
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 294.78125,
+          "font_px": 294.816,
+          "difference_percent": 0.011787012916522198
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 318.40625,
+          "font_px": 318.432,
+          "difference_percent": 0.008086498844342392
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 359.078125,
+          "font_px": 359.112,
+          "difference_percent": 0.009432990264882039
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 416.671875,
+          "font_px": 416.688,
+          "difference_percent": 0.0038698018661416163
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 470.4375,
+          "font_px": 470.52,
+          "difference_percent": 0.01753379239989412
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 416.140625,
+          "font_px": 416.184,
+          "difference_percent": 0.010422072929287507
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 477.265625,
+          "font_px": 477.312,
+          "difference_percent": 0.009715867189597542
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 462.1875,
+          "font_px": 462.24,
+          "difference_percent": 0.011357736240915777
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 275.703125,
+          "font_px": 275.76,
+          "difference_percent": 0.02062481868290938
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 275.703125,
+          "font_px": 275.76,
+          "difference_percent": 0.02062481868290938
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 409.515625,
+          "font_px": 409.56,
+          "difference_percent": 0.010834798320149008
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 210.15625,
+          "font_px": 210.192,
+          "difference_percent": 0.017008259115478836
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 331.71875,
+          "font_px": 331.752,
+          "difference_percent": 0.010022546962794362
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 385.90625,
+          "font_px": 385.944,
+          "difference_percent": 0.009781211782024547
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 91.734375,
+          "font_px": 91.752,
+          "difference_percent": 0.01920939053099152
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 54.46875,
+          "font_px": 54.504,
+          "difference_percent": 0.06467415235578633
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 396.5625,
+          "font_px": 396.624,
+          "difference_percent": 0.015505869538914347
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 215.28125,
+          "font_px": 215.328,
+          "difference_percent": 0.021711064051123382
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 305.828125,
+          "font_px": 305.856,
+          "difference_percent": 0.009113765955218974
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 124.234375,
+          "font_px": 124.272,
+          "difference_percent": 0.030276329342092803
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 68.515625,
+          "font_px": 68.544,
+          "difference_percent": 0.041396767040144916
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 102.109375,
+          "font_px": 102.144,
+          "difference_percent": 0.033898222117799824
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 118.453125,
+          "font_px": 118.464,
+          "difference_percent": 0.009180004051862707
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 95.3125,
+          "font_px": 95.328,
+          "difference_percent": 0.016259650889563354
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 92.734375,
+          "font_px": 92.736,
+          "difference_percent": 0.0017522860593558126
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 113.171875,
+          "font_px": 113.184,
+          "difference_percent": 0.010712644896802993
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 115.28125,
+          "font_px": 115.296,
+          "difference_percent": 0.01279315847905086
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 137.5625,
+          "font_px": 137.568,
+          "difference_percent": 0.0039980227960078295
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 109.34375,
+          "font_px": 109.344,
+          "difference_percent": 0.00022863623060624113
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 117.109375,
+          "font_px": 117.12,
+          "difference_percent": 0.009071892076506615
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 117.875,
+          "font_px": 117.888,
+          "difference_percent": 0.011027415852338854
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 118.546875,
+          "font_px": 118.56,
+          "difference_percent": 0.011070344129556573
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 111.734375,
+          "font_px": 111.744,
+          "difference_percent": 0.00861343785796085
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 750.453125,
+          "font_px": 750.48,
+          "difference_percent": 0.0035810414667970083
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 669.09375,
+          "font_px": 669.12,
+          "difference_percent": 0.00392306312769078
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 599.59375,
+          "font_px": 599.616,
+          "difference_percent": 0.003710708186570313
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 672.359375,
+          "font_px": 672.384,
+          "difference_percent": 0.00366234175709335
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 589.609375,
+          "font_px": 589.632,
+          "difference_percent": 0.003837139096919462
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 636.84375,
+          "font_px": 636.864,
+          "difference_percent": 0.003179642749477556
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 718.203125,
+          "font_px": 718.224,
+          "difference_percent": 0.0029064748602172
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 833.359375,
+          "font_px": 833.376,
+          "difference_percent": 0.0019948978612266675
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 941,
+          "font_px": 941.04,
+          "difference_percent": 0.004250616339365343
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 832.34375,
+          "font_px": 832.368,
+          "difference_percent": 0.0029133748534364416
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 954.59375,
+          "font_px": 954.624,
+          "difference_percent": 0.003168786873158819
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 924.453125,
+          "font_px": 924.48,
+          "difference_percent": 0.0029070396330930022
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 551.484375,
+          "font_px": 551.52,
+          "difference_percent": 0.006459421235853969
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 551.484375,
+          "font_px": 551.52,
+          "difference_percent": 0.006459421235853969
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 819.09375,
+          "font_px": 819.12,
+          "difference_percent": 0.0032046586580726324
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 420.359375,
+          "font_px": 420.384,
+          "difference_percent": 0.005857739590473127
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 663.46875,
+          "font_px": 663.504,
+          "difference_percent": 0.005312703465241973
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 771.859375,
+          "font_px": 771.888,
+          "difference_percent": 0.003708439566366319
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 183.484375,
+          "font_px": 183.504,
+          "difference_percent": 0.010694589763705794
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 108.984375,
+          "font_px": 109.008,
+          "difference_percent": 0.021672721268159736
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 793.21875,
+          "font_px": 793.248,
+          "difference_percent": 0.003687371414746371
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 430.609375,
+          "font_px": 430.656,
+          "difference_percent": 0.010826506538863016
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 611.6875,
+          "font_px": 611.712,
+          "difference_percent": 0.0040051527516198945
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 248.515625,
+          "font_px": 248.544,
+          "difference_percent": 0.011416489635642438
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 137.0625,
+          "font_px": 137.088,
+          "difference_percent": 0.018601190476186
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 204.265625,
+          "font_px": 204.288,
+          "difference_percent": 0.010952674655393813
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 236.921875,
+          "font_px": 236.928,
+          "difference_percent": 0.0025851735548340724
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 190.640625,
+          "font_px": 190.656,
+          "difference_percent": 0.008064262336357582
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 185.46875,
+          "font_px": 185.472,
+          "difference_percent": 0.0017522860593558126
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 226.359375,
+          "font_px": 226.368,
+          "difference_percent": 0.003810167514840878
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 230.578125,
+          "font_px": 230.592,
+          "difference_percent": 0.006017121149048085
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 275.125,
+          "font_px": 275.136,
+          "difference_percent": 0.0039980227960078295
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 218.6875,
+          "font_px": 218.688,
+          "difference_percent": 0.00022863623060624113
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 234.234375,
+          "font_px": 234.24,
+          "difference_percent": 0.0024013831967251943
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 235.765625,
+          "font_px": 235.776,
+          "difference_percent": 0.004400363056464805
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 237.109375,
+          "font_px": 237.12,
+          "difference_percent": 0.0044808535762502315
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 223.484375,
+          "font_px": 223.488,
+          "difference_percent": 0.0016220110252002547
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1500.9375,
+          "font_px": 1500.96,
+          "difference_percent": 0.0014990406140094593
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1338.203125,
+          "font_px": 1338.24,
+          "difference_percent": 0.0027554848158782503
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1199.1875,
+          "font_px": 1199.232,
+          "difference_percent": 0.003710708186570313
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1344.734375,
+          "font_px": 1344.768,
+          "difference_percent": 0.0025004313011634054
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1179.234375,
+          "font_px": 1179.264,
+          "difference_percent": 0.0025121601269856722
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1273.703125,
+          "font_px": 1273.728,
+          "difference_percent": 0.0019529287257613465
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1436.40625,
+          "font_px": 1436.448,
+          "difference_percent": 0.0029064748602172
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1666.734375,
+          "font_px": 1666.752,
+          "difference_percent": 0.0010574458587691933
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1882.03125,
+          "font_px": 1882.08,
+          "difference_percent": 0.0025902193317992456
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1664.703125,
+          "font_px": 1664.736,
+          "difference_percent": 0.0019747875939550583
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1909.234375,
+          "font_px": 1909.248,
+          "difference_percent": 0.0007136317544942979
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1848.921875,
+          "font_px": 1848.96,
+          "difference_percent": 0.002061969972310725
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1103,
+          "font_px": 1103.04,
+          "difference_percent": 0.003626341746442887
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1103,
+          "font_px": 1103.04,
+          "difference_percent": 0.003626341746442887
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1638.1875,
+          "font_px": 1638.24,
+          "difference_percent": 0.0032046586580726324
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 840.75,
+          "font_px": 840.768,
+          "difference_percent": 0.002140899748804558
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1326.96875,
+          "font_px": 1327.008,
+          "difference_percent": 0.0029577817164657782
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1543.734375,
+          "font_px": 1543.776,
+          "difference_percent": 0.0026963108637566135
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 367,
+          "font_px": 367.008,
+          "difference_percent": 0.002179788996420066
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 217.984375,
+          "font_px": 218.016,
+          "difference_percent": 0.014505816086888638
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1586.453125,
+          "font_px": 1586.496,
+          "difference_percent": 0.0027024965710657064
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 861.265625,
+          "font_px": 861.312,
+          "difference_percent": 0.0053842277827328335
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1223.390625,
+          "font_px": 1223.424,
+          "difference_percent": 0.002727999450720124
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 497.0625,
+          "font_px": 497.088,
+          "difference_percent": 0.005129876400158982
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 274.140625,
+          "font_px": 274.176,
+          "difference_percent": 0.012902296335196269
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 408.546875,
+          "font_px": 408.576,
+          "difference_percent": 0.007128416744992812
+        },
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 61.4375,
+          "font_px": 61.44,
+          "difference_percent": 0.004069010416662966
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 49.859375,
+          "font_px": 49.872,
+          "difference_percent": 0.025314805903111737
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 48.5625,
+          "font_px": 48.576,
+          "difference_percent": 0.02779150197628564
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 58.796875,
+          "font_px": 58.8,
+          "difference_percent": 0.005314625850335303
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 59.84375,
+          "font_px": 59.856,
+          "difference_percent": 0.020465784549588424
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 70.984375,
+          "font_px": 70.992,
+          "difference_percent": 0.010740646833452267
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 56.875,
+          "font_px": 56.88,
+          "difference_percent": 0.008790436005630377
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 60.765625,
+          "font_px": 60.768,
+          "difference_percent": 0.003908307003687273
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 61.140625,
+          "font_px": 61.152,
+          "difference_percent": 0.018601190476192152
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 61.484375,
+          "font_px": 61.488,
+          "difference_percent": 0.005895459276606078
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 58.078125,
+          "font_px": 58.08,
+          "difference_percent": 0.003228305785121031
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 388.453125,
+          "font_px": 388.488,
+          "difference_percent": 0.00897711126212381
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 346.671875,
+          "font_px": 346.704,
+          "difference_percent": 0.009265829064564508
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 309.703125,
+          "font_px": 309.744,
+          "difference_percent": 0.013196381527980588
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 348.296875,
+          "font_px": 348.336,
+          "difference_percent": 0.011231971429887445
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 304.703125,
+          "font_px": 304.752,
+          "difference_percent": 0.01603763059799757
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 329.421875,
+          "font_px": 329.472,
+          "difference_percent": 0.015213735916854845
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 362.375,
+          "font_px": 362.424,
+          "difference_percent": 0.013520075933155136
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 418.875,
+          "font_px": 418.896,
+          "difference_percent": 0.005013177495133639
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 474.859375,
+          "font_px": 474.936,
+          "difference_percent": 0.016133752758261878
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 418.359375,
+          "font_px": 418.392,
+          "difference_percent": 0.007797711237307574
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 480.578125,
+          "font_px": 480.624,
+          "difference_percent": 0.009544883318357728
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 465.515625,
+          "font_px": 465.552,
+          "difference_percent": 0.00781330549541639
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 285.65625,
+          "font_px": 285.696,
+          "difference_percent": 0.013913390456998478
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 285.65625,
+          "font_px": 285.696,
+          "difference_percent": 0.013913390456998478
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 422.75,
+          "font_px": 422.808,
+          "difference_percent": 0.013717810448239562
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 217.90625,
+          "font_px": 217.92,
+          "difference_percent": 0.006309654919230679
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 342.75,
+          "font_px": 342.792,
+          "difference_percent": 0.012252327942301213
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 388.09375,
+          "font_px": 388.152,
+          "difference_percent": 0.015007007564043676
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 91.734375,
+          "font_px": 91.752,
+          "difference_percent": 0.01920939053099152
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 54.46875,
+          "font_px": 54.504,
+          "difference_percent": 0.06467415235578633
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 397.671875,
+          "font_px": 397.728,
+          "difference_percent": 0.014111402767722825
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 223.015625,
+          "font_px": 223.056,
+          "difference_percent": 0.01810083566459167
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 315.75,
+          "font_px": 315.792,
+          "difference_percent": 0.013299893600842699
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 128.671875,
+          "font_px": 128.688,
+          "difference_percent": 0.012530305856014686
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 70.734375,
+          "font_px": 70.752,
+          "difference_percent": 0.024910956580726114
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 105.4375,
+          "font_px": 105.456,
+          "difference_percent": 0.01754286147777563
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 122.875,
+          "font_px": 122.88,
+          "difference_percent": 0.004069010416662966
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 99.734375,
+          "font_px": 99.744,
+          "difference_percent": 0.009649703240294929
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 97.140625,
+          "font_px": 97.152,
+          "difference_percent": 0.011708456851120949
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 117.59375,
+          "font_px": 117.6,
+          "difference_percent": 0.005314625850335303
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 119.703125,
+          "font_px": 119.712,
+          "difference_percent": 0.007413626035822053
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 141.96875,
+          "font_px": 141.984,
+          "difference_percent": 0.010740646833452267
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 113.75,
+          "font_px": 113.76,
+          "difference_percent": 0.008790436005630377
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 121.53125,
+          "font_px": 121.536,
+          "difference_percent": 0.003908307003687273
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 122.296875,
+          "font_px": 122.304,
+          "difference_percent": 0.005825647566720668
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 122.96875,
+          "font_px": 122.976,
+          "difference_percent": 0.005895459276606078
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 116.15625,
+          "font_px": 116.16,
+          "difference_percent": 0.003228305785121031
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 776.953125,
+          "font_px": 776.976,
+          "difference_percent": 0.0029441063816641817
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 693.390625,
+          "font_px": 693.408,
+          "difference_percent": 0.0025057397664889156
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 619.453125,
+          "font_px": 619.488,
+          "difference_percent": 0.005629649000474002
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 696.640625,
+          "font_px": 696.672,
+          "difference_percent": 0.004503554039781341
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 609.46875,
+          "font_px": 609.504,
+          "difference_percent": 0.005783391085213403
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 658.90625,
+          "font_px": 658.944,
+          "difference_percent": 0.005728863150732078
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 724.8125,
+          "font_px": 724.848,
+          "difference_percent": 0.004897578526802357
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 837.78125,
+          "font_px": 837.792,
+          "difference_percent": 0.0012831347160190134
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 949.8125,
+          "font_px": 949.872,
+          "difference_percent": 0.006264001886565481
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 836.765625,
+          "font_px": 836.784,
+          "difference_percent": 0.0021959071875169477
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 961.203125,
+          "font_px": 961.248,
+          "difference_percent": 0.004668410233368214
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 931.078125,
+          "font_px": 931.104,
+          "difference_percent": 0.002778959171053055
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 571.359375,
+          "font_px": 571.392,
+          "difference_percent": 0.005709740423396328
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 571.359375,
+          "font_px": 571.392,
+          "difference_percent": 0.005709740423396328
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 845.578125,
+          "font_px": 845.616,
+          "difference_percent": 0.00447898336833568
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 435.828125,
+          "font_px": 435.84,
+          "difference_percent": 0.0027246237151190783
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 685.5625,
+          "font_px": 685.584,
+          "difference_percent": 0.003136012509035558
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 776.265625,
+          "font_px": 776.304,
+          "difference_percent": 0.004943295410042152
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 183.484375,
+          "font_px": 183.504,
+          "difference_percent": 0.010694589763705794
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 108.984375,
+          "font_px": 109.008,
+          "difference_percent": 0.021672721268159736
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 795.4375,
+          "font_px": 795.456,
+          "difference_percent": 0.0023257100329895407
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 446.078125,
+          "font_px": 446.112,
+          "difference_percent": 0.0075933846209075735
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 631.546875,
+          "font_px": 631.584,
+          "difference_percent": 0.005878077975367701
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 257.359375,
+          "font_px": 257.376,
+          "difference_percent": 0.0064594212358480806
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 141.484375,
+          "font_px": 141.504,
+          "difference_percent": 0.013868865897777222
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 210.890625,
+          "font_px": 210.912,
+          "difference_percent": 0.01013455848885134
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 245.75,
+          "font_px": 245.76,
+          "difference_percent": 0.004069010416662966
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 199.484375,
+          "font_px": 199.488,
+          "difference_percent": 0.001817151908886522
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 194.296875,
+          "font_px": 194.304,
+          "difference_percent": 0.0036669342885386025
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 235.1875,
+          "font_px": 235.2,
+          "difference_percent": 0.005314625850335303
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 239.421875,
+          "font_px": 239.424,
+          "difference_percent": 0.0008875467789388674
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 283.953125,
+          "font_px": 283.968,
+          "difference_percent": 0.005238266283531149
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 227.515625,
+          "font_px": 227.52,
+          "difference_percent": 0.0019229078762351582
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 243.0625,
+          "font_px": 243.072,
+          "difference_percent": 0.003908307003687273
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 244.59375,
+          "font_px": 244.608,
+          "difference_percent": 0.005825647566720668
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 245.9375,
+          "font_px": 245.952,
+          "difference_percent": 0.005895459276606078
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 232.3125,
+          "font_px": 232.32,
+          "difference_percent": 0.003228305785121031
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1553.921875,
+          "font_px": 1553.952,
+          "difference_percent": 0.0019386055682542433
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1386.78125,
+          "font_px": 1386.816,
+          "difference_percent": 0.0025057397664889156
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1238.953125,
+          "font_px": 1238.976,
+          "difference_percent": 0.001846282736720709
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1393.3125,
+          "font_px": 1393.344,
+          "difference_percent": 0.002260748243079306
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1218.96875,
+          "font_px": 1219.008,
+          "difference_percent": 0.0032198312070173614
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1317.84375,
+          "font_px": 1317.888,
+          "difference_percent": 0.0033576449592013866
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1449.65625,
+          "font_px": 1449.696,
+          "difference_percent": 0.0027419541752141613
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1675.5625,
+          "font_px": 1675.584,
+          "difference_percent": 0.0012831347160190134
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1899.6875,
+          "font_px": 1899.744,
+          "difference_percent": 0.0029740849293333474
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1673.53125,
+          "font_px": 1673.568,
+          "difference_percent": 0.0021959071875169477
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1922.453125,
+          "font_px": 1922.496,
+          "difference_percent": 0.0022301736908734576
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1862.171875,
+          "font_px": 1862.208,
+          "difference_percent": 0.0019399014503258321
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1142.75,
+          "font_px": 1142.784,
+          "difference_percent": 0.0029751904121956114
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1142.75,
+          "font_px": 1142.784,
+          "difference_percent": 0.0029751904121956114
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1691.171875,
+          "font_px": 1691.232,
+          "difference_percent": 0.0035551006603452926
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 871.65625,
+          "font_px": 871.68,
+          "difference_percent": 0.0027246237151190783
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1371.125,
+          "font_px": 1371.168,
+          "difference_percent": 0.003136012509035558
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1552.5625,
+          "font_px": 1552.608,
+          "difference_percent": 0.002930552979241847
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 367,
+          "font_px": 367.008,
+          "difference_percent": 0.002179788996420066
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 217.984375,
+          "font_px": 218.016,
+          "difference_percent": 0.014505816086888638
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1590.875,
+          "font_px": 1590.912,
+          "difference_percent": 0.0023257100329895407
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 892.203125,
+          "font_px": 892.224,
+          "difference_percent": 0.002339659099065524
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1263.125,
+          "font_px": 1263.168,
+          "difference_percent": 0.0034041394335427026
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 514.71875,
+          "font_px": 514.752,
+          "difference_percent": 0.0064594212358480806
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 282.984375,
+          "font_px": 283.008,
+          "difference_percent": 0.008347820556302774
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 421.796875,
+          "font_px": 421.824,
+          "difference_percent": 0.006430406994389195
+        }
+      ]
+    },
+    "wide": {
+      "policy": "wide",
+      "capital_space_per_1000": 31,
+      "measurements": 222,
+      "max_difference_percent": 0.03330698055751061,
+      "title_pairs_per_1000": {
+        "LA": -111.0,
+        "LY": -320.0,
+        "LT": -320.0,
+        "TA": -319.0,
+        "AV": -214.0,
+        "AW": -150.0,
+        "AY": -267.0,
+        "PA": -208.0,
+        "FA": -320.0,
+        "VA": -214.0,
+        "RT": -217.0
+      },
+      "widths": [
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 79.34375,
+          "font_px": 79.344,
+          "difference_percent": 0.0003150836862196112
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 66.609375,
+          "font_px": 66.624,
+          "difference_percent": 0.0219515489913473
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 66.140625,
+          "font_px": 66.144,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 71.078125,
+          "font_px": 71.088,
+          "difference_percent": 0.013891233400846643
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 77.9375,
+          "font_px": 77.952,
+          "difference_percent": 0.018601190476188145
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 85.046875,
+          "font_px": 85.056,
+          "difference_percent": 0.010728226109853961
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 74.0625,
+          "font_px": 74.064,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 75.828125,
+          "font_px": 75.84,
+          "difference_percent": 0.01565796413502559
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 73.578125,
+          "font_px": 73.584,
+          "difference_percent": 0.00798407262448791
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 77.9375,
+          "font_px": 77.952,
+          "difference_percent": 0.018601190476188145
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 73.578125,
+          "font_px": 73.584,
+          "difference_percent": 0.00798407262448791
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 490.75,
+          "font_px": 490.776,
+          "difference_percent": 0.005297732570461974
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 437.015625,
+          "font_px": 437.04,
+          "difference_percent": 0.005577292696325385
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 384.3125,
+          "font_px": 384.336,
+          "difference_percent": 0.006114441530330942
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 438.984375,
+          "font_px": 439.008,
+          "difference_percent": 0.0053814509074963
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 379.265625,
+          "font_px": 379.296,
+          "difference_percent": 0.008008257403187028
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 416.046875,
+          "font_px": 416.064,
+          "difference_percent": 0.004115953314879772
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 470.140625,
+          "font_px": 470.16,
+          "difference_percent": 0.0041209375531787076
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 522.5,
+          "font_px": 522.504,
+          "difference_percent": 0.0007655443786112832
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 590.1875,
+          "font_px": 590.232,
+          "difference_percent": 0.0075394082326900105
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 533.734375,
+          "font_px": 533.76,
+          "difference_percent": 0.004800846822540263
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 615.90625,
+          "font_px": 615.936,
+          "difference_percent": 0.0048300472776449934
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 580.390625,
+          "font_px": 580.416,
+          "difference_percent": 0.00437186431801564
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 362.4375,
+          "font_px": 362.448,
+          "difference_percent": 0.00289696728909501
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 362.4375,
+          "font_px": 362.448,
+          "difference_percent": 0.00289696728909501
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 518.625,
+          "font_px": 518.664,
+          "difference_percent": 0.007519318865390169
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 275.21875,
+          "font_px": 275.232,
+          "difference_percent": 0.004814120451120414
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 429.84375,
+          "font_px": 429.864,
+          "difference_percent": 0.004710792250566667
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 485.71875,
+          "font_px": 485.736,
+          "difference_percent": 0.0035513118237046454
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 111.484375,
+          "font_px": 111.504,
+          "difference_percent": 0.017600265461333125
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 68.28125,
+          "font_px": 68.304,
+          "difference_percent": 0.03330698055751061
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 508.25,
+          "font_px": 508.272,
+          "difference_percent": 0.004328391097678282
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 293.5,
+          "font_px": 293.52,
+          "difference_percent": 0.006813845734526373
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 394.625,
+          "font_px": 394.656,
+          "difference_percent": 0.007854942025461645
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 163.03125,
+          "font_px": 163.056,
+          "difference_percent": 0.01517883426553552
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 93.96875,
+          "font_px": 93.984,
+          "difference_percent": 0.016226166155935754
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": false,
+          "lab_px": 138.078125,
+          "font_px": 138.096,
+          "difference_percent": 0.01294389410265586
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 158.6875,
+          "font_px": 158.688,
+          "difference_percent": 0.0003150836862196112
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 133.234375,
+          "font_px": 133.248,
+          "difference_percent": 0.010225294188273334
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 132.28125,
+          "font_px": 132.288,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 142.171875,
+          "font_px": 142.176,
+          "difference_percent": 0.0029013335583978465
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 155.890625,
+          "font_px": 155.904,
+          "difference_percent": 0.008578997331688964
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 170.109375,
+          "font_px": 170.112,
+          "difference_percent": 0.00154310101579828
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 148.125,
+          "font_px": 148.128,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 151.671875,
+          "font_px": 151.68,
+          "difference_percent": 0.005356671940932767
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 147.15625,
+          "font_px": 147.168,
+          "difference_percent": 0.00798407262448791
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 155.890625,
+          "font_px": 155.904,
+          "difference_percent": 0.008578997331688964
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 147.15625,
+          "font_px": 147.168,
+          "difference_percent": 0.00798407262448791
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 981.53125,
+          "font_px": 981.552,
+          "difference_percent": 0.002113999054560626
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 874.046875,
+          "font_px": 874.08,
+          "difference_percent": 0.0037896988834020826
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 768.640625,
+          "font_px": 768.672,
+          "difference_percent": 0.004081714957748619
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 877.984375,
+          "font_px": 878.016,
+          "difference_percent": 0.0036018705809418867
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 758.5625,
+          "font_px": 758.592,
+          "difference_percent": 0.003888783430353146
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 832.109375,
+          "font_px": 832.128,
+          "difference_percent": 0.0022382373865610515
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 940.296875,
+          "font_px": 940.32,
+          "difference_percent": 0.0024592691849636317
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1045,
+          "font_px": 1045.008,
+          "difference_percent": 0.0007655443786112832
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1180.421875,
+          "font_px": 1180.464,
+          "difference_percent": 0.0035685120427172527
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1067.484375,
+          "font_px": 1067.52,
+          "difference_percent": 0.003337174010789663
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1231.84375,
+          "font_px": 1231.872,
+          "difference_percent": 0.002293257741069765
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1160.8125,
+          "font_px": 1160.832,
+          "difference_percent": 0.0016798296394402738
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 724.875,
+          "font_px": 724.896,
+          "difference_percent": 0.00289696728909501
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 724.875,
+          "font_px": 724.896,
+          "difference_percent": 0.00289696728909501
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1037.296875,
+          "font_px": 1037.328,
+          "difference_percent": 0.003000497431860948
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 550.453125,
+          "font_px": 550.464,
+          "difference_percent": 0.00197560603419215
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 859.6875,
+          "font_px": 859.728,
+          "difference_percent": 0.004710792250566667
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 971.453125,
+          "font_px": 971.472,
+          "difference_percent": 0.0019429278455766088
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 222.984375,
+          "font_px": 223.008,
+          "difference_percent": 0.010593790357300983
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 136.578125,
+          "font_px": 136.608,
+          "difference_percent": 0.02186914382759728
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 1016.515625,
+          "font_px": 1016.544,
+          "difference_percent": 0.0027913203953771524
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 587.015625,
+          "font_px": 587.04,
+          "difference_percent": 0.004152187244474588
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 789.28125,
+          "font_px": 789.312,
+          "difference_percent": 0.0038957978594031033
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 326.09375,
+          "font_px": 326.112,
+          "difference_percent": 0.005596236875681726
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 187.953125,
+          "font_px": 187.968,
+          "difference_percent": 0.007913581035064114
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": false,
+          "lab_px": 276.171875,
+          "font_px": 276.192,
+          "difference_percent": 0.0072865977291186115
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 317.375,
+          "font_px": 317.376,
+          "difference_percent": 0.0003150836862196112
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 266.484375,
+          "font_px": 266.496,
+          "difference_percent": 0.0043621667867363495
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 264.5625,
+          "font_px": 264.576,
+          "difference_percent": 0.005102503628455274
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 284.34375,
+          "font_px": 284.352,
+          "difference_percent": 0.0029013335583978465
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 311.796875,
+          "font_px": 311.808,
+          "difference_percent": 0.0035679007594393744
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 340.21875,
+          "font_px": 340.224,
+          "difference_percent": 0.00154310101579828
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 296.25,
+          "font_px": 296.256,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 303.359375,
+          "font_px": 303.36,
+          "difference_percent": 0.00020602584388635363
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 294.328125,
+          "font_px": 294.336,
+          "difference_percent": 0.002675513698634463
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 311.796875,
+          "font_px": 311.808,
+          "difference_percent": 0.0035679007594393744
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 294.328125,
+          "font_px": 294.336,
+          "difference_percent": 0.002675513698634463
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1963.078125,
+          "font_px": 1963.104,
+          "difference_percent": 0.001318065675585289
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1748.140625,
+          "font_px": 1748.16,
+          "difference_percent": 0.0011083081640171296
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1537.3125,
+          "font_px": 1537.344,
+          "difference_percent": 0.0020489883851662954
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1756.015625,
+          "font_px": 1756.032,
+          "difference_percent": 0.0009325000911102658
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1517.15625,
+          "font_px": 1517.184,
+          "difference_percent": 0.0018290464439362053
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1664.234375,
+          "font_px": 1664.256,
+          "difference_percent": 0.0012993794224016911
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1880.609375,
+          "font_px": 1880.64,
+          "difference_percent": 0.0016284350008560938
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2090,
+          "font_px": 2090.016,
+          "difference_percent": 0.0007655443786112832
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2360.875,
+          "font_px": 2360.928,
+          "difference_percent": 0.0022448799793930007
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2135.015625,
+          "font_px": 2135.04,
+          "difference_percent": 0.0011416647931637638
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2463.703125,
+          "font_px": 2463.744,
+          "difference_percent": 0.0016590603569259584
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2321.640625,
+          "font_px": 2321.664,
+          "difference_percent": 0.001006820969796432
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1449.765625,
+          "font_px": 1449.792,
+          "difference_percent": 0.0018192264821378743
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1449.765625,
+          "font_px": 1449.792,
+          "difference_percent": 0.0018192264821378743
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2074.625,
+          "font_px": 2074.656,
+          "difference_percent": 0.001494223620684541
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1100.90625,
+          "font_px": 1100.928,
+          "difference_percent": 0.00197560603419215
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1719.421875,
+          "font_px": 1719.456,
+          "difference_percent": 0.001984639327781787
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1942.921875,
+          "font_px": 1942.944,
+          "difference_percent": 0.0011387358565125903
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 446,
+          "font_px": 446.016,
+          "difference_percent": 0.003587315253268841
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 273.1875,
+          "font_px": 273.216,
+          "difference_percent": 0.010431307097683952
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 2033.046875,
+          "font_px": 2033.088,
+          "difference_percent": 0.0020227850442265873
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1174.046875,
+          "font_px": 1174.08,
+          "difference_percent": 0.0028213579994486953
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 1578.59375,
+          "font_px": 1578.624,
+          "difference_percent": 0.0019162257763738323
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 652.203125,
+          "font_px": 652.224,
+          "difference_percent": 0.003200587528218278
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 375.90625,
+          "font_px": 375.936,
+          "difference_percent": 0.007913581035064114
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": false,
+          "lab_px": 552.359375,
+          "font_px": 552.384,
+          "difference_percent": 0.004457949542349987
+        },
+        {
+          "text": "LA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 82.3125,
+          "font_px": 82.32,
+          "difference_percent": 0.009110787172003377
+        },
+        {
+          "text": "LY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 69.59375,
+          "font_px": 69.6,
+          "difference_percent": 0.008979885057463097
+        },
+        {
+          "text": "LT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 69.109375,
+          "font_px": 69.12,
+          "difference_percent": 0.01537181712963621
+        },
+        {
+          "text": "TA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 74.0625,
+          "font_px": 74.064,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "AV",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 80.921875,
+          "font_px": 80.928,
+          "difference_percent": 0.007568455911424071
+        },
+        {
+          "text": "AW",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 88.03125,
+          "font_px": 88.032,
+          "difference_percent": 0.0008519629225696063
+        },
+        {
+          "text": "AY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 77.03125,
+          "font_px": 77.04,
+          "difference_percent": 0.011357736240921927
+        },
+        {
+          "text": "PA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 78.8125,
+          "font_px": 78.816,
+          "difference_percent": 0.0044407226959024835
+        },
+        {
+          "text": "FA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 76.546875,
+          "font_px": 76.56,
+          "difference_percent": 0.017143416927902656
+        },
+        {
+          "text": "VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 80.921875,
+          "font_px": 80.928,
+          "difference_percent": 0.007568455911424071
+        },
+        {
+          "text": "RT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 76.546875,
+          "font_px": 76.56,
+          "difference_percent": 0.017143416927902656
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 508.59375,
+          "font_px": 508.632,
+          "difference_percent": 0.00752017175482569
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 453.375,
+          "font_px": 453.408,
+          "difference_percent": 0.00727821300021514
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 397.703125,
+          "font_px": 397.728,
+          "difference_percent": 0.0062542742779006354
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 455.34375,
+          "font_px": 455.376,
+          "difference_percent": 0.007082059660582981
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 392.671875,
+          "font_px": 392.688,
+          "difference_percent": 0.004106313409115679
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 430.921875,
+          "font_px": 430.944,
+          "difference_percent": 0.0051340777456042605
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 474.59375,
+          "font_px": 474.624,
+          "difference_percent": 0.0063734661542660396
+        },
+        {
+          "text": "Office Reflection",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 525.46875,
+          "font_px": 525.48,
+          "difference_percent": 0.002140899748804558
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 596.125,
+          "font_px": 596.184,
+          "difference_percent": 0.009896273633638118
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 536.71875,
+          "font_px": 536.736,
+          "difference_percent": 0.0032138705061687672
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 620.375,
+          "font_px": 620.4,
+          "difference_percent": 0.00402965828497377
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 584.859375,
+          "font_px": 584.88,
+          "difference_percent": 0.003526364382436646
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 375.8125,
+          "font_px": 375.84,
+          "difference_percent": 0.007316943380155116
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 375.8125,
+          "font_px": 375.84,
+          "difference_percent": 0.007316943380155116
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 536.5,
+          "font_px": 536.52,
+          "difference_percent": 0.0037277268321743474
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 285.640625,
+          "font_px": 285.648,
+          "difference_percent": 0.0025818489889740366
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 444.71875,
+          "font_px": 444.744,
+          "difference_percent": 0.005677423416623539
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 488.703125,
+          "font_px": 488.712,
+          "difference_percent": 0.00181599797017243
+        },
+        {
+          "text": "fí fl̋",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 111.484375,
+          "font_px": 111.504,
+          "difference_percent": 0.017600265461333125
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 68.28125,
+          "font_px": 68.304,
+          "difference_percent": 0.03330698055751061
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 509.734375,
+          "font_px": 509.76,
+          "difference_percent": 0.00502687539233971
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 303.90625,
+          "font_px": 303.936,
+          "difference_percent": 0.009788244893654792
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 408.03125,
+          "font_px": 408.048,
+          "difference_percent": 0.0041049092263659714
+        },
+        {
+          "text": "LA VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 168.984375,
+          "font_px": 169.008,
+          "difference_percent": 0.013978628230622086
+        },
+        {
+          "text": "A V",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 96.9375,
+          "font_px": 96.96,
+          "difference_percent": 0.02320544554454801
+        },
+        {
+          "text": "A VA",
+          "size": 48,
+          "cpsp": true,
+          "lab_px": 142.546875,
+          "font_px": 142.56,
+          "difference_percent": 0.009206649831651427
+        },
+        {
+          "text": "LA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 164.625,
+          "font_px": 164.64,
+          "difference_percent": 0.009110787172003377
+        },
+        {
+          "text": "LY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 139.1875,
+          "font_px": 139.2,
+          "difference_percent": 0.008979885057463097
+        },
+        {
+          "text": "LT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 138.234375,
+          "font_px": 138.24,
+          "difference_percent": 0.004069010416673246
+        },
+        {
+          "text": "TA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 148.125,
+          "font_px": 148.128,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "AV",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 161.84375,
+          "font_px": 161.856,
+          "difference_percent": 0.007568455911424071
+        },
+        {
+          "text": "AW",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 176.0625,
+          "font_px": 176.064,
+          "difference_percent": 0.0008519629225696063
+        },
+        {
+          "text": "AY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 154.078125,
+          "font_px": 154.08,
+          "difference_percent": 0.001216900311534596
+        },
+        {
+          "text": "PA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 157.625,
+          "font_px": 157.632,
+          "difference_percent": 0.0044407226959024835
+        },
+        {
+          "text": "FA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 153.109375,
+          "font_px": 153.12,
+          "difference_percent": 0.006939002089867129
+        },
+        {
+          "text": "VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 161.84375,
+          "font_px": 161.856,
+          "difference_percent": 0.007568455911424071
+        },
+        {
+          "text": "RT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 153.109375,
+          "font_px": 153.12,
+          "difference_percent": 0.006939002089867129
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1017.234375,
+          "font_px": 1017.264,
+          "difference_percent": 0.0029122233756438843
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 906.78125,
+          "font_px": 906.816,
+          "difference_percent": 0.0038320894205694346
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 795.421875,
+          "font_px": 795.456,
+          "difference_percent": 0.004289992155445088
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 910.71875,
+          "font_px": 910.752,
+          "difference_percent": 0.0036508292048716565
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 785.34375,
+          "font_px": 785.376,
+          "difference_percent": 0.004106313409115679
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 861.859375,
+          "font_px": 861.888,
+          "difference_percent": 0.003321197185717129
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 949.21875,
+          "font_px": 949.248,
+          "difference_percent": 0.0030813865291311957
+        },
+        {
+          "text": "Office Reflection",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1050.9375,
+          "font_px": 1050.96,
+          "difference_percent": 0.002140899748804558
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1192.3125,
+          "font_px": 1192.368,
+          "difference_percent": 0.004654603276835521
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1073.453125,
+          "font_px": 1073.472,
+          "difference_percent": 0.0017583132117074307
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1240.765625,
+          "font_px": 1240.8,
+          "difference_percent": 0.002770390070918321
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1169.734375,
+          "font_px": 1169.76,
+          "difference_percent": 0.002190620298180046
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 751.640625,
+          "font_px": 751.68,
+          "difference_percent": 0.00523826628351825
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 751.640625,
+          "font_px": 751.68,
+          "difference_percent": 0.00523826628351825
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1073.015625,
+          "font_px": 1073.04,
+          "difference_percent": 0.002271583538354919
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 571.28125,
+          "font_px": 571.296,
+          "difference_percent": 0.0025818489889740366
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 889.46875,
+          "font_px": 889.488,
+          "difference_percent": 0.0021641663518851733
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 977.40625,
+          "font_px": 977.424,
+          "difference_percent": 0.00181599797017243
+        },
+        {
+          "text": "fí fl̋",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 222.984375,
+          "font_px": 223.008,
+          "difference_percent": 0.010593790357300983
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 136.578125,
+          "font_px": 136.608,
+          "difference_percent": 0.02186914382759728
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 1019.484375,
+          "font_px": 1019.52,
+          "difference_percent": 0.003494291431259986
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 607.828125,
+          "font_px": 607.872,
+          "difference_percent": 0.007217802432083935
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 816.0625,
+          "font_px": 816.096,
+          "difference_percent": 0.0041049092263659714
+        },
+        {
+          "text": "LA VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 337.984375,
+          "font_px": 338.016,
+          "difference_percent": 0.009356065985047913
+        },
+        {
+          "text": "A V",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 193.890625,
+          "font_px": 193.92,
+          "difference_percent": 0.015147999174911045
+        },
+        {
+          "text": "A VA",
+          "size": 96,
+          "cpsp": true,
+          "lab_px": 285.09375,
+          "font_px": 285.12,
+          "difference_percent": 0.009206649831651427
+        },
+        {
+          "text": "LA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 329.265625,
+          "font_px": 329.28,
+          "difference_percent": 0.004365585519913969
+        },
+        {
+          "text": "LY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 278.390625,
+          "font_px": 278.4,
+          "difference_percent": 0.0033674568965435573
+        },
+        {
+          "text": "LT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 276.46875,
+          "font_px": 276.48,
+          "difference_percent": 0.004069010416673246
+        },
+        {
+          "text": "TA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 296.25,
+          "font_px": 296.256,
+          "difference_percent": 0.002025275437449978
+        },
+        {
+          "text": "AV",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 323.703125,
+          "font_px": 323.712,
+          "difference_percent": 0.0027416345393402428
+        },
+        {
+          "text": "AW",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 352.125,
+          "font_px": 352.128,
+          "difference_percent": 0.0008519629225696063
+        },
+        {
+          "text": "AY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 308.15625,
+          "font_px": 308.16,
+          "difference_percent": 0.001216900311534596
+        },
+        {
+          "text": "PA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 315.25,
+          "font_px": 315.264,
+          "difference_percent": 0.0044407226959024835
+        },
+        {
+          "text": "FA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 306.234375,
+          "font_px": 306.24,
+          "difference_percent": 0.0018367946708493649
+        },
+        {
+          "text": "VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 323.703125,
+          "font_px": 323.712,
+          "difference_percent": 0.0027416345393402428
+        },
+        {
+          "text": "RT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 306.234375,
+          "font_px": 306.24,
+          "difference_percent": 0.0018367946708493649
+        },
+        {
+          "text": "THE LAST LOTUS",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2034.5,
+          "font_px": 2034.528,
+          "difference_percent": 0.0013762405825832828
+        },
+        {
+          "text": "LAY THE LIGHT",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1813.59375,
+          "font_px": 1813.632,
+          "difference_percent": 0.0021090276307465816
+        },
+        {
+          "text": "A WAVE AWAY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1590.890625,
+          "font_px": 1590.912,
+          "difference_percent": 0.0013435689717617668
+        },
+        {
+          "text": "PAST THE FALL",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1821.484375,
+          "font_px": 1821.504,
+          "difference_percent": 0.0010774063630881632
+        },
+        {
+          "text": "ART AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1570.71875,
+          "font_px": 1570.752,
+          "difference_percent": 0.00211682047834112
+        },
+        {
+          "text": "LAVA / VALLEY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1723.75,
+          "font_px": 1723.776,
+          "difference_percent": 0.0015083166258299976
+        },
+        {
+          "text": "The Last Lotus",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1898.46875,
+          "font_px": 1898.496,
+          "difference_percent": 0.001435346716563774
+        },
+        {
+          "text": "Office Reflection",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2101.890625,
+          "font_px": 2101.92,
+          "difference_percent": 0.0013975317804708436
+        },
+        {
+          "text": "A Tale of Two Cities",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2384.6875,
+          "font_px": 2384.736,
+          "difference_percent": 0.0020337680984342213
+        },
+        {
+          "text": "Skybound: Vol. 12",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2146.921875,
+          "font_px": 2146.944,
+          "difference_percent": 0.0010305345644767625
+        },
+        {
+          "text": "Roots Through Ruin",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2481.5625,
+          "font_px": 2481.6,
+          "difference_percent": 0.0015111218568628728
+        },
+        {
+          "text": "The Artist’s Arrival",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2339.5,
+          "font_px": 2339.52,
+          "difference_percent": 0.0008548762139234462
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1503.328125,
+          "font_px": 1503.36,
+          "difference_percent": 0.0021202506385629497
+        },
+        {
+          "text": "À LA VALLÉE",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1503.328125,
+          "font_px": 1503.36,
+          "difference_percent": 0.0021202506385629497
+        },
+        {
+          "text": "ĐẠI LỘ ÁNH SÁNG",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2146.046875,
+          "font_px": 2146.08,
+          "difference_percent": 0.0015435118914452043
+        },
+        {
+          "text": "ΤΑ ΑΣΤΡΑ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1142.578125,
+          "font_px": 1142.592,
+          "difference_percent": 0.0012143442278694603
+        },
+        {
+          "text": "СЛАВА И ВОЛЯ",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1778.9375,
+          "font_px": 1778.976,
+          "difference_percent": 0.0021641663518851733
+        },
+        {
+          "text": "Affinity & Flame",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1954.828125,
+          "font_px": 1954.848,
+          "difference_percent": 0.0010167030889335817
+        },
+        {
+          "text": "fí fl̋",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 446,
+          "font_px": 446.016,
+          "difference_percent": 0.003587315253268841
+        },
+        {
+          "text": "á̈ ị̂",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 273.1875,
+          "font_px": 273.216,
+          "difference_percent": 0.010431307097683952
+        },
+        {
+          "text": "Live 1,234.56 · ½",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 2039,
+          "font_px": 2039.04,
+          "difference_percent": 0.0019617074701802624
+        },
+        {
+          "text": "TY LY TTY",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1215.703125,
+          "font_px": 1215.744,
+          "difference_percent": 0.003362138739727649
+        },
+        {
+          "text": "ART  AT DAWN",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 1632.15625,
+          "font_px": 1632.192,
+          "difference_percent": 0.002190306042426827
+        },
+        {
+          "text": "LA VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 676,
+          "font_px": 676.032,
+          "difference_percent": 0.004733503739473739
+        },
+        {
+          "text": "A V",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 387.8125,
+          "font_px": 387.84,
+          "difference_percent": 0.00709055280527408
+        },
+        {
+          "text": "A VA",
+          "size": 192,
+          "cpsp": true,
+          "lab_px": 570.21875,
+          "font_px": 570.24,
+          "difference_percent": 0.0037265011223360507
+        }
+      ]
+    }
+  },
+  "flags": [],
+  "page_errors": []
+}

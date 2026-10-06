@@ -10,13 +10,15 @@ from pathlib import Path
 HERE = Path(__file__).resolve().parent
 sys.path.insert(0, str(HERE.parent))
 from font_builder import FontBuilderCore
+from display.build_subsets import build_cut_subsets, write_css
 
 
 def build_cut(cut_file, outdir=None):
-    """Load a cut's unchanged settings and build its full OTF/WOFF2 pair."""
+    """Build a cut's full OTF/WOFF2, six web subsets and their stylesheet."""
     settings = json.loads(Path(cut_file).read_text(encoding='utf-8'))
     name = settings.get('name', 'Soft')
     slug = name.lower().replace(' ', '-')
+    candidate = outdir is not None
     metadata_dir = Path(outdir) if outdir else HERE
     outdir = Path(outdir) if outdir else HERE / 'fonts' / slug
     outdir.mkdir(parents=True, exist_ok=True)
@@ -24,6 +26,16 @@ def build_cut(cut_file, outdir=None):
     data = builder.export()
     out = outdir / f'SEIHouseDisplay-{name.replace(" ", "")}.otf'
     builder.build(data, str(out))
+    if not candidate:
+        sources = sorted((HERE/'fonts').glob('*/SEIHouseDisplay-*.otf'))
+        css = HERE/'fonts.css'
+    else:
+        sources = [out]
+        css = outdir/'fonts.css'
+    # Shared CSS must only reference subsets freshly made from each included OTF.
+    for source in sources:
+        build_cut_subsets(source)
+    write_css(sources, css)
     print('built', builder.FAMILY, builder.VERSION, '->', out)
     return out
 

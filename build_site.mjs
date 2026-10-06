@@ -9,14 +9,16 @@ const pages = [
   'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
   'fonts-full.css', 'fonts-sans.css', 'LICENSE', 'FONT-LICENSE.txt',
   'lab/index.html', 'lab/comparison.html', 'lab/reading-test.html',
-  'display/lab/index.html', 'display/README.md',
+  'display/lab/index.html', 'display/README.md', 'display/fonts.css',
   'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md',
   'docs/HEALTH-CHECK.txt', 'docs/DESIGN-GOALS.md', 'docs/WEBSITE.md',
 ];
 const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic'];
 const cuts = ['soft','edge','ink','wide'];
+const subsets = ['latin-basic','latin-extended','cyrillic','greek','vietnamese','symbols'];
 const files = [...pages, ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
-  ...cuts.flatMap(cut => ['otf','woff2'].map(format => `display/fonts/${cut}/SEIHouseDisplay-${cut[0].toUpperCase()+cut.slice(1)}.${format}`))];
+  ...cuts.flatMap(cut => ['otf','woff2', ...subsets.map(subset=>`${subset}.woff2`)]
+    .map(format => `display/fonts/${cut}/SEIHouseDisplay-${cut[0].toUpperCase()+cut.slice(1)}.${format}`))];
 
 // Validate all inputs before replacing the fixed, generated output directory.
 for (const file of files) {

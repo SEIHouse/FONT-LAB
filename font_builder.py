@@ -661,9 +661,6 @@ class FontBuilderCore:
                  'manufacturer': OWNER, 'designer': OWNER,
                  'vendorURL': PROJECT_URL, 'designerURL': PROJECT_URL,
                  'licenseDescription': LICENSE_DESCRIPTION, 'licenseInfoURL': LICENSE_URL}
-        if self.display:
-            names = {k: names[k] for k in ('uniqueFontIdentifier', 'fullName', 'psName', 'version')}
-            names['copyright'] = OWNER
         if style in ('Regular', 'Bold'):
             names.update({'familyName': self.FAMILY,
                           'styleName': (('Italic' if style == 'Regular' else 'Bold Italic') if italic else style)})

@@ -31,7 +31,7 @@ ORIGINAL = dict(a='double', g='single', R='straight', K='branched', M='vertical'
 SAMPLES = ('RAY WAVE GLOW', 'QUICK MORNING', 'A Dark Sky', 'a glowing railway',
            'ÁĞ ŔĶḾŴ Ý Q 469', 'ấą ģķ ŷ\u0301', 'ΚΜ КМ а ў Ќ', '4.69 ⁴⁶⁹ ₄₆₉ ¼ ¾')
 CONTROL_SAMPLES = dict(a='a à ą ấ', g='g ĝ ģ', R='R Ŕ Ř', K='K k Ķ ķ', M='M Ḿ Μ',
-                       W='W Ŵ', y='y ý ỹ', G='G Ĝ Ģ', Q='Q Q', four='4 ⁴ ₄ ¼', sixNine='6 9 ⁶ ₉')
+                       W='Ww Ŵŵ', y='y ý ỹ', G='G Ĝ Ģ', Q='Q Q', four='4 ⁴ ₄ ¼', sixNine='6 9 ⁶ ₉')
 COUNTERS = dict(a=dict(single=1,double=1),g=dict(single=1,double=2),
     R=dict(straight=1,curved=1),K=dict(branched=0,joined=0),
     M=dict(vertical=0,splayed=0),W=dict(plain=0,crossed=0),
@@ -115,8 +115,8 @@ def render_proof(page, cut, font_file, directory):
       const defaults=structuredClone(CUT.alternates), panel=document.createElement('section'); panel.id='alternate-proof';
       panel.style.cssText='width:1740px;padding:30px;background:#faf8f1;color:#171717;box-sizing:border-box';
       let html=`<style>@font-face{font-family:Proof;src:url(data:font/woff2;base64,${data})}</style><h1 style="font:28px sans-serif">${CUT.name} · letter designs</h1>`;
-      const rows=[['Default','ag R Kk MW y G Q 469'],['ss01','a g à ą ấ ĝ ģ'],['ss02','R Ŕ Ř'],['ss03','K k Ķ ķ'],
-        ['ss04','M W Ḿ Ŵ'],['ss05','y ý ŷ ỹ'],['ss06','G Ĝ Ğ Ģ'],['ss07','Q Q'],['ss08','4 6 9 ⁴ ₆ ¼ ¾']];
+      const rows=[['Default','ag R Kk MWw y G Q 469'],['ss01','a g à ą ấ ĝ ģ'],['ss02','R Ŕ Ř'],['ss03','K k Ķ ķ'],
+        ['ss04','M Ww Ḿ Ŵŵ'],['ss05','y ý ŷ ỹ'],['ss06','G Ĝ Ğ Ģ'],['ss07','Q Q'],['ss08','4 6 9 ⁴ ₆ ¼ ¾']];
       for(const [tag,text] of rows){
         CUT.alternates=structuredClone(defaults);
         if(tag!=='Default') for(const set of DISPLAY_SETS.filter(set=>set.tag===tag)) CUT.alternates[set.key]=set.choices.find(choice=>choice!==defaults[set.key]);

@@ -2,6 +2,18 @@
 
 Newest first.
 
+- **Display fixes before Step 5 (2026-10-06)** Made plain W/w the default in
+  every preset; crossed uppercase W stays optional in `ss04`. Rebuilt all cuts,
+  spacing exports, Lab controls and native title proofs. Display now embeds
+  exactly the Reader's ecosystem license, owner and URL records, with matching
+  `fsType=0` and `SEIH` vendor metadata. Fixed phone overflow through bounded
+  grid controls and proportional SVG word fitting, with an automated 360–430px
+  gate. Added six web subsets per cut and `display/fonts.css`, reusing Reader
+  subsetting and layout policy; Latin-basic is 17,264–22,416 bytes and must stay
+  below 25,000. Added license, CSS, outline/metric and native shaping gates for
+  all deliveries. All Reader files remain unchanged. See the [current proofs
+  and verification](docs/DISPLAY-PRE-STEP5.md).
+
 - **Display Engine Step 4 — letter alternates (2026-10-06)** Added opt-in
   alternate a/g, R, K/k, M/W, y, G, Q and open/closed 4/6/9 designs in the shared
   engine. Each cut JSON chooses its own defaults; eight named `ss01`–`ss08`

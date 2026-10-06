@@ -46,6 +46,10 @@ jobs:
           python verify_display_spacing.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-title-rebuild.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python verify_display_alternates.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-alternate-rebuild.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python verify_display_subsets.py --fonts dist/display-candidate --report dist/display-subset-rebuild.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python display/verify_lab.py --lab dist/display-candidate-lab.html --proof-dir dist/display-lab-rebuild
       - name: Upload rebuild evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -56,6 +60,8 @@ jobs:
             dist/display-rebuild.json
             dist/display-title-rebuild.json
             dist/display-alternate-rebuild.json
+            dist/display-subset-rebuild.json
+            dist/display-lab-rebuild/lab.json
           if-no-files-found: warn
           retention-days: 30
   display-shapes:
@@ -70,7 +76,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install outline, raster and shaping verification tools
-        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56' 'playwright==1.63.0'
+        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56' 'playwright==1.63.0' 'fontbakery==1.1.0'
       - name: Install Chromium for title width parity
         run: python -m playwright install chromium
       - name: Gate every Display glyph and construction regression
@@ -84,6 +90,15 @@ jobs:
           python verify_shared_engine.py --report dist/shared-engine.json
           python verify_display_spacing.py --report dist/display-spacing.json
           python verify_display_alternates.py --report dist/display-alternates.json
+          python verify_display_subsets.py --report dist/display-subsets.json
+          python display/verify_lab.py
+      - name: Gate each cut with FontBakery OpenType and offline Universal
+        run: |
+          for cut in soft edge ink wide; do
+            font="display/fonts/$cut/SEIHouseDisplay-${cut^}.otf"
+            python -m fontbakery check-opentype -n -C -e WARN --json "dist/$cut-opentype.json" "$font"
+            python -m fontbakery check-universal --skip-network -n -C -e WARN --json "dist/$cut-universal.json" "$font"
+          done
   website:
     runs-on: ubuntu-latest
     timeout-minutes: 5
