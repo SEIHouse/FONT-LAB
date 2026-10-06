@@ -2,6 +2,17 @@
 
 Newest first.
 
+- **Display Engine Step 4 — letter alternates (2026-10-06)** Added opt-in
+  alternate a/g, R, K/k, M/W, y, G, Q and open/closed 4/6/9 designs in the shared
+  engine. Each cut JSON chooses its own defaults; eight named `ss01`–`ss08`
+  features include the other designs, with accented, shared script and numeric
+  derivatives. Added eleven persistent Lab controls and measured alternate pair
+  classes using each cut's title/body policy. Final-font spacing exports cover
+  every alternate and `cpsp` classification. Reader defaults, original cut
+  advances and vertical metrics are preserved. Added native [letter/title
+  proofs](docs/DISPLAY-ALTERNATES-STEP4.md), immutable preservation/topology
+  fixtures and checked-in/fresh-build feature, shape and Lab width gates.
+
 - **Display Engine Step 3 — title spacing (2026-10-06)** Added a separate
   capital-height title pass and geometry-based optical policies for Soft, Edge,
   Ink and Wide. Added additive `cpsp` capital spacing. The Lab now reads compiled

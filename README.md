@@ -63,6 +63,10 @@ and [clean-shape construction and proofs](docs/DISPLAY-SHAPES-STEP1.md).
 Titles use per-cut capital-height kerning and optional `cpsp` capital spacing.
 The Lab reads each built font's final spacing; see the
 [title spacing gate and before/after proofs](docs/DISPLAY-TITLE-SPACING-STEP3.md).
+Each cut now chooses its own letter designs. The Lab has individual controls
+for a/g, R, K/k, M/W, y, G, Q and open/closed 4/6/9; built fonts include the
+other forms through `ss01`–`ss08`. See the [alternate mapping, cut defaults and
+native title proofs](docs/DISPLAY-ALTERNATES-STEP4.md).
 Its **Save cut** button uses browser-local drafts on a normal website and retains
 the original database integration in the Claude host. Use **Download JSON** or
 **Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.

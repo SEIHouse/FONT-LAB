@@ -11,6 +11,10 @@ OpenType features.
   soft or cut corners; round or flat ends; round or sharp joins
 - **Pen:** thick and thin (contrast), pen angle (where the thick and thin fall), slant
 - **Spacing:** space between letters and words
+- **Letters:** single/double-story a/g, R leg, K/k arms, M stems, W strokes,
+  y tail, G spur, Q tail, open/closed 4 and 6/9. Eleven individual Lab controls
+  persist in each cut's `alternates` JSON object. Eight named OpenType sets
+  (`ss01`–`ss08`) select the other forms.
 
 ## Files
 
@@ -25,6 +29,7 @@ OpenType features.
 | `build_display_page.py` | Builds the Lab page |
 | `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant |
 | `title_spacing.py` | Capital-height and mixed-case optical spacing, plus final-font GPOS/metric exports |
+| `letter_alternates.py` | Stylistic sets and measured alternate pair classes |
 | `spacing.js` | Applies compiled kerning classes, rounded advances and capital spacing in the Lab |
 | `spacing_<cut>.json` | Final spacing data from each OTF, verified against its settings and font hash |
 | `outline_cleanup.py` | Resolves overlaps and removes contour/point/spike debris before export |
@@ -51,9 +56,12 @@ unrotated pen, and the existing true italic behavior. Cut settings select cut
 corners, flat ends, sharp joins, pen angle and oblique slant; oblique slant keeps
 upright letter forms.
 
-All four cuts pass the 400px shape gate: **732 glyphs per cut, 2,928 outlines
+Step 2's four cuts passed the 400px shape gate: **732 glyphs per cut, 2,928 outlines
 and 5,856 OTF/WOFF2 renders, 0 flags**. Each cut passes FontBakery OpenType
-and offline Universal with **0 FAIL / 0 WARN**. All ninety shipped Reader
+and offline Universal with **0 FAIL / 0 WARN**. Step 4 expands each cut to 817
+glyphs: **3,268 outlines and 6,536 renders, 0 flags**. Its separate proof reports
+cover the new designs; both FontBakery profiles still pass with zero FAIL/WARN.
+All ninety shipped Reader
 files retain their latest 0.39 bytes; all ninety rebuilt deliveries match
 normalized current tables and CFF outlines/hints. The ten styles also retain
 every original 0.35 glyph outline and metric.
@@ -101,6 +109,12 @@ FontBakery results. Those reports remain a frozen record of that build; Step 2
 reports cover the expanded shared inventory.
 
 ## Version 0.1 notes
+
+- Each cut has its own default letter designs and includes 85 alternate glyphs,
+  including accents, shared script forms and numeric derivatives. Built sets
+  combine with mark attachment, `cpsp` and numeric features. The Lab uses their
+  compiled spacing, so switching a design preserves final width agreement.
+  See the [Step 4 defaults, feature mapping, gates and native title proofs](../docs/DISPLAY-ALTERNATES-STEP4.md).
 
 - Titles use each cut's capital-height spacing pass and optional `cpsp` capital
   spacing. The Lab reads the final OTF's kerning and advances; all 888 measured

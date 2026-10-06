@@ -1,0 +1,70 @@
+{
+  "size_px": 400,
+  "flags": [],
+  "cuts": {
+    "soft": {
+      "glyphs": 817,
+      "rendered": 1634,
+      "flags": 0,
+      "sha256": {
+        "otf": "ee81864990eaf9d8b3266562c58e4db87c00104f931f5bc104110babd541048e",
+        "woff2": "67ea0123fa0b65383822c5e15b7bbc2359299438bfb487480cfb98d558d2fe0a"
+      },
+      "topology_glyphs": 675
+    },
+    "edge": {
+      "glyphs": 817,
+      "rendered": 1634,
+      "flags": 0,
+      "sha256": {
+        "otf": "a23a6fc03fe75ed5277e5cfb77e2759d9c3244d2ab123ef8e13d27d2bed873ed",
+        "woff2": "4254e0850fd12f7c69d1303ac72e741ed57f1abbb394d14c6e0158959e444ef9"
+      },
+      "topology_glyphs": 675
+    },
+    "ink": {
+      "glyphs": 817,
+      "rendered": 1634,
+      "flags": 0,
+      "sha256": {
+        "otf": "abc5e26e520518e90eed02cf43ede4ad2b55d22925ec35b96226c812eb3ba3ea",
+        "woff2": "a9d10997f0fb0341a4708a22e6fb7b8be308c7a6d82d759745b47dfdbb849c11"
+      },
+      "topology_glyphs": 675
+    },
+    "wide": {
+      "glyphs": 817,
+      "rendered": 1634,
+      "flags": 0,
+      "sha256": {
+        "otf": "1fbb10e86af254759d715bb88cd9a0ed7ba2f84629e69cee4bb7454e1acbd349",
+        "woff2": "b440f9c5d83375fc2d9b02b7cc1fbc18c46ce98c8e4f9a2a4c396a135b5adf77"
+      },
+      "topology_glyphs": 675
+    }
+  },
+  "thresholds": {
+    "micro_contour_px2": 1,
+    "tiny_segment_px": 0.4,
+    "spike_turn_degrees": 150,
+    "spike_shoulder_px": 8,
+    "spur_short_shoulder_px": 16,
+    "spur_long_shoulder_px": 24,
+    "spur_root_turn_degrees": 15,
+    "overlap_px2": 0.25,
+    "counter_clearance_px": 6,
+    "counter_min_area_px2": 24,
+    "counter_min_relative_span": 0.2,
+    "aperture_min_area_px2": 200,
+    "aperture_min_relative_area": 0.02
+  },
+  "counter_topology_reference": {
+    "source_commit": "ad1cf46a0e5c5cd3a07aba64d38531521bd3f13f",
+    "sha256": "9ec4c61086e022ac7e56521db4f0da2bc757c666af71618eb8f50e7897f52360"
+  },
+  "alternate_topology_reference": {
+    "source_commit": "554ffad607a59392d72d7a45ec998ffb706d10c0",
+    "sha256": "eee6e822ffef0b7aeb1b12b43ac841616738bfc775922e08ddbbc1015f6bc1bf"
+  },
+  "flag_counts": {}
+}

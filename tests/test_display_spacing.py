@@ -111,6 +111,12 @@ class DisplayTitleSpacingTests(unittest.TestCase):
             self.assertEqual(result.returncode,0,result.stderr)
             stale=candidate/'soft/spacing_soft.json'
             data=json.loads(stale.read_text(encoding='utf-8'))
+            data['built_alternates']['a']='double'
+            stale.write_text(json.dumps(data),encoding='utf-8')
+            result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True)
+            self.assertNotEqual(result.returncode,0)
+            self.assertIn('Stale spacing export for Soft',result.stderr)
+            data['built_alternates']['a']='single'
             data['otf_sha256']='stale'
             stale.write_text(json.dumps(data),encoding='utf-8')
             result=subprocess.run(command,cwd=ROOT,env=env,capture_output=True,text=True)

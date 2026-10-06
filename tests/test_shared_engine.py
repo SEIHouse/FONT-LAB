@@ -109,7 +109,8 @@ class DisplayDesignTests(unittest.TestCase):
         self.addCleanup(self.font.close)
 
     def failures(self):
-        return design_flags(self.font, 'soft', self.original, self.shared)
+        variants=json.loads((ROOT/'display/spacing_soft.json').read_text(encoding='utf-8'))['variants']
+        return design_flags(self.font, 'soft', self.original, self.shared, variants)
 
     def test_reviewed_inheritance_preserves_all_controls_and_final_metrics(self):
         validate_design_reference(self.original, self.shared, self.reader)

@@ -20,5 +20,18 @@
   "weight": 135,
   "spaceBetweenAllLetters": 6,
   "note": "Calligraphic thick and thin from an angled pen, slanted. Expressive.",
-  "name": "Ink"
+  "name": "Ink",
+  "alternates": {
+    "a": "single",
+    "g": "single",
+    "R": "curved",
+    "K": "branched",
+    "M": "vertical",
+    "W": "crossed",
+    "y": "curved",
+    "G": "no-spur",
+    "Q": "long",
+    "four": "open",
+    "sixNine": "open"
+  }
 }

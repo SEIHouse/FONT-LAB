@@ -836,8 +836,82 @@ for(const digit of DIGITS) for(const separator of '.,'){
 
 /* ---------- settings the sliders control ---------- */
 const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770,
-  corner:'soft', cap:'round', join:'round', penAngle:0, obliqueAngle:0 };
+  corner:'soft', cap:'round', join:'round', penAngle:0, obliqueAngle:0, alternates:null };
 const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
+
+/* Display designs are opt-in. The Reader retains its original skeletons and
+   italic substitutions when P.alternates is null. Related designs share a set,
+   while a saved cut can choose each member independently. */
+const DISPLAY_SETS = [
+  {key:'a', tag:'ss01', label:'a', choices:['double','single']},
+  {key:'g', tag:'ss01', label:'g', choices:['single','double']},
+  {key:'R', tag:'ss02', label:'R leg', choices:['straight','curved']},
+  {key:'K', tag:'ss03', label:'K / k arms', choices:['branched','joined']},
+  {key:'M', tag:'ss04', label:'M stems', choices:['vertical','splayed']},
+  {key:'W', tag:'ss04', label:'W strokes', choices:['plain','crossed']},
+  {key:'y', tag:'ss05', label:'y tail', choices:['curved','straight']},
+  {key:'G', tag:'ss06', label:'G spur', choices:['no-spur','spur']},
+  {key:'Q', tag:'ss07', label:'Q tail', choices:['diagonal','long']},
+  {key:'four', tag:'ss08', label:'4', choices:['closed','open']},
+  {key:'sixNine', tag:'ss08', label:'6 / 9', choices:['closed','open']},
+];
+/** Validate saved choices and fill legacy drafts with the original upright forms. */
+function displayChoices(choices={}){
+  const result={};
+  if(!choices || typeof choices!=='object' || Array.isArray(choices)) throw new Error('Invalid alternate choices');
+  for(const key of Object.keys(choices)) if(!DISPLAY_SETS.some(set=>set.key===key)) throw new Error('Unknown alternate: '+key);
+  for(const set of DISPLAY_SETS){
+    const choice=choices[set.key] ?? set.choices[0];
+    if(!set.choices.includes(choice)) throw new Error('Invalid alternate '+set.key+': '+choice);
+    result[set.key]=choice;
+  }
+  return result;
+}
+/** Copy the approved metrics while replacing only a letter's centre-line drawing. */
+const displayDesign=(ch, shapes)=>({...G[ch],shapes});
+const OPEN_SIX = [RAW([['M',375,700],['C',276,700,178,681,100,610],
+  ['C',24,540,0,401,0,179],['C',0,71,83,0,206,0],
+  ['C',329,0,400,71,400,179],['C',400,287,329,358,250,358]])];
+const DISPLAY_DESIGNS = {
+  a:{double:G.a,single:displayDesign('a',[o([[395,500],[395,0]]),bowlOnStem(395,true)])},
+  g:{single:G.g,double:displayDesign('g',[R(20,200,400,500),R(0,-220,420,40),
+    o([[340,200],[80,40]]),o([[400,500],[465,500]])])},
+  R:{straight:G.R,curved:displayDesign('R',[G.R.shapes[0],
+    RAW([['M',220,300],['C',220,195,320,100,450,0]])])},
+  K:{branched:G.K,joined:displayDesign('K',[G.K.shapes[0],o([[470,700],[0,350],[490,0]])])},
+  k:{branched:G.k,joined:displayDesign('k',[G.k.shapes[0],o([[415,500],[0,250],[425,0]])])},
+  M:{vertical:G.M,splayed:displayDesign('M',[o([[0,0],[60,700],[290,240],[520,700],[580,0]])])},
+  W:{plain:G.W,crossed:displayDesign('W',[o([[0,700],[200,0],[500,700]]),o([[200,700],[500,0],[700,700]])])},
+  y:{curved:G.y,straight:displayDesign('y',[o([[0,500],[210,0]]),o([[420,500],[125,-200]])])},
+  G:{'no-spur':G.G,spur:displayDesign('G',[o([[500,620],[500,700],[0,700],[0,0],[500,0],[500,390]]),o([[270,320],[540,320]])])},
+  Q:{diagonal:G.Q,long:displayDesign('Q',[G.Q.shapes[0],
+    RAW([['M',320,160],['C',440,5,495,-160,650,-160]])])},
+  '4':{closed:G['4'],open:displayDesign('4',[o([[320,700],[320,0]]),o([[160,550],[0,200],[420,200]])])},
+  '6':{closed:G['6'],open:displayDesign('6',OPEN_SIX)},
+  '9':{closed:G['9'],open:displayDesign('9',OPEN_SIX.map(shape=>RAW(shape.raw.map(seg=>seg.map((v,i)=>i ? (i%2 ? 400-v : 700-v) : v)))))},
+};
+const DISPLAY_VARIANTS = {};
+/** Resolve accented letters, script reuse and numeric derivatives to a design family. */
+function displayFamily(ch){
+  const base=NUMERIC_VARIANTS[ch]?.digit || (FRACTION_PARTS[ch]?.includes('4') ? '4' : latinBase(ch));
+  const key=base==='k' ? 'K' : base==='4' ? 'four' : ['6','9'].includes(base) ? 'sixNine' : base;
+  return DISPLAY_SETS.find(set=>set.key===key);
+}
+/** Describe the alternate opposite each cut default, including accented and small figures. */
+function displayManifest(){
+  if(!P.alternates) return {};
+  const defaults=displayChoices(P.alternates), result={};
+  const sources=Object.keys(G).concat(Object.keys(NUMERIC_VARIANTS).filter(ch=>ch.includes('.')));
+  for(const ch of sources){
+    const set=displayFamily(ch); if(!set) continue;
+    const choice=set.choices.find(value=>value!==defaults[set.key]);
+    const stem=[...ch].length===1 ? 'alt'+ch.codePointAt(0).toString(16).toUpperCase().padStart(4,'0') : ch;
+    const name=stem+'.'+set.tag+'.'+choice.replaceAll('-','_');
+    DISPLAY_VARIANTS[name]={source:ch,key:set.key,choice,letter:!['four','sixNine'].includes(set.key)};
+    result[ch]={key:set.key,tag:set.tag,default:defaults[set.key],choices:{[defaults[set.key]]:ch,[choice]:name}};
+  }
+  return result;
+}
 
 const clamp = (v,a,b) => Math.max(a,Math.min(b,v));
 const weightFor = size => P.base + P.boost * clamp((28 - size) / 15, 0, 1);
@@ -925,7 +999,15 @@ function ensureClip(top, bot){
 }
 
 const cache = {};
+/** Select an opt-in Display design or the Reader's established upright/italic form. */
 function pickBase(ch){
+  if(P.alternates && DISPLAY_DESIGNS[ch]) return DISPLAY_DESIGNS[ch][displayChoices(P.alternates)[displayFamily(ch).key]];
+  if(P.alternates && ['Ƙ','ƙ','ƴ','ĸ'].includes(ch)){
+    const base=LANGUAGE_SPECIALS[ch], choice=displayChoices(P.alternates)[displayFamily(ch).key];
+    const shapes=DISPLAY_DESIGNS[base][choice].shapes;
+    return {...G[ch],shapes:ch==='ĸ' ? [G[ch].shapes[0],...shapes.slice(1)]
+      : [...shapes,...G[ch].shapes.slice(G[base].shapes.length)]};
+  }
   return ch === 'u' ? (P.ital ? IT.u : P.ufoot ? U_FOOT : U_PLAIN)
        : (P.ital && ch === 'a') ? A_IT : (P.ital && ch === 'f') ? F_IT : (P.ital && IT[ch]) ? IT[ch] : G[ch];
 }
@@ -1597,8 +1679,16 @@ function languageGlyph(ch,S,removeDot=false){
 
 /** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
-  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}`;
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
+  if(P.alternates && DISPLAY_VARIANTS[ch]){
+    const spec=DISPLAY_VARIANTS[ch], keep=P.alternates;
+    try {
+      P.alternates={...displayChoices(keep),[spec.key]:spec.choice};
+      const g=glyph(spec.source,S);
+      return (cache[ck]={...g,...(spec.letter ? {anchors:latinAnchors(spec.source,S)} : {})});
+    } finally { P.alternates=keep; }
+  }
   if(scriptReuse(ch)) return (cache[ck]=glyph(scriptReuse(ch),S));
   if(PHASE4_JOINED[ch]) return (cache[ck]=phase4Joined(ch,S));
   if(LANGUAGE_COMPOSED[ch] || ACC[ch]?.additive) return (cache[ck]=languageGlyph(ch,S));

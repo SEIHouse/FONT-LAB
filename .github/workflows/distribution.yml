@@ -13,7 +13,7 @@ jobs:
   shared-builder:
     # Exact CFF/hint identity uses the baseline's build platform and tool versions.
     runs-on: windows-latest
-    timeout-minutes: 30
+    timeout-minutes: 40
     env:
       PYTHONUTF8: '1'
     steps:
@@ -44,6 +44,8 @@ jobs:
           python display/build_display_page.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python verify_display_spacing.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-title-rebuild.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python verify_display_alternates.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-alternate-rebuild.json
       - name: Upload rebuild evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -53,6 +55,7 @@ jobs:
             dist/reader-rebuild.json
             dist/display-rebuild.json
             dist/display-title-rebuild.json
+            dist/display-alternate-rebuild.json
           if-no-files-found: warn
           retention-days: 30
   display-shapes:
@@ -76,9 +79,11 @@ jobs:
           node --test tests/display-strokes.test.mjs
           node --test tests/shared-engine.test.mjs
           node --test tests/display-spacing.test.mjs
+          node --test tests/display-alternates.test.mjs
           python verify_display_shapes.py --report dist/display-shapes.json
           python verify_shared_engine.py --report dist/shared-engine.json
           python verify_display_spacing.py --report dist/display-spacing.json
+          python verify_display_alternates.py --report dist/display-alternates.json
   website:
     runs-on: ubuntu-latest
     timeout-minutes: 5

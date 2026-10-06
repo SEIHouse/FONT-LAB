@@ -20,5 +20,18 @@
   "weight": 115,
   "spaceBetweenAllLetters": 24,
   "note": "Cut corners, flat ends, sharp joins. Hard and modern.",
-  "name": "Edge"
+  "name": "Edge",
+  "alternates": {
+    "a": "double",
+    "g": "double",
+    "R": "straight",
+    "K": "joined",
+    "M": "splayed",
+    "W": "crossed",
+    "y": "straight",
+    "G": "spur",
+    "Q": "diagonal",
+    "four": "closed",
+    "sixNine": "open"
+  }
 }

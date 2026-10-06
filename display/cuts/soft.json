@@ -20,5 +20,18 @@
   "weight": 150,
   "spaceBetweenAllLetters": 10,
   "note": "Heavy, round and warm. Big friendly titles.",
-  "name": "Soft"
+  "name": "Soft",
+  "alternates": {
+    "a": "single",
+    "g": "single",
+    "R": "curved",
+    "K": "branched",
+    "M": "vertical",
+    "W": "plain",
+    "y": "curved",
+    "G": "no-spur",
+    "Q": "long",
+    "four": "open",
+    "sixNine": "closed"
+  }
 }

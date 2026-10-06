@@ -29,18 +29,20 @@ DESIGN = ROOT/'docs/proofs/display-step1/design.json'
 SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.39-identity.json'
 SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design-0.39.json'
 COUNTER_TOPOLOGY = ROOT/'tests/fixtures/display-counter-topology.json'
+ALTERNATE_TOPOLOGY = ROOT/'tests/fixtures/display-alternate-topology.json'
 BLANK_GLYPHS = frozenset(('space', 'uni2009', 'uni202F'))
 WEB_TABLES = ('CFF ', 'hmtx', 'GPOS', 'GSUB', 'GDEF', 'OS/2', 'hhea')
 
 
-def design_flags(font, cut, reference, shared_design=None):
-    """Keep the original design while permitting inherited Reader additions.
+def design_flags(font, cut, reference, shared_design=None, variants=None):
+    """Keep original metrics, encoded mappings and the approved alternate inventory.
 
     Step 2 adds combining marks, numeric alternates and Latin letters from the
     shared Reader. Original encoded mappings and vertical metrics remain
     protected, with one exact Edge clipping-height exception for inherited
     Vietnamese ink. Advances follow the reviewed Reader 0.28 inheritance
-    deltas; every current advance is frozen independently.
+    deltas; every current advance is frozen independently. Step 4 may append
+    only the explicitly supplied stylistic glyphs after the shared inventory.
     """
     found = []
     expected = reference['fonts'][cut]
@@ -51,7 +53,9 @@ def design_flags(font, cut, reference, shared_design=None):
         found.append(dict(kind='character-map'))
     current = shared_design['fonts'][cut] if shared_design is not None else expected
     if shared_design is not None:
-        if font.getGlyphOrder() != current['order']:
+        extra = sorted({name for spec in (variants or {}).values() for choice, name in spec['choices'].items()
+                        if choice != spec['default']})
+        if font.getGlyphOrder()[:len(current['order'])] != current['order'] or sorted(font.getGlyphOrder()[len(current['order']):]) != extra:
             found.append(dict(kind='shared-glyph-inventory'))
         if cmap != current['cmap']:
             found.append(dict(kind='shared-character-map'))
@@ -303,6 +307,7 @@ def verify(fonts, proof_dir=None):
     shared = json.loads(SHARED_REFERENCE.read_text(encoding='utf-8'))
     validate_design_reference(reference, shared_design, shared)
     topology = json.loads(COUNTER_TOPOLOGY.read_text(encoding='utf-8'))
+    alternate_topology = json.loads(ALTERNATE_TOPOLOGY.read_text(encoding='utf-8'))
     if topology['size_px'] != SIZE or set(topology['cuts']) != set(CUTS):
         raise ValueError('Counter topology fixture must cover all canonical cuts at 400px')
     report = dict(size_px=SIZE, flags=[], cuts={}, thresholds=dict(
@@ -314,9 +319,15 @@ def verify(fonts, proof_dir=None):
     report['counter_topology_reference'] = dict(
         source_commit=topology['source_commit'],
         sha256=hashlib.sha256(COUNTER_TOPOLOGY.read_bytes()).hexdigest())
+    report['alternate_topology_reference'] = dict(
+        source_commit=alternate_topology['source_commit'],
+        sha256=hashlib.sha256(ALTERNATE_TOPOLOGY.read_bytes()).hexdigest())
     for cut in CUTS:
         file = ROOT/f'display/cuts/{cut}.json'
-        canonical = json.dumps(json.loads(file.read_text(encoding='utf-8')), sort_keys=True,
+        settings = json.loads(file.read_text(encoding='utf-8'))
+        if settings.pop('alternates', None) != alternate_topology['defaults'][cut]:
+            report['flags'].append(dict(cut=cut, kind='alternate-defaults'))
+        canonical = json.dumps(settings, sort_keys=True,
                                ensure_ascii=False, separators=(',', ':')).encode()
         if hashlib.sha256(canonical).hexdigest() != reference['cuts'][cut]:
             report['flags'].append(dict(cut=cut, kind='cut-settings'))
@@ -330,7 +341,12 @@ def verify(fonts, proof_dir=None):
         web = otf.with_suffix('.woff2')
         with TTFont(otf) as font, TTFont(web) as woff:
             names = font.getGlyphOrder()
-            report['flags'].extend(dict(cut=cut, **flag) for flag in design_flags(font, cut, reference, shared_design))
+            snapshot = fonts/cut/f'spacing_{cut}.json'
+            if not snapshot.exists(): snapshot = ROOT/'display'/f'spacing_{cut}.json'
+            variants = json.loads(snapshot.read_text(encoding='utf-8'))['variants']
+            if variants != alternate_topology['variants'][cut]:
+                report['flags'].append(dict(cut=cut, kind='alternate-manifest'))
+            report['flags'].extend(dict(cut=cut, **flag) for flag in design_flags(font, cut, reference, shared_design, variants))
             summary = dict(glyphs=len(names), rendered=0, flags=0,
                            sha256={file.suffix[1:]: hashlib.sha256(file.read_bytes()).hexdigest()
                                    for file in (otf, web)})
@@ -347,7 +363,10 @@ def verify(fonts, proof_dir=None):
             aperture_names = {name for code, name in font.getBestCmap().items()
                               if unicodedata.category(chr(code))[0] in 'LN'}
             aperture_names.update(name for name in names if name.endswith(('.tf', '.numr', '.dnom')))
-            expected_topology = topology['cuts'][cut]['glyphs']
+            aperture_names.update(name for spec in variants.values() for choice,name in spec['choices'].items()
+                                  if choice != spec['default'])
+            expected_topology = dict(topology['cuts'][cut]['glyphs'])
+            expected_topology.update(alternate_topology['cuts'][cut]['glyphs'])
             if set(expected_topology) != aperture_names:
                 report['flags'].append(dict(cut=cut, kind='counter-topology-inventory'))
             summary['topology_glyphs'] = len(aperture_names)
