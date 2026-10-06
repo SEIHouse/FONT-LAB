@@ -670,9 +670,19 @@ class FontBuilderCore:
         ], elidedFallbackName=2)
         fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-self.SLANT if italic else 0)
 
-        AUTO = self.auto_pairs(paths, hm, cmap, data.get('scriptchars', ''))
+        if self.display:
+            from display.title_spacing import DisplaySpacing
+            display_spacing = DisplaySpacing(self, paths, hm, cmap, AUTO_CHARS+data.get('scriptchars', ''))
+            AUTO = display_spacing.auto_pairs()
+            AUTO.update(display_spacing.title_pairs())
+        else:
+            AUTO = self.auto_pairs(paths, hm, cmap, data.get('scriptchars', ''))
         KERN.update(AUTO); KERN.update(data['kern'])
-        KERN.update(self.optical_pairs(paths, hm, cmap, KERN, italic))
+        if self.display:
+            # Final title/body measurements replace inherited Reader letter assumptions.
+            KERN.update(AUTO)
+        else:
+            KERN.update(self.optical_pairs(paths, hm, cmap, KERN, italic))
         self.retain_reading_pairs(KERN, ps_style)
         self.clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
         # Additive foundation: retain every approved old pair when geometry is unchanged.
@@ -776,12 +786,21 @@ class FontBuilderCore:
     """
         # Apply tabular figures last: sups/subs/frac must still see proportional digit names.
         fea += f"feature tnum {{ sub @figures by [{tabular}]; }} tnum;\n"
+        if self.display:
+            capitals = sorted({name for code, name in cmap.items() if chr(code).isupper()})
+            extra = display_spacing.capital_space * SC
+            fea += ('@display_capitals = ['+' '.join(capitals)+'];\n'
+                    'feature cpsp { lookupflag IgnoreMarks;\n'
+                    f' pos @display_capitals <{extra//2} 0 {extra} 0>;\n}} cpsp;\n')
         addOpenTypeFeaturesFromString(fb.font, fea)
         fb.font['name'].removeNames(platformID=1)
         fb.save(out)
         if not self.autohint(out):
             raise RuntimeError(f'Screen tuning failed for {shown}; stopping the build')
         t = TTFont(out); t.flavor = 'woff2'; t.save(out.replace('.otf', '.woff2'))
+        if self.display:
+            from display.title_spacing import write_spacing
+            write_spacing(out, self.settings, origins, display_spacing, self.asset_dir)
 
     def configured_stroke(self, cmds, dx, width=None, cap_mask=(True, True)):
         """Expand in oval-pen space, then construct flat caps in stroke coordinates.

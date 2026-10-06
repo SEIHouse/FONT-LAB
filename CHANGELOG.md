@@ -2,6 +2,18 @@
 
 Newest first.
 
+- **Display Engine Step 3 — title spacing (2026-10-06)** Added a separate
+  capital-height title pass and geometry-based optical policies for Soft, Edge,
+  Ink and Wide. Added additive `cpsp` capital spacing. The Lab now reads compiled
+  GPOS classes and rounded advances from each finished OTF, including zero
+  exceptions, extension lookups and canonical composition before fi/fl joins.
+  Draft geometry/spacing edits visibly invalidate compiled spacing. Rebuilt all
+  four cuts with only GPOS changed; outlines, hints, advances, cut settings and
+  Reader delivery bytes remain preserved. Added eight before/after all-caps and
+  mixed-case [title proof sheets](docs/DISPLAY-TITLE-SPACING-STEP3.md), regressions
+  and Actions gates for checked-in and rebuilt Lab/font width parity. All 888
+  width measurements pass; maximum difference is 0.0647% against the 0.5% limit.
+
 - **Display counter repair (2026-10-06)** Fixed the nearly closed Soft `a`
   opening and related crowded counters through shared heavy-pen compensation.
   Vertical stems retain their selected weight; horizontal strokes reserve

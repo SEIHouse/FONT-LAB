@@ -1,12 +1,35 @@
 """Builds the SEIHouse Display Lab: one page to shape display cuts live and save them."""
-import json, os, glob
+import json, os, glob, hashlib
+import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
+sys.path.insert(0, os.path.dirname(HERE))
+from display.title_spacing import spacing_settings
 engine = open(os.path.join(HERE, '..', 'engine.js'), encoding='utf-8').read()
 stroke_geometry = open(os.path.join(HERE, 'stroke_geometry.js'), encoding='utf-8').read()
+spacing_helper = open(os.path.join(HERE, 'spacing.js'), encoding='utf-8').read()
 draft_helper = open(os.path.join(HERE, '..', 'site', 'drafts.js'), encoding='utf-8').read()
 presets = [json.load(open(f, encoding='utf-8')) for f in sorted(glob.glob(os.path.join(HERE, 'cuts', '*.json')))]
 order = ['Soft', 'Edge', 'Ink', 'Wide']
 presets.sort(key=lambda c: order.index(c['name']) if c['name'] in order else 99)
+spacing_dir = os.environ.get('SPACING_DIR', HERE)
+def load_spacing(cut):
+    """Load a cut's compiled snapshot and reject mismatched settings or OTF bytes."""
+    slug = cut['name'].lower().replace(' ', '-')
+    filename = 'SEIHouseDisplay-'+cut['name'].replace(' ', '')+'.otf'
+    file = os.path.join(spacing_dir, 'spacing_'+slug+'.json')
+    font = os.path.join(HERE, 'fonts', slug, filename)
+    if spacing_dir != HERE:
+        file = os.path.join(spacing_dir, slug, 'spacing_'+slug+'.json')
+        font = os.path.join(spacing_dir, slug, filename)
+    with open(file, encoding='utf-8') as source:
+        record = json.load(source)
+    with open(font, 'rb') as source:
+        digest = hashlib.sha256(source.read()).hexdigest()
+    if record.get('schema') != 1 or record['settings'] != spacing_settings(cut) or record['otf_sha256'] != digest:
+        raise ValueError('Stale spacing export for '+cut['name']+'; rebuild the cut before its Lab')
+    return record
+
+spacing_exports = [load_spacing(cut) for cut in presets]
 
 HTML = r"""<!DOCTYPE html>
 <html lang="en"><head><meta charset="utf-8">
@@ -73,7 +96,10 @@ main{ display:grid; gap:16px; min-width:0; }
     <div id="ctl-shape" class="sec" style="border:0;padding:0"></div>
   </div>
   <div class="sec"><h2>Pen</h2><div id="ctl-pen" class="sec" style="border:0;padding:0"></div></div>
-  <div class="sec"><h2>Spacing</h2><div id="ctl-space" class="sec" style="border:0;padding:0"></div></div>
+  <div class="sec"><h2>Spacing</h2><div id="ctl-space" class="sec" style="border:0;padding:0"></div>
+    <label><input type="checkbox" id="cpsp"> Capital spacing (cpsp)</label>
+    <p class="hint" id="spacing-status" aria-live="polite"></p>
+  </div>
   <div class="sec"><h2>Your words</h2>
     <label class="ctl"><span>Title</span><input type="text" id="t-title" value="The Last Lotus" maxlength="60"></label>
     <label class="ctl"><span>Artist</span><input type="text" id="t-artist" value="SENSEI" maxlength="40"></label>
@@ -99,6 +125,7 @@ __ENGINE__
 </script>
 <script>
 const PRESETS = __PRESETS__;
+const SPACING_EXPORTS = __SPACING__;
 const $ = id => document.getElementById(id);
 const e_ = s => String(s).replace(/[&<>"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
 
@@ -133,24 +160,20 @@ function penBody(g){
   return body;
 }
 function drawWord(w, size){
-  const S = CUT.weight, tr = CUT.spaceBetweenAllLetters, sl = CUT.slant || 0, T = Math.tan(sl * Math.PI/180);
-  let x = 0, parts = '', prev = '';
-  w = w.replace(/fi/g, 'ﬁ').replace(/fl/g, 'ﬂ');
-  for(const cluster of languageClusters(w)){
-    const ch = cluster.base, g = clusterGlyph(cluster, S); if(!g){ x += 300; prev = ''; continue; }
-    if(ch === '\u2009' || ch === '\u202f'){ x += 120; prev = ''; continue; }
-    x += (KERN[latinBase(prev) + latinBase(ch)] || 0);
-    const gx = x + tr + g.sb0 - (sl ? T * 330 : 0);
-    parts += `<g transform="translate(${f1(gx)} 0)${sl ? ` skewX(${-sl})` : ''}"${CUT.ends === 'flat' ? '' : ` clip-path="url(#${g.clipId})"`}>${penBody(g)}</g>`;
-    x += tr + g.sb0 + g.w + S + g.sb1 + tr; prev = ch;
+  const sl = CUT.slant || 0, T = Math.tan(sl * Math.PI/180);
+  const layout = titleLayout(w, CUT, spacingForCut(CUT, SPACING_EXPORTS), $('cpsp').checked);
+  let parts = '';
+  for(const {cluster,g,x} of layout.glyphs){
+    const gx = x - (sl ? T * 330 : 0);
+    parts += `<g transform="translate(${gx} 0)${sl ? ` skewX(${-sl})` : ''}"${CUT.ends === 'flat' ? '' : ` clip-path="url(#${g.clipId})"`}>${penBody(g)}</g>`;
   }
-  const W = Math.max(x, 1);
-  return `<svg viewBox="0 -1100 ${f1(W)} 1400" width="${f1(W*size/1000)}" height="${f1(1.4*size)}" aria-hidden="true">${parts}</svg>`;
+  const W = Math.max(layout.width, 1);
+  return `<svg viewBox="0 -1100 ${W} 1400" width="${W*size/1000}" height="${1.4*size}" aria-hidden="true">${parts}</svg>`;
 }
 function drawText(str, size, color, lh = 1.12){
-  const words = String(str).split(/\s+/).filter(Boolean);
-  const col = size * CUT.wordSpace / 1000, row = Math.max(0, size * (lh - 1.4));
-  return `<div class="run" role="img" aria-label="${e_(str)}" style="color:${color || 'inherit'};gap:${f1(row)}px ${f1(col)}px">${words.map(w => drawWord(w, size)).join('')}</div>`;
+  const tokens = String(str).match(/\S+|\s+/g) || [];
+  const row = Math.max(0, size * (lh - 1.4));
+  return `<div class="run" role="img" aria-label="${e_(str)}" style="color:${color || 'inherit'};row-gap:${row}px">${tokens.map(w => drawWord(w, size)).join('')}</div>`;
 }
 /* ---- controls ---- */
 function buildControls(){
@@ -176,6 +199,7 @@ function renderPalettes(){
 }
 $('cutname').addEventListener('input', ev => { CUT.name = ev.target.value.trim() || 'Untitled'; renderOut(); });
 ['t-title','t-artist','t-tracks'].forEach(id => $(id).addEventListener('input', () => renderAll()));
+$('cpsp').addEventListener('change', () => renderAll());
 /* ---- previews ---- */
 function cover(el, pal){
   const [a, b, ink] = PALETTES[pal]; el.style.background = `linear-gradient(155deg, ${a}, ${b})`;
@@ -184,6 +208,10 @@ function cover(el, pal){
 }
 function renderAll(){
   applyToEngine();
+  const exactSpacing = spacingForCut(CUT, SPACING_EXPORTS);
+  $('cpsp').disabled = !exactSpacing;
+  $('spacing-status').textContent = exactSpacing ? 'Final spacing from this built cut.'
+    : 'Draft preview. Build this cut and rebuild the Lab for final title spacing.';
   cover($('cover1'), PAL); cover($('cover2'), PAL === 'Paper' ? 'Night' : 'Paper');
   const tracks = $('t-tracks').value.split('\n').map(s => s.trim()).filter(Boolean);
   const tw = $('tracks').clientWidth || 600;
@@ -243,7 +271,9 @@ $('save').addEventListener('click', async () => {
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });
 </script></body></html>"""
-html = HTML.replace('__ENGINE__', draft_helper + '\n' + engine + '\n' + stroke_geometry).replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
+html = (HTML.replace('__ENGINE__', draft_helper + '\n' + engine + '\n' + stroke_geometry + '\n' + spacing_helper)
+        .replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
+        .replace('__SPACING__', json.dumps(spacing_exports, ensure_ascii=False, separators=(',', ':'))))
 out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(html)

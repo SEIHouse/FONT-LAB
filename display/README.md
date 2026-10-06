@@ -24,6 +24,9 @@ OpenType features.
 | `make_display.py` | Thin cut loader using the same core as `../make_fonts.py` |
 | `build_display_page.py` | Builds the Lab page |
 | `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant |
+| `title_spacing.py` | Capital-height and mixed-case optical spacing, plus final-font GPOS/metric exports |
+| `spacing.js` | Applies compiled kerning classes, rounded advances and capital spacing in the Lab |
+| `spacing_<cut>.json` | Final spacing data from each OTF, verified against its settings and font hash |
 | `outline_cleanup.py` | Resolves overlaps and removes contour/point/spike debris before export |
 | `../verify_display_shapes.py` | Renders every glyph at 400px and gates shapes, design preservation and web delivery |
 | `../verify_shared_engine.py` | Gates Reader preservation and Display repertoire, language, mark and numeric shaping |
@@ -32,8 +35,9 @@ OpenType features.
 
 1. Shape a cut in the Lab, name it, and press **Save cut** to keep a browser draft
    (or save to the connected Claude host). Drafts stay on this browser and site.
-2. **Download JSON** or **Copy** the settings. From the repo root, run
-   `python -X utf8 display/make_display.py path/to/my-cut.json`.
+2. **Download JSON** or **Copy** the settings into `display/cuts/my-cut.json`
+   (or replace the corresponding preset JSON). From the repo root, run
+   `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
 
 The hosted Lab previews and saves settings; font compilation uses the local Python
@@ -98,4 +102,8 @@ reports cover the expanded shared inventory.
 
 ## Version 0.1 notes
 
-- Live Lab spacing uses hand-set pairs only; built fonts also get the automatic pair pass.
+- Titles use each cut's capital-height spacing pass and optional `cpsp` capital
+  spacing. The Lab reads the final OTF's kerning and advances; all 888 measured
+  title widths differ by less than 0.065%. Unbuilt edits receive a draft-spacing
+  label until their font and Lab are rebuilt. See the [Step 3 title proofs,
+  spacing behavior and width gate](../docs/DISPLAY-TITLE-SPACING-STEP3.md).

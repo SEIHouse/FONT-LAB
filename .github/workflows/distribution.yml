@@ -38,6 +38,12 @@ jobs:
           python verify_shared_engine.py --reader-fonts dist/reader-candidate --full-fonts-only --display-fonts dist/display-candidate --report dist/reader-rebuild.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python verify_display_shapes.py --fonts dist/display-candidate --report dist/display-rebuild.json
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:SPACING_DIR = 'dist/display-candidate'
+          $env:LAB_OUT = 'dist/display-candidate-lab.html'
+          python display/build_display_page.py
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          python verify_display_spacing.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-title-rebuild.json
       - name: Upload rebuild evidence
         if: always()
         uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
@@ -46,6 +52,7 @@ jobs:
           path: |
             dist/reader-rebuild.json
             dist/display-rebuild.json
+            dist/display-title-rebuild.json
           if-no-files-found: warn
           retention-days: 30
   display-shapes:
@@ -60,14 +67,18 @@ jobs:
         with:
           node-version: '22'
       - name: Install outline, raster and shaping verification tools
-        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56'
+        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56' 'playwright==1.63.0'
+      - name: Install Chromium for title width parity
+        run: python -m playwright install chromium
       - name: Gate every Display glyph and construction regression
         run: |
           python -m unittest discover -s tests -p 'test_*.py' -v
           node --test tests/display-strokes.test.mjs
           node --test tests/shared-engine.test.mjs
+          node --test tests/display-spacing.test.mjs
           python verify_display_shapes.py --report dist/display-shapes.json
           python verify_shared_engine.py --report dist/shared-engine.json
+          python verify_display_spacing.py --report dist/display-spacing.json
   website:
     runs-on: ubuntu-latest
     timeout-minutes: 5

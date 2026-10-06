@@ -60,6 +60,9 @@ their cut settings. Display fonts
 remain excluded from the SEIReader app ZIP/npm package. See the
 [shared engine and Reader preservation gate](docs/DISPLAY-SHARED-ENGINE-STEP2.md)
 and [clean-shape construction and proofs](docs/DISPLAY-SHAPES-STEP1.md).
+Titles use per-cut capital-height kerning and optional `cpsp` capital spacing.
+The Lab reads each built font's final spacing; see the
+[title spacing gate and before/after proofs](docs/DISPLAY-TITLE-SPACING-STEP3.md).
 Its **Save cut** button uses browser-local drafts on a normal website and retains
 the original database integration in the Claude host. Use **Download JSON** or
 **Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.
@@ -67,17 +70,19 @@ the original database integration in the Claude host. Use **Download JSON** or
 To rebuild with the Python dependencies described below, run from the repository root:
 
 ```sh
-python -X utf8 display/build_display_page.py
 python -X utf8 display/make_display.py display/cuts/soft.json
+python -X utf8 display/build_display_page.py
 ```
 
 Choose `edge.json`, `ink.json`, or `wide.json` for another design. The builder uses
 Chromium and `otfautohint`; run it in the environment where those dependencies are
 installed. The explicit UTF-8 mode supports the supplied Unicode sources on Windows.
-The live Lab uses hand-set pairs; built fonts also measure automatic spacing.
+The Lab generator checks the cut settings and font hash against its spacing
+export. Unbuilt geometry edits receive a draft-spacing label until rebuilt.
 Run `python -X utf8 verify_display_shapes.py` and
 `python -X utf8 verify_shared_engine.py` to gate all four rebuilt cuts and Reader
-preservation.
+preservation, and `python -X utf8 verify_display_spacing.py` to gate Lab/font
+title widths at a difference below 0.5%.
 
 ## What's inside
 
