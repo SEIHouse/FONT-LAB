@@ -54,20 +54,24 @@ class DisplaySpacing:
                      body=range(round(builder.XHT*.06)*scale,
                                 round(builder.XHT*.95)*scale, 5*scale),
                      full=range(0, 701*scale, 4*scale))
+        self.builder, self.zones = builder, zones
         for ch in dict.fromkeys(chars):
             name = cmap.get(ord(ch))
             if name is None or paths.get(name) is None:
                 continue
-            bands = {zone: builder.profiles(paths[name], ys) for zone, ys in zones.items()}
-            left, right = bands['full']
-            if not any(value is not None for value in left):
-                continue
-            self.profiles[ch] = dict(advance=advances[name], bands=bands,
-                left=min(value for value in left if value is not None),
-                right=max(value for value in right if value is not None))
+            self.add_profile(ch, paths[name], advances[name])
         self.targets = {zone: self.gap(ch, ch, zone)[0]
                         for zone, ch in (('cap', 'H'), ('body', 'n'))}
         self.capital_space = max(6, min(36, round(self.targets['cap']/scale*.14)))
+
+    def add_profile(self, key, path, advance):
+        """Sample an additional design using the same bands and real-ink bounds."""
+        bands = {zone: self.builder.profiles(path, ys) for zone, ys in self.zones.items()}
+        left, right = bands['full']
+        if any(value is not None for value in left):
+            self.profiles[key] = dict(advance=advance, bands=bands,
+                left=min(value for value in left if value is not None),
+                right=max(value for value in right if value is not None))
 
     def gap(self, a, b, zone):
         """Return optical whitespace and the closest real ink, before kerning."""
@@ -167,7 +171,7 @@ def compiled_kerning(font):
     return result
 
 
-def export_spacing(font_path, settings, origins, policy):
+def export_spacing(font_path, settings, origins, policy, designs=None):
     """Publish final rounded metrics and resolved GPOS values for the live SVG Lab."""
     font_path = Path(font_path)
     with TTFont(font_path) as font:
@@ -175,17 +179,21 @@ def export_spacing(font_path, settings, origins, policy):
         characters = {chr(code): name for code, name in cmap.items()}
         characters.update({name: name for name in font.getGlyphOrder() if '.' in name})
         capitals = sorted({name for code, name in cmap.items() if chr(code).isupper()})
-        return dict(schema=1, settings=spacing_settings(settings),
+        variants = {source:dict(spec, choices={choice: cmap[ord(name)] if len(name)==1 else name
+                    for choice, name in spec['choices'].items()}) for source, spec in (designs or {}).items()}
+        capitals += [name for source, spec in variants.items() if len(source)==1 and source.isupper()
+                     for choice, name in spec['choices'].items() if choice != spec['default']]
+        return dict(schema=1, settings=spacing_settings(settings), built_alternates=settings.get('alternates', {}),
             otf_sha256=hashlib.sha256(font_path.read_bytes()).hexdigest(),
             policy=policy.policy_name, capitalSpace=policy.capital_space,
             capitals=capitals, glyphs={ch:dict(name=name, advance=font['hmtx'][name][0]/2,
                 origin=origins.get(name, 0)) for ch, name in characters.items()},
-            kern=compiled_kerning(font))
+            kern=compiled_kerning(font), variants=variants)
 
 
-def write_spacing(font_path, settings, origins, policy, directory):
+def write_spacing(font_path, settings, origins, policy, directory, designs=None):
     """Save the compiled spacing snapshot using the cut builder's asset slug."""
     slug = settings['name'].lower().replace(' ', '-')
     output = Path(directory)/f'spacing_{slug}.json'
-    output.write_text(json.dumps(export_spacing(font_path, settings, origins, policy),
+    output.write_text(json.dumps(export_spacing(font_path, settings, origins, policy, designs),
                                   ensure_ascii=False, separators=(',', ':'))+'\n', encoding='utf-8')

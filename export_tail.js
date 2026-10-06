@@ -5,16 +5,18 @@ function exportRecord(ch, S){
   const circles = [...g.body.matchAll(/<circle cx="([^"]+)" cy="([^"]+)" r="([^"]+)"/g)].map(m => [+m[1], +m[2], +m[3]]);
   const fills = [...g.body.matchAll(/<path data-fill="1" d="([^"]+)"[^>]*stroke-width="([^"]+)"/g)].map(m => ({ d:m[1], sw:+m[2] }));
   const latin=READING_LETTERS.has(ch) || ACC[ch] || DOTLESS[ch] || LANGUAGE_COMPOSED[ch]
-    || LANGUAGE_SPECIALS[ch] || LANGUAGE_ALTERNATES[ch] || PHASE4_SCRIPT.has(ch) || ch==='◌';
+    || LANGUAGE_SPECIALS[ch] || LANGUAGE_ALTERNATES[ch] || PHASE4_SCRIPT.has(ch) || ch==='◌' || DISPLAY_VARIANTS[ch]?.letter;
   return { paths, circles, fills, sb0:g.sb0, sb1:g.sb1, w:g.w,
            ...(COMBINING[ch] ? {mark:g.mark,attach:g.attach,anchors:g.anchors}
              : latin ? {anchors:latinAnchors(ch,S)} : {}) };
 }
 window.exportGlyphs = S => Object.fromEntries(Object.keys(G).map(ch => [ch, exportRecord(ch, S)]));
-/** Export drawing records for numeric, dotless, and language-specific alternates. */
+/** Export numeric, dotless, language-specific and opt-in Display stylistic glyphs. */
 window.exportAlternates = S => Object.fromEntries(Object.keys(NUMERIC_VARIANTS)
   .filter(name => name.endsWith('.tf') || name.endsWith('.numr') || name.endsWith('.dnom'))
-  .concat(Object.keys(DOTLESS),Object.keys(LANGUAGE_ALTERNATES)).map(name => [name, exportRecord(name, S)]));
+  .concat(Object.keys(DOTLESS),Object.keys(LANGUAGE_ALTERNATES),
+    ...Object.values(displayManifest()).map(row=>Object.values(row.choices).filter(name=>DISPLAY_VARIANTS[name])))
+  .map(name => [name, exportRecord(name, S)]));
 window.getKern = () => KERN;
 window.getP = () => P;
 

@@ -25,7 +25,8 @@ def load_spacing(cut):
         record = json.load(source)
     with open(font, 'rb') as source:
         digest = hashlib.sha256(source.read()).hexdigest()
-    if record.get('schema') != 1 or record['settings'] != spacing_settings(cut) or record['otf_sha256'] != digest:
+    if (record.get('schema') != 1 or record['settings'] != spacing_settings(cut) or record['otf_sha256'] != digest
+            or record.get('built_alternates') != cut.get('alternates', {})):
         raise ValueError('Stale spacing export for '+cut['name']+'; rebuild the cut before its Lab')
     return record
 
@@ -53,11 +54,11 @@ aside{ background:var(--panel); border:1px solid var(--line); border-radius:14px
 .pill{ font:inherit; font-size:13px; padding:6px 11px; border-radius:999px; border:1px solid var(--line); background:transparent; color:var(--ink); cursor:pointer; }
 .pill[aria-pressed="true"]{ background:var(--ink); color:#0d0f13; border-color:var(--ink); }
 .pill.primary{ background:var(--accent); color:#0d0f13; border-color:var(--accent); font-weight:600; }
-.pill:focus-visible, input:focus-visible, textarea:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
+.pill:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{ outline:2px solid var(--accent); outline-offset:2px; }
 label.ctl{ display:grid; gap:3px; font-size:13px; color:var(--mute); }
 label.ctl span{ display:flex; justify-content:space-between; } label.ctl output{ color:var(--ink); }
 input[type=range]{ width:100%; accent-color:var(--accent); }
-input[type=text], textarea{ width:100%; font:inherit; background:#0d0f13; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; }
+input[type=text], textarea, select{ width:100%; font:inherit; background:#0d0f13; color:var(--ink); border:1px solid var(--line); border-radius:8px; padding:7px 9px; }
 textarea{ min-height:84px; resize:vertical; }
 .hint{ font-size:12px; color:var(--mute); }
 main{ display:grid; gap:16px; min-width:0; }
@@ -89,6 +90,8 @@ main{ display:grid; gap:16px; min-width:0; }
     <p class="hint" id="draftwarning" hidden></p>
     <p class="hint">Browser drafts stay on this device and site. Download JSON to build a font or move your cut.</p>
   </div>
+  <div class="sec"><h2>Letter designs</h2><div id="ctl-alternates"></div>
+    <p class="hint">Each choice is built into this cut. The shared stylistic set switches related letters together in font apps; these controls choose each design for your saved cut.</p></div>
   <div class="sec"><h2>Shape</h2>
     <div class="row" role="group" aria-label="Corners"><button type="button" class="pill" data-k="corners" data-v="soft">Soft corners</button><button type="button" class="pill" data-k="corners" data-v="cut">Cut corners</button></div>
     <div class="row" role="group" aria-label="Ends"><button type="button" class="pill" data-k="ends" data-v="round">Round ends</button><button type="button" class="pill" data-k="ends" data-v="flat">Flat ends</button></div>
@@ -141,7 +144,9 @@ const PALETTES = { Night:['#0f1115','#2b3140','#eef1f6'], Dawn:['#f6d7ad','#e783
                    Ember:['#2a0d0b','#c2462b','#fff1e6'], Paper:['#f4efe6','#e6dccb','#1b1d22'], Violet:['#17112b','#6b54d6','#f2eeff'] };
 let CUT = JSON.parse(JSON.stringify(PRESETS[0])), SAVED = Object.create(null), PAL = 'Night', PAL2 = 'Paper', db = null;
 
+/** Apply the cut's geometry and validated letter choices to the shared drawing state. */
 function applyToEngine(){
+  CUT.alternates = displayChoices(CUT.alternates === undefined ? {} : CUT.alternates); P.alternates = CUT.alternates;
   P.base = CUT.weight; P.ws = CUT.letterWidth; P.xh = CUT.xHeight; P.contrast = displayContrast(CUT.weight, CUT.contrast, CUT.xHeight, CUT.ends); P.penAngle = CUT.penAngle || 0;
   P.caprx = CUT.capitalRoundness; P.round = CUT.lowercaseRoundness; P.straight = CUT.uprightStraightness || 1;
   P.corner = CUT.corners === 'cut' ? 'cut' : 'soft'; P.cap = CUT.ends; P.join = CUT.joins;
@@ -176,7 +181,15 @@ function drawText(str, size, color, lh = 1.12){
   return `<div class="run" role="img" aria-label="${e_(str)}" style="color:${color || 'inherit'};row-gap:${row}px">${tokens.map(w => drawWord(w, size)).join('')}</div>`;
 }
 /* ---- controls ---- */
+/** Populate accessible controls from the cut, retaining individual saved design choices. */
 function buildControls(){
+  CUT.alternates = displayChoices(CUT.alternates === undefined ? {} : CUT.alternates);
+  $('ctl-alternates').innerHTML = DISPLAY_SETS.map(set=>
+    `<label class="ctl">${set.label} · ${set.tag}<select id="alt-${set.key}" aria-label="${set.label} design">${set.choices.map(choice=>
+      `<option value="${choice}"${CUT.alternates[set.key]===choice ? ' selected' : ''}>${choice.replaceAll('-',' ')}</option>`).join('')}</select></label>`).join('');
+  DISPLAY_SETS.forEach(set=>$('alt-'+set.key).addEventListener('change',event=>{
+    CUT.alternates[set.key]=event.target.value; changed();
+  }));
   for(const [box, list] of Object.entries(SLIDERS)){
     $(box).innerHTML = list.map(([k, label, mn, mx, st]) =>
       `<label class="ctl"><span>${label} <output id="o-${k}">${CUT[k]}</output></span><input type="range" id="r-${k}" min="${mn}" max="${mx}" step="${st}" value="${CUT[k]}" aria-label="${label}"></label>`).join('');
@@ -260,10 +273,15 @@ $('save').addEventListener('click', async () => {
   $('save').disabled = false;
   try {
     const snap = await db.collection('cuts').get();
-    snap.docs.forEach(d => { const v = d.data(); if(v && v.name) SAVED[v.name] = v; });
+    let invalidAlternates=0;
+    snap.docs.forEach(d => {
+      const v=d.data(); if(!v || !v.name) return;
+      try { v.alternates=displayChoices(v.alternates === undefined ? {} : v.alternates); SAVED[v.name]=v; }
+      catch { invalidAlternates++; }
+    });
     renderPresets(); renderAllCuts();
-    if(snap.invalid){
-      const warning = 'Invalid saved draft data: ' + snap.invalid + ' unreadable record(s) were kept. Valid cuts are available below.';
+    if(snap.invalid || invalidAlternates){
+      const warning = 'Invalid saved draft data: ' + ((snap.invalid || 0)+invalidAlternates) + ' unreadable record(s) were kept. Valid cuts are available below.';
       $('draftwarning').textContent = warning; $('draftwarning').hidden = false; setMsg(warning);
     } else setMsg(db.local ? 'Ready to save in this browser.' : 'Ready to save to the connected host.');
   } catch(e){ setMsg((e && e.message === 'Invalid saved draft data' ? 'Invalid saved draft data. Existing drafts were kept.' : 'Could not load drafts.') + ' Use Download JSON to keep a copy.'); }

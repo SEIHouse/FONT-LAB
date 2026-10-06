@@ -1,5 +1,8 @@
 /** Resolve the compiled cut's GPOS classes and rounded hmtx advances for SVG titles. */
 function spacingForCut(cut, exports){
+  if(typeof displayChoices==='function'){
+    try { displayChoices(cut.alternates === undefined ? {} : cut.alternates); } catch { return null; }
+  }
   const stable = value => value && typeof value === 'object'
     ? (Array.isArray(value) ? value.map(stable)
       : Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]))) : value;
@@ -43,7 +46,10 @@ function titleLayout(text, cut, spacing, capitalSpacing=false){
   let width = 0, previous = '', glyphs = [];
   for(const cluster of titleClusters(text)){
     const ch = cluster.base, g = clusterGlyph(cluster, cut.weight);
-    const metric = spacing?.glyphs[ch];
+    const variant = spacing?.variants?.[ch];
+    const name = variant?.choices[cut.alternates?.[variant.key] ?? variant.default];
+    const metric = variant && name && name!==spacing.glyphs[ch]?.name
+      ? spacing.glyphs[name] : spacing?.glyphs[ch];
     const capital = capitalSpacing && metric && spacing.capitals.includes(metric.name)
       ? spacing.capitalSpace : 0;
     if(metric){

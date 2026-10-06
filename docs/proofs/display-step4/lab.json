@@ -1,0 +1,43 @@
+{
+  "Soft": {
+    "glyphs": 696,
+    "instances": 2088,
+    "sizes": [
+      300,
+      400,
+      800
+    ]
+  },
+  "Edge": {
+    "glyphs": 696,
+    "instances": 2088,
+    "sizes": [
+      300,
+      400,
+      800
+    ]
+  },
+  "Ink": {
+    "glyphs": 696,
+    "instances": 2088,
+    "sizes": [
+      300,
+      400,
+      800
+    ]
+  },
+  "Wide": {
+    "glyphs": 696,
+    "instances": 2088,
+    "sizes": [
+      300,
+      400,
+      800
+    ]
+  },
+  "mobile": {
+    "width": 390,
+    "cut": "Soft"
+  },
+  "page_errors": []
+}

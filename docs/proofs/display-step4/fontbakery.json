@@ -1,0 +1,83 @@
+{
+  "version": "1.1.0",
+  "profiles": {
+    "opentype": {
+      "network": "not applicable",
+      "cuts": {
+        "soft": {
+          "results": {
+            "(not finished)": 0,
+            "PASS": 31,
+            "SKIP": 22
+          },
+          "otf_sha256": "ee81864990eaf9d8b3266562c58e4db87c00104f931f5bc104110babd541048e"
+        },
+        "edge": {
+          "results": {
+            "(not finished)": 0,
+            "PASS": 31,
+            "SKIP": 22
+          },
+          "otf_sha256": "a23a6fc03fe75ed5277e5cfb77e2759d9c3244d2ab123ef8e13d27d2bed873ed"
+        },
+        "ink": {
+          "results": {
+            "(not finished)": 0,
+            "PASS": 31,
+            "SKIP": 22
+          },
+          "otf_sha256": "abc5e26e520518e90eed02cf43ede4ad2b55d22925ec35b96226c812eb3ba3ea"
+        },
+        "wide": {
+          "results": {
+            "(not finished)": 0,
+            "PASS": 31,
+            "SKIP": 22
+          },
+          "otf_sha256": "1fbb10e86af254759d715bb88cd9a0ed7ba2f84629e69cee4bb7454e1acbd349"
+        }
+      }
+    },
+    "universal": {
+      "network": "skipped",
+      "cuts": {
+        "soft": {
+          "results": {
+            "(not finished)": 0,
+            "INFO": 3,
+            "PASS": 75,
+            "SKIP": 49
+          },
+          "otf_sha256": "ee81864990eaf9d8b3266562c58e4db87c00104f931f5bc104110babd541048e"
+        },
+        "edge": {
+          "results": {
+            "(not finished)": 0,
+            "INFO": 3,
+            "PASS": 75,
+            "SKIP": 49
+          },
+          "otf_sha256": "a23a6fc03fe75ed5277e5cfb77e2759d9c3244d2ab123ef8e13d27d2bed873ed"
+        },
+        "ink": {
+          "results": {
+            "(not finished)": 0,
+            "INFO": 3,
+            "PASS": 75,
+            "SKIP": 49
+          },
+          "otf_sha256": "abc5e26e520518e90eed02cf43ede4ad2b55d22925ec35b96226c812eb3ba3ea"
+        },
+        "wide": {
+          "results": {
+            "(not finished)": 0,
+            "INFO": 3,
+            "PASS": 75,
+            "SKIP": 49
+          },
+          "otf_sha256": "1fbb10e86af254759d715bb88cd9a0ed7ba2f84629e69cee4bb7454e1acbd349"
+        }
+      }
+    }
+  }
+}

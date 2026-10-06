@@ -20,5 +20,18 @@
   "weight": 55,
   "spaceBetweenAllLetters": 46,
   "note": "Thin, wide and airy. Quiet, spacious titles.",
-  "name": "Wide"
+  "name": "Wide",
+  "alternates": {
+    "a": "double",
+    "g": "double",
+    "R": "straight",
+    "K": "joined",
+    "M": "splayed",
+    "W": "plain",
+    "y": "straight",
+    "G": "spur",
+    "Q": "long",
+    "four": "open",
+    "sixNine": "closed"
+  }
 }

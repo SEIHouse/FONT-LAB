@@ -137,10 +137,14 @@ class FontBuilderCore:
                     corner=self.settings.get('corners', 'soft'), cap=self.settings.get('ends', 'round'),
                     join=self.settings.get('joins', 'round'), penAngle=self.PEN,
                     obliqueAngle=self.settings.get('slant', 0))) + ");")
+                if self.display:
+                    pg.evaluate('(choices)=>P.alternates=displayChoices(choices)', self.settings.get('alternates', {}))
                 out = {'glyphs': pg.evaluate(f'exportGlyphs({self.S})'), 'alternates': pg.evaluate(f'exportAlternates({self.S})'),
                        'kern': pg.evaluate('getKern()'), 'basemap': pg.evaluate('getBaseMap()'),
                        'screenStroke': pg.evaluate(f'readingStroke({self.S})'),
                        'scriptchars': pg.evaluate('getScriptChars()')}
+                if self.display:
+                    out['designs'] = pg.evaluate('displayManifest()')
             finally:
                 b.close()
         return out
@@ -580,12 +584,19 @@ class FontBuilderCore:
         for name, g in data['alternates'].items():
             if name.endswith('.tf'): continue  # same exact outline as the original digit, positioned above
             order.append(name)
-            records[name] = g; origins[name] = TR + g['sb0']
+            before, after = 0, 0
+            if self.display:
+                source = next((source for source, spec in data['designs'].items() if name in spec['choices'].values()), None)
+                if source is not None:
+                    override = ovr.get(source) or ovr.get(data['basemap'].get(source, ''), {}) or {}
+                    before, after = override.get('before', 0), override.get('after', 0)
+            left = TR + g['sb0'] + before
+            records[name] = g; origins[name] = left
             try:
-                paths[name] = self.outline(g, TR + g['sb0'])
+                paths[name] = self.outline(g, left)
             except pathops.PathOpsError as exc:
                 raise RuntimeError(f'Could not union {shown} alternate {name}') from exc
-            hm[name] = round((2*TR + g['sb0'] + g['w'] + self.S + g['sb1']) * SC)
+            hm[name] = round((2*TR + g['sb0'] + before + g['w'] + self.S + g['sb1'] + after) * SC)
 
         # The small figures share a measured advance within each weight/style.
         supers = '⁰¹²³⁴⁵⁶⁷⁸⁹'; subs = '₀₁₂₃₄₅₆₇₈₉'
@@ -594,6 +605,19 @@ class FontBuilderCore:
         for name in mini_names:
             paths[name] = self.center_ink(paths[name], mini_advance)
             hm[name] = mini_advance
+
+        if self.display:
+            for source, spec in data['designs'].items():
+                original = self.gname(source) if len(source) == 1 else source
+                for name in spec['choices'].values():
+                    if name == source:
+                        continue
+                    if original.endswith('.tf'):
+                        paths[name] = self.center_ink(paths[name], tabular_advance)
+                        hm[name] = tabular_advance
+                    elif original in mini_names:
+                        paths[name] = self.center_ink(paths[name], mini_advance)
+                        hm[name] = mini_advance
 
         fraction_name = self.gname('⁄')
         hm[fraction_name] = round(190 * SC)
@@ -606,6 +630,15 @@ class FontBuilderCore:
             paths[self.gname(ch)] = pathops.op(pathops.op(left, slash, PathOp.UNION, fix_winding=True),
                                          right, PathOp.UNION, fix_winding=True)
             hm[self.gname(ch)] = hm[num_name] + hm[fraction_name] + hm[den_name]
+            if self.display and ch in data['designs']:
+                spec = data['designs'][ch]
+                name = next(name for choice, name in spec['choices'].items() if choice != spec['default'])
+                den_spec = data['designs'][den_name]
+                alternate_den = den_spec['choices'][next(choice for choice in den_spec['choices'] if choice != den_spec['default'])]
+                right = paths[alternate_den].transform(translateX=hm[num_name]+hm[fraction_name])
+                paths[name] = pathops.op(pathops.op(left, slash, PathOp.UNION, fix_winding=True),
+                                        right, PathOp.UNION, fix_winding=True)
+                hm[name] = hm[self.gname(ch)]
 
         for code, ch in PRIVATE.items():
             if ord(ch) in cmap: cmap[code] = cmap[ord(ch)]
@@ -732,18 +765,33 @@ class FontBuilderCore:
             left_groups.add(a); right_groups.add(b)
             lines.append(f'  pos @L_{self.gname(a)} @R_{self.gname(b)} {round(v*SC)};')
         bm = data.get('basemap', {})
+        figure_alternates = {source: [name for name in spec['choices'].values() if name != source]
+                             for source, spec in data.get('designs', {}).items() if source in '469' and len(source)==1}
         members = lambda c: ' '.join([self.gname(c)] + [self.gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap and a not in SEPARATE_LATIN]
+                                    + figure_alternates.get(c, [])
                                     + (['i.dotless','i.loclTRK','i.below.dotless'] if c == 'i' else ['j.dotless'] if c == 'j' else []))
+        alternate_lines, alternate_classes = [], []
+        if self.display:
+            from display.letter_alternates import alternate_kerning
+            alternate_lines, alternate_classes = alternate_kerning(
+                display_spacing, data['designs'], bm, paths, hm, self.gname, SC,
+                left_groups, right_groups)
         cls = [f'@L_{self.gname(c)} = [{members(c)}];' for c in sorted(left_groups)] + \
               [f'@R_{self.gname(c)} = [{members(c)}];' for c in sorted(right_groups)]
         from latin_layout import latin_features
         shear = self.TAN if italic else math.tan(math.radians(self.settings.get('slant', 0)))
         fea = latin_features(records, origins, hm, cmap, SC, shear, ITAL_CENTER)
         fea += '\n'.join(cls) + '\nfeature kern {\n lookupflag IgnoreMarks;\n' + '\n'.join(lines) + '\n} kern;\n'
+        if self.display:
+            fea += '\n'.join(alternate_classes)+'\nfeature kern {\n lookupflag IgnoreMarks;\n'+'\n'.join(alternate_lines)+'\n} kern;\n'
         # Equal adjustments for every tabular digit preserve formatted-number alignment.
         # Separate classes leave ordinary digit widths and digit-to-digit spacing intact.
         # Zero's final separator overrides control the shared tabular margin.
-        fea += '@tabular_figures = [' + ' '.join(name + '.tf' for name in digit_names) + '];\n'
+        tabular_names = [name+'.tf' for name in digit_names]
+        if self.display:
+            tabular_names += [name for source, spec in data['designs'].items() if source.endswith('.tf')
+                             for name in spec['choices'].values() if name != source]
+        fea += '@tabular_figures = [' + ' '.join(tabular_names) + '];\n'
         fea += 'feature kern {\n lookupflag IgnoreMarks;\n'
         for separator in '.,':
             fea += f' pos @tabular_figures {self.gname(separator)} {round(KERN.get("0" + separator, 0)*SC)};\n'
@@ -787,7 +835,11 @@ class FontBuilderCore:
         # Apply tabular figures last: sups/subs/frac must still see proportional digit names.
         fea += f"feature tnum {{ sub @figures by [{tabular}]; }} tnum;\n"
         if self.display:
+            from display.letter_alternates import stylistic_features
+            fea += stylistic_features(data['designs'], self.gname)
             capitals = sorted({name for code, name in cmap.items() if chr(code).isupper()})
+            capitals += [name for source, spec in data['designs'].items() if len(source)==1 and source.isupper()
+                         for name in spec['choices'].values() if name != source]
             extra = display_spacing.capital_space * SC
             fea += ('@display_capitals = ['+' '.join(capitals)+'];\n'
                     'feature cpsp { lookupflag IgnoreMarks;\n'
@@ -800,7 +852,7 @@ class FontBuilderCore:
         t = TTFont(out); t.flavor = 'woff2'; t.save(out.replace('.otf', '.woff2'))
         if self.display:
             from display.title_spacing import write_spacing
-            write_spacing(out, self.settings, origins, display_spacing, self.asset_dir)
+            write_spacing(out, self.settings, origins, display_spacing, self.asset_dir, data['designs'])
 
     def configured_stroke(self, cmds, dx, width=None, cap_mask=(True, True)):
         """Expand in oval-pen space, then construct flat caps in stroke coordinates.

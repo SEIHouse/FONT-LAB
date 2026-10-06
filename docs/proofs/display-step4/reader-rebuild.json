@@ -1,0 +1,250 @@
+{
+  "reference": "Reader 0.39 at a9427a35817b482f5672e7c4a508254e031a94a9; latest Phase 4 release preserved",
+  "normalization": "Only head.created, head.modified and head.checkSumAdjustment are zeroed. All SFNT tables including complete CFF outline/hint programs, names, metrics and layout must match.",
+  "legacy_reference": "Reader 0.35 full styles saved before 0.36 metadata release; all original contours and metrics",
+  "scope": {
+    "reader_deliveries": 20,
+    "display_cuts": 4
+  },
+  "reader": {
+    "SEIReader-Bold.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Bold.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-BoldItalic.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-BoldItalic.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Italic.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Italic.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Light.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Light.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-LightItalic.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-LightItalic.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Medium.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Medium.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-MediumItalic.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-MediumItalic.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Regular.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-Regular.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBold.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBold.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBoldItalic.otf": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    },
+    "SEIReader-SemiBoldItalic.woff2": {
+      "glyphs": 732,
+      "byte_identical": false,
+      "normalized_tables_identical": true,
+      "outline_and_hint_programs_identical": true,
+      "matches_035_original_outlines_metrics": true
+    }
+  },
+  "display": {
+    "soft": {
+      "language_strings": 3339,
+      "languages": 34,
+      "pinned_cldr_locales": 21,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 817,
+      "flags": 0
+    },
+    "edge": {
+      "language_strings": 3339,
+      "languages": 34,
+      "pinned_cldr_locales": 21,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 817,
+      "flags": 0
+    },
+    "ink": {
+      "language_strings": 3339,
+      "languages": 34,
+      "pinned_cldr_locales": 21,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 817,
+      "flags": 0
+    },
+    "wide": {
+      "language_strings": 3339,
+      "languages": 34,
+      "pinned_cldr_locales": 21,
+      "foundation_language_samples": 13,
+      "features": {
+        "GSUB": [
+          "ccmp",
+          "frac",
+          "liga",
+          "locl",
+          "subs",
+          "sups",
+          "tnum"
+        ],
+        "GPOS": [
+          "kern",
+          "mark",
+          "mkmk"
+        ]
+      },
+      "glyphs": 817,
+      "flags": 0
+    }
+  },
+  "flags": []
+}
