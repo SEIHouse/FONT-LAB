@@ -1,0 +1,12 @@
+{
+  "schema": 1,
+  "source_sha256": "525706a0f1616d1d283eaa397fe8b235286060e9a25644ebedc4980cd58dfcd4",
+  "fixture_sha256": "abe198ec64f833ab641b133bc3a9c1d9262fa3d7315c3248d5cf2887ee30100b",
+  "profiles": [
+    "soft-living-v1",
+    "edge-living-v1",
+    "ink-living-v1",
+    "wide-living-v1"
+  ],
+  "flags": []
+}

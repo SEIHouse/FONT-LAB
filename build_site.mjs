@@ -11,6 +11,9 @@ const pages = [
   'fonts-full.css', 'fonts-sans.css', 'LICENSE', 'FONT-LICENSE.txt',
   'lab/index.html', 'lab/comparison.html', 'lab/reading-test.html',
   'display/lab/index.html', 'display/README.md', 'display/fonts.css',
+  'display/lab/living-media.js', 'display/lab/living-media-LICENSE.txt',
+  'docs/DISPLAY-LIVING-TITLES-STEP6.md', 'docs/proofs/display-step6/index.html',
+  ...['soft','edge','ink','wide'].flatMap(cut => ['caps','mixed'].map(kind => `docs/proofs/display-step6/${cut}-${kind}.svg`)),
   'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md',
   'docs/HEALTH-CHECK.txt', 'docs/DESIGN-GOALS.md', 'docs/WEBSITE.md',
 ];

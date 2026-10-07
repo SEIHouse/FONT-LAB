@@ -1,0 +1,53 @@
+{
+  "cut": {
+    "lowercaseRoundness": 0.25,
+    "letterSpace": {},
+    "pairSpace": {},
+    "xHeight": 470,
+    "capitalRoundness": 200,
+    "letterWidth": 1.4,
+    "wordSpace": 320,
+    "overshoot": true,
+    "uFoot": false,
+    "uprightStraightness": 1.0,
+    "ascender": 700,
+    "version": "0.1",
+    "contrast": 1.0,
+    "penAngle": 1,
+    "slant": 0.5,
+    "corners": "soft",
+    "ends": "round",
+    "joins": "round",
+    "weight": 55.824999999999996,
+    "spaceBetweenAllLetters": 46,
+    "note": "Thin, wide and airy. Quiet, spacious titles.",
+    "name": "Wide",
+    "alternates": {
+      "a": "double",
+      "g": "double",
+      "R": "straight",
+      "K": "joined",
+      "M": "splayed",
+      "W": "plain",
+      "y": "straight",
+      "G": "spur",
+      "Q": "long",
+      "four": "open",
+      "sixNine": "closed"
+    }
+  },
+  "record": {
+    "paths": [
+      {
+        "d": "M73.5 -703.3L409.5 -703.3L174.3 -316.7",
+        "w": 30.1
+      }
+    ],
+    "circles": [],
+    "fills": [],
+    "sb0": 0,
+    "sb1": 0,
+    "w": 427.175
+  },
+  "contrast": 1
+}

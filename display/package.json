@@ -1,0 +1,9 @@
+{
+  "name": "seihouse-living-title-build",
+  "version": "1.0.0",
+  "private": true,
+  "devDependencies": {
+    "esbuild": "0.28.2",
+    "mediabunny": "1.61.3"
+  }
+}

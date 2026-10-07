@@ -1,4 +1,9 @@
 """Remove stroke/Boolean debris while retaining the cut's native Bezier curves."""
+import pathops
+from copy import copy
+from types import SimpleNamespace
+from fontTools.pens.recordingPen import RecordingPen
+from fontTools.pens.t2CharStringPen import T2CharStringPen
 from display.shape_geometry import contours, from_contours, length, chord_turn
 
 # At 400px/2000 UPM: .6px point tolerance, 1px² debris, 8px needle shoulders.
@@ -6,6 +11,59 @@ from display.shape_geometry import contours, from_contours, length, chord_turn
 POINT_EPSILON = 3.0
 MIN_AREA = 25.0
 SPIKE_SHOULDER = 40.0
+
+
+def repair_quantized_edges(charstring, advance):
+    """Collapse debris introduced by final CFF rounding; retain clean programs exactly.
+
+    Native cleanup precedes the CFF pen's final cubic-control rounding. At a
+    fractional weight that rounding can turn a short curve into a one-unit
+    edge. Inspect the actual encoded geometry and apply the existing generic
+    point cleanup only when such an edge exists. Reader charstrings bypass this.
+    """
+    for _ in range(3):
+        decoded = copy(charstring)
+        decoded.private = SimpleNamespace(nominalWidthX=0, defaultWidthX=0, Subrs=[])
+        decoded.globalSubrs = []
+        path = pathops.Path()
+        decoded.draw(path.getPen())
+        items = contours(path)
+        if not any(length(segment) < 2 for segments in items for segment in segments):
+            return charstring
+        pen = T2CharStringPen(advance, None)
+        from_contours([tidy(segments) for segments in items]).draw(pen)
+        charstring = pen.getCharString()
+    raise ValueError('Display CFF rounding left an unresolved tiny edge')
+
+
+def display_union(first, second):
+    """Retry a failed Boolean on a subpixel grid; successful existing unions stay exact.
+
+    Fractional motion weights can make independently stroked, coincident edges
+    differ by float32 noise. Skia occasionally rejects that union. Only after
+    that rejection, round controls to at most .001 of a 2000-UPM font unit
+    (.0002 pixels at the shape gate's size). Never drop an input or a contour.
+    """
+    try:
+        return pathops.op(first, second, pathops.PathOp.UNION, fix_winding=True)
+    except pathops.PathOpsError as original:
+        for precision in (5, 4, 3):
+            rounded = []
+            for path in (first, second):
+                record = RecordingPen()
+                path.draw(record)
+                rebuilt = pathops.Path()
+                rebuilt.fillType = path.fillType
+                pen = rebuilt.getPen()
+                for verb, points in record.value:
+                    getattr(pen, verb)(*[None if point is None else tuple(round(x, precision) for x in point)
+                                         for point in points])
+                rounded.append(rebuilt)
+            try:
+                return pathops.op(*rounded, pathops.PathOp.UNION, fix_winding=True)
+            except pathops.PathOpsError:
+                continue
+        raise original
 
 
 def split(segment, t):

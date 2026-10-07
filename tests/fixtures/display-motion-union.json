@@ -1,0 +1,75 @@
+{
+  "name": "Ь",
+  "cut": {
+    "lowercaseRoundness": 0.7,
+    "letterSpace": {},
+    "pairSpace": {},
+    "xHeight": 520,
+    "capitalRoundness": 270,
+    "letterWidth": 1.05,
+    "wordSpace": 260,
+    "overshoot": true,
+    "uFoot": false,
+    "uprightStraightness": 1.0,
+    "ascender": 700,
+    "version": "0.1",
+    "contrast": 1.0,
+    "penAngle": 0.5,
+    "slant": 0.25,
+    "corners": "soft",
+    "ends": "round",
+    "joins": "round",
+    "weight": 151.125,
+    "spaceBetweenAllLetters": 10,
+    "note": "Heavy, round and warm. Big friendly titles.",
+    "name": "Soft",
+    "alternates": {
+      "a": "single",
+      "g": "single",
+      "R": "curved",
+      "K": "branched",
+      "M": "vertical",
+      "W": "plain",
+      "y": "curved",
+      "G": "no-spur",
+      "Q": "long",
+      "four": "open",
+      "sixNine": "closed"
+    }
+  },
+  "record": {
+    "paths": [
+      {
+        "d": "M75.6 -648.0L75.6 -52.0",
+        "w": 151.1
+      },
+      {
+        "d": "M75.6 -358.5L306.6 -358.5C460.6 -358.5 537.6 -307.5 537.6 -205.3L537.6 -205.3C537.6 -103.0 460.6 -52.0 306.6 -52.0L75.6 -52.0",
+        "w": 151.1
+      }
+    ],
+    "circles": [],
+    "fills": [],
+    "sb0": 66,
+    "sb1": 52,
+    "w": 462,
+    "anchors": {
+      "top": [
+        306.56098540629426,
+        759.9935983107363
+      ],
+      "bottom": [
+        306.56098540629426,
+        -37.993598310736296
+      ],
+      "horn": [
+        585.9459856568475,
+        594.2060983107363
+      ],
+      "ogonek": [
+        567.8109856568475,
+        15.118901689263705
+      ]
+    }
+  }
+}

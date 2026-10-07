@@ -1,0 +1,45 @@
+<section class="card" id="living-title" aria-labelledby="living-heading">
+  <h2 id="living-heading">Living title</h2>
+  <p class="hint" id="lt-profile"></p>
+  <div class="living-controls">
+    <label class="ctl">Motion source<select id="lt-mode"><option value="bpm">BPM loop</option><option value="audio">Local audio clip</option></select></label>
+    <label class="ctl">Output longest edge<select id="lt-size"><option value="1080">1080 px</option><option value="1920">1920 px</option></select></label>
+    <div id="lt-bpm-controls" class="living-controls">
+      <label class="ctl">BPM<input id="lt-bpm" type="number" min="24" max="240" value="120"></label>
+      <label class="ctl">Beats<input id="lt-beats" type="number" min="1" max="16" value="4"></label>
+    </div>
+    <div id="lt-audio-controls" class="living-audio" hidden>
+      <label class="ctl">Audio file<input id="lt-file" type="file" accept="audio/*"></label>
+      <p class="hint" id="lt-file-status">Music stays on this device. Only the selected clip is decoded.</p>
+      <div class="living-controls">
+        <label class="ctl">Clip start (seconds)<input id="lt-start" type="number" min="0" step="0.1" value="0"></label>
+        <label class="ctl">Clip length (seconds)<input id="lt-duration" type="number" min="1" max="10" step="0.1" value="2"></label>
+      </div>
+    </div>
+    <fieldset class="living-axes"><legend>Motion axes</legend>
+      <label><input id="lt-weight" type="checkbox" checked> Thickness</label>
+      <label><input id="lt-slant" type="checkbox" checked> Slant</label>
+      <label><input id="lt-pen" type="checkbox" checked> Pen angle</label>
+    </fieldset>
+    <label class="ctl"><span>Strength <output id="lt-strength-value">100%</output></span><input id="lt-strength" type="range" min="0" max="100" value="100"></label>
+    <label class="ctl">Title color<input id="lt-ink" type="color" value="#eef1f6"></label>
+    <label class="ctl">Video background<input id="lt-background" type="color" value="#0f1115"></label>
+  </div>
+  <div class="living-stage" id="lt-stage" role="img" aria-label="Paused living title"></div>
+  <div class="row living-actions">
+    <button class="pill primary" type="button" id="lt-prepare">Prepare loop</button>
+    <button class="pill" type="button" id="lt-cancel" disabled>Cancel</button>
+    <button class="pill" type="button" id="lt-play" disabled>Play</button>
+    <button class="pill" type="button" id="lt-restart" disabled>Restart</button>
+  </div>
+  <label class="ctl"><span>Position <output id="lt-time">0.00 / 2.00 s</output></span><input id="lt-scrub" type="range" min="0" max="2" step="0.001" value="0" disabled></label>
+  <progress id="lt-progress" max="1" value="0" aria-label="Preparing living title" hidden></progress>
+  <p class="hint" id="lt-status" role="status" aria-live="polite">Paused BPM preview · 120 BPM · four beats · 30 FPS</p>
+  <div class="row living-actions">
+    <button class="pill" type="button" id="lt-svg" disabled>Download animated SVG</button>
+    <button class="pill" type="button" id="lt-video" disabled>Check video format</button>
+    <label><input id="lt-include-audio" type="checkbox"> Include clip audio in video</label>
+  </div>
+  <p class="hint" id="lt-codec">SVG is transparent. Video uses the chosen solid background; audio is off by default.</p>
+  <p class="hint">Spacing stays anchored to the built cut. Motion never changes your saved JSON. Reduced-motion preferences keep the preview and SVG at rest. <a href="living-media-LICENSE.txt">Media library license</a></p>
+</section>

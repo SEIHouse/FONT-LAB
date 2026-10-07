@@ -28,6 +28,10 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 | `fonts/<cut>/` | Full OTF/WOFF2 and six web subsets, family "SEIHouse Display <Cut>" |
 | `fonts.css` | Per-cut web faces with exact `unicode-range`, relative to this directory |
 | `lab/index.html` | The Display Lab: shape cuts live on an album cover, track list, poster and alphabet |
+| `living*.js` / `living-panel.html` | Living Title timelines, isolated frame drawing and Lab authoring controls |
+| `living-media.mjs` / `build_living_media.mjs` | Selected-clip decoding and timestamped video encoding, bundled locally |
+| `motion_profiles.json` / `motion-certification.json` | Versioned motion limits and source/fixture-bound certification |
+| `verify_motion.py` / `verify_living.py` | All-glyph motion construction/topology and real browser SVG/video gates |
 | `../engine.js` | Shared letter, mark, symbol and numeric rules, with Reader defaults and Display options |
 | `../font_builder.py` | `FontBuilderCore`: shared export, outlines, spacing, hinting and OpenType layout |
 | `make_display.py` | Thin cut loader using the same core as `../make_fonts.py` |
@@ -57,6 +61,56 @@ choices and starts every preset with Plain W. `ss04` also switches M.
    (or replace the corresponding preset JSON). From the repo root, run
    `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
+
+### Living Titles
+
+Choose a shipped cut, enter a title, then use **Living title**. The current
+letter designs and `cpsp` setting carry into the artwork. Motion settings stay
+separate from cut JSON and browser drafts. Custom geometry edits remain ordinary
+Lab drafts; choose a shipped cut again to author motion.
+
+The initial preview is paused: **120 BPM, four beats, two seconds, 30 FPS**.
+Select BPM/beat count or a local audio file and a **1–10 second** clip. Toggle
+thickness, slant and pen angle, choose strength/colors, then **Prepare loop**.
+Preparation yields to the browser, reports progress and supports cancellation.
+Play/Pause, Restart and scrubbing use the prepared frames; audio playback uses
+the audio clock. Changing the scene stops playback and invalidates its frames.
+
+The reviewed envelopes stay within **+3% thickness, +1° slant and +2° pen angle**.
+Ink uses the smaller **+1%, +1°, +0.25°** envelope to preserve its ordinal
+counter clearance. Disabled axes retain their starting values. Starting glyph
+origins, advances and compiled kerning stay fixed. A padded canvas contains the
+entire loop, so the title never resizes or shifts with its changing ink bounds.
+Wide has a circular pen; rotating that pen has no visible effect by itself.
+
+**Download animated SVG** creates transparent, self-contained vector artwork
+with discrete declarative frame animation, an accessible title and a static
+reduced-motion fallback. It also plays when embedded as an image. **Check video
+format** probes this browser for the selected size/audio, then shows the real
+format and extension: MP4/H.264 (AAC with audio), or WebM/VP9 or VP8 (Opus).
+Video uses the chosen solid background. Audio is **off by default**. Choose
+**1080 px** on the longest edge, or **1920 px**; dimensions are rounded to even
+pixels for encoders. If no suitable codec exists, the Lab reports it clearly.
+
+Music stays on this device. The Lab reads container metadata and decodes only
+the selected clip, then derives channel-aware RMS with 120 ms attack and 480 ms
+release. Stereo phase differences retain their energy; silence rests. Motion
+eases to rest at both loop edges. Serve the complete Lab over localhost or HTTPS
+for the browser's media APIs. Mediabunny **1.61.3** is a local, separate
+MPL-2.0 bundle, built with esbuild **0.28.2** from locked development dependencies:
+
+```sh
+npm ci --prefix display
+node display/build_living_media.mjs
+python -X utf8 display/build_display_page.py
+python -m http.server 8000
+```
+
+Open `http://localhost:8000/display/lab/`. No media is uploaded. The font npm
+package retains its existing dependency-free runtime exports and file list;
+the four font cuts still build Regular only. Read the [Step 6 validation and
+animated proofs](../docs/DISPLAY-LIVING-TITLES-STEP6.md) for certification and
+delivery commands. A failed or stale profile certificate blocks its downloads.
 
 For production, build the complete collection from the repository root:
 

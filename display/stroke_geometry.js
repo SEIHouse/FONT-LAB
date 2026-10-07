@@ -109,6 +109,13 @@ function displayPenBody(g, cut){
           if(j === owner && otherPath === path) segments = end ? segments.slice(0,-1) : segments.slice(1);
           const query = j === owner ? point : transform(point);
           for(const segment of segments){
+            // A Bezier and every sampled chord lie in its control-point box.
+            // Compare in the same pen coordinates as the contact test below.
+            const control = j === owner ? segment : segment.map(transform);
+            const radius = j === owner ? 2 : strokes[j].width/2;
+            const xs = control.map(p => p[0]), ys = control.map(p => p[1]);
+            if(query[0] < Math.min(...xs)-radius-1e-7 || query[0] > Math.max(...xs)+radius+1e-7 ||
+               query[1] < Math.min(...ys)-radius-1e-7 || query[1] > Math.max(...ys)+radius+1e-7) continue;
             const steps = Math.max(1,Math.ceil(segment.slice(1).reduce((sum,p,i) =>
               sum+Math.hypot(p[0]-segment[i][0],p[1]-segment[i][1]),0)));
             let a = j === owner ? segment[0] : transform(segment[0]);
