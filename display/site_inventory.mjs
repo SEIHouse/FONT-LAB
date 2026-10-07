@@ -4,6 +4,7 @@ import {join, resolve} from 'node:path';
 import {isDeepStrictEqual} from 'node:util';
 import {createHash} from 'node:crypto';
 
+/** Resolve public cut assets only after checking saved settings, style inventory and byte hashes. */
 export function displayInventory(root) {
   const manifest = JSON.parse(readFileSync(join(root, 'display/production-manifest.json'), 'utf8'));
   if (manifest.version !== 1 || !manifest.cuts?.length) throw new Error('Missing Display production inventory');

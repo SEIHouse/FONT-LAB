@@ -15,9 +15,11 @@ from font_builder import FontBuilderCore
 
 class ProductionTests(unittest.TestCase):
     def setUp(self):
+        """Load an independent copy of the committed Soft cut for each regression."""
         self.soft = json.loads((ROOT/'display/cuts/soft.json').read_text(encoding='utf-8'))
 
     def test_regular_only_is_default_and_extra_plans_do_not_mutate_cut(self):
+        """Require explicit extras and preserve nested drawing choices during derivation."""
         original = deepcopy(self.soft)
         self.assertEqual([face['label'] for face in style_plan(self.soft)], ['Regular'])
         extras = style_plan(self.soft | {'production':dict(weights={'Light':.85,'Bold':1.03},oblique=9)})
@@ -30,6 +32,7 @@ class ProductionTests(unittest.TestCase):
         self.assertEqual(self.soft, original)
 
     def test_per_cut_weights_and_oblique_are_independent(self):
+        """Keep style declarations local and add Oblique to the cut's existing slant."""
         ink = json.loads((ROOT/'display/cuts/ink.json').read_text(encoding='utf-8'))
         ink['production'] = dict(weights={'Light': .9}, oblique=7)
         faces = style_plan(ink)
@@ -40,6 +43,7 @@ class ProductionTests(unittest.TestCase):
         self.assertEqual(len(style_plan(self.soft)), 1)
 
     def test_bad_style_plans_are_rejected_before_building(self):
+        """Reject invalid style names, thickness directions, numbers and delivery fields."""
         for config in ({'weights':{'Regular':.9}}, {'weights':{'Light':1.1}}, {'weights':{'Bold':.9}},
                        {'weights':{'Light':float('nan')}}, {'oblique':True}, {'oblique':-9},
                        {'weights':[.9]}, {'unknown':1}, None):
@@ -47,6 +51,7 @@ class ProductionTests(unittest.TestCase):
                 style_plan(self.soft | {'production':config})
 
     def test_discovers_unlisted_cuts_and_rejects_name_collisions(self):
+        """Discover new JSON files without allowing two cuts to overwrite the same slug."""
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             (folder/'z-new.json').write_text(json.dumps(self.soft | {'name':'New Cut'}), encoding='utf-8')
@@ -57,11 +62,13 @@ class ProductionTests(unittest.TestCase):
                 load_cuts(folder)
 
     def test_paths_and_spacing_are_isolated_by_cut_and_style(self):
+        """Preserve Regular paths while placing extras in separate output directories."""
         cut = dict(slug='soft', name='Soft')
         self.assertEqual(font_path(Path('fonts'), cut, 'Regular'), Path('fonts/soft/SEIHouseDisplay-Soft.otf'))
         self.assertEqual(font_path(Path('fonts'), cut, 'Oblique'), Path('fonts/soft/Oblique/SEIHouseDisplay-Soft-Oblique.otf'))
 
     def test_distinct_folders_cannot_share_a_postscript_family(self):
+        """Reject names that differ as paths but collapse to one installed font identity."""
         with tempfile.TemporaryDirectory() as directory:
             folder = Path(directory)
             for index, name in enumerate(('New Cut', 'NewCut')):
@@ -70,14 +77,18 @@ class ProductionTests(unittest.TestCase):
                 load_cuts(folder)
 
     def test_oblique_does_not_enable_italic_drawing_substitutions(self):
+        """Exercise the shared entry point while separating slope metadata from italic drawings."""
         captured = {}
         class Core:
             FAMILY, VERSION = 'fixture', '0'
             def __init__(self, settings, **kwargs):
+                """Capture the real drawing configuration without browser or hint work."""
                 captured['core'] = FontBuilderCore(settings, **kwargs)
             def export(self):
+                """Return inert data while the entry-point test inspects configuration."""
                 return {}
             def build(self, data, out, style, *, oblique=False):
+                """Capture the requested metadata style without generating a fixture font."""
                 captured.update(oblique=oblique, style=style)
         with tempfile.TemporaryDirectory() as directory, patch.object(make_display, 'FontBuilderCore', Core):
             make_display.build_style(style_plan(self.soft | {'production':{'oblique':9}})[-1]['settings'], directory, oblique=True)
@@ -89,6 +100,7 @@ class ProductionTests(unittest.TestCase):
             FontBuilderCore(self.soft | {'family':'SEIHouse Sans'}).build({}, 'unused.otf', oblique=True)
 
     def test_extra_style_requires_reviewed_topology_for_exact_settings(self):
+        """Prevent a changed recipe or missing review fixture from passing a release gate."""
         spacing=json.loads((ROOT/'display/spacing_wide.json').read_text(encoding='utf-8'))
         with self.assertRaisesRegex(ValueError, 'do not match'):
             reviewed_topology('wide', spacing, 'Light')
@@ -96,6 +108,7 @@ class ProductionTests(unittest.TestCase):
             reviewed_topology('edge', spacing, 'Bold')
 
     def test_manifest_cannot_read_assets_outside_its_bundle(self):
+        """Reject manifest paths that traverse outside their delivery directory."""
         with tempfile.TemporaryDirectory() as directory:
             manifest = Path(directory)/'display/production-manifest.json'
             manifest.parent.mkdir()
@@ -104,6 +117,7 @@ class ProductionTests(unittest.TestCase):
                 read_manifest(manifest)
 
     def test_hashed_spacing_metadata_has_portable_lf_bytes(self):
+        """Keep spacing hashes stable across Windows builds and Linux checkouts."""
         with tempfile.TemporaryDirectory() as directory, \
              patch('display.title_spacing.export_spacing', return_value={'glyph':'Á'}):
             write_spacing('unused.otf', self.soft, {}, None, directory)

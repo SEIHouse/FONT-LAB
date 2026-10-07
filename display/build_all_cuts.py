@@ -18,6 +18,7 @@ from display.specimens import write_specimens
 
 
 def build_all(cuts_dir=HERE/'cuts', output_dir=None, *, specimens_only=False):
+    """Build declared cut/style assets, then publish their exact manifest and specimens."""
     cuts = load_cuts(cuts_dir)
     # Resolve every per-cut style plan before writing anything.
     plans = [(cut, style_plan(cut['settings'])) for cut in cuts]
@@ -65,6 +66,7 @@ def build_all(cuts_dir=HERE/'cuts', output_dir=None, *, specimens_only=False):
 
 
 def main():
+    """Build a shipped collection or isolated candidate from command-line options."""
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--cuts', type=Path, default=HERE/'cuts')
     parser.add_argument('--output-dir', type=Path, help='Self-contained bundle root; leaves shipped fonts/spacing untouched')

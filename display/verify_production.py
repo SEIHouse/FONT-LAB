@@ -46,6 +46,7 @@ def reviewed_topology(slug, spacing, style='Regular'):
 
 
 def shape_face(source, font, woff, spacing, expected):
+    """Check every outline and 400px raster against clearance and fixed topology."""
     names = font.getGlyphOrder()
     found = web_flags(font, woff)
     face = freetype.Face(str(source))
@@ -107,6 +108,7 @@ def fontbakery(sources, directory):
 
 
 def verify(manifest_file, report_dir, *, run_fontbakery=True):
+    """Gate every declared face and write production results without modifying fonts."""
     manifest, root = read_manifest(manifest_file)
     report_dir = Path(report_dir)
     report_dir.mkdir(parents=True, exist_ok=True)

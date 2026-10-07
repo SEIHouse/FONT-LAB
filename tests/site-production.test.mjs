@@ -6,8 +6,10 @@ import {dirname, join, resolve, sep} from 'node:path';
 import {createHash} from 'node:crypto';
 import {displayInventory} from '../display/site_inventory.mjs';
 
+/** Exercise public inventory validation in a disposable collection with a new cut and three styles. */
 function fixture(run) {
   const root = mkdtempSync(join(tmpdir(), 'fontlab-production-'));
+  /** Write a fixture asset inside the isolated temporary collection. */
   function write(file, text) {mkdirSync(dirname(join(root,file)),{recursive:true});writeFileSync(join(root,file),text);}
   const settings = {name:'New Cut', weight:55, production:{weights:{Light:.85},oblique:9}};
   write('display/cuts/new-cut.json',JSON.stringify(settings));
@@ -18,6 +20,7 @@ function fixture(run) {
     return {label, assets:[{path,bytes:bytes.length,sha256:createHash('sha256').update(bytes).digest('hex')}]};
   });
   const manifest={version:1,cuts:[{name:'New Cut',slug:'new-cut',settings,styles,specimen:'site/display/new-cut/index.html'}]};
+  /** Publish the current fixture inventory before checking a deliberate regression. */
   function save() {write('display/production-manifest.json',JSON.stringify(manifest));}
   save();
   try {run({root,settings,manifest,save,write});}

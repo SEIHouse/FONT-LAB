@@ -41,6 +41,7 @@ def load_cuts(directory=HERE/'cuts'):
 
 
 def number(value, label, lower, upper):
+    """Reject nonnumeric, nonfinite or out-of-range drawing inputs before building."""
     if isinstance(value, bool) or not isinstance(value, (float, int)) or not math.isfinite(value) or not lower <= value <= upper:
         raise ValueError(f'{label} must be a finite number from {lower} to {upper}')
     return value
@@ -78,6 +79,7 @@ def style_plan(settings):
 
 
 def font_path(fonts, cut, label):
+    """Keep Regular's public filename and isolate each extra style in its own folder."""
     folder = Path(fonts)/cut['slug']
     if label != 'Regular':
         folder /= label
@@ -86,6 +88,7 @@ def font_path(fonts, cut, label):
 
 
 def asset_record(path, root):
+    """Record bundle-relative delivery paths with final byte lengths and SHA-256 hashes."""
     path, root = Path(path), Path(root)
     return dict(path=path.relative_to(root).as_posix(), bytes=path.stat().st_size,
                 sha256=hashlib.sha256(path.read_bytes()).hexdigest())

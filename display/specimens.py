@@ -16,10 +16,12 @@ THEMES = {
 
 
 def relative_asset(root, directory, file):
+    """Resolve a bundle asset from a specimen page without depending on its host URL."""
     return Path(os.path.relpath(root/file, directory)).as_posix()
 
 
 def write_specimens(manifest, root):
+    """Generate native-font cut pages and a collection containing only built styles."""
     root = Path(root)
     directory = root/'site/display'
     directory.mkdir(parents=True, exist_ok=True)

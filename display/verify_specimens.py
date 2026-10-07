@@ -20,10 +20,12 @@ SAMPLES = ('LA LY LT TA AV AW AY PA FA VA RT', 'AFTER HOURS / HARD LIGHT', 'TURN
 
 class QuietHandler(SimpleHTTPRequestHandler):
     def log_message(self, *args):
+        """Keep successful local proof requests out of the gate's diagnostic output."""
         pass
 
 
 def verify(manifest_file, report_dir, *, proof_dir=None):
+    """Compare native deliveries and phone layouts for every declared style and feature mode."""
     manifest, root = read_manifest(manifest_file)
     directory = Path(report_dir)
     directory.mkdir(parents=True, exist_ok=True)
