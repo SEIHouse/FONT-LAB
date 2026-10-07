@@ -2,3 +2,7 @@
 display/spacing_*.json text eol=lf
 display/fonts/**/spacing_*.json text eol=lf
 display/production-manifest.json text eol=lf
+packages/living-titles/** text eol=lf
+packages/living-titles/**/*.tgz -text
+packages/living-titles/**/*.woff2 -text
+display/novel-expanded/runtime/*.js text eol=lf

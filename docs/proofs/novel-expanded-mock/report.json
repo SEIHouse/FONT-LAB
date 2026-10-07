@@ -1,0 +1,120 @@
+{
+  "phone_states": [
+    {
+      "cut": "Soft",
+      "width": 360,
+      "overflow": false
+    },
+    {
+      "cut": "Soft",
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "cut": "Soft",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "cut": "Soft",
+      "width": 414,
+      "overflow": false
+    },
+    {
+      "cut": "Soft",
+      "width": 430,
+      "overflow": false
+    },
+    {
+      "cut": "Edge",
+      "width": 360,
+      "overflow": false
+    },
+    {
+      "cut": "Edge",
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "cut": "Edge",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "cut": "Edge",
+      "width": 414,
+      "overflow": false
+    },
+    {
+      "cut": "Edge",
+      "width": 430,
+      "overflow": false
+    },
+    {
+      "cut": "Ink",
+      "width": 360,
+      "overflow": false
+    },
+    {
+      "cut": "Ink",
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "cut": "Ink",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "cut": "Ink",
+      "width": 414,
+      "overflow": false
+    },
+    {
+      "cut": "Ink",
+      "width": 430,
+      "overflow": false
+    },
+    {
+      "cut": "Wide",
+      "width": 360,
+      "overflow": false
+    },
+    {
+      "cut": "Wide",
+      "width": 375,
+      "overflow": false
+    },
+    {
+      "cut": "Wide",
+      "width": 390,
+      "overflow": false
+    },
+    {
+      "cut": "Wide",
+      "width": 414,
+      "overflow": false
+    },
+    {
+      "cut": "Wide",
+      "width": 430,
+      "overflow": false
+    }
+  ],
+  "flags": [],
+  "checks": [
+    "four changing cuts",
+    "fixed canvas",
+    "signal validation",
+    "superseded preparation",
+    "serif/placement",
+    "pause",
+    "SVG/JSON download",
+    "reduced motion",
+    "empty title/recovery",
+    "unused title/placement recovery",
+    "color edits during preparation",
+    "dispose",
+    "no audio"
+  ]
+}

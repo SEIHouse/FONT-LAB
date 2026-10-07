@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>NovelExpanded · Living Wordmark Mock</title>
+  <link rel="stylesheet" href="mock.css">
+  <script type="module" src="mock.js"></script>
+</head>
+<body>
+<main class="workbench">
+  <aside class="controls" aria-labelledby="workbench-title">
+    <a class="back" href="../lab/index.html">← Display Lab</a>
+    <p class="eyebrow">SEIHouse / title studies</p>
+    <h1 id="workbench-title">NovelExpanded</h1>
+    <p class="intro">A living wordmark in its world. Try our four cuts here before bringing one into the app.</p>
+    <fieldset><legend>Lettering</legend><div class="cut-options" id="cuts"></div></fieldset>
+    <label class="field">Wordmark<input id="wordmark" value="NOVELEXPANDED" maxlength="40" spellcheck="false"></label>
+    <label class="field">Featured title<input id="featured" value="Defying the Heavens" maxlength="60" spellcheck="false"></label>
+    <label class="field">Living lettering<select id="placement"><option value="header">Wordmark only</option><option value="both">Wordmark + featured title</option><option value="featured">Featured title only</option></select></label>
+    <label class="check"><input type="checkbox" id="comparison"> Compare with serif lettering</label>
+    <label class="check"><input type="checkbox" id="cpsp" checked> Capital spacing</label>
+    <div class="divider"></div>
+    <fieldset class="axes"><legend>Let the letters breathe</legend>
+      <label class="check"><input id="weight" type="checkbox" checked> Thickness</label>
+      <label class="check"><input id="slant" type="checkbox" checked> Slant</label>
+      <label class="check"><input id="penAngle" type="checkbox" checked> Pen angle</label>
+    </fieldset>
+    <label class="field">Strength <output id="strength-value">70%</output><input id="strength" type="range" min="0" max="100" value="70"></label>
+    <label class="field">Breathing tempo <output id="bpm-value">60 BPM</output><input id="bpm" type="range" min="40" max="180" value="60"></label>
+    <div class="colors"><label class="field">Wordmark<input id="ink" type="color" value="#e6cc87"></label><label class="field">Featured title<input id="hero-ink" type="color" value="#f4efe6"></label></div>
+    <div class="actions"><button id="play" disabled>Pause motion</button><button id="restart" disabled>Restart</button></div>
+    <div class="actions"><button id="svg" disabled>Download wordmark SVG</button><button id="save">Save study JSON</button></div>
+    <p id="status" class="status" role="status">Preparing lettering…</p>
+    <p class="note">Silent preview. Menu music and Reader Chamber audio remain separate. This study can accept a menu motion signal later.</p>
+    <p class="note" id="profile"></p>
+  </aside>
+  <section class="preview-column" aria-label="NovelExpanded homepage mock">
+    <div class="preview-heading"><span>Home / wordmark study</span><span id="cut-caption">Soft</span></div>
+    <div class="phone">
+      <header class="app-header">
+        <img class="emblem" src="assets/emblem.jpg" alt="SEIHouse" width="40" height="40">
+        <div class="brand-badge"><div id="header-art" class="title-art" role="img" aria-label="NovelExpanded"></div><span id="header-serif" class="serif-wordmark" hidden>NOVELEXPANDED</span><span class="tagline">Read and direct your stories</span></div>
+        <button class="icon" data-demo="Help will open in the app." aria-label="Help">?</button>
+        <button class="icon" data-demo="Search will open in the app." aria-label="Search"><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg></button>
+      </header>
+      <div class="home-content">
+        <article class="hero">
+          <div class="hero-content"><p class="feature-label">Featured ascension</p><h2 id="featured-heading"><span id="hero-serif">Defying the Heavens</span><span id="hero-art" class="title-art" aria-hidden="true" hidden></span><span id="hero-label" class="sr-only" hidden>Defying the Heavens</span></h2>
+          <button class="destiny" data-demo="This is a title study. Story creation stays in the app."><span aria-hidden="true">◉</span> Carve New Destiny</button></div>
+        </article>
+        <section class="realm" aria-labelledby="realm-title"><div class="realm-top"><h2 id="realm-title">Realm filter (genre)</h2><span class="music-note" title="Menu audio is not connected" aria-label="Menu audio is not connected">♫</span></div><div class="genres"><button class="genre selected" aria-pressed="true">All</button><button class="genre" aria-pressed="false">Cultivation</button><button class="genre" aria-pressed="false">Fantasy</button></div><p class="realm-copy">Every story is a world waiting to unfold.</p></section>
+        <p class="home-footnote">Read. Direct. Become.</p>
+      </div>
+      <nav class="bottom-nav" aria-label="Mock navigation"><button class="active" data-demo="You are viewing the Home title study." aria-current="page"><span aria-hidden="true">⌂</span>Home</button><button data-demo="Create will open in the app."><span aria-hidden="true">▤</span>Create</button></nav>
+      <p id="demo-message" class="sr-only" role="status"></p>
+    </div>
+    <p class="preview-note">Live vectors from the shared engine. A fixed canvas keeps the header still while its letters move.</p>
+  </section>
+</main>
+</body>
+</html>

@@ -34,6 +34,15 @@ both canonical and legacy family stylesheets.
 
 ## Work on the hosted Labs
 
+The [NovelExpanded title study](../display/novel-expanded/index.html) is a silent
+homepage mock for comparing the four living cuts in their intended setting. Its
+controls refine text, placement, colors, spacing and restrained motion; downloads
+produce study JSON or a transparent animated wordmark SVG. Menu music and Reader
+Chamber audio remain separate and unconnected. The mock has a caller-owned signal
+seam for a future menu connection. It consumes the installable
+[`@seihouse/living-titles`](../packages/living-titles/README.md) runtime. Rebuild its checked-in drawing bundle with
+`python display/build_novel_mock.py` after changing shared engine/spacing inputs.
+
 - **Reader Lab:** change the live font settings, then **Save** to keep a browser draft.
   Reloading restores that saved draft.
 - **Display Lab:** adjust and name a cut, then **Save cut**. Reloading lists saved

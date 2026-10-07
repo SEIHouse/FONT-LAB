@@ -147,6 +147,41 @@ jobs:
             dist/living-browser/
           if-no-files-found: warn
           retention-days: 30
+  living-package:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1
+      - uses: actions/setup-python@5fda3b95a4ea91299a34e894583c3862153e4b97
+        with:
+          python-version: '3.12'
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020
+        with:
+          node-version: '22'
+      - name: Install locked package verification tools
+        run: |
+          pip install 'fonttools[woff]==4.66.1' 'playwright==1.63.0'
+          python -m playwright install --with-deps chromium
+          npm ci --prefix display
+      - name: Rebuild and verify the installable runtime and its mock consumer
+        run: |
+          python -m unittest tests.test_living_package -v
+          python display/build_novel_mock.py
+          node display/pack_living_package.mjs
+          git diff --exit-code -- packages/living-titles/SANS-LICENSE.txt packages/living-titles/releases display/novel-expanded/runtime
+          node --test tests/living-package.test.mjs
+          node display/verify_living_package.mjs
+          python display/verify_novel_mock.py
+      - name: Upload installable package and consumer evidence
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a
+        with:
+          name: living-titles-package
+          path: |
+            packages/living-titles/releases/
+            dist/living-package-consumer.json
+            docs/proofs/novel-expanded-mock/
+          if-no-files-found: error
+          retention-days: 30
   website:
     runs-on: ubuntu-latest
     timeout-minutes: 5

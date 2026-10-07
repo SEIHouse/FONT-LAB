@@ -28,6 +28,10 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 | `fonts/<cut>/` | Full OTF/WOFF2 and six web subsets, family "SEIHouse Display <Cut>" |
 | `fonts.css` | Per-cut web faces with exact `unicode-range`, relative to this directory |
 | `lab/index.html` | The Display Lab: shape cuts live on an album cover, track list, poster and alphabet |
+| `novel-expanded/index.html` | Silent NovelExpanded homepage mock with four living cuts, refinement controls and a future menu-motion seam; see its [README](novel-expanded/README.md) |
+| `../packages/living-titles/` | Installable private `@seihouse/living-titles` runtime, static faces, TypeScript interfaces and optional React component; the mock uses its public player |
+| `build_living_package.py` / `pack_living_package.mjs` | Assemble certified shared source and compiled spacing, then produce the installable archive and provenance |
+| `verify_living_package.mjs` / `verify_package_browser.py` | Clean packed-consumer imports, types, React bundle and browser lifecycle gates |
 | `living*.js` / `living-panel.html` | Living Title timelines, isolated frame drawing and Lab authoring controls |
 | `living-media.mjs` / `build_living_media.mjs` | Selected-clip decoding and timestamped video encoding, bundled locally |
 | `motion_profiles.json` / `motion-certification.json` | Versioned motion limits and source/fixture-bound certification |

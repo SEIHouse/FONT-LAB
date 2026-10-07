@@ -1,0 +1,43 @@
+{
+  "name": "@seihouse/living-titles",
+  "version": "0.1.0",
+  "filename": "seihouse-living-titles-0.1.0.tgz",
+  "bytes": 632048,
+  "sha256": "692886969eebf7a65dc4e8b18f7b91d0d8b3f902237b5c94abd52ee7e9248567",
+  "integrity": "sha512-kLC0CR7LEfsqEEKZrDD6xlp6BR+z5/QrVcXnIGm6+qVWMRbVRCrzQeooiW9kkr5PHPU6B+TZxqs2fj4Y8IgWNA==",
+  "provenance": {
+    "schema": 1,
+    "source_sha256": "525706a0f1616d1d283eaa397fe8b235286060e9a25644ebedc4980cd58dfcd4",
+    "fixture_sha256": "abe198ec64f833ab641b133bc3a9c1d9262fa3d7315c3248d5cf2887ee30100b",
+    "profiles": [
+      "soft-living-v1",
+      "edge-living-v1",
+      "ink-living-v1",
+      "wide-living-v1"
+    ],
+    "fonts": {
+      "SEIHouseDisplay-Edge.woff2": "bf69e9701e81509024973760471c3eed84cac5162531328f849e54fb35fe4177",
+      "SEIHouseDisplay-Ink.woff2": "69e745f1c53c564482bbb62e32eadbc7b353083004213212defc335fcf322929",
+      "SEIHouseDisplay-Soft.woff2": "811094c6ffd3cefc04f115f2684bac9910c976bf593c98d9f89d50ebf17f9486",
+      "SEIHouseDisplay-Wide.woff2": "eb050df1d6dbf6c2b338f6d1cc93b236b25f7e3cdc6ca715ab5a249d7d42e615"
+    }
+  },
+  "files": [
+    "NOTICE.txt",
+    "README.md",
+    "SANS-LICENSE.txt",
+    "dist/engine.js",
+    "dist/fonts.css",
+    "dist/fonts/SEIHouseDisplay-Edge.woff2",
+    "dist/fonts/SEIHouseDisplay-Ink.woff2",
+    "dist/fonts/SEIHouseDisplay-Soft.woff2",
+    "dist/fonts/SEIHouseDisplay-Wide.woff2",
+    "dist/index.d.ts",
+    "dist/index.js",
+    "dist/player.js",
+    "dist/provenance.json",
+    "dist/react.d.ts",
+    "dist/react.js",
+    "package.json"
+  ]
+}

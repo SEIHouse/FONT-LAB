@@ -106,6 +106,13 @@ title widths at a difference below 0.5%.
 
 ## What's inside
 
+For application integration, [`@seihouse/living-titles`](packages/living-titles/README.md)
+is a separate private runtime package with a ready-to-install tarball, ESM/TypeScript
+interfaces, a browser player, an optional React component and four static Display
+faces. The [NovelExpanded mock](display/novel-expanded/index.html) consumes that same
+runtime. Audio remains caller-owned; menu and Reader Chamber systems stay separate.
+The existing Reader font package and font build interfaces remain unchanged.
+
 | Folder / file | What it is |
 |---|---|
 | `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |

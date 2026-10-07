@@ -1,0 +1,20 @@
+{
+  "name": "@seihouse/living-titles",
+  "version": "0.1.0",
+  "private": true,
+  "description": "SEIHouse shared vector title renderer and audio-independent browser playback",
+  "type": "module",
+  "license": "UNLICENSED",
+  "repository": { "type": "git", "url": "https://github.com/SEIHouse/FONT-LAB.git", "directory": "packages/living-titles" },
+  "exports": {
+    ".": { "types": "./dist/index.d.ts", "import": "./dist/index.js" },
+    "./react": { "types": "./dist/react.d.ts", "import": "./dist/react.js" },
+    "./fonts.css": "./dist/fonts.css",
+    "./package.json": "./package.json"
+  },
+  "files": ["dist", "README.md", "NOTICE.txt", "SANS-LICENSE.txt"],
+  "sideEffects": ["**/*.css"],
+  "peerDependencies": { "react": ">=18" },
+  "peerDependenciesMeta": { "react": { "optional": true } },
+  "engines": { "node": ">=18" }
+}
