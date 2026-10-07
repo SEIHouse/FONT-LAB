@@ -325,6 +325,7 @@ def verify(fonts, proof_dir=None):
     for cut in CUTS:
         file = ROOT/f'display/cuts/{cut}.json'
         settings = json.loads(file.read_text(encoding='utf-8'))
+        settings.pop('production', None)  # Delivery choices are separate from immutable drawing inputs.
         if settings.pop('alternates', None) != alternate_topology['defaults'][cut]:
             report['flags'].append(dict(cut=cut, kind='alternate-defaults'))
         canonical = json.dumps(settings, sort_keys=True,

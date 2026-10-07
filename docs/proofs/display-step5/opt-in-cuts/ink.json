@@ -1,0 +1,40 @@
+{
+  "lowercaseRoundness": 0.25,
+  "letterSpace": {},
+  "pairSpace": {},
+  "xHeight": 520,
+  "capitalRoundness": 220,
+  "letterWidth": 0.9,
+  "wordSpace": 230,
+  "overshoot": true,
+  "uFoot": false,
+  "uprightStraightness": 1.0,
+  "ascender": 700,
+  "version": "0.1",
+  "contrast": 2.6,
+  "penAngle": 32,
+  "slant": 8,
+  "corners": "soft",
+  "ends": "flat",
+  "joins": "round",
+  "weight": 135,
+  "spaceBetweenAllLetters": 6,
+  "note": "Calligraphic thick and thin from an angled pen, slanted. Expressive.",
+  "name": "Ink",
+  "alternates": {
+    "a": "single",
+    "g": "single",
+    "R": "curved",
+    "K": "branched",
+    "M": "vertical",
+    "W": "plain",
+    "y": "curved",
+    "G": "no-spur",
+    "Q": "long",
+    "four": "open",
+    "sixNine": "open"
+  },
+  "production": {
+    "oblique": 3
+  }
+}

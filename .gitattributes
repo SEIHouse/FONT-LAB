@@ -1,0 +1,4 @@
+# Hashed delivery metadata must retain the same bytes on Windows and Linux.
+display/spacing_*.json text eol=lf
+display/fonts/**/spacing_*.json text eol=lf
+display/production-manifest.json text eol=lf

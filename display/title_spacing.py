@@ -196,4 +196,4 @@ def write_spacing(font_path, settings, origins, policy, directory, designs=None)
     slug = settings['name'].lower().replace(' ', '-')
     output = Path(directory)/f'spacing_{slug}.json'
     output.write_text(json.dumps(export_spacing(font_path, settings, origins, policy, designs),
-                                  ensure_ascii=False, separators=(',', ':'))+'\n', encoding='utf-8')
+                                  ensure_ascii=False, separators=(',', ':'))+'\n', encoding='utf-8', newline='\n')

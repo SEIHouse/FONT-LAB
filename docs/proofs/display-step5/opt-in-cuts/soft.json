@@ -1,0 +1,40 @@
+{
+  "lowercaseRoundness": 0.7,
+  "letterSpace": {},
+  "pairSpace": {},
+  "xHeight": 520,
+  "capitalRoundness": 270,
+  "letterWidth": 1.05,
+  "wordSpace": 260,
+  "overshoot": true,
+  "uFoot": false,
+  "uprightStraightness": 1.0,
+  "ascender": 700,
+  "version": "0.1",
+  "contrast": 1.0,
+  "penAngle": 0,
+  "slant": 0,
+  "corners": "soft",
+  "ends": "round",
+  "joins": "round",
+  "weight": 150,
+  "spaceBetweenAllLetters": 10,
+  "note": "Heavy, round and warm. Big friendly titles.",
+  "name": "Soft",
+  "alternates": {
+    "a": "single",
+    "g": "single",
+    "R": "curved",
+    "K": "branched",
+    "M": "vertical",
+    "W": "plain",
+    "y": "curved",
+    "G": "no-spur",
+    "Q": "long",
+    "four": "open",
+    "sixNine": "closed"
+  },
+  "production": {
+    "oblique": 9
+  }
+}

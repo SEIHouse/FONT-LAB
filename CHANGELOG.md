@@ -2,6 +2,20 @@
 
 Newest first.
 
+- **Display Engine Step 5 — production pipeline (2026-10-06)** Added a batch
+  builder that discovers every cut JSON and emits a hashed delivery manifest,
+  full fonts, six subsets per face, web CSS, license files and native-font
+  specimens. Added per-cut opt-in extra weights and Oblique from the same
+  drawing settings, with separate spacing exports and complete style metadata;
+  shipped defaults remain Regular-only. Generated album-cover, track-list,
+  poster and alphabet pages for each cut in `site/display/`, with stylistic-set
+  and capital-spacing controls. The website packages the declared inventory
+  and rejects stale cut settings. CI now builds the collection and gates each
+  finished face with shapes/topology, inherited features, spacing, subset and
+  Reader license parity, then FontBakery OpenType/offline Universal. Successful
+  runs upload `seihouse-display-fonts`; extra styles stay opt-in per cut.
+  See the [pipeline, specimens and validation](docs/DISPLAY-PRODUCTION-STEP5.md).
+
 - **Display fixes before Step 5 (2026-10-06)** Made plain W/w the default in
   every preset; crossed uppercase W stays optional in `ss04`. Rebuilt all cuts,
   spacing exports, Lab controls and native title proofs. Display now embeds

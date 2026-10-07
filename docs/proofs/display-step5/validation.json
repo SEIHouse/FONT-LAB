@@ -1,0 +1,527 @@
+{
+  "date": "2026-10-06",
+  "baseline_commit": "f135ed163b562b53ff11b2a5f133d6d16ec526f2",
+  "defaults": "Four Regular-only cuts; no committed cut drawing/default changes",
+  "reader": {
+    "committed_deliveries": 90,
+    "committed_byte_identical": 90,
+    "fresh_full_deliveries": 20,
+    "fresh_normalized_tables_identical": 20,
+    "normalization": "Only head.created, head.modified and head.checkSumAdjustment are zeroed. All SFNT tables including complete CFF outline/hint programs, names, metrics and layout must match.",
+    "flags": []
+  },
+  "regular_display": {
+    "committed_font_files_unchanged": 32,
+    "fresh_normalized_tables_identical": 32,
+    "glyphs_checked": 3268,
+    "renders_400px": 6536,
+    "flags": []
+  },
+  "production": {
+    "styles": 10,
+    "glyphs": 8170,
+    "renders_400px": 16340,
+    "max_latin_basic_bytes": 23372,
+    "cuts": {
+      "edge": {
+        "styles": {
+          "Regular": {
+            "glyphs": 817,
+            "rendered": 0,
+            "flags": 0,
+            "latin_basic_bytes": 17260,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Oblique": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 18568,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          }
+        },
+        "fontbakery": {
+          "opentype": {
+            "(not finished)": 0,
+            "PASS": 56,
+            "SKIP": 42
+          },
+          "universal": {
+            "(not finished)": 0,
+            "INFO": 6,
+            "PASS": 141,
+            "SKIP": 95
+          }
+        }
+      },
+      "ink": {
+        "styles": {
+          "Regular": {
+            "glyphs": 817,
+            "rendered": 0,
+            "flags": 0,
+            "latin_basic_bytes": 22416,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Oblique": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 22840,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          }
+        },
+        "fontbakery": {
+          "opentype": {
+            "(not finished)": 0,
+            "PASS": 56,
+            "SKIP": 42
+          },
+          "universal": {
+            "(not finished)": 0,
+            "INFO": 6,
+            "PASS": 141,
+            "SKIP": 95
+          }
+        }
+      },
+      "soft": {
+        "styles": {
+          "Regular": {
+            "glyphs": 817,
+            "rendered": 0,
+            "flags": 0,
+            "latin_basic_bytes": 22068,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Oblique": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 23372,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          }
+        },
+        "fontbakery": {
+          "opentype": {
+            "(not finished)": 0,
+            "PASS": 56,
+            "SKIP": 42
+          },
+          "universal": {
+            "(not finished)": 0,
+            "INFO": 6,
+            "PASS": 141,
+            "SKIP": 95
+          }
+        }
+      },
+      "wide": {
+        "styles": {
+          "Regular": {
+            "glyphs": 817,
+            "rendered": 0,
+            "flags": 0,
+            "latin_basic_bytes": 22092,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Light": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 22204,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Bold": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 22320,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          },
+          "Oblique": {
+            "glyphs": 817,
+            "rendered": 1634,
+            "topology_glyphs": 675,
+            "flags": 0,
+            "latin_basic_bytes": 23128,
+            "subset_measurements": 12181,
+            "inherited": {
+              "language_strings": 3339,
+              "languages": 34,
+              "pinned_cldr_locales": 21,
+              "foundation_language_samples": 13,
+              "features": {
+                "GSUB": [
+                  "ccmp",
+                  "frac",
+                  "liga",
+                  "locl",
+                  "subs",
+                  "sups",
+                  "tnum"
+                ],
+                "GPOS": [
+                  "kern",
+                  "mark",
+                  "mkmk"
+                ]
+              }
+            }
+          }
+        },
+        "fontbakery": {
+          "opentype": {
+            "(not finished)": 0,
+            "PASS": 106,
+            "SKIP": 82
+          },
+          "universal": {
+            "(not finished)": 0,
+            "INFO": 12,
+            "PASS": 273,
+            "SKIP": 187
+          }
+        }
+      }
+    },
+    "flags": []
+  },
+  "specimens": {
+    "default": {
+      "flags": [],
+      "widths": 96,
+      "layouts": 60,
+      "device_scale_factor": 2,
+      "max_width_difference_percent": 0,
+      "cuts": {
+        "edge": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "ink": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "soft": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "wide": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        }
+      }
+    },
+    "opt_in": {
+      "flags": [],
+      "widths": 240,
+      "layouts": 150,
+      "device_scale_factor": 2,
+      "max_width_difference_percent": 0,
+      "cuts": {
+        "edge": {
+          "styles": [
+            "Regular",
+            "Oblique"
+          ],
+          "widths": 48,
+          "layouts": 30
+        },
+        "ink": {
+          "styles": [
+            "Regular",
+            "Oblique"
+          ],
+          "widths": 48,
+          "layouts": 30
+        },
+        "soft": {
+          "styles": [
+            "Regular",
+            "Oblique"
+          ],
+          "widths": 48,
+          "layouts": 30
+        },
+        "wide": {
+          "styles": [
+            "Regular",
+            "Light",
+            "Bold",
+            "Oblique"
+          ],
+          "widths": 96,
+          "layouts": 60
+        }
+      }
+    },
+    "assembled_website": {
+      "flags": [],
+      "widths": 96,
+      "layouts": 60,
+      "device_scale_factor": 2,
+      "max_width_difference_percent": 0,
+      "cuts": {
+        "edge": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "ink": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "soft": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        },
+        "wide": {
+          "styles": [
+            "Regular"
+          ],
+          "widths": 24,
+          "layouts": 15
+        }
+      }
+    }
+  },
+  "lab": {
+    "title_measurements": 888,
+    "title_max_difference_percent": 0.06467415235578633,
+    "alternate_measurements": 1920,
+    "alternate_max_difference_percent": 0.036092795822634645,
+    "glyph_instances": 8352,
+    "phone_layouts": 60,
+    "flags": []
+  },
+  "tests": {
+    "python": 83,
+    "node": 33,
+    "failures": 0
+  },
+  "website_public_assets": 74
+}
