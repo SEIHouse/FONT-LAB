@@ -544,11 +544,17 @@ class FontBuilderCore:
         reg = self.settings['weight']
         return self.TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
-    def build(self, data, out, style='Regular', italic=False):
+    def build(self, data, out, style='Regular', italic=False, *, oblique=False):
         """Build and hint one style with the shared character set and OpenType features."""
+        if oblique and (not self.display or italic or self.ITAL):
+            raise ValueError('Display obliques use slant settings, without italic letter substitutions')
+        sloped = italic or oblique
         TR = self.track_for(self.S) + (self.ITAL_EXTRA_SPACE if italic else 0)
         ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
         shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
+        if oblique:
+            ps_style = 'Oblique' if style == 'Regular' else style + 'Oblique'
+            shown = 'Oblique' if style == 'Regular' else style + ' Oblique'
         KERN = {}
         ovr = self.settings.get('letterSpace', {})
         order = ['.notdef', 'space']; cmap = {32: 'space', 160: 'space'}; paths = {}; hm = {}; records = {}; origins = {}
@@ -646,10 +652,10 @@ class FontBuilderCore:
         fb.setupGlyphOrder(order); fb.setupCharacterMap(cmap)
         ps = f'{self.FAMILY.replace(" ", "")}-{ps_style}'
         fb.setupCFF(ps, {'FullName': f'{self.FAMILY} {shown}', 'version': self.VERSION, 'Weight': style,
-                         'ItalicAngle': -self.SLANT if italic else 0},
+                         'ItalicAngle': -self.SLANT if sloped else 0},
                     {n: self.charstring(paths[n], hm[n]) for n in order}, self.private_dict(data['screenStroke']))
         fb.setupHorizontalMetrics({n: (hm[n], self.lsb_of(paths[n])) for n in order})
-        if italic:
+        if sloped:
             fb.setupHorizontalHeader(ascent=ASCENT*SC, descent=-DESCENT*SC, lineGap=0,
                                      caretSlopeRise=1000, caretSlopeRun=round(1000*self.TAN), caretOffset=0)
         else:
@@ -667,6 +673,9 @@ class FontBuilderCore:
         else:   # apps that only understand Regular/Bold/Italic still list it, as "SEIReader Light"
             names.update({'familyName': f'{self.FAMILY} {style}', 'styleName': 'Italic' if italic else 'Regular',
                           'typographicFamily': self.FAMILY, 'typographicSubfamily': shown})
+        if oblique:
+            names.update(styleName='Bold Italic' if style == 'Bold' else 'Italic',
+                         typographicFamily=self.FAMILY, typographicSubfamily=shown)
         fb.setupNameTable(names)
         win_ascent, win_descent = 1100*SC, 320*SC
         if self.display:
@@ -685,20 +694,23 @@ class FontBuilderCore:
         fb.setupOS2(sTypoAscender=ASCENT*SC, sTypoDescender=-DESCENT*SC, sTypoLineGap=0,
                     usWinAscent=win_ascent, usWinDescent=win_descent, sxHeight=round(self.XHT*SC), sCapHeight=700*SC,
                     achVendID='SEIH', fsType=0,  # Installable document embedding, subject to the ecosystem EULA.
-                    fsSelection=((0x40 if (style != 'Bold' and not italic) else 0) | (0x20 if style == 'Bold' else 0)
-                                 | (0x01 if italic else 0) | 0x80),  # + use typographic line metrics
+                    fsSelection=((0x40 if (style != 'Bold' and not sloped) else 0) | (0x20 if style == 'Bold' else 0)
+                                 | (0x01 if sloped else 0) | (0x200 if oblique else 0) | 0x80),
                     usWeightClass=WCLASS.get(style, 400), version=4)
-        fb.font['head'].macStyle = (1 if style == 'Bold' else 0) | (2 if italic else 0)
+        fb.font['head'].macStyle = (1 if style == 'Bold' else 0) | (2 if sloped else 0)
         fb.font['head'].fontRevision = float(self.VERSION)
         os2 = fb.font['OS/2']; os2.recalcUnicodeRanges(fb.font); os2.recalcCodePageRanges(fb.font)
         from fontTools.otlLib.builder import buildStatTable
         wv = WCLASS.get(style, 400)
-        buildStatTable(fb.font, [
-            dict(tag='wght', name='Weight', values=[dict(value=wv, name=style, flags=(0x2 if style == 'Regular' else 0))]),
-            dict(tag='ital', name='Italic', values=[dict(value=1, name='Italic')] if italic else
-                                                   [dict(value=0, name='Roman', flags=0x2, linkedValue=1)]),
-        ], elidedFallbackName=2)
-        fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-self.SLANT if italic else 0)
+        axes = [dict(tag='wght', name='Weight', values=[dict(value=wv, name=style, flags=(0x2 if style == 'Regular' else 0))])]
+        if oblique:
+            # Keep the true slope and the binary style link. Elide the slope
+            # label so the following Oblique value supplies the name only once.
+            axes.append(dict(tag='slnt', name='Slant', values=[dict(value=-self.SLANT, name='Oblique', flags=0x2)]))
+        axes.append(dict(tag='ital', name='Italic', values=[dict(value=1, name='Oblique' if oblique else 'Italic')] if sloped else
+                         [dict(value=0, name='Roman', flags=0x2, linkedValue=1)]))
+        buildStatTable(fb.font, axes, elidedFallbackName=2)
+        fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-self.SLANT if sloped else 0)
 
         if self.display:
             from display.title_spacing import DisplaySpacing

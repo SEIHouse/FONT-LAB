@@ -1,0 +1,40 @@
+{
+  "lowercaseRoundness": 0.0,
+  "letterSpace": {},
+  "pairSpace": {},
+  "xHeight": 520,
+  "capitalRoundness": 150,
+  "letterWidth": 1.0,
+  "wordSpace": 260,
+  "overshoot": true,
+  "uFoot": false,
+  "uprightStraightness": 0.6,
+  "ascender": 700,
+  "version": "0.1",
+  "contrast": 1.0,
+  "penAngle": 0,
+  "slant": 0,
+  "corners": "cut",
+  "ends": "flat",
+  "joins": "sharp",
+  "weight": 115,
+  "spaceBetweenAllLetters": 24,
+  "note": "Cut corners, flat ends, sharp joins. Hard and modern.",
+  "name": "Edge",
+  "alternates": {
+    "a": "double",
+    "g": "double",
+    "R": "straight",
+    "K": "joined",
+    "M": "splayed",
+    "W": "plain",
+    "y": "straight",
+    "G": "spur",
+    "Q": "diagonal",
+    "four": "closed",
+    "sixNine": "open"
+  },
+  "production": {
+    "oblique": 9
+  }
+}

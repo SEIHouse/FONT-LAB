@@ -1,0 +1,555 @@
+{
+  "version": 1,
+  "license": "LICENSE",
+  "css": "display/fonts.css",
+  "cuts": [
+    {
+      "name": "Edge",
+      "slug": "edge",
+      "settings": {
+        "lowercaseRoundness": 0.0,
+        "letterSpace": {},
+        "pairSpace": {},
+        "xHeight": 520,
+        "capitalRoundness": 150,
+        "letterWidth": 1.0,
+        "wordSpace": 260,
+        "overshoot": true,
+        "uFoot": false,
+        "uprightStraightness": 0.6,
+        "ascender": 700,
+        "version": "0.1",
+        "contrast": 1.0,
+        "penAngle": 0,
+        "slant": 0,
+        "corners": "cut",
+        "ends": "flat",
+        "joins": "sharp",
+        "weight": 115,
+        "spaceBetweenAllLetters": 24,
+        "note": "Cut corners, flat ends, sharp joins. Hard and modern.",
+        "name": "Edge",
+        "alternates": {
+          "a": "double",
+          "g": "double",
+          "R": "straight",
+          "K": "joined",
+          "M": "splayed",
+          "W": "plain",
+          "y": "straight",
+          "G": "spur",
+          "Q": "diagonal",
+          "four": "closed",
+          "sixNine": "open"
+        }
+      },
+      "styles": [
+        {
+          "label": "Regular",
+          "family": "SEIHouse Display Edge",
+          "weight": 400,
+          "slope": "normal",
+          "settings": {
+            "lowercaseRoundness": 0.0,
+            "letterSpace": {},
+            "pairSpace": {},
+            "xHeight": 520,
+            "capitalRoundness": 150,
+            "letterWidth": 1.0,
+            "wordSpace": 260,
+            "overshoot": true,
+            "uFoot": false,
+            "uprightStraightness": 0.6,
+            "ascender": 700,
+            "version": "0.1",
+            "contrast": 1.0,
+            "penAngle": 0,
+            "slant": 0,
+            "corners": "cut",
+            "ends": "flat",
+            "joins": "sharp",
+            "weight": 115,
+            "spaceBetweenAllLetters": 24,
+            "note": "Cut corners, flat ends, sharp joins. Hard and modern.",
+            "name": "Edge",
+            "alternates": {
+              "a": "double",
+              "g": "double",
+              "R": "straight",
+              "K": "joined",
+              "M": "splayed",
+              "W": "plain",
+              "y": "straight",
+              "G": "spur",
+              "Q": "diagonal",
+              "four": "closed",
+              "sixNine": "open"
+            }
+          },
+          "otf": "display/fonts/edge/SEIHouseDisplay-Edge.otf",
+          "woff2": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
+          "spacing": "display/spacing_edge.json",
+          "assets": [
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.otf",
+              "bytes": 283200,
+              "sha256": "d8454f70892146ae6e329e33272cdc52afb92e2e4d06a90b11d40ef1a712b106"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
+              "bytes": 68180,
+              "sha256": "bf69e9701e81509024973760471c3eed84cac5162531328f849e54fb35fe4177"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.latin-basic.woff2",
+              "bytes": 17264,
+              "sha256": "3273b5dd865eb74e568c0c1b5a2c3350f5db50d7388d8eb115fc7eca7ca65a79"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.symbols.woff2",
+              "bytes": 10660,
+              "sha256": "5a9b3e3a27250277bea988a0748f38fa42cbac221763b6d19be7a01b8f0f5043"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.latin-extended.woff2",
+              "bytes": 37744,
+              "sha256": "788939165af985e9c28a2dfc13a54954b1b265813dd6118790ee05c2b5098f0f"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.cyrillic.woff2",
+              "bytes": 49916,
+              "sha256": "c15380074a20d879e33e5d1eb61f913beec2506062b73833d51fe66ec075c4f4"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.greek.woff2",
+              "bytes": 47096,
+              "sha256": "d23abc71713f128cda24c97faab8b769d5f22e6cf329f73f1119c573bc613e6a"
+            },
+            {
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.vietnamese.woff2",
+              "bytes": 37976,
+              "sha256": "e83a77aa3996239f48b2394c55d5df7eb2e4bdfbe3c1c65e9ada4cfeec6052fe"
+            },
+            {
+              "path": "display/spacing_edge.json",
+              "bytes": 489787,
+              "sha256": "7fa2291eecaf1237dc7d6ab13900afdabdca19277b3cf54d97d656399be1b610"
+            }
+          ]
+        }
+      ],
+      "specimen": "site/display/edge/index.html"
+    },
+    {
+      "name": "Ink",
+      "slug": "ink",
+      "settings": {
+        "lowercaseRoundness": 0.25,
+        "letterSpace": {},
+        "pairSpace": {},
+        "xHeight": 520,
+        "capitalRoundness": 220,
+        "letterWidth": 0.9,
+        "wordSpace": 230,
+        "overshoot": true,
+        "uFoot": false,
+        "uprightStraightness": 1.0,
+        "ascender": 700,
+        "version": "0.1",
+        "contrast": 2.6,
+        "penAngle": 32,
+        "slant": 8,
+        "corners": "soft",
+        "ends": "flat",
+        "joins": "round",
+        "weight": 135,
+        "spaceBetweenAllLetters": 6,
+        "note": "Calligraphic thick and thin from an angled pen, slanted. Expressive.",
+        "name": "Ink",
+        "alternates": {
+          "a": "single",
+          "g": "single",
+          "R": "curved",
+          "K": "branched",
+          "M": "vertical",
+          "W": "plain",
+          "y": "curved",
+          "G": "no-spur",
+          "Q": "long",
+          "four": "open",
+          "sixNine": "open"
+        }
+      },
+      "styles": [
+        {
+          "label": "Regular",
+          "family": "SEIHouse Display Ink",
+          "weight": 400,
+          "slope": "normal",
+          "settings": {
+            "lowercaseRoundness": 0.25,
+            "letterSpace": {},
+            "pairSpace": {},
+            "xHeight": 520,
+            "capitalRoundness": 220,
+            "letterWidth": 0.9,
+            "wordSpace": 230,
+            "overshoot": true,
+            "uFoot": false,
+            "uprightStraightness": 1.0,
+            "ascender": 700,
+            "version": "0.1",
+            "contrast": 2.6,
+            "penAngle": 32,
+            "slant": 8,
+            "corners": "soft",
+            "ends": "flat",
+            "joins": "round",
+            "weight": 135,
+            "spaceBetweenAllLetters": 6,
+            "note": "Calligraphic thick and thin from an angled pen, slanted. Expressive.",
+            "name": "Ink",
+            "alternates": {
+              "a": "single",
+              "g": "single",
+              "R": "curved",
+              "K": "branched",
+              "M": "vertical",
+              "W": "plain",
+              "y": "curved",
+              "G": "no-spur",
+              "Q": "long",
+              "four": "open",
+              "sixNine": "open"
+            }
+          },
+          "otf": "display/fonts/ink/SEIHouseDisplay-Ink.otf",
+          "woff2": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
+          "spacing": "display/spacing_ink.json",
+          "assets": [
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.otf",
+              "bytes": 331056,
+              "sha256": "d192d8daaa40ef66874fa6709041d390e1622a68e8647f2f128b41a4a80f37f7"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
+              "bytes": 85504,
+              "sha256": "69e745f1c53c564482bbb62e32eadbc7b353083004213212defc335fcf322929"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.latin-basic.woff2",
+              "bytes": 22416,
+              "sha256": "99f4d9d285cf20c2618c23465a79b90df7238c660aa79eb731b15e29c4cff150"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.symbols.woff2",
+              "bytes": 14136,
+              "sha256": "a562321a4bc85bf7a9c474f0cc795bd89fbf987efab9bed10d27cfa408d0e9b1"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.latin-extended.woff2",
+              "bytes": 46332,
+              "sha256": "db7084c0229fe2a39a8c679f6d046f717ebaf1006aa19ae304428e7c1d07feca"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.cyrillic.woff2",
+              "bytes": 63248,
+              "sha256": "b2df77b645d169406b293515725e33dcc6e1dd9ecd5accfb8bc42a382583348f"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.greek.woff2",
+              "bytes": 56900,
+              "sha256": "b18644600f51ebc5a1a224b2fe3ebccb72a7c54b136c1cebe76cac1dba77adee"
+            },
+            {
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.vietnamese.woff2",
+              "bytes": 46236,
+              "sha256": "f4ff451f0a6054823a978ab99575065f6f94a92b6a50b6c53f587519538dbbdc"
+            },
+            {
+              "path": "display/spacing_ink.json",
+              "bytes": 484001,
+              "sha256": "2f0d53a832267f42fa6ae32781a79c36eaff9ed7df6db416c3955206b1c3c446"
+            }
+          ]
+        }
+      ],
+      "specimen": "site/display/ink/index.html"
+    },
+    {
+      "name": "Soft",
+      "slug": "soft",
+      "settings": {
+        "lowercaseRoundness": 0.7,
+        "letterSpace": {},
+        "pairSpace": {},
+        "xHeight": 520,
+        "capitalRoundness": 270,
+        "letterWidth": 1.05,
+        "wordSpace": 260,
+        "overshoot": true,
+        "uFoot": false,
+        "uprightStraightness": 1.0,
+        "ascender": 700,
+        "version": "0.1",
+        "contrast": 1.0,
+        "penAngle": 0,
+        "slant": 0,
+        "corners": "soft",
+        "ends": "round",
+        "joins": "round",
+        "weight": 150,
+        "spaceBetweenAllLetters": 10,
+        "note": "Heavy, round and warm. Big friendly titles.",
+        "name": "Soft",
+        "alternates": {
+          "a": "single",
+          "g": "single",
+          "R": "curved",
+          "K": "branched",
+          "M": "vertical",
+          "W": "plain",
+          "y": "curved",
+          "G": "no-spur",
+          "Q": "long",
+          "four": "open",
+          "sixNine": "closed"
+        }
+      },
+      "styles": [
+        {
+          "label": "Regular",
+          "family": "SEIHouse Display Soft",
+          "weight": 400,
+          "slope": "normal",
+          "settings": {
+            "lowercaseRoundness": 0.7,
+            "letterSpace": {},
+            "pairSpace": {},
+            "xHeight": 520,
+            "capitalRoundness": 270,
+            "letterWidth": 1.05,
+            "wordSpace": 260,
+            "overshoot": true,
+            "uFoot": false,
+            "uprightStraightness": 1.0,
+            "ascender": 700,
+            "version": "0.1",
+            "contrast": 1.0,
+            "penAngle": 0,
+            "slant": 0,
+            "corners": "soft",
+            "ends": "round",
+            "joins": "round",
+            "weight": 150,
+            "spaceBetweenAllLetters": 10,
+            "note": "Heavy, round and warm. Big friendly titles.",
+            "name": "Soft",
+            "alternates": {
+              "a": "single",
+              "g": "single",
+              "R": "curved",
+              "K": "branched",
+              "M": "vertical",
+              "W": "plain",
+              "y": "curved",
+              "G": "no-spur",
+              "Q": "long",
+              "four": "open",
+              "sixNine": "closed"
+            }
+          },
+          "otf": "display/fonts/soft/SEIHouseDisplay-Soft.otf",
+          "woff2": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
+          "spacing": "display/spacing_soft.json",
+          "assets": [
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.otf",
+              "bytes": 372200,
+              "sha256": "79968f3d44aa6b135cdd21dc3fed8f6dad87ff5b7b58d13fa692706623cccc7d"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
+              "bytes": 87884,
+              "sha256": "811094c6ffd3cefc04f115f2684bac9910c976bf593c98d9f89d50ebf17f9486"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.latin-basic.woff2",
+              "bytes": 22156,
+              "sha256": "48016885dd15d475a8fa3e95db783e76dcea07abe2c188a2a7e2abd58594d5a3"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.symbols.woff2",
+              "bytes": 14144,
+              "sha256": "c9cd8d45a9b9c872dd7eeb33b40afbf3841423122ba8b225dc1e1a600ac89600"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.latin-extended.woff2",
+              "bytes": 47216,
+              "sha256": "84310cb2d5d5c59366c9c4b0a07812ed50199d6f27467a5e5edab8143e91a667"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.cyrillic.woff2",
+              "bytes": 65056,
+              "sha256": "cfc43667e5b6e00822a080ab42feb2f63e949d3c00d04eff5efd1302a17036aa"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.greek.woff2",
+              "bytes": 58324,
+              "sha256": "9e971c263dc5814d5b4974a8c33e1fa5de3fe0eb6d9bf096503d081344b829db"
+            },
+            {
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.vietnamese.woff2",
+              "bytes": 47364,
+              "sha256": "6d24b963726898395ad6ed0a6a80dfa43013d8f994667da85d75403b6753934d"
+            },
+            {
+              "path": "display/spacing_soft.json",
+              "bytes": 580930,
+              "sha256": "227924d07e49b36e29b3726a7ab10e1d76d0415c2cefe63596584d5a59d07e0a"
+            }
+          ]
+        }
+      ],
+      "specimen": "site/display/soft/index.html"
+    },
+    {
+      "name": "Wide",
+      "slug": "wide",
+      "settings": {
+        "lowercaseRoundness": 0.25,
+        "letterSpace": {},
+        "pairSpace": {},
+        "xHeight": 470,
+        "capitalRoundness": 200,
+        "letterWidth": 1.4,
+        "wordSpace": 320,
+        "overshoot": true,
+        "uFoot": false,
+        "uprightStraightness": 1.0,
+        "ascender": 700,
+        "version": "0.1",
+        "contrast": 1.0,
+        "penAngle": 0,
+        "slant": 0,
+        "corners": "soft",
+        "ends": "round",
+        "joins": "round",
+        "weight": 55,
+        "spaceBetweenAllLetters": 46,
+        "note": "Thin, wide and airy. Quiet, spacious titles.",
+        "name": "Wide",
+        "alternates": {
+          "a": "double",
+          "g": "double",
+          "R": "straight",
+          "K": "joined",
+          "M": "splayed",
+          "W": "plain",
+          "y": "straight",
+          "G": "spur",
+          "Q": "long",
+          "four": "open",
+          "sixNine": "closed"
+        }
+      },
+      "styles": [
+        {
+          "label": "Regular",
+          "family": "SEIHouse Display Wide",
+          "weight": 400,
+          "slope": "normal",
+          "settings": {
+            "lowercaseRoundness": 0.25,
+            "letterSpace": {},
+            "pairSpace": {},
+            "xHeight": 470,
+            "capitalRoundness": 200,
+            "letterWidth": 1.4,
+            "wordSpace": 320,
+            "overshoot": true,
+            "uFoot": false,
+            "uprightStraightness": 1.0,
+            "ascender": 700,
+            "version": "0.1",
+            "contrast": 1.0,
+            "penAngle": 0,
+            "slant": 0,
+            "corners": "soft",
+            "ends": "round",
+            "joins": "round",
+            "weight": 55,
+            "spaceBetweenAllLetters": 46,
+            "note": "Thin, wide and airy. Quiet, spacious titles.",
+            "name": "Wide",
+            "alternates": {
+              "a": "double",
+              "g": "double",
+              "R": "straight",
+              "K": "joined",
+              "M": "splayed",
+              "W": "plain",
+              "y": "straight",
+              "G": "spur",
+              "Q": "long",
+              "four": "open",
+              "sixNine": "closed"
+            }
+          },
+          "otf": "display/fonts/wide/SEIHouseDisplay-Wide.otf",
+          "woff2": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
+          "spacing": "display/spacing_wide.json",
+          "assets": [
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.otf",
+              "bytes": 371284,
+              "sha256": "c032cd5253494e04b0ea1ec1fa91da062cf33ca5f2c461e3a8d0fadb228031e1"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
+              "bytes": 83272,
+              "sha256": "eb050df1d6dbf6c2b338f6d1cc93b236b25f7e3cdc6ca715ab5a249d7d42e615"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.latin-basic.woff2",
+              "bytes": 22140,
+              "sha256": "b60146b3b1f1798765e02db537b877fd1a4d6c49373d080e96dd8291a173470c"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.symbols.woff2",
+              "bytes": 14408,
+              "sha256": "d8d270d0435fc57490a6601a7b3706b955bfa0d3c31c0617c05ba446f5e3a28b"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.latin-extended.woff2",
+              "bytes": 45824,
+              "sha256": "3fb53ab964a36711dd8fb63fb3d10c2d78b0e5ee576ec03d557b00f74499f820"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.cyrillic.woff2",
+              "bytes": 61216,
+              "sha256": "6865cccbe74a0d19e4988945e2f53a819b2e66019c38e3ac51cd1e5a84c412fa"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.greek.woff2",
+              "bytes": 55984,
+              "sha256": "1341d63f489956d5e32f4d33823b5f53b3d3855a02c9b2eab09272e3271e8c1d"
+            },
+            {
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.vietnamese.woff2",
+              "bytes": 45692,
+              "sha256": "a5533811308ff066ef7a6b9b356f9b29160071c8310006b2b3ce81acea238b69"
+            },
+            {
+              "path": "display/spacing_wide.json",
+              "bytes": 527287,
+              "sha256": "c5224dd800febdb8ff08f2e02e68a35b3dbba7e5732fe8dacbae326f44ea399c"
+            }
+          ]
+        }
+      ],
+      "specimen": "site/display/wide/index.html"
+    }
+  ]
+}

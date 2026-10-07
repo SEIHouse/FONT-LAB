@@ -20,8 +20,14 @@ Lab pages are copied, so commit rebuilt pages when changing a Lab template.
 
 The configuration follows Vercel's [build settings](https://vercel.com/docs/builds/configure-a-build)
 and [vercel.json reference](https://vercel.com/docs/project-configuration/vercel-json).
-Only the output directory is served; the build copies an explicit list of 62
-public files, including Display's six web subsets per cut and `display/fonts.css`.
+Only the output directory is served; the build copies an explicit Reader/site
+allowlist plus Display's production manifest inventory (74 files for today's
+Regular-only collection). This includes six web subsets per face,
+`display/fonts.css`, spacing exports and the finished-cut specimen pages under
+`site/display/`. Regenerate the manifest and pages with
+`python -X utf8 display/build_all_cuts.py` after changing cut settings; the
+website build rejects a stale inventory. It does not require a font compiler
+when deploying already-built assets.
 Archived font versions, proof images, development scripts, and the
 source repository are excluded. The dependency-free SEIReader npm package remains
 separate and uses a 17-file allowlist, including the operative Sans license and

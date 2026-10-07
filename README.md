@@ -72,6 +72,12 @@ Display embeds the Reader's ecosystem license metadata and includes six web
 subsets per cut through `display/fonts.css`, with every Latin-basic file below
 25 KB. The phone Lab gates overflow at 360–430px. See the
 [pre-Step-5 fixes, current specimens and delivery checks](docs/DISPLAY-PRE-STEP5.md).
+The [production pipeline](docs/DISPLAY-PRODUCTION-STEP5.md) discovers every cut
+JSON, supports opt-in extra weights and Oblique, and generates a
+[finished-font specimen collection](site/display/index.html). The App
+distribution Action rebuilds and gates every declared face before uploading
+`seihouse-display-fonts`, including OTF/WOFF2, subsets, CSS, specimens and licenses.
+Current cut defaults remain Regular-only.
 Its **Save cut** button uses browser-local drafts on a normal website and retains
 the original database integration in the Claude host. Use **Download JSON** or
 **Copy** to bring a cut back to the font builder. Drafts stay on this browser/site.
@@ -82,6 +88,11 @@ To rebuild with the Python dependencies described below, run from the repository
 python -X utf8 display/make_display.py display/cuts/soft.json
 python -X utf8 display/build_display_page.py
 ```
+
+For the entire collection, run `python -X utf8 display/build_all_cuts.py`.
+Use `--output-dir dist/display-production` for a separate candidate bundle;
+per-cut `production.weights` and `production.oblique` settings opt into styles.
+See [Display build options and gates](display/README.md).
 
 Choose `edge.json`, `ink.json`, or `wide.json` for another design. The builder uses
 Chromium and `otfautohint`; run it in the environment where those dependencies are

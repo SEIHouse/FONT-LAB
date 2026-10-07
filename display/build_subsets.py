@@ -15,6 +15,13 @@ FACE_ORDER = ('latin-basic', 'symbols', 'latin-extended', 'cyrillic', 'greek', '
 BASIC_LIMIT = 25_000
 
 
+def font_style(font):
+    """Match CSS to the built slope metadata, including true Display obliques."""
+    if font['OS/2'].fsSelection & 0x200:
+        return f"oblique {-font['post'].italicAngle:g}deg"
+    return 'italic' if font['OS/2'].fsSelection & 1 else 'normal'
+
+
 def display_groups(codes):
     """Collapse Reader's historical Latin faces into one complete extended delivery."""
     reader = subset_groups(set(codes))
@@ -51,7 +58,7 @@ def write_css(sources, output):
         with TTFont(source) as font:
             family = font['name'].getDebugName(16) or font['name'].getDebugName(1)
             weight = font['OS/2'].usWeightClass
-            style = 'italic' if font['OS/2'].fsSelection & 1 else 'normal'
+            style = font_style(font)
             groups = display_groups(set(font.getBestCmap()))
         # Escape CSS strings for named cuts without changing their saved font identity.
         family = family.replace('\\', '\\\\').replace('"', '\\"')

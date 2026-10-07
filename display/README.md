@@ -31,6 +31,11 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 | `../engine.js` | Shared letter, mark, symbol and numeric rules, with Reader defaults and Display options |
 | `../font_builder.py` | `FontBuilderCore`: shared export, outlines, spacing, hinting and OpenType layout |
 | `make_display.py` | Thin cut loader using the same core as `../make_fonts.py` |
+| `build_all_cuts.py` | Discovers every cut JSON and builds its declared production styles, subsets and specimens |
+| `production.py` / `production-manifest.json` | Validated cut/style plans and the final delivery inventory with byte counts and SHA-256 hashes |
+| `verify_production.py` | Shape/topology, inherited features, compiled spacing, subset/license and FontBakery gates for every built face |
+| `specimens.py` / `specimen.css` / `specimen.js` | Generates native-font album cover, track list, poster and alphabet pages into `../site/display/` |
+| `verify_specimens.py` | WOFF2 versus built-OTF native widths, style/feature controls and 360–430px layouts |
 | `build_subsets.py` | Six Display deliveries using the Reader's subset routine and coverage policy |
 | `build_display_page.py` | Builds the Lab page |
 | `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant |
@@ -52,6 +57,86 @@ choices and starts every preset with Plain W. `ss04` also switches M.
    (or replace the corresponding preset JSON). From the repo root, run
    `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
 3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
+
+For production, build the complete collection from the repository root:
+
+```sh
+python -X utf8 display/build_all_cuts.py
+python -X utf8 display/verify_production.py
+python -X utf8 display/verify_specimens.py
+python -X utf8 display/build_display_page.py
+node build_site.mjs
+```
+
+The batch discovers **every `cuts/*.json`**, with no fixed cut list. Current
+Soft/Edge/Ink/Wide settings stay Regular-only. Each cut gets a finished-font
+specimen in [`site/display/`](../site/display/index.html), with downloads,
+capital spacing and all eight stylistic-set controls. These pages use the native
+font's actual kerning and metrics, with font synthesis disabled.
+
+`--output-dir dist/display-production` writes a self-contained candidate bundle
+with `display/fonts/`, `display/fonts.css`, the manifest, `site/display/`, and
+both license files. Candidate spacing lives next to its font. Serve that bundle
+as a website root to inspect the specimens; it leaves committed fonts and Lab
+spacing untouched. `--specimens-only` refreshes pages, inventory and CSS from
+existing fonts without rebuilding outlines. Cut names use ASCII letters/digits,
+single spaces or hyphens; duplicate slugs or PostScript identities fail before
+building.
+
+### Opt-in extra weights and Oblique
+
+Add a `production` object to the individual cut JSON. For example, a Wide
+variation can request:
+
+```json
+"production": {
+  "weights": {"Light": 0.85, "Bold": 1.03},
+  "oblique": 9
+}
+```
+
+Weight values multiply **that cut's thickness**; all other drawing and alternate
+settings stay the same. Weight names use the Reader's static weight classes
+(Light 300, Medium 500, SemiBold 600, Bold 700, etc.). Lighter names require a
+multiplier below 1; heavier names require one above 1. The accepted 0.5–1.5 range
+is an input bound, and every result must still pass the shape gate.
+`oblique` adds degrees to the cut's existing slant (the reviewed Ink example adds
+3° to its 8° slant, giving 11°).
+It retains upright letter skeletons and sets proper Oblique names, slope/caret
+metadata, OS/2 oblique flags and a `slnt` STAT value. It does not select Reader
+italic letter substitutions. The total angle is limited to 25°.
+
+Extra fonts, subsets and spacing exports live in `fonts/<cut>/<Style>/`; CSS
+uses their real weight and oblique angle. Regular paths stay compatible.
+To experiment without changing committed defaults, copy the cut JSON files to
+another directory, add production choices there, and pass `--cuts <directory>`
+with a separate `--output-dir`. Each cut explicitly chooses its extra styles.
+
+### CI and release gates
+
+The **App distribution** GitHub Action runs the batch on pushes to `main`, pull
+requests and manual runs. Every rebuilt face passes the shape gate, inherited
+language/numeric/alternate features, final spacing, license and six-subset
+checks, then FontBakery **OpenType + offline Universal**, with any WARN, FAIL,
+ERROR or unfinished run blocking delivery. Every Latin-basic face stays strictly
+under 25,000 bytes. The job also rebuilds Reader and checks its preserved tables,
+outlines and metrics, plus the rebuilt Lab's title/alternate/phone gates.
+
+Successful runs upload **`seihouse-display-fonts`** (fonts, web CSS, manifest,
+native specimens and licenses), retained for 30 days. Validation reports and
+FontBakery logs are in **`shared-builder-evidence`**, including failed runs.
+Automatic and manual runs honor each cut JSON. Current files declare no extras.
+
+Regular retains Step 1's immutable metrics, skeletons and topology witnesses.
+Each extra style needs separately reviewed 400px topology at
+`tests/fixtures/display-production-topology/<slug>-<style>.json`; a new cut's
+Regular uses `<slug>.json`. The fixture records the exact drawing `settings`,
+built spacing `variants`, `size_px`, and each glyph's fixed counter/witness
+coordinates. A changed recipe requires new review. Every glyph still passes
+outline, overlap, 6px counter/aperture clearance and OTF/WOFF2 raster checks.
+The production gate reads fixed fixtures and never captures a candidate baseline.
+Reviewed opt-in example JSONs and proofs are linked in
+[Step 5 pipeline evidence](../docs/DISPLAY-PRODUCTION-STEP5.md).
 
 Each cut build also writes `latin-basic`, `latin-extended`, `cyrillic`, `greek`,
 `vietnamese` and `symbols` WOFF2 files. Default builds refresh the subsets for

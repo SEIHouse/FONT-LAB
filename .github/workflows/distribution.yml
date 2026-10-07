@@ -13,7 +13,7 @@ jobs:
   shared-builder:
     # Exact CFF/hint identity uses the baseline's build platform and tool versions.
     runs-on: windows-latest
-    timeout-minutes: 40
+    timeout-minutes: 60
     env:
       PYTHONUTF8: '1'
     steps:
@@ -22,32 +22,30 @@ jobs:
         with:
           python-version: '3.12'
       - name: Install the preservation baseline's build tools
-        run: pip install 'fonttools[woff]==4.66.1' 'skia-pathops==0.9.2' 'uharfbuzz==0.56.2' 'playwright==1.63.0' 'afdko==5.0.1' 'brotli==1.2.0' 'freetype-py>=2.3'
+        run: pip install 'fonttools[woff]==4.66.1' 'skia-pathops==0.9.2' 'uharfbuzz==0.56.2' 'playwright==1.63.0' 'afdko==5.0.1' 'brotli==1.2.0' 'freetype-py>=2.3' 'fontbakery==1.1.0'
       - name: Install Chromium for the shared glyph export
         run: python -m playwright install chromium
       - name: Rebuild Reader and all Display cuts from the shared core
         run: |
           python make_fonts.py --output-dir dist/reader-candidate
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          foreach ($cut in 'soft','edge','ink','wide') {
-            python display/make_display.py "display/cuts/$cut.json" --output-dir "dist/display-candidate/$cut"
-            if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          }
+          python display/build_all_cuts.py --output-dir dist/display-candidate
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
       - name: Gate rebuilt Reader identity, Display inheritance and shapes
         run: |
-          python verify_shared_engine.py --reader-fonts dist/reader-candidate --full-fonts-only --display-fonts dist/display-candidate --report dist/reader-rebuild.json
+          python verify_shared_engine.py --reader-fonts dist/reader-candidate --full-fonts-only --display-fonts dist/display-candidate/display/fonts --report dist/reader-rebuild.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python verify_display_shapes.py --fonts dist/display-candidate --report dist/display-rebuild.json
+          python display/verify_production.py --manifest dist/display-candidate/display/production-manifest.json --report-dir dist/display-production-gates
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          $env:SPACING_DIR = 'dist/display-candidate'
+          python display/verify_specimens.py --manifest dist/display-candidate/display/production-manifest.json --report-dir dist/display-production-gates
+          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
+          $env:SPACING_DIR = 'dist/display-candidate/display/fonts'
           $env:LAB_OUT = 'dist/display-candidate-lab.html'
           python display/build_display_page.py
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python verify_display_spacing.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-title-rebuild.json
+          python verify_display_spacing.py --fonts dist/display-candidate/display/fonts --lab dist/display-candidate-lab.html --report dist/display-title-rebuild.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python verify_display_alternates.py --fonts dist/display-candidate --lab dist/display-candidate-lab.html --report dist/display-alternate-rebuild.json
-          if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
-          python verify_display_subsets.py --fonts dist/display-candidate --report dist/display-subset-rebuild.json
+          python verify_display_alternates.py --fonts dist/display-candidate/display/fonts --lab dist/display-candidate-lab.html --report dist/display-alternate-rebuild.json
           if ($LASTEXITCODE -ne 0) { exit $LASTEXITCODE }
           python display/verify_lab.py --lab dist/display-candidate-lab.html --proof-dir dist/display-lab-rebuild
       - name: Upload rebuild evidence
@@ -57,12 +55,24 @@ jobs:
           name: shared-builder-evidence
           path: |
             dist/reader-rebuild.json
-            dist/display-rebuild.json
+            dist/display-production-gates/
             dist/display-title-rebuild.json
             dist/display-alternate-rebuild.json
-            dist/display-subset-rebuild.json
             dist/display-lab-rebuild/lab.json
           if-no-files-found: warn
+          retention-days: 30
+      - name: Upload gated Display fonts, web delivery and specimens
+        uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
+        with:
+          name: seihouse-display-fonts
+          path: |
+            dist/display-candidate/display/production-manifest.json
+            dist/display-candidate/display/fonts.css
+            dist/display-candidate/display/fonts/
+            dist/display-candidate/site/display/
+            dist/display-candidate/LICENSE
+            dist/display-candidate/FONT-LICENSE.txt
+          if-no-files-found: error
           retention-days: 30
   display-shapes:
     runs-on: ubuntu-latest
@@ -109,7 +119,7 @@ jobs:
           node-version: '22'
       - name: Check browser draft persistence and build public site
         run: |
-          node --test tests/site.test.mjs
+          node --test tests/site.test.mjs tests/site-production.test.mjs
           node build_site.mjs
   package:
     runs-on: ubuntu-latest

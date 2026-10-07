@@ -2,6 +2,7 @@
 import {copyFileSync, existsSync, lstatSync, mkdirSync, realpathSync, rmSync, statSync} from 'node:fs';
 import {dirname, join, relative, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
+import {displayInventory} from './display/site_inventory.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist', 'site');
@@ -14,11 +15,9 @@ const pages = [
   'docs/HEALTH-CHECK.txt', 'docs/DESIGN-GOALS.md', 'docs/WEBSITE.md',
 ];
 const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic'];
-const cuts = ['soft','edge','ink','wide'];
-const subsets = ['latin-basic','latin-extended','cyrillic','greek','vietnamese','symbols'];
+const displayFiles = displayInventory(root);
 const files = [...pages, ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
-  ...cuts.flatMap(cut => ['otf','woff2', ...subsets.map(subset=>`${subset}.woff2`)]
-    .map(format => `display/fonts/${cut}/SEIHouseDisplay-${cut[0].toUpperCase()+cut.slice(1)}.${format}`))];
+  ...new Set(displayFiles)];
 
 // Validate all inputs before replacing the fixed, generated output directory.
 for (const file of files) {

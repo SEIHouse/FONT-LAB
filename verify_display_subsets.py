@@ -10,7 +10,7 @@ import unicodedata
 from fontTools.ttLib import TTFont
 
 from build_subsets import unicode_range
-from display.build_subsets import BASIC_LIMIT, FACE_ORDER, display_groups
+from display.build_subsets import BASIC_LIMIT, FACE_ORDER, display_groups, font_style
 from display.letter_alternates import SET_NAMES
 from language_coverage import inventory, test_strings
 from verify_latin import shape
@@ -104,20 +104,21 @@ def css_flags(css, sources):
         with TTFont(source) as font:
             family = font['name'].getDebugName(16) or font['name'].getDebugName(1)
             weight = str(font['OS/2'].usWeightClass)
+            style = font_style(font)
         for name in FACE_ORDER:
             file = source.with_suffix('.'+name+'.woff2')
             with TTFont(file) as subset:
                 ranges = unicode_range(set(subset.getBestCmap()))
             url = './'+Path(os.path.relpath(file, css.parent)).as_posix()
-            expected.append((family, url, weight, ranges))
+            expected.append((family, url, weight, style, ranges))
     found = []
     if len(blocks) != len(expected):
         return [dict(kind='display-css-face-count', expected=len(expected), actual=len(blocks))]
-    for index, (block, (family, url, weight, ranges)) in enumerate(zip(blocks, expected)):
+    for index, (block, (family, url, weight, style, ranges)) in enumerate(zip(blocks, expected)):
         values = dict(re.findall(r'([a-z-]+)\s*:\s*([^;]+);', block))
         if (values.get('font-family') != '"'+family+'"' or
                 values.get('src') != 'url("'+url+'") format("woff2")' or
-                values.get('font-weight') != weight or values.get('font-style') != 'normal' or
+                values.get('font-weight') != weight or values.get('font-style') != style or
                 values.get('font-display') != 'swap' or values.get('unicode-range') != ranges):
             found.append(dict(kind='display-css-face', face=index, file=url))
     return found
