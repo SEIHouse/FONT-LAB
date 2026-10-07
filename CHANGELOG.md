@@ -2,6 +2,23 @@
 
 Newest first.
 
+- **Living Titles app package (2026-10-07)** Added private
+  `@seihouse/living-titles@0.1.0` as an installable archive with provenance,
+  zero mandatory runtime dependencies, shared certified vectors and compiled
+  spacing, four Regular WOFF2 faces, TypeScript interfaces, a DOM player and
+  optional React integration. The NovelExpanded mock consumes the packaged
+  core/player. Added cancellation, fixed bounds, unique per-instance clips,
+  safe signal handling, reduced-motion/lifecycle cleanup and packed-consumer
+  tests/CI. Menu and Reader Chamber audio remain separate and unconnected.
+  Existing Reader package scope, license grants and font bytes are preserved.
+
+- **NovelExpanded title study (2026-10-07)** Added a responsive homepage mock
+  in FONT-LAB with the four certified living cuts, editable wordmark/featured
+  title, serif comparison, color/spacing/motion controls and SVG/study downloads.
+  Uses cached shared-engine vectors and compiled spacing. Runs silently, with
+  a separate caller-owned motion signal seam for future menu music; Reader
+  Chamber audio is not connected. Included the mock in website delivery.
+
 - **Display Engine Step 6 — Living Titles (2026-10-07)** Added local audio/BPM
   title authoring, restrained cut-specific motion, anchored compiled spacing,
   yielding/cancellable preparation and audio-clock playback. Preview and

@@ -1,0 +1,11 @@
+Copyright 2026 SEIHouse Productions LLC. All rights reserved.
+
+Private SEIHouse Display Engine runtime delivery for authorized SEIHouse products.
+This package makes no additional public license grant. It retains the existing
+Display notices and the SEIHouse Sans notice for inherited shared source.
+
+SANS-LICENSE.txt is the existing SEIHouse Sans Ecosystem License. Its scope
+expressly excludes the separate Display Engine. Display font binaries retain
+their existing embedded license metadata; packaging does not alter it.
+
+No reference fonts, Unicode data, Mediabunny, or third-party media are bundled.
