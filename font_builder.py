@@ -47,7 +47,7 @@ class _Flat(BasePen):
     _endPath = _closePath
 from pathlib import Path as FilePath
 from fontTools.pens.roundingPen import RoundingPen
-from display.outline_cleanup import cleanup
+from display.outline_cleanup import cleanup, display_union, repair_quantized_edges
 from phase4_support import release_version
 
 SC = 2            # 2000 units per em: whole-number points, fine enough that rounding is invisible
@@ -409,7 +409,8 @@ class FontBuilderCore:
                 cleanup(fitted).draw(pen)
             else:
                 self.draw_fitted(path, pen)
-        return pen.getCharString()
+        result = pen.getCharString()
+        return repair_quantized_edges(result, adv) if self.configured_shapes and path is not None else result
 
     def lsb_of(self, path):
         """Return the rounded left ink bound, or zero for an empty glyph."""
@@ -1028,7 +1029,7 @@ class FontBuilderCore:
         if not shapes: return None
         r = shapes[0]                           # merge one at a time (the batch merge could drop simple fills)
         for s in shapes[1:]:
-            r = pathops.op(r, s, PathOp.UNION, fix_winding=True)
+            r = display_union(r, s)
         r.convertConicsToQuads(0.02)
         r = cleanup(r)
         if self.ITAL or self.settings.get('slant', 0):

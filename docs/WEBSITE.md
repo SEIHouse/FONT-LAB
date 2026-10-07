@@ -21,8 +21,7 @@ Lab pages are copied, so commit rebuilt pages when changing a Lab template.
 The configuration follows Vercel's [build settings](https://vercel.com/docs/builds/configure-a-build)
 and [vercel.json reference](https://vercel.com/docs/project-configuration/vercel-json).
 Only the output directory is served; the build copies an explicit Reader/site
-allowlist plus Display's production manifest inventory (74 files for today's
-Regular-only collection). This includes six web subsets per face,
+allowlist plus Display's production manifest inventory. This includes six web subsets per face,
 `display/fonts.css`, spacing exports and the finished-cut specimen pages under
 `site/display/`. Regenerate the manifest and pages with
 `python -X utf8 display/build_all_cuts.py` after changing cut settings; the
@@ -72,6 +71,15 @@ python -m http.server 8000 --directory dist/site
 Open `http://localhost:8000`. Building the website does not rebuild or alter fonts.
 Opening the root `index.html` directly also works; saving depends on that browser's
 local-file storage policy, and JSON downloads provide a portable copy.
+
+The Display Lab's **Living title** workspace ships its locally bundled media
+adapter and MPL notice with the generated page, plus the Step 6 animated proofs.
+Local music clips stay on the device. Use localhost or HTTPS for audio/video
+APIs. The site build copies these checked-in assets; rebuilding the media bundle
+requires `npm ci --prefix display` and `node display/build_living_media.mjs` before rebuilding and
+committing the Lab. The website deploy itself retains its dependency-free build.
+See [Living Titles](DISPLAY-LIVING-TITLES-STEP6.md) for supported profiles, formats
+and certification.
 
 ## Verification
 

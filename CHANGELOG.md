@@ -2,6 +2,22 @@
 
 Newest first.
 
+- **Display Engine Step 6 — Living Titles (2026-10-07)** Added local audio/BPM
+  title authoring, restrained cut-specific motion, anchored compiled spacing,
+  yielding/cancellable preparation and audio-clock playback. Preview and
+  transparent, self-contained animated SVG/video downloads share one vector
+  frame sequence. Added codec-probed MP4/H.264/AAC and WebM/VP9/VP8/Opus through
+  a separate, locally bundled Mediabunny 1.61.3/esbuild 0.28.2 adapter with locked
+  development dependencies and the MPL notice. Added source/fixture-bound
+  motion certification, construction/counter/topology and real browser export
+  gates, reduced-motion fallback, phone checks and per-cut animated proofs.
+  Added exact-output terminal bounds rejection and a shared subpixel retry for
+  failed fractional-weight Display Booleans, plus cleanup for debris introduced
+  by final CFF control rounding. Ink uses a tighter reviewed
+  motion envelope for its small ordinal counter. Saved cut JSON, font package
+  contracts, Reader defaults and Regular-only builds stay preserved. See the
+  [Step 6 scope, profiles and validation](docs/DISPLAY-LIVING-TITLES-STEP6.md).
+
 - **Display Engine Step 5 — production pipeline (2026-10-06)** Added a batch
   builder that discovers every cut JSON and emits a hashed delivery manifest,
   full fonts, six subsets per face, web CSS, license files and native-font

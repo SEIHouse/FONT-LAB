@@ -4,6 +4,7 @@ import sys
 HERE = os.path.dirname(os.path.abspath(__file__))
 sys.path.insert(0, os.path.dirname(HERE))
 from display.title_spacing import spacing_settings
+from display.living_build import engine_factory, profiles_for_lab
 engine = open(os.path.join(HERE, '..', 'engine.js'), encoding='utf-8').read()
 stroke_geometry = open(os.path.join(HERE, 'stroke_geometry.js'), encoding='utf-8').read()
 spacing_helper = open(os.path.join(HERE, 'spacing.js'), encoding='utf-8').read()
@@ -75,6 +76,15 @@ main{ display:grid; gap:16px; min-width:0; }
 .tracks .num{ color:var(--mute); font-size:14px; padding-top:6px; }
 .all{ display:grid; gap:12px; } .all .hint{ margin-bottom:2px; }
 .out{ font:12px/1.4 ui-monospace,Menlo,monospace; white-space:pre-wrap; overflow-wrap:anywhere; background:#0d0f13; border:1px solid var(--line); border-radius:8px; padding:8px; max-height:160px; overflow:auto; }
+[hidden]{display:none!important}
+.living-controls{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;min-width:0}
+.living-controls>div,.living-axes{grid-column:1/-1;min-width:0}
+.living-controls input[type=number],.living-controls input[type=file]{width:100%;min-width:0;max-width:100%;font:inherit;background:var(--bg);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:7px}
+.living-controls input[type=color]{width:100%;height:36px;border:1px solid var(--line);background:transparent}
+.living-axes{display:flex;flex-wrap:wrap;gap:12px;border:1px solid var(--line);border-radius:8px}
+.living-stage{margin:16px 0;min-width:0;overflow:hidden;border:1px solid var(--line);border-radius:10px;background:repeating-conic-gradient(#252a34 0% 25%,#1b2029 0% 50%) 0/20px 20px}
+.living-stage svg{display:block;width:100%;height:auto;max-height:420px}
+.living-actions{margin:12px 0;align-items:center} #lt-progress{width:100%} #living-title a{color:var(--accent)}
 </style></head><body>
 <svg width="0" height="0" style="position:absolute" aria-hidden="true"><defs id="clips"></defs></svg>
 <div class="wrap">
@@ -117,6 +127,7 @@ Bloom</textarea></label>
   <div class="sec"><h2>Copy instead of Save</h2><div class="out" id="out" tabindex="0"></div><div class="row"><button type="button" class="pill" id="copy">Copy</button></div></div>
 </aside>
 <main>
+__LIVING_PANEL__
   <section class="card"><h2>Album cover</h2><div class="covers"><div class="cover" id="cover1"></div><div class="cover" id="cover2"></div></div></section>
   <section class="card"><h2>Track list</h2><div class="tracks" id="tracks"></div></section>
   <section class="card"><h2>Poster line</h2><div id="poster"></div></section>
@@ -221,6 +232,7 @@ function cover(el, pal){
   el.innerHTML = `<div class="mark">${drawText('Ⓢ', w*0.07, ink)}</div><div style="display:grid;gap:${f1(w*0.02)}px">${drawText(title, w*0.13, ink, 1.02)}${drawText(artist.toUpperCase(), w*0.045, ink)}</div>`;
 }
 function renderAll(){
+  if(typeof LivingTitleUI !== 'undefined') LivingTitleUI.update(CUT,$('t-title').value,$('cpsp').checked);
   applyToEngine();
   const exactSpacing = spacingForCut(CUT, SPACING_EXPORTS);
   $('cpsp').disabled = !exactSpacing;
@@ -255,7 +267,10 @@ function renderAllCuts(){
 }
 function renderOut(){ $('out').textContent = JSON.stringify(CUT, null, 2); }
 let raf = 0;
-function changed(){ cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); setMsg('Not saved yet'); }
+function changed(){
+  if(typeof LivingTitleUI !== 'undefined') LivingTitleUI.update(CUT,$('t-title').value,$('cpsp').checked);
+  cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); setMsg('Not saved yet');
+}
 function setMsg(t){ $('savemsg').textContent = t; }
 function load(){ buildControls(); renderPresets(); renderAll(); setMsg(SAVED[CUT.name] ? 'Saved' : 'Not saved yet'); }
 $('copy').addEventListener('click', async () => { try { await navigator.clipboard.writeText($('out').textContent); setMsg('Copied. Paste it to Claude with "build this cut".'); } catch(e){ setMsg('Copy failed: select the text and copy it.'); } });
@@ -289,11 +304,27 @@ $('save').addEventListener('click', async () => {
 })();
 renderPalettes(); load();
 window.addEventListener('resize', () => { cancelAnimationFrame(raf); raf = requestAnimationFrame(renderAll); });
+</script>
+<script>__LIVING_FACTORY__
+const MOTION_PROFILES=__MOTION_PROFILES__;
+const LIVING_MEDIA_URL=__MEDIA_URL__;
+__LIVING_CORE__
+__LIVING_UI__
+LivingTitleUI.update(CUT,$('t-title').value,$('cpsp').checked);
+void LivingTitleUI.prepare();
 </script></body></html>"""
+out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
+media_url = os.path.relpath(os.path.join(HERE, 'lab', 'living-media.js'), os.path.dirname(os.path.abspath(out))).replace('\\', '/')
+license_url = os.path.relpath(os.path.join(HERE, 'lab', 'living-media-LICENSE.txt'), os.path.dirname(os.path.abspath(out))).replace('\\', '/')
 html = (HTML.replace('__ENGINE__', draft_helper + '\n' + engine + '\n' + stroke_geometry + '\n' + spacing_helper)
         .replace('__PRESETS__', json.dumps(presets, ensure_ascii=False))
-        .replace('__SPACING__', json.dumps(spacing_exports, ensure_ascii=False, separators=(',', ':'))))
-out = os.environ.get('LAB_OUT', os.path.join(HERE, 'lab', 'index.html'))
+        .replace('__SPACING__', json.dumps(spacing_exports, ensure_ascii=False, separators=(',', ':')))
+        .replace('__LIVING_PANEL__', open(os.path.join(HERE, 'living-panel.html'), encoding='utf-8').read().replace('living-media-LICENSE.txt', license_url))
+        .replace('__LIVING_FACTORY__', engine_factory())
+        .replace('__MOTION_PROFILES__', json.dumps(profiles_for_lab(), separators=(',', ':')))
+        .replace('__MEDIA_URL__', json.dumps(media_url))
+        .replace('__LIVING_CORE__', open(os.path.join(HERE, 'living.js'), encoding='utf-8').read())
+        .replace('__LIVING_UI__', open(os.path.join(HERE, 'living-ui.js'), encoding='utf-8').read()))
 os.makedirs(os.path.dirname(out), exist_ok=True)
 open(out, 'w', encoding='utf-8').write(html)
 print('display lab', len(html))
