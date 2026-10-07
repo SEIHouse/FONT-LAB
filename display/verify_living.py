@@ -114,6 +114,7 @@ VIDEO_CHECK = r"""async ({withAudio=false,longest=1080}) => {
 
 def verify(out, *, video=True):
     """Exercise visible controls, lifecycle races, image-mode SVG and real browser codecs."""
+    if video and not shutil_which('ffprobe'):raise ValueError('ffprobe is required for the audio/video timestamp gate')
     out=Path(out);out.mkdir(parents=True,exist_ok=True)
     audio_fixture(out/'phase-stereo.wav')
     report={'cuts':{},'mobile':[],'flags':[]}
@@ -209,7 +210,6 @@ def verify(out, *, video=True):
         if video:
             encoded=page.evaluate(VIDEO_CHECK,dict(withAudio=True));target=out/('audio.'+encoded['configuration']['extension'])
             target.write_bytes(base64.b64decode(encoded.pop('bytes')));report['audio_video']=encoded
-            if not shutil_which('ffprobe'):raise ValueError('ffprobe is required for the audio/video timestamp gate')
             probe=json.loads(subprocess.check_output(['ffprobe','-v','error','-show_streams','-show_packets','-of','json',str(target)],text=True,encoding='utf-8'))
             streams={row['codec_type']:row for row in probe['streams']}
             if set(streams)!={'audio','video'}:raise ValueError('Export lost a selected audio track')
@@ -237,6 +237,30 @@ def verify(out, *, video=True):
         if unsupported.locator('#lt-video').is_disabled():raise ValueError('Release Lab has an uncertified profile')
         unsupported.locator('#lt-video').click()
         unsupported.wait_for_function('document.querySelector("#lt-codec").textContent.includes("No supported")')
+        # A second codec probe may differ: the button/extension must follow the actual encoder result.
+        unsupported.evaluate('''Object.assign(LivingMedia,{
+          selectConfiguration:async()=>({extension:'mp4',label:'MP4 · H.264 · silent'}),
+          encodeVideo:async()=>({blob:new Blob(['gate']),configuration:{extension:'webm',label:'WebM · VP9 · silent'}})
+        })''')
+        unsupported.locator('#lt-video').click()
+        unsupported.wait_for_function('document.querySelector("#lt-video").textContent==="Download MP4"')
+        with unsupported.expect_download() as result:
+            unsupported.locator('#lt-video').click()
+        if not result.value.suggested_filename.endswith('.webm'):raise ValueError('Actual codec extension was lost')
+        if unsupported.locator('#lt-video').inner_text()!='Download WEBM':raise ValueError('Actual codec label was stale')
+        if not unsupported.locator('#lt-codec').inner_text().endswith('.webm'):raise ValueError('Actual codec description was stale')
+        # Canceling metadata must empty the input so choosing the same file can fire change again.
+        retry=browser.new_page();retry.goto(base+'/display/lab/index.html')
+        retry.wait_for_function('LivingTitleUI.inspect().prepared');retry.locator('#lt-mode').select_option('audio')
+        retry.evaluate('''window.gateInspectCalls=0;window.LivingMedia={inspectAudio:async(_file,signal)=>{
+          if(++gateInspectCalls===1)await new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(new DOMException('Cancelled','AbortError')),{once:true}));
+          return {duration:4,channels:2,sampleRate:48000};}};''')
+        retry.locator('#lt-file').set_input_files(str(out/'phase-stereo.wav'))
+        retry.wait_for_function('LivingTitleUI.inspect().busy');retry.locator('#lt-cancel').click()
+        if retry.locator('#lt-file').evaluate('el=>el.files.length')!=0:raise ValueError('Cancelled metadata retained the selected input')
+        retry.locator('#lt-file').set_input_files(str(out/'phase-stereo.wav'))
+        retry.wait_for_function('!LivingTitleUI.inspect().busy && document.querySelector("#lt-file-status").textContent.includes("channels")')
+        if retry.evaluate('gateInspectCalls')!=2:raise ValueError('Same-file metadata retry failed')
         if video:
             fallback=browser.new_page();fallback.add_init_script('''const support=VideoEncoder.isConfigSupported.bind(VideoEncoder);
               VideoEncoder.isConfigSupported=async config=>config.codec.startsWith('avc1') ? {supported:false,config} : support(config);''')

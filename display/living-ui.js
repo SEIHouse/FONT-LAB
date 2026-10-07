@@ -73,8 +73,12 @@ const LivingTitleUI = (() => {
   }
   function status(text){byId('status').textContent=text;}
   /** Abort preparations/encoders before dropping their buffers; preserve the authored cut. */
-  function invalidate(){
+  function invalidate(keepFileSelection=false){
+    const inspecting=job && file && !metadata;
     pause();job?.abort();job=null;busy=false;sequence=null;audio=null;configuration=null;probeVersion++;
+    if(inspecting && !keepFileSelection){
+      file=null;byId('file').value='';byId('file-status').textContent='Audio loading cancelled. Choose the file again.';
+    }
     position=0;lastFrame=-1;seekResume=false;byId('progress').hidden=true;
     byId('scrub').value=0;byId('time').textContent='0.00 / — s';
     byId('codec').textContent='Prepare the loop, then check the video format for this size and audio choice.';
@@ -130,7 +134,8 @@ const LivingTitleUI = (() => {
   }
   /** Read metadata on file selection; no full-song PCM decode or network request. */
   async function chooseFile(){
-    invalidate();file=byId('file').files[0] || null;metadata=null;
+    const selected=byId('file').files[0] || null;
+    invalidate(true);file=selected;metadata=null;
     if(!file) return;
     const controller=new AbortController();job=controller;busy=true;controls();byId('file-status').textContent='Reading local audio metadata…';
     try{
@@ -171,6 +176,9 @@ const LivingTitleUI = (() => {
         audio:byId('include-audio').checked && byId('mode').value==='audio' ? audio : null,signal:controller.signal,
         onProgress:value=>{byId('progress').value=value;}});
       if(job!==controller) return;
+      configuration=result.configuration;
+      const dimensions=LivingTitles.dimensions(sequence,size);
+      byId('codec').textContent=`${configuration.label} · ${dimensions.width} × ${dimensions.height} · .${configuration.extension}`;
       download(result.blob,result.configuration.extension);status(`Downloaded ${result.configuration.label}.`);
     } catch(error){if(job===controller) status(error.name==='AbortError' ? 'Video export cancelled.' : error.message);}
     finally{if(job===controller){job=null;busy=false;byId('progress').hidden=true;controls();}}
