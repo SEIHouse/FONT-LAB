@@ -11,6 +11,7 @@ const release=JSON.parse(readFileSync(join(root,'packages/living-titles/releases
 const temporary=mkdtempSync(join(tmpdir(),'living-title-consumer-'));
 // Only this freshly-created directory may be removed on Windows or any other host.
 if(dirname(resolve(temporary))!==resolve(tmpdir()) || !temporary.startsWith(join(tmpdir(),'living-title-consumer-')))throw Error('Invalid consumer temporary directory');
+/** Run a consumer check in its isolated installation and report any failure. */
 function run(cmd,args){const r=spawnSync(cmd,args,{cwd:temporary,encoding:'utf8'});if(r.status!==0)throw Error(r.stdout+r.stderr+(r.error?.message || ''));return r.stdout;}
 try{
   writeFileSync(join(temporary,'package.json'),JSON.stringify({name:'living-title-packed-consumer',private:true,type:'module'}));

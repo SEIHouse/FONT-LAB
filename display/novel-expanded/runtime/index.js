@@ -32,7 +32,9 @@ export async function createTitleScene({title,cut='Soft',strength=.7,capitalSpac
   return scene;
 }
 
+/** Reject forged or foreign mutable frame sequences before accessing their artwork. */
 function validateScene(scene) {if(!scenes.has(scene)) throw new TypeError('Use a scene created by this package instance.');}
+/** Choose the nearest prepared pose; invalid input selects the resting geometry. */
 export function poseIndex(scene,energy) {validateScene(scene);return Math.round(clamp(energy)*(scene.frames.length-1));}
 
 /** Deterministic vectors. Provide a distinct prefix when embedding multiple inline SVGs. */
@@ -63,6 +65,7 @@ export function smoothEnergy(previous,input,deltaSeconds) {
   return from+(to-from)*(1-Math.exp(-deltaSeconds/tau));
 }
 
+/** Export a declarative BPM loop from the same anchored poses used by playback. */
 export function exportAnimatedSVG(scene,{bpm=60,beats=4,color='#e6cc87',longestEdge=1080}={}) {
   validateScene(scene);
   const {duration,values}=LivingTitles.bpmEnvelope(bpm,beats);

@@ -8,6 +8,7 @@ from playwright.sync_api import sync_playwright
 
 
 def verify(directory):
+    """Serve the installed consumer and validate DOM/React lifecycle behavior."""
     server=ThreadingHTTPServer(('127.0.0.1',0),partial(SimpleHTTPRequestHandler,directory=directory))
     Thread(target=server.serve_forever,daemon=True).start()
     try:

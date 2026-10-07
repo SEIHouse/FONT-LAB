@@ -9,6 +9,7 @@ from display.build_living_package import build, PACKAGE
 
 
 def build_mock():
+    """Copy the public built core and player into the website's module inventory."""
     build()
     target=ROOT/'display/novel-expanded/runtime';target.mkdir(parents=True,exist_ok=True)
     for name in ('engine.js','index.js','player.js'):

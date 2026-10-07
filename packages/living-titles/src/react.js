@@ -9,6 +9,7 @@ export function LivingTitle({title,cut='Soft',strength=.7,capitalSpacing=true,ax
   current.current={source,color,playing,onError};
   const [status,setStatus]=useState('preparing');
   const weight=axes?.weight ?? true,slant=axes?.slant ?? true,penAngle=axes?.penAngle ?? true;
+  /** Mount completed geometry with the latest options, including in-flight edits. */
   function mount(scene){const options=current.current;
     player.current=createTitlePlayer(host.current,scene,{source:options.source,color:options.color,autoplay:options.playing});
     applied.current=options;setStatus('ready');}

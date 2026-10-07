@@ -11,6 +11,7 @@ PROOFS = ROOT/'docs/proofs/novel-expanded-mock'
 
 
 def verify():
+    """Exercise all cut/phone states and authoring edge cases through Chromium."""
     PROOFS.mkdir(parents=True, exist_ok=True)
     errors, cases = [], []
     server = ThreadingHTTPServer(('127.0.0.1', 0), partial(SimpleHTTPRequestHandler, directory=str(ROOT)))
@@ -53,6 +54,7 @@ def verify():
         assert page.locator('#header-serif').is_visible() and not page.locator('#header-art').is_visible()
         page.locator('#comparison').uncheck()
         page.locator('#placement').select_option('both')
+        page.wait_for_function('NovelExpandedMock.inspect().ready && !NovelExpandedMock.inspect().busy', timeout=120000)
         assert page.locator('#hero-art').is_visible()
         page.locator('#play').click()
         elapsed = page.evaluate('NovelExpandedMock.inspect().elapsed')
@@ -74,7 +76,38 @@ def verify():
         assert page.evaluate('NovelExpandedMock.inspect().pose') == 0
         page.emulate_media(reduced_motion='no-preference')
         page.wait_for_function('!document.getElementById("play").disabled')
+        # Colors edited during yielding preparation must be used at mount time.
+        page.evaluate('''()=>{
+          const title=document.getElementById('wordmark');title.value='NOVELEXPANDED';
+          title.dispatchEvent(new Event('input',{bubbles:true}));
+          for(const [id,color] of [['ink','#abcdef'],['hero-ink','#fedcba']]){
+            const input=document.getElementById(id);input.value=color;
+            input.dispatchEvent(new Event('input',{bubbles:true}));
+          }
+        }''')
+        page.wait_for_function('NovelExpandedMock.inspect().ready && !NovelExpandedMock.inspect().busy', timeout=120000)
+        assert page.locator('#header-art svg').get_attribute('color')=='#abcdef'
+        assert page.locator('#hero-art svg').get_attribute('color')=='#fedcba'
+        page.locator('#ink').fill('#e6cc87');page.locator('#hero-ink').fill('#f4efe6')
+        # An unused title may be empty; selecting it must validate and then recover.
+        page.locator('#placement').select_option('header')
+        page.wait_for_function('!NovelExpandedMock.inspect().busy')
+        page.locator('#featured').fill('')
+        page.wait_for_function('!NovelExpandedMock.inspect().busy')
+        assert page.evaluate('NovelExpandedMock.inspect().ready')
+        page.locator('#placement').select_option('both')
+        page.wait_for_function('!NovelExpandedMock.inspect().busy')
+        assert not page.evaluate('NovelExpandedMock.inspect().ready')
+        page.locator('#featured').fill('Defying the Heavens')
+        page.wait_for_function('NovelExpandedMock.inspect().ready && !NovelExpandedMock.inspect().busy', timeout=120000)
+        page.locator('#placement').select_option('featured')
+        page.wait_for_function('!NovelExpandedMock.inspect().busy')
         page.locator('#wordmark').fill('')
+        page.wait_for_function('!NovelExpandedMock.inspect().busy')
+        assert page.evaluate('NovelExpandedMock.inspect().ready')
+        assert page.locator('#hero-art').is_visible()
+        assert page.locator('#svg').is_disabled()
+        page.locator('#placement').select_option('header')
         page.wait_for_function('!NovelExpandedMock.inspect().busy')
         assert not page.evaluate('NovelExpandedMock.inspect().ready')
         page.locator('#wordmark').fill('NOVELEXPANDED')
@@ -90,7 +123,8 @@ def verify():
         browser.close()
     server.shutdown();server.server_close()
     report={'phone_states':cases,'flags':errors,'checks':['four changing cuts','fixed canvas','signal validation',
-        'superseded preparation','serif/placement','pause','SVG/JSON download','reduced motion','empty title/recovery','dispose','no audio']}
+        'superseded preparation','serif/placement','pause','SVG/JSON download','reduced motion','empty title/recovery',
+        'unused title/placement recovery','color edits during preparation','dispose','no audio']}
     (PROOFS/'report.json').write_text(json.dumps(report,indent=2)+'\n',encoding='utf-8')
     print(f'NovelExpanded mock: {len(cases)} phone/cut states, signal/control/export gates, 0 flags')
 

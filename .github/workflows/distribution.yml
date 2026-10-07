@@ -165,6 +165,7 @@ jobs:
           npm ci --prefix display
       - name: Rebuild and verify the installable runtime and its mock consumer
         run: |
+          python -m unittest tests.test_living_package -v
           python display/build_novel_mock.py
           node display/pack_living_package.mjs
           git diff --exit-code -- packages/living-titles/SANS-LICENSE.txt packages/living-titles/releases display/novel-expanded/runtime

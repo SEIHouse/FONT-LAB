@@ -13,6 +13,7 @@ PACKAGE=ROOT/'packages/living-titles'
 
 
 def build():
+    """Rebuild the private artifact from current certified inputs and no stale files."""
     profiles=profiles_for_lab()['profiles']
     if len(profiles)!=4 or not all(p.get('certified') for p in profiles):
         raise ValueError('Runtime delivery requires all four current motion certificates')
@@ -26,7 +27,18 @@ def build():
                 or record['otf_sha256']!=hashlib.sha256(font.read_bytes()).hexdigest()):
             raise ValueError(f'Stale compiled spacing for {slug}')
         cuts.append(cut);spacing.append(record)
-    out=PACKAGE/'dist';out.mkdir(parents=True,exist_ok=True)
+    out=PACKAGE/'dist'
+    resolved=out.resolve()
+    if resolved.parent!=PACKAGE.resolve() or resolved.name!='dist':
+        raise ValueError('Package output must remain inside its own dist directory')
+    # Keep empty OneDrive-backed directories, but remove every previous payload file.
+    # npm omits empty directories; a deleted/renamed source can never enter the archive.
+    for old in out.rglob('*'):
+        if old.is_file():
+            if not old.resolve().is_relative_to(resolved):
+                raise ValueError('Previous package files must stay inside dist')
+            old.unlink()
+    out.mkdir(parents=True,exist_ok=True)
     source=('/* Generated from the shared Reader/Display source. Do not edit. */\n'
             +engine_factory()+(ROOT/'display/living.js').read_text(encoding='utf-8')
             +'\nconst DATA='+json.dumps({'cuts':cuts,'spacing':spacing,'profiles':profiles},ensure_ascii=True,separators=(',',':'))
