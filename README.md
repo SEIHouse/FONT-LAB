@@ -46,7 +46,8 @@ the styles used by rendered text. The package includes no old versions, Lab, OTF
 reference fonts, proof images, or font engineering tools.
 
 See [APP-INSTALL.md](docs/APP-INSTALL.md) for both installation routes, explicit
-weight-only bundles, and the inspected Development/NovelExpanded host handoff.
+weight-only bundles, how Development's NovelExpanded Reader uses both SEIHouse font
+packages, and how to update them there after a font release.
 The developer sections below describe the full source repository.
 
 ## Display font Lab
@@ -121,7 +122,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `fonts.css` | Ready-to-use `@font-face` rules for all 70 Latin and script WOFF2 subsets |
 | `fonts-full.css` | Recommended app stylesheet for the ten full web fonts; no Unicode face splitting |
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
-| [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, and the current Development/NovelExpanded reader integration points |
+| [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
 | [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.39 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
