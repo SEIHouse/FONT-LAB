@@ -2,6 +2,14 @@
 
 Newest first.
 
+- **App install guide: Development's Reader (2026-10-10)** Replaced the
+  2026-10-02 handoff plan in `docs/APP-INSTALL.md` with what Development
+  shipped: both private tarballs vendored, the faces loaded from the shared host
+  theme, the Library's font list, and Reader Settings → Text. Added
+  what a release must keep stable and the steps for updating the fonts in
+  Development after a release. Font files are unchanged; the guide ships in
+  the Sans web ZIP and npm package, so their next build carries it.
+
 - **Living Titles app package (2026-10-07)** Added private
   `@seihouse/living-titles@0.1.0` as an installable archive with provenance,
   zero mandatory runtime dependencies, shared certified vectors and compiled

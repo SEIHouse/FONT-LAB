@@ -85,62 +85,103 @@ license and its short notice ship with it; this workflow does not publish to npm
 Existing imports of `@seihouse/seireader/styles.css` continue to register the
 legacy `"SEIReader"` alias. Use one family stylesheet per integration.
 
-## First target: Development's NovelExpanded app
+## Installed in Development (NovelExpanded and the Workshop)
 
-Inspected on 2026-10-02. This is a handoff plan; the Development repo was read,
-and its app import-graph check was run. Its source and dependencies were not changed.
-On the inspected Windows checkout, that baseline check fails at
-`src/package/sen/inline-audio.ts` → `src/audio/InlineAudio.ts`. The component is
-`InlineAudio.tsx`, alongside a different helper named `inlineAudio.ts`; extensionless
-resolution encounters the helper's case-insensitive `.ts` path first. This is an
-existing application/import-scanner issue, separate from the font package. Resolve
-it in Development before claiming that its full integration/build gate passes.
+Installed on 2026-10-10 by Development PR #353, from this repository at
+`93954df`. Development uses the npm tarball route for both families:
 
-The actual route is `/app/`, with `app/index.html` loading
-`src/novel-expanded/main.tsx`. That entry imports `src/host/styles/theme.css`
-and `@seihouse/sen/styles.css`. `NovelExpandedApp` reaches the reader through
-Library `StoryPages` and the current `HarnessReaderSession`; it does not use
-the older Reader Chamber settings screen.
+| Package | Tarball in Development's `vendor/` | Family names it uses |
+|---|---|---|
+| `@seihouse/seireader@0.39.0` | `seihouse-seireader-0.39.0.tgz` (`npm pack --ignore-scripts` at this repository's root) | `"SEIHouse Sans"` |
+| `@seihouse/living-titles@0.1.0` | `seihouse-living-titles-0.1.0.tgz`, copied unchanged with its `release.json` | `"SEIHouse Display Soft"`, `"… Edge"`, `"… Ink"`, `"… Wide"` |
 
-Current chapter prose is the `TextHighlightEngine` root in
-`src/components/harness-generation/development/HarnessReaderSession.tsx`:
-`font-serif text-[1.075rem] leading-8`. At a 16px root this is 17.2px text / 32px
-line height. The passage's article already sets `lang={locale}`. Its Reader
-Settings currently holds Narration only. No new font preference schema is
-needed for this initial trial.
+Development records each tarball's source commit and SHA-512 integrity in
+`vendor/font-artifacts.json`, and describes them in `vendor/README.md`. Both are
+`file:vendor/…` dependencies in its `package.json`.
 
-For a host-only trial through the ZIP route:
-
-1. Extract into `public/seireader/0.39/` and add the stylesheet link above to
-   `app/index.html`.
-2. Add `class="seireader-host"` to that HTML document's existing `<html>` tag.
-3. Create `src/novel-expanded/seireader.css` with this scoped rule, then import
-   it from `src/novel-expanded/main.tsx` after the existing style imports:
+**Where the faces load.** The shared host theme, `src/host/styles/theme.css`,
+imports both stylesheets, so the `/app/` NovelExpanded app and the Workshop
+register the same faces:
 
 ```css
-.seireader-host [data-chapter-number] > .sen-text-highlight-root {
-  font-family: "SEIHouse Sans", var(--font-serif, Georgia), serif;
-  font-synthesis: none;
-  font-kerning: normal;
-}
+@import "@seihouse/seireader/sans.css";
+@import "@seihouse/living-titles/fonts.css";
 ```
 
-For the npm route, use the CSS package import instead of the HTML stylesheet
-link. Keep the host class and scoped rule. This selector follows the inspected
-reader markup; revisit it if that markup changes.
+Vite fingerprints the WOFF2 files into `dist/assets`, so new font bytes get new
+URLs without a manual version directory. Development uses only Living Titles'
+`fonts.css`; its runtime and React entry are not imported. The portable SEN
+engine has no font dependency.
 
-The rule changes only chapter prose in the marked host. It preserves the
-current UI fonts, titles, saved narration settings, and reader layout. It does
-not add a SEIHouse font dependency to the portable SEN engine. The Workshop has
-a separate `index.html`; mark and load that host explicitly if a comparison
-there is wanted. The old Reader Chamber's font menu labels are not the active
-NovelExpanded reader's font configuration.
+**Where the faces are chosen.** The Library names the fonts. SEN stays
+brand-neutral. `src/library/stories/readerFonts.ts` (`LIBRARY_READER_FONTS`)
+lists the choices, first one default:
 
-After integration, run Development's `npm run check:app` and `npm run build`.
-Inspect `/app/?story=<id>&read=1` in browser developer tools: font requests must
-return WOFF2 bytes, and computed/rendered prose fonts must be SEIHouse Sans. Check
-real italic, the actual language tags, unsupported-script fallback, and
-13/15/17px Day/Night before changing typography preferences.
+- chapter text: SEIHouse Sans, then Noto Serif;
+- chapter titles: SEIHouse Display Ink, then Soft, Edge, Wide, then Alegreya.
+
+Each stack falls back to the theme's fonts for scripts SEIHouse does not cover,
+for example `"SEIHouse Sans", var(--font-sans, system-ui), sans-serif`.
+
+**How the Reader applies them.** The chapter body sets the reader's choices on
+the chapter's `<article data-chapter-number>`: `font-family`, `font-size`,
+`font-weight`, `font-synthesis: none`, `font-kerning: normal`, and the line
+height through `--sen-text-line-height`. The title uses the chosen title font.
+The article keeps `lang` set to the story's language. A reader changes these in
+Reader Settings → Text:
+
+- **Sizes:** 15, 17.2 (default), 18.5, 20 and 22px, set in rem.
+- **Line spacing:** 1.5, 1.85 (default) and 2.15.
+- **Weights:** 300, 400 (default) and 500.
+
+The choices are kept on the device as `novelexpanded-reader-text-settings`. The
+prose column is `34em` wide, measured in `em` rather than `ch` so every font gets
+the same width. No host class or scoped CSS rule is needed; the 2026-10-02
+`.seireader-host` handoff plan is superseded.
+
+**What a release must keep.** Development depends on these. A release that
+changes any of them needs a matching Development change:
+
+- the family names above;
+- the stylesheet paths `@seihouse/seireader/sans.css` and
+  `@seihouse/living-titles/fonts.css`;
+- weights 300, 400 and 500 with real italics, because the Reader offers all three;
+- the four cut names. A new cut also needs an entry in `LIBRARY_READER_FONTS`.
+
+### Updating the fonts in Development
+
+When a font is refined, release it here first, then replace the tarball in
+Development. Do not edit font files inside Development.
+
+1. **Here: build and audit.**
+   - SEIHouse Sans: bump the version, then run `python build_distribution.py`,
+     `npm pack --ignore-scripts`, and
+     `python verify_distribution.py <the web ZIP> --npm <the tarball>`.
+   - Display: rebuild and validate Living Titles with the "Rebuild and validate
+     in FONT-LAB" steps in `packages/living-titles/README.md`.
+     Use the new tarball and `release.json` from `packages/living-titles/releases/`.
+2. **Development: swap the tarballs.** Copy each new tarball into `vendor/`
+   (and Living Titles' `release.json` as `<tarball name>.release.json`). Delete
+   the old ones, and point the `file:vendor/…` dependencies in `package.json` at
+   the new files.
+3. **Development: refresh the lockfile.** Run `npm install`, then `npm ci` to
+   confirm the lockfile installs cleanly.
+4. **Development: record provenance.**
+   - In `vendor/font-artifacts.json`, update `sourceCommit`, each `version`,
+     `file` and `integrity` (the `integrity` npm records in `package-lock.json`).
+   - In `vendor/README.md`, update the "SEIHouse fonts" section and add a dated
+     history line.
+5. **Development: verify.**
+   - Run `npm run verify` and `npm run build`. Then confirm `dist/assets` holds
+     the new `SEIReader-*.woff2` and `SEIHouseDisplay-*.woff2` files and no old ones.
+   - With `npm run dev` running, run
+     `node scripts/verifyNovelExpandedApp.browser.mjs`. It checks that the prose
+     renders in a loaded SEIHouse Sans and that a Display cut restyles the title.
+   - Look at a chapter at phone and laptop widths. A font whose widths changed
+     can move line breaks and the Read Aloud highlight.
+
+Ship the tarballs, lockfile and provenance together in one Development pull
+request.
 
 ## Size and delivery choices
 
