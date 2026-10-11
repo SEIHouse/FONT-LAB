@@ -6,7 +6,7 @@ const LivingTitleUI = (() => {
   let sceneKey='',scene=null,profile=null,sequence=null,audio=null,file=null,metadata=null;
   let job=null,busy=false,mediaPromise=null,playing=false,position=0,clockStart=0,raf=0;
   let context=null,source=null,configuration=null,probeVersion=0,lastFrame=-1,seekResume=false;
-  let playVersion=0;
+  let playVersion=0,shipped=null,reviewed=null;
   /** Lazy-load the local bundle only for audio/video work; retries remain possible. */
   function media(){
     if(!mediaPromise) mediaPromise = new Promise((resolve,reject)=>{
@@ -84,7 +84,7 @@ const LivingTitleUI = (() => {
     byId('codec').textContent='Prepare the loop, then check the video format for this size and audio choice.';
     if(context){void context.close();context=null;}
     controls();rest();
-    status(profile ? 'Paused at rest. Prepare this loop to play or export.' : 'Choose a shipped Soft, Edge, Ink or Wide cut to author motion.');
+    status(profile?.preview ? 'Paused at rest. Prepare this loop to preview it.' : 'Paused at rest. Prepare this loop to play or export.');
   }
   /** Show the baseline immediately, even before preparation or for an ordinary draft. */
   function rest(){
@@ -104,9 +104,32 @@ const LivingTitleUI = (() => {
     // Snapshots use the cut's name field rather than a display label in older builds.
     if(spacing && !profile) profile=MOTION_PROFILES.profiles.find(p=>Object.entries(p.settings)
       .every(([k,v])=>JSON.stringify(v)===JSON.stringify(spacing.settings[k])));
-    byId('profile').textContent=profile ? `${profile.cut} · ${profile.id} · up to +${profile.thickness*100}% thickness, +${profile.slant}° slant, +${profile.penAngle}° pen angle${profile.certified ? ' · certified' : ' · exports blocked: certification required'}`
-      : 'Ordinary Lab draft. Motion profiles are available for the four shipped cut geometries.';
-    invalidate();
+    shipped=null;
+    if(!profile){
+      // A shipped cut rebuilt since its motion review keeps its limits for an unapproved preview.
+      const built=spacing && PRESETS.find(p=>p.name===cut.name && spacingForCut(p,[spacing]));
+      const limits=built && MOTION_PROFILES.profiles.find(p=>p.cut===built.name);
+      shipped=limits ? {slug:limits.cut.toLowerCase().replace(/ /g,'-'),name:limits.cut} : null;
+      profile=limits ? {...limits,certified:false,preview:true} : draftProfile(cut);
+    }
+    if(reviewed && reviewed!==approvalSlug()){reviewed=null;byId('approve').hidden=true;}
+    describe();invalidate();
+  }
+  /** Any draft can preview motion with conservative limits; only approved cuts export. */
+  function draftProfile(cut){
+    const ink=cut.pen==='nib' || !!cut.penAngle || cut.contrast>=2;
+    return {id:'draft-preview',cut:cut.name,thickness:ink ? .01 : .03,slant:1,penAngle:ink ? .25 : 2,certified:false,preview:true};
+  }
+  function approvalSlug(){ return shipped ? shipped.slug : profile && !profile.preview ? profile.cut.toLowerCase().replace(/ /g,'-') : null; }
+  /** Explain the motion state and offer review/approval when the local Lab server is running. */
+  function describe(){
+    const limits=`up to +${Math.round(profile.thickness*1000)/10}% thickness, +${profile.slant}° slant, +${profile.penAngle}° pen angle`;
+    byId('profile').textContent=shipped ? `${shipped.name} was rebuilt · ${limits} · preview only until its motion is approved`
+      : profile.preview ? `Draft preview · ${limits} · not approved, so exports stay locked`
+      : `${profile.cut} · ${profile.id} · ${limits}${profile.certified ? ' · certified' : ' · exports blocked: certification required'}`;
+    const slug=approvalSlug(),needs=!!(typeof LAB!=='undefined' && LAB.token && slug && !profile.certified);
+    byId('approval').hidden=!needs;
+    if(needs && reviewed!==slug) byId('approval-status').textContent=`${shipped?.name || profile.cut} changed, so its motion needs a review before exports. The review checks every letter in every motion pose and takes several minutes.`;
   }
   /** Decode the selected clip and prepare vectors cooperatively, with a single abort owner. */
   async function prepare(){
@@ -200,6 +223,27 @@ const LivingTitleUI = (() => {
   byId('video').addEventListener('click',()=>{void video().catch(error=>status(error.message));});
   reduce.addEventListener('change',()=>{pause();lastFrame=-1;show();status(reduce.matches ? 'Reduced motion: resting preview.' : 'Paused.');});
   window.addEventListener('pagehide',()=>{invalidate();file=null;metadata=null;});
+  byId('review').addEventListener('click',async()=>{
+    const slug=approvalSlug(),name=shipped?.name || profile.cut;
+    byId('review').disabled=true;byId('approve').hidden=true;reviewed=null;
+    try{
+      const result=await runJob('motion-review',{cuts:[slug]},`Reviewing ${name} motion`,'lt-approval-status');
+      const cut=result.cuts[slug],list=cut.glyphs.slice(0,40).join(' ');
+      byId('approval-status').textContent=cut.problems
+        ? `The review found ${cut.problems} problem(s), so it cannot be approved yet. First: ${cut.problem_examples.map(f=>[f.glyph,f.kind].filter(Boolean).join(' ')).join('; ')}.`
+        : `No problems found. ${cut.glyphs.length ? `${cut.glyphs.length} glyphs move differently than before: ${list}${cut.glyphs.length>40 ? ' …' : ''}.` : 'No letter shapes changed.'}${cut.settings.length ? ` Changed settings: ${cut.settings.join(', ')}.` : ''} Approve if that matches what you changed.`;
+      if(!cut.problems){reviewed=slug;byId('approve').hidden=false;}
+    }catch(error){byId('approval-status').textContent='Review failed: '+error.message;}
+    finally{byId('review').disabled=false;}
+  });
+  byId('approve').addEventListener('click',async()=>{
+    byId('approve').disabled=true;
+    try{
+      await runJob('motion-approve',{cuts:[reviewed]},`Approving ${reviewed} motion`,'lt-approval-status');
+      byId('approval-status').textContent='Approved. Reloading the Lab…';setTimeout(()=>location.reload(),800);
+    }catch(error){byId('approval-status').textContent='Approval failed: '+error.message;byId('approve').disabled=false;}
+  });
+  window.addEventListener('lab-server',()=>{if(profile) describe();});
   return {update,prepare,inspect:()=>({prepared:!!sequence,busy,playing,position:time(),frames:sequence?.frames.length || 0,hasAudio:!!audio,profile:profile?.id}),
     // Read-only gate access: the same vectors/spacing consumed by every delivery path.
     snapshot:()=>sequence};

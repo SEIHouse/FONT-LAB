@@ -59,8 +59,93 @@ function displayCap(point, inward, width, matrix, shear){
     [ex-radius*hn*nx,ey-radius*hn*ny], [px-vx,py-vy]].map(([x,y]) => [x-shear*y,y]);
 }
 
+/** Split a segment where its tangent runs parallel to d; there the nib sweep folds over. */
+function displayNibSplit(segment, d){
+  if(segment.length === 2) return [segment];
+  const cross = (a,b) => (a[0]-b[0])*d[1]-(a[1]-b[1])*d[0];
+  const q0 = cross(segment[1],segment[0]), q1 = cross(segment[2],segment[1]), q2 = cross(segment[3],segment[2]);
+  // cross(B'(t), d)/3 = q0(1-t)^2 + 2 q1 (1-t) t + q2 t^2
+  const a = q0-2*q1+q2, b = 2*(q1-q0), c = q0, roots = [];
+  if(Math.abs(a) < 1e-12){ if(Math.abs(b) > 1e-12) roots.push(-c/b); }
+  else { const disc = b*b-4*a*c; if(disc >= 0) roots.push((-b-Math.sqrt(disc))/(2*a), (-b+Math.sqrt(disc))/(2*a)); }
+  const pieces = []; let rest = segment, used = 0;
+  for(const t of roots.filter(t => t > 1e-6 && t < 1-1e-6).sort((x,y) => x-y)){
+    const local = (t-used)/(1-used);
+    let points = rest;
+    // de Casteljau: the left edge becomes the first piece, the right edge the remainder.
+    const left = [points[0]], right = [points[3]];
+    while(points.length > 1){
+      points = points.slice(1).map((p,i) => [points[i][0]*(1-local)+p[0]*local, points[i][1]*(1-local)+p[1]*local]);
+      left.push(points[0]); right.unshift(points[points.length-1]);
+    }
+    pieces.push(left); rest = right; used = t;
+  }
+  pieces.push(rest);
+  return pieces;
+}
+
+/** Contours of a skeleton swept by the flat nib, as exact shifted copies of each curve piece.
+    For a convex nib K and a connected path C: C+K = (C + each edge of K) ∪ (start of C + K). */
+function displayNibContours(paths, width, cut){
+  const n = nibShape(width, cut.contrast || 1, cut.penAngle || 0, cut.ends !== 'flat');
+  const u = [n.c, -n.s], v = [n.s, n.c];   // SVG y runs down
+  const hu = n.round ? (n.length-n.thick)/2 : n.length/2, hv = n.round ? 0 : n.thick/2;
+  const corners = (hv ? [[hu,hv],[-hu,hv],[-hu,-hv],[hu,-hv]] : [[hu,0],[-hu,0]])
+    .map(([a,b]) => [a*u[0]+b*v[0], a*u[1]+b*v[1]]);
+  const edges = hv ? corners.map((p,i) => [p, corners[(i+1)%4]]) : [[corners[0], corners[1]]];
+  const shift = (points, o) => points.map(p => [p[0]+o[0], p[1]+o[1]]);
+  const contours = [];
+  for(const path of paths){
+    const segments = path.segments.slice();
+    if(!segments.length) continue;
+    const first = segments[0][0], end = segments[segments.length-1][segments[segments.length-1].length-1];
+    if(path.closed && Math.hypot(first[0]-end[0], first[1]-end[1]) > 1e-7) segments.push([end, first]);
+    for(const [a,b] of edges){
+      const d = [b[0]-a[0], b[1]-a[1]];
+      for(const segment of segments) for(const piece of displayNibSplit(segment, d)){
+        const back = shift(piece, b).reverse();
+        contours.push([shift(piece, a), [shift(piece, a)[piece.length-1], back[0]], back, [back[back.length-1], shift(piece, a)[0]]]);
+      }
+    }
+    if(hv) contours.push(corners.map((p,i) => [[first[0]+p[0], first[1]+p[1]], [first[0]+corners[(i+1)%4][0], first[1]+corners[(i+1)%4][1]]]));
+  }
+  return {contours, nib:n};
+}
+
+/** One SVG path of nib contours, all turned the same way so overlaps fill as a union. */
+function displayNibPath(contours){
+  const coord = p => p.map(x => x.toFixed(5)).join(' ');
+  return contours.map(contour => {
+    let area = 0, previous = contour[0][0];
+    for(const segment of contour) for(let i = 1; i <= 8; i++){
+      const p = displaySample(segment, i/8); area += previous[0]*p[1]-p[0]*previous[1]; previous = p;
+    }
+    const ordered = area < 0 ? contour.slice().reverse().map(s => s.slice().reverse()) : contour;
+    return 'M'+coord(ordered[0][0]) + ordered.map(s => (s.length === 2 ? 'L' : 'C') + s.slice(1).map(coord).join(' ')).join('') + 'Z';
+  }).join('');
+}
+
+/** Flat nib body: swept strokes and outlined fills, round dots kept; no caps are needed. */
+function displayNibBody(g, cut){
+  let body = '';
+  const draw = (d, width) => {
+    const {contours, nib} = displayNibContours(displaySegments(d), width, cut);
+    if(!contours.length) return;
+    // A rounded nib is the sharp sweep grown by half its thickness: fill plus a round stroke.
+    body += `<path d="${displayNibPath(contours)}" fill="currentColor" fill-rule="nonzero"`
+      + (nib.round ? ` stroke="currentColor" stroke-width="${nib.thick.toFixed(5)}" stroke-linejoin="round" stroke-linecap="round"/>` : '/>');
+  };
+  let rest = g.body.replace(/<path d="([^"]+)" fill="none"[^>]*stroke-width="([^"]+)"[^>]*\/>/g, (tag,d,width) => { draw(d, +width); return ''; });
+  rest = rest.replace(/<path data-fill="1" d="([^"]+)"[^>]*stroke-width="([^"]+)"[^>]*\/>/g, (tag,d,width) => {
+    if(+width > 0) draw(d, +width);
+    return tag.replace(/stroke-width="[^"]+"/, 'stroke-width="0"');
+  });
+  return body + rest;
+}
+
 /** Emit a Boolean-safe stroke preview with terminal joins and perpendicular caps. */
 function displayPenBody(g, cut){
+  if(cut.pen === 'nib') return displayNibBody(g, cut);
   const matrix = displayPen(cut.contrast || 1, cut.penAngle || 0);
   const shear = -Math.tan((cut.slant || 0)*Math.PI/180), flat = cut.ends === 'flat';
   const transform = ([x,y]) => [matrix.into[0]*x+matrix.into[1]*y, matrix.into[2]*x+matrix.into[3]*y];

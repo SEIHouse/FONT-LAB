@@ -42,3 +42,18 @@ test('composition precedes fi/fl joining and preserves ligature mark components'
     ['O','f','ﬁ','c','e',' ','R','e','ﬂ','e','c','t','i','o','n']);
   assert.deepEqual(evaluate(`titleClusters('fl\u030B')`),[{base:'ﬂ',marks:['\u030b'],component:1}]);
 });
+
+test('true italic forms never reuse an upright build, and an italic build needs an italic draft',()=>{
+  const upright = "[{settings:{weight:150}}]", italic = "[{settings:{weight:150,italicForms:true}}]";
+  assert.equal(evaluate(`!!spacingForCut({weight:150},${upright})`),true);
+  assert.equal(evaluate(`spacingForCut({weight:150,italicForms:true},${upright})`),null);
+  assert.equal(evaluate(`spacingForCut({weight:150},${italic})`),null);
+  assert.equal(evaluate(`!!spacingForCut({weight:150,italicForms:true},${italic})`),true);
+});
+
+test('Display italics keep the cut roundness; Reader italic curves stay locked',()=>{
+  const u = alternates => evaluate(`(()=>{P.ital=1;P.round=0;P.straight=1;P.alternates=${alternates};
+    const r=radii('low');P.ital=0;P.alternates=null;return r;})()`);
+  assert.deepEqual(u('null'),{rx:210,ry:246,k:0.667-0.115*0.6});
+  assert.deepEqual(u('{}'),{rx:210,ry:210,k:0.667});
+});

@@ -131,7 +131,7 @@ def verify(out, *, video=True):
               node.disconnect=(...args)=>{ctx.gateConnections--;return disconnect(...args);};
               node.start=(...args)=>{ctx.gateSourceStart=ctx.currentTime;ctx.gateSourceOffset=args[1] || 0;return start(...args);};return node;}
           };''')
-        page.goto(base+'/display/lab/index.html');page.wait_for_function('LivingTitleUI.inspect().prepared')
+        page.goto(base+'/display/lab/index.html');page.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)");page.wait_for_function('LivingTitleUI.inspect().prepared')
         for cut in ('Soft','Edge','Ink','Wide'):
             page.locator(f'#presets [data-p="{cut}"]').click()
             page.locator('#t-title').fill('LA AV The Last Lotus Á β Ж')
@@ -231,7 +231,7 @@ def verify(out, *, video=True):
         if page.evaluate('LivingTitleUI.inspect().prepared'):raise ValueError('Invalid audio retained a prepared sequence')
         page.wait_for_function('gateContexts.every(context=>context.state==="closed" && context.gateConnections===0)')
         # Force the actual unsupported-codec UI path in a fresh page with no cached adapter.
-        unsupported=browser.new_page();unsupported.goto(base+'/display/lab/index.html')
+        unsupported=browser.new_page();unsupported.goto(base+'/display/lab/index.html');unsupported.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)")
         unsupported.wait_for_function('LivingTitleUI.inspect().prepared')
         unsupported.evaluate('window.LivingMedia={selectConfiguration:async()=>null}')
         if unsupported.locator('#lt-video').is_disabled():raise ValueError('Release Lab has an uncertified profile')
@@ -250,7 +250,7 @@ def verify(out, *, video=True):
         if unsupported.locator('#lt-video').inner_text()!='Download WEBM':raise ValueError('Actual codec label was stale')
         if not unsupported.locator('#lt-codec').inner_text().endswith('.webm'):raise ValueError('Actual codec description was stale')
         # Canceling metadata must empty the input so choosing the same file can fire change again.
-        retry=browser.new_page();retry.goto(base+'/display/lab/index.html')
+        retry=browser.new_page();retry.goto(base+'/display/lab/index.html');retry.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)")
         retry.wait_for_function('LivingTitleUI.inspect().prepared');retry.locator('#lt-mode').select_option('audio')
         retry.evaluate('''window.gateInspectCalls=0;window.LivingMedia={inspectAudio:async(_file,signal)=>{
           if(++gateInspectCalls===1)await new Promise((_,reject)=>signal.addEventListener('abort',()=>reject(new DOMException('Cancelled','AbortError')),{once:true}));
@@ -264,7 +264,7 @@ def verify(out, *, video=True):
         if video:
             fallback=browser.new_page();fallback.add_init_script('''const support=VideoEncoder.isConfigSupported.bind(VideoEncoder);
               VideoEncoder.isConfigSupported=async config=>config.codec.startsWith('avc1') ? {supported:false,config} : support(config);''')
-            fallback.goto(base+'/display/lab/index.html');fallback.wait_for_function('LivingTitleUI.inspect().prepared')
+            fallback.goto(base+'/display/lab/index.html');fallback.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)");fallback.wait_for_function('LivingTitleUI.inspect().prepared')
             fallback.add_script_tag(url=base+'/display/lab/living-media.js')
             fallback.evaluate('''async url=>{const file=new File([await(await fetch(url)).blob()],'phase.wav');
               window.gateAudio=await LivingMedia.decodeClip(file,1,2);}''',base+'/'+(out/'phase-stereo.wav').resolve().relative_to(ROOT).as_posix())

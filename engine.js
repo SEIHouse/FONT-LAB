@@ -407,7 +407,7 @@ for(const digit of DIGITS) for(const separator of '.,'){
 
 /* ---------- settings the sliders control ---------- */
 const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770,
-  corner:'soft', cap:'round', join:'round', penAngle:0, obliqueAngle:0, alternates:null };
+  corner:'soft', cap:'round', join:'round', penAngle:0, pen:'oval', obliqueAngle:0, alternates:null };
 const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
 
 /* Display designs are opt-in. The Reader retains its original skeletons and
@@ -501,8 +501,22 @@ function displayContrast(weight, contrast, xHeight, ends='round'){
   return Math.max(contrast, weight / (xHeight * (ends === 'flat' ? .15 : .20)));
 }
 
+/** Display flat nib: a sharp chisel (flat ends) or rounded edge (round ends) at the pen angle.
+    It is scaled to the oval pen's perimeter, so switching pens keeps the average stroke color. */
+function nibShape(S, contrast, angle, round){
+  const k = Math.max(1, contrast), t = angle*Math.PI/180;
+  const ellipse = (a,b) => { const h = ((a-b)/(a+b))**2; return Math.PI*(a+b)*(1+3*h/(10+Math.sqrt(4-3*h))); };
+  const scale = ellipse(.5, .5/k) / (round ? 2*(1-1/k)+Math.PI/k : 2*(1+1/k));
+  return {length:scale*S, thick:scale*S/k, round, c:Math.cos(t), s:Math.sin(t)};
+}
+
 /** Support radii of the shared oval pen; the unrotated branch retains Reader arithmetic. */
 function penHalf(S){
+  if(P.pen === 'nib'){
+    const n = nibShape(S, P.contrast, P.penAngle, P.cap !== 'flat'), c = Math.abs(n.c), s = Math.abs(n.s);
+    const half = n.round ? (n.length-n.thick)/2 : n.length/2, side = n.thick/2;
+    return n.round ? {hx:half*c+side, hy:half*s+side} : {hx:half*c+side*s, hy:half*s+side*c};
+  }
   if(!P.penAngle) return {hx:S/2,hy:S/(2*P.contrast)};
   const a=S/2,b=S/(2*P.contrast),t=P.penAngle*Math.PI/180;
   return {hx:Math.sqrt((a*Math.cos(t))**2+(b*Math.sin(t))**2),
@@ -517,7 +531,8 @@ function strokePath(d,width){
 
 function radii(kind){
   if(kind === 'low'){
-    if(P.ital){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }   // italic curves are locked
+    // Reader italic curves are locked; Display italics (P.alternates is Display-only) keep the cut's roundness sliders.
+    if(P.ital && !P.alternates){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }
     const v = P.round; return { rx:(210 + 50*v) * P.straight, ry:(210 + 60*v) * P.straight, k:0.667 - 0.115*v };
   }
   return { rx:P.caprx, ry:P.caprx, k:0.667 };
@@ -1250,7 +1265,7 @@ function languageGlyph(ch,S,removeDot=false){
 
 /** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
-  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}|${P.pen}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
   if(P.alternates && DISPLAY_VARIANTS[ch]){
     const spec=DISPLAY_VARIANTS[ch], keep=P.alternates;

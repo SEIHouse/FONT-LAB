@@ -411,7 +411,7 @@ for(const digit of DIGITS) for(const separator of '.,'){
 
 /* ---------- settings the sliders control ---------- */
 const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770,
-  corner:'soft', cap:'round', join:'round', penAngle:0, obliqueAngle:0, alternates:null };
+  corner:'soft', cap:'round', join:'round', penAngle:0, pen:'oval', obliqueAngle:0, alternates:null };
 const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
 
 /* Display designs are opt-in. The Reader retains its original skeletons and
@@ -505,8 +505,22 @@ function displayContrast(weight, contrast, xHeight, ends='round'){
   return Math.max(contrast, weight / (xHeight * (ends === 'flat' ? .15 : .20)));
 }
 
+/** Display flat nib: a sharp chisel (flat ends) or rounded edge (round ends) at the pen angle.
+    It is scaled to the oval pen's perimeter, so switching pens keeps the average stroke color. */
+function nibShape(S, contrast, angle, round){
+  const k = Math.max(1, contrast), t = angle*Math.PI/180;
+  const ellipse = (a,b) => { const h = ((a-b)/(a+b))**2; return Math.PI*(a+b)*(1+3*h/(10+Math.sqrt(4-3*h))); };
+  const scale = ellipse(.5, .5/k) / (round ? 2*(1-1/k)+Math.PI/k : 2*(1+1/k));
+  return {length:scale*S, thick:scale*S/k, round, c:Math.cos(t), s:Math.sin(t)};
+}
+
 /** Support radii of the shared oval pen; the unrotated branch retains Reader arithmetic. */
 function penHalf(S){
+  if(P.pen === 'nib'){
+    const n = nibShape(S, P.contrast, P.penAngle, P.cap !== 'flat'), c = Math.abs(n.c), s = Math.abs(n.s);
+    const half = n.round ? (n.length-n.thick)/2 : n.length/2, side = n.thick/2;
+    return n.round ? {hx:half*c+side, hy:half*s+side} : {hx:half*c+side*s, hy:half*s+side*c};
+  }
   if(!P.penAngle) return {hx:S/2,hy:S/(2*P.contrast)};
   const a=S/2,b=S/(2*P.contrast),t=P.penAngle*Math.PI/180;
   return {hx:Math.sqrt((a*Math.cos(t))**2+(b*Math.sin(t))**2),
@@ -521,7 +535,8 @@ function strokePath(d,width){
 
 function radii(kind){
   if(kind === 'low'){
-    if(P.ital){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }   // italic curves are locked
+    // Reader italic curves are locked; Display italics (P.alternates is Display-only) keep the cut's roundness sliders.
+    if(P.ital && !P.alternates){ const v = 0.6; return { rx:210, ry:210 + 60*v, k:0.667 - 0.115*v }; }
     const v = P.round; return { rx:(210 + 50*v) * P.straight, ry:(210 + 60*v) * P.straight, k:0.667 - 0.115*v };
   }
   return { rx:P.caprx, ry:P.caprx, k:0.667 };
@@ -1254,7 +1269,7 @@ function languageGlyph(ch,S,removeDot=false){
 
 /** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
-  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}|${P.pen}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
   if(P.alternates && DISPLAY_VARIANTS[ch]){
     const spec=DISPLAY_VARIANTS[ch], keep=P.alternates;
@@ -1452,8 +1467,93 @@ function displayCap(point, inward, width, matrix, shear){
     [ex-radius*hn*nx,ey-radius*hn*ny], [px-vx,py-vy]].map(([x,y]) => [x-shear*y,y]);
 }
 
+/** Split a segment where its tangent runs parallel to d; there the nib sweep folds over. */
+function displayNibSplit(segment, d){
+  if(segment.length === 2) return [segment];
+  const cross = (a,b) => (a[0]-b[0])*d[1]-(a[1]-b[1])*d[0];
+  const q0 = cross(segment[1],segment[0]), q1 = cross(segment[2],segment[1]), q2 = cross(segment[3],segment[2]);
+  // cross(B'(t), d)/3 = q0(1-t)^2 + 2 q1 (1-t) t + q2 t^2
+  const a = q0-2*q1+q2, b = 2*(q1-q0), c = q0, roots = [];
+  if(Math.abs(a) < 1e-12){ if(Math.abs(b) > 1e-12) roots.push(-c/b); }
+  else { const disc = b*b-4*a*c; if(disc >= 0) roots.push((-b-Math.sqrt(disc))/(2*a), (-b+Math.sqrt(disc))/(2*a)); }
+  const pieces = []; let rest = segment, used = 0;
+  for(const t of roots.filter(t => t > 1e-6 && t < 1-1e-6).sort((x,y) => x-y)){
+    const local = (t-used)/(1-used);
+    let points = rest;
+    // de Casteljau: the left edge becomes the first piece, the right edge the remainder.
+    const left = [points[0]], right = [points[3]];
+    while(points.length > 1){
+      points = points.slice(1).map((p,i) => [points[i][0]*(1-local)+p[0]*local, points[i][1]*(1-local)+p[1]*local]);
+      left.push(points[0]); right.unshift(points[points.length-1]);
+    }
+    pieces.push(left); rest = right; used = t;
+  }
+  pieces.push(rest);
+  return pieces;
+}
+
+/** Contours of a skeleton swept by the flat nib, as exact shifted copies of each curve piece.
+    For a convex nib K and a connected path C: C+K = (C + each edge of K) ∪ (start of C + K). */
+function displayNibContours(paths, width, cut){
+  const n = nibShape(width, cut.contrast || 1, cut.penAngle || 0, cut.ends !== 'flat');
+  const u = [n.c, -n.s], v = [n.s, n.c];   // SVG y runs down
+  const hu = n.round ? (n.length-n.thick)/2 : n.length/2, hv = n.round ? 0 : n.thick/2;
+  const corners = (hv ? [[hu,hv],[-hu,hv],[-hu,-hv],[hu,-hv]] : [[hu,0],[-hu,0]])
+    .map(([a,b]) => [a*u[0]+b*v[0], a*u[1]+b*v[1]]);
+  const edges = hv ? corners.map((p,i) => [p, corners[(i+1)%4]]) : [[corners[0], corners[1]]];
+  const shift = (points, o) => points.map(p => [p[0]+o[0], p[1]+o[1]]);
+  const contours = [];
+  for(const path of paths){
+    const segments = path.segments.slice();
+    if(!segments.length) continue;
+    const first = segments[0][0], end = segments[segments.length-1][segments[segments.length-1].length-1];
+    if(path.closed && Math.hypot(first[0]-end[0], first[1]-end[1]) > 1e-7) segments.push([end, first]);
+    for(const [a,b] of edges){
+      const d = [b[0]-a[0], b[1]-a[1]];
+      for(const segment of segments) for(const piece of displayNibSplit(segment, d)){
+        const back = shift(piece, b).reverse();
+        contours.push([shift(piece, a), [shift(piece, a)[piece.length-1], back[0]], back, [back[back.length-1], shift(piece, a)[0]]]);
+      }
+    }
+    if(hv) contours.push(corners.map((p,i) => [[first[0]+p[0], first[1]+p[1]], [first[0]+corners[(i+1)%4][0], first[1]+corners[(i+1)%4][1]]]));
+  }
+  return {contours, nib:n};
+}
+
+/** One SVG path of nib contours, all turned the same way so overlaps fill as a union. */
+function displayNibPath(contours){
+  const coord = p => p.map(x => x.toFixed(5)).join(' ');
+  return contours.map(contour => {
+    let area = 0, previous = contour[0][0];
+    for(const segment of contour) for(let i = 1; i <= 8; i++){
+      const p = displaySample(segment, i/8); area += previous[0]*p[1]-p[0]*previous[1]; previous = p;
+    }
+    const ordered = area < 0 ? contour.slice().reverse().map(s => s.slice().reverse()) : contour;
+    return 'M'+coord(ordered[0][0]) + ordered.map(s => (s.length === 2 ? 'L' : 'C') + s.slice(1).map(coord).join(' ')).join('') + 'Z';
+  }).join('');
+}
+
+/** Flat nib body: swept strokes and outlined fills, round dots kept; no caps are needed. */
+function displayNibBody(g, cut){
+  let body = '';
+  const draw = (d, width) => {
+    const {contours, nib} = displayNibContours(displaySegments(d), width, cut);
+    if(!contours.length) return;
+    // A rounded nib is the sharp sweep grown by half its thickness: fill plus a round stroke.
+    body += `<path d="${displayNibPath(contours)}" fill="currentColor" fill-rule="nonzero"`
+      + (nib.round ? ` stroke="currentColor" stroke-width="${nib.thick.toFixed(5)}" stroke-linejoin="round" stroke-linecap="round"/>` : '/>');
+  };
+  let rest = g.body.replace(/<path d="([^"]+)" fill="none"[^>]*stroke-width="([^"]+)"[^>]*\/>/g, (tag,d,width) => { draw(d, +width); return ''; });
+  rest = rest.replace(/<path data-fill="1" d="([^"]+)"[^>]*stroke-width="([^"]+)"[^>]*\/>/g, (tag,d,width) => {
+    if(+width > 0) draw(d, +width);
+    return tag.replace(/stroke-width="[^"]+"/, 'stroke-width="0"');
+  });
+  return body + rest;
+}
+
 /** Emit a Boolean-safe stroke preview with terminal joins and perpendicular caps. */
 function displayPenBody(g, cut){
+  if(cut.pen === 'nib') return displayNibBody(g, cut);
   const matrix = displayPen(cut.contrast || 1, cut.penAngle || 0);
   const shear = -Math.tan((cut.slant || 0)*Math.PI/180), flat = cut.ends === 'flat';
   const transform = ([x,y]) => [matrix.into[0]*x+matrix.into[1]*y, matrix.into[2]*x+matrix.into[3]*y];
@@ -1550,7 +1650,11 @@ function spacingForCut(cut, exports){
   const stable = value => value && typeof value === 'object'
     ? (Array.isArray(value) ? value.map(stable)
       : Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]))) : value;
-  return exports.find(record => Object.entries(record.settings).every(([key, value]) =>
+  // Newer choices are recorded only when not default, so compare them in both directions.
+  const optional = {italicForms:false, pen:'oval'};
+  return exports.find(record => Object.entries(optional).every(([key, fallback]) =>
+      (record.settings[key] ?? fallback) === (cut[key] ?? fallback))
+    && Object.entries(record.settings).every(([key, value]) =>
     JSON.stringify(stable(cut[key])) === JSON.stringify(stable(value)))) || null;
 }
 
@@ -1618,11 +1722,11 @@ function titleLayout(text, cut, spacing, capitalSpacing=false){
 function livingApply(cut){
   P.alternates = displayChoices(cut.alternates ?? {});
   Object.assign(P, {base:cut.weight, ws:cut.letterWidth, xh:cut.xHeight,
-    contrast:displayContrast(cut.weight,cut.contrast,cut.xHeight,cut.ends), penAngle:cut.penAngle || 0,
+    contrast:displayContrast(cut.weight,cut.contrast,cut.xHeight,cut.ends), penAngle:cut.penAngle || 0, pen:cut.pen === 'nib' ? 'nib' : 'oval',
     caprx:cut.capitalRoundness, round:cut.lowercaseRoundness, straight:cut.uprightStraightness || 1,
     corner:cut.corners === 'cut' ? 'cut' : 'soft', cap:cut.ends, join:cut.joins,
     os:cut.overshoot === false ? 0 : 1, ufoot:cut.uFoot ? 1 : 0, asc:cut.ascender || 700,
-    ital:0, obliqueAngle:cut.slant || 0, trk:cut.spaceBetweenAllLetters});
+    ital:cut.italicForms ? 1 : 0, obliqueAngle:cut.slant || 0, trk:cut.spaceBetweenAllLetters});
   for(const key of Object.keys(cache)) delete cache[key];
   for(const key of Object.keys(clipDone)) delete clipDone[key];
   livingDefs.length = 0;
@@ -1642,7 +1746,7 @@ function livingFrame(cut, layout){
     const g = clusterGlyph(cluster,cut.weight);
     if(!g) continue;
     const origin = x-tangent*330;
-    body += `<g transform="translate(${origin} 0)${tangent ? ` skewX(${-cut.slant})` : ''}"${cut.ends === 'flat' ? '' : ` clip-path="url(#${g.clipId})"`}>${displayPenBody(g,{...cut,contrast:P.contrast})}</g>`;
+    body += `<g transform="translate(${origin} 0)${tangent ? ` skewX(${-cut.slant})` : ''}"${cut.ends === 'flat' || cut.pen === 'nib' ? '' : ` clip-path="url(#${g.clipId})"`}>${displayPenBody(g,{...cut,contrast:P.contrast})}</g>`;
     const ink = inkBounds(g);
     if(!ink) continue;
     // Conservative pen/miter allowance also covers flat-cap contact overlaps.
@@ -1712,7 +1816,8 @@ const LivingTitles = (() => {
     if(typeof text !== 'string' || text.length > 60 || !Number.isFinite(strength) ||
        values.some(value=>!Number.isFinite(value) || value<0 || value>1)) throw new Error('Invalid motion scene');
     if(!text.trim()) throw new Error('Enter a title to prepare motion');
-    if(!spacing) throw new Error('Motion requires compiled spacing from a shipped cut');
+    // Uncertified draft previews may use the Lab's live draft spacing; deliveries never do.
+    if(!spacing && !profile.preview) throw new Error('Motion requires compiled spacing from a shipped cut');
     const check = () => { if(signal?.aborted) throw new DOMException('Preparation cancelled','AbortError'); };
     check();
     const layout = engine.layout(text,cut,spacing,cpsp), frames = [];

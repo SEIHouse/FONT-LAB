@@ -18,16 +18,9 @@ from playwright.sync_api import sync_playwright
 from types import SimpleNamespace
 from font_builder import FontBuilderCore
 import pathops
-from display.living_build import engine_factory, motion_digest
+from display.living_build import STATES, engine_factory, motion_digest
 from display.counter_geometry import counter_flags, topology_flags, topology_snapshot
 from verify_display_shapes import flags
-
-STATES = [dict(id='rest', weight=0, slant=0, penAngle=0)] + [
-    dict(id=f'extreme-{mask}', weight=int(bool(mask & 1)), slant=int(bool(mask & 2)), penAngle=int(bool(mask & 4)))
-    for mask in range(1, 8)] + [
-    dict(id=f'breath-{percent}', weight=percent/100, slant=percent/100, penAngle=percent/100)
-    for percent in (25, 50, 75)]
-
 
 def letter_apertures(source):
     """Retain Step 1's letter/number and unencoded-alternate aperture policy."""
@@ -81,7 +74,7 @@ def run(out, reviewed=None, *, slugs=('soft','edge','ink','wide'), states=STATES
         raise ValueError('Motion candidates and gate reports must stay under dist; reviewed fixtures are read-only')
     out.mkdir(parents=True,exist_ok=True)
     profiles=json.loads((HERE/'motion_profiles.json').read_text(encoding='utf-8'))['profiles']
-    report={'source_sha256':motion_digest(),'profiles':[], 'states':states,'cuts':{},'flags':[]}
+    report={'profiles':[], 'states':states,'cuts':{},'flags':[]}
     with sync_playwright() as p:
         browser=p.chromium.launch()
         page=browser.new_page();page.set_content('<!doctype html><html lang="en"><body></body></html>')
@@ -89,7 +82,7 @@ def run(out, reviewed=None, *, slugs=('soft','edge','ink','wide'), states=STATES
         for slug in slugs:
             cut=json.loads((HERE/f'cuts/{slug}.json').read_text(encoding='utf-8'))
             profile=next(row for row in profiles if row['cut']==cut['name'])
-            cut_report={'glyphs':0,'states':{},'flags':[]};baseline=None
+            cut_report={'source_sha256':motion_digest(slug),'glyphs':0,'states':{},'flags':[]};baseline=None
             for state in states:
                 moved=cut | {'weight':cut['weight']*(1+profile['thickness']*state['weight']),
                              'slant':cut['slant']+profile['slant']*state['slant'],
@@ -189,7 +182,7 @@ def run(out, reviewed=None, *, slugs=('soft','edge','ink','wide'), states=STATES
 if __name__=='__main__':
     parser=argparse.ArgumentParser(description=__doc__)
     parser.add_argument('--output-dir',type=Path,default=HERE.parent/'dist/motion-candidates')
-    parser.add_argument('--cut',choices=('soft','edge','ink','wide'))
+    parser.add_argument('--cut',help='One cut slug, for example ink')
     parser.add_argument('--rest-only',action='store_true')
     parser.add_argument('--reviewed',type=Path,help='Read-only fixed topology directory for certification')
     args=parser.parse_args()

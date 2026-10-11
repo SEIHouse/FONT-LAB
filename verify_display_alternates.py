@@ -149,6 +149,9 @@ def verify(fonts, lab, proof_dir=None):
         page.on('pageerror', lambda error: errors.append(str(error)))
         page.goto(lab.resolve().as_uri())
         page.wait_for_function('typeof DISPLAY_SETS!=="undefined" && document.querySelector("#alt-a")')
+        # Letter designs and export controls are folded by default in the Lab.
+        open_sections = "document.querySelectorAll('details').forEach(d=>d.open=true)"
+        page.evaluate(open_sections)
         for cut in CUTS:
             file = fonts/cut/f'SEIHouseDisplay-{cut.title()}.otf'
             spacing = page.evaluate('(cut)=>SPACING_EXPORTS.find(s=>s.otf_sha256 && spacingForCut(PRESETS.find(p=>p.name.toLowerCase()===cut),[s]))', cut)
@@ -212,6 +215,7 @@ def verify(fonts, lab, proof_dir=None):
                     page.locator('#download').click()
                 downloaded=json.loads(Path(download.value.path()).read_text(encoding='utf-8'))
                 page.reload()
+                page.evaluate(open_sections)
                 page.locator(f'#saved button[data-s="{name}"]').click()
                 restored=page.evaluate('CUT.alternates')
                 if downloaded['alternates']!=selected or restored!=selected:

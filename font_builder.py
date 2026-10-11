@@ -45,6 +45,52 @@ class _Flat(BasePen):
         if len(self.cur) > 2: self.polys.append(self.cur)
         self.cur = []
     _endPath = _closePath
+
+
+def bezier_point(segment, t):
+    """Evaluate a line or cubic segment by de Casteljau."""
+    points = list(segment)
+    while len(points) > 1:
+        points = [(p[0]*(1-t)+q[0]*t, p[1]*(1-t)+q[1]*t) for p, q in zip(points, points[1:])]
+    return points[0]
+
+
+def contour_area(contour):
+    """Signed area of a closed contour of line/cubic segments, sampled for orientation only."""
+    total, previous = 0.0, contour[0][0]
+    for segment in contour:
+        for i in range(1, 9):
+            point = bezier_point(segment, i/8)
+            total += previous[0]*point[1]-point[0]*previous[1]
+            previous = point
+    return total
+
+
+def nib_split(segment, direction):
+    """Split a segment where its tangent runs parallel to the nib edge (stroke_geometry.js)."""
+    if len(segment) == 2:
+        return [segment]
+    cross = lambda p, q: (p[0]-q[0])*direction[1]-(p[1]-q[1])*direction[0]
+    q0, q1, q2 = cross(segment[1], segment[0]), cross(segment[2], segment[1]), cross(segment[3], segment[2])
+    a, b, c = q0-2*q1+q2, 2*(q1-q0), q0
+    roots = []
+    if abs(a) < 1e-12:
+        if abs(b) > 1e-12: roots.append(-c/b)
+    else:
+        disc = b*b-4*a*c
+        if disc >= 0: roots += [(-b-math.sqrt(disc))/(2*a), (-b+math.sqrt(disc))/(2*a)]
+    pieces, rest, used = [], list(segment), 0.0
+    for t in sorted(r for r in roots if 1e-6 < r < 1-1e-6):
+        local, points = (t-used)/(1-used), rest
+        left, right = [points[0]], [points[3]]
+        while len(points) > 1:
+            points = [(p[0]*(1-local)+q[0]*local, p[1]*(1-local)+q[1]*local) for p, q in zip(points, points[1:])]
+            left.append(points[0]); right.insert(0, points[-1])
+        pieces.append(tuple(left)); rest, used = right, t
+    pieces.append(tuple(rest))
+    return pieces
+
+
 from pathlib import Path as FilePath
 from fontTools.pens.roundingPen import RoundingPen
 from display.outline_cleanup import cleanup, display_union, repair_quantized_edges
@@ -106,6 +152,7 @@ class FontBuilderCore:
         self.PEN = settings.get('penAngle', 0)
         self.CAP_FLAT = settings.get('ends', 'round') == 'flat'
         self.JOIN_SHARP = settings.get('joins', 'round') == 'sharp'
+        self.NIB = display and settings.get('pen', 'oval') == 'nib'
         self.configured_shapes = display or self.PEN != 0 or self.CAP_FLAT or self.JOIN_SHARP or settings.get('slant', 0) != 0 or settings.get('corners', 'soft') != 'soft'
         self.ITAL = False
         self.ITAL_EXTRA_SPACE = 0 if display else 4
@@ -132,10 +179,11 @@ class FontBuilderCore:
                     self.F = pg.evaluate('displayContrast(...' + json.dumps([
                         self.S, self.settings['contrast'], self.XHT,
                         self.settings.get('ends', 'round')]) + ')')
-                pg.evaluate(f"P.round={self.ROUND}; P.contrast={self.F}; P.xh={self.XHT}; P.caprx={self.CAPR}; P.ws={self.WS}; P.base={self.S}; P.os={1 if self.settings.get('overshoot', True) else 0}; P.ufoot={1 if self.settings.get('uFoot', True) else 0}; P.ital={1 if self.ITAL else 0}; P.straight={self.settings.get('uprightStraightness', 1)}; P.asc={self.settings.get('ascender', 770)}; P.trk={self.track_for(self.S) + (self.ITAL_EXTRA_SPACE if self.ITAL else 0)};")
+                pg.evaluate(f"P.round={self.ROUND}; P.contrast={self.F}; P.xh={self.XHT}; P.caprx={self.CAPR}; P.ws={self.WS}; P.base={self.S}; P.os={1 if self.settings.get('overshoot', True) else 0}; P.ufoot={1 if self.settings.get('uFoot', True) else 0}; P.ital={1 if self.ITAL or (self.display and self.settings.get('italicForms')) else 0}; P.straight={self.settings.get('uprightStraightness', 1)}; P.asc={self.settings.get('ascender', 770)}; P.trk={self.track_for(self.S) + (self.ITAL_EXTRA_SPACE if self.ITAL else 0)};")
                 pg.evaluate("Object.assign(P, " + json.dumps(dict(
                     corner=self.settings.get('corners', 'soft'), cap=self.settings.get('ends', 'round'),
                     join=self.settings.get('joins', 'round'), penAngle=self.PEN,
+                    pen='nib' if self.NIB else 'oval',
                     obliqueAngle=self.settings.get('slant', 0))) + ");")
                 if self.display:
                     pg.evaluate('(choices)=>P.alternates=displayChoices(choices)', self.settings.get('alternates', {}))
@@ -963,8 +1011,123 @@ class FontBuilderCore:
         if opened: pen.endPath()
         return path
 
+    def nib_shape(self, S):
+        """Match engine.js nibShape: the flat nib at the oval pen's perimeter."""
+        k, t, round_ = max(1, self.F), math.radians(self.PEN), not self.CAP_FLAT
+        a, b = .5, .5/k
+        h = ((a-b)/(a+b))**2
+        ellipse = math.pi*(a+b)*(1+3*h/(10+math.sqrt(4-3*h)))
+        scale = ellipse/(2*(1-1/k)+math.pi/k if round_ else 2*(1+1/k))
+        return scale*S, scale*S/k, round_, math.cos(t), math.sin(t)
+
+    def nib_stroke(self, cmds, dx, width=None):
+        """Sweep a skeleton with the flat nib, as in stroke_geometry.js displayNibContours.
+
+        For a convex nib K and a connected path C, C+K is the union of C swept by each
+        edge of K plus K at the start of C. Each swept piece is two shifted copies of a
+        curve piece, split where the curve runs parallel to that edge, so nothing is
+        approximated. A rounded nib is its centre line's sweep grown by half its thickness.
+        """
+        length, thick, round_, c, s = self.nib_shape(width or self.S)
+        k = SC*BIG
+        u, v = (c, s), (-s, c)
+        hu, hv = ((length-thick)/2, 0) if round_ else (length/2, thick/2)
+        corners = [((a*u[0]+b*v[0])*k, (a*u[1]+b*v[1])*k) for a, b in
+                   ([(hu, hv), (-hu, hv), (-hu, -hv), (hu, -hv)] if hv else [(hu, 0), (-hu, 0)])]
+        edges = list(zip(corners, corners[1:]+corners[:1])) if hv else [(corners[0], corners[1])]
+        T = lambda p: ((p[0]+dx)*k, -p[1]*k)
+        paths, point = [], None
+        for command in cmds:
+            if command[0] == 'M':
+                point = T(command[1]); paths.append(dict(segments=[], closed=False))
+            elif command[0] == 'L':
+                q = T(command[1]); paths[-1]['segments'].append((point, q)); point = q
+            elif command[0] == 'C':
+                q = [T(p) for p in command[1]]; paths[-1]['segments'].append((point, *q)); point = q[-1]
+            elif command[0] == 'Z':
+                paths[-1]['closed'] = True
+        contours = []
+        for path in paths:
+            segments = list(path['segments'])
+            if not segments: continue
+            first, end = segments[0][0], segments[-1][-1]
+            if path['closed'] and math.dist(first, end) > 1e-6:
+                segments.append((end, first))
+            for a, b in edges:
+                direction = (b[0]-a[0], b[1]-a[1])
+                for segment in segments:
+                    for piece in nib_split(segment, direction):
+                        ahead = tuple((x+a[0], y+a[1]) for x, y in piece)
+                        back = tuple((x+b[0], y+b[1]) for x, y in reversed(piece))
+                        contours.append([ahead, (ahead[-1], back[0]), back, (back[-1], ahead[0])])
+            if hv:
+                contours.append([((first[0]+p[0], first[1]+p[1]), (first[0]+q[0], first[1]+q[1])) for p, q in edges])
+        if not contours: return None
+        def draw(path):
+            """Turn every contour the same way, so overlapping pieces fill as one union."""
+            pen = path.getPen()
+            for contour in contours:
+                if contour_area(contour) < 0:
+                    contour = [tuple(reversed(segment)) for segment in reversed(contour)]
+                pen.moveTo(contour[0][0])
+                for segment in contour:
+                    if len(segment) == 2: pen.lineTo(segment[1])
+                    else: pen.curveTo(*segment[1:])
+                pen.closePath()
+            return path
+        body = draw(Path()); body.fillType = pathops.FillType.WINDING
+        body.simplify(fix_winding=True)
+        if round_:
+            band = draw(Path())
+            band.stroke(thick*k, LineCap.ROUND_CAP, LineJoin.ROUND_JOIN, MITER_LIMIT)
+            band.convertConicsToQuads(0.05)
+            band.simplify(fix_winding=True)
+            body = pathops.op(body, band, PathOp.UNION, fix_winding=True)
+        return body.transform(scaleX=1.0/BIG, scaleY=1.0/BIG)
+
+    def fill_shape(self, cmds, dx):
+        """A filled engine shape (holes allowed) at font scale."""
+        fp = Path(); pen = fp.getPen(); open_ = False
+        for c in cmds:
+            pt = None if c[0] == 'Z' else ((c[1][0] + dx) * SC, -c[1][1] * SC)
+            if c[0] == 'M':
+                if open_: pen.closePath()
+                pen.moveTo(pt); open_ = True
+            elif c[0] == 'L': pen.lineTo(pt)
+            elif c[0] == 'Z': pen.closePath(); open_ = False
+        if open_: pen.closePath()
+        fp.fillType = pathops.FillType.EVEN_ODD
+        fp.simplify(fix_winding=True)
+        return fp
+
+    def nib_outline(self, g, dx):
+        """Flat-nib glyphs: swept strokes, round dots and fills with a swept outline; no caps."""
+        shapes = [self.nib_stroke(self.parse(p['d']), dx, p['w']) for p in g['paths']]
+        shapes += [self.circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
+        for f in g.get('fills', []):
+            cmds = self.parse(f['d'])
+            # Like the Lab's displayNibBody, the outline uses the fill's own stroke width.
+            if f['sw'] > 0: shapes.append(self.nib_stroke(cmds, dx, f['sw']))
+            shapes.append(self.fill_shape(cmds, dx))
+        return self.finish_outline([shape for shape in shapes if shape is not None])
+
+    def finish_outline(self, shapes):
+        """Union the glyph's pieces one at a time, clean the outline, then apply the cut slant."""
+        if not shapes: return None
+        r = shapes[0]                           # merge one at a time (the batch merge could drop simple fills)
+        for s in shapes[1:]:
+            r = display_union(r, s)
+        r.convertConicsToQuads(0.02)
+        r = cleanup(r)
+        if self.ITAL or self.settings.get('slant', 0):
+            shear = self.TAN if self.ITAL else math.tan(math.radians(self.settings.get('slant', 0)))
+            r = r.transform(skewX=shear, translateX=-shear * ITAL_CENTER * SC)
+        return cleanup(r)
+
     def configured_outline(self, g, dx):
         """Join strokes, dots and fills, clean the outline, then apply the cut slant."""
+        if self.NIB:
+            return self.nib_outline(g, dx)
         inputs = [(self.parse(p['d']), p['w']) for p in g['paths']]
         bodies = [self.configured_stroke(cmds, dx, width, (False, False)) for cmds, width in inputs]
         dots = [self.circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
@@ -1014,25 +1177,5 @@ class FontBuilderCore:
         for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
             cmds = self.parse(f['d'])
             if f['sw'] > 0: shapes.append(self.configured_stroke(cmds, dx))
-            fp = Path(); pen = fp.getPen(); open_ = False
-            for c in cmds:
-                pt = None if c[0] == 'Z' else ((c[1][0] + dx) * SC, -c[1][1] * SC)
-                if c[0] == 'M':
-                    if open_: pen.closePath()
-                    pen.moveTo(pt); open_ = True
-                elif c[0] == 'L': pen.lineTo(pt)
-                elif c[0] == 'Z': pen.closePath(); open_ = False
-            if open_: pen.closePath()
-            fp.fillType = pathops.FillType.EVEN_ODD
-            fp.simplify(fix_winding=True)
-            shapes.append(fp)
-        if not shapes: return None
-        r = shapes[0]                           # merge one at a time (the batch merge could drop simple fills)
-        for s in shapes[1:]:
-            r = display_union(r, s)
-        r.convertConicsToQuads(0.02)
-        r = cleanup(r)
-        if self.ITAL or self.settings.get('slant', 0):
-            shear = self.TAN if self.ITAL else math.tan(math.radians(self.settings.get('slant', 0)))
-            r = r.transform(skewX=shear, translateX=-shear * ITAL_CENTER * SC)
-        return cleanup(r)
+            shapes.append(self.fill_shape(cmds, dx))
+        return self.finish_outline(shapes)

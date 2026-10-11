@@ -6,7 +6,11 @@ function spacingForCut(cut, exports){
   const stable = value => value && typeof value === 'object'
     ? (Array.isArray(value) ? value.map(stable)
       : Object.fromEntries(Object.keys(value).sort().map(key => [key, stable(value[key])]))) : value;
-  return exports.find(record => Object.entries(record.settings).every(([key, value]) =>
+  // Newer choices are recorded only when not default, so compare them in both directions.
+  const optional = {italicForms:false, pen:'oval'};
+  return exports.find(record => Object.entries(optional).every(([key, fallback]) =>
+      (record.settings[key] ?? fallback) === (cut[key] ?? fallback))
+    && Object.entries(record.settings).every(([key, value]) =>
     JSON.stringify(stable(cut[key])) === JSON.stringify(stable(value)))) || null;
 }
 
