@@ -1,6 +1,11 @@
-<section class="card" id="living-title" aria-labelledby="living-heading">
-  <h2 id="living-heading">Living title</h2>
+<details class="card fold" id="living-title" aria-labelledby="living-heading">
+  <summary><h2 id="living-heading">Living title <span class="kind kind-motion">Animated · separate player</span></h2></summary>
+  <p class="hint">Not a font file: a player redraws the title each frame. It works only for the four shipped cuts exactly as built, so changing sliders switches it off. Apps run it through the <code>@seihouse/living-titles</code> player; the Reader currently loads only the static font.</p>
   <p class="hint" id="lt-profile"></p>
+  <div id="lt-approval" class="living-approval" hidden>
+    <p class="hint" id="lt-approval-status" role="status" aria-live="polite"></p>
+    <div class="row"><button class="pill" type="button" id="lt-review">Review motion</button><button class="pill primary" type="button" id="lt-approve" hidden>Approve motion</button></div>
+  </div>
   <div class="living-controls">
     <label class="ctl">Motion source<select id="lt-mode"><option value="bpm">BPM loop</option><option value="audio">Local audio clip</option></select></label>
     <label class="ctl">Output longest edge<select id="lt-size"><option value="1080">1080 px</option><option value="1920">1920 px</option></select></label>
@@ -42,4 +47,4 @@
   </div>
   <p class="hint" id="lt-codec">SVG is transparent. Video uses the chosen solid background; audio is off by default.</p>
   <p class="hint">Spacing stays anchored to the built cut. Motion never changes your saved JSON. Reduced-motion preferences keep the preview and SVG at rest. <a href="living-media-LICENSE.txt">Media library license</a></p>
-</section>
+</details>

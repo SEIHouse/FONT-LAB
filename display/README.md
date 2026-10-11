@@ -7,9 +7,16 @@ OpenType features.
 
 ## Settings a cut controls
 
-- **Shape:** thickness, width, lowercase height, capital corners, lowercase roundness, straightness;
-  soft or cut corners; round or flat ends; round or sharp joins
-- **Pen:** thick and thin (contrast), pen angle (where the thick and thin fall), slant
+- **Shape:** thickness, width, lowercase height, ascender height, capital corners, lowercase
+  roundness, straightness; soft or cut corners; round or flat ends; round or sharp joins;
+  plain u or u with a foot (`uFoot`)
+- **Pen:** oval pen or flat nib (`pen`), thick and thin (contrast), pen angle (where the
+  thick and thin fall), slant;
+  tilted upright letters or true italic forms (`italicForms`). True italic reuses the
+  Reader's italic d, f, h, i, m, n and u (plus Cyrillic д, и, п, т) and keeps the cut's
+  own roundness. The italic u always has its exit stroke, so `uFoot` applies only to
+  upright forms. `italicForms` is recorded in spacing identity only when true, so cuts
+  without it keep their existing spacing exports.
 - **Spacing:** space between letters and words
 - **Letters:** single/double-story a/g, R leg, K/k arms, M stems, W strokes,
   y tail, G spur, Q tail, open/closed 4 and 6/9. Eleven individual Lab controls
@@ -28,13 +35,15 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 | `fonts/<cut>/` | Full OTF/WOFF2 and six web subsets, family "SEIHouse Display <Cut>" |
 | `fonts.css` | Per-cut web faces with exact `unicode-range`, relative to this directory |
 | `lab/index.html` | The Display Lab: shape cuts live on an album cover, track list, poster and alphabet |
+| `lab_server.py` | Local Lab server: the repository's files plus **Build font**, **Make these the shipped …** and motion review/approval jobs, for this computer only |
+| `lab_jobs.py` / `motion_jobs.py` | The Lab's build/promote and motion review/approve jobs; each also runs from the command line |
 | `novel-expanded/index.html` | Silent NovelExpanded homepage mock with four living cuts, refinement controls and a future menu-motion seam; see its [README](novel-expanded/README.md) |
 | `../packages/living-titles/` | Installable private `@seihouse/living-titles` runtime, static faces, TypeScript interfaces and optional React component; the mock uses its public player |
 | `build_living_package.py` / `pack_living_package.mjs` | Assemble certified shared source and compiled spacing, then produce the installable archive and provenance |
 | `verify_living_package.mjs` / `verify_package_browser.py` | Clean packed-consumer imports, types, React bundle and browser lifecycle gates |
 | `living*.js` / `living-panel.html` | Living Title timelines, isolated frame drawing and Lab authoring controls |
 | `living-media.mjs` / `build_living_media.mjs` | Selected-clip decoding and timestamped video encoding, bundled locally |
-| `motion_profiles.json` / `motion-certification.json` | Versioned motion limits and source/fixture-bound certification |
+| `motion_profiles.json` / `motion-certification.json` | Versioned motion limits and per-cut, source/fixture-bound certification |
 | `verify_motion.py` / `verify_living.py` | All-glyph motion construction/topology and real browser SVG/video gates |
 | `../engine.js` | Shared letter, mark, symbol and numeric rules, with Reader defaults and Display options |
 | `../font_builder.py` | `FontBuilderCore`: shared export, outlines, spacing, hinting and OpenType layout |
@@ -46,7 +55,7 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 | `verify_specimens.py` | WOFF2 versus built-OTF native widths, style/feature controls and 360–430px layouts |
 | `build_subsets.py` | Six Display deliveries using the Reader's subset routine and coverage policy |
 | `build_display_page.py` | Builds the Lab page |
-| `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant |
+| `stroke_geometry.js` | Live oval-pen caps and joins, including perpendicular faces after slant, and the flat-nib sweep |
 | `title_spacing.py` | Capital-height and mixed-case optical spacing, plus final-font GPOS/metric exports |
 | `letter_alternates.py` | Stylistic sets and measured alternate pair classes |
 | `spacing.js` | Applies compiled kerning classes, rounded advances and capital spacing in the Lab |
@@ -59,19 +68,66 @@ choices and starts every preset with Plain W. `ss04` also switches M.
 
 ## Workflow
 
-1. Shape a cut in the Lab, name it, and press **Save cut** to keep a browser draft
-   (or save to the connected Claude host). Drafts stay on this browser and site.
-2. **Download JSON** or **Copy** the settings into `display/cuts/my-cut.json`
-   (or replace the corresponding preset JSON). From the repo root, run
-   `python -X utf8 display/make_display.py display/cuts/my-cut.json`.
-3. Rebuild the Lab with `python -X utf8 display/build_display_page.py`.
+Work locally with the Lab server, from the repository root:
+
+```sh
+python -X utf8 display/lab_server.py
+```
+
+Open `http://localhost:8000/display/lab/`. It serves the same files as
+`python -m http.server 8000`, plus three buttons that exist only on this computer:
+
+1. **Build font from these sliders** turns the current settings into a real draft
+   font in about half a minute, under `dist/lab-builds/<cut>/`. The **Built font
+   file** panel then shows that font, offers its OTF/WOFF2, and the live drawings
+   switch to its final spacing.
+2. **Make these the shipped Ink** (or Soft, Edge, Wide) rewrites that cut's JSON,
+   rebuilds only that cut's fonts, subsets, CSS, manifest and specimen, then the
+   Lab. Git can undo it. New cut names still need the full release steps.
+3. A rebuilt cut's **Living title** shows **Review motion**, then **Approve motion**;
+   see [Living Titles](#living-titles).
+
+The server listens on `127.0.0.1` only, answers only `localhost` host names, and
+starts jobs only for its own page (a per-run token, same-origin requests). One job
+runs at a time. The hosted website stays static: its Lab hides these buttons and
+keeps **Save cut**, **Download JSON** and **Copy JSON**.
+
+Without the server: **Download JSON** into `display/cuts/my-cut.json`, run
+`python -X utf8 display/make_display.py display/cuts/my-cut.json`, then rebuild the
+Lab with `python -X utf8 display/build_display_page.py`.
+
+### Flat nib
+
+**Pen → Flat nib** sweeps every stroke with a broad nib at the pen angle instead of
+the oval. Strokes along the nib edge become hairlines, strokes across it are full,
+and every stroke end is cut at the pen angle. The sweep is exact: each curve is
+split where it runs parallel to a nib edge and the pieces are shifted copies of
+the curve, in both the Lab (`stroke_geometry.js`) and the builder (`font_builder.py`).
+**Ends** set the nib corners (flat = sharp chisel, round = slightly rounded); the
+nib makes its own joins. The nib keeps the oval's perimeter, so switching pens
+changes the character, not the overall weight; raise **Thick and thin** (up to 6)
+for stronger contrast. Dots stay round. The engine also spaces and aligns letters
+with the nib's footprint. No shipped cut uses the nib yet.
 
 ### Living Titles
 
 Choose a shipped cut, enter a title, then use **Living title**. The current
 letter designs and `cpsp` setting carry into the artwork. Motion settings stay
-separate from cut JSON and browser drafts. Custom geometry edits remain ordinary
-Lab drafts; choose a shipped cut again to author motion.
+separate from cut JSON and browser drafts. Any draft can **preview** motion with
+conservative limits (Ink's for calligraphic drafts); downloads stay locked until a
+shipped cut's motion is approved.
+
+Motion is approved per cut. A cut's certificate binds the shared drawing sources,
+that cut's settings and motion profile, and its 11 reviewed witness files, so
+rebuilding Ink leaves Soft, Edge and Wide approved. With the Lab server, a rebuilt
+cut offers **Review motion**: it points the cut's motion profile at its new built
+settings, re-runs the full probe (every glyph, 11 poses, 707 dense ordinal poses)
+and lists every glyph whose witness changes. **Approve motion** is accepted only
+for a clean review whose sources have not changed since; it adopts the witnesses
+and certifies that cut. The same steps run as
+`python -X utf8 display/motion_jobs.py review|approve --input request.json --result out.json`
+with `{"cuts": ["ink"]}`, and `python -X utf8 display/verify_motion.py --cut ink`
+re-checks one cut.
 
 The initial preview is paused: **120 BPM, four beats, two seconds, 30 FPS**.
 Select BPM/beat count or a local audio file and a **1–10 second** clip. Toggle

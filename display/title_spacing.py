@@ -24,9 +24,18 @@ SPACING_DEFAULTS = dict(weight=135, contrast=1, penAngle=0, slant=0,
     uprightStraightness=1, ascender=700, letterSpace={}, pairSpace={})
 
 
+OPTIONAL_SPACING = dict(italicForms=False, pen='oval')
+
+
 def spacing_settings(settings):
     """Names, notes and save timestamps do not change a cut's spacing identity."""
-    return {key: settings.get(key, value) for key, value in SPACING_DEFAULTS.items()}
+    identity = {key: settings.get(key, value) for key, value in SPACING_DEFAULTS.items()}
+    # Newer choices are recorded only when they differ from their default, so exports
+    # built before the choice existed stay valid.
+    for key, default in OPTIONAL_SPACING.items():
+        if settings.get(key, default) != default:
+            identity[key] = settings[key]
+    return identity
 
 
 def policy_for(settings):

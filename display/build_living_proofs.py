@@ -19,7 +19,7 @@ def build():
     cards=[]
     with sync_playwright() as p:
         browser=p.chromium.launch();page=browser.new_page()
-        page.goto((HERE/'lab/index.html').as_uri());page.wait_for_function('LivingTitleUI.inspect().prepared')
+        page.goto((HERE/'lab/index.html').as_uri());page.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)");page.wait_for_function('LivingTitleUI.inspect().prepared')
         for profile in profiles:
             cut=profile['cut'];slug=cut.lower()
             page.locator(f'#presets [data-p="{cut}"]').click()

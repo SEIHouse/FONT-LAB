@@ -2,6 +2,23 @@
 
 Newest first.
 
+- **Display Lab: layout, flat nib, local builds and per-cut motion approval
+  (2026-10-10)** The Lab is reorganized around picking a cut and moving Shape,
+  Pen and Spacing; letter designs, artist/tracks, export, the full character
+  chart and the Living title fold away, and phones keep a pinned title preview.
+  Every section is tagged as the static font file, a live drawing or the animated
+  player, and a new **Built font file** panel shows the real font file. New cut
+  settings: **Flat nib** (`pen`), an exact broad-nib sweep in the Lab, builder and
+  motion engine; **True italic** (`italicForms`) using the Reader's italic d, f, h,
+  i, m, n and u; **u with foot** (`uFoot`), **ascender** and **overshoot** in the
+  Lab. `display/lab_server.py` adds local-only **Build font** (about 30 s per draft),
+  **Make these the shipped …** (rebuilds just that cut) and **Review/Approve motion**.
+  Motion certification is now per cut, so changing one cut no longer un-approves
+  the others; any draft can preview motion with exports locked. Shipped cut
+  settings, fonts and spacing are unchanged; the four cuts' motion was re-verified
+  under the new engine. `@seihouse/living-titles` is 0.1.1 (same artwork for the
+  four cuts; Development can stay on 0.1.0).
+
 - **App install guide: Development's Reader (2026-10-10)** Replaced the
   2026-10-02 handoff plan in `docs/APP-INSTALL.md` with what Development
   shipped: both private tarballs vendored, the faces loaded from the shared host

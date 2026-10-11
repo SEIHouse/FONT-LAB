@@ -6,7 +6,7 @@ import sys
 
 ROOT=Path(__file__).resolve().parent.parent
 sys.path.insert(0,str(ROOT))
-from display.living_build import engine_factory, profiles_for_lab, motion_digest, fixture_digest
+from display.living_build import engine_factory, profiles_for_lab, motion_digest, fixture_digest, slug_of
 from display.title_spacing import spacing_settings
 
 PACKAGE=ROOT/'packages/living-titles'
@@ -70,8 +70,9 @@ def build():
         output_path(f'fonts/{file}').write_bytes(font_bytes)
         css.append(f"@font-face{{font-family:'SEIHouse Display {name}';font-style:normal;font-weight:400;font-display:swap;src:url('./fonts/{file}') format('woff2');}}")
     output_path('fonts.css').write_text('\n'.join(css)+'\n',encoding='utf-8',newline='\n')
-    output_path('provenance.json').write_text(json.dumps({'schema':1,'source_sha256':motion_digest(),
-        'fixture_sha256':fixture_digest(),'profiles':[p['id'] for p in profiles],
+    output_path('provenance.json').write_text(json.dumps({'schema':2,'profiles':[p['id'] for p in profiles],
+        'cuts':{slug_of(p['cut']):{'source_sha256':motion_digest(slug_of(p['cut'])),
+                                   'fixture_sha256':fixture_digest(slug_of(p['cut']))} for p in profiles},
         'fonts':{f.name:hashlib.sha256(f.read_bytes()).hexdigest() for f in sorted(fonts.iterdir())}},indent=2)+'\n',encoding='utf-8',newline='\n')
     (PACKAGE/'SANS-LICENSE.txt').write_text((ROOT/'LICENSE').read_text(encoding='utf-8'),encoding='utf-8',newline='\n')
     print(f'Living Titles package: four reviewed cuts, shared vectors, DOM/React players -> {out.relative_to(ROOT)}')

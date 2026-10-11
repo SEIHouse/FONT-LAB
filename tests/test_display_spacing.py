@@ -10,7 +10,7 @@ import unittest
 
 from fontTools.ttLib import TTFont
 
-from display.title_spacing import DisplaySpacing, compiled_kerning, policy_for
+from display.title_spacing import DisplaySpacing, compiled_kerning, policy_for, spacing_settings
 from font_builder import FontBuilderCore
 from verify_display_spacing import feature_flags, width_flags
 from verify_latin import shape
@@ -41,6 +41,12 @@ class DisplayTitleSpacingTests(unittest.TestCase):
         self.assertEqual(width_flags(100.49,100)[0],[])
         self.assertTrue(width_flags(100.5,100)[0])
         self.assertTrue(width_flags(99,100)[0])
+
+    def test_italic_forms_join_spacing_identity_only_when_on(self):
+        ink = json.loads((ROOT/'display/cuts/ink.json').read_text(encoding='utf-8'))
+        self.assertNotIn('italicForms', spacing_settings(ink))
+        self.assertEqual(spacing_settings(dict(ink, italicForms=False)), spacing_settings(ink))
+        self.assertTrue(spacing_settings(dict(ink, italicForms=True))['italicForms'])
 
     def test_cut_policy_comes_from_geometry_and_survives_renaming(self):
         """Keep a renamed project cut on the optical policy selected by its geometry."""

@@ -97,6 +97,7 @@ jobs:
           node --test tests/shared-engine.test.mjs
           node --test tests/display-spacing.test.mjs
           node --test tests/display-alternates.test.mjs
+          node --test tests/display-nib.test.mjs
           python verify_display_shapes.py --report dist/display-shapes.json
           python verify_shared_engine.py --report dist/shared-engine.json
           python verify_display_spacing.py --report dist/display-spacing.json

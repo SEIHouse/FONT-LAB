@@ -17,9 +17,15 @@ from display.production import ROOT, asset_record, font_path, load_cuts, style_p
 from display.specimens import write_specimens
 
 
-def build_all(cuts_dir=HERE/'cuts', output_dir=None, *, specimens_only=False):
-    """Build declared cut/style assets, then publish their exact manifest and specimens."""
+def build_all(cuts_dir=HERE/'cuts', output_dir=None, *, specimens_only=False, only=None):
+    """Build declared cut/style assets, then publish their exact manifest and specimens.
+
+    ``only`` rebuilds just those cut slugs; every other cut keeps its existing
+    font files, which are still hashed into the manifest.
+    """
     cuts = load_cuts(cuts_dir)
+    if only is not None and not set(only) <= {cut['slug'] for cut in cuts}:
+        raise ValueError('Unknown cut to rebuild: '+', '.join(sorted(set(only)-{cut['slug'] for cut in cuts})))
     # Resolve every per-cut style plan before writing anything.
     plans = [(cut, style_plan(cut['settings'])) for cut in cuts]
     root = Path(output_dir).resolve() if output_dir is not None else ROOT
@@ -33,7 +39,7 @@ def build_all(cuts_dir=HERE/'cuts', output_dir=None, *, specimens_only=False):
         for face in plan:
             source = font_path(fonts, cut, face['label'])
             asset_dir = metadata if root == ROOT and face['label']=='Regular' else source.parent
-            if not specimens_only:
+            if not specimens_only and (only is None or cut['slug'] in only):
                 built = build_style(face['settings'], source.parent, metadata_dir=asset_dir,
                                     style=face['style'], oblique=face['oblique'])
                 if built != source:
@@ -71,8 +77,9 @@ def main():
     parser.add_argument('--cuts', type=Path, default=HERE/'cuts')
     parser.add_argument('--output-dir', type=Path, help='Self-contained bundle root; leaves shipped fonts/spacing untouched')
     parser.add_argument('--specimens-only', action='store_true', help='Generate inventory, CSS and specimens from existing built fonts')
+    parser.add_argument('--only', action='append', metavar='SLUG', help='Rebuild only this cut (repeatable); others keep their built files')
     args = parser.parse_args()
-    build_all(args.cuts, args.output_dir, specimens_only=args.specimens_only)
+    build_all(args.cuts, args.output_dir, specimens_only=args.specimens_only, only=args.only)
 
 
 if __name__ == '__main__':

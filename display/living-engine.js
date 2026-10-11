@@ -3,11 +3,11 @@
 function livingApply(cut){
   P.alternates = displayChoices(cut.alternates ?? {});
   Object.assign(P, {base:cut.weight, ws:cut.letterWidth, xh:cut.xHeight,
-    contrast:displayContrast(cut.weight,cut.contrast,cut.xHeight,cut.ends), penAngle:cut.penAngle || 0,
+    contrast:displayContrast(cut.weight,cut.contrast,cut.xHeight,cut.ends), penAngle:cut.penAngle || 0, pen:cut.pen === 'nib' ? 'nib' : 'oval',
     caprx:cut.capitalRoundness, round:cut.lowercaseRoundness, straight:cut.uprightStraightness || 1,
     corner:cut.corners === 'cut' ? 'cut' : 'soft', cap:cut.ends, join:cut.joins,
     os:cut.overshoot === false ? 0 : 1, ufoot:cut.uFoot ? 1 : 0, asc:cut.ascender || 700,
-    ital:0, obliqueAngle:cut.slant || 0, trk:cut.spaceBetweenAllLetters});
+    ital:cut.italicForms ? 1 : 0, obliqueAngle:cut.slant || 0, trk:cut.spaceBetweenAllLetters});
   for(const key of Object.keys(cache)) delete cache[key];
   for(const key of Object.keys(clipDone)) delete clipDone[key];
   livingDefs.length = 0;
@@ -27,7 +27,7 @@ function livingFrame(cut, layout){
     const g = clusterGlyph(cluster,cut.weight);
     if(!g) continue;
     const origin = x-tangent*330;
-    body += `<g transform="translate(${origin} 0)${tangent ? ` skewX(${-cut.slant})` : ''}"${cut.ends === 'flat' ? '' : ` clip-path="url(#${g.clipId})"`}>${displayPenBody(g,{...cut,contrast:P.contrast})}</g>`;
+    body += `<g transform="translate(${origin} 0)${tangent ? ` skewX(${-cut.slant})` : ''}"${cut.ends === 'flat' || cut.pen === 'nib' ? '' : ` clip-path="url(#${g.clipId})"`}>${displayPenBody(g,{...cut,contrast:P.contrast})}</g>`;
     const ink = inkBounds(g);
     if(!ink) continue;
     // Conservative pen/miter allowance also covers flat-cap contact overlaps.

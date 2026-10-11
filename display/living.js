@@ -52,7 +52,8 @@ const LivingTitles = (() => {
     if(typeof text !== 'string' || text.length > 60 || !Number.isFinite(strength) ||
        values.some(value=>!Number.isFinite(value) || value<0 || value>1)) throw new Error('Invalid motion scene');
     if(!text.trim()) throw new Error('Enter a title to prepare motion');
-    if(!spacing) throw new Error('Motion requires compiled spacing from a shipped cut');
+    // Uncertified draft previews may use the Lab's live draft spacing; deliveries never do.
+    if(!spacing && !profile.preview) throw new Error('Motion requires compiled spacing from a shipped cut');
     const check = () => { if(signal?.aborted) throw new DOMException('Preparation cancelled','AbortError'); };
     check();
     const layout = engine.layout(text,cut,spacing,cpsp), frames = [];

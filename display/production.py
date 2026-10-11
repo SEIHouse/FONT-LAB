@@ -58,6 +58,10 @@ def style_plan(settings):
     drawing = deepcopy(settings)
     drawing.pop('production', None)
     number(drawing['weight'], 'weight', 1, 250)
+    if not isinstance(drawing.get('italicForms', False), bool):
+        raise ValueError('italicForms must be true or false')
+    if drawing.get('pen', 'oval') not in ('oval', 'nib'):
+        raise ValueError('pen must be oval or nib')
     plan = [dict(label='Regular', style='Regular', oblique=False, settings=drawing)]
     for style, factor in sorted(weights.items(), key=lambda row: WCLASS.get(row[0], 0)):
         if style not in WCLASS or style == 'Regular':

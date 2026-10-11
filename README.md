@@ -22,6 +22,9 @@ or environment variables to configure. See [website setup and draft usage](docs/
 
 Local preview: `node build_site.mjs`, then
 `python -m http.server 8000 --directory dist/site` and open `http://localhost:8000`.
+To design Display cuts locally, run `python -X utf8 display/lab_server.py` instead and
+open `http://localhost:8000/display/lab/`: it adds **Build font**, shipping a cut and
+motion approval to the Lab ([how it works](display/README.md#workflow)).
 
 Everything in the font is drawn from rules in code. There are no hand-drawn files to maintain, so
 any change (weight, letter height, roundness, spacing) rebuilds the whole family consistently.

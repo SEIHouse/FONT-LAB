@@ -1,17 +1,17 @@
 # @seihouse/living-titles
 
-Private, installable SEIHouse Living Titles runtime, version 0.1.0. Development
+Private, installable SEIHouse Living Titles runtime, version 0.1.1. Development
 and SEA can consume this same package. Menu audio and Reader Chamber audio stay
 separate; neither is included or connected. The runtime has zero mandatory
 dependencies. Its optional React entry requires React 18 or newer.
 
 ## Install in Development
 
-Copy `releases/seihouse-living-titles-0.1.0.tgz` into Development's `vendor/`
+Copy `releases/seihouse-living-titles-0.1.1.tgz` into Development's `vendor/`
 directory, then install the local artifact:
 
 ```sh
-npm install ./vendor/seihouse-living-titles-0.1.0.tgz
+npm install ./vendor/seihouse-living-titles-0.1.1.tgz
 ```
 
 Commit the tarball, package lock and `release.json` provenance with the consuming

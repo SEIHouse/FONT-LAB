@@ -1,20 +1,36 @@
 {
   "name": "@seihouse/living-titles",
-  "version": "0.1.0",
-  "filename": "seihouse-living-titles-0.1.0.tgz",
-  "bytes": 632048,
-  "sha256": "692886969eebf7a65dc4e8b18f7b91d0d8b3f902237b5c94abd52ee7e9248567",
-  "integrity": "sha512-kLC0CR7LEfsqEEKZrDD6xlp6BR+z5/QrVcXnIGm6+qVWMRbVRCrzQeooiW9kkr5PHPU6B+TZxqs2fj4Y8IgWNA==",
+  "version": "0.1.1",
+  "filename": "seihouse-living-titles-0.1.1.tgz",
+  "bytes": 634483,
+  "sha256": "1e2ddacbb36bdec3fbf82d26ab9cef1deb84150f9306610a6517305e7739c95e",
+  "integrity": "sha512-Lfho1QBUN/QGMGdMrfs6W0ejLvOkb/CNxa874YLVzW2uyH/EBHA+YAoQsT2agNAGjDSOSetpu62+EX2gD1Rsww==",
   "provenance": {
-    "schema": 1,
-    "source_sha256": "525706a0f1616d1d283eaa397fe8b235286060e9a25644ebedc4980cd58dfcd4",
-    "fixture_sha256": "abe198ec64f833ab641b133bc3a9c1d9262fa3d7315c3248d5cf2887ee30100b",
+    "schema": 2,
     "profiles": [
       "soft-living-v1",
       "edge-living-v1",
       "ink-living-v1",
       "wide-living-v1"
     ],
+    "cuts": {
+      "soft": {
+        "source_sha256": "4207d21715ef70e65f3e2183d8ba150d69425b90825f79072350379132860a93",
+        "fixture_sha256": "d8d5013e0f8debf698d9a08b7166af100342fe42a4632bf08fb42b48b3cee665"
+      },
+      "edge": {
+        "source_sha256": "fa025604490c2e59f742cc00133c01047bd2e02e3543c117c1279ce856578d04",
+        "fixture_sha256": "1bbd80f0904ac2a861f3bec6031821e21d23e31c3e0a8a385e2c2a0d034b9b55"
+      },
+      "ink": {
+        "source_sha256": "74179a7c1b84bf3d92bbdf7a4948126b82b5adc471ff6e94d80070c924c532f4",
+        "fixture_sha256": "003c1772d2b01a4d440d99d0ea62542f4c5f076dfd2392fd8a746024b1954b38"
+      },
+      "wide": {
+        "source_sha256": "60c9888c0053f3a0af5c769e608d46917964cc72c063b10af15b7d738f313ec0",
+        "fixture_sha256": "cb2a22e3517efe23388752fd8e50930051da33b81d78b9001491eb676ad20ae9"
+      }
+    },
     "fonts": {
       "SEIHouseDisplay-Edge.woff2": "bf69e9701e81509024973760471c3eed84cac5162531328f849e54fb35fe4177",
       "SEIHouseDisplay-Ink.woff2": "69e745f1c53c564482bbb62e32eadbc7b353083004213212defc335fcf322929",

@@ -44,6 +44,7 @@ def verify_mobile(page, output):
         page.set_viewport_size(dict(width=width, height=844))
         page.reload()
         page.locator('#save:not([disabled])').wait_for()
+        page.evaluate("document.querySelectorAll('details').forEach(d=>d.open=true)")  # letter designs and words are folded by default
         for cut in ('Soft', 'Edge', 'Ink', 'Wide'):
             page.get_by_role('button', name=cut, exact=True).click()
             if page.locator('#alt-W').input_value() != 'plain':
