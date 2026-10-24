@@ -37,11 +37,11 @@ jobs:
       - name: Install the bundled browser
         if: ${{ !matrix.channel }}
         run: python -m playwright install --with-deps ${{ matrix.browser }}
-      - name: Measure 15 / 17.2 / 18.5 / 20 / 22px at 1x and 2x
+      - name: Measure 15 / 17.2 / 18.5 / 20 / 22px at 100%, 125%, 150% and 200% scale
         shell: bash
         run: |
           mkdir -p dist
-          python verify_size_density.py dist/size-density --browser ${{ matrix.browser }} --dpr 1 2 ${{ matrix.channel && format('--channel {0}', matrix.channel) || '' }} | tee dist/size-density-summary.txt
+          python verify_size_density.py dist/size-density --browser ${{ matrix.browser }} --dpr 1 1.25 1.5 2 ${{ matrix.channel && format('--channel {0}', matrix.channel) || '' }} | tee dist/size-density-summary.txt
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:
