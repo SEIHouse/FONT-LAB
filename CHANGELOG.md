@@ -2,6 +2,14 @@
 
 Newest first.
 
+- **Size density check (2026-10-24)** Added `verify_size_density.py` and the
+  report-only **Size density** workflow, which measure whether the app's reading
+  sizes (15/17.2/18.5/20/22px) look evenly weighted on Windows (Chromium and Edge,
+  ClearType and grayscale, 100–200%), macOS WebKit and Linux Chromium. The 0.35
+  proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts in any
+  of them (largest step 7.8%); see `docs/SIZE-DENSITY-0.39.md`. The reading test
+  gains an **App size steps** check for phones. Font files are unchanged.
+
 - **Display Lab: layout, flat nib, local builds and per-cut motion approval
   (2026-10-10)** The Lab is reorganized around picking a cut and moving Shape,
   Pen and Spacing; letter designs, artist/tracks, export, the full character
