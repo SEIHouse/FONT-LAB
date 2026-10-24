@@ -21,6 +21,8 @@ jobs:
         include:
           - {os: windows-latest, browser: chromium, label: windows-chromium}
           - {os: windows-latest, browser: chromium, channel: msedge, label: windows-edge}
+          - {os: windows-latest, browser: chromium, grayscale: true, label: windows-chromium-grayscale}
+          - {os: windows-latest, browser: chromium, channel: msedge, grayscale: true, label: windows-edge-grayscale}
           - {os: macos-latest, browser: webkit, label: macos-webkit}
           - {os: ubuntu-latest, browser: chromium, label: linux-chromium}
     runs-on: ${{ matrix.os }}
@@ -41,7 +43,7 @@ jobs:
         shell: bash
         run: |
           mkdir -p dist
-          python verify_size_density.py dist/size-density --browser ${{ matrix.browser }} --dpr 1 1.25 1.5 2 ${{ matrix.channel && format('--channel {0}', matrix.channel) || '' }} | tee dist/size-density-summary.txt
+          python verify_size_density.py dist/size-density --browser ${{ matrix.browser }} --dpr 1 1.25 1.5 2 ${{ matrix.channel && format('--channel {0}', matrix.channel) || '' }} ${{ matrix.grayscale && '--grayscale' || '' }} | tee dist/size-density-summary.txt
       - uses: actions/upload-artifact@043fb46d1a93c77aae656e7c1c64a875d1fc6a0a # v7.0.1
         if: always()
         with:

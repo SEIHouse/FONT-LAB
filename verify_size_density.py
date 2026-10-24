@@ -1,6 +1,6 @@
 """Measure how dark the Reader looks at each app text size, per browser and hinting.
 
-python verify_size_density.py <output-directory> [--browser chromium|webkit|firefox] [--channel chrome|msedge] [--dpr 1 2 3]
+python verify_size_density.py <output-directory> [--browser chromium|webkit|firefox] [--channel chrome|msedge] [--grayscale] [--dpr 1 2 3]
 
 Every size sets the same paragraph in a column 30em wide, so line breaks and
 glyphs are identical and only the size changes. Ink is the summed coverage of a
@@ -14,6 +14,10 @@ hints (the ones that round letter stems to whole pixels across the line) and kee
 the horizontal hints that align the baseline, x-height and caps; `unhinted` drops
 all hints. Comparing them shows whether a jump comes from hinting rather than
 from the drawn stroke weight.
+
+`--grayscale` turns off Chromium's subpixel (ClearType-style) text, as Chrome
+itself does when ClearType is off or text sits in an animated or translucent
+layer. Grayscale text can only place a stem edge on whole pixels.
 """
 from pathlib import Path
 import argparse
@@ -136,7 +140,7 @@ def ink(png):
     return float((255 - pixels).sum() / 255)
 
 
-def measure(output, browser='chromium', ratios=(1,), channel=None, fonts=ROOT / 'fonts'):
+def measure(output, browser='chromium', ratios=(1,), channel=None, grayscale=False, fonts=ROOT / 'fonts'):
     """Render and score every variant, weight and app size; return the report."""
     from playwright.sync_api import sync_playwright
     output = Path(output).resolve()
@@ -150,10 +154,12 @@ def measure(output, browser='chromium', ratios=(1,), channel=None, fonts=ROOT / 
                 (folder / name).write_bytes(variant_font(fonts / f'SEIReader-{style}.otf', variant))
                 faces.append((f'{style}-{variant}', name, weight))
         (folder / 'index.html').write_text(page(faces, APP_SIZES), encoding='utf-8')
-        report = {'browser': channel or browser, 'os': platform.platform(), 'sizes_px': list(APP_SIZES),
+        label = (channel or browser) + ('-grayscale' if grayscale else '')
+        report = {'browser': label, 'os': platform.platform(), 'sizes_px': list(APP_SIZES),
                   'jump_limit': JUMP_LIMIT, 'paragraph': PARAGRAPH, 'results': {}}
         with sync_playwright() as playwright:
-            engine = getattr(playwright, browser).launch(**({'channel': channel} if channel else {}))
+            engine = getattr(playwright, browser).launch(**({'channel': channel} if channel else {}),
+                                                         args=['--disable-lcd-text'] if grayscale else [])
             report['browser_version'] = engine.version
             for ratio in ratios:
                 tab = engine.new_page(viewport={'width': 1400, 'height': 900}, device_scale_factor=ratio)
@@ -166,7 +172,7 @@ def measure(output, browser='chromium', ratios=(1,), channel=None, fonts=ROOT / 
                     for size in APP_SIZES:
                         shot = tab.locator(f'#{family}-{str(size).replace(".", "_")}').screenshot()
                         if family.endswith('-shipped'):
-                            (output / f'{channel or browser}-dpr{ratio}-{family}-{size}.png').write_bytes(shot)
+                            (output / f'{label}-dpr{ratio}-{family}-{size}.png').write_bytes(shot)
                         scores.append(ink(shot) / (size * ratio) ** 2)
                     base = scores[0]
                     relative = [round(score / base, 3) for score in scores]
@@ -180,7 +186,7 @@ def measure(output, browser='chromium', ratios=(1,), channel=None, fonts=ROOT / 
                     }
                 tab.close()
             engine.close()
-    (output / f'size-density-{channel or browser}.json').write_text(json.dumps(report, indent=2, ensure_ascii=False),
+    (output / f'size-density-{report["browser"]}.json').write_text(json.dumps(report, indent=2, ensure_ascii=False),
                                                          encoding='utf-8')
     return report
 
@@ -201,7 +207,8 @@ if __name__ == '__main__':
     parser.add_argument('output')
     parser.add_argument('--browser', default='chromium', choices=('chromium', 'webkit', 'firefox'))
     parser.add_argument('--channel', help='an installed browser instead of the bundled one')
+    parser.add_argument('--grayscale', action='store_true', help='Chromium only: no subpixel text')
     parser.add_argument('--dpr', type=float, nargs='+', default=[1])
     args = parser.parse_args()
     ratios = [int(r) if r == int(r) else r for r in args.dpr]
-    print(summary(measure(args.output, args.browser, ratios, args.channel)))
+    print(summary(measure(args.output, args.browser, ratios, args.channel, args.grayscale)))
