@@ -211,6 +211,10 @@ with Day/Night proofs across all ten styles. It found no demonstrated spacing
 defect and preserves the 0.35 fonts. Open **Paragraph spacing** in each reference
 preview card to inspect the exact text with the existing reading controls.
 
+The [size density check](docs/SIZE-DENSITY-0.39.md) measures whether the app's
+reading sizes look evenly weighted on Windows, macOS WebKit and Linux. The 0.35
+proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
+
 ## What SEIHouse Sans has (version 0.39)
 
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)

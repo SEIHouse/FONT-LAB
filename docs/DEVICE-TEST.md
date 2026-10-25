@@ -45,6 +45,7 @@ Record **P** (pass), **F** (fail), or **—** (not run) in each session column. 
 | `ll/yw/tw/ur/um` and `rival arrival vivid willow weary yearly twilight` stay distinct at every weight | | | | | | |
 | `ri/rn/cl/li` stay distinct; `tt/ry` are not crowded; joins on/off keep an even rhythm | | | | | | |
 | Light/Regular/Medium retain useful differences at 13/15/17px in both themes | | | | | | |
+| App size steps 15/17.2/18.5/20/22px grow evenly at the selected weight; no step suddenly looks heavier ([why](SIZE-DENSITY-0.39.md)) | | | | | | |
 | Dialogue `“Mei’s,” “Entry 12?”`: dots, commas, and raised quotes stay visible without dark clusters | | | | | | |
 | Figures `0123456789 1,234.56 8.50% 6089`: counters remain distinct, upright and italic | | | | | | |
 | Tabular figures keep equal advances; `½ ¼ ¾` and small figures remain clear | | | | | | |

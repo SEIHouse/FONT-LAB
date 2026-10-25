@@ -20,7 +20,7 @@ const pages = [
   'packages/living-titles/README.md',
   'docs/DISPLAY-LIVING-TITLES-STEP6.md', 'docs/proofs/display-step6/index.html',
   ...['soft','edge','ink','wide'].flatMap(cut => ['caps','mixed'].map(kind => `docs/proofs/display-step6/${cut}-${kind}.svg`)),
-  'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md',
+  'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md', 'docs/SIZE-DENSITY-0.39.md',
   'docs/HEALTH-CHECK.txt', 'docs/DESIGN-GOALS.md', 'docs/WEBSITE.md',
 ];
 const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic','RegularNight','ItalicNight'];
