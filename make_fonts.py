@@ -37,8 +37,8 @@ def build_fonts(settings, outdir=None, *, night_only=False):
         builder.build(night_data, str(outdir / f'SEIReader-{night_name}.otf'), 'Regular', italic)
         print('built', builder.FAMILY, builder.VERSION, night_name, 'thickness', weights['Regular'], 'grade', NIGHT_GRADE)
         builder.GRADE = 0
-    if not night_only: (metadata_dir / 'kern_styles.json').write_text(json.dumps(builder.STYLE_KERN, ensure_ascii=False), encoding='utf-8')
-    if not night_only: (metadata_dir / 'kern_languages.json').write_text(json.dumps(builder.LANGUAGE_KERN, ensure_ascii=False), encoding='utf-8')
+    if not night_only or not (metadata_dir / 'kern_styles.json').exists(): (metadata_dir / 'kern_styles.json').write_text(json.dumps(builder.STYLE_KERN, ensure_ascii=False), encoding='utf-8')
+    if not night_only or not (metadata_dir / 'kern_languages.json').exists(): (metadata_dir / 'kern_languages.json').write_text(json.dumps(builder.LANGUAGE_KERN, ensure_ascii=False), encoding='utf-8')
     from build_subsets import build_subsets
     if default_output:
         build_subsets(night_only=night_only)
