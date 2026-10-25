@@ -184,6 +184,9 @@ class NightGradeTests(unittest.TestCase):
             ('İpek · Işık · fikir · fi · fı', 'tr'),
             ('Ștefan · țară · ş ţ · ș ț', 'ro'),
             ('Őrző · tűz · TY TTY · gyűrű', 'hu'),
+            ('Άγγελος · Αθήνα · Σωκράτης · Ήλιος', 'el'),
+            ('Москва · Санкт-Петербург · їжак · ґанок', 'uk'),
+            ('Tiếng Việt · Nguyễn · đường phố · trường học', 'vi'),
         ]
         for day_style, night_style in (('Regular', 'RegularNight'), ('Italic', 'ItalicNight')):
             day_path = ROOT/'fonts'/f'SEIReader-{day_style}.otf'
@@ -194,6 +197,21 @@ class NightGradeTests(unittest.TestCase):
                 self.assertEqual(day_priv.StdVW, 170)
                 self.assertEqual(night_priv.StdVW, 162)
                 self.assertEqual(night_font.getGlyphOrder(), day_font.getGlyphOrder())
+                for table in ('GSUB', 'GDEF'):
+                    self.assertEqual(
+                        night_font[table].compile(night_font),
+                        day_font[table].compile(day_font),
+                        f'{night_style} {table} table mismatch',
+                    )
+                from fontTools.misc.xmlWriter import XMLWriter
+                from io import BytesIO
+                kern_indices = {idx for rec in day_font['GPOS'].table.FeatureList.FeatureRecord
+                                if rec.FeatureTag in ('kern', 'cpsp') for idx in rec.Feature.LookupListIndex}
+                for idx in sorted(kern_indices):
+                    b_night, b_day = BytesIO(), BytesIO()
+                    night_font['GPOS'].table.LookupList.Lookup[idx].toXML(XMLWriter(b_night), night_font)
+                    day_font['GPOS'].table.LookupList.Lookup[idx].toXML(XMLWriter(b_day), day_font)
+                    self.assertEqual(b_night.getvalue(), b_day.getvalue(), f'{night_style} GPOS lookup {idx} mismatch')
                 for glyph in day_font.getGlyphOrder():
                     self.assertEqual(
                         night_font['hmtx'][glyph][0],

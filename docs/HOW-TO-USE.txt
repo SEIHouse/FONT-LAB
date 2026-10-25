@@ -8,7 +8,7 @@ EASIEST APP INSTALL
   LICENSE permits ecosystem creative use/customization and authorized SEIHouse
   app/web distribution. Unrelated app embedding and standalone redistribution
   require permission; see the included full license.
-  The default is 12 full WOFF2 fonts (ten Day faces plus two Night-mode Regular/Italic optical-grade faces; 858,444 font bytes), with no build dependencies,
+  The default is 12 full WOFF2 fonts (ten Day faces plus two Night-mode Regular/Italic optical-grade faces; 855,196 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.

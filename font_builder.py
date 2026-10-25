@@ -814,28 +814,17 @@ class FontBuilderCore:
             if base_ps_style in self.STYLE_KERN:
                 KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
             else:
-                from build_subsets import VIETNAMESE_NEW
-                styles_file = os.path.join(self.asset_dir, 'kern_styles.json')
-                langs_file = os.path.join(self.asset_dir, 'kern_languages.json')
-                has_meta = (os.path.exists(styles_file) and os.path.exists(langs_file)
-                            and base_ps_style in json.loads(__import__('pathlib').Path(styles_file).read_text(encoding='utf-8'))
-                            and base_ps_style in json.loads(__import__('pathlib').Path(langs_file).read_text(encoding='utf-8')))
-                if not has_meta:
-                    saved_grade = self.GRADE; self.GRADE = 0
-                    try:
-                        import tempfile
-                        day_data = self.export()
-                        with tempfile.TemporaryDirectory() as tmp:
-                            self.build(day_data, os.path.join(tmp, f'SEIReader-{base_ps_style}.otf'), style, italic)
-                    finally:
-                        self.GRADE = saved_grade
-                    with open(styles_file, 'w', encoding='utf-8') as file: json.dump(self.STYLE_KERN, file, ensure_ascii=False)
-                    with open(langs_file, 'w', encoding='utf-8') as file: json.dump(self.LANGUAGE_KERN, file, ensure_ascii=False)
-                with open(os.path.join(self.asset_dir, 'kern_styles.json'), encoding='utf-8') as file: KERN = dict(json.load(file)[base_ps_style])
-                with open(os.path.join(self.asset_dir, 'kern_languages.json'), encoding='utf-8') as file: hu = dict(json.load(file)[base_ps_style]['hu'])
-                for k, v in self.settings.get('pairSpace', {}).items(): KERN[k] = v
-                script_exceptions = {pair: value for pair, value in KERN.items() if any(0x370 <= ord(c) <= 0x3ff or 0x400 <= ord(c) <= 0x491 or ord(c) in VIETNAMESE_NEW for c in pair)}
-                self.STYLE_KERN[base_ps_style] = dict(KERN); self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style] = dict(script_exceptions); self.LANGUAGE_KERN[base_ps_style] = {'hu': dict(hu)}
+                saved_grade = self.GRADE; self.GRADE = 0
+                try:
+                    import tempfile
+                    day_data = self.export()
+                    with tempfile.TemporaryDirectory() as tmp:
+                        self.build(day_data, os.path.join(tmp, f'SEIReader-{base_ps_style}.otf'), style, italic)
+                finally:
+                    self.GRADE = saved_grade
+
+
+                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
         else:
             self.STYLE_KERN[ps_style] = dict(KERN); self._STYLE_SCRIPT_EXCEPTIONS[ps_style] = dict(script_exceptions)
             self.LANGUAGE_KERN[ps_style] = {'hu': self.hungarian_caps(paths, hm, cmap, KERN)}; hu = self.LANGUAGE_KERN[ps_style]['hu']
