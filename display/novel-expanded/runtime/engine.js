@@ -1065,12 +1065,12 @@ window.getScriptChars=()=>[...PHASE4_SCRIPT].filter(ch=>G[ch] && !ACC[ch] && lat
 /** Interpolate stroke corrections without changing any glyph advance. */
 function readingStroke(S){ const g = P.grade || 0;
   const anchors = [[40,0],[70,4],[85,0],[100,-3],[115,0]];
-  if(S <= 40 || S >= 115) return Math.max(40, S + g);
+  if(S <= 40 || S >= 115) return g ? Math.max(Math.min(40, S), S + g) : S;
   for(let i=1; i<anchors.length; i++){
     const [x0,d0] = anchors[i-1], [x1,d1] = anchors[i];
-    if(S <= x1) return Math.max(40, S + d0 + (d1-d0)*(S-x0)/(x1-x0) + g);
+    if(S <= x1){ const v = S + d0 + (d1-d0)*(S-x0)/(x1-x0); return g ? Math.max(40, v + g) : v; }
   }
-  return Math.max(40, S + g);
+  return g ? Math.max(40, S + g) : S;
 }
 
 /* ---------- joined letters: fi and fl ---------- */

@@ -146,6 +146,8 @@ test('Night-mode optical grade (-4) reduces Regular 85 stroke to 81 while preser
   const evaluate = engine(source, baseOptions);
   assert.equal(evaluate('NIGHT_GRADE'), -4);
   assert.equal(evaluate('readingStroke(85)'), 85);
+  assert.equal(evaluate('readingStroke(30)'), 30);
+  assert.ok(JSON.parse(evaluate('JSON.stringify(exportGlyphs(30).A)')).paths.every(p => p.w === 30));
   const dayE = evaluate('glyph("e",85).body');
   const dayExport = JSON.parse(evaluate('JSON.stringify({glyphs:exportGlyphs(85), alternates:exportAlternates(85)})'));
   evaluate('P.grade = NIGHT_GRADE');
