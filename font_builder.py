@@ -821,7 +821,7 @@ class FontBuilderCore:
                     with tempfile.TemporaryDirectory() as tmp:
                         day_otf = os.path.join(tmp, f'SEIReader-{base_ps_style}.otf')
                         self.build(day_data, day_otf, style, italic)
-                        existing_day = os.path.join(os.path.dirname(path), f'SEIReader-{base_ps_style}.otf')
+                        existing_day = os.path.join(os.path.dirname(out), f'SEIReader-{base_ps_style}.otf')
                         if os.path.exists(existing_day):
                             with TTFont(existing_day) as old_day, TTFont(day_otf) as new_day:
                                 old_adv = [old_day['hmtx'][g][0] for g in old_day.getGlyphOrder()]

@@ -2,9 +2,9 @@
   "name": "@seihouse/living-titles",
   "version": "0.1.1",
   "filename": "seihouse-living-titles-0.1.1.tgz",
-  "bytes": 634554,
-  "sha256": "86f8bc4336535e20eb3218c4a4e3b46fbf53df618e6645b5f35b9b40650e08d2",
-  "integrity": "sha512-ob5+vzkei6wir+0jV5jOlEESXXXtlpl8RUUF8m9HIOi6HX25wqmBB2NLMSl/TAIhgwrIBsAXh08T9m23cU7XoA==",
+  "bytes": 634553,
+  "sha256": "b658cd5a1cc2098868e0ee47dc61e2fe7cd0f77a35255e5d99229a63a858bcee",
+  "integrity": "sha512-j5Izb/ZghYuT4lU76rrUIUjv9FZ3IgQoi5w2HgU/1EENYoe5G2cFFS1Rw3iTJdaVZF7RpMBDDudEBDshKs5Lnw==",
   "provenance": {
     "schema": 2,
     "profiles": [
@@ -15,19 +15,19 @@
     ],
     "cuts": {
       "soft": {
-        "source_sha256": "2f753d69156abee47f2476e6f4260b5da160c782a2cb6303fadea21a5b25d3f7",
+        "source_sha256": "bb92357b99fc59c919471b0ceff1d4b03dc647d1097b4508de44896e5961367c",
         "fixture_sha256": "d8d5013e0f8debf698d9a08b7166af100342fe42a4632bf08fb42b48b3cee665"
       },
       "edge": {
-        "source_sha256": "db337546dd8302e56d00dd9e9bd5b1cd3532cc5fdb251f7324a0217786a0e60c",
+        "source_sha256": "464079bd0c690448b8cf6c0b14d0211ea0256b9678de811a3b19780979b73c07",
         "fixture_sha256": "1bbd80f0904ac2a861f3bec6031821e21d23e31c3e0a8a385e2c2a0d034b9b55"
       },
       "ink": {
-        "source_sha256": "2e15acef4cb98b9297be3d84a7cfec489280af7eb801a97c246730f1777a200d",
+        "source_sha256": "072e911a3c2acc4d81fbfd07e1b73f6ee845f91cf17d1975ddc44522e28f6525",
         "fixture_sha256": "003c1772d2b01a4d440d99d0ea62542f4c5f076dfd2392fd8a746024b1954b38"
       },
       "wide": {
-        "source_sha256": "77398e150dca886016cec06f58dd930e0b7ded96d6083efb74961ba598d9f92e",
+        "source_sha256": "bac51410862c4d4e42eb0f9987c15c3105779ed87f016c7b581a6947618af4ff",
         "fixture_sha256": "cb2a22e3517efe23388752fd8e50930051da33b81d78b9001491eb676ad20ae9"
       }
     },
