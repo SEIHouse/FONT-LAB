@@ -815,8 +815,8 @@ class FontBuilderCore:
                 KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
             else:
                 from build_subsets import VIETNAMESE_NEW
-                with open(os.path.join(HERE, 'kern_styles.json'), encoding='utf-8') as file: KERN = dict(json.load(file)[base_ps_style])
-                with open(os.path.join(HERE, 'kern_languages.json'), encoding='utf-8') as file: hu = dict(json.load(file)[base_ps_style]['hu'])
+                with open(os.path.join(self.asset_dir, 'kern_styles.json'), encoding='utf-8') as file: KERN = dict(json.load(file)[base_ps_style])
+                with open(os.path.join(self.asset_dir, 'kern_languages.json'), encoding='utf-8') as file: hu = dict(json.load(file)[base_ps_style]['hu'])
                 script_exceptions = {pair: value for pair, value in KERN.items() if any(0x370 <= ord(c) <= 0x3ff or 0x400 <= ord(c) <= 0x491 or ord(c) in VIETNAMESE_NEW for c in pair)}
         else:
             self.STYLE_KERN[ps_style] = dict(KERN); self._STYLE_SCRIPT_EXCEPTIONS[ps_style] = dict(script_exceptions)

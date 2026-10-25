@@ -48,7 +48,7 @@ Apply the face to the intended prose:
 }
 ```
 
-For Regular (400) body text, `var(--seihouse-sans-regular-family, "SEIHouse Sans")` (or `var(--seireader-regular-family, "SEIReader")` with `fonts.css` / `fonts-full.css`) automatically selects `"SEIHouse Sans Night"` (`81` source stroke units, `--seihouse-sans-grade: -4`) in dark/Night themes and `"SEIHouse Sans"` (`85` source stroke units, `--seihouse-sans-grade: 0`) in Day themes while preserving 100% identical advance widths and kerning so line breaks never reflow. For containers that switch weights dynamically (300/400/500), apply `var(--seihouse-sans-regular-family)` at weight 400 and `"SEIHouse Sans"` at other weights.
+For Regular (400) body text, `var(--seihouse-sans-regular-family, "SEIHouse Sans")` with `sans.css` / `fonts-sans.css` automatically selects `"SEIHouse Sans Night"` (`81` source stroke units, `--seihouse-sans-grade: -4`) in dark/Night themes and `"SEIHouse Sans"` (`85` source stroke units, `--seihouse-sans-grade: 0`) in Day themes, whereas `var(--seireader-regular-family, "SEIReader")` with `fonts.css` / `fonts-full.css` selects `"SEIReader Night"` and `"SEIReader"`, preserving 100% identical advance widths and kerning so line breaks never reflow. For containers that switch weights dynamically (300/400/500), apply `var(--seihouse-sans-regular-family)` at weight 400 and `"SEIHouse Sans"` at other weights.
 
 Keep the app's existing size, line height, spacing, and width for its first trial.
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.

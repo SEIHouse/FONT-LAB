@@ -49,7 +49,7 @@ def audit(baseline=None):
                 assert font['OS/2'].usWeightClass == weight, filename
                 assert bool(font['OS/2'].fsSelection & 1) == (slant == 'italic'), filename
                 checked += 1
-                if baseline is not None and (baseline / filename).exists():
+                if baseline is not None and (style not in ('RegularNight', 'ItalicNight') or (baseline / filename).exists()):
                     with TTFont(baseline / filename) as before:
                         assert before.getGlyphOrder() == font.getGlyphOrder(), filename
                         assert before.getBestCmap() == font.getBestCmap(), filename
