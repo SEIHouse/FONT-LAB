@@ -6,7 +6,7 @@ import uharfbuzz as hb
 from fontTools.pens.boundsPen import BoundsPen
 from fontTools.ttLib import TTFont
 
-from build_subsets import HERE, STYLES, SUBSETS, subset_groups
+from build_subsets import ALL_STYLES, HERE, STYLES, SUBSETS, subset_groups
 
 DIGITS = '0123456789'
 NAMES = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
@@ -105,8 +105,8 @@ def verify_style(style):
 
 
 if __name__ == '__main__':
-    for style, _, _ in STYLES:
+    for style, _, _ in ALL_STYLES:
         verify_style(style)
     css = open(os.path.join(HERE, 'fonts.css'), encoding='utf-8').read()
-    assert css.count('@font-face') == len(STYLES) * len(SUBSETS)
-    print(f'Phase 2 shaping and {len(STYLES)*len(SUBSETS)} web subsets verified')
+    assert css.count('@font-face') == len(ALL_STYLES) * len(SUBSETS)
+    print(f'Phase 2 shaping and {len(ALL_STYLES)*len(SUBSETS)} web subsets verified')

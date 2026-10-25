@@ -136,3 +136,34 @@ test('live accent clusters do not reuse the cached base letter preview', () => {
   assert.ok((marked.match(/<circle/g) || []).length === 2);
   assert.equal(evaluate('penBody(glyph("a",135))'), base);
 });
+
+test('Night-mode optical grade (-4) reduces Regular 85 stroke to 81 while preserving exact glyph widths', () => {
+  const baseOptions = {round:settings.lowercaseRoundness, contrast:settings.contrast,
+    xh:settings.xHeight, caprx:settings.capitalRoundness, ws:settings.letterWidth,
+    base:settings.weight, os:+settings.overshoot, ufoot:+settings.uFoot, ital:0,
+    straight:settings.uprightStraightness, asc:settings.ascender,
+    trk:settings.spaceBetweenAllLetters};
+  const evaluate = engine(source, baseOptions);
+  assert.equal(evaluate('NIGHT_GRADE'), -4);
+  assert.equal(evaluate('readingStroke(85)'), 85);
+  const dayE = evaluate('glyph("e",85).body');
+  const dayExport = JSON.parse(evaluate('JSON.stringify({glyphs:exportGlyphs(85), alternates:exportAlternates(85)})'));
+  evaluate('P.grade = NIGHT_GRADE');
+  assert.equal(evaluate('readingStroke(85)'), 81);
+  const nightE = evaluate('glyph("e",85).body');
+  assert.notEqual(nightE, dayE);
+  assert.ok(nightE.includes('stroke-width="81.0"'));
+  const nightExport = JSON.parse(evaluate('JSON.stringify({glyphs:exportGlyphs(85), alternates:exportAlternates(85)})'));
+  for (const group of ['glyphs', 'alternates']) {
+    assert.deepEqual(Object.keys(nightExport[group]), Object.keys(dayExport[group]));
+    for (const [key, dayGlyph] of Object.entries(dayExport[group])) {
+      const nightGlyph = nightExport[group][key];
+      assert.equal(nightGlyph.w, dayGlyph.w, `${group}.${key} skeleton width`);
+      assert.equal(nightGlyph.sb0, dayGlyph.sb0, `${group}.${key} left sidebearing`);
+      assert.equal(nightGlyph.sb1, dayGlyph.sb1, `${group}.${key} right sidebearing`);
+    }
+  }
+  assert.ok(nightExport.glyphs.H.paths.every(p => p.w === 81));
+  evaluate('P.grade = 0');
+  assert.equal(evaluate('glyph("e",85).body'), dayE);
+});

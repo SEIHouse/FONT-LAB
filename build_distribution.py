@@ -18,6 +18,24 @@ ROOT = Path(__file__).resolve().parent
 WEIGHTS = (300, 400, 500, 600, 700)
 from phase4_support import face_order
 SUBSETS = face_order()
+NIGHT_CSS_TAIL = '''/* Night-mode optical grade (-4 source stroke units -> 81 units at Regular 85; exact 85 advances, zero reflow). */
+:root {
+  --seihouse-sans-family: "SEIReader";
+  --seihouse-sans-regular-family: "SEIReader";
+  --seihouse-sans-grade: 0;
+  --seireader-family: "SEIReader";
+  --seireader-regular-family: "SEIReader";
+  --seireader-grade: 0;
+}
+
+.night,
+[data-theme="night"],
+[data-mode="night"] {
+  --seihouse-sans-regular-family: "SEIReader Night", "SEIReader";
+  --seihouse-sans-grade: -4;
+  --seireader-regular-family: "SEIReader Night", "SEIReader";
+  --seireader-grade: -4;
+}'''
 
 
 def family_faces(root=ROOT):
@@ -31,13 +49,17 @@ def family_faces(root=ROOT):
         style, subset = match.groups()
         weight = int(re.search(r'font-weight:\s*(\d+);', block).group(1))
         slant = re.search(r'font-style:\s*(normal|italic);', block).group(1)
-        face = faces.setdefault(style, {'style': style, 'weight': weight, 'slant': slant, 'blocks': {}})
-        if (face['weight'], face['slant']) != (weight, slant) or subset in face['blocks']:
+        night = 'font-family: "SEIReader Night";' in block
+        face = faces.setdefault(style, {'style': style, 'weight': weight, 'slant': slant, 'night': night, 'blocks': {}})
+        if (face['weight'], face['slant'], face['night']) != (weight, slant, night) or subset in face['blocks']:
             raise ValueError(f'Conflicting or duplicate face: {style}')
         face['blocks'][subset] = '@font-face {' + block + '}'
-    if len(faces) != 10 or {(f['weight'], f['slant']) for f in faces.values()} != {
+    standard = [f for f in faces.values() if not f['night']]; night_faces = [f for f in faces.values() if f['night']]
+    if len(standard) != 10 or {(f['weight'], f['slant']) for f in standard} != {
             (w, s) for w in WEIGHTS for s in ('normal', 'italic')}:
         raise ValueError('Expected five weights, each upright and italic')
+    if len(night_faces) != 2 or {(f['weight'], f['slant']) for f in night_faces} != {(400, 'normal'), (400, 'italic')}:
+        raise ValueError('Expected RegularNight and ItalicNight optical grade faces')
     if any(tuple(f['blocks']) != SUBSETS for f in faces.values()):
         raise ValueError('Subset face order or inventory changed')
     return list(faces.values())
@@ -56,13 +78,16 @@ def full_stylesheet(faces, font_version, family='SEIReader'):
     """Register full fonts, with relative URLs and no Unicode face splitting."""
     blocks = [f'/* SEIHouse Sans {font_version}: full web family; keep next to fonts/. */']
     for face in faces:
+        face_family = f'{family} Night' if face.get('night') else family
         blocks.append(f'''@font-face {{
-  font-family: "{family}";
+  font-family: "{face_family}";
   src: url("./fonts/SEIReader-{face['style']}.woff2") format("woff2");
   font-style: {face['slant']};
   font-weight: {face['weight']};
   font-display: swap;
 }}''')
+    if any(f.get('night') for f in faces):
+        blocks.append(NIGHT_CSS_TAIL.replace('"SEIReader', f'"{family}'))
     return ('\n\n'.join(blocks) + '\n').encode('utf-8')
 
 
@@ -101,8 +126,9 @@ def build_archive(delivery='full', weights=WEIGHTS, output_dir=None, root=ROOT):
     if delivery == 'full':
         css = full_stylesheet(faces, font_version)
     else:
-        css = ('\n\n'.join(f['blocks'][s] for f in faces for s in SUBSETS) + '\n').encode('utf-8')
-    sans_css = css.replace(b'font-family: "SEIReader";', b'font-family: "SEIHouse Sans";')
+        blocks = [f['blocks'][s] for f in faces for s in SUBSETS] + ([NIGHT_CSS_TAIL] if any(f.get('night') for f in faces) else [])
+        css = ('\n\n'.join(blocks) + '\n').encode('utf-8')
+    sans_css = css.replace(b'"SEIReader', b'"SEIHouse Sans')
     files = {'fonts.css': css, 'sans.css': sans_css,
              'LICENSE': (root/'LICENSE').read_bytes(), 'FONT-LICENSE.txt': (root/'FONT-LICENSE.txt').read_bytes()}
     intro = (f'SEIHouse Sans {font_version} app bundle (legacy SEIReader asset paths)\nDelivery: {delivery}\nWeights: {", ".join(map(str, weights))}\n'

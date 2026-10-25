@@ -2,6 +2,19 @@
 
 Newest first.
 
+- **Reader Night-mode optical grade (2026-10-25)** Added a Night-mode optical
+  grade at `81` source stroke units (`NIGHT_GRADE = -4` from Regular `85`) for
+  upright (`SEIReader-RegularNight`) and real italic (`SEIReader-ItalicNight`)
+  to counter light-on-dark irradiation at 15–20px while preserving 100% identical
+  nominal `85` advance widths (`hmtx`), tracking, and kerning (`GPOS`) so line
+  breaks never reflow when toggling Day and Night. Added full `.otf`/`.woff2`
+  faces, all 14 Unicode-range `.woff2` subsets, `GRAD = -4` in `STAT`, and CSS
+  custom properties (`--seihouse-sans-regular-family`, `--seireader-regular-family`,
+  `--seihouse-sans-grade`, `--seireader-grade`) in `fonts.css`, `fonts-full.css`,
+  and `fonts-sans.css`. Wired the Night grade across the Reader Lab, comparison
+  preview, three-chapter reading test, and workshop homepage specimen. All ten
+  standard Day styles remain byte-identical to `0.39`.
+
 - **Display Lab: layout, flat nib, local builds and per-cut motion approval
   (2026-10-10)** The Lab is reorganized around picking a cut and moving Shape,
   Pen and Spacing; letter designs, artist/tracks, export, the full character

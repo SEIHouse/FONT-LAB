@@ -121,9 +121,9 @@ The existing Reader font package and font build interfaces remain unchanged.
 |---|---|
 | `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
 | [`display/`](display/README.md) | SEIHouse Display 0.1: four cut settings, live Lab, shared-core entry point, kerning maps and OTF/WOFF2 fonts |
-| `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, as full `.woff2` and `.otf` files plus seven WOFF2 subset deliveries per style |
-| `fonts.css` | Ready-to-use `@font-face` rules for all 70 Latin and script WOFF2 subsets |
-| `fonts-full.css` | Recommended app stylesheet for the ten full web fonts; no Unicode face splitting |
+| `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, plus the Night-mode optical grade (`SEIReader-RegularNight` and `SEIReader-ItalicNight` at `81` source stroke units with exact `85` advance widths), as full `.woff2` and `.otf` files plus seven WOFF2 subset deliveries per style |
+| `fonts.css` | Ready-to-use `@font-face` rules for all 84 Latin and script WOFF2 subsets plus `--seireader-regular-family` / `--seihouse-sans-regular-family` |
+| `fonts-full.css` | Recommended app stylesheet for the full web fonts (10 weights/italics + 2 Night-grade faces); no Unicode face splitting |
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |

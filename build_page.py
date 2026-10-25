@@ -22,6 +22,10 @@ WORDER = [w for w in ['Light','Regular','Medium','SemiBold','Bold'] if w in WEIG
 WCLASS = {'Light':300,'Regular':400,'Medium':500,'SemiBold':600,'Bold':700}
 FONTLIST = [{'name':'SEIReader','weight':str(WCLASS[w]),'style':'normal','data':b64(f'fonts/SEIReader-{w}.woff2')} for w in WORDER]
 FONTLIST += [{'name':'SEIReader','weight':str(WCLASS[w]),'style':'italic','data':b64('fonts/SEIReader-' + ('Italic' if w == 'Regular' else w + 'Italic') + '.woff2')} for w in WORDER]
+FONTLIST += [
+  {'name':'SEIReader Night','weight':'400','style':'normal','data':b64('fonts/SEIReader-RegularNight.woff2')},
+  {'name':'SEIReader Night','weight':'400','style':'italic','data':b64('fonts/SEIReader-ItalicNight.woff2')},
+]
 OLD = b64('old/previous.woff2')
 FONTLIST.append({'name':'SEIReader Previous','weight':'400','style':'normal','data':OLD})
 ENGINE = open(os.path.join(HERE, 'engine.js'), encoding='utf-8').read()
@@ -147,6 +151,7 @@ html = r'''<!DOCTYPE html>
   .sidelabel{ font:12px system-ui,sans-serif; color:var(--r-mute); margin-bottom:10px; letter-spacing:.02em; }
   @media (max-width:860px){ .side{ grid-template-columns:1fr; } }
   .f-new{ font-family:'SEIReader', system-ui, sans-serif; font-synthesis:none; }
+  .chamber.night .f-new{ font-family:'SEIReader Night', 'SEIReader', system-ui, sans-serif; }
   .f-old{ font-family:'SEIReader Previous', system-ui, sans-serif; font-synthesis:none; }
 
   .number-grid{ display:grid; grid-template-columns:repeat(auto-fit,minmax(235px,1fr)); gap:12px; }
@@ -464,7 +469,7 @@ let lastKey = '';
 function applyToEngine(){
   const key = [S_.weight,S_.xHeight,S_.lowercaseRoundness,S_.capitalRoundness,S_.letterWidth,S_.overshoot,S_.uFoot].join('|');
   if(key !== lastKey){ for(const k in cache) delete cache[k]; lastKey = key; }
-  P.base = S_.weight; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
+  P.base = S_.weight; P.grade = 0; P.round = S_.lowercaseRoundness; P.xh = S_.xHeight; P.caprx = S_.capitalRoundness; P.ws = S_.letterWidth; P.contrast = SR_BAKED.contrast; P.straight = SR_BAKED.uprightStraightness; P.asc = SR_BAKED.ascender; P.os = S_.overshoot ? 1 : 0; P.ufoot = S_.uFoot ? 1 : 0;
 }
 const bm = c => latinBase(c);
 /** Resolve user overrides before the nearest baked weight and italic pair map. */
@@ -543,6 +548,8 @@ function renderChamber(){
   inner.style.setProperty('--measure', RD.measure + 'ch');
   inner.style.setProperty('--rsize', RD.size + 'px');
   inner.style.setProperty('--rlh', RD.lh);
+  const prevGrade = P.grade;
+  P.grade = RD.night ? NIGHT_GRADE : 0;
   const liveHTML = () =>
       `<div class="clabel">${drawText('Chapter 12', 13, 1.3)}</div>` +
       `<div class="title">${drawText('The Last Gate', 32, 1.25)}</div>` +
@@ -571,6 +578,7 @@ function renderChamber(){
     inner.className = 'inner filemode ' + (RD.view === 'old' ? 'f-old' : 'f-new');
     inner.innerHTML = fileHTML();
   }
+  P.grade = prevGrade;
 }
 function renderAllChars(){
   const rows = ['ABCDEFGHIJKLM NOPQRSTUVWXYZ','abcdefghijklm nopqrstuvwxyz','0123456789 Il1 O0o bd pq nu',". , : ; … ! ? ' \" ‘ ’ “ ” - – — ( ) [ ] / % + =",

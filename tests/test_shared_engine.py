@@ -7,6 +7,7 @@ import tempfile
 import unittest
 
 from fontTools.ttLib import TTFont
+import uharfbuzz as hb
 
 from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, ROOT, audit_features,
                                   reader_flags, legacy_flags)
@@ -173,6 +174,60 @@ class DisplayDesignTests(unittest.TestCase):
     def test_only_explicit_space_glyphs_may_have_no_ink(self):
         for name in ('space', 'uni2009', 'uni202F'):
             self.assertEqual(blank_flags(name, outline(self.font, name)), [])
+
+
+class NightGradeTests(unittest.TestCase):
+    def test_night_grade_has_81_unit_stroke_and_zero_reflow_metrics(self):
+        samples = [
+            ('The gate will remain closed until morning, Iñés said. Lian placed Mei’s entry beside the lamp and read it again.', None),
+            ('“Entry 12?” — 312, 314; 1,234.56 · 8.50% · ½ ¼ ¾ · office reflection', None),
+            ('İpek · Işık · fikir · fi · fı', 'tr'),
+            ('Ștefan · țară · ş ţ · ș ț', 'ro'),
+            ('Őrző · tűz · TY TTY · gyűrű', 'hu'),
+        ]
+        for day_style, night_style in (('Regular', 'RegularNight'), ('Italic', 'ItalicNight')):
+            day_path = ROOT/'fonts'/f'SEIReader-{day_style}.otf'
+            night_path = ROOT/'fonts'/f'SEIReader-{night_style}.otf'
+            with TTFont(day_path) as day_font, TTFont(night_path) as night_font:
+                day_priv = day_font['CFF '].cff.topDictIndex[0].Private
+                night_priv = night_font['CFF '].cff.topDictIndex[0].Private
+                self.assertEqual(day_priv.StdVW, 170)
+                self.assertEqual(night_priv.StdVW, 162)
+                self.assertEqual(night_font.getGlyphOrder(), day_font.getGlyphOrder())
+                for glyph in day_font.getGlyphOrder():
+                    self.assertEqual(
+                        night_font['hmtx'][glyph][0],
+                        day_font['hmtx'][glyph][0],
+                        f'{night_style} advance mismatch on {glyph}',
+                    )
+                failures, _ = audit_features(night_font)
+                self.assertEqual(failures, [])
+            day_shaper = hb.Font(hb.Face(day_path.read_bytes()))
+            night_shaper = hb.Font(hb.Face(night_path.read_bytes()))
+            for text, lang in samples:
+                for features in ({'kern': True, 'liga': True}, {'kern': True, 'liga': True, 'tnum': True}):
+                    buf_day = hb.Buffer()
+                    buf_day.add_str(text)
+                    buf_day.guess_segment_properties()
+                    if lang:
+                        buf_day.language = lang
+                    hb.shape(day_shaper, buf_day, features)
+
+                    buf_night = hb.Buffer()
+                    buf_night.add_str(text)
+                    buf_night.guess_segment_properties()
+                    if lang:
+                        buf_night.language = lang
+                    hb.shape(night_shaper, buf_night, features)
+
+                    self.assertEqual(
+                        [info.codepoint for info in buf_night.glyph_infos],
+                        [info.codepoint for info in buf_day.glyph_infos],
+                    )
+                    self.assertEqual(
+                        [(pos.x_advance, pos.y_advance) for pos in buf_night.glyph_positions],
+                        [(pos.x_advance, pos.y_advance) for pos in buf_day.glyph_positions],
+                    )
 
 
 if __name__ == '__main__':

@@ -93,7 +93,7 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
   }
 
   .reader-text {
-    font-family: 'SEIReader', system-ui, sans-serif;
+    font-family: var(--seireader-regular-family, 'SEIReader'), system-ui, sans-serif;
     font-weight: 400;
     font-synthesis: none;      /* never fake bold or italic; the real files cover both */
     font-size: 20px;
