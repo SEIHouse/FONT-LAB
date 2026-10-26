@@ -127,7 +127,7 @@ RHYTHM_SETTINGS = ('weight','weights','contrast','lowercaseRoundness','spaceBetw
                    'letterSpace','xHeight','capitalRoundness','letterWidth','overshoot','uFoot',
                    'italicAngle','uprightStraightness','ascender')
 SEPARATE_LATIN = set('ĄąĘęĮįŲų')
-MITER_LIMIT = 2
+MITER_LIMIT = 2; NIGHT_GRADE = -4
 
 HERE = os.path.dirname(os.path.abspath(__file__))
 with open(os.path.join(HERE, 'old', '0.31', 'settings.json'), encoding='utf-8') as file:
@@ -154,12 +154,12 @@ class FontBuilderCore:
         self.JOIN_SHARP = settings.get('joins', 'round') == 'sharp'
         self.NIB = display and settings.get('pen', 'oval') == 'nib'
         self.configured_shapes = display or self.PEN != 0 or self.CAP_FLAT or self.JOIN_SHARP or settings.get('slant', 0) != 0 or settings.get('corners', 'soft') != 'soft'
-        self.ITAL = False
+        self.ITAL = False; self.GRADE = 0
         self.ITAL_EXTRA_SPACE = 0 if display else 4
         self.TRACK = settings['spaceBetweenAllLetters']
         self.VERSION = settings.get('version', '0.1') if display else release_version()
         self.FAMILY = 'SEIHouse Display '+settings.get('name', 'Soft') if display else settings['family']
-        self.STYLE_KERN = {}; self.LANGUAGE_KERN = {}
+        self.STYLE_KERN = {}; self.LANGUAGE_KERN = {}; self._STYLE_SCRIPT_EXCEPTIONS = {}
         self.PRESERVE_RHYTHM = not self.configured_shapes and all(settings.get(k) == rhythm_settings.get(k) for k in RHYTHM_SETTINGS)
 
 
@@ -184,7 +184,7 @@ class FontBuilderCore:
                     corner=self.settings.get('corners', 'soft'), cap=self.settings.get('ends', 'round'),
                     join=self.settings.get('joins', 'round'), penAngle=self.PEN,
                     pen='nib' if self.NIB else 'oval',
-                    obliqueAngle=self.settings.get('slant', 0))) + ");")
+                    obliqueAngle=self.settings.get('slant', 0), grade=getattr(self, 'GRADE', 0))) + ");")
                 if self.display:
                     pg.evaluate('(choices)=>P.alternates=displayChoices(choices)', self.settings.get('alternates', {}))
                 out = {'glyphs': pg.evaluate(f'exportGlyphs({self.S})'), 'alternates': pg.evaluate(f'exportAlternates({self.S})'),
@@ -599,8 +599,10 @@ class FontBuilderCore:
             raise ValueError('Display obliques use slant settings, without italic letter substitutions')
         sloped = italic or oblique
         TR = self.track_for(self.S) + (self.ITAL_EXTRA_SPACE if italic else 0)
-        ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
-        shown = ('Italic' if style == 'Regular' else style + ' Italic') if italic else style
+        grade = getattr(self, 'GRADE', 0); night = bool(grade)
+        base_ps_style = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
+        ps_style = base_ps_style + ('Night' if night else '')
+        shown = (('Italic' if style == 'Regular' else style + ' Italic') if italic else style) + (' Night' if night else '')
         if oblique:
             ps_style = 'Oblique' if style == 'Regular' else style + 'Oblique'
             shown = 'Oblique' if style == 'Regular' else style + ' Oblique'
@@ -716,7 +718,10 @@ class FontBuilderCore:
                  'manufacturer': OWNER, 'designer': OWNER,
                  'vendorURL': PROJECT_URL, 'designerURL': PROJECT_URL,
                  'licenseDescription': LICENSE_DESCRIPTION, 'licenseInfoURL': LICENSE_URL}
-        if style in ('Regular', 'Bold'):
+        if night:
+            names.update({'familyName': f'{self.FAMILY} Night', 'styleName': 'Italic' if italic else 'Regular',
+                          'typographicFamily': self.FAMILY, 'typographicSubfamily': shown})
+        elif style in ('Regular', 'Bold'):
             names.update({'familyName': self.FAMILY,
                           'styleName': (('Italic' if style == 'Regular' else 'Bold Italic') if italic else style)})
         else:   # apps that only understand Regular/Bold/Italic still list it, as "SEIReader Light"
@@ -758,6 +763,7 @@ class FontBuilderCore:
             axes.append(dict(tag='slnt', name='Slant', values=[dict(value=-self.SLANT, name='Oblique', flags=0x2)]))
         axes.append(dict(tag='ital', name='Italic', values=[dict(value=1, name='Oblique' if oblique else 'Italic')] if sloped else
                          [dict(value=0, name='Roman', flags=0x2, linkedValue=1)]))
+        if night: axes.append(dict(tag='GRAD', name='Grade', values=[dict(value=grade, name='Night')]))
         buildStatTable(fb.font, axes, elidedFallbackName=2)
         fb.setupPost(isFixedPitch=0, underlinePosition=-120*SC, underlineThickness=60*SC, italicAngle=-self.SLANT if sloped else 0)
 
@@ -774,14 +780,14 @@ class FontBuilderCore:
             KERN.update(AUTO)
         else:
             KERN.update(self.optical_pairs(paths, hm, cmap, KERN, italic))
-        self.retain_reading_pairs(KERN, ps_style)
+        self.retain_reading_pairs(KERN, base_ps_style)
         self.clear_text_marks(paths, hm, cmap, KERN, data.get('basemap', {}))
         # Additive foundation: retain every approved old pair when geometry is unchanged.
         latin_dir = os.path.join(HERE, 'old', '0.33')
         with open(os.path.join(latin_dir, 'settings.json'), encoding='utf-8') as file: latin_settings = json.load(file)
         if not self.configured_shapes and all(self.settings.get(k) == latin_settings.get(k) for k in RHYTHM_SETTINGS):
-            with open(os.path.join(latin_dir, 'kern_styles.json'), encoding='utf-8') as file: old_kern = json.load(file)[ps_style]
-            with TTFont(os.path.join(latin_dir, f'SEIReader-{ps_style}.woff2')) as old_font: old_codes = set(old_font.getBestCmap())
+            with open(os.path.join(latin_dir, 'kern_styles.json'), encoding='utf-8') as file: old_kern = json.load(file)[base_ps_style]
+            with TTFont(os.path.join(latin_dir, f'SEIReader-{base_ps_style}.woff2')) as old_font: old_codes = set(old_font.getBestCmap())
             for pair in list(KERN):
                 if all(ord(ch) in old_codes for ch in pair) and pair not in old_kern: del KERN[pair]
             KERN.update(old_kern)
@@ -793,8 +799,8 @@ class FontBuilderCore:
         KERN.update(numeric_pairs)
         if self.PRESERVE_RHYTHM:
             with open(os.path.join(HERE,'old','0.34','kern_styles.json'),encoding='utf-8') as file:
-                approved=json.load(file)[ps_style]
-            with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{ps_style}.woff2')) as font:
+                approved=json.load(file)[base_ps_style]
+            with TTFont(os.path.join(HERE,'old','0.34',f'SEIReader-{base_ps_style}.woff2')) as font:
                 approved_codes=set(font.getBestCmap())
             for pair in list(KERN):
                 if all(ord(ch) in approved_codes for ch in pair) and pair not in approved:
@@ -804,9 +810,33 @@ class FontBuilderCore:
         script_exceptions = self.script_clearance(paths, hm, cmap, KERN, data['basemap'])
         script_exceptions.update(self.vietnamese_clearance(paths, hm, cmap, KERN, data['basemap']))
         KERN.update(script_exceptions)
-        self.STYLE_KERN[ps_style] = dict(KERN)
-        self.LANGUAGE_KERN[ps_style]={'hu':self.hungarian_caps(paths,hm,cmap,KERN)}
-        if style == 'Regular' and not italic:
+        if night:
+            if base_ps_style in self.STYLE_KERN:
+                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
+            else:
+                saved_grade = self.GRADE; self.GRADE = 0
+                try:
+                    import tempfile
+                    day_data = self.export()
+                    with tempfile.TemporaryDirectory() as tmp:
+                        day_otf = os.path.join(tmp, f'SEIReader-{base_ps_style}.otf')
+                        self.build(day_data, day_otf, style, italic)
+                        existing_day = os.path.join(os.path.dirname(out), f'SEIReader-{base_ps_style}.otf')
+                        if os.path.exists(existing_day):
+                            with TTFont(existing_day) as old_day, TTFont(day_otf) as new_day:
+                                old_adv = [old_day['hmtx'][g][0] for g in old_day.getGlyphOrder()]
+                                new_adv = [new_day['hmtx'][g][0] for g in new_day.getGlyphOrder()]
+                                if old_adv != new_adv or old_day['GPOS'].compile(old_day) != new_day['GPOS'].compile(new_day):
+                                    raise ValueError(f'Night build requires a paired Day rebuild for {base_ps_style}')
+                finally:
+                    self.GRADE = saved_grade
+
+
+                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
+        else:
+            self.STYLE_KERN[ps_style] = dict(KERN); self._STYLE_SCRIPT_EXCEPTIONS[ps_style] = dict(script_exceptions)
+            self.LANGUAGE_KERN[ps_style] = {'hu': self.hungarian_caps(paths, hm, cmap, KERN)}; hu = self.LANGUAGE_KERN[ps_style]['hu']
+        if style == 'Regular' and not italic and not night:
             name = 'kern_auto_'+self.settings['name'].lower().replace(' ', '-')+'.json' if self.display else 'kern_auto.json'
             with open(os.path.join(self.asset_dir, name), 'w', encoding='utf-8') as file:
                 json.dump(AUTO, file, ensure_ascii=False)
@@ -855,7 +885,6 @@ class FontBuilderCore:
             fea += f' pos @tabular_figures {self.gname(separator)} {round(KERN.get("0" + separator, 0)*SC)};\n'
             fea += f' pos {self.gname(separator)} @tabular_figures {round(KERN.get(separator + "0", 0)*SC)};\n'
         fea += '} kern;\n'
-        hu=self.LANGUAGE_KERN[ps_style]['hu']
         if hu:
             fea+='feature kern {\n script latn; language HUN; lookup HungarianCaps {\n lookupflag IgnoreMarks;\n'
             fea+='\n'.join(f' pos {self.gname(pair[0])} {self.gname(pair[1])} {value*SC};' for pair,value in hu.items())

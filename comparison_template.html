@@ -22,7 +22,7 @@ button{cursor:pointer}label{display:flex;align-items:center;gap:8px}input[type=c
 .paragraph-inspection{margin:1em 0}.paragraph-inspection summary{font:600 14px/1.4 system-ui,sans-serif;cursor:pointer}.paragraph-inspection .caption{font:14px/1.4 system-ui,sans-serif}
 .sample p{margin:0 0 1em}.sample p:last-child{margin:0}.words{padding-top:16px;border-top:1px solid var(--line)}
 .noliga{font-variant-ligatures:none}.proof{margin-top:32px}.proof-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}.proof-case{padding:16px;background:var(--panel);border:1px solid var(--line);border-radius:8px}.proof-case h3{font:600 14px/1.4 system-ui;margin:0 0 12px;color:var(--muted)}.proof-case p{margin:0 0 .6em}.proof-text{font-synthesis:none;font-kerning:normal;font-variant-ligatures:common-ligatures;letter-spacing:0;line-height:1.4;overflow-wrap:break-word}.proof-text .noliga{font-variant-ligatures:none}.proof-status{color:var(--muted)}
-.Candidate{font-family:Candidate}.Baseline{font-family:Baseline}.Literata{font-family:Literata;font-optical-sizing:none;font-variation-settings:'opsz' 20}.Rubik{font-family:Rubik}
+.Candidate{font-family:var(--candidate-family,Candidate)}.proof-text.Candidate{font-family:Candidate}body:not(.day) .proof-text.Candidate[data-weight="400"]{font-family:CandidateNight,Candidate}.Baseline{font-family:Baseline}.Literata{font-family:Literata;font-optical-sizing:none;font-variation-settings:'opsz' 20}.Rubik{font-family:Rubik}
 .metrics{overflow:auto;margin-top:32px}table{border-collapse:collapse;width:100%;font-size:15px}td,th{text-align:left;border-bottom:1px solid var(--line);padding:12px}
 .metrics h2{margin-bottom:12px}footer{margin-top:24px;color:var(--muted);max-width:100ch}footer p{margin:.8em 0}a{color:var(--accent)}
 details{margin:20px 0}summary{cursor:pointer;color:var(--fg)}.study-notes{max-width:90ch}code{font-size:.92em}
@@ -116,14 +116,15 @@ byId('language').addEventListener('change',renderLanguage);
 const proofText=`<p>“Mei’s,” Iñés said: “Wait… don’t!”</p><p><em>“Entry 12?” — 312, 314; 8.50%</em></p><p>0123456789 · 1,234.56 · 6089</p><p class="tnum">0123456789 · 1,234.56 · 6089 (tnum)</p><p><em>½ ¼ ¾ · ² ₃ · fi fl · Á ñ ü ç</em></p><p>minimum · murmur · river</p><p>climate · parallel · everywhere</p><p><em>minimum · murmur · river</em></p><p><em>climate · parallel · everywhere</em></p><p>ri rn cl li iv vi ll yw tw ur um</p><p>a e c s · Á É à ñ ü ç · 1⁄2 · ☯ ⚡ ▲ ♥</p><p class="noliga">fi fl · office · reflection (joins off)</p>`;
 const languageProof=`<p lang="pl">Łucja · gęś · źródło · ŻÓŁĆ</p><p lang="cs"><em>Děvče · pojď · kůň · Jiří · ďťľĽ</em></p><p lang="hu">Őrző · tűz · erő · ŐŰőű</p><p lang="tr">İpek · Işık · fikir · fi · fı</p><p lang="ro"><em>Ștefan · țară · ş ţ · ș ț</em></p><p lang="ha">ƁƊƘƳ · ɓɗƙƴ · r\u0303</p><p lang="ig"><em>ị́ · ọ̀ · ụ́ · Ị́ · Ọ̀ · Ụ́ · Ṅ</em></p><p lang="mi">Whāia · māramatanga · ĀĒĪŌŪ</p>`;
 const latinProof=`<p>Café · Cafe\u0301 · Iñés · In\u0303e\u0301s</p><p>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</p><p><em>n\u0304 m\u0300 x\u0323 g\u0303 i\u0304 j\u0301 A\u0302\u0301</em></p><p>„Lian: ‚Warte!‘“ «\u202fIñés entre.\u202f»</p>`+languageProof;
-byId('proof-grid').innerHTML=[300,400,500].flatMap(weight=>[13,15,17].flatMap(size=>['Candidate','Baseline'].map(family=>`<article class="proof-case"><h3>${names[family]} · ${weight===300?'Light':weight===400?'Regular':'Medium'} · ${size}px</h3><div class="proof-text ${family}" style="font-size:${size}px;font-weight:${weight}">${latinProof+proofText}</div></article>`))).join('');
-Promise.all(['Candidate','Baseline'].flatMap(family=>[300,400,500].flatMap(weight=>['normal','italic'].map(style=>document.fonts.load(`${style} ${weight} 17px ${family}`,'Lian Iñés ﬁﬂ'))))).then(loaded=>{
+byId('proof-grid').innerHTML=[300,400,500].flatMap(weight=>[13,15,17].flatMap(size=>['Candidate','Baseline'].map(family=>`<article class="proof-case"><h3>${names[family]} · ${weight===300?'Light':weight===400?'Regular':'Medium'} · ${size}px</h3><div class="proof-text ${family}" data-weight="${weight}" style="font-size:${size}px;font-weight:${weight}">${latinProof+proofText}</div></article>`))).join('');
+Promise.all([...['Candidate','Baseline'].flatMap(family=>[300,400,500].flatMap(weight=>['normal','italic'].map(style=>document.fonts.load(`${style} ${weight} 17px ${family}`,'Lian Iñés ﬁﬂ')))),...['normal','italic'].map(style=>document.fonts.load(`${style} 400 17px CandidateNight`,'Lian Iñés ﬁﬂ'))]).then(loaded=>{
   byId('proof-status').textContent=loaded.every(faces=>faces.length>0)?'Candidate and baseline fonts loaded · real upright and italic.':'Some font faces did not load. Reload before evaluating spacing.';
 }).catch(()=>{byId('proof-status').textContent='Font loading failed. Reload before evaluating spacing.'});
 byId('metric-rows').innerHTML=Object.entries(metrics).map(([name,m])=>`<tr><th scope="row">${names[name]}</th><td>${m.x.toFixed(3)}</td><td>${m.cap.toFixed(3)}</td><td>${(100*m.x/m.cap).toFixed(1)}%</td><td>${m.space.toFixed(3)}</td></tr>`).join('');
 function update(){
   const size=Number(byId('size').value);
   document.documentElement.style.setProperty('--weight',byId('weight').value);
+  document.documentElement.style.setProperty('--candidate-family',(!document.body.classList.contains('day')&&byId('weight').value==='400')?'CandidateNight, Candidate':'Candidate');
   document.querySelectorAll('.sample').forEach(el=>{
     const family=el.dataset.family;
     const scale=byId('matched').checked?metrics.Candidate.inkX/metrics[family].inkX:1;
@@ -140,6 +141,7 @@ byId('theme').addEventListener('click',()=>{
   const day=document.body.classList.toggle('day');
   byId('theme').textContent=day?'Night':'Day';
   byId('theme').setAttribute('aria-pressed',String(day));
+  update();
 });
 update();
 </script>

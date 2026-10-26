@@ -79,3 +79,38 @@
   font-weight: 700;
   font-display: swap;
 }
+
+@font-face {
+  font-family: "SEIReader Night";
+  src: url("./fonts/SEIReader-RegularNight.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "SEIReader Night";
+  src: url("./fonts/SEIReader-ItalicNight.woff2") format("woff2");
+  font-style: italic;
+  font-weight: 400;
+  font-display: swap;
+}
+
+/* Night-mode optical grade (-4 source stroke units -> 81 units at Regular 85; exact 85 advances, zero reflow). */
+:root {
+  --seihouse-sans-family: "SEIReader";
+  --seihouse-sans-regular-family: "SEIReader";
+  --seihouse-sans-grade: 0;
+  --seireader-family: "SEIReader";
+  --seireader-regular-family: "SEIReader";
+  --seireader-grade: 0;
+}
+
+.night,
+[data-theme="night"],
+[data-mode="night"] {
+  --seihouse-sans-regular-family: "SEIReader Night", "SEIReader";
+  --seihouse-sans-grade: -4;
+  --seireader-regular-family: "SEIReader Night", "SEIReader";
+  --seireader-grade: -4;
+}

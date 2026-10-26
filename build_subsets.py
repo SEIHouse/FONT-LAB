@@ -17,6 +17,8 @@ STYLES = (
     ('Bold', 700, 'normal'), ('BoldItalic', 700, 'italic'),
 )
 from phase4_support import face_order
+NIGHT_STYLES = (('RegularNight', 400, 'normal'), ('ItalicNight', 400, 'italic'))
+ALL_STYLES = STYLES + NIGHT_STYLES
 SUBSETS = FACE_ORDER = face_order()
 LANGUAGE_PUNCTUATION = {0x00A1, 0x00AA, 0x00BA, 0x00BF}
 PRECOMPOSED_FRACTIONS = {0x00BC, 0x00BD, 0x00BE}
@@ -98,7 +100,7 @@ def write_subset(source, output, codes, *, keep_notdef_outline=False):
         if os.path.exists(temporary): os.remove(temporary)
 
 
-def build_subsets():
+def build_subsets(*, night_only=False):
     """Build and validate the current WOFF2 subsets, then refresh both app stylesheets."""
     with open(os.path.join(HERE, 'settings.json'), encoding='utf-8') as file:
         version = json.load(file)['version']
@@ -106,7 +108,9 @@ def build_subsets():
     version = release_version()
     css = [f'/* SEIHouse Sans {version}: legacy SEIReader CSS alias; keep next to fonts/. */']
     expected = None
-    for style, weight, slant in STYLES:
+    for style, weight, slant in ALL_STYLES:
+        is_night = style.endswith('Night')
+        family_name = 'SEIReader Night' if is_night else 'SEIReader'
         source = os.path.join(HERE, 'fonts', f'SEIReader-{style}.otf')
         font = TTFont(source)
         codes = set(font.getBestCmap())
@@ -122,9 +126,10 @@ def build_subsets():
         for name in FACE_ORDER:
             output_name = f'SEIReader-{style}.{name}.woff2'
             output = os.path.join(HERE, 'fonts', output_name)
-            write_subset(source, output, groups[name])
+            if not night_only or is_night or not os.path.exists(output):
+                write_subset(source, output, groups[name])
             css.append(f'''@font-face {{
-  font-family: "SEIReader";
+  font-family: "{family_name}";
   src: url("./fonts/{output_name}") format("woff2");
   font-style: {slant};
   font-weight: {weight};
@@ -132,6 +137,8 @@ def build_subsets():
   unicode-range: {unicode_range(groups[name])};
 }}''')
             print('subset', style, name, len(groups[name]), 'encoded characters')
+    from build_distribution import NIGHT_CSS_TAIL, write_full_css
+    css.append(NIGHT_CSS_TAIL)
     with open(os.path.join(HERE, 'fonts.css'), 'w', encoding='utf-8', newline='\n') as file:
         file.write('\n\n'.join(css) + '\n')
     # The app's default delivery uses existing full WOFF2 files. Keep both CSS options current.

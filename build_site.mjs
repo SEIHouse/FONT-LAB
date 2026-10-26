@@ -23,7 +23,7 @@ const pages = [
   'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md', 'docs/SIZE-DENSITY-0.39.md',
   'docs/HEALTH-CHECK.txt', 'docs/DESIGN-GOALS.md', 'docs/WEBSITE.md',
 ];
-const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic'];
+const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic','RegularNight','ItalicNight'];
 const displayFiles = displayInventory(root);
 const files = [...pages, ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
   ...new Set(displayFiles)];

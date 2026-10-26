@@ -12,8 +12,9 @@
   /** Update the live specimen with actual font files and supported style controls. */
   function updateSpecimen() {
     const isReader = byId('family').value === 'reader';
+    const nightRegular = isReader && document.documentElement.dataset.theme !== 'day' && byId('weight').value === '400';
     const sample = byId('specimen');
-    sample.style.fontFamily = families[byId('family').value] + ', sans-serif';
+    sample.style.fontFamily = (nightRegular ? '"SEIReader Night", SEIReader' : families[byId('family').value]) + ', sans-serif';
     sample.style.fontSize = byId('size').value + 'px';
     sample.style.fontWeight = isReader ? byId('weight').value : '400';
     sample.style.fontStyle = isReader && italic ? 'italic' : 'normal';
@@ -38,6 +39,7 @@
   theme.addEventListener('click', () => {
     const value = document.documentElement.dataset.theme === 'day' ? 'night' : 'day';
     setTheme(value);
+    updateSpecimen();
     try { localStorage.setItem('seihouse.home.theme', value); } catch { /* Theme works without storage. */ }
   });
   ['family','weight','size'].forEach(id => byId(id).addEventListener('input', updateSpecimen));

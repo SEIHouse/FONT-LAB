@@ -25,6 +25,8 @@ for folder, family in [('fonts', 'Candidate'), (f'old/{BASELINE_VERSION}', 'Base
             name = ('Italic' if style == 'Regular' else style + 'Italic') if italic else style
             faces.append((family, str(weight), 'italic' if italic else 'normal',
                           ROOT / folder / f'SEIReader-{name}.woff2'))
+faces.append(('CandidateNight', '400', 'normal', ROOT / 'fonts/SEIReader-RegularNight.woff2'))
+faces.append(('CandidateNight', '400', 'italic', ROOT / 'fonts/SEIReader-ItalicNight.woff2'))
 for folder, family, weight_range in [('literata', 'Literata', '200 900'), ('rubik', 'Rubik', '300 900')]:
     for italic in (False, True):
         path = ROOT / 'references' / folder / ('Italic.woff2' if italic else 'Regular.woff2')

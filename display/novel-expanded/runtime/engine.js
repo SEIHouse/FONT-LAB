@@ -411,7 +411,8 @@ for(const digit of DIGITS) for(const separator of '.,'){
 
 /* ---------- settings the sliders control ---------- */
 const P = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1, xh:520, ws:1, caprx:210, space:250, os:1, ufoot:1, ital:0, slant:9, straight:1, asc:770,
-  corner:'soft', cap:'round', join:'round', penAngle:0, pen:'oval', obliqueAngle:0, alternates:null };
+  corner:'soft', cap:'round', join:'round', penAngle:0, pen:'oval', obliqueAngle:0, alternates:null, grade:0 };
+const NIGHT_GRADE = -4;
 const DEFAULTS = { base:108, boost:0, round:0.5, track:9, size:17, contrast:1 };
 
 /* Display designs are opt-in. The Reader retains its original skeletons and
@@ -1062,14 +1063,14 @@ function scriptReuse(ch){ return (P.ital && SCRIPT_ITALIC_REUSE[ch]) || SCRIPT_R
 window.getScriptChars=()=>[...PHASE4_SCRIPT].filter(ch=>G[ch] && !ACC[ch] && latinBase(ch)===ch).join('');
 
 /** Interpolate stroke corrections without changing any glyph advance. */
-function readingStroke(S){
+function readingStroke(S){ const g = P.grade || 0;
   const anchors = [[40,0],[70,4],[85,0],[100,-3],[115,0]];
-  if(S <= 40 || S >= 115) return S;
+  if(S <= 40 || S >= 115) return g ? Math.max(Math.min(40, S), S + g) : S;
   for(let i=1; i<anchors.length; i++){
     const [x0,d0] = anchors[i-1], [x1,d1] = anchors[i];
-    if(S <= x1) return S + d0 + (d1-d0)*(S-x0)/(x1-x0);
+    if(S <= x1){ const v = S + d0 + (d1-d0)*(S-x0)/(x1-x0); return g ? Math.max(40, v + g) : v; }
   }
-  return S;
+  return g ? Math.max(40, S + g) : S;
 }
 
 /* ---------- joined letters: fi and fl ---------- */
@@ -1269,7 +1270,7 @@ function languageGlyph(ch,S,removeDot=false){
 
 /** Resolve a character or alternate into its cached SVG drawing and horizontal metrics. */
 function glyph(ch, S){
-  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}|${P.pen}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}`;
+  const ck = `${ch}|${S}|${P.round}|${P.contrast}|${P.xh}|${P.ws}|${P.caprx}|${P.os}|${P.ufoot}|${P.ital}|${P.straight}|${P.asc}|${P.corner}|${P.cap}|${P.join}|${P.penAngle}|${P.pen}${LIG[ch] ? '|' + P.trk : ''}${P.alternates ? '|'+JSON.stringify(displayChoices(P.alternates)) : ''}${P.grade ? '|'+P.grade : ''}`;
   if(cache[ck] !== undefined) return cache[ck];
   if(P.alternates && DISPLAY_VARIANTS[ch]){
     const spec=DISPLAY_VARIANTS[ch], keep=P.alternates;

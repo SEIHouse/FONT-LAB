@@ -1,7 +1,7 @@
 # Install SEIHouse Sans in an app
 
 SEIHouse Sans 0.39 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
-each with its real italic. The app needs WOFF2 files and CSS. It needs no Python,
+each with its real italic, plus a Night-mode optical grade (`SEIReader-RegularNight` and `SEIReader-ItalicNight` at `81` source stroke units with exact `85` advance widths so line breaks never reflow when toggling Day/Night). The app needs WOFF2 files and CSS. It needs no Python,
 font-building tools, JavaScript runtime library, or reference fonts.
 
 ## Recommended: the full web family
@@ -42,11 +42,13 @@ Apply the face to the intended prose:
 
 ```css
 .chapter-prose {
-  font-family: "SEIHouse Sans", system-ui, sans-serif;
+  font-family: var(--seihouse-sans-regular-family, "SEIHouse Sans"), system-ui, sans-serif;
   font-synthesis: none;
   font-kerning: normal;
 }
 ```
+
+For Regular (400) body text, `var(--seihouse-sans-regular-family, "SEIHouse Sans")` with `sans.css` / `fonts-sans.css` automatically selects `"SEIHouse Sans Night"` (`81` source stroke units, `--seihouse-sans-grade: -4`) in dark/Night themes and `"SEIHouse Sans"` (`85` source stroke units, `--seihouse-sans-grade: 0`) in Day themes, whereas `var(--seireader-regular-family, "SEIReader")` with `fonts.css` / `fonts-full.css` selects `"SEIReader Night"` and `"SEIReader"`, preserving 100% identical advance widths and kerning so line breaks never reflow. For containers that switch weights dynamically (300/400/500), apply `var(--seihouse-sans-regular-family)` at weight 400 and `"SEIHouse Sans"` at other weights.
 
 Keep the app's existing size, line height, spacing, and width for its first trial.
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.

@@ -7,12 +7,12 @@ import argparse
 import json
 from pathlib import Path
 
-from font_builder import FontBuilderCore
+from font_builder import FontBuilderCore, NIGHT_GRADE
 
 HERE = Path(__file__).resolve().parent
 
 
-def build_fonts(settings, outdir=None):
+def build_fonts(settings, outdir=None, *, night_only=False):
     """Build upright/italic weights, spacing data and the standard web subsets."""
     outdir = Path(outdir) if outdir else HERE / 'fonts'
     outdir.mkdir(parents=True, exist_ok=True)
@@ -22,8 +22,8 @@ def build_fonts(settings, outdir=None):
     weights = dict(settings.get('weights', {}))
     weights['Regular'] = settings['weight']
     for italic in (False, True):
-        builder.ITAL = italic
-        for style, weight in weights.items():
+        builder.ITAL = italic; builder.GRADE = 0
+        for style, weight in ([] if night_only else list(weights.items())):
             builder.S = weight
             data = builder.export()
             if style == 'Regular' and not italic:
@@ -31,17 +31,27 @@ def build_fonts(settings, outdir=None):
             name = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             builder.build(data, str(outdir / f'SEIReader-{name}.otf'), style, italic)
             print('built', builder.FAMILY, builder.VERSION, name, 'thickness', weight)
-    (metadata_dir / 'kern_styles.json').write_text(json.dumps(builder.STYLE_KERN, ensure_ascii=False), encoding='utf-8')
-    (metadata_dir / 'kern_languages.json').write_text(json.dumps(builder.LANGUAGE_KERN, ensure_ascii=False), encoding='utf-8')
+        builder.S = weights['Regular']; builder.GRADE = NIGHT_GRADE
+        night_data = builder.export()
+        night_name = 'ItalicNight' if italic else 'RegularNight'
+        builder.build(night_data, str(outdir / f'SEIReader-{night_name}.otf'), 'Regular', italic)
+        print('built', builder.FAMILY, builder.VERSION, night_name, 'thickness', weights['Regular'], 'grade', NIGHT_GRADE)
+        builder.GRADE = 0
+    styles_path, langs_path = metadata_dir / 'kern_styles.json', metadata_dir / 'kern_languages.json'
+    existing_styles = json.loads(styles_path.read_text(encoding='utf-8')) if night_only and styles_path.exists() else {}
+    styles_path.write_text(json.dumps({**existing_styles, **builder.STYLE_KERN}, ensure_ascii=False), encoding='utf-8')
+    existing_langs = json.loads(langs_path.read_text(encoding='utf-8')) if night_only and langs_path.exists() else {}
+    langs_path.write_text(json.dumps({**existing_langs, **builder.LANGUAGE_KERN}, ensure_ascii=False), encoding='utf-8')
     from build_subsets import build_subsets
     if default_output:
-        build_subsets()
+        build_subsets(night_only=night_only)
 
 
 def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('changes', nargs='?')
     parser.add_argument('--output-dir', type=Path)
+    parser.add_argument('--night-only', action='store_true', help='Build only RegularNight and ItalicNight optical grade fonts')
     args = parser.parse_args()
     settings = json.loads((HERE / 'settings.json').read_text(encoding='utf-8'))
     if args.changes:
@@ -51,7 +61,7 @@ def main():
                     'letterSpace', 'pairSpace', 'corners', 'ends', 'joins', 'penAngle', 'slant'):
             if key in changes:
                 settings[key] = changes[key]
-    build_fonts(settings, args.output_dir)
+    build_fonts(settings, args.output_dir, night_only=args.night_only)
 
 
 if __name__ == '__main__':

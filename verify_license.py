@@ -9,7 +9,7 @@ from pathlib import Path
 
 from fontTools.ttLib import TTFont
 
-from build_subsets import STYLES, SUBSETS
+from build_subsets import ALL_STYLES, STYLES, SUBSETS
 
 ROOT = Path(__file__).resolve().parent
 PROJECT = 'https://github.com/SEIHouse/seihouse-font-lab'
@@ -23,7 +23,7 @@ def audit(baseline=None):
     assert 'Installable document embedding is permitted' in license_text
     assert 'No registered-trademark' in license_text
     checked = preserved = 0
-    for style, weight, slant in STYLES:
+    for style, weight, slant in ALL_STYLES:
         suffixes = ['.otf', '.woff2', *[f'.{subset}.woff2' for subset in SUBSETS]]
         for suffix in suffixes:
             filename = f'SEIReader-{style}{suffix}'
@@ -49,7 +49,7 @@ def audit(baseline=None):
                 assert font['OS/2'].usWeightClass == weight, filename
                 assert bool(font['OS/2'].fsSelection & 1) == (slant == 'italic'), filename
                 checked += 1
-                if baseline is not None:
+                if baseline is not None and (style not in ('RegularNight', 'ItalicNight') or (baseline / filename).exists()):
                     with TTFont(baseline / filename) as before:
                         assert before.getGlyphOrder() == font.getGlyphOrder(), filename
                         assert before.getBestCmap() == font.getBestCmap(), filename
