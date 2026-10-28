@@ -1,0 +1,4 @@
+# Preserve upstream license bytes and its intentional trailing whitespace.
+reference/OFL.txt -text whitespace=-blank-at-eol
+# The portable page embeds that same license verbatim.
+SEIHouse-Noto-Warmth-Studies.html whitespace=-blank-at-eol
