@@ -19,6 +19,8 @@ from fontTools.pens.recordingPen import RecordingPen
 from fontTools.pens.t2CharStringPen import T2CharStringPen
 from fontTools.svgLib.path import parse_path
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString
+from fontTools.ttLib import TTFont
+from fontTools.pens.svgPathPen import SVGPathPen
 
 ROOT = Path(__file__).resolve().parent
 UPM = 1000
@@ -35,6 +37,9 @@ STUDIES = [
     dict(id="B", name="Balanced", cap=14, fullness=.585, width=1.025),
     dict(id="C", name="Pronounced", cap=29, fullness=.625, width=1.05),
 ]
+SELECTED_BASE_ID = 'B'
+REFINEMENT = dict(STUDIES[1], id='R', name='Balanced refinement 01', refinement=1,
+                  family='SEIHouse Noto Balanced', psname='SEIHouseNotoBalanced-Regular')
 
 
 def outline(d):
@@ -74,13 +79,22 @@ class Drawing:
         self.study = study
         self.p = pathops.Path()
 
-    def stroke(self, d):
+    def add(self, path):
+        # Independently filled parts must be united: appending a dot and a tail
+        # can otherwise leave a winding hole where the two overlap.
+        if self.study.get('refinement'):
+            path.convertConicsToQuads(0.01)
+            self.p = pathops.op(self.p, path, pathops.PathOp.UNION)
+        else:
+            self.p.addPath(path)
+
+    def stroke(self, d, weight=STROKE):
         p = outline(d)
         record = RecordingPen()
         parse_path(d, record)
         commands = record.value
-        p.stroke(STROKE, pathops.LineCap.BUTT_CAP, pathops.LineJoin.ROUND_JOIN, 2)
-        self.p.addPath(p)
+        p.stroke(weight, pathops.LineCap.BUTT_CAP, pathops.LineJoin.ROUND_JOIN, 2)
+        self.add(p)
         # Each call is one continuous path, with separate caps for open contours.
         if commands[-1][0] != "closePath":
             segments = [(op, pts) for op, pts in commands if op not in ("endPath", "closePath")]
@@ -88,18 +102,22 @@ class Drawing:
             nxt = segments[1][1][0]
             last = segments[-1][1][-1]
             prev = segments[-1][1][-2] if len(segments[-1][1]) > 1 else segments[-2][1][-1]
-            self.p.addPath(soft_cap(first, (first[0]-nxt[0], first[1]-nxt[1]), self.study["cap"]))
-            self.p.addPath(soft_cap(last, (last[0]-prev[0], last[1]-prev[1]), self.study["cap"]))
+            cap_scale = weight / STROKE
+            for point, direction in [(first, (first[0]-nxt[0], first[1]-nxt[1])),
+                                     (last, (last[0]-prev[0], last[1]-prev[1]))]:
+                # Scale in local coordinates, then translate back to the endpoint.
+                cap = soft_cap((0, 0), direction, self.study['cap'])
+                self.add(cap.transform(cap_scale, 0, 0, cap_scale, *point))
         return self
 
     def bowl(self, x0, y0, x1, y1):
         p = ellipse(x0, y0, x1, y1, self.study["fullness"])
         p.stroke(STROKE, pathops.LineCap.BUTT_CAP, pathops.LineJoin.ROUND_JOIN, 2)
-        self.p.addPath(p)
+        self.add(p)
         return self
 
     def dot(self, x, y, size=42):
-        self.p.addPath(ellipse(x-size, y-size, x+size, y+size, self.study["fullness"]))
+        self.add(ellipse(x-size, y-size, x+size, y+size, self.study["fullness"]))
         return self
 
 
@@ -201,6 +219,8 @@ def draw_alphabet(study):
     put('+', 557, ["M96 320 L461 320", "M278 503 L278 137"])
     put('=', 557, ["M96 410 L461 410", "M96 230 L461 230"])
     put('·', 238, dots=[(119,267,35)])
+    if study.get('refinement'):
+        refine_balanced(g, study)
     # Small accent inventory for the specimen, not a language-coverage claim.
     accents = {'é':('e','acute'), 'á':('a','acute'), 'í':('i','acute'),
                'ó':('o','acute'), 'ú':('u','acute'), 'ö':('o','diaeresis'),
@@ -209,8 +229,11 @@ def draw_alphabet(study):
         width, original = g[base]
         p = pathops.Path()
         if base == 'i':
-            base_d = Drawing(study).stroke("M123 493 L123 36")
+            base_d = Drawing(study).stroke("M123 516 L123 14" if study.get('refinement') else "M123 493 L123 36")
             p.addPath(base_d.p)
+            if study.get('refinement'):
+                # The refined i is spaced by its dot's bounds; preserve that translation.
+                p = p.transform(1, 0, 0, 1, 64-(123-42), 0)
         else: p.addPath(original)
         d = Drawing(study)
         mid = width/2
@@ -222,6 +245,76 @@ def draw_alphabet(study):
         p.addPath(d.p)
         g[ch] = (width,p)
     return g
+
+
+def refine_balanced(g, study):
+    """First optical pass on the owner's chosen B; A/B/C stay reproducible."""
+    def put(ch, width, paths=(), bowls=(), dots=(), fine=()):
+        drawing = Drawing(study)
+        for path in paths:
+            drawing.stroke(path)
+        for box in bowls:
+            drawing.bowl(*box)
+        for dot in dots:
+            drawing.dot(*dot)
+        for path in fine:
+            drawing.stroke(path, weight=68)
+        g[ch] = (width, drawing.p)
+
+    put('a',535,["M113 443 C160 484 219 506 285 506 C379 506 428 455 428 370 L428 14",
+                 "M428 291 C367 310 282 307 208 287 C129 267 85 222 85 153 C85 70 157 28 234 28 C322 28 391 78 428 147"])
+    put('c',500,["M428 438 C387 483 331 508 270 508 C154 508 82 414 82 268 C82 118 155 28 270 28 C333 28 388 55 432 104"])
+    put('e',530,["M435 105 C388 57 332 28 269 28 C151 28 81 117 81 267 C81 416 154 508 269 508 C378 508 442 412 442 292"],
+        fine=["M84 292 L442 292"])
+    put('g',559,["M409 464 C449 502 479 510 513 497",
+                 "M167 278 C107 225 126 174 211 151 L295 143"],
+        [(101,270,427,507),(106,-177,457,112)])
+    shoulder = "M100 363 C143 458 208 506 279 506 C387 506 450 432 450 312 L450 14"
+    for ch, top in [('n',516),('h',710)]:
+        put(ch,557,[f"M100 {top} L100 14", shoulder])
+    put('m',842,["M100 516 L100 14",
+                 "M100 363 C143 458 194 506 257 506 C351 506 403 432 403 312 L403 14",
+                 "M403 363 C446 458 497 506 560 506 C667 506 735 432 735 312 L735 14"])
+    put('r',383,["M100 516 L100 14", "M100 360 C145 457 207 506 277 506 C300 506 321 503 338 497"])
+    put('s',475,["M394 438 C355 481 307 507 244 507 C156 507 103 464 103 402 C103 342 152 313 245 281 C340 249 394 213 394 144 C394 72 329 28 236 28 C173 28 119 51 80 99"])
+    put('u',557,["M100 516 L100 222 C100 106 163 28 271 28 C342 28 407 76 450 170", "M450 516 L450 14"])
+    put('o',550,bowls=[(84,28,466,508)])
+    bowl = "M100 386 C145 463 205 506 272 506 C389 506 465 414 465 267 C465 120 389 28 272 28 C205 28 145 73 100 148"
+    for ch, top, bottom in [('b',710,14),('p',516,-205)]:
+        put(ch,555,[f"M100 {top} L100 {bottom}",bowl])
+    g['d'] = (555, g['b'][1].transform(-1,0,0,1,550,0))
+    g['q'] = (555, g['p'][1].transform(-1,0,0,1,550,0))
+    put('i',246,["M123 516 L123 14"],dots=[(123,674,42)])
+    put('j',267,["M162 516 L162 -55 C162 -160 111 -195 25 -175"],dots=[(162,674,42)])
+    put('l',263,["M116 710 L116 104 C116 46 140 28 201 39"])
+    put('f',338,["M139 14 L139 565 C139 680 188 734 293 706"],fine=["M56 492 L294 492"])
+    put('t',352,["M148 646 L148 152 C148 57 183 28 296 49"],fine=["M56 492 L297 492"])
+
+    # Align the inherited capitals and flat lowercase, retaining round overshoots.
+    # Each shape keeps its x coordinates. Q keeps its existing descender.
+    for ch in 'ABCDEFGHIJKLMNOPRSTUVWXYZvxwz':
+        width, path = g[ch]
+        _, y0, _, y1 = path.bounds
+        low, high = (0,717) if ch.isupper() else (0,530)
+        if ch in 'CGOSU':
+            low, high = -9,726
+        elif ch in 'AVW':
+            low, high = -5,722
+        scale = (high-low)/(y1-y0)
+        g[ch] = (width, path.transform(1,0,0,scale,0,low-y0*scale))
+
+    # Sidebearings come before kerning: shared straight/round spacing groups.
+    bearings = {
+        'a':(44,58),'b':(60,44),'c':(44,42),'d':(44,60),'e':(44,44),
+        'f':(36,22),'g':(44,32),'h':(60,60),'i':(64,64),'k':(60,40),
+        'l':(52,44),'m':(60,60),'n':(60,60),'o':(44,44),'p':(60,44),
+        'q':(44,60),'r':(60,34),'s':(48,48),'t':(38,36),'u':(60,60),
+        'v':(35,35),'w':(35,35),'x':(38,38),'y':(35,35),'z':(42,42),
+    }
+    for ch, (left,right) in bearings.items():
+        _, path = g[ch]
+        x0, _, x1, _ = path.bounds
+        g[ch] = (x1-x0+left+right, path.transform(1,0,0,1,left-x0,0))
 
 
 def build_font(study):
@@ -243,25 +336,39 @@ def build_font(study):
         path.draw(pen)
         charstrings[name] = pen.getCharString(private=None, globalSubrs=None)
         metrics[name] = (width, round(path.bounds[0]) if list(path.verbs) else 0)
-    family = f"SEIHouse Noto Study {study['id']}"
-    psname = f"SEIHouseNotoStudy{study['id']}-Regular"
+    family = study.get('family', f"SEIHouse Noto Study {study['id']}")
+    psname = study.get('psname', f"SEIHouseNotoStudy{study['id']}-Regular")
+    version = '0.002' if study.get('refinement') else '0.001'
     fb = FontBuilder(UPM, isTTF=False)
     fb.setupGlyphOrder(order)
     fb.setupCharacterMap(cmap)
     fb.setupHorizontalMetrics(metrics)
     fb.setupHorizontalHeader(ascent=950, descent=-270)
-    fb.setupNameTable(dict(familyName=family, styleName='Regular', uniqueFontIdentifier=psname+'-0.001',
-        fullName=family+' Regular', psName=psname, version='Version 0.001',
+    fb.setupNameTable(dict(familyName=family, styleName='Regular', uniqueFontIdentifier=psname+'-'+version,
+        fullName=family+' Regular', psName=psname, version='Version '+version,
         copyright='Original study drawings for SEIHouse Productions LLC, 2026. Reference font is separate.',
         description='Limited Latin design study. Not a production or multilingual release.'))
     fb.setupOS2(version=4,sTypoAscender=950,sTypoDescender=-270,sTypoLineGap=0,usWinAscent=1000,usWinDescent=300,
-                sxHeight=537,sCapHeight=717,usWeightClass=400,fsSelection=0xC0,achVendID='SEIH')
+                sxHeight=530 if study.get('refinement') else 537,sCapHeight=717,usWeightClass=400,fsSelection=0xC0,achVendID='SEIH')
     fb.setupPost()
+    if study.get('refinement'):
+        fb.font['head'].fontRevision = float(version)
+        # Functional Latin prose classification for older Windows font selection;
+        # cmap and the manifest, not this compatibility bit, define exact coverage.
+        fb.font['OS/2'].ulCodePageRange1 = 1
+        fb.font['OS/2'].ulCodePageRange2 = 0
     fb.setupCFF(psname, dict(FullName=family+' Regular',FamilyName=family,Weight='Regular'),charstrings,{})
     pairs = [('T','a',-24),('T','o',-30),('T','e',-28),('T','r',-14),('V','a',-24),
              ('V','o',-26),('W','a',-18),('Y','o',-36),('Y','a',-34),('A','V',-30),
              ('A','W',-20),('A','T',-28),('L','T',-28),('L','Y',-26),('F','o',-18),
              ('P','a',-15),('r','.',-26),('r',',',-26)]
+    if study.get('refinement'):
+        pairs += [('T','u',-20),('T','y',-18),('V','e',-24),('V','u',-18),
+                  ('W','o',-18),('W','e',-18),('Y','e',-34),('Y','u',-28),
+                  ('F','a',-18),('F','e',-18),('P','o',-15),('L','V',-24),
+                  ('L','W',-18),('A','Y',-28),('r','o',-8),('r','e',-8)]
+        accents = {'a':'aá','e':'eéè','i':'ií','o':'oóö','u':'uúü','n':'nñ'}
+        pairs = [(a,variant,v) for a,b,v in pairs for variant in accents.get(b,b)]
     features = 'languagesystem DFLT dflt; languagesystem latn dflt; feature kern {\n'
     features += '\n'.join(f'pos {cmap[ord(a)]} {cmap[ord(b)]} {v};' for a,b,v in pairs)
     features += '\n} kern;'
@@ -296,21 +403,45 @@ def fetch_reference():
 
 def portable_comparison():
     page=(ROOT/'index.html').read_text(encoding='utf-8')
-    for study in STUDIES:
-        relative=f"fonts/SEIHouseNotoStudy{study['id']}-Regular.woff2"
+    for study in [*STUDIES, REFINEMENT]:
+        psname=study.get('psname', f"SEIHouseNotoStudy{study['id']}-Regular")
+        relative=f"fonts/{psname}.woff2"
         data=base64.b64encode((ROOT/relative).read_bytes()).decode('ascii')
         page=page.replace(relative,'data:font/woff2;base64,'+data)
     reference=base64.b64encode((ROOT/'reference/NotoSans-Reference.ttf').read_bytes()).decode('ascii')
     page=page.replace('reference/NotoSans-Reference.ttf','data:font/ttf;base64,'+reference)
     page=page.replace('href="reference/OFL.txt"','href="#reference-license"').replace('href="README.md"','href="#study-scope"')
+    page=page.replace('href="../../../index.html"','href="https://fontlab.seihouse.world/"')
+    page=page.replace('<a href="warmth-01.html">First three studies</a>','')
     license_text=html.escape((ROOT/'reference/OFL.txt').read_text(encoding='utf-8'))
     page=page.replace('</main>',f'<details id="reference-license" style="margin-top:24px"><summary>Google Noto Sans reference license</summary><pre style="white-space:pre-wrap;font:12px/1.5 monospace">{license_text}</pre></details></main>')
     (ROOT/'SEIHouse-Noto-Warmth-Studies.html').write_text(page,encoding='utf-8')
 
 
+def glyph_proof():
+    """Draw every encoded glyph from the built CFF, including spacing guides."""
+    with TTFont(ROOT/'fonts'/f"{REFINEMENT['psname']}.otf") as font:
+        cmap, glyphs = font.getBestCmap(), font.getGlyphSet()
+        rows = math.ceil(len(cmap)/8)
+        parts = [f'<svg xmlns="http://www.w3.org/2000/svg" width="1040" height="{rows*150+60}" viewBox="0 0 1040 {rows*150+60}">',
+                 '<rect width="100%" height="100%" fill="#fffcf6"/>',
+                 '<text x="16" y="30" font-family="sans-serif" font-size="18" fill="#273b35">SEIHouse Noto Balanced — Refinement 01 / every encoded glyph</text>']
+        for i, (codepoint, name) in enumerate(sorted(cmap.items())):
+            x, y = (i%8)*130+12, (i//8)*150+52
+            pen = SVGPathPen(glyphs)
+            glyphs[name].draw(pen)
+            parts += [f'<path d="M{x} {y+95} h110 M{x} {y+42} h110" stroke="#d9dcd0" fill="none"/>',
+                      f'<path d="{pen.getCommands()}" transform="translate({x+4} {y+95}) scale(.1 -.1)" fill="#273b35"/>',
+                      f'<text x="{x}" y="{y+135}" font-family="sans-serif" font-size="11" fill="#65736a">U+{codepoint:04X}</text>']
+        parts.append('</svg>')
+        (ROOT/'proofs').mkdir(exist_ok=True)
+        (ROOT/'proofs/balanced-glyphs.svg').write_text('\n'.join(parts)+'\n',encoding='utf-8')
+
+
 if __name__=='__main__':
     fetch_reference()
-    reports=[build_font(s) for s in STUDIES]
+    reports=[build_font(s) for s in [*STUDIES, REFINEMENT]]
     (ROOT/'manifest.json').write_text(json.dumps(reports,ensure_ascii=False,indent=2)+'\n',encoding='utf-8')
     portable_comparison()
+    glyph_proof()
     print(json.dumps([{k:r[k] for k in ('id','name','glyphs','sha256')} for r in reports],indent=2))

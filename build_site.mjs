@@ -9,6 +9,10 @@ const output = join(root, 'dist', 'site');
 const pages = [
   'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
   'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
+  'noto/studies/warmth/warmth-01.html',
+  'noto/DESIGN.md', 'noto/studies/warmth/proofs/balanced-glyphs.svg',
+  ...['refinement','details','dark','mobile'].map(view => `noto/studies/warmth/proofs/balanced-${view}.png`),
+  'noto/studies/warmth/fonts/SEIHouseNotoBalanced-Regular.woff2',
   'noto/studies/warmth/SEIHouse-Noto-Warmth-Studies.html',
   'noto/studies/warmth/reference/NotoSans-Reference.ttf',
   'noto/studies/warmth/reference/OFL.txt', 'noto/studies/warmth/reference/provenance.json',

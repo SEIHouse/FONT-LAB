@@ -14,11 +14,11 @@ async (page) => {
     await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
     const {root} = await cdp.send('DOM.getDocument');
     const actualFonts = {};
-    for (const id of ['a','b','c']) {
+    for (const [id, family] of [['refined','SEIHouse Noto Balanced'], ['baseline','SEIHouse Noto Study B']]) {
       const {nodeId} = await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.'+id+' .prose'});
       const {fonts} = await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
       actualFonts[id] = fonts;
-      if (!fonts.length || fonts.some(font => !font.isCustomFont || !font.familyName.includes('Study '+id.toUpperCase()))) {
+      if (!fonts.length || fonts.some(font => !font.isCustomFont || font.familyName !== family)) {
         throw new Error('Unexpected fallback in study '+id+': '+JSON.stringify(fonts));
       }
     }
@@ -30,16 +30,21 @@ async (page) => {
     await page.setViewportSize({width,height:1100});
     for (const zoom of [false,true]) {
       if ((await page.locator('#zoom').getAttribute('aria-pressed')) !== String(zoom)) await page.locator('#zoom').click();
-      const overflow = await page.evaluate(() => ({document:document.documentElement.scrollWidth > innerWidth, cards:[...document.querySelectorAll('.card')].filter(el=>el.scrollWidth>el.clientWidth+1).length}));
-      if (overflow.document || overflow.cards) throw new Error('Overflow '+width+' zoom='+zoom+' '+JSON.stringify(overflow));
-      viewports.push({width,view:zoom?'details':'reading',overflow:false});
+      for (const view of ['refined','original','compare']) {
+        await page.locator('#view').selectOption(view);
+        const expectedCards = view === 'compare' ? 2 : 1;
+        if (await page.locator('.card:visible').count() !== expectedCards) throw new Error('View selector failed: '+view);
+        const overflow = await page.evaluate(() => ({document:document.documentElement.scrollWidth > innerWidth, cards:[...document.querySelectorAll('.card')].filter(el=>el.clientWidth && el.scrollWidth>el.clientWidth+1).length}));
+        if (overflow.document || overflow.cards) throw new Error('Overflow '+width+' zoom='+zoom+' '+JSON.stringify(overflow));
+        viewports.push({width,view,detail:zoom,overflow:false});
+      }
     }
   }
   await page.locator('#zoom').click();
   await page.locator('#size').focus();
   await page.keyboard.press('End');
   if (await page.locator('#sizeValue').textContent() !== '28 px') throw new Error('Size control failed');
-  if (await page.locator('.a .prose').evaluate(el=>getComputedStyle(el).fontSize) !== '28px') throw new Error('Size was not applied');
+  if (await page.locator('.refined .prose').evaluate(el=>getComputedStyle(el).fontSize) !== '28px') throw new Error('Size was not applied');
   await page.locator('#passage').fill('Warmth, light, and a quiet library.');
   if ((await page.locator('.prose').allTextContents()).some(text=>text!=='Warmth, light, and a quiet library.')) throw new Error('Passage sync failed');
   await page.locator('#passage').fill('');
@@ -52,14 +57,8 @@ async (page) => {
   for (let i=0;i<5;i++) await page.keyboard.press('ArrowRight');
   await page.locator('h1').click();
   await page.evaluate(()=>scrollTo(0,0));
-  await page.screenshot({path:'output/playwright/noto-warmth-desktop.png',fullPage:true});
-  await page.getByRole('button',{name:'Letter details'}).click();
-  await page.screenshot({path:'output/playwright/noto-warmth-details.png',fullPage:true});
-  await page.getByRole('button',{name:'Reading samples'}).click();
   await page.getByRole('button',{name:'View on dark'}).click();
-  await page.screenshot({path:'output/playwright/noto-warmth-dark.png',fullPage:true});
-  await page.setViewportSize({width:390,height:1000});
-  await page.locator('.card.b').screenshot({path:'output/playwright/noto-warmth-mobile-b.png'});
+  if (!await page.locator('body').evaluate(el=>el.classList.contains('dark'))) throw new Error('Theme toggle failed');
   await page.getByRole('button',{name:'View on light'}).click();
   // Verify that the shareable file contains its fonts and works without font requests.
   const requests = [];
@@ -71,6 +70,16 @@ async (page) => {
   const portable = await page.evaluate(()=>[...document.fonts].every(face=>face.status==='loaded'));
   page.off('request',collect);
   if (!portable || requests.some(url=>/\.(woff2|ttf)(\?|$)/.test(url))) throw new Error('Portable comparison depended on external fonts');
+  if (await page.getByRole('link',{name:'Back to Font Lab'}).getAttribute('href') !== 'https://fontlab.seihouse.world/') throw new Error('Portable home link depends on local files');
+  const localLinks = await page.locator('a').evaluateAll(links=>links.map(link=>link.getAttribute('href')).filter(href=>!href.startsWith('#') && !href.startsWith('https://')));
+  if (localLinks.length) throw new Error('Portable navigation depends on local files: '+localLinks);
+  await page.goto('http://127.0.0.1:8768/');
+  await page.getByRole('link',{name:'Noto test',exact:true}).click();
+  await page.getByRole('link',{name:'First three studies'}).click();
+  await page.evaluate(()=>window.fontsReady);
+  if (await page.getByRole('heading',{name:'Balanced',exact:true}).count() !== 1) throw new Error('Original study archive failed');
+  await page.getByRole('link',{name:'Back to Font Lab'}).click();
+  await page.getByRole('link',{name:'Open Noto test page'}).click();
   if (errors.length) throw new Error(errors.join('\n'));
   await page.setViewportSize({width:1440,height:1100});
   return {fontStatus,actualFonts,portableFonts,viewports,controls:'passed',portable:'passed',pageErrors:errors};
