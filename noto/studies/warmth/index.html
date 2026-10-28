@@ -12,6 +12,7 @@
 :root{color-scheme:light;--paper:#f4f0e8;--card:#fffcf6;--ink:#273b35;--muted:#65736a;--line:#d9dcd0;--accent:#85632c;--soft:#e8eddf;--size:20px}
 *{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.55 system-ui,sans-serif}
 body.dark{color-scheme:dark;--paper:#172620;--card:#20352c;--ink:#f1eddd;--muted:#b3c0b2;--line:#405347;--accent:#e3c17d;--soft:#30483b}
+.home-link{display:inline-flex;align-items:center;min-height:44px;margin-bottom:14px;color:var(--ink);text-underline-offset:4px}.home-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
 main{max-width:1440px;margin:auto;padding:44px 38px 30px}.eyebrow{color:var(--accent);font-size:11px;font-weight:650;letter-spacing:.17em;text-transform:uppercase}
 header{display:flex;justify-content:space-between;align-items:flex-start;gap:25px;padding-bottom:25px;border-bottom:1px solid var(--line)}
 h1{font:46px/1.13 StudyB,sans-serif;margin:11px 0}header p{color:var(--muted);margin:0;max-width:580px;font-size:15px}.badge{border:1px solid var(--line);border-radius:99px;padding:9px 15px;white-space:nowrap;font-size:12px;color:var(--muted)}
@@ -28,6 +29,7 @@ h1{font:46px/1.13 StudyB,sans-serif;margin:11px 0}header p{color:var(--muted);ma
 </head>
 <body>
 <main>
+<a class="home-link" href="../../../index.html">← Back to Font Lab</a>
 <header><div><div class="eyebrow">Original type studies · 01</div><h1>SEIHouse Noto</h1><p>A warmer universal sans. Three ways to find its voice.</p></div><div class="badge">Latin design exploration · Regular</div></header>
 <div class="toolbar"><label class="range" for="size">Reading size <input id="size" type="range" min="15" max="28" value="20"><output id="sizeValue" for="size">20 px</output></label><button id="theme" type="button" aria-pressed="false">View on dark</button><button id="zoom" type="button" aria-pressed="false">Letter details</button><span class="hint">Same stroke weight. Increasing softness and openness.</span></div>
 <section class="reference" aria-label="Google Noto Sans reference"><div><div class="title">Google Noto Sans</div><p>Original reference · 400 weight</p></div><div class="text">A familiar warmth. &nbsp; a e g n o r</div></section>
@@ -46,7 +48,7 @@ const supported=new Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz012
 const passage=document.querySelector('#passage');
 document.querySelectorAll('.card').forEach(card=>{const detail=document.createElement('div');detail.className='drawing zoomletters';detail.textContent='a r';card.append(detail)});
 let fontsLoaded=false,fontsFailed=false;
-function update(){const text=passage.value||initial;document.querySelectorAll('.prose').forEach(el=>el.textContent=text);const missing=[...new Set([...text].filter(c=>!supported.has(c)))];const status=document.querySelector('#status');status.classList.toggle('warning',!!missing.length||fontsFailed);status.textContent=fontsFailed?'The study fonts could not load. Please reopen the comparison.':!fontsLoaded?'Loading original study fonts…':missing.length?'Outside this study’s character set (shown with fallback): '+missing.join(' '):'All characters in this passage use the original study fonts.';}
+function update(){const text=passage.value;document.querySelectorAll('.prose').forEach(el=>el.textContent=text);const missing=[...new Set([...text].filter(c=>!supported.has(c)))];const status=document.querySelector('#status');status.classList.toggle('warning',!!missing.length||fontsFailed);status.textContent=fontsFailed?'The study fonts could not load. Please reopen the comparison.':!fontsLoaded?'Loading original study fonts…':missing.length?'Outside this study’s character set (shown with fallback): '+missing.join(' '):'All characters in this passage use the original study fonts.';}
 passage.value=initial;passage.addEventListener('input',update);update();
 document.querySelector('#reset').addEventListener('click',()=>{passage.value=initial;update()});
 document.querySelector('#size').addEventListener('input',event=>{document.documentElement.style.setProperty('--size',event.target.value+'px');document.querySelector('#sizeValue').value=event.target.value+' px'});

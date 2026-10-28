@@ -24,6 +24,12 @@ ROOT = Path(__file__).resolve().parent
 UPM = 1000
 STROKE = 74
 REFERENCE_COMMIT = "9862abc066c9b83bf84c3e8ed1fc2d8d48f9bbf0"
+REFERENCE_FILES = [
+    ('NotoSans%5Bwdth,wght%5D.ttf', 'NotoSans-Reference.ttf',
+     'bfb7bb691513f12e734dc346c03a03f784912432d7e3fa8e56efcf906fe86b3d'),
+    ('OFL.txt', 'OFL.txt',
+     'cee9892f9f0cc8fe882c9e9537ee6a89621d86ee7ceaf70b02e2b2b1c25c061a'),
+]
 STUDIES = [
     dict(id="A", name="Subtle", cap=3, fullness=.545, width=1.0),
     dict(id="B", name="Balanced", cap=14, fullness=.585, width=1.025),
@@ -274,12 +280,17 @@ def fetch_reference():
     ref = ROOT/'reference'
     ref.mkdir(exist_ok=True)
     records = []
-    for remote,local in [('NotoSans%5Bwdth,wght%5D.ttf','NotoSans-Reference.ttf'),('OFL.txt','OFL.txt')]:
+    for remote,local,expected in REFERENCE_FILES:
         url=f'https://raw.githubusercontent.com/google/fonts/{REFERENCE_COMMIT}/ofl/notosans/{remote}'
         target=ref/local
-        if not target.exists():
-            with urllib.request.urlopen(url,timeout=30) as response: target.write_bytes(response.read())
-        records.append(dict(file=local,url=url,sha256=hashlib.sha256(target.read_bytes()).hexdigest()))
+        data = target.read_bytes() if target.exists() else None
+        if data is None or hashlib.sha256(data).hexdigest() != expected:
+            with urllib.request.urlopen(url,timeout=30) as response:
+                data = response.read()
+            if hashlib.sha256(data).hexdigest() != expected:
+                raise ValueError(f'Reference checksum mismatch: {local}')
+            target.write_bytes(data)
+        records.append(dict(file=local,url=url,sha256=expected))
     (ref/'provenance.json').write_text(json.dumps(records,indent=2)+'\n',encoding='utf-8')
 
 

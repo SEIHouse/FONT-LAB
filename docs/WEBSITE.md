@@ -3,6 +3,12 @@
 The repository now has a homepage at [`index.html`](../index.html), with the actual
 Reader and Display fonts, an editable specimen, and links to every workspace.
 
+**Noto test** in the main navigation opens the SEIHouse Noto warmth comparison at
+`noto/studies/warmth/index.html`. A matching workspace card sits above Reader and
+Display. The comparison includes its three prototype web fonts, the separately
+licensed Noto reference, an offline HTML download, study notes, and proof images
+in the public build. Its **Back to Font Lab** link returns to the homepage.
+
 ## Deploy to Vercel
 
 1. Import `SEIHouse/seihouse-font-lab` in Vercel.

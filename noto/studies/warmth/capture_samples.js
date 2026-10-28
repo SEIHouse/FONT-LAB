@@ -1,7 +1,7 @@
 async (page) => {
   const context = await page.context().browser().newContext({viewport:{width:1440,height:1100},deviceScaleFactor:2});
   const proof = await context.newPage();
-  await proof.goto('http://127.0.0.1:8767/');
+  await proof.goto('http://127.0.0.1:8768/noto/studies/warmth/');
   await proof.evaluate(()=>window.fontsReady);
   await proof.screenshot({path:'output/playwright/noto-warmth-desktop.png',fullPage:true,scale:'device'});
   await proof.getByRole('button',{name:'Letter details'}).click();

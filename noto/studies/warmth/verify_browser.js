@@ -1,7 +1,7 @@
 async (page) => {
   const errors = [];
   page.on('pageerror', error => errors.push(error.message));
-  await page.goto('http://127.0.0.1:8767/');
+  await page.goto('http://127.0.0.1:8768/noto/studies/warmth/');
   await page.evaluate(() => window.fontsReady);
   // CDP reports glyph usage only after the newly loaded font has been painted.
   await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
@@ -10,16 +10,21 @@ async (page) => {
   const cdp = await page.context().newCDPSession(page);
   await cdp.send('DOM.enable');
   await cdp.send('CSS.enable');
-  const {root} = await cdp.send('DOM.getDocument');
-  const actualFonts = {};
-  for (const id of ['a','b','c']) {
-    const {nodeId} = await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.'+id+' .prose'});
-    const {fonts} = await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
-    actualFonts[id] = fonts;
-    if (!fonts.length || fonts.some(font => !font.isCustomFont || !font.familyName.includes('Study '+id.toUpperCase()))) {
-      throw new Error('Unexpected fallback in study '+id+': '+JSON.stringify(fonts));
+  async function renderedFonts() {
+    await page.evaluate(() => new Promise(resolve => requestAnimationFrame(() => requestAnimationFrame(resolve))));
+    const {root} = await cdp.send('DOM.getDocument');
+    const actualFonts = {};
+    for (const id of ['a','b','c']) {
+      const {nodeId} = await cdp.send('DOM.querySelector',{nodeId:root.nodeId,selector:'.'+id+' .prose'});
+      const {fonts} = await cdp.send('CSS.getPlatformFontsForNode',{nodeId});
+      actualFonts[id] = fonts;
+      if (!fonts.length || fonts.some(font => !font.isCustomFont || !font.familyName.includes('Study '+id.toUpperCase()))) {
+        throw new Error('Unexpected fallback in study '+id+': '+JSON.stringify(fonts));
+      }
     }
+    return actualFonts;
   }
+  const actualFonts = await renderedFonts();
   const viewports = [];
   for (const width of [360,390,768,1024,1440]) {
     await page.setViewportSize({width,height:1100});
@@ -37,6 +42,8 @@ async (page) => {
   if (await page.locator('.a .prose').evaluate(el=>getComputedStyle(el).fontSize) !== '28px') throw new Error('Size was not applied');
   await page.locator('#passage').fill('Warmth, light, and a quiet library.');
   if ((await page.locator('.prose').allTextContents()).some(text=>text!=='Warmth, light, and a quiet library.')) throw new Error('Passage sync failed');
+  await page.locator('#passage').fill('');
+  if ((await page.locator('.prose').allTextContents()).some(text=>text!=='')) throw new Error('Empty passage was not preserved');
   await page.locator('#passage').fill('Hello 漢');
   if (!(await page.locator('#status').textContent()).includes('Outside this study')) throw new Error('Missing-glyph disclosure failed');
   await page.getByRole('button',{name:'Reset passage'}).click();
@@ -58,12 +65,13 @@ async (page) => {
   const requests = [];
   const collect = request => requests.push(request.url());
   page.on('request',collect);
-  await page.goto('http://127.0.0.1:8767/SEIHouse-Noto-Warmth-Studies.html');
+  await page.goto('http://127.0.0.1:8768/noto/studies/warmth/SEIHouse-Noto-Warmth-Studies.html');
   await page.evaluate(()=>window.fontsReady);
+  const portableFonts = await renderedFonts();
   const portable = await page.evaluate(()=>[...document.fonts].every(face=>face.status==='loaded'));
   page.off('request',collect);
   if (!portable || requests.some(url=>/\.(woff2|ttf)(\?|$)/.test(url))) throw new Error('Portable comparison depended on external fonts');
   if (errors.length) throw new Error(errors.join('\n'));
   await page.setViewportSize({width:1440,height:1100});
-  return {fontStatus,actualFonts,viewports,controls:'passed',portable:'passed',pageErrors:errors};
+  return {fontStatus,actualFonts,portableFonts,viewports,controls:'passed',portable:'passed',pageErrors:errors};
 }

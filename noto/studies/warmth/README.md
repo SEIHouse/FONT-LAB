@@ -70,7 +70,7 @@ controls work, and reading/detail views fit widths of 360, 390, 768, 1024, and
 1440 pixels. The standalone HTML loads its embedded fonts without external font
 requests. These checks do not establish native iPhone rendering or reading comfort.
 
-Serve this folder on port 8767, then run `verify_browser.js` through Playwright
+Run `node build_site.mjs` and serve `dist/site` on port 8768, then run `verify_browser.js` through Playwright
 CLI's `run-code --filename` option. Run `capture_samples.js` afterward to capture
 the four screenshots at 2x pixel density under `output/playwright/`; copy those
 images into `proofs/` when updating the reviewed samples.
