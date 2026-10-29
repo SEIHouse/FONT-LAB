@@ -1,10 +1,30 @@
 import test from 'node:test';
 import assert from 'node:assert/strict';
-import {mkdtempSync, mkdirSync, rmSync, writeFileSync} from 'node:fs';
+import {mkdtempSync, mkdirSync, rmSync, writeFileSync, readFileSync, existsSync} from 'node:fs';
+import {execFileSync} from 'node:child_process';
+import {fileURLToPath} from 'node:url';
 import {tmpdir} from 'node:os';
 import {dirname, join, resolve, sep} from 'node:path';
 import {createHash} from 'node:crypto';
 import {displayInventory} from '../display/site_inventory.mjs';
+
+test('built homepage reaches the Noto comparison and ships its linked assets', () => {
+  const repo = fileURLToPath(new URL('../', import.meta.url));
+  execFileSync(process.execPath, ['build_site.mjs'], {cwd:repo});
+  const output = join(repo, 'dist', 'site');
+  const home = readFileSync(join(output, 'index.html'), 'utf8');
+  const entry = [...home.matchAll(/href="([^"]+)"/g)].map(match=>match[1]).find(href=>href.includes('/noto/'));
+  assert.ok(entry, 'Noto must be reachable from the homepage');
+  const pagePath = resolve(output, entry);
+  const page = readFileSync(pagePath, 'utf8');
+  assert.match(page, /Back to Font Lab/);
+  const refs = [...page.matchAll(/(?:href=|src=)["']([^"']+)["']|url\(['"]?([^)'"\s]+)['"]?\)/g)]
+    .map(match=>match[1] || match[2]).filter(ref=>!ref.startsWith('data:') && !ref.startsWith('#'));
+  assert.ok(refs.some(ref=>ref.endsWith('.woff2')), 'The comparison must load its study fonts');
+  for (const ref of refs) {
+    assert.ok(existsSync(resolve(dirname(pagePath), ref)), `Missing deployed comparison asset: ${ref}`);
+  }
+});
 
 /** Exercise public inventory validation in a disposable collection with a new cut and three styles. */
 function fixture(run) {

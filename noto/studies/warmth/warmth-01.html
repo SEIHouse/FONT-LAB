@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>SEIHouse Noto — three warmth studies</title>
+<style>
+@font-face{font-family:StudyA;src:url('fonts/SEIHouseNotoStudyA-Regular.woff2') format('woff2');font-display:block}
+@font-face{font-family:StudyB;src:url('fonts/SEIHouseNotoStudyB-Regular.woff2') format('woff2');font-display:block}
+@font-face{font-family:StudyC;src:url('fonts/SEIHouseNotoStudyC-Regular.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoReference;src:url('reference/NotoSans-Reference.ttf') format('truetype');font-weight:100 900;font-display:block}
+:root{color-scheme:light;--paper:#f4f0e8;--card:#fffcf6;--ink:#273b35;--muted:#65736a;--line:#d9dcd0;--accent:#85632c;--soft:#e8eddf;--size:20px}
+*{box-sizing:border-box}body{margin:0;background:var(--paper);color:var(--ink);font:14px/1.55 system-ui,sans-serif}
+body.dark{color-scheme:dark;--paper:#172620;--card:#20352c;--ink:#f1eddd;--muted:#b3c0b2;--line:#405347;--accent:#e3c17d;--soft:#30483b}
+.home-link{display:inline-flex;align-items:center;min-height:44px;margin-bottom:14px;color:var(--ink);text-underline-offset:4px}.home-link:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+main{max-width:1440px;margin:auto;padding:44px 38px 30px}.eyebrow{color:var(--accent);font-size:11px;font-weight:650;letter-spacing:.17em;text-transform:uppercase}
+header{display:flex;justify-content:space-between;align-items:flex-start;gap:25px;padding-bottom:25px;border-bottom:1px solid var(--line)}
+h1{font:46px/1.13 StudyB,sans-serif;margin:11px 0}header p{color:var(--muted);margin:0;max-width:580px;font-size:15px}.badge{border:1px solid var(--line);border-radius:99px;padding:9px 15px;white-space:nowrap;font-size:12px;color:var(--muted)}
+.toolbar{display:flex;flex-wrap:wrap;gap:18px;align-items:center;padding:22px 0}.range{display:flex;align-items:center;gap:11px}.range output{width:42px;color:var(--accent);font-variant-numeric:tabular-nums}input[type=range]{accent-color:var(--accent);width:150px;min-height:44px}button{font:inherit;min-height:44px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:8px 16px;cursor:pointer}button:hover{background:var(--soft)}button:focus-visible,input:focus-visible,textarea:focus-visible{outline:3px solid var(--accent);outline-offset:3px}.toolbar .hint{margin-left:auto;color:var(--muted);font-size:12px}
+.reference{display:grid;grid-template-columns:205px 1fr;gap:24px;align-items:center;padding:18px 23px;background:var(--soft);border-radius:12px;margin-bottom:23px}.reference .title{font-size:13px;font-weight:650}.reference p{margin:3px 0 0;color:var(--muted);font-size:12px}.reference .text{font:400 51px/1.1 NotoReference,sans-serif}
+.grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:19px}.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:24px;min-width:0}.card.b{border-color:var(--accent)}.cardtop{display:flex;align-items:center;gap:12px}.letter{display:grid;place-items:center;width:33px;height:33px;border:1px solid var(--line);border-radius:50%;color:var(--accent)}h2{margin:0;font:600 17px system-ui,sans-serif}.sub{font-size:12px;line-height:1.5;color:var(--muted);margin:13px 0 19px;min-height:36px}
+.a{--face:StudyA}.b{--face:StudyB}.c{--face:StudyC}.drawing{font-family:var(--face);font-weight:400;font-synthesis:none}.hero{font-size:51px;line-height:1.1;letter-spacing:-.012em;min-height:118px;margin:17px 0 25px}.details{font-size:51px;line-height:1.1;white-space:nowrap;margin:0;padding:16px 0 21px;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}.prose{font-size:var(--size);line-height:1.65;margin:23px 0;overflow-wrap:break-word;min-height:195px;white-space:pre-wrap}.metadata{font-size:14px;border-top:1px solid var(--line);padding-top:17px;color:var(--muted)}.numerals{font-size:22px;margin-top:6px;letter-spacing:.03em}
+.editor{display:grid;grid-template-columns:1fr 2fr;gap:25px;margin:29px 0 20px;padding:25px 0;border-top:1px solid var(--line)}.editor h3{font-size:15px;margin:0 0 6px}.editor p{color:var(--muted);font-size:13px;margin:0 0 10px}textarea{width:100%;min-height:118px;resize:vertical;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px;font:16px/1.5 system-ui}.status{font-size:12px;color:var(--muted);margin-top:6px}.status.warning{color:var(--accent)}.alphabet{font:23px/1.7 StudyB,sans-serif;overflow-wrap:anywhere;margin:5px 0}.foot{display:flex;justify-content:space-between;gap:20px;border-top:1px solid var(--line);padding-top:19px;color:var(--muted);font-size:12px}.foot a{color:inherit}.foot p{margin:0;max-width:680px}
+.card{container-type:inline-size}.zoomletters{display:none;font-size:clamp(90px,48cqi,180px);line-height:1.25;letter-spacing:.015em;padding:20px 0}.zoom .zoomletters{display:block}.zoom .hero,.zoom .details,.zoom .prose,.zoom .metadata,.zoom .numerals,.zoom .editor,.zoom .alphabet{display:none}.zoom .grid{margin-bottom:28px}
+@media(min-width:1450px){.hero,.reference .text{font-size:58px}}@media(max-width:1050px){main{padding:30px 22px}.card{padding:19px}.hero,.reference .text{font-size:40px;min-height:96px}.details{font-size:39px}.reference{grid-template-columns:170px 1fr}.prose{min-height:250px}}
+@media(max-width:730px){main{padding:24px 17px}header{display:block}h1{font-size:37px}.badge{display:inline-block;margin-top:16px}.toolbar{gap:10px;justify-content:space-between}.toolbar .hint{width:100%;margin:0}.reference{display:block;padding:18px}.reference .text{margin-top:12px;font-size:49px}.grid{grid-template-columns:1fr}.card{padding:24px}.hero{font-size:49px;min-height:0}.details{font-size:49px}.prose{min-height:0}.sub{min-height:0}.editor{grid-template-columns:1fr;gap:12px}.foot{display:block}.foot p+p{margin-top:12px}}
+@media(prefers-reduced-motion:no-preference){body,.card,button{transition:background-color .18s,color .18s}}
+</style>
+</head>
+<body>
+<main>
+<a class="home-link" href="../../../index.html">← Back to Font Lab</a>
+<p>First comparison · Balanced was selected. <a href="index.html">Open the Balanced refinement</a>.</p>
+<header><div><div class="eyebrow">Original type studies · 01</div><h1>SEIHouse Noto</h1><p>A warmer universal sans. Three ways to find its voice.</p></div><div class="badge">Latin design exploration · Regular</div></header>
+<div class="toolbar"><label class="range" for="size">Reading size <input id="size" type="range" min="15" max="28" value="20"><output id="sizeValue" for="size">20 px</output></label><button id="theme" type="button" aria-pressed="false">View on dark</button><button id="zoom" type="button" aria-pressed="false">Letter details</button><span class="hint">Same stroke weight. Increasing softness and openness.</span></div>
+<section class="reference" aria-label="Google Noto Sans reference"><div><div class="title">Google Noto Sans</div><p>Original reference · 400 weight</p></div><div class="text">A familiar warmth. &nbsp; a e g n o r</div></section>
+<div class="grid">
+<section class="card a"><div class="cardtop"><span class="letter">A</span><h2>Subtle</h2></div><p class="sub">Crisp endings, restrained curves.<br>A quiet touch of warmth.</p><div class="drawing hero">A familiar<br>warmth.</div><div class="drawing details">a e g n o r</div><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></section>
+<section class="card b"><div class="cardtop"><span class="letter">B</span><h2>Balanced</h2></div><p class="sub">Softened endings, fuller curves.<br>A welcoming everyday voice.</p><div class="drawing hero">A familiar<br>warmth.</div><div class="drawing details">a e g n o r</div><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></section>
+<section class="card c"><div class="cardtop"><span class="letter">C</span><h2>Pronounced</h2></div><p class="sub">Rounder endings, generous forms.<br>The most expressive warmth.</p><div class="drawing hero">A familiar<br>warmth.</div><div class="drawing details">a e g n o r</div><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></section>
+</div>
+<section class="editor"><div><h3>Try your own passage</h3><p>Your words appear in all three studies. Change the size or background to compare the feeling.</p><button id="reset" type="button">Reset passage</button></div><div><label for="passage" class="eyebrow">Comparison text</label><textarea id="passage" spellcheck="false"></textarea><div id="status" class="status" aria-live="polite"></div></div></section>
+<p class="alphabet">ABCDEFGHIJKLMNOPQRSTUVWXYZ<br>abcdefghijklmnopqrstuvwxyz &amp; é á ö ü ñ</p>
+<footer class="foot"><p id="study-scope">Original SEIHouse drawings. These limited Latin specimens explore the design direction; they are not a finished font or a multilingual release.</p><p>Google Noto Sans is shown only as a reference.<br><a href="reference/OFL.txt">Reference license</a> · <a href="README.md">Study notes</a></p></footer>
+</main>
+<script>
+const initial='The morning light settled gently over the quiet library. She opened the book and found a world that felt strangely familiar.';
+const supported=new Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,;:!?-–—'’‘“”\"()/&+=·éáíóúöüñè\n\r");
+const passage=document.querySelector('#passage');
+document.querySelectorAll('.card').forEach(card=>{const detail=document.createElement('div');detail.className='drawing zoomletters';detail.textContent='a r';card.append(detail)});
+let fontsLoaded=false,fontsFailed=false;
+function update(){const text=passage.value;document.querySelectorAll('.prose').forEach(el=>el.textContent=text);const missing=[...new Set([...text].filter(c=>!supported.has(c)))];const status=document.querySelector('#status');status.classList.toggle('warning',!!missing.length||fontsFailed);status.textContent=fontsFailed?'The study fonts could not load. Please reopen the comparison.':!fontsLoaded?'Loading original study fonts…':missing.length?'Outside this study’s character set (shown with fallback): '+missing.join(' '):'All characters in this passage use the original study fonts.';}
+passage.value=initial;passage.addEventListener('input',update);update();
+document.querySelector('#reset').addEventListener('click',()=>{passage.value=initial;update()});
+document.querySelector('#size').addEventListener('input',event=>{document.documentElement.style.setProperty('--size',event.target.value+'px');document.querySelector('#sizeValue').value=event.target.value+' px'});
+document.querySelector('#theme').addEventListener('click',event=>{const dark=document.body.classList.toggle('dark');event.target.setAttribute('aria-pressed',String(dark));event.target.textContent=dark?'View on light':'View on dark'});
+document.querySelector('#zoom').addEventListener('click',event=>{const zoom=document.body.classList.toggle('zoom');event.target.setAttribute('aria-pressed',String(zoom));event.target.textContent=zoom?'Reading samples':'Letter details'});
+window.fontsReady=Promise.all(['StudyA','StudyB','StudyC','NotoReference'].map(name=>document.fonts.load('20px '+name))).then(()=>document.fonts.ready).then(()=>{fontsLoaded=true;update()}).catch(()=>{fontsFailed=true;update()});
+</script>
+</body>
+</html>

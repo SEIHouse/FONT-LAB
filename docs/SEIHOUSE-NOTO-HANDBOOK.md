@@ -1,5 +1,10 @@
 # SEIHouse Noto: Foundational Design & Engineering Handbook
 
+> **Current owner choice (2026-10-28):** Balanced (study B) is the base for
+> SEIHouse Noto. See [the active design record](../noto/DESIGN.md) for approved
+> direction, the current refinement, and its actual coverage. Research proposals
+> below do not supersede that owner choice or imply shipped support.
+
 - **Document Status:** Authoritative Repository Reference (Foundational Specification v1.0)
 - **Research & Publication Date:** 2026-10-28
 - **Repository:** `SEIHouse/seihouse-font-lab`

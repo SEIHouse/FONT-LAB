@@ -1,0 +1,45 @@
+[
+  {
+    "id": "A",
+    "name": "Subtle",
+    "cap": 3,
+    "fullness": 0.545,
+    "width": 1.0,
+    "glyphs": 95,
+    "characters": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,:;!?-–—'’‘“”\"()/&+=·éáíóúöüñè",
+    "sha256": "3652099548a483246c6caf33dc0ca34bb580f88292e51c530c7c82f7263d873d"
+  },
+  {
+    "id": "B",
+    "name": "Balanced",
+    "cap": 14,
+    "fullness": 0.585,
+    "width": 1.025,
+    "glyphs": 95,
+    "characters": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,:;!?-–—'’‘“”\"()/&+=·éáíóúöüñè",
+    "sha256": "e8a81727e9fdcde265498f2bdcbe1876802e538368bdeda146ef57b0c56a35b0"
+  },
+  {
+    "id": "C",
+    "name": "Pronounced",
+    "cap": 29,
+    "fullness": 0.625,
+    "width": 1.05,
+    "glyphs": 95,
+    "characters": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,:;!?-–—'’‘“”\"()/&+=·éáíóúöüñè",
+    "sha256": "46732bfa095c7cae261c4de603b4ae7a244a9c63ef3e5d1f4b4cfcc56eb4f351"
+  },
+  {
+    "id": "R",
+    "name": "Balanced refinement 01",
+    "cap": 14,
+    "fullness": 0.585,
+    "width": 1.025,
+    "refinement": 1,
+    "family": "SEIHouse Noto Balanced",
+    "psname": "SEIHouseNotoBalanced-Regular",
+    "glyphs": 95,
+    "characters": "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789 .,:;!?-–—'’‘“”\"()/&+=·éáíóúöüñè",
+    "sha256": "2f8ac2bcf09904ed87f2fd23cf031f27608b11a002f49329fc71bb9d303f65d8"
+  }
+]

@@ -8,6 +8,16 @@ const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist', 'site');
 const pages = [
   'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
+  'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
+  'noto/studies/warmth/warmth-01.html',
+  'noto/DESIGN.md', 'noto/studies/warmth/proofs/balanced-glyphs.svg',
+  ...['refinement','details','dark','mobile'].map(view => `noto/studies/warmth/proofs/balanced-${view}.png`),
+  'noto/studies/warmth/fonts/SEIHouseNotoBalanced-Regular.woff2',
+  'noto/studies/warmth/SEIHouse-Noto-Warmth-Studies.html',
+  'noto/studies/warmth/reference/NotoSans-Reference.ttf',
+  'noto/studies/warmth/reference/OFL.txt', 'noto/studies/warmth/reference/provenance.json',
+  ...['A','B','C'].map(study => `noto/studies/warmth/fonts/SEIHouseNotoStudy${study}-Regular.woff2`),
+  ...['desktop','details','dark','mobile-b'].map(view => `noto/studies/warmth/proofs/noto-warmth-${view}.png`),
   'fonts-full.css', 'fonts-sans.css', 'LICENSE', 'FONT-LICENSE.txt',
   'lab/index.html', 'lab/comparison.html', 'lab/reading-test.html',
   'display/lab/index.html', 'display/README.md', 'display/fonts.css',
