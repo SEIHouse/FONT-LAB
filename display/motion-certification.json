@@ -3,25 +3,25 @@
   "cuts": {
     "edge": {
       "profile": "edge-living-v1",
-      "source_sha256": "b993ae9e3aecc7597da4814b5bc2fe071532c8b9043a3f518d3410e781169c2c",
+      "source_sha256": "1a1bac6096f6cdd8a0e7b266ab6656b73f5f31b7c834871d47aefac90379fe9e",
       "fixture_sha256": "ef2398f3c405a3edad01a99becae96ede7d473fd71aa27277a6214ab105e57ac",
       "flags": []
     },
     "ink": {
       "profile": "ink-living-v1",
-      "source_sha256": "a2aaca933bb3c8a9cb0850dc460d0717bb9504eaa09d35d9339efa150f787394",
+      "source_sha256": "b4b36fbee68dd734fec5f74cd33cf9612799a886411949842a9764effcd1791a",
       "fixture_sha256": "18c6d8e98170cf97706558ff59e6c71b54c319d1c89d7eed57897ac65ff8d610",
       "flags": []
     },
     "soft": {
       "profile": "soft-living-v1",
-      "source_sha256": "c61dcce5167b8bcc8e6449e090a8a2c0a3089fb3adbca7e1264dc9abdd573d65",
+      "source_sha256": "c712e5e0d5dda86f01b8b55b77144fd8ad63bffa2718738759946a89af1dbddf",
       "fixture_sha256": "a96b8f74331ffd055e7a7fdec56951e6e1d72a2744bacddfbc4a3e073a16c89b",
       "flags": []
     },
     "wide": {
       "profile": "wide-living-v1",
-      "source_sha256": "5b1446f0cfb4693e174767452eb7dea602e5a7dc072af081e2154c8cc2a72e00",
+      "source_sha256": "f0f2689386e9f091ac211c103c94878eaf303e3ad2afb0d238dc93becd84eabb",
       "fixture_sha256": "1dc5cb9529d3fb819809350e76e239b6c70e00ac096b0344052ea42024c60ca8",
       "flags": []
     }

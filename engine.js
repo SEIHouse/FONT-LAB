@@ -1305,7 +1305,7 @@ function latinClusters(text){
 function languageClusters(text,locale=''){
   if(locale==='ro') text=text.replace(/[ŞşŢţ]/g,ch=>'ȘșȚț'['ŞşŢţ'.indexOf(ch)]);
   const clusters=latinClusters(text);
-  if(locale==='tr') for(const c of clusters) if(c.base==='i') c.base='i.loclTRK';
+  if(locale==='tr' || locale==='az') for(const c of clusters) if(c.base==='i') c.base='i.loclTRK';
   return clusters;
 }
 

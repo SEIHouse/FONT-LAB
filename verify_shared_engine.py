@@ -225,6 +225,8 @@ def audit_features(font):
         check(shape(font, text)[0][0]==name, 'display-dotless', text=text)
     check([row[0] for row in shape(font, 'fi', language='tr')]==['f', 'i.loclTRK'],
           'display-turkish-local-form')
+    check([row[0] for row in shape(font, 'fi', language='az')]==['f', 'i.loclTRK'],
+          'display-azerbaijani-local-form')
     check(shape(font, 'fi')[0][0]==cmap[0xFB01], 'display-default-ligature')
     check(shape(font, 'ŞşŢţ', language='ro')==shape(font, 'ȘșȚț', language='ro'),
           'display-romanian-local-form')

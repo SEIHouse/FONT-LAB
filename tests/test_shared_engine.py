@@ -92,17 +92,14 @@ class DisplayInheritanceTests(unittest.TestCase):
 
     def test_041_additions_preserve_all_040_outlines_and_metrics(self):
         """Every 0.40 glyph across all 12 Reader styles keeps identical outlines and hmtx."""
-        import io
-        import subprocess
+        import json
         from build_subsets import ALL_STYLES
         from verify_shared_engine import legacy_identity
+        fixture_file = ROOT / 'tests/fixtures/reader-0.40-original-glyphs.json'
+        baseline = json.loads(fixture_file.read_text(encoding='utf-8'))['styles']
         for style, *_ in ALL_STYLES:
-            raw = subprocess.check_output(
-                ['git', 'show', f'fcdf047efb59f501e3e8b4cdfd16930a98f39198:fonts/SEIReader-{style}.woff2'],
-                cwd=ROOT,
-            )
-            with self.subTest(style=style), TTFont(io.BytesIO(raw)) as before, TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
-                old_id = legacy_identity(before)
+            with self.subTest(style=style), TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
+                old_id = baseline[style]
                 new_id = legacy_identity(after, list(old_id['glyphs']))
                 self.assertEqual(new_id['glyphs'], old_id['glyphs'])
                 self.assertEqual(new_id['metrics'], old_id['metrics'])

@@ -12,16 +12,17 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
     for name, record in records.items():
         if record.get('mark'): classes[record['mark']].append(name)
     lines = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;',
-             'languagesystem latn TRK;', 'languagesystem latn ROM;',
+             'languagesystem latn TRK;', 'languagesystem latn AZE;', 'languagesystem latn ROM;',
              'languagesystem latn HUN;', 'languagesystem latn MAK;',
              'languagesystem cyrl dflt;', 'languagesystem grek dflt;']
     for kind, names in classes.items():
         lines.append(f'@{kind.upper()} = [{" ".join(names)}];')
         for name in names:
             lines.append(f'markClass {name} {point(name,records[name]["attach"])} @MC_{kind};')
-    # An identical Turkish i stays dotted instead of disappearing into the fi join.
+    # An identical Turkish and Azerbaijani i stays dotted instead of disappearing into the fi join.
     # Romanian legacy cedilla text gets the modern comma forms only under lang=ro.
     lines += ['feature locl {', ' script latn;', ' language TRK;',
+              ' sub i by i.loclTRK;', ' language AZE;',
               ' sub i by i.loclTRK;', ' language ROM;']
     for old,new in zip('ŞşŢţ','ȘșȚț'):
         lines.append(f' sub {cmap[ord(old)]} by {cmap[ord(new)]};')
