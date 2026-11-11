@@ -1,0 +1,595 @@
+{
+  "reference": "5774a8a:fonts (before the 0.40 curve refinement)",
+  "characters": "gS?ĝğġģŚŜŞŠȘЅд",
+  "styles": {
+    "Light": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "LightItalic": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          28,
+          64
+        ],
+        "g": [
+          74,
+          66
+        ],
+        "gbreve": [
+          74,
+          66
+        ],
+        "Sacute": [
+          28,
+          64
+        ],
+        "Scedilla": [
+          28,
+          64
+        ],
+        "Scaron": [
+          28,
+          64
+        ],
+        "uni0218": [
+          28,
+          64
+        ],
+        "gcircumflex": [
+          74,
+          66
+        ],
+        "gdotaccent": [
+          74,
+          66
+        ],
+        "uni0123": [
+          74,
+          66
+        ],
+        "Scircumflex": [
+          28,
+          64
+        ],
+        "uni0405": [
+          28,
+          64
+        ],
+        "uni0434": [
+          74,
+          66
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    },
+    "Regular": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "Italic": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          37,
+          72
+        ],
+        "g": [
+          81,
+          74
+        ],
+        "gbreve": [
+          81,
+          74
+        ],
+        "Sacute": [
+          37,
+          72
+        ],
+        "Scedilla": [
+          37,
+          72
+        ],
+        "Scaron": [
+          37,
+          72
+        ],
+        "uni0218": [
+          37,
+          72
+        ],
+        "gcircumflex": [
+          81,
+          74
+        ],
+        "gdotaccent": [
+          81,
+          74
+        ],
+        "uni0123": [
+          81,
+          74
+        ],
+        "Scircumflex": [
+          37,
+          72
+        ],
+        "uni0405": [
+          37,
+          72
+        ],
+        "uni0434": [
+          81,
+          74
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    },
+    "Medium": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "MediumItalic": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          48,
+          84
+        ],
+        "g": [
+          92,
+          84
+        ],
+        "gbreve": [
+          92,
+          84
+        ],
+        "Sacute": [
+          48,
+          84
+        ],
+        "Scedilla": [
+          48,
+          84
+        ],
+        "Scaron": [
+          48,
+          84
+        ],
+        "uni0218": [
+          48,
+          84
+        ],
+        "gcircumflex": [
+          92,
+          84
+        ],
+        "gdotaccent": [
+          92,
+          84
+        ],
+        "uni0123": [
+          92,
+          84
+        ],
+        "Scircumflex": [
+          48,
+          84
+        ],
+        "uni0405": [
+          48,
+          84
+        ],
+        "uni0434": [
+          92,
+          84
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    },
+    "SemiBold": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "SemiBoldItalic": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          55,
+          90
+        ],
+        "g": [
+          97,
+          90
+        ],
+        "gbreve": [
+          97,
+          90
+        ],
+        "Sacute": [
+          55,
+          90
+        ],
+        "Scedilla": [
+          55,
+          90
+        ],
+        "Scaron": [
+          55,
+          90
+        ],
+        "uni0218": [
+          55,
+          90
+        ],
+        "gcircumflex": [
+          97,
+          90
+        ],
+        "gdotaccent": [
+          97,
+          90
+        ],
+        "uni0123": [
+          97,
+          90
+        ],
+        "Scircumflex": [
+          55,
+          90
+        ],
+        "uni0405": [
+          55,
+          90
+        ],
+        "uni0434": [
+          97,
+          90
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    },
+    "Bold": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "BoldItalic": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          70,
+          105
+        ],
+        "g": [
+          110,
+          103
+        ],
+        "gbreve": [
+          110,
+          103
+        ],
+        "Sacute": [
+          70,
+          105
+        ],
+        "Scedilla": [
+          70,
+          105
+        ],
+        "Scaron": [
+          70,
+          105
+        ],
+        "uni0218": [
+          70,
+          105
+        ],
+        "gcircumflex": [
+          110,
+          103
+        ],
+        "gdotaccent": [
+          110,
+          103
+        ],
+        "uni0123": [
+          110,
+          103
+        ],
+        "Scircumflex": [
+          70,
+          105
+        ],
+        "uni0405": [
+          70,
+          105
+        ],
+        "uni0434": [
+          110,
+          103
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    },
+    "RegularNight": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405"
+      ],
+      "unchanged_outlines": 719,
+      "bearing_changes": {},
+      "advances_preserved": true,
+      "flags": []
+    },
+    "ItalicNight": {
+      "glyphs": 732,
+      "changed_outlines": [
+        "S",
+        "g",
+        "question",
+        "gbreve",
+        "Sacute",
+        "Scedilla",
+        "Scaron",
+        "uni0218",
+        "gcircumflex",
+        "gdotaccent",
+        "uni0123",
+        "Scircumflex",
+        "uni0405",
+        "uni0434"
+      ],
+      "unchanged_outlines": 718,
+      "bearing_changes": {
+        "S": [
+          40,
+          76
+        ],
+        "g": [
+          85,
+          77
+        ],
+        "gbreve": [
+          85,
+          77
+        ],
+        "Sacute": [
+          40,
+          76
+        ],
+        "Scedilla": [
+          40,
+          76
+        ],
+        "Scaron": [
+          40,
+          76
+        ],
+        "uni0218": [
+          40,
+          76
+        ],
+        "gcircumflex": [
+          85,
+          77
+        ],
+        "gdotaccent": [
+          85,
+          77
+        ],
+        "uni0123": [
+          85,
+          77
+        ],
+        "Scircumflex": [
+          40,
+          76
+        ],
+        "uni0405": [
+          40,
+          76
+        ],
+        "uni0434": [
+          85,
+          77
+        ]
+      },
+      "advances_preserved": true,
+      "flags": []
+    }
+  },
+  "flags": []
+}

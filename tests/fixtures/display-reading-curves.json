@@ -1,0 +1,221 @@
+{
+  "reference": "5774a8a:display/fonts",
+  "cuts": {
+    "soft": {
+      "S": {
+        "before": "4ca7c653ed71acd962a75f476d8b8c6c6457ba47cd47b4906876bc7868bb19f1",
+        "after": "c25c0c8c3e37567f16c5f2f0d452982499a1127b3c1e93d5d1a8a6b2ac8b9da2"
+      },
+      "g": {
+        "before": "c0f3861d6f9fd6f6c36bc6a553e39740345c949b8716646a744aa0365428de01",
+        "after": "69d7b1c218e165f8d2bfc816b880f8559e8583da6d400a87aea045226768d160"
+      },
+      "question": {
+        "before": "39d1ca39fe66058946c11e82c862906a68815505a6eba994e007fdef69d07200",
+        "after": "eb375b3cb048c929325452df19e2531d1e0ee6c2c4dc7f6ae9bd79ad7ad54c7c"
+      },
+      "gbreve": {
+        "before": "a3496c2ae75528c8227d3008035391760043074dc0a6f7b039ea4a78cffd6228",
+        "after": "26b4d3f9f273ed2e9b0ea12d5aebe9e1e0e90ca05a0ad0044990cefead099f42"
+      },
+      "Sacute": {
+        "before": "b1eed465ebf1b9c8c186d24b2054f6146d60dd5abe73208f2e1bf19e1221ee69",
+        "after": "a7ebe5e5db29744ef1ef9b2c7958e5393d60a14396b545f67a477eb06a392b94"
+      },
+      "Scedilla": {
+        "before": "3e7010ed0b70fe64eb536fe7f6b36a7acef9f6bd5f6abbfeae6c14533f871ab7",
+        "after": "a8fba6b6a1cf6eafb795d026809d07d27c81c66ec2a48270c2c084854568327b"
+      },
+      "Scaron": {
+        "before": "56c413675464f1afa9cba236faaaf01aa44245422fff66046cac591028184fdf",
+        "after": "432923000bc7eaf26ed6edbe3923a5c4da81827145382a6d3f58b377509fb249"
+      },
+      "uni0218": {
+        "before": "7c15539db6398b7e61790f65e74421263492da1493e57ccd2f2640493b0b8ec6",
+        "after": "c48c0ac339d3591c5cd5e58b54e43a663ddc191c15d73c1c2ab9fb4ab786a2cc"
+      },
+      "gcircumflex": {
+        "before": "66d208ea101d76db8b432e100f4e8a6abb3dfbd49c6257ded62b6fd170dfda9f",
+        "after": "115ad60a7bde51381709956729f797848ff33d1d467b07c217895b7128977a74"
+      },
+      "gdotaccent": {
+        "before": "5f98f003c9856cc811a1cfd4ca3d26f06539e944d7769e80d4d1c458539c41ae",
+        "after": "b90e2f54fce5cc2a7937d585fd40d8190c22229a7d72d1d5385edf13990292d2"
+      },
+      "uni0123": {
+        "before": "ff93470342473ba892490ae94ee892461187148df569a7945e800566286d3471",
+        "after": "d8146de7a90cc45529e826b1e871271e692374b3d03dfaae0e4a3ae26f1c9e2e"
+      },
+      "Scircumflex": {
+        "before": "d534a4c8973e186bae391a01a416c332037816b9f1690cea783050fe2bd2741a",
+        "after": "1fab189b197a338a589fcb216968f9095c16d116c8509005163dd824b7a1f1e6"
+      },
+      "uni0405": {
+        "before": "4ca7c653ed71acd962a75f476d8b8c6c6457ba47cd47b4906876bc7868bb19f1",
+        "after": "c25c0c8c3e37567f16c5f2f0d452982499a1127b3c1e93d5d1a8a6b2ac8b9da2"
+      }
+    },
+    "edge": {
+      "S": {
+        "before": "c94d7038aa011dd6d84d74ef984bc9b00b93a78c0435bc0379003c3828c80678",
+        "after": "5fa8cf057247c33a964974d2c20d24f84f7393024709c8884676e51ccd0f864f"
+      },
+      "question": {
+        "before": "41ab043ea191da5a2a862085d17129381a2938cdbe872c3a4b40396ae37f768a",
+        "after": "b69aef6e14225db97bc02e7c35a50f83afe6d72ef42c32a3578a577cd48bb755"
+      },
+      "Sacute": {
+        "before": "d677e7c4afbe46a4f1ee3cddbd4b87d5ee5975f71585a1360a039bab4814153e",
+        "after": "d9141344b630cd4ef090ef26e8b01499d56f05819377353971f59c280b0c9a3c"
+      },
+      "Scedilla": {
+        "before": "8bdf2f45f40bd2175dfa479c4c8c4df3d8fbc3b969ef44fc5d3d7266b666ce91",
+        "after": "0b960ac186b97483020356a6fe7cd3040e976c88229725733b344d9156be4ce1"
+      },
+      "Scaron": {
+        "before": "2dedad0b04139842bc30dbd350c1881fde63002d2b94aef3420a17b950c9e5a9",
+        "after": "402dd71a3968e4b8dd9daf9baa83b38688503a1bd7ea52b8ec285cfefcbff2af"
+      },
+      "uni0218": {
+        "before": "04214ad84c484a37a0ab36d6c6b6b0de1f29254043ae65e9b3dea7edd1818058",
+        "after": "d4458c5fe55adf7a3eb4ff38a828eeb6bfea94994f96b89a580a5076be0e1249"
+      },
+      "Scircumflex": {
+        "before": "e821d913d0b8a74435f3b771cf5fd08a5903a1490bab549b55e523c348179c6d",
+        "after": "3bfc984e7b5221309ed690486b6b6fc59d85a97635a27996501ff31287f00668"
+      },
+      "uni0405": {
+        "before": "c94d7038aa011dd6d84d74ef984bc9b00b93a78c0435bc0379003c3828c80678",
+        "after": "5fa8cf057247c33a964974d2c20d24f84f7393024709c8884676e51ccd0f864f"
+      },
+      "alt0067.ss01.single": {
+        "before": "9de2f15093475875883d4312f6578e468ef81b00912fbd83844257196484086d",
+        "after": "e5482c6d9da8c49cf019ef90c5981d47d84014a5d0a1912dca10df3297733edf"
+      },
+      "alt011F.ss01.single": {
+        "before": "280b9bfbcd5924b1fb3030657052a237dc444b229b2a1ada80309346a48d0bd8",
+        "after": "f989c74689fa956c6a3c92e0550c7562065ff3464d09f4f9ecd5ff0496629a6b"
+      },
+      "alt011D.ss01.single": {
+        "before": "374570e1c91a19089d2a9aa0c896e803bd8af1f9a36ff3c9950dc63da09242c3",
+        "after": "b736372b5c183f904efdfdc564d34d63efcbcd3ac127c69d51a605af9bb8681a"
+      },
+      "alt0121.ss01.single": {
+        "before": "11c84384cff8d6d91f579491cd3e17fef0784c5c4fab145eecb4b9ce8fd8a1a4",
+        "after": "4d95a66a46d4529b336e38e12ee5db134671603f8a9bb0f436f1ecc04d15b718"
+      },
+      "alt0123.ss01.single": {
+        "before": "ab929e2097dfc4b01fb4cf5b16a8796e180b0f59decb59bae6186c377d0969de",
+        "after": "84fe9e790c27ece1705b4f9499646a72be8325541ea279fa045ae7eb71f9a592"
+      }
+    },
+    "ink": {
+      "S": {
+        "before": "714365ded60c4a00510898a3d49ce7a85cb10021e490a699c5418cdef0c016d5",
+        "after": "68585c8a9710c3e654fec4406c4cfc61806db91f2cb0797b9ef075f8dbd0665e"
+      },
+      "g": {
+        "before": "50ced1814943423594eb2a911a9a20341d8446f0a9e4fb11250b3d25d0d895cc",
+        "after": "fd4b3a3f370bf4645567219bf7937dcd3de6957b8fba551538d646fda92c250d"
+      },
+      "question": {
+        "before": "2b56fff0e563c30ca45308663788aee43175c50c84e532cfe9c8f9581c87d95a",
+        "after": "df7cbabff763281920d0a0872aab607912faf474fa8f60e847bf40661020ca38"
+      },
+      "gbreve": {
+        "before": "f5ddb0a3bfe3257ea442ef968095a64517db4af081db4ce0df77f796b6029aa7",
+        "after": "cf73786b758a7e982d5fafdca5e56e4825f6b8f9a58c13631534575fc8cd9de1"
+      },
+      "Sacute": {
+        "before": "6597a98033bd8890636d43f424624af84cad95490cbfa12836ff887460a0ced3",
+        "after": "5b712e632b26eb0593eea477dce09771d4ca2d026cac316b77d94813a30bdfe7"
+      },
+      "Scedilla": {
+        "before": "dfbd69b26195c645889724e005fdd4f47335ac1641c335f300686f7278fccaa1",
+        "after": "a31948da0fcfa92a75b91d4a1c949fca84a06cc41a8c4f07304aa4cd8b47f3b7"
+      },
+      "Scaron": {
+        "before": "e4c47c3decf5cf0083fa894226771da8599b8a4662286c80897d827734d9a881",
+        "after": "3019ab953c67e4c02d39d6216e0f16d1fbeae97b3d8cf4afc51af38eb4073d35"
+      },
+      "uni0218": {
+        "before": "bfea82f6ca5afaec4803e5ef0cd7dfcc0916ce772862e672240454e175fd1fd0",
+        "after": "4accab73b6560efa06d09e3b6453c7f3c662dfb3f5e87941e2532d27ca0498e9"
+      },
+      "gcircumflex": {
+        "before": "d2c1116010146ca95f7e200eb4adad2a8a7c443c60dfbf6610abd305cb499020",
+        "after": "10877a46704f536c0eb2acafe3cf7fd3a5b5801f2161140ba000064be5957aea"
+      },
+      "gdotaccent": {
+        "before": "d4c1d485915e2209d0a9d59a6e624b2bb725dd81bb4408d92368a98e4718e49c",
+        "after": "47b6f2f302fbd56b5a833c34f7210ecc8e762a22312cdf2a37e6bd9bef6b0b5a"
+      },
+      "uni0123": {
+        "before": "44249c623e0d332c18618bd89324282d48cbb8c9158d0d8c00fb9f165fe709d6",
+        "after": "10bfc022deabb892436bcbc90fc1acc3818de72138d73734b7f807a65ca9354b"
+      },
+      "Scircumflex": {
+        "before": "18f9abba4c8271e31beeb74e81df14e4f38c923ceeb28a68fbeb343f785be72a",
+        "after": "5ffe153e36356cd8c42752bbe07ec897e270b93c2c426dde47f2207b3a3ca4d6"
+      },
+      "uni0405": {
+        "before": "714365ded60c4a00510898a3d49ce7a85cb10021e490a699c5418cdef0c016d5",
+        "after": "68585c8a9710c3e654fec4406c4cfc61806db91f2cb0797b9ef075f8dbd0665e"
+      }
+    },
+    "wide": {
+      "S": {
+        "before": "85ddfc825b2e9bcc3e6e8b3ecb75eea5423524ea50541ab3110267cb6891d793",
+        "after": "0747ee4a986aa02af824942fc494118bfc9c7237fde63b3df81f192a04fd507d"
+      },
+      "question": {
+        "before": "36df6e7ac2d666e1e0655ca522b41fb9d5024309c2cd2dc186ced83bffba2d3c",
+        "after": "b73c4cbd14981945e66658bd940969051a895e3959975cdf975dbe867116c862"
+      },
+      "Sacute": {
+        "before": "ffbbc23a1f28a3042a0b8f62574d870814175bf78e62365eb5a2759be3decec4",
+        "after": "89ebe00768dfb321d31063e9ae353ff176d54592b087f718e00dab58763bafe0"
+      },
+      "Scedilla": {
+        "before": "c07a011d4fea638d32203c8ade488af3113e68b732e0032c437340d8147c0084",
+        "after": "c1c0620e253fcd78e1a2f588bcac45e0e882ad8869d9f7ac960b7137d3825e73"
+      },
+      "Scaron": {
+        "before": "31424a8281ef5f14d9c9771f7edd7f67964956988ea83f2f3b3dee714ea04e8c",
+        "after": "d88d7c8a3da5a034855ebe1b61dd5b212355763bc98d13661831e192bbc28b50"
+      },
+      "uni0218": {
+        "before": "f0ed9170ce68d284522b107eebbbcdfe48e67bd51d601d2c43e3b51254946769",
+        "after": "128f5f374548359ff0ec11e6030cd2071631d874bf640c142620d6d1902927e6"
+      },
+      "Scircumflex": {
+        "before": "b63dc1bbbd3881ca8d33658ef189517d4748391b536dbaef90e9e5fed4dea306",
+        "after": "ec38e95e42fef8cd680a28c8c8a7e7353c8d8bcc4cab027521e1411904125aa7"
+      },
+      "uni0405": {
+        "before": "85ddfc825b2e9bcc3e6e8b3ecb75eea5423524ea50541ab3110267cb6891d793",
+        "after": "0747ee4a986aa02af824942fc494118bfc9c7237fde63b3df81f192a04fd507d"
+      },
+      "alt0067.ss01.single": {
+        "before": "78ae5b08f5f554c324360a022f641f40c22842d23b2121a342c215da27e97ba0",
+        "after": "d8ee7c34644e83599cce51bbd2b682f9af26a8a866da8432daee9c6ca33caa07"
+      },
+      "alt011F.ss01.single": {
+        "before": "b950c6046edc13e0f896ace60a6d2625e8d6b8f0d1410fa04e986de210971151",
+        "after": "652233e36ce111391bbeb4e3b2e127824b521e35984d2ae97e588b1ac1939cec"
+      },
+      "alt011D.ss01.single": {
+        "before": "c498f3c19660b7522ab4c67541c5d0fc46db8f9e4b76ef0bca877487b8ba8d7f",
+        "after": "7d5978acc93a34533382cc6db639b1ec47515a7b9b81b5c23c9f2a6ebdcec8ac"
+      },
+      "alt0121.ss01.single": {
+        "before": "5a6e80d2c7b8255db729af3172f82bc632cc5813ffffa06a6e5f168fb61d6d22",
+        "after": "6d2024cc299f9d075c6f5befff7e18fce54e7d2d20c947659730115995fc4608"
+      },
+      "alt0123.ss01.single": {
+        "before": "94ab1ab800680f8231c64404dff16b0003940bde8a529db73b9e21a3e782da45",
+        "after": "c3f423ff442b4af0ba96fae22c3bc83d2787b07745c2abe1e244fe9a8cd86ef7"
+      }
+    }
+  }
+}
