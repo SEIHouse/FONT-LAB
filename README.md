@@ -268,8 +268,10 @@ proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 - Screen tuning (alignment zones and Adobe autohinting) for crisp small text
 - Established Latin coverage: English, Spanish, French, Portuguese, German, Italian,
   Dutch, Catalan, Danish, Norwegian, Swedish, Finnish, Icelandic. Additional audited
-  inventories: the ten locales above, Slovak, Croatian, Slovenian, the six Cyrillic
-  locales, monotonic Greek and Vietnamese in Phase 4. Alphabet coverage is separate from native-reader
+  inventories: the ten locales above, Slovak, Croatian, Slovenian, 93 additional
+  Indonesian/Malay/Filipino/European/African Latin locales, the six Cyrillic
+  locales, monotonic Greek and Vietnamese in Phase 4 (114 pinned CLDR locales /
+  127 verified languages total). Alphabet coverage is separate from native-reader
   and physical device certification; other scripts/spelling traditions may need fallback
 - Web-novel and system-screen symbols, music marks, player controls, icons, and the SEIHouse `Ⓢ`
   brand mark, with private in-app codes (U+E000–E00F) so phones can't swap in color emoji
@@ -304,8 +306,11 @@ tone input. Horn and tone clearance uses literal pairs for new glyphs; prior
 letter outlines, advances, weights and spacing remain unchanged. The Lab adds
 a pinned Vietnamese inventory/sample and every new letter. The `vietnamese`
 subset includes complete Latin text, all encoded vowels and their combining
-ingredients together. All 21 recorded locale inventories pass the declared
-scope; frequent capital stacks can use 1.5 line height after checking the app.
+ingredients together. All 114 recorded CLDR 48 locale inventories (127 verified
+languages alongside the 13 established Western/Northern European samples, now
+including Indonesian, Malay, Filipino, Swahili, and ready European and African
+Latin inventories) pass the declared scope; frequent capital stacks can use 1.5
+line height after checking the app.
 
 `phase4.json` records release metadata separately from unchanged `settings.json`.
 Run `python verify_phase4.py` to compare all old glyphs, advances, settings,

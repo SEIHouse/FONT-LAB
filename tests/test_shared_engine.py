@@ -86,8 +86,8 @@ class DisplayInheritanceTests(unittest.TestCase):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
             failures, report = audit_features(font)
         self.assertEqual(failures, [])
-        self.assertEqual(report['pinned_cldr_locales'], 21)
-        self.assertEqual(report['languages'], 34)
+        self.assertEqual(report['pinned_cldr_locales'], 114)
+        self.assertEqual(report['languages'], 127)
         self.assertGreater(report['language_strings'], 3300)
 
     def test_missing_mark_feature_fails_the_behavior_gate(self):

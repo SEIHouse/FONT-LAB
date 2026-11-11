@@ -2,6 +2,23 @@
 
 Newest first.
 
+- **Expanded CLDR 48 Latin language certification (2026-11-11)** Added 93 ready
+  Unicode CLDR 48 Latin-script locale inventories (with pinned source URLs,
+  SHA-256 hashes, verbatim `main`/`auxiliary`/`index` exemplars, and native
+  samples) to `languages.json`, bringing verified coverage to 114 pinned CLDR
+  locales and 127 languages total alongside the 13 established Western/Northern
+  European languages. Newly certified markets include Indonesian (`id`), Malay
+  (`ms`), Filipino (`fil`), Swahili (`sw`), Nigerian Pidgin (`pcm`), Afrikaans
+  (`af`), Zulu (`zu`), Xhosa (`xh`), Somali (`so`), Oromo (`om`), Fula (`ff`),
+  Malagasy (`mg`), Estonian (`et`), Latvian (`lv`), Albanian (`sq`), Bosnian
+  (`bs`), Maltese (`mt`), Luxembourgish (`lb`), Basque (`eu`), Faroese (`fo`),
+  Romansh (`rm`), Kalaallisut (`kl`), and 71 additional ready European and
+  African Latin inventories. Updated `verify_phase4.py` to test Latin locales
+  using `U+1EA0–1EF9` letters (`pcm`, `mg`, `kl`) against the `vietnamese` web
+  subset and other Latin locales against both `latin-ext-2` and `vietnamese`
+  subsets matching CSS `unicode-range` order, and regenerated `lab/index.html`
+  and `lab/comparison.html`. All font binaries remain byte-identical to `0.40`.
+
 - **Reader curve refinement 0.40 (2026-11-11)** Reuse the smooth `b/d/p/q` bowl
   for `g`, and soften capital `S` and `?` with continuous curves. Preserve all
   Reader advances, positioning tables, line metrics, and unrelated outlines in
