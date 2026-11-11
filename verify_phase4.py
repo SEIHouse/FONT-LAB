@@ -12,7 +12,7 @@ import unicodedata
 
 import pathops
 from fontTools.ttLib import TTFont
-from build_subsets import STYLES, SUBSETS, subset_groups, unicode_range
+from build_subsets import STYLES, SUBSETS, VIETNAMESE_NEW, subset_groups, unicode_range
 from language_coverage import inventory, required_characters, test_strings
 from verify_latin import shape, PROSE
 from verify_lowercase import recorded, bounds
@@ -129,10 +129,11 @@ def verify(baseline=None):
             assert f'font-weight: {weight};' in block and f'font-style: {slant};' in block
             assert f'unicode-range: {unicode_range(groups[name])};' in block
         for code,row in inventory()['locales'].items():
-            delivery={'Latn':'vietnamese' if code=='vi' else 'latin-ext-2','Cyrl':'cyrillic','Grek':'greek'}[row['script']]
+            examples=[*test_strings(row),row['sample']]
+            if code=='vi': examples.extend(VIETNAMESE_PROSE)
+            uses_vietnamese=any(ord(ch) in VIETNAMESE_NEW for text in examples for ch in text)
+            delivery={'Latn':'vietnamese' if uses_vietnamese else 'latin-ext-2','Cyrl':'cyrillic','Grek':'greek'}[row['script']]
             with TTFont(ROOT/'fonts'/f'SEIReader-{style}.{delivery}.woff2') as web:
-                examples=[*test_strings(row),row['sample']]
-                if code=='vi': examples.extend(VIETNAMESE_PROSE)
                 for text in examples:
                     shaped=shape(font,text,language=code)
                     assert all(name!='.notdef' for name,_,_,_ in shaped),(style,code,text,'fallback')

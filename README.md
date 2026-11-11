@@ -301,8 +301,11 @@ tone input. Horn and tone clearance uses literal pairs for new glyphs; prior
 letter outlines, advances, weights and spacing remain unchanged. The Lab adds
 a pinned Vietnamese inventory/sample and every new letter. The `vietnamese`
 subset includes complete Latin text, all encoded vowels and their combining
-ingredients together. All 21 recorded locale inventories pass the declared
-scope; frequent capital stacks can use 1.5 line height after checking the app.
+ingredients together. All 114 recorded CLDR 48 locale inventories (127 verified
+languages alongside the 13 established Western/Northern European samples, now
+including Indonesian, Malay, Filipino, Swahili, and ready European and African
+Latin inventories) pass the declared scope; frequent capital stacks can use 1.5
+line height after checking the app.
 
 `phase4.json` records release metadata separately from unchanged `settings.json`.
 Run `python verify_phase4.py` to compare all old glyphs, advances, settings,

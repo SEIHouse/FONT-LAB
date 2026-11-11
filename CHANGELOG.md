@@ -2,6 +2,22 @@
 
 Newest first.
 
+- **Expanded CLDR 48 Latin language certification (2026-11-11)** Added 93 ready
+  Unicode CLDR 48 Latin-script locale inventories (with pinned source URLs,
+  SHA-256 hashes, verbatim `main`/`auxiliary`/`index` exemplars, and native
+  samples) to `languages.json`, bringing verified coverage to 114 pinned CLDR
+  locales and 127 languages total alongside the 13 established Western/Northern
+  European languages. Newly certified markets include Indonesian (`id`), Malay
+  (`ms`), Filipino (`fil`), Swahili (`sw`), Nigerian Pidgin (`pcm`), Afrikaans
+  (`af`), Zulu (`zu`), Xhosa (`xh`), Somali (`so`), Oromo (`om`), Fula (`ff`),
+  Malagasy (`mg`), Estonian (`et`), Latvian (`lv`), Albanian (`sq`), Bosnian
+  (`bs`), Maltese (`mt`), Luxembourgish (`lb`), Basque (`eu`), Faroese (`fo`),
+  Romansh (`rm`), Kalaallisut (`kl`), and 71 additional ready European and
+  African Latin inventories. Updated `verify_phase4.py` to route Latin locales
+  using `U+1EA0–1EF9` letters (`pcm`, `mg`, `kl`) through the `vietnamese` web
+  subset matching CSS `unicode-range` delivery, and regenerated `lab/index.html`
+  and `lab/comparison.html`. All font binaries remain byte-identical to `0.39`.
+
 - **Reader Night-mode optical grade (2026-10-25)** Added a Night-mode optical
   grade at `81` source stroke units (`NIGHT_GRADE = -4` from Regular `85`) for
   upright (`SEIReader-RegularNight`) and real italic (`SEIReader-ItalicNight`)

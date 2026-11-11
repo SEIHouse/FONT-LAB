@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.38",
+  "version": "0.39",
   "cldr_version": "48",
   "source_ref": "release-48",
   "scope": "Latin main, auxiliary and index exemplars with case variants; modern common Slavic Cyrillic, monotonic Greek and full Vietnamese. Alphabet and shaping coverage does not certify universal transliteration, translation, regional styles or native-reader comfort.",
@@ -257,6 +257,1098 @@
         "index": "[A Ă Â B C D Đ E Ê F G H I J K L M N O Ô Ơ P Q R S T U Ư V W X Y Z]"
       },
       "sample": "“Nguyễn đọc truyện giữa đêm; những ước mơ vẫn sáng.”"
+    },
+    "id": {
+      "name": "Indonesian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/id.xml",
+      "source_sha256": "bed25f3d046615572ad86fb8cd9bc7f0a22308bbde07769950ae16f3b77c7eba",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "auxiliary": "[áàăâåäãā æ ç éèĕêëē íìĭîïī ñ óòŏôöøō œ úùŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Lampu kecil menyala di tepi sungai; cerita baru segera dimulai.”"
+    },
+    "ms": {
+      "name": "Malay",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ms.xml",
+      "source_sha256": "19cf0c2f2e4126d1b4bb8f0b0c876ba932f0dec0757e845ef9bf8349a7fb6d15",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Cahaya tenang bersinar di tepi sungai; kisah baharu bermula.”"
+    },
+    "fil": {
+      "name": "Filipino",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/fil.xml",
+      "source_sha256": "35db740e7e262d673979c2ffdbcd2aa1cd603bdc849f579bc47e272bc87304c0",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n ñ {ng} o p q r s t u v w x y z]",
+        "auxiliary": "[áàâ éèê íìî óòô úùû]",
+        "index": "[A B C D E F G H I J K L M N Ñ {Ng} O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Tahimik ang gabi sa tabi ng ilog; naghihintay ang lumang aklat.” · Ñ ñ"
+    },
+    "sw": {
+      "name": "Swahili",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sw.xml",
+      "source_sha256": "d8228a7fe198401a0f0ed21f566c5722c3ad44f0ec829a7bcbcf4f91eebff5a2",
+      "exemplars": {
+        "main": "[a b {ch} d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[c q x]",
+        "index": "[A B {CH} D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "“Mto mtulivu hubeba mwanga; hadithi mpya inaanza usiku huu.”"
+    },
+    "pcm": {
+      "name": "Nigerian Pidgin",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/pcm.xml",
+      "source_sha256": "e80f4bc18a4416346069116c0dca2fbedd72f9172f0ccc77e65138eb1fb47c49",
+      "exemplars": {
+        "main": "[aá b {ch} d eéẹ{ẹ́} f g {gb} h ií j k {kp} l m n oóọ{ọ́} p r s {sh} t uú v w y z {zh}]",
+        "auxiliary": "[à c è{ẹ̀} ì ò{ọ̀} q ù x]",
+        "index": "[A B {CH} D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Naijíriá Píjin · “Wáká sọ́fúlì fọ náít; dí stórí dè sháín.” · ẹ́ ọ̀"
+    },
+    "af": {
+      "name": "Afrikaans",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/af.xml",
+      "source_sha256": "20b451a89365e131dea91d7d2d40e41080272b6f7c3316786da209bcff30398f",
+      "exemplars": {
+        "main": "[aáâ b c d eéèêë f g h iîï j k l m n oôö p q r s t uû v w x y z]",
+        "auxiliary": "[àåäã æ ç íì óò úùü ý]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Die stil rivier dra lig oor die veld; ’n ou storie wag nog.” · ê ë î ô û"
+    },
+    "zu": {
+      "name": "Zulu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/zu.xml",
+      "source_sha256": "e309dd4e1d9c864c7e03a0ac592a6b910d97e7c3bf93f7d2d6b7a53f29201ee0",
+      "exemplars": {
+        "main": "[a b {bh} c {ch} d {dl} {dy} e f g {gc} {gq} {gx} h {hh} {hl} i j k {kh} {kl} {kp} l m n {nc} {ngc} {ngq} {ngx} {nhl} {nk} {nkc} {nkq} {nkx} {nq} {ntsh} {nx} {ny} o p {ph} q {qh} r {rh} s {sh} t {th} {tl} {ts} {tsh} u v w x {xh} y z]",
+        "auxiliary": "[áàăâåäãā æ ç éèĕêëē íìĭîïī ñ óòŏôöøō œ úùŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Umfula othulile uletha ukukhanya; indaba entsha iyaqala kusihlwa.”"
+    },
+    "xh": {
+      "name": "Xhosa",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/xh.xml",
+      "source_sha256": "2efdbb7e566357c3c1d87434058d99a2eddca04b465727f1878efb5407ccccf8",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "auxiliary": "[áàăâåäãā æ ç éèĕêëē íìĭîïī ñ óòŏôöøō œ úùŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Umlambo ozolileyo uzisa ukukhanya; ibali elitsha liyaqala ngokuhlwa.”"
+    },
+    "so": {
+      "name": "Somali",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/so.xml",
+      "source_sha256": "770d3d0415658346f3122e13600b6cc138e27d20455eaa8fa73c556bf01f49b7",
+      "exemplars": {
+        "main": "[b c d f g h j k l m n q r s t w x y]",
+        "auxiliary": "[a e i o p u v z]",
+        "index": "[B C D F G H J K L M N Q R S T W X Y]"
+      },
+      "sample": "“Webiga deggani wuxuu sidaa iftiin; sheeko cusub ayaa bilaabata.”"
+    },
+    "om": {
+      "name": "Oromo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/om.xml",
+      "source_sha256": "dd2f40cc8e2d4de00c43963c16df8c12b2fd945b0b4257c49dd689be870e541d",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Afaan Oromoo · Amajjii · Guraandhala · Bitootessa · Caamsaa · ifa"
+    },
+    "ff": {
+      "name": "Fula (Latin)",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ff.xml",
+      "source_sha256": "19f1eea0278f6a47849d92133af9e78798cd0bfaf6d3eed819fa100bb9f73203",
+      "exemplars": {
+        "main": "[a b ɓ c d ɗ e f g h i j k l m nñ ŋ o p r s t u w y ƴ]",
+        "auxiliary": "[q v x z]",
+        "index": "[A B Ɓ C D Ɗ E F G H I J K L M NÑ Ŋ O P R S T U W Y Ƴ]"
+      },
+      "sample": "Pulaar · ɓernde · ɗemngal · ñalawma · ŋgal · ƴiiƴam · Ɓ Ɗ Ñ Ŋ Ƴ"
+    },
+    "mg": {
+      "name": "Malagasy",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mg.xml",
+      "source_sha256": "bfd282efa43008272c624cd349bd6d92f2b24b6cb573708c7b6692e00ffc0a13",
+      "exemplars": {
+        "main": "[aà b d eè f g h iì j k l m n oòô p r s t v yỳ z]",
+        "auxiliary": "[áâã c éêë îï {n̂}{n̈}ñ óö q u w x ýÿ]",
+        "index": "[A B D E F G H I J K L M N O P R S T V Y Z]"
+      },
+      "sample": "« Mitondra hazavana ny renirano tony; manomboka ny tantara vaovao. » · ỳ Ỳ"
+    },
+    "rw": {
+      "name": "Kinyarwanda",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/rw.xml",
+      "source_sha256": "c72f6df4963e2c4f85fc847fe8f52a9fdbbb699f7b8fa8e119e4978c8a2874e9",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Ikinyarwanda · Mutarama · Gashyantare · Werurwe · Gicurasi · umucyo"
+    },
+    "rn": {
+      "name": "Rundi",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/rn.xml",
+      "source_sha256": "6cd01f2339209b46517bf19ba472d2ebb3a53da750ab99adb10aea726cfd4782",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Ikirundi · Nzero · Ruhuhuma · Ntwarante · Ndamukiza · umuco"
+    },
+    "sn": {
+      "name": "Shona",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sn.xml",
+      "source_sha256": "ac7f4d4cf7cc6570b31db2b28fe5fbcfa858f7f548f3f8a9df30a57d622b9a86",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "chiShona · Ndira · Kukadzi · Kurume · Kubvumbi · Chivabvu"
+    },
+    "ny": {
+      "name": "Nyanja",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ny.xml",
+      "source_sha256": "081232a29cdbcdc91abb860a9d6cc02393a7ea06e177f2eb514aff110c43381c",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u wŵ y z]",
+        "auxiliary": "[q v x]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Chinyanja · “Mtsinje wabata umabweretsa kuwala.” · ŵ Ŵ"
+    },
+    "nso": {
+      "name": "Northern Sotho",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nso.xml",
+      "source_sha256": "0ddfdd39a57a2b843054c549299270ccc92ba1a7365bcc9fadee7b1ec572a5f0",
+      "exemplars": {
+        "main": "[a b d e ê f g h i j k l m n o ô p r s š t u w x y]",
+        "auxiliary": "[c q v z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Sesotho sa Leboa · Janeware · Febereware · Matšhe · š Š"
+    },
+    "st": {
+      "name": "Southern Sotho",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/st.xml",
+      "source_sha256": "1c991e835cca1258861db68db34aefedeb05ed53a2087b622b2e817ef5985c33",
+      "exemplars": {
+        "main": "[a b d e f g h i j k l m n o p q r s t u w y]",
+        "auxiliary": "[c v x z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Sesotho · Pherekgong · Hlakola · Hlakubele · Motsheanong"
+    },
+    "tn": {
+      "name": "Tswana",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/tn.xml",
+      "source_sha256": "cd0c16ee046f75371cd8237e576d897ae34f170234be24a7f4507f584ab96bd8",
+      "exemplars": {
+        "main": "[a b d e ê f g h i j k l m n o ô p r s t u w y]",
+        "auxiliary": "[c q v x z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Setswana · Ferikgong · Tlhakole · Mopitlo · Motsheganang · ê ô š"
+    },
+    "ts": {
+      "name": "Tsonga",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ts.xml",
+      "source_sha256": "0b3849ff0577de9223d42c66d7b016d08d96ca6a9446070b72ebb89aec85fffd",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Xitsonga · Sunguti · Nyenyenyani · Nyenyankulu · Dzivamisoko"
+    },
+    "ss": {
+      "name": "Swati",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ss.xml",
+      "source_sha256": "1c753fbfa66833e74d74a47fd63d31f1d361a3af23b7aebdfbc413d5c4714626",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "siSwati · Bhimbidvwane · iNdlovana · Mabasa · iNkhwekhweti"
+    },
+    "nr": {
+      "name": "South Ndebele",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nr.xml",
+      "source_sha256": "d379b65ba2e65d4555f8f11330b206ff93cfd6061a1b28e7ba0cd659d3428c1b",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q s t u v w x y z]",
+        "auxiliary": "[r]",
+        "index": "[A B C D E F G H I J K L M N O P Q S T U V W X Y Z]"
+      },
+      "sample": "isiNdebele · Janabari · uFeberbari · uMatjhi · Meyi"
+    },
+    "nd": {
+      "name": "North Ndebele",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nd.xml",
+      "source_sha256": "af3076264174f11bf1550595c001fcc04df288b622db577214b03b300cd10f9c",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q s t u v w x y z]",
+        "auxiliary": "[r]",
+        "index": "[A B C D E F G H I J K L M N O P Q S T U V W X Y Z]"
+      },
+      "sample": "isiNdebele · Zibandlela · Nhlolanja · Mbimbitho · Nkwenkwezi"
+    },
+    "wo": {
+      "name": "Wolof",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/wo.xml",
+      "source_sha256": "dba9cd45e049de0ea69ba2a3a495dd7d1da7c0fa3c57e327bde318c6d0b58692",
+      "exemplars": {
+        "main": "[a à b c d e é ë f g i j k l m n ñ ŋ o ó p q r s t u w x y]",
+        "auxiliary": "[ã h v z]",
+        "index": "[A B C D E F G H I J K L M N Ŋ O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Wolof · Samwiyee · Fewriyee · àdduna · ñetti · ŋ · À É Ñ Ŋ Ó"
+    },
+    "lg": {
+      "name": "Ganda",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lg.xml",
+      "source_sha256": "9eb3a66de246e7d70e804220445ab61f70a50bcc65ea0340955d211c2a5677ae",
+      "exemplars": {
+        "main": "[a b c d e f g i j k l m n {ny} ŋ o p r s t u v w y z]",
+        "auxiliary": "[h q x]",
+        "index": "[A B C D E F G I J K L M N Ŋ O P R S T U V W Y Z]"
+      },
+      "sample": "Luganda · Janwaliyo · Febwaliyo · Marisi · ŋŋoma · Ŋ ŋ"
+    },
+    "ki": {
+      "name": "Kikuyu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ki.xml",
+      "source_sha256": "e3df9de02ae0b58df235e0f7b8658ad77812e1e29215b0ec308dc14d07b3e09d",
+      "exemplars": {
+        "main": "[a b c d e g h iĩ j k m n o r t uũ w y]",
+        "auxiliary": "[f l p q s v x z]",
+        "index": "[A B C D E G H I J K M N O R T U W Y]"
+      },
+      "sample": "Gĩkũyũ · Njenuarĩ · Mwere wa kerĩ · Mwere wa gatatũ · Ĩ ĩ Ũ ũ"
+    },
+    "kam": {
+      "name": "Kikamba",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kam.xml",
+      "source_sha256": "3c8901cf1aa5515c9beceef54431c2a19b23ee2c23eda94de7daba56d314dd5d",
+      "exemplars": {
+        "main": "[a b c d e f g h iĩ j k l m n o p q r s t uũ v w y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Kikamba · Mwai wa mbee · Mwai wa kelĩ · Mwai wa katatũ · Ĩ ĩ Ũ ũ"
+    },
+    "mer": {
+      "name": "Meru",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mer.xml",
+      "source_sha256": "5d95b9027c649483794bcd0cb498817ce55af9632c6024fd44ca9feb7982c80c",
+      "exemplars": {
+        "main": "[a b c d e f g h iĩ j k l m n o p q r s t uũ v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Kĩmĩrũ · Januarĩ · Feburuarĩ · Ĩpurũ · Mĩĩ · Ĩ ĩ Ũ ũ"
+    },
+    "bem": {
+      "name": "Bemba",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bem.xml",
+      "source_sha256": "c084da4e1d0478269df76abab625a9e30178a1842c557759dedf117874f9c879",
+      "exemplars": {
+        "main": "[a b c e f g i j k l m n o p s {sh} t u w y]",
+        "auxiliary": "[d h q r v x z]",
+        "index": "[A B C E F G I J K L M N O P S {SH} T U W Y]"
+      },
+      "sample": "Ichibemba · Januari · Februari · Machi · ŋanda · Ŋ ŋ"
+    },
+    "luo": {
+      "name": "Luo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/luo.xml",
+      "source_sha256": "654917bb7c830d6acaefa640a88b9fbc81208ed119c73693a2ad820168fc62c9",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y]",
+        "auxiliary": "[q x z]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y]"
+      },
+      "sample": "Dholuo · Dwe mar Achiel · Dwe mar Ariyo · Dwe mar Ang’wen"
+    },
+    "sg": {
+      "name": "Sango",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sg.xml",
+      "source_sha256": "1984988fc9c2f1ba57b2e5d04e6cfcb59a1393c90c6495e1edc5e6e74a1c6500",
+      "exemplars": {
+        "main": "[aâä b d eêë f g h iîï j k l m n oôö p r s t uùûü v w y z]",
+        "auxiliary": "[c q x]",
+        "index": "[A B D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Sängö · Nyenye · Fulundïgi · Mbängü · Ngubùe · Bêläwü"
+    },
+    "aa": {
+      "name": "Afar",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/aa.xml",
+      "source_sha256": "f26361d135168a9cdde2c8dd6304ed270a3a698134eab6adc6079f10498bd733",
+      "exemplars": {
+        "main": "[a b t s e c k x i d q r f g o l m n u w h y]",
+        "auxiliary": "[j p v z]",
+        "index": "[A B T S E C K X I D Q R F G O L M N U W H Y]"
+      },
+      "sample": "Qafar · Qunxa Garablu · Kudo · Ciggilta Kudo · Caxah Alsa"
+    },
+    "sid": {
+      "name": "Sidamo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sid.xml",
+      "source_sha256": "992dae4112caf405af3f5186e80107503b22eacfba42f21a56737cdb457de85c",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Sidaamu Afo · Sambata · Sanyo · Maakisanyo · Roowe · Hamuse"
+    },
+    "ssy": {
+      "name": "Saho",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ssy.xml",
+      "source_sha256": "31c5fe9d6920ec0831fcff4a7c0262f1f41ed889d8e61592091fefdbfae542a0",
+      "exemplars": {
+        "main": "[a b t s e c k x i d q r f g o l m n u w h y]",
+        "auxiliary": "[j p v z]",
+        "index": "[A B T S E C K X I D Q R F G O L M N U W H Y]"
+      },
+      "sample": "Saho · Qunxa Garablu · Kudo · Ciggilta Kudo · Agda Baxis"
+    },
+    "mfe": {
+      "name": "Morisyen",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mfe.xml",
+      "source_sha256": "48e66d64ba1144c3f8fb5a978d4461577aba8f9200a94e7a06d14bf449a6c591",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W X Y Z]"
+      },
+      "sample": "kreol morisien · zanvie · fevriye · mars · avril · lamer"
+    },
+    "dyo": {
+      "name": "Jola-Fonyi",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/dyo.xml",
+      "source_sha256": "a1e92d6fbc65f98229aeebeed6376da039cb2a36f1ef2df9a9cb8fcf18b01ddf",
+      "exemplars": {
+        "main": "[aá b c d eé f g h ií j k l m nñ ŋ oó p q r s t uú v w x y]",
+        "auxiliary": "[z]",
+        "index": "[A B C D E F G H I J K L M NÑ Ŋ O P Q R S T U V W X Y]"
+      },
+      "sample": "joola · Sanvie · Fébirie · Aburil · á é í ó ú ñ ŋ"
+    },
+    "ebu": {
+      "name": "Embu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ebu.xml",
+      "source_sha256": "8c934e65c6bd674cc0b025dbc7edd72fdd5f0e74f0576d0f48b1d93ede9ad6bc",
+      "exemplars": {
+        "main": "[a b c d e f g h iĩ j k l m n o p q r s t uũ v w x y z]",
+        "index": "[A B C D E F G H IĨ J K L M N O P Q R S T UŨ V W X Y Z]"
+      },
+      "sample": "Kĩembu · Mweri wa mbere · Mweri wa kaĩri · Mweri wa kathatũ · Ĩ Ũ"
+    },
+    "guz": {
+      "name": "Gusii",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/guz.xml",
+      "source_sha256": "dd33fe52da1c715281f618efd424f2f579adb4f2595b070ae92bd24ec654b98e",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Ekegusii · Chanuari · Feburari · Machi · Apiriri · Mei"
+    },
+    "dav": {
+      "name": "Taita",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/dav.xml",
+      "source_sha256": "1a03871fdad2a4272d9700748c67ba42208cf12e2162e4aac9c4c98712a24779",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kitaita · Mori ghwa imbiri · Mori ghwa kawi · Mori ghwa kadadu"
+    },
+    "jmc": {
+      "name": "Machame",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/jmc.xml",
+      "source_sha256": "83b2170c4e57ed958facde815ba65c8929a1222d253ba768da5b54ad6e0e6be4",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kimachame · Januari · Februari · Machi · Aprilyi · Mei"
+    },
+    "kde": {
+      "name": "Makonde",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kde.xml",
+      "source_sha256": "fba972db241071848c9583be09d7e0ff8554093fd6cb5154e46f20b998502fa4",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Chimakonde · Mwedi Ntandi · Mwedi wa Pili · Mwedi wa Nchechi"
+    },
+    "kln": {
+      "name": "Kalenjin",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kln.xml",
+      "source_sha256": "4eab1200866b3919ea9666a25cf4e9cfeb54410826288165b8da6ac910fdfde0",
+      "exemplars": {
+        "main": "[a b c d e g h i j k l m n o p r s t u w y]",
+        "auxiliary": "[f q v x z]",
+        "index": "[A B C D E G H I J K L M N O P R S T U W Y]"
+      },
+      "sample": "Kalenjin · Mulgul · Ng’atyaato · Kiptaamo · Iwootkuut · Mamuut"
+    },
+    "ksb": {
+      "name": "Shambala",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ksb.xml",
+      "source_sha256": "88adcf52afb7e7b6e46ee4eacfa559a105d8ba5bbcefc1e09eb3c6227f6f2892",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p s t u v w y z]",
+        "auxiliary": "[q r x]",
+        "index": "[A B C D E F G H I J K L M N O P S T U V W Y Z]"
+      },
+      "sample": "Kishambaa · Januali · Febluali · Machi · Aplili · Mei"
+    },
+    "luy": {
+      "name": "Luyia",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/luy.xml",
+      "source_sha256": "c86bc856693c60dfe3e0eb658ea130654696cc0eb5c5651aec6410af69d6db47",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Luluhia · Januari · Februari · Machi · Aprili · Mei"
+    },
+    "mgh": {
+      "name": "Makhuwa-Meetto",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mgh.xml",
+      "source_sha256": "7691ab2ae5627f3dd63c1222ea576404b25f8c6d81a3cc5fc0e4a383e15e4f9e",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Makua · Mweri wo kwanza · Mweri wo unayeli · Mweri wo uneraru"
+    },
+    "nyn": {
+      "name": "Nyankole",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nyn.xml",
+      "source_sha256": "0323ca9bee26162fa096692b5683a424cdcc3c037735534c66c8de5211e91f56",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Runyankore · Okwokubanza · Okwakabiri · Okwakashatu · Okwakana"
+    },
+    "cgg": {
+      "name": "Chiga",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/cgg.xml",
+      "source_sha256": "1012af00e79e342fdc9a89e4430ad443c8f42295e25c5b54029fbf3fefd2e255",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Rukiga · Okwokubanza · Okwakabiri · Okwakashatu · Okwakataana"
+    },
+    "rof": {
+      "name": "Rombo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/rof.xml",
+      "source_sha256": "7b2db689269f8a24cb64ca4ea18ca13cb5ce16cd3cea8f54129b469d491337fd",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kihorombo · Mweri wa kwanza · Mweri wa kaili · Mweri wa katatu"
+    },
+    "rwk": {
+      "name": "Rwa",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/rwk.xml",
+      "source_sha256": "c60d8f7da40b99cf41baf3f053c667156d6ab42906906c256587d905b026b14c",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kiruwa · Januari · Februari · Machi · Aprilyi · Mei"
+    },
+    "saq": {
+      "name": "Samburu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/saq.xml",
+      "source_sha256": "99442aacd71f5ee0bd1d58815ad78a98862ec1e4fc8533deeee86df0175fe9df",
+      "exemplars": {
+        "main": "[a b c d e g h i j k l m n o p r s t u v w y]",
+        "auxiliary": "[f q x z]",
+        "index": "[A B C D E G H I J K L M N O P R S T U V W Y]"
+      },
+      "sample": "Kisampur · Lapa le obo · Lapa le waare · Lapa le ong’wan"
+    },
+    "sbp": {
+      "name": "Sangu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sbp.xml",
+      "source_sha256": "39c9268a60f58b2bb95a21d061e2e4c7b059c2cabe5c29bcbc9fdf99417d3211",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p s t u v w y]",
+        "auxiliary": "[q r x z]",
+        "index": "[A B C D E F G H I J K L M N O P S T U V W Y]"
+      },
+      "sample": "Ishisangu · Mupalangulwa · Mwitope · Mushende · Munyi"
+    },
+    "seh": {
+      "name": "Sena",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/seh.xml",
+      "source_sha256": "31ab158dc1c58f460d0d2728c1ab39009aa14ffe9157ee196bcbf77e72ce7e1f",
+      "exemplars": {
+        "main": "[aáàâã b cç d eéê f g h ií j k l m n oóòôõ p q r s t uú v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "sena · Janeiro · Fevreiro · Abril · Maio"
+    },
+    "teo": {
+      "name": "Teso",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/teo.xml",
+      "source_sha256": "5766e9f1fd320d8386bd391da4f57fbe403da163d5f5033bb0b0c99b3c7c03ad",
+      "exemplars": {
+        "main": "[a b c d e g h i j k l m n o p r s t u v w x y]",
+        "auxiliary": "[f q z]",
+        "index": "[A B C D E G H I J K L M N O P R S T U V W X Y]"
+      },
+      "sample": "Kiteso · Orara · Omuk · Okwamg’ · Odung’el · Omaruk"
+    },
+    "vun": {
+      "name": "Vunjo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/vun.xml",
+      "source_sha256": "9bbe3bf42b1480dfeb53c6df2269f3f62c4789ce0d916c49dba9ea1c2097e225",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kyivunjo · Januari · Februari · Machi · Aprilyi · Mei"
+    },
+    "xog": {
+      "name": "Soga",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/xog.xml",
+      "source_sha256": "453028786159eec99b4e0ffcbfae506ac2cb27b59a55cfed1c9735482267104e",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Olusoga · Janwaliyo · Febwaliyo · Marisi · Apuli · Maayi"
+    },
+    "asa": {
+      "name": "Asu",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/asa.xml",
+      "source_sha256": "4df6d072cc9dd71f43f55107cd51421186d2c150e80d71a95b3a80a3865f4bce",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p r s t u v w y z]",
+        "auxiliary": "[q x]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W Y Z]"
+      },
+      "sample": "Kipare · Januari · Februari · Machi · Aprili · Mei"
+    },
+    "bez": {
+      "name": "Bena",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bez.xml",
+      "source_sha256": "4bbb20096b67101c4b229cc452e24dc1cab2616afcc245f816615727e1915f52",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w y z]",
+        "auxiliary": "[x]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W Y Z]"
+      },
+      "sample": "Hibena · pa mwedzi gwa hutala · pa mwedzi gwa wuvili"
+    },
+    "et": {
+      "name": "Estonian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/et.xml",
+      "source_sha256": "f0c23e226c9fccf2f154ce5c49ccc788e3f6cb74ea2bee0669c2d79191ebcc5c",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s š z ž t u v w õ ä ö ü x y]",
+        "auxiliary": "[áàâåãā æ ç éèêëē íìîïī ñ óòŏôøō œ úùûū]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S Š Z Ž T U V W Õ Ä Ö Ü X Y]"
+      },
+      "sample": "„Vaikne jõgi kannab valgust; öösel sünnib uus lugu.“ · õ ä ö ü š ž"
+    },
+    "lv": {
+      "name": "Latvian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lv.xml",
+      "source_sha256": "25c2697b577837aeb4863ad1732ec017a68aa9437edc123064898da56c06f3b3",
+      "exemplars": {
+        "main": "[a ā b c č d e ē f g ģ h i ī j k ķ l ļ m n ņ o p r s š t u ū v z ž]",
+        "auxiliary": "[y ō q ŗ w x]",
+        "index": "[A Ā B C Č D E Ē F G Ģ H I Y Ī J K Ķ L Ļ M N Ņ O P Q R S Š T U Ū V W X Z Ž]"
+      },
+      "sample": "„Klusā upe nes gaismu; mežā sākas jauns stāsts.“ · ā č ē ģ ī ķ ļ ņ š ū ž"
+    },
+    "sq": {
+      "name": "Albanian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sq.xml",
+      "source_sha256": "47717fccd8664c6b9798dcf156dc8baf1187d229f4915b94c0c5253444e51cb0",
+      "exemplars": {
+        "main": "[a b c ç d {dh} e ë f g {gj} h i j k l {ll} m n {nj} o p q r {rr} s {sh} t {th} u v x {xh} y z {zh}]",
+        "auxiliary": "[w]",
+        "index": "[A B C Ç D {DH} E Ë F G {GJ} H I J K L {LL} M N {NJ} O P Q R {RR} S {SH} T {TH} U V X {XH} Y Z {ZH}]"
+      },
+      "sample": "«Lumi i qetë sjell dritë; një rrëfim i ri fillon sonte.» · ç ë Ç Ë"
+    },
+    "bs": {
+      "name": "Bosnian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bs.xml",
+      "source_sha256": "dcdc3b65e3146d631d5e5e0ba5d3f64413244c9bd2df27d0f75fcc0c5bc13cf1",
+      "exemplars": {
+        "main": "[a b c č ć d {dž} đ e f g h i j k l {lj} m n {nj} o p r s š t u v z ž]",
+        "auxiliary": "[q w x y]",
+        "index": "[A B C Č Ć D {DŽ} E F G H I J K L {LJ} M N {NJ} O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Tiha rijeka nosi svjetlo; večeras počinje nova priča.“ · č ć đ š ž"
+    },
+    "mt": {
+      "name": "Maltese",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mt.xml",
+      "source_sha256": "e28747f19a90ae680e86be0b27b2994d81f17c86dff7543cb233701b54c9d4db",
+      "exemplars": {
+        "main": "[aà b ċ d eè f ġ g {għ} h ħ iì j k l m n oò p q r s t uù v w x ż z]",
+        "auxiliary": "[c y]",
+        "index": "[A B Ċ C D E F Ġ G {GĦ} H Ħ I {IE*} J K L M N O P Q R S T U V W X Y Ż Z]"
+      },
+      "sample": "“Ix-xmajra kwieta ġġorr id-dawl; storja ġdida tibda llejla.” · ċ ġ ħ ż"
+    },
+    "lb": {
+      "name": "Luxembourgish",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lb.xml",
+      "source_sha256": "77fbf642d591ece3f43783398323123f57af8dc3d6e21b66312717b9c0a28c94",
+      "exemplars": {
+        "main": "[aä b c d eéë f g h i j k l m n o p q r s t u v w x y z]",
+        "auxiliary": "[áàăâåãā æ ç èĕêē ğ íìĭîïİī ı ñ óòŏôöøō œ ş ß úùŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "„De rouege Floss dréit d’Liicht; eng nei Geschicht fänkt un.“ · ä é ë"
+    },
+    "eu": {
+      "name": "Basque",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/eu.xml",
+      "source_sha256": "77024c565e15a7cfe075e471716da9051775d5e20b64d9d8c43a6dc1bc9c2f72",
+      "exemplars": {
+        "main": "[a b cç d e f g h i j k l m nñ o p q r s t u v w x y z]",
+        "auxiliary": "[áàăâåäãā æ éèĕêëē íìĭîïī óòŏôöøō œ úùŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«Ibai lasaiak argia dakar; istorio berri bat hasten da gaur.» · ñ ü"
+    },
+    "fo": {
+      "name": "Faroese",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/fo.xml",
+      "source_sha256": "920e8fe177cf99a9d7890b9c2a1b016a398a17bdeddffcfc1a06dc7cd3db6a4c",
+      "exemplars": {
+        "main": "[aá b dð e f g h ií j k l m n oó p r s t uú v yý æ ø]",
+        "auxiliary": "[c q w x z]",
+        "index": "[AÁ B C DÐ E F G H IÍ J K L M N OÓ P Q R S T UÚ V W X YÝ Z Æ Ø]"
+      },
+      "sample": "„Áin rennur still gjøgnum dalin; ein nýggj søga byrjar.“ · ð æ ø ý"
+    },
+    "rm": {
+      "name": "Romansh",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/rm.xml",
+      "source_sha256": "87f0bd312e5f8ab0bafd15c9c9c8e928ec70a5ce3da5c64835ed5716a753adb1",
+      "exemplars": {
+        "main": "[aà b c d eéè f g h iì j k l m n oò p q r s t uù v w x y z]",
+        "auxiliary": "[áăâåäā æ ç ĕêëē íĭîïī ñ óŏôöøō œ úŭûüū ÿ]",
+        "index": "[AÀ B C D EÉÈ F G H IÌ J K L M N OÒ P Q R S T UÙ V W X Y Z]"
+      },
+      "sample": "«Il flum quiet porta glisch; ina nova istorgia cumenza.» · à è é ì ò ù"
+    },
+    "kl": {
+      "name": "Kalaallisut",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kl.xml",
+      "source_sha256": "892579e882828c7dcb149d9e36e66812c8260bd99b9ac43d7360fa1e2130593e",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z æ ø å]",
+        "auxiliary": "[áâã éêẽ íîĩ ôõ ĸ úûũ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z Æ Ø Å]"
+      },
+      "sample": "»Kuuk eqqissisimasoq qaamanermik nassataqarpoq.« · kalaallisut · ĸ ẽ ĩ ũ"
+    },
+    "la": {
+      "name": "Latin",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/la.xml",
+      "source_sha256": "69ea3515fec64fe3ae34cf5038a2def541374990ca4924242ac818dadd348c98",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Flumen quietum lucem fert; fabula antiqua sub stellis manet.”"
+    },
+    "gsw": {
+      "name": "Swiss German",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/gsw.xml",
+      "source_sha256": "22144bcb220764fdec6b25140d2f5221f9ab60d50ffdfdf3f9ef0ea39029b129",
+      "exemplars": {
+        "main": "[aä b c d e f g h i j k l m n oö p q r s t uü v w x y z]",
+        "auxiliary": "[áàăâåā æ ç éèĕêëē íìĭîïī ñ óòŏôøō œ úùŭûū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«Dr rüüig Fluss träit s Liecht dur d Nacht.» · Schwiizertüütsch · ä ö ü"
+    },
+    "wae": {
+      "name": "Walser",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/wae.xml",
+      "source_sha256": "c4ac95417e3526af817d8cfee439d401879504164d537635a54dda4499fd1459",
+      "exemplars": {
+        "main": "[aáäã b cč d eé f g h ií j k l m n oóöõ p q r sš t uúüũ v w x y z]",
+        "auxiliary": "[àăâåā æ ç èĕêëē ìĭîïī ñ òŏôøō œ ß ùŭûū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«Walser» · Jenner · Hornig · Märze · Abrille · č š ū ž"
+    },
+    "ksh": {
+      "name": "Colognian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ksh.xml",
+      "source_sha256": "e6eae62e8cffce2f6c8acbcf06b331da9e90ba2956f9a820437c25fd9ace7690",
+      "exemplars": {
+        "main": "[aåä æ b c d eëė f g h i j k l m n oö œ p q r s ß t uůü v w x y z]",
+        "auxiliary": "[áàăâãā ç éèĕêē ğ íìĭîïī ĳ ı ł ñ óòŏôøō úùŭûū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "„Kölsch“ · Jannewa · Fäbrowa · Määz · Aprell · ä ö ü ß"
+    },
+    "fy": {
+      "name": "Western Frisian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/fy.xml",
+      "source_sha256": "da10338c75d75706fcab08b517076eca618fb84e7d0a71a6bdc0e9937f109b36",
+      "exemplars": {
+        "main": "[aáàâä b c d eéèêë f g h iíïyý {ij}{íj́} j k l m n oóôö p r s t uúûü v w z]",
+        "auxiliary": "[æ ò ù]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W X Z]"
+      },
+      "sample": "“De stille rivier draacht it ljocht troch de nacht.” · â ê î ô û ú"
+    },
+    "frr": {
+      "name": "Northern Frisian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/frr.xml",
+      "source_sha256": "cd21ea98848d96b185a202d9400ac4c3f094bec29e34512e51ac6960f2e9d38f",
+      "exemplars": {
+        "main": "[aåäā b c dđ eē f g h i j k l m n oö p r s t uü w]",
+        "auxiliary": "[áàăâã æ ç éèĕêë ğ íìĭîïİī ı ñ óòŏôøō œ q ş ß úùŭûū v x yÿ z]"
+      },
+      "sample": "Nordfriisk · Janewoore · Febrewoore · Maarts · ā ä ö ü"
+    },
+    "br": {
+      "name": "Breton",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/br.xml",
+      "source_sha256": "ed53b2286dbbd2f47fa06a4af186071b563d55bc4ace9b02423cef5d7f3b3122",
+      "exemplars": {
+        "main": "[a b {cʼh} {ch} d eê f g h i j k l m nñ o p r s t uù v w x y z]",
+        "auxiliary": "[áàăâåäãā æ cç éèĕëē íìĭîïī óòŏôöøō œ q úŭûüū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P R S T U V W X Y Z]"
+      },
+      "sample": "«Ar stêr sioul a zegas gouloù; un istor nevez a grog fenoz.» · ñ ù ê û"
+    },
+    "gv": {
+      "name": "Manx",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/gv.xml",
+      "source_sha256": "c210a5cef5d74a4fb22ef864ba3215b9d622783331b9345099a80b1121a71b78",
+      "exemplars": {
+        "main": "[a b cç d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Gaelg · Jerrey-geuree · Toshiaght-arree · Mayrnt · ç Ç"
+    },
+    "kw": {
+      "name": "Cornish",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kw.xml",
+      "source_sha256": "3a69c7faf0a0436a19d8bda161719da2eb54502cb9488ac99b4a7da1b3181d73",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "kernewek · mis Genver · mis Hwevrer · mis Meurth · mis Ebrel"
+    },
+    "oc": {
+      "name": "Occitan",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/oc.xml",
+      "source_sha256": "3971cf1be146d6907de4032e581f7afcbc4b5dcd779b6ce5a12c00c06c15de54",
+      "exemplars": {
+        "main": "[aáà b cç d eéè f g h iíï j k l m n oóò p q r s t uúü v w x y z]",
+        "auxiliary": "[ăâåäãā æ ĕêëē ìĭîī ñ ŏôöøō œ ùŭûū ÿ]",
+        "index": "[A B CÇ D E F G H I J K L M N O P Q R S T U V W X Y]"
+      },
+      "sample": "«Lo flume suau pòrta la lutz; una istòria novèla comença.» · à è é í ò ó ú ç"
+    },
+    "an": {
+      "name": "Aragonese",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/an.xml",
+      "source_sha256": "9becc199f72929b91aabdf2fd8020a0a783b827bbc7b53e98da9ed5c85e9faba",
+      "exemplars": {
+        "main": "[aá b c d eé f g h ií j k l m n oó p q r s t uúü v w x y z]",
+        "auxiliary": "[· àâä ç èêë ìîï ñ òôö ùû]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«L’aragonés» · chinero · febrero · d’abril · á é í ó ú ü ñ"
+    },
+    "sc": {
+      "name": "Sardinian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sc.xml",
+      "source_sha256": "6d79e9ea52a1c8bc8103627a6e1ab8cf727055343720f39e51ef066ae42d71ef",
+      "exemplars": {
+        "main": "[aà b c d eè f g h iì j l m n oò p r s t uù v z]",
+        "auxiliary": "[ªáâåäã æ ç éêë íîï k ñ ºóôöõø œ q ß úûü w x yÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T {TZ} U V W X Y Z]"
+      },
+      "sample": "«Su riu chietu portat lughe.» · sardu · ghennàrgiu · freàrgiu · ç"
+    },
+    "co": {
+      "name": "Corsican",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/co.xml",
+      "source_sha256": "7f40996aa0294c3c8abbc8bf0c3ef2512307cc6a68b0e874c366b54660c7bd21",
+      "exemplars": {
+        "main": "[aà b c {chj} d eè f g {ghj} h iìï j l m n oò p q r s {sc} {sg} t uùü v z]",
+        "auxiliary": "[â æ ç éêë î k ñ ô œ úû w x yÿ]",
+        "index": "[A B C {CHJ} D E F G {GHJ} H I J L M N O P Q R S {SC} {SG} T U V Z]"
+      },
+      "sample": "«U fiume tranquillu porta a luce.» · corsu · ghjennaghju · ferraghju"
+    },
+    "fur": {
+      "name": "Friulian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/fur.xml",
+      "source_sha256": "f2e03111c46898af26518a84329349f213bdef4dcb09c9193658afd0b4c498c9",
+      "exemplars": {
+        "main": "[aàâ b cç d eèê f g h iìî j k l m n oòô p q r s t uùû v w x y z]",
+        "auxiliary": "[å č éë ğ ï ñ ó š ü]",
+        "index": "[A B CÇ D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«Il flum cuiet al puarte lûs.» · furlan · Zenâr · Fevrâr · Març · Avrîl"
+    },
+    "lij": {
+      "name": "Ligurian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lij.xml",
+      "source_sha256": "1dcb9fc238de7a12dfe1a9b234e4197903b9c1b969576d4cfcbb6f79e94a96ee",
+      "exemplars": {
+        "main": "[aàâä æ b cç d eéèêë f g h iìîï j k l m nñ oóòôö p q r s t uùûü v w x y z]",
+        "auxiliary": "[õō œ ř]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "ligure · de zenâ · de frevâ · d’arvî · à è é î ò ô û"
+    },
+    "lld": {
+      "name": "Ladin",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lld.xml",
+      "source_sha256": "53eb471d65464d00139e68b8859f7d4c5d9c0776fd13a5bb84a5a8fd79d50a8d",
+      "exemplars": {
+        "main": "[aáàâ b cć d eéèêë f g h iíî j k l m n oóôö p q r s t uúü v w x y z]",
+        "auxiliary": "[ăåäãąā ĉčċç ð ěėē ğ ìïī ńňñ òŏőõō ŕř śŝş ß ùûůűū ýÿ źžż]"
+      },
+      "sample": "ladin · de jená · de forá · de merz · d’aurí · ć ś ź"
+    },
+    "lmo": {
+      "name": "Lombard",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lmo.xml",
+      "source_sha256": "44f90c984ca179166caac3aad726e718932610cd07ecc8d40c42d78fdd7e579b",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "auxiliary": "[áàăâåäãā æ ç éèĕêëē íìĭîïī ñ óòŏôöøō œ úùŭûüū ÿ]"
+      },
+      "sample": "Lombard · sginer · fevrer · marz · avril · masg · à è é ì ò ó ù ü"
+    },
+    "hsb": {
+      "name": "Upper Sorbian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/hsb.xml",
+      "source_sha256": "4eca2c9b62964b09925287410ad8e06d45f0890a235987aacbbce4cea67874cf",
+      "exemplars": {
+        "main": "[a b c č ć d {dź} e ě f g h {ch} i j k ł l m nń oó p q r ř s š t u v w x y z ž]",
+        "auxiliary": "[áàăâåäãąā æ ç ďđ éèĕêëėęē ğ íìĭîïİī ı ĺľ ňñ òŏôöőøō œ ŕ śş ß ť úùŭûůüűū ýÿ ż ź]",
+        "index": "[A B C Č Ć D {DŹ} E F G H {CH} I J K Ł L M N O P Q R S Š T U V W X Y Z Ž]"
+      },
+      "sample": "„Ćicha rěka njesy swětło.“ · hornjoserbšćina · č ć dź ě ł ń ó ř š ž"
+    },
+    "dsb": {
+      "name": "Lower Sorbian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/dsb.xml",
+      "source_sha256": "5b657aabd128ecb25c51f9fd63ff46d897875e4e5d15713094b1e5810a55a608",
+      "exemplars": {
+        "main": "[a b c č ć d e ě f g h {ch} i j k ł l m n ń oó p q r ŕ s š ś t u v w x y z ž ź]",
+        "auxiliary": "[áàăâåäãąā æ ç ďđ éèĕêëėęē ğ íìĭîïİī ı ĺľ ňñ òŏôöőøō œ ř ş ß ť úùŭûůüűū ýÿ ż]",
+        "index": "[A B C Č Ć D E F G H {Ch} I J K Ł L M N O P Q R S Š Ś T U V W X Y Z Ž Ź]"
+      },
+      "sample": "„Ćicha rěka njaso swětło.“ · dolnoserbšćina · č ć ě ł ń ó ŕ ś š ź ž"
+    },
+    "szl": {
+      "name": "Silesian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/szl.xml",
+      "source_sha256": "7c5d4618d10cca0ead03dfbf450d1b5064996ddf9c42acc973b5ead48f24780a",
+      "exemplars": {
+        "main": "[aã b cć d e f g h i j k lł m nń oŏôõō p r sś t u w y zźż]",
+        "auxiliary": "[àăâåäąā æ čç ď éèĕêěëęē íìĭîïī ľ ňñ óòöø œ q ŕř š ß ť úùŭûůüū v x ýÿ ž]",
+        "index": "[A B CĆ D E F G H I J K LŁ M NŃ OÔŌ P Q R SŚ T U V W X Y ZŹŻ]"
+      },
+      "sample": "„Ślōnski“ · stycznia · lutego · kwietnia · ć ł ń ō ś ź ż"
+    },
+    "ltg": {
+      "name": "Latgalian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ltg.xml",
+      "source_sha256": "1c150695c582f24bdfd78e0455055892e34671331f82f443ef21a7a388c24f98",
+      "exemplars": {
+        "main": "[aā b cč d eē f gģ h iī j kķ lļ m nņ oō p r sš t uū v y zž]",
+        "auxiliary": "[q ŗ w x]"
+      },
+      "sample": "latgalīšu · janvars · februars · apreļs · ā č ē ģ ī ķ ļ ņ ō š ū ž"
+    },
+    "sgs": {
+      "name": "Samogitian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sgs.xml",
+      "source_sha256": "0ce9107beb409aa229d59674967de027df8ccbaa640c86f07932e18b0dd16998",
+      "exemplars": {
+        "main": "[a ā b c č d e ē ė {ė̄} f g h i ī j k l m n o ō p r s š t u ū v z ž]",
+        "auxiliary": "[{ch} {dz} {dž}]",
+        "index": "[A Ā B C Č D E Ē Ė {Ė̄} F G H I Ī J K L M N O Ō P R S Š T U Ū V Z Ž]"
+      },
+      "sample": "„Žemaitiu kalba“ · tēp · nē · ā č ē ė ė̄ ī ō š ū ž · Ė̄"
+    },
+    "se": {
+      "name": "Northern Sami",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/se.xml",
+      "source_sha256": "824d9147fbb23713c23db099c95ad264ebc5e86bc089f421afdac6b884373cdb",
+      "exemplars": {
+        "main": "[a á b c č d đ e f g h i j k l m n ŋ o p r s š t ŧ u v z ž]",
+        "auxiliary": "[à ç éè í ńñ óò q ú w x yü ø æ å äã ö]",
+        "index": "[A Á B C Č D Đ EÉ F G H I J K L M N Ŋ O P Q R S Š T Ŧ U V W X Y Z Ž Ø Æ Å Ä Ö]"
+      },
+      "sample": "davvisámegiella · ođđajagemánnu · njukčamánnu · cuoŋománnu · á č đ ŋ š ŧ ž"
+    },
+    "smn": {
+      "name": "Inari Sami",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/smn.xml",
+      "source_sha256": "06aa41973a1088a521d721fcd0cfcb45468b66c277796693fa93b5755b8525f2",
+      "exemplars": {
+        "main": "[a â b c č d đ e f g h i j k l m n ŋ o p r s š t u v y z ž ä á]",
+        "auxiliary": "[à ç éè í ñń óò q úü w x æ ø å ã ö]",
+        "index": "[A Â B C Č D Đ E F G H I J K L M N Ŋ O P R S Š T U V Y Z Ž Ä Á]"
+      },
+      "sample": "anarâškielâ · uđđâivemáánu · kuovâmáánu · njuhčâmáánu · cuáŋuimáánu · á â ä č đ š ž"
+    },
+    "smj": {
+      "name": "Lule Sami",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/smj.xml",
+      "source_sha256": "ff561bf76ed8a214c74823eb38a5d1bcd7ac03265528ac05aa78054aa5cc1da2",
+      "exemplars": {
+        "main": "[aáåä b d e f g h i j k l m nń o p r s t u v]",
+        "auxiliary": "[c ñ ö q w x y z]",
+        "index": "[AÁÅÄ B D E F G H I J K L M NŃ O P R S T U V]"
+      },
+      "sample": "julevsámegiella · Á Å Ä Ŋ · á å ä ŋ"
+    },
+    "sma": {
+      "name": "Southern Sami",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/sma.xml",
+      "source_sha256": "e1f8d2005a6d07b9e7c9d1002e2a419c3a4a93cc9dd8f3eba151311b71ef6c0b",
+      "exemplars": {
+        "main": "[aåä b d e f g h i j k l m n oö p r s t u v y]",
+        "auxiliary": "[c ï q w x z]",
+        "index": "[AÅÄ B D E F G H I J K L M N OÖ P R S T U V Y]"
+      },
+      "sample": "Åarjelsaemien gïele · Å Ä Ï Ö Ø Æ · å ä ï ö ø æ"
     }
   }
 }
