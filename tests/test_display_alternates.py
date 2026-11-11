@@ -78,13 +78,14 @@ class DisplayAlternateTests(unittest.TestCase):
         for cut in ('edge','wide'):
             spacing=json.loads((ROOT/'display'/f'spacing_{cut}.json').read_text(encoding='utf-8'))
             name=next(name for name in curves['cuts'][cut] if name not in baseline['cuts'][cut])
-            with self.subTest(cut=cut), TTFont(ROOT/'display/fonts'/cut/f'SEIHouseDisplay-{cut.title()}.otf') as font:
-                self.assertEqual(preservation_flags(font,cut,spacing,baseline)[0],[])
-                char=font['CFF '].cff.topDictIndex[0].CharStrings[name]
-                char.decompile(); char.program=['endchar']
-                for missing in (False,True):
+            for missing in (False,True):
+                with self.subTest(cut=cut,missing=missing), TTFont(ROOT/'display/fonts'/cut/f'SEIHouseDisplay-{cut.title()}.otf') as font:
+                    self.assertEqual(preservation_flags(font,cut,spacing,baseline)[0],[])
                     if missing:
                         font.setGlyphOrder([glyph for glyph in font.getGlyphOrder() if glyph!=name])
+                    else:
+                        char=font['CFF '].cff.topDictIndex[0].CharStrings[name]
+                        char.decompile(); char.program=['endchar']
                     failures,_=preservation_flags(font,cut,spacing,baseline)
                     self.assertIn(dict(kind='unapproved-alternate-curve',glyph=name),failures)
 
