@@ -18,11 +18,13 @@ from build_subsets import ALL_STYLES as STYLES
 class Face:
     """Shape the same glyph IDs that are rasterized, including real italics and kerning."""
     def __init__(self, path):
+        """Load identical bytes into the shaping and raster engines."""
         data = path.read_bytes()
         self.hb = hb.Font(hb.Face(data))
         self.ft = freetype.Face(io.BytesIO(data))
 
     def shaped(self, text):
+        """Return glyph IDs and positions using the text's detected script."""
         buffer = hb.Buffer()
         buffer.add_str(text)
         buffer.guess_segment_properties()
@@ -30,9 +32,11 @@ class Face:
         return list(zip(buffer.glyph_infos, buffer.glyph_positions))
 
     def width(self, text, size):
+        """Measure the shaped advance at the requested proof size."""
         return sum(p.x_advance for _, p in self.shaped(text))*size/self.hb.face.upem
 
     def draw(self, image, text, size, x, baseline, color):
+        """Paint rasterized glyphs at their HarfBuzz offsets and advances."""
         scale = size/self.hb.face.upem
         self.ft.set_pixel_sizes(0, size)
         for info, pos in self.shaped(text):
@@ -49,6 +53,7 @@ class Face:
             x += pos.x_advance*scale
 
     def paragraph(self, image, text, size, x, baseline, width, color):
+        """Wrap by measured word advances and paint each line on its baseline."""
         line = ''
         for word in text.split():
             candidate = (line+' '+word).strip()

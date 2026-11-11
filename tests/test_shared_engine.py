@@ -99,10 +99,22 @@ class DisplayInheritanceTests(unittest.TestCase):
         self.assertTrue(any(flag['kind']=='display-features' and 'mark' in flag['missing'] for flag in failures))
 
     def test_phase4_additions_preserve_original_035_contours_and_metrics(self):
+        """Allow only reviewed curves and bearings in every historical Reader style."""
         legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
-        with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
-            failures = legacy_flags(font, legacy['styles']['SEIReader-Regular'])
-        self.assertEqual(failures, [])
+        for name,expected in legacy['styles'].items():
+            with self.subTest(style=name), TTFont(ROOT/'fonts'/f'{name}.otf') as font:
+                self.assertEqual(legacy_flags(font,expected), [])
+
+    def test_approved_italic_curve_does_not_allow_unreviewed_metrics(self):
+        """An allowed drawing still rejects either a changed advance or bearing."""
+        legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
+        with TTFont(ROOT/'fonts/SEIReader-Italic.otf') as font:
+            expected=legacy['styles']['SEIReader-Italic']
+            original=font['hmtx']['g']
+            for index in (0,1):
+                changed=list(original); changed[index]+=1
+                font['hmtx']['g']=tuple(changed)
+                self.assertIn(dict(kind='reader-035-hmtx',glyph='g'),legacy_flags(font,expected))
 
     def test_original_metric_mutation_fails_even_with_additive_repertoire(self):
         legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
