@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.39",
+  "version": "0.40",
   "cldr_version": "48",
   "source_ref": "release-48",
   "scope": "Latin main, auxiliary and index exemplars with case variants; modern common Slavic Cyrillic, monotonic Greek and full Vietnamese. Alphabet and shaping coverage does not certify universal transliteration, translation, regional styles or native-reader comfort.",

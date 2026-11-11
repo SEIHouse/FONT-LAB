@@ -1,10 +1,9 @@
 """Gate the shared engine against frozen Reader output and real Display shaping.
 
-The current Reader fixture was captured directly from the committed 0.39
-release, before merging the newer Phase 4 additions into this refactor. Every
-table and hint in all ninety deliveries must match that release. A separate
-0.35 fixture protects all original 419 outlines, metrics and encoded aliases
-in every style, while permitting the already approved Phase 4 additions.
+The current Reader fixture includes the reviewed g/S/question refinement.
+Every table and hint must match it. The immutable 0.35 and 0.39 references
+remain available; exact before/after exceptions admit only the intended
+curve replacements in the historical outline gate.
 """
 import argparse
 import hashlib
@@ -14,14 +13,15 @@ import unicodedata
 
 from fontTools.ttLib import TTFont
 
-from build_subsets import STYLES, SUBSETS
+from build_subsets import ALL_STYLES, STYLES, SUBSETS
 from language_coverage import inventory, test_strings
 from verify_latin import CLUSTERS, MARKS, shape
 from verify_lowercase import recorded
 
 ROOT = Path(__file__).resolve().parent
-FIXTURE = ROOT/'tests/fixtures/reader-0.39-identity.json'
+FIXTURE = ROOT/'tests/fixtures/reader-curves-identity.json'
 LEGACY_FIXTURE = ROOT/'tests/fixtures/reader-0.35-original-glyphs.json'
+CURVE_CHANGES = ROOT/'tests/fixtures/reader-curves-changes.json'
 CUTS = ('soft', 'edge', 'ink', 'wide')
 DIGITS = '0123456789'
 DIGIT_NAMES = ('zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine')
@@ -119,8 +119,10 @@ def legacy_identity(font, names=None):
 
 
 def legacy_flags(font, expected):
-    """Require every original glyph, contour, bearing, advance and alias."""
+    """Require historical output or the exact approved curve replacement."""
     found = []
+    style = font['name'].getDebugName(6).removeprefix('SEIHouseSans-')
+    curves = json.loads(CURVE_CHANGES.read_text(encoding='utf-8'))['styles'].get(style, {})
     names = set(font.getGlyphOrder())
     missing = set(expected['glyphs'])-names
     if missing:
@@ -129,7 +131,10 @@ def legacy_flags(font, expected):
     for name, row in actual['glyphs'].items():
         for field in ('outline', 'hmtx'):
             if row[field] != expected['glyphs'][name][field]:
-                found.append(dict(kind=f'reader-035-{field}', glyph=name))
+                approved = curves.get(name, {})
+                if not (approved.get('before', {}).get(field) == expected['glyphs'][name][field]
+                        and approved.get('after', {}).get(field) == row[field]):
+                    found.append(dict(kind=f'reader-035-{field}', glyph=name))
     if any(actual['cmap'].get(code)!=name for code, name in expected['cmap'].items()):
         found.append(dict(kind='reader-035-character-map'))
     if actual['metrics'] != expected['metrics']:
@@ -163,9 +168,10 @@ def reader_flags(directory, fixture, baseline=None, legacy=None):
         row = dict(glyphs=actual['glyphs'], byte_identical=actual['sha256']==expected['sha256'],
                    normalized_tables_identical=not different,
                    outline_and_hint_programs_identical=expected['programs']==actual['programs'])
-        if filename.count('.')==1 and legacy is not None:
+        style = filename.removesuffix('.otf').removesuffix('.woff2')
+        if filename.count('.')==1 and legacy is not None and style in legacy['styles']:
             with TTFont(file) as font:
-                failures = legacy_flags(font, legacy['styles'][filename.removesuffix('.otf').removesuffix('.woff2')])
+                failures = legacy_flags(font, legacy['styles'][style])
             row['matches_035_original_outlines_metrics'] = not failures
             flags.extend(dict(file=filename, **flag) for flag in failures)
         if baseline is not None and filename.count('.')==1:
@@ -277,7 +283,7 @@ def audit_features(font):
 def verify(reader_fonts, display_fonts, reader_baseline=None, reader_only=False, full_fonts_only=False):
     """Return a machine-readable gate report without modifying build products."""
     fixture = json.loads(FIXTURE.read_text(encoding='utf-8'))
-    expected_files = {f'SEIReader-{style}{suffix}' for style, *_ in STYLES
+    expected_files = {f'SEIReader-{style}{suffix}' for style, *_ in ALL_STYLES
                       for suffix in ('.otf', '.woff2', *[f'.{subset}.woff2' for subset in SUBSETS])}
     if set(fixture['files']) != expected_files:
         raise ValueError(f'The frozen Reader identity fixture must include all {len(expected_files)} deliveries')

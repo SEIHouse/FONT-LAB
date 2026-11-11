@@ -134,6 +134,8 @@ with open(os.path.join(HERE, 'old', '0.31', 'settings.json'), encoding='utf-8') 
     rhythm_settings = json.load(file)
 with open(os.path.join(HERE, 'old', '0.31', 'kern_styles.json'), encoding='utf-8') as file:
     rhythm_pairs = json.load(file)
+with open(os.path.join(HERE, 'reading_curve_spacing.json'), encoding='utf-8') as file:
+    reading_curve_spacing = json.load(file)
 
 
 class FontBuilderCore:
@@ -593,6 +595,26 @@ class FontBuilderCore:
         reg = self.settings['weight']
         return self.TRACK + (thick - reg) * (0.25 if thick > reg else 0.1)
 
+    def retain_curve_spacing(self, kern, literal, style):
+        """Keep the reviewed g/S/question pairs when rebuilding the default Reader.
+
+        Curvier outlines must not silently retune their Cyrillic/Vietnamese
+        neighbors. Custom geometry and Display still measure their own spacing.
+        """
+        if not self.PRESERVE_RHYTHM:
+            return
+        reference = reading_curve_spacing['styles'][style]
+        affected = set(reading_curve_spacing['characters'])
+        touches_curve = lambda pair: any(ch in affected for ch in pair)
+        for pairs, approved in ((kern, reference['pairs']),
+                               (literal, {p: reference['pairs'][p] for p in reference['literal_pairs']})):
+            for pair in list(pairs):
+                if touches_curve(pair) and pair not in approved:
+                    del pairs[pair]
+            pairs.update(approved)
+        # Explicit Lab pair adjustments continue to override the retained defaults.
+        kern.update({p: v for p, v in self.settings.get('pairSpace', {}).items() if touches_curve(p)})
+
     def build(self, data, out, style='Regular', italic=False, *, oblique=False):
         """Build and hint one style with the shared character set and OpenType features."""
         if oblique and (not self.display or italic or self.ITAL):
@@ -810,6 +832,7 @@ class FontBuilderCore:
         script_exceptions = self.script_clearance(paths, hm, cmap, KERN, data['basemap'])
         script_exceptions.update(self.vietnamese_clearance(paths, hm, cmap, KERN, data['basemap']))
         KERN.update(script_exceptions)
+        self.retain_curve_spacing(KERN, script_exceptions, base_ps_style)
         if night:
             if base_ps_style in self.STYLE_KERN:
                 KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])

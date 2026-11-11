@@ -17,6 +17,7 @@ from language_coverage import inventory, required_characters, test_strings
 from verify_latin import shape, PROSE
 from verify_lowercase import recorded, bounds
 from verify_stroke_joins import missing_ink, outline
+from verify_shared_engine import legacy_identity, legacy_flags
 
 ROOT = Path(__file__).resolve().parent
 
@@ -67,9 +68,10 @@ def verify(baseline=None):
         old_cmap,cmap=before.getBestCmap(),font.getBestCmap()
         assert required<=set(cmap),(style,'missing coverage',[hex(c) for c in sorted(required-set(cmap))])
         assert all(cmap[c]==name for c,name in old_cmap.items()),(style,'old cmap changed')
-        for name in before.getGlyphOrder():
-            assert recorded(before,name)==recorded(font,name),(style,name,'existing outline changed')
-            assert before['hmtx'][name]==font['hmtx'][name],(style,name,'existing metrics changed')
+        # Keep the historical design gate, with only the exact reviewed 0.40
+        # contour/bearing replacements accepted by the shared preservation audit.
+        failures=legacy_flags(font,legacy_identity(before))
+        assert not failures,(style,'existing design changed',failures)
         assert all(current_pairs[style].get(pair,0)==value for pair,value in previous_pairs[style].items()),(style,'existing pairs changed')
         assert not any(pair not in previous_pairs[style] and all(ord(c) in old_cmap for c in pair) for pair in current_pairs[style]),(style,'new old-character pair')
         for table,fields in {'head':['unitsPerEm'],'hhea':['ascent','descent','lineGap'],'post':['italicAngle'],

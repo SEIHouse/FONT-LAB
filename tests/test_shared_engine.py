@@ -9,9 +9,9 @@ import unittest
 from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
-from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, ROOT, audit_features,
+from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, CURVE_CHANGES, ROOT, audit_features,
                                   reader_flags, legacy_flags)
-from verify_display_shapes import (DESIGN, SHARED_DESIGN, design_flags,
+from verify_display_shapes import (DESIGN, SHARED_DESIGN, SHARED_REFERENCE, design_flags,
                                    validate_design_reference, web_flags,
                                    blank_flags, outline)
 
@@ -35,6 +35,18 @@ class ReaderIdentityTests(unittest.TestCase):
 
     def test_complete_current_reader_matches_frozen_reference(self):
         self.assertEqual(self.failures(), [])
+
+    def test_curve_refinement_preserves_every_original_positioning_table(self):
+        """The new drawing fixture cannot bless kerning or mark-placement changes."""
+        original = json.loads((ROOT/'tests/fixtures/reader-0.39-identity.json').read_text(encoding='utf-8'))
+        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        night = json.loads(CURVE_CHANGES.read_text(encoding='utf-8'))['night_layout_before']
+        self.assertTrue(set(original['files']) <= set(current['files']))
+        for filename, new in current['files'].items():
+            old_tables = night[filename] if 'Night' in filename else original['files'][filename]['tables']
+            for tag in ('GPOS', 'GDEF', 'GSUB'):
+                self.assertEqual(new['tables'].get(tag), old_tables.get(tag),
+                                 f'{filename}/{tag}')
 
     def test_build_timestamps_are_the_only_ignored_fields(self):
         font = TTFont(self.path, recalcTimestamp=False)
@@ -87,10 +99,22 @@ class DisplayInheritanceTests(unittest.TestCase):
         self.assertTrue(any(flag['kind']=='display-features' and 'mark' in flag['missing'] for flag in failures))
 
     def test_phase4_additions_preserve_original_035_contours_and_metrics(self):
+        """Allow only reviewed curves and bearings in every historical Reader style."""
         legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
-        with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
-            failures = legacy_flags(font, legacy['styles']['SEIReader-Regular'])
-        self.assertEqual(failures, [])
+        for name,expected in legacy['styles'].items():
+            with self.subTest(style=name), TTFont(ROOT/'fonts'/f'{name}.otf') as font:
+                self.assertEqual(legacy_flags(font,expected), [])
+
+    def test_approved_italic_curve_does_not_allow_unreviewed_metrics(self):
+        """An allowed drawing still rejects either a changed advance or bearing."""
+        legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
+        with TTFont(ROOT/'fonts/SEIReader-Italic.otf') as font:
+            expected=legacy['styles']['SEIReader-Italic']
+            original=font['hmtx']['g']
+            for index in (0,1):
+                changed=list(original); changed[index]+=1
+                font['hmtx']['g']=tuple(changed)
+                self.assertIn(dict(kind='reader-035-hmtx',glyph='g'),legacy_flags(font,expected))
 
     def test_original_metric_mutation_fails_even_with_additive_repertoire(self):
         legacy = json.loads(LEGACY_FIXTURE.read_text(encoding='utf-8'))
@@ -105,7 +129,7 @@ class DisplayDesignTests(unittest.TestCase):
     def setUp(self):
         self.original = json.loads(DESIGN.read_text(encoding='utf-8'))
         self.shared = json.loads(SHARED_DESIGN.read_text(encoding='utf-8'))
-        self.reader = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        self.reader = json.loads(SHARED_REFERENCE.read_text(encoding='utf-8'))
         self.font = TTFont(ROOT/'display/fonts/soft/SEIHouseDisplay-Soft.otf')
         self.addCleanup(self.font.close)
 

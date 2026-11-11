@@ -1,0 +1,2713 @@
+{
+  "reference": "5774a8a:fonts; exact approved replacements, all advances preserved",
+  "styles": {
+    "Light": {
+      "S": {
+        "before": {
+          "outline": "7ff66610850963d3bef2b8143ae23825ed73343063e55fad952d0ec3bb8cbca6",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "acc8c17bcf637667de1c841bda0252fa8b3e8581096d3dcf3ccadf5357682ba4",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "8d80838100ca52318a16261088cdde6b74a42443b53407385fbeb09b1de79cb5",
+          "hmtx": [
+            1175,
+            99
+          ]
+        },
+        "after": {
+          "outline": "f434feeb9724e0896e314695d94f5b8f57677ef0f498c7df80551fbff6469fc0",
+          "hmtx": [
+            1175,
+            99
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "390c281132e4d793118e9c146bcf45bdf6e515fbd10aff19e07fd1644764ec34",
+          "hmtx": [
+            1067,
+            105
+          ]
+        },
+        "after": {
+          "outline": "2a1793ee8593b8a44a45385c7f600c689adce2d9b3fbcd8155cd733365985f97",
+          "hmtx": [
+            1067,
+            105
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "8aa580504022b19ff6d22e5cdadef47f7c32858c16a231c726c096142d856266",
+          "hmtx": [
+            1175,
+            99
+          ]
+        },
+        "after": {
+          "outline": "084218f9ba446daef5767bde18f535f59d3a876a83c019e7faab6eb79ac25ce9",
+          "hmtx": [
+            1175,
+            99
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "17acdcdd75eda93f7f914c6467c71b885f7e4a148b20cafdd37c36a274384e7f",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "c5e7a424fdfec04406003ef79218b53585710391b8c87a7d245e41bf09ca57ab",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "70276dfe7147a2dd971ab102290b8ae14496104cd908de77774035bd3cd38477",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "59cb017e6b432998829c15b741d989d021910c1a25b7f5c18b642a0702f9d6e2",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "08b4cdc78103085636f427f130ed803bcdbb8802576fcae99baa4f868499cef1",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "237e579d4f5b18e650648f847bfd40f580001bc808e4147d37e2039590f136d4",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "cc792eb3d48cea600a7957ce071cd99eabf43a2965a6a860d577a4ebbccf2c14",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "146835ef95c9c3e44a3cd59f4e97d53410296a3d4b848daf8f04ff3d8a3e07c4",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "c849967166b970b0c35440bb31eb14059388febed4b791d6b13d0f28d8831e12",
+          "hmtx": [
+            1175,
+            99
+          ]
+        },
+        "after": {
+          "outline": "b0e262b784f524c460dcd337aa3583f96c90c29e07f0c397a66d9cbd6c695239",
+          "hmtx": [
+            1175,
+            99
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "6ce6b6348725041a7e203da357b8aecb5e6047709994dc47e73b2f625c585dc2",
+          "hmtx": [
+            1175,
+            99
+          ]
+        },
+        "after": {
+          "outline": "a6ea87fb035d1c899eb88d7a959d4ea7cee163ed6a4f82c5b5c4dd16649505bc",
+          "hmtx": [
+            1175,
+            99
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "2632970b3ea34e712dd823137a27c86422d04f12e952436779432a746e09c1a7",
+          "hmtx": [
+            1175,
+            99
+          ]
+        },
+        "after": {
+          "outline": "75df1186590500b509fa4e122c09604c547b269d7d9e37d0256611db677cac6b",
+          "hmtx": [
+            1175,
+            99
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "5fbfeb2bd981fb28f66f2b979923dee90f0e344c1505978fbef9e528aec48942",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "50dc5c77204ab3e520612fb1efa43f91d5742da7d034a4c68154cd21922994f1",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "7ff66610850963d3bef2b8143ae23825ed73343063e55fad952d0ec3bb8cbca6",
+          "hmtx": [
+            1257,
+            99
+          ]
+        },
+        "after": {
+          "outline": "acc8c17bcf637667de1c841bda0252fa8b3e8581096d3dcf3ccadf5357682ba4",
+          "hmtx": [
+            1257,
+            99
+          ]
+        }
+      }
+    },
+    "LightItalic": {
+      "S": {
+        "before": {
+          "outline": "5b0dffc0140046173d7a1d06222e6c9cc7f66eb5f84f5dad269032bc77188aab",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "c55e7b68d49a1ae756a7f5898b199b344e23bfdcd8d17112036ff169d9bc66dc",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "04e5ee3e58774beac0b6677ab29c2c05c2ead54b0bad5fd2432a269d65ca3dbd",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "bd79a837bf51fbd39e26c1eb44df3f71d036ff6d719a5e367e63bb07f1560252",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "76891ed766ab7205b059a69c59e74e9ae7142a5bb276fc7e200721cb35d743ea",
+          "hmtx": [
+            1040,
+            178
+          ]
+        },
+        "after": {
+          "outline": "a57fbb1ee6d732e831be3f020f7246e04e1f8ee6dc153f8600baf3f4066b9315",
+          "hmtx": [
+            1040,
+            178
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "e2520306b91bcb5b39eaff1d893e82af4236b8aa89e9b5b98e08e16ed33375cc",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "5784e20d446da224c00bf2bdcb05dbeebf540e9125a14e71650814af611342e4",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "2a1841960ef4d2311eb7ec669b9c48c4a967ca2618c01dfe83578dda64f29cfb",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "825f857f2a5d0039db9fe06cc91d25341116ce3df87c8509147e3cba80b2e143",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "9353b42e33c809d778724392929e99031176fcf7ae7c35788ac5f0880a8c9df7",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "b2ce8d23032b5a1907df0c9c5b25f14b62d660cb4a0a890ea8b70014390b0b77",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "e46393d20c819fff6c8317f89d52c8b900df2f6084721fd6a0b413d74808bf41",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "008ad459ea210ff6ea42b4ca9a6188017844ed8ee0c9f53dab2ae3e4f71bc67e",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "87a18921e8110cbb05c4efed901dd725076b7012e8bf5266871d23124946f5e2",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "af4eca5bc3c17634eb2610eb3e9b4f0a78f305b769447f2320d9f8a42f273325",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "23e73eb18a72fd587ab7130f134d05b9698b3b0080d4fd73b9b18527a81f41ea",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "de7d9289172265ae37bf429d6e2ec9ce3cd0bf846c087549edb3652637f07c59",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "20374e43d3df4725cb783b12579dab9f7cabe275936b6da07717f1d235e06363",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "59e535ce10ec987ce13345b298bb4544f4e4e1f09ea01f0dac89b473fcf75be3",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "7cbd5a2c480ef33b1904350991cedc74bf3a1ba67926352c86fe0e224cde4b80",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "904f4e4d20fd2529a869e6059d3b3b6f87af1018e94ff424179a27f99566d321",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "d03467157d0a5e17ab96c8456945a68a484351fdb78f46568a7510527dbd4337",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "56c6721aef2fa837899543e13305cb2f1d57a95dff48e29baa8df2f5f9914879",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "5b0dffc0140046173d7a1d06222e6c9cc7f66eb5f84f5dad269032bc77188aab",
+          "hmtx": [
+            1218,
+            28
+          ]
+        },
+        "after": {
+          "outline": "c55e7b68d49a1ae756a7f5898b199b344e23bfdcd8d17112036ff169d9bc66dc",
+          "hmtx": [
+            1218,
+            64
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "04e5ee3e58774beac0b6677ab29c2c05c2ead54b0bad5fd2432a269d65ca3dbd",
+          "hmtx": [
+            1143,
+            74
+          ]
+        },
+        "after": {
+          "outline": "bd79a837bf51fbd39e26c1eb44df3f71d036ff6d719a5e367e63bb07f1560252",
+          "hmtx": [
+            1143,
+            66
+          ]
+        }
+      }
+    },
+    "Regular": {
+      "S": {
+        "before": {
+          "outline": "3e01a59c6611354be1b8501d91c91591bb2facfb12226d07574664b6345834bd",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "4ab6b197b1fc2f421f6f245003029de537678767da70f71252c8fe0c38725b5b",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "1f9f1362987e2d68216da66e6982fddb208282024926f3ee83f9b6f645d61045",
+          "hmtx": [
+            1211,
+            106
+          ]
+        },
+        "after": {
+          "outline": "32143737a8af730e0ca2ab27b788c41d0221cd8787543e3507a50f7479a8804e",
+          "hmtx": [
+            1211,
+            106
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "a3a13dfbd40b8193f650d225df064f5d7b0320a27d7dbed5f085032a2f2c7057",
+          "hmtx": [
+            1103,
+            112
+          ]
+        },
+        "after": {
+          "outline": "d6c805df1dbc4089349ea18843fb5c517927842dca7de539ae913da9233ff115",
+          "hmtx": [
+            1103,
+            112
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "feecb982616ae0ce0cacec63f818f776080069f666cebe6ffc573a801d93abd0",
+          "hmtx": [
+            1211,
+            106
+          ]
+        },
+        "after": {
+          "outline": "872ac83e45b9f029f418d4c32ed80c427fbe22f6560cf57701510ff3f88501e8",
+          "hmtx": [
+            1211,
+            106
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "2392b2cd998a98ec5ac1888a97c145f07a4d086df52ac67e47c1ff6f01dbed69",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "d00162f220b023114a6c2b26606cf00150d84e8101009dcd1d85e132460737f8",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "9e7eaa01924b4e03f9e983749f77329d5f8ede9ba8467fa259b4fc8f095f0151",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "8e44938065062b0907d88210a04ecdd8c5771392b98e9846fe37b0d82d0f8c35",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "6dba523b97a994e9d59bdcabd7d9aad8746b86237c86272315ab2f3e533f2a9a",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "4819cf91d5cfbb2e5686f4a61a7a8cc20086ae26b5f6e7bc95cfefb16b2e64c0",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "68d21ba767349fac3ba2b0b51eaef3d329701faca8fb62585cd17cdffbafea08",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "95ae1507f0daa865726ae713118e5e43f65732fd0805a36edba37b3980119a1b",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "a2980780db2cc66b52628f3d81194b2beb255df02c892bfe94b850ee58ffe577",
+          "hmtx": [
+            1211,
+            106
+          ]
+        },
+        "after": {
+          "outline": "223bd36514a1b204bd0663abbbe6c2ddd0d5c439367a80c80572fd790a59a11d",
+          "hmtx": [
+            1211,
+            106
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "8507278e04327c144eb41783d69903f8e5ebaac558cf9059ed5bba41bd7155e9",
+          "hmtx": [
+            1211,
+            106
+          ]
+        },
+        "after": {
+          "outline": "b67a98e2649d92609eb5a9dd977200ea89e892f569f7e2cbf4c339d683dc74de",
+          "hmtx": [
+            1211,
+            106
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "8ec245ad0e9a64a60c90e75af2b33f2516397733eb7862502ca48212a39c639d",
+          "hmtx": [
+            1211,
+            106
+          ]
+        },
+        "after": {
+          "outline": "88651c832d78f9a45292ab121530383f71e0ebb3fffed8433aca87b87fa9397f",
+          "hmtx": [
+            1211,
+            106
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "e8c7df526a127f9b16dd6bc8a818445dec6bba10b646121eaf9743221a6d1afb",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "53e2255a0db61411413ebf2f12f63912e3d69de9934ce44a0aac5b9900dbca3b",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "3e01a59c6611354be1b8501d91c91591bb2facfb12226d07574664b6345834bd",
+          "hmtx": [
+            1293,
+            106
+          ]
+        },
+        "after": {
+          "outline": "4ab6b197b1fc2f421f6f245003029de537678767da70f71252c8fe0c38725b5b",
+          "hmtx": [
+            1293,
+            106
+          ]
+        }
+      }
+    },
+    "Italic": {
+      "S": {
+        "before": {
+          "outline": "2024bc066ab1ec2cadd568d0fb1bf0d06b74094120e9764e9625654a16f3bd18",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "8d2afce684eef8c9f7549b6ad800ac4302f9fc87bdfd6795c7a05e3478bdd1f5",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "3236346a2f6f07d36b5c131cd902b6b2437028e69a2249f6d4ce166ab2ae41df",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "27ca222e95d6820e515a9a96048f6f8f0a4a17528b43b321d8456b5910ef6f21",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "1e5f6f971921881ffac5d7273508622a6598540b20e7dd656912e9b0e12ff5e0",
+          "hmtx": [
+            1076,
+            185
+          ]
+        },
+        "after": {
+          "outline": "18bd834c700bcbcfabf01726e80d35e3b84ceb7db90a7362beb77da2305cdee1",
+          "hmtx": [
+            1076,
+            185
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "ab1ed63abe1e62b0de3d275ad8a82f94594842ef6db87c15f822ef11ebbdc99c",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "ada9c2399d9d18f9bcd5091fdf12d9073f97e6485bbb56e4e6347c6e48d32494",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "9e78f5c05039cb457ba2e38a519d3c1c0d7cd6599ecf172653dad236572f7ac0",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "5291b9d7e17244c85d38f444489193796f51a28ebd49a120ebbd6f02d091a4a4",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "b44872156bdf61f8505c838c2ec48ae39005e63dbd2af5c1b438657101de2466",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "085ccbb92e925335fe312f60c113fcbab1ef3013e1dc70eb7c0d399648c51dbb",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "0f0dd91acfdffdeb9f9b3c5f6f53bf982fb9aee6efeaebf717b514be70ce980a",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "ae58a2475a212a5395f5eef6f51589a79d1f400e33cbafb9ef9d3bc447de0718",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "4d20f7df137489132aa3cfe471d3f4ddddf3be2816aa636dbe049cbede85bbc4",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "9a2375de62483e995b785e38d7a2a8bd1d178b8c51bed078fbe043fadcf959f9",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "a37749423bb38ec31172121a52bb0536bb25abb563f88be326330d6ee0d71041",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "087c0604a1929cfda29b6fdbaea208275d6a9c874f7ce0f8dc8c9c2f9af243c0",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "1ec6ee25c7b2e1ba81885a2528e033f9961e779b6450b97f7768d5a16e1aa808",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "8c47513d97c4f2e1e0741e10c9bf95096bb8671ad998d0289ff5d990377adc93",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "ff2166276b393af732c4ac16a040a13324d70cd3462f402844fb325919382ae8",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "ce8d4016efb7d70b5368a8aaabcfd31127351814f9cf204cfc07784a548fb3d2",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "21aa3f4953f7a13c71229465b183be574fcca099b3e3c880bb7f51d0ab19d063",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "4c1a6340234f6f80fc768a313398fe251d408ba722d8db221be8473fb3ad7dd3",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "2024bc066ab1ec2cadd568d0fb1bf0d06b74094120e9764e9625654a16f3bd18",
+          "hmtx": [
+            1254,
+            37
+          ]
+        },
+        "after": {
+          "outline": "8d2afce684eef8c9f7549b6ad800ac4302f9fc87bdfd6795c7a05e3478bdd1f5",
+          "hmtx": [
+            1254,
+            72
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "3236346a2f6f07d36b5c131cd902b6b2437028e69a2249f6d4ce166ab2ae41df",
+          "hmtx": [
+            1179,
+            81
+          ]
+        },
+        "after": {
+          "outline": "27ca222e95d6820e515a9a96048f6f8f0a4a17528b43b321d8456b5910ef6f21",
+          "hmtx": [
+            1179,
+            74
+          ]
+        }
+      }
+    },
+    "Medium": {
+      "S": {
+        "before": {
+          "outline": "2c03e592162992a47f9385204ab9faee38e3923a6b15002b443ef04b8c969122",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "879e45a3a26d129c269f45418ffbbbfc2abcad0879ef13165419eb4d1fc229d8",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "ed0b63fdb1f87b173be4122c49c7274b1e10876a0ad61be794c6bb46a2d929a1",
+          "hmtx": [
+            1256,
+            116
+          ]
+        },
+        "after": {
+          "outline": "e0c43348ecfa9d4b3c38bf10d23b34ab60a4b5a8b2d2ad129742c66729037520",
+          "hmtx": [
+            1256,
+            116
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "eb52bf00ec7c6d022afd6d07336d6a4b10a29556b7d5377e411137260789ef33",
+          "hmtx": [
+            1148,
+            124
+          ]
+        },
+        "after": {
+          "outline": "913cf53f0edad2b63474442fe5e22cbce80937d0e70311e234be7f2a3ca067b4",
+          "hmtx": [
+            1148,
+            124
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "57f53458cf5ff88b673b81cb99ef01cde48359f49952da4e8fca5ca4f8d133b1",
+          "hmtx": [
+            1256,
+            116
+          ]
+        },
+        "after": {
+          "outline": "4fe70654f3ff3fbc876152500b25438d037864ed3164ad9af3544101420146c7",
+          "hmtx": [
+            1256,
+            116
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "2a7c5405278c54ee39a3880dffbd8bab0b6dfd6be81aab5274f037baf732d7a5",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "f207612f4e8a97bb72a72a29d2577fd0acd48771382693f9d802f213c7bb6e8c",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "7b474ee945d809fb555bbaeec77440d261ee0a93b64bac44e59282ea149acbb0",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "219a951a6eea7439e3962c34279ea2dcce5c8552ab287f4fbd4b93d64a29342c",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "eed3d9b4e49ed599f36e46bd58b61b64d4b2e69af92b6f02ee56bbb54850adc1",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "47ab3b12b8a39eaf8e8fbcb14624fe9db5abdb18cbc62eecbbc76eb4393aa7c6",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "f52d7885c21ace99e0ff0f0c5baa83c14374c5787276d0c7e9b86edde1eb50c8",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "96eacee059b85a3e49b488e769f9a7a1ec6342f1b3fec581853d363c29d9e18d",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "b88c7b10afa71b1ea3a6e446dceb416134ed6b3afecd344a6f81414d10180a85",
+          "hmtx": [
+            1256,
+            116
+          ]
+        },
+        "after": {
+          "outline": "1386f7cfe409d9bbeebdea7ba5fc9620b4b77ab68ca8bb230275ba5335e5939c",
+          "hmtx": [
+            1256,
+            116
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "694c29f28207d712779729de4e154f074b24314aa373ba905e16d39d347d2dfe",
+          "hmtx": [
+            1256,
+            116
+          ]
+        },
+        "after": {
+          "outline": "f9c67a88dd84e347ea03144a3193156862415bcef7b9d2e2a441e12a4bd63582",
+          "hmtx": [
+            1256,
+            116
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "24d206a85bdb3c53ebf44cbcde1623c949a9baca5f4985e0dc99c54d3d931212",
+          "hmtx": [
+            1256,
+            116
+          ]
+        },
+        "after": {
+          "outline": "60498b8a3ef67e1a462b340d3c57f0edb4302afeaedfb3d604bafc759b8e36e5",
+          "hmtx": [
+            1256,
+            116
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "5130ada39bc2b00ed3ff3dbabcd824c27c23edb4016370988bc70f10b9d3ac95",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "c169fdea3d3726dc4b0033b7f2c4e0692023aac9ecea8430392b1f514790b5b4",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "2c03e592162992a47f9385204ab9faee38e3923a6b15002b443ef04b8c969122",
+          "hmtx": [
+            1338,
+            116
+          ]
+        },
+        "after": {
+          "outline": "879e45a3a26d129c269f45418ffbbbfc2abcad0879ef13165419eb4d1fc229d8",
+          "hmtx": [
+            1338,
+            116
+          ]
+        }
+      }
+    },
+    "MediumItalic": {
+      "S": {
+        "before": {
+          "outline": "eeca1dfbb958a0bc01ec6d699f2546cd3be9bb4b0b3e920aec2675940f368f2e",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "a2ba771b6a0bd12c5bad6a128030d235d6af3c2ab5bbc66213d66452cd52d1d1",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "5ac275503258242ea87f527856ab2937805cce552b02b16f472686e56238f9de",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "ad66e209759970953f305f3943e1b39442710579fd2d2c55f3919a823039e5c2",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "73ac7914f442cdad587c4c9535647c2b1a6ceac6278c85fa31e108129da50517",
+          "hmtx": [
+            1121,
+            196
+          ]
+        },
+        "after": {
+          "outline": "2bfd2688aa28331e9bc28a7ac26cb2d25d563fca127742a6f564919c5dde6b37",
+          "hmtx": [
+            1121,
+            196
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "60d9973b25cf8e7c77a73c4ae4bedde05048fff55fe1e51fce04106919ff2d94",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "f40d1a28d74915f9baf4de3d179e45c16f2cf191cfc03b03cbafc1857521c4ae",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "6143b7e69197a5121cab8bb0318c9c6fa4598f652a67de404212d19e50881042",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "fddd99bfa57543e7b32e5171e5fd8fbe57e8d81c3bdca69f800359c9a04d3458",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "9e34350699805a0bb557ec6605200bda0c1d3b69ce871943cc009bbd69fd7f12",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "f18286018ef23a892b8d7cae090e0242690bbf5f85ae28ef3e4aa033a9efc7d9",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "07bf7b4a924946646a01c0383b56cdc722e4f63ab90b5575f589e0265d45bb6f",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "e8668fc32a39b361246df8dc1a405a67fa04e6169f60b7414bb01b9ebfc31d2b",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "49fa4ece2e599bd482a6503e0373198cbd42d3479b2faafc13e42f8daa0a4b11",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "fcc5daeed01b440fdd4dae7b65fbe63c2a01e9dad5199073d7b799d84d0607aa",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "ec8682f5980b39204b59a7acc2443e67f92bbc97fb7149722380bd71a345a137",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "075bd81b3a3f433417f00824f2ebacc5a6076cc12513e3655f392d50c6f584f3",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "c568fa18b5a19bc3a401da4be9960f807df15e12de2dbd0a4e4fbb96eee591d4",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "21d2492f848cf582c80725c829988a12f7f713f4f6f03ff308dd6f54dd09be9d",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "0ad8c9be94e1119a671473702b73b3617ed32530df310b7e2a5a32a5b4d3a6d4",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "c165d7b942d080b864230f0c13240d3c1081060df4cdd8579ef7bdbe98aa7def",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "5ae2dbbc65fb17767b7fbc6f5107a5ddb512f97bcc51af9597ab2dc959f355e6",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "3790ae3e7b7a972e32b69a272f1cf83e740a0841b379ab22e68c4d6b32dc5b32",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "eeca1dfbb958a0bc01ec6d699f2546cd3be9bb4b0b3e920aec2675940f368f2e",
+          "hmtx": [
+            1299,
+            48
+          ]
+        },
+        "after": {
+          "outline": "a2ba771b6a0bd12c5bad6a128030d235d6af3c2ab5bbc66213d66452cd52d1d1",
+          "hmtx": [
+            1299,
+            84
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "5ac275503258242ea87f527856ab2937805cce552b02b16f472686e56238f9de",
+          "hmtx": [
+            1224,
+            92
+          ]
+        },
+        "after": {
+          "outline": "ad66e209759970953f305f3943e1b39442710579fd2d2c55f3919a823039e5c2",
+          "hmtx": [
+            1224,
+            84
+          ]
+        }
+      }
+    },
+    "SemiBold": {
+      "S": {
+        "before": {
+          "outline": "c6097293985030fbea865cfcc8f907b6e08b469aa25a4fa2c9effd5ffa885b7e",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "6b289cce18db3dcd2f7a6b8bf759fe10d8148aea11593d7aab9508825312207c",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "8d5637d6769f62ec33f64b318a64238104452e0dc25c6a0bb0c5c2660c29a22e",
+          "hmtx": [
+            1301,
+            121
+          ]
+        },
+        "after": {
+          "outline": "71617ea79ee2a3462a94a2df2071af3d35769d3f7f2dfd5fa074da43b11e630e",
+          "hmtx": [
+            1301,
+            121
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "79216882b4fef2546292a13cfc95b23b9ed9c551477f24d89cf7b6cfa11374d4",
+          "hmtx": [
+            1193,
+            136
+          ]
+        },
+        "after": {
+          "outline": "3912168d9dca9f66472de2850ad17bd40c334acf40a9d6b70d3c8743fc55d9ca",
+          "hmtx": [
+            1193,
+            136
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "902a5acc7227a7d9c8c235a2a14e41d4975cfb3aa37b6336cd1e082512c6675b",
+          "hmtx": [
+            1301,
+            121
+          ]
+        },
+        "after": {
+          "outline": "b40675209d0e0decdc0f95f8bf04bf8c98aae70703b52589bf8cfbc4a1d60b18",
+          "hmtx": [
+            1301,
+            121
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "eaf4b88fd192c5fb52e3e801edfc818c11f855927c46c6fe158ea514e0a6859a",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "9b24ccb3cea81f71ae51365435fec856be936143c6619e26e046146a28f612da",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "a26f08f6199c7b256ac0646f6bac1742aaba1c06a3edc7cfbe9133bf876272a8",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "ed71256b1e6efc8b0b6f7b22e98fbbb887bcaec685c738607af1669fa8ac07c2",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "5461dfbb8af9845f5e6dccdf27d95a1c1caa739227c2e6bea9ff59d2db8351e0",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "85de212d799436ef05300bcc1509e12e8b4291c977eda4f1946a3e18b0ecb07f",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "dd97876fb5574dfbd41c57c03fc70536b486a93a35efe0a585bdfcacad37fdce",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "419836de163d88ef9fbd361b2369915cea5d04310285b8b793a2298cb44bbea8",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "81cea4947481c7636ecdde4e48d5bacbf1b077f458ca4e5c4cc1d73fb30bf3ea",
+          "hmtx": [
+            1301,
+            121
+          ]
+        },
+        "after": {
+          "outline": "eb75f718cdbbaf7ed6ace6ff4117e78e910b00236ddf7d12fa0138b2f53a2a66",
+          "hmtx": [
+            1301,
+            121
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "ae04be1c896d2d49dbde646aabd4ac1f15cb3e0c2096811fbd13563c89cb28af",
+          "hmtx": [
+            1301,
+            121
+          ]
+        },
+        "after": {
+          "outline": "d96928c273d9101587903bbd402449def4547ba373c62b25a1585b5a9bcf2f37",
+          "hmtx": [
+            1301,
+            121
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "52a1a086ba8786df4812e41ca2e74e45377d9d9f0998e1ecf1b66f4f388015be",
+          "hmtx": [
+            1301,
+            121
+          ]
+        },
+        "after": {
+          "outline": "99593c5c087f4884ac130fb3d789bf909edabccac58dd77cb4d83a077bc8eb8c",
+          "hmtx": [
+            1301,
+            121
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "a1095bf3b60cab19bb56d40eea1bd0edcfc689cba7b054489fd40be204e5b7e1",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "3c30a6dea86394bda5fd11958c5b7fe1e4234c73cdff3a2011b2b2b5a89a167f",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "c6097293985030fbea865cfcc8f907b6e08b469aa25a4fa2c9effd5ffa885b7e",
+          "hmtx": [
+            1383,
+            121
+          ]
+        },
+        "after": {
+          "outline": "6b289cce18db3dcd2f7a6b8bf759fe10d8148aea11593d7aab9508825312207c",
+          "hmtx": [
+            1383,
+            121
+          ]
+        }
+      }
+    },
+    "SemiBoldItalic": {
+      "S": {
+        "before": {
+          "outline": "e45dc25f979c4a815371fa24e33f05f3796ab710ee6442918a125537c324789d",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "8e28e69698cdfe87601e4e7b2e71e0a86224489c8355327450371db1339fbbab",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "8ba72bce5f0bda86e87099c2fd4bb88cf231e1c63e6a28f8a213f4de8f55446d",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "d32f0936c92a30c636e95487b0d02f9e08befbd61ed2fc6d99a709ae209e5df4",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "17d2275213c006404e302b4413c82005a8a928f9db98ba8b06cedff6c3ec744a",
+          "hmtx": [
+            1166,
+            206
+          ]
+        },
+        "after": {
+          "outline": "13194e2983ebbeaba622699a6b40463ecbbd703fc98294cf3bc014d2020098a5",
+          "hmtx": [
+            1166,
+            206
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "6430ddc1e58aee40b6f68fbd1a3bd4805c8b1ffd2e7c31728edae7acf2f32efe",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "c47b543b1f9ad3c6d556bcc64172bddd6ad4a3399064dc1086c1347407f6be49",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "246a39644fe02fd740a07af9121de90afd06a51fc0c7251139f1c925849f3825",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "f022befba005a4dcf9c552ef07f20ff82ca7f41943877e456495f47b792fa9bd",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "a104c7b1aa41e1766dcb1690811cdbc9596687092787f81c74df6eac8693cc65",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "00b5c3149addb16a06043296650cb786b474f8d7eec35ff3c3c90c5ef09d016f",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "277d3b818ed88ec2f358394707fe73efc50287502a702357616cdcb87ad2714c",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "b2612a21e23f84d55625a1e233429c69e07b0449a474f7efc06dbc8756709a72",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "ad85c989e4eee312a46f29012b5e6909f6885023582d4f068a878de8e8015bf2",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "e9da71604bb1d1e842a4a90a540068e5ee994e21b4d711ae793e58442f90f3fb",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "4c2879603d7ec12092bdfdb2071c8146b3dbba9680289c035c512701da162b70",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "cfe084f45f54e73b8be24700f78129c62df6896b7291cec3c0e6c47194006fed",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "6cc7166e5f1a373b1d82432d01b94dc2ec2db7a0fee38a662f45a8916fcdf898",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "c7222f2613721afcdf665ecc64c6b39b78c2860f6d14028cb60a9c19c4d6425b",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "82dc53191cfb0020e69967b33ae0eddad04b429ea3e6d3b67ba9592c4f225cd0",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "ac5d8f152f48e4e2896aba5bee1795e2bbb345e66b9c3f09b884d0e8ebd9ad91",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "e2c5921785cd723d820f15311e00130de9419935d76c2a2095a52ebaa11da4b7",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "ba4b0180b6d3ee52f699da8b5a3ef3bf71f9f588bd275760be2258cd8e4e3cb0",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "e45dc25f979c4a815371fa24e33f05f3796ab710ee6442918a125537c324789d",
+          "hmtx": [
+            1344,
+            55
+          ]
+        },
+        "after": {
+          "outline": "8e28e69698cdfe87601e4e7b2e71e0a86224489c8355327450371db1339fbbab",
+          "hmtx": [
+            1344,
+            90
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "8ba72bce5f0bda86e87099c2fd4bb88cf231e1c63e6a28f8a213f4de8f55446d",
+          "hmtx": [
+            1269,
+            97
+          ]
+        },
+        "after": {
+          "outline": "d32f0936c92a30c636e95487b0d02f9e08befbd61ed2fc6d99a709ae209e5df4",
+          "hmtx": [
+            1269,
+            90
+          ]
+        }
+      }
+    },
+    "Bold": {
+      "S": {
+        "before": {
+          "outline": "ac6a205ab939989bbf52f3a3fe0efc32513200ce068d9be3b625040f91fb190c",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "de18b9dd7a662139362d7cca032ba2707d3cbea36f095ebf10a19f73f120a1e1",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "28dc1d6be7948138832582998a1d3495b4530f1fc9d83ec001c5a5b15fa2033a",
+          "hmtx": [
+            1376,
+            133
+          ]
+        },
+        "after": {
+          "outline": "8ec109f61769308c68d6293b259163d6f85d1edb840e50e6cf44ba320c29eb09",
+          "hmtx": [
+            1376,
+            133
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "f02433c06db395c3e34a7426532ff29e60af6e2c7e2b27f3eb191bb8210ed74a",
+          "hmtx": [
+            1268,
+            173
+          ]
+        },
+        "after": {
+          "outline": "e8c4b9f003dbfbb62922ce3b6b8bd01d911027e1f00d98730b3fce011dc284db",
+          "hmtx": [
+            1268,
+            173
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "37e22d4c89bfeaf7993db384626cd945d72da99b7086a5fd8fc082c3ff6c4ba0",
+          "hmtx": [
+            1376,
+            133
+          ]
+        },
+        "after": {
+          "outline": "69544e90a41ad80aa3f64299f1ced637283227ba2be1c8ff425aad7a19e3186d",
+          "hmtx": [
+            1376,
+            133
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "706350d2ede90973345a1a58dfd0c99c8197f251661d1303d88079d3fac3ce2b",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "9909fdc98c0f64cabff135232a7858cdd2528474875258db55fb265e6b9c916f",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "dbc91ea5b71ff1f35157048180d1e36f250900f3e8cac0338ee21861d58545de",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "4ea503e6d32a43fcb0de0bbc97ea4a1588f847b7e57bd93d46b40de9ee55db40",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "1d04d032c2429e960d3217591e4dda1e067f26cd6cb1f481fed9811cddbd5870",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "aabae9e5f6b72315300e3f497cacdc2a9e2f2cbd7308e96335dc240a03865c4a",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "152f37242fba5eafaf71cb83535245c8415aae5886a3d737c8cd96a760c0c67d",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "c8e3a27ab1b39937ba2c1167111fe5017e75970ba6d0a2fe46eb72c67ec8c627",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "e057e2a4247662380429da0d2c89b2a497cd64365b95a7494e78b2543b9496a4",
+          "hmtx": [
+            1376,
+            133
+          ]
+        },
+        "after": {
+          "outline": "31ecdc227562b15722c2b8b2223547d1449da063005865923737bd6e8ea2c15f",
+          "hmtx": [
+            1376,
+            133
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "3edfc7c32baba06ce87d5461f1456ff413b21c214b10f8e28dc8f383d1c73a07",
+          "hmtx": [
+            1376,
+            133
+          ]
+        },
+        "after": {
+          "outline": "a3315b5065969c245a8e3a8a2cbc799341dd1f9adcf1bd5bead052a1e1fd7e9b",
+          "hmtx": [
+            1376,
+            133
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "3837b4a2f32b5ab2f66c0b5dcd1b964e9c743b27fda523cab640415f09e29319",
+          "hmtx": [
+            1376,
+            133
+          ]
+        },
+        "after": {
+          "outline": "e1fb018c93228677fde0f5d489423f8ae0d95c2282566d4c129ecb9ceac6e442",
+          "hmtx": [
+            1376,
+            133
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "9afad32bec7b31f18919940f867de24360f0eb7b6f91e0a8c8149ca9401de628",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "8f582519a8565ecc894ef431ab1c811adb08d525e8b6bc43245adb18df22c81f",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "ac6a205ab939989bbf52f3a3fe0efc32513200ce068d9be3b625040f91fb190c",
+          "hmtx": [
+            1458,
+            133
+          ]
+        },
+        "after": {
+          "outline": "de18b9dd7a662139362d7cca032ba2707d3cbea36f095ebf10a19f73f120a1e1",
+          "hmtx": [
+            1458,
+            133
+          ]
+        }
+      }
+    },
+    "BoldItalic": {
+      "S": {
+        "before": {
+          "outline": "a77a6de63572b6833f0fd11016832076022dc4ffbeb7d09f7acb813337bff65b",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "246315685a3fce5bb518289c32ba0957b8fad6d930e96aed9228ffcad0cd3c9d",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "c6dd346fece986a1bd661821667f51d03036ff1cfbbdd6b6c415de8202a39807",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "f95e432e8edc860251fb5e1ec970f0b15f3819df1b79fdedcb334868406b1564",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "b21e0038cad20b58cbeed38ebc9bf63d3b9924cb79c63b6c07cb95db83851cde",
+          "hmtx": [
+            1241,
+            241
+          ]
+        },
+        "after": {
+          "outline": "e2e88aa112278e73a54df0dcc0cab36e52c1473a2738a1def8ac44b40cf38754",
+          "hmtx": [
+            1241,
+            241
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "e4c42f749ae3f4edc6c76b8bb2357d2eb449b7fe32f3ea8ee341ea7b746dd129",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "c4680ee659c77cb6f2151a811e0892fc55252b2b5e9d37e47da71bc71a12f28d",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "d46f9f9ebfca21fe9b4997330f585de1e70055db22dd21915b41f9882273a8af",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "1a13587ae4176e410f8055809a0bc465b35f797c18c2f01542c1435b5aeb56df",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "888b86e4d80033519ea40c71280ad01cebb4717f9d419ba506cd120f97cf31a3",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "e699b80d5b59439de25462eb87d459d7ca3a3d445ea72ee44f0d975e26f0dc82",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "8856fd2080cde01c4fa91c4be79ce9bf888bf7bfb98b376bfcda05b36304d0bb",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "cb5031bc562aec98f6ef9ec4034f566798c8fa2546ca67ebf9fad1e501651a1e",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "9711106c2fca50dbe8692aa0f6dd02f0e2ce09990733c554814a27807f625130",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "72dca54d0822f5cb091a00cbc838c5798782bb943ad78331bdc7fab3ea8163f1",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "454de34d94082a19ea29482ed0e26cae89bec0da9036fc33b9d8d352eb94c0f7",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "6955e34fe57f8473b71fa2d4583d1942535d964d3665d2f818d22fa7b92aacd9",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "8eccc9c89de398b7008af5414cb672d619a60b4d042696ab40e6ea43f1a0a12d",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "2537e206420641f13776458bf03fe7c7606aa51e94dd4f985192fad9e0c28118",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "b02ff3792952798c27e8d6219772094abdc705e001b05b410a4305d095798ac4",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "78f9bb00c6bdb504a02cd79246198c18f126975fad759c4ec91c1e0cb2ed90ac",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "1b3e4b1e67bb4964adbd836d295d18c148c184c000832acc46cc43ffe946256b",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "96cc6fd643d32e3c82b3d7e759966ee16edbff1718ae087794d26f9824d2a965",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "a77a6de63572b6833f0fd11016832076022dc4ffbeb7d09f7acb813337bff65b",
+          "hmtx": [
+            1419,
+            70
+          ]
+        },
+        "after": {
+          "outline": "246315685a3fce5bb518289c32ba0957b8fad6d930e96aed9228ffcad0cd3c9d",
+          "hmtx": [
+            1419,
+            105
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "c6dd346fece986a1bd661821667f51d03036ff1cfbbdd6b6c415de8202a39807",
+          "hmtx": [
+            1344,
+            110
+          ]
+        },
+        "after": {
+          "outline": "f95e432e8edc860251fb5e1ec970f0b15f3819df1b79fdedcb334868406b1564",
+          "hmtx": [
+            1344,
+            103
+          ]
+        }
+      }
+    },
+    "RegularNight": {
+      "S": {
+        "before": {
+          "outline": "8492358a478c8d80fcadd76fa54f00716b402f75c8f0f51453f8de2973edba25",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "b06c68220ce4ad7c630deddacb88ab3b91bc24980dc972d3820ff6c34a8e1bd2",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "50f05cb539865e1f20659772a8b7098eeace25ee959614d2d7110c12fe9ffa0e",
+          "hmtx": [
+            1211,
+            110
+          ]
+        },
+        "after": {
+          "outline": "74d3f6c1d37c26d317e297ba68ad0e46464e2c6f71fe191a75eaa7492077833d",
+          "hmtx": [
+            1211,
+            110
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "5c86a66229eb361cc5418ccde60a4b636b2c7b1086d1d35a05b703f49d3b5088",
+          "hmtx": [
+            1103,
+            116
+          ]
+        },
+        "after": {
+          "outline": "20f096ae6d0497ff028169506801a3e47a024c771d77f96976dfa56444ed81da",
+          "hmtx": [
+            1103,
+            116
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "be37678265f2382881e7e2589671918099798b69dc22b42c1b2592a7352a331f",
+          "hmtx": [
+            1211,
+            110
+          ]
+        },
+        "after": {
+          "outline": "a0dfe48a86e3ffdacb01a82d4f61ec8e6a5cef09e09606671d96aaeea27fe72c",
+          "hmtx": [
+            1211,
+            110
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "4f8b841cc9a650a3e471057d06f1f316509c0bdcdc326cbf60a11fafd85351c3",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "b4ef0860d9a755971954cbb4b37622245e801671c76b3b0f0be25295d4ef1089",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "9cd0021516b2474a908edaefba2447d09e6291c5b4ffb93798bf5ab9f4c0881c",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "7e8af198712f6a908777d7532dd21f37a282a791e1d75d5e14f085af399b5886",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "6639deca89dd7e89ac01c2b692fb7b0ff8ad6148846b27fdde337c0d2e67fc1c",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "9112ea9e780c8805705c1e77bda0c1ffa7a24347f3b6175577f05a2117d3869e",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "f477af65d8d1e7b55c38334c75e204bf0427f78416d0d420b36272bff22746c0",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "60c354ab7bea9fa83e278c610021d542b6a15c9d373a89c2d0651ca9797dded7",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "afcfcd7f847426fb2b7e782e0be0c94ee7b9a5d9795948966303e7884bf35c99",
+          "hmtx": [
+            1211,
+            110
+          ]
+        },
+        "after": {
+          "outline": "051944503693b989d8c274fdfd408462f2f4daab098324c9584c8048d6b5be8b",
+          "hmtx": [
+            1211,
+            110
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "1438ff226603db3e6ce2f02c2d9618ffaed9436b762a174367679228cacbcfd1",
+          "hmtx": [
+            1211,
+            110
+          ]
+        },
+        "after": {
+          "outline": "6793758839d6f755e3d9218b9060481c6af105d8421a28381579e8f96c7912a2",
+          "hmtx": [
+            1211,
+            110
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "01fdc50dbdebe5a9678d804fe5424711bd52fde5722878ba4286c133c8d563e7",
+          "hmtx": [
+            1211,
+            110
+          ]
+        },
+        "after": {
+          "outline": "687428f946d45683b46c349ed1cdb3f147a6cb810e919d432a2a73251140d80a",
+          "hmtx": [
+            1211,
+            110
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "3448ef2624a59990bdc362c9dc82e82d81d1ddb09a8dc503b7229a99f5db1c18",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "3e59692e0fef279d98320cfbe222cdcfa855e1ea84e714c2c4fb11c01b34ac64",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "8492358a478c8d80fcadd76fa54f00716b402f75c8f0f51453f8de2973edba25",
+          "hmtx": [
+            1293,
+            110
+          ]
+        },
+        "after": {
+          "outline": "b06c68220ce4ad7c630deddacb88ab3b91bc24980dc972d3820ff6c34a8e1bd2",
+          "hmtx": [
+            1293,
+            110
+          ]
+        }
+      }
+    },
+    "ItalicNight": {
+      "S": {
+        "before": {
+          "outline": "861a6712c2c155c45823525bb5bf5ae49687f27d00304cb523c385a9a61c4e2e",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "c3693d1028ffa3d0c6dfea77ecb529856357a6e212c56eebfe3dc05655355573",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "g": {
+        "before": {
+          "outline": "92af5a46a3be0eaaa1916301b288a534c2e366741cea3b06220abd47912c78dc",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "231ebf624f1810d8025cedc31f0055e2ac230dbbeeb6921f6030ce4e360adece",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      },
+      "question": {
+        "before": {
+          "outline": "999d24013449086562b8dc993ac7abd2812cfe12d0a19689356e0f47f1d50597",
+          "hmtx": [
+            1076,
+            189
+          ]
+        },
+        "after": {
+          "outline": "39a28ceae10a4dd07c8751d225735af29d84045384e3047251c2bb83df0907d4",
+          "hmtx": [
+            1076,
+            189
+          ]
+        }
+      },
+      "gbreve": {
+        "before": {
+          "outline": "033d163d118095bcbe805863b1e59af37ac6bdfbab0a1a5777096b6bcd04248f",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "80f66f5e2b7f0f337ea1613a7654ca1740ed44c1427e4783a495a23f328499c6",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      },
+      "Sacute": {
+        "before": {
+          "outline": "90203b3944f95bb088b49cfe0ccc20a7bd9e8a921034b811d68b4f19de91a1db",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "5d5d04dcf210ddf45f9e17b1e4e74df13233fe8bd164a0dbfe2810faea934aaa",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "Scedilla": {
+        "before": {
+          "outline": "5f1afe1bb5f1e3be5dd511a16d96024d250db416a8695d3c027d1ffdffc71f7a",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "a7c6c855bd493f0928f44eac3d6a52e949e89c7668c0d92e7dec60cd617d44e0",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "Scaron": {
+        "before": {
+          "outline": "c449bc6c87f96420b97d845ad699eef2e67bc691e635616613423b3034d5fb40",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "2f30e284222f96fffa82a4835ec13a36f3666a5e095d784163abbdd3360ea1fe",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "uni0218": {
+        "before": {
+          "outline": "bcc11220e92b54a560632c585820663fbeb257a8e07e67bf3ddf6f3bcd5bb185",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "1fed4c24e13e74213b1f795c2e6e381ae82c1bb8a63fdcbb11cef9dfd98dad44",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "gcircumflex": {
+        "before": {
+          "outline": "af1e485584eb743fc4dde9270b3e264f89a4a41a70436d6e57ba75179c5da002",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "93bd1d36c459be10031d990eec447c149d46afa31ee132cf3bdd3806837995c1",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      },
+      "gdotaccent": {
+        "before": {
+          "outline": "bbd40e652bde9d412610d13f2e3b36c234a5d234363f762d5a25cbe8fd8c48cf",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "19af90ea16a775bc9cd2ac021fa7553a9766136cc4cd9301cd6312c7faed7431",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      },
+      "uni0123": {
+        "before": {
+          "outline": "229f2fd519d8d1eb4bc7091314eff5c6b6439f661bbb4c2e251a66dde62bacfd",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "4d057820b939be6828afdeb2420d374b0efb8d64b68add03a76bc93362ca9200",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      },
+      "Scircumflex": {
+        "before": {
+          "outline": "091321d6a8499ae949d5cac310b8b507cad47bd84a9678eabad0838142976334",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "96d8c3af2f3991f3634bb7d9a064d078bc3c6203a3594f24435c9dfcce7129d3",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "uni0405": {
+        "before": {
+          "outline": "861a6712c2c155c45823525bb5bf5ae49687f27d00304cb523c385a9a61c4e2e",
+          "hmtx": [
+            1254,
+            40
+          ]
+        },
+        "after": {
+          "outline": "c3693d1028ffa3d0c6dfea77ecb529856357a6e212c56eebfe3dc05655355573",
+          "hmtx": [
+            1254,
+            76
+          ]
+        }
+      },
+      "uni0434": {
+        "before": {
+          "outline": "92af5a46a3be0eaaa1916301b288a534c2e366741cea3b06220abd47912c78dc",
+          "hmtx": [
+            1179,
+            85
+          ]
+        },
+        "after": {
+          "outline": "231ebf624f1810d8025cedc31f0055e2ac230dbbeeb6921f6030ce4e360adece",
+          "hmtx": [
+            1179,
+            77
+          ]
+        }
+      }
+    }
+  },
+  "night_layout_before": {
+    "SEIReader-RegularNight.otf": {
+      "GPOS": "c5bedeafae94d3f1c0a7b09dbaef3bae359a95deedc018d32f3cbdbbc59b18a2",
+      "GDEF": "75543f255c8775cd9e466c32de8102aacbe2e018c7b67d5206c0732b2137f1c5",
+      "GSUB": "b93b014222d3213021d0355046bbb16dbcf6096003cea7d2d41095fdd7b56b9c"
+    },
+    "SEIReader-RegularNight.woff2": {
+      "GPOS": "c5bedeafae94d3f1c0a7b09dbaef3bae359a95deedc018d32f3cbdbbc59b18a2",
+      "GDEF": "75543f255c8775cd9e466c32de8102aacbe2e018c7b67d5206c0732b2137f1c5",
+      "GSUB": "b93b014222d3213021d0355046bbb16dbcf6096003cea7d2d41095fdd7b56b9c"
+    },
+    "SEIReader-RegularNight.latin-basic.woff2": {
+      "GPOS": "037fd66f031776bbafff33261851d89c6f179e4485f5a813b05bdc2d59195098",
+      "GDEF": "7d6424ca3d20a4338f91d14b4f752e62d253f0265bdb287ae8ce762133736ef1",
+      "GSUB": "ed15bef59d0b822136536341ac628b2e2febb3cfb9b92e09a8ea47110caf1995"
+    },
+    "SEIReader-RegularNight.symbols-icons.woff2": {
+      "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
+      "GDEF": null,
+      "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a"
+    },
+    "SEIReader-RegularNight.latin-extended.woff2": {
+      "GPOS": "5df9120c36e1d43517fb664394e2ebfcb429a889acee595e495febbcdbd6c17c",
+      "GDEF": "57635ec253856310f16ed8113cd3b83d95fdabb54d21ead91d696bcef2579671",
+      "GSUB": "58fc1c2892980c76c0496f2755b24a584673e1c2aa7a6ee53fd71cf347ea0502"
+    },
+    "SEIReader-RegularNight.latin-ext-2.woff2": {
+      "GPOS": "5cd4e64f9a55f4ca27562a3deeff73a5d880686bca2e294b92b0bad331d06df0",
+      "GDEF": "df1796359e8fd235cff867801cbc0a9a478d8e17487f442e48319e667b919195",
+      "GSUB": "284d3141756c87254b87fb0d2d9e77078f5f262a3fe130d42bc19ac30942e26f"
+    },
+    "SEIReader-RegularNight.cyrillic.woff2": {
+      "GPOS": "2099d73ba3dd1355a7901e18cd1287d652e852e0811b5bad86a292da7b989786",
+      "GDEF": "aa5d6fc86a5612d0bbd7da01afffea0019fd4f32396d63ec98b1eb83b91bf79a",
+      "GSUB": "372b32f9eff965fdbc2b58ab60007233a115905ad5931f2441cf356329d41e7c"
+    },
+    "SEIReader-RegularNight.greek.woff2": {
+      "GPOS": "ba5f733867a2049d6c5559f61f6bbd307607e933e504c0c405efab7c3032fed9",
+      "GDEF": "80ce69e6a60118b94a0a5260ca34d28048e4df8ebd958b3da534ca850cf813cf",
+      "GSUB": "5bbb7531539009c22cec5febec1a6398cb0e59d913acdfe8dec176040d2692c2"
+    },
+    "SEIReader-RegularNight.vietnamese.woff2": {
+      "GPOS": "5cd4e64f9a55f4ca27562a3deeff73a5d880686bca2e294b92b0bad331d06df0",
+      "GDEF": "df1796359e8fd235cff867801cbc0a9a478d8e17487f442e48319e667b919195",
+      "GSUB": "284d3141756c87254b87fb0d2d9e77078f5f262a3fe130d42bc19ac30942e26f"
+    },
+    "SEIReader-ItalicNight.otf": {
+      "GPOS": "60d24dd2c8e818ee05e1da461bab9cf090cee642b267d2b12238f3d1a88b37b7",
+      "GDEF": "a779987de42c4a6e9e0f6a92c7fdced4537332ec6df958a0e2213fd961a79848",
+      "GSUB": "b93b014222d3213021d0355046bbb16dbcf6096003cea7d2d41095fdd7b56b9c"
+    },
+    "SEIReader-ItalicNight.woff2": {
+      "GPOS": "60d24dd2c8e818ee05e1da461bab9cf090cee642b267d2b12238f3d1a88b37b7",
+      "GDEF": "a779987de42c4a6e9e0f6a92c7fdced4537332ec6df958a0e2213fd961a79848",
+      "GSUB": "b93b014222d3213021d0355046bbb16dbcf6096003cea7d2d41095fdd7b56b9c"
+    },
+    "SEIReader-ItalicNight.latin-basic.woff2": {
+      "GPOS": "30404e72fe4c7c4fa0190710494dff73322b90a341365df5fbe0647a230121c8",
+      "GDEF": "7c2e6ceb7b36e5155e810c9b65bb59aaa89a61e525d13703feffe6bf07b9c9de",
+      "GSUB": "ed15bef59d0b822136536341ac628b2e2febb3cfb9b92e09a8ea47110caf1995"
+    },
+    "SEIReader-ItalicNight.symbols-icons.woff2": {
+      "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
+      "GDEF": null,
+      "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a"
+    },
+    "SEIReader-ItalicNight.latin-extended.woff2": {
+      "GPOS": "a6227de5aeb018e9702286b0623c4bd18d6a640fb69f2b4b11c4933c2d0b0d49",
+      "GDEF": "cff593f394d9333c16c3086fffd64d89216f52ccf8764deb47aa281b4da0af30",
+      "GSUB": "58fc1c2892980c76c0496f2755b24a584673e1c2aa7a6ee53fd71cf347ea0502"
+    },
+    "SEIReader-ItalicNight.latin-ext-2.woff2": {
+      "GPOS": "a16fde3206c45ab9484bc7444df025e9dd0cc0864ac516e9d14aac1444b63857",
+      "GDEF": "3b8226afa68b56feb9fb1a79be01dd5a0b041cd2ea5bf2a16424324b1ef4f4a4",
+      "GSUB": "284d3141756c87254b87fb0d2d9e77078f5f262a3fe130d42bc19ac30942e26f"
+    },
+    "SEIReader-ItalicNight.cyrillic.woff2": {
+      "GPOS": "f74752e46e8a9b39566efbc50f513213c3014d8fa7229b0474c7a64ba7237511",
+      "GDEF": "f292dd95cdca61706b33ec1cc022b16fe366000d7a55e6f47aa23bf70ac181a5",
+      "GSUB": "372b32f9eff965fdbc2b58ab60007233a115905ad5931f2441cf356329d41e7c"
+    },
+    "SEIReader-ItalicNight.greek.woff2": {
+      "GPOS": "21501c023fe9f956ef4836551f3f380c537c52cc1d741f523a271108050ad879",
+      "GDEF": "ff1322e6dc0f2c23207c6ae4ba1aa5fd2bcad2e0ccfdd04c85340ea24267a2a3",
+      "GSUB": "5bbb7531539009c22cec5febec1a6398cb0e59d913acdfe8dec176040d2692c2"
+    },
+    "SEIReader-ItalicNight.vietnamese.woff2": {
+      "GPOS": "a16fde3206c45ab9484bc7444df025e9dd0cc0864ac516e9d14aac1444b63857",
+      "GDEF": "3b8226afa68b56feb9fb1a79be01dd5a0b041cd2ea5bf2a16424324b1ef4f4a4",
+      "GSUB": "284d3141756c87254b87fb0d2d9e77078f5f262a3fe130d42bc19ac30942e26f"
+    }
+  }
+}
