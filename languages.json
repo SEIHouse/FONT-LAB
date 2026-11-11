@@ -1,6 +1,6 @@
 {
   "schema": 1,
-  "version": "0.40",
+  "version": "0.41",
   "cldr_version": "48",
   "source_ref": "release-48",
   "scope": "Latin main, auxiliary and index exemplars with case variants; modern common Slavic Cyrillic, monotonic Greek and full Vietnamese. Alphabet and shaping coverage does not certify universal transliteration, translation, regional styles or native-reader comfort.",
@@ -1349,6 +1349,409 @@
         "index": "[AÅÄ B D E F G H I J K L M N OÖ P R S T U V Y]"
       },
       "sample": "Åarjelsaemien gïele · Å Ä Ï Ö Ø Æ · å ä ï ö ø æ"
+    },
+    "lt": {
+      "name": "Lithuanian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lt.xml",
+      "source_sha256": "e9124e559c9a9b71b8d1fd9eaa2afcbbded199b3aa136631fa3660bb8be9aaa9",
+      "exemplars": {
+        "main": "[aą b c č d eęė f g h iįy j k l m n o p r s š t uųū v z ž]",
+        "auxiliary": "[áàã{ą́}{ą̃} {ch} {dz} {dž} éèẽ{ę́}{ę̃}{ė́}{ė̃} í{i̇́}ì{i̇̀}ĩ{i̇̃}{į́}{į̇́}{į̃}{į̇̃} {j̃}{j̇̃} {l̃} {m̃} ñ óòõ q {r̃} úùũ{ų́}{ų̃}{ū́}{ū̃} w x]",
+        "index": "[AĄ B C Č D EĘĖ F G H IĮY J K L M N O P R S Š T UŲŪ V Z Ž]"
+      },
+      "sample": "„Ramus upelis neša šviesą; šįvakar prasideda nauja istorija.“ · lietuvių · ą č ę ė į š ų ū ž · į́ i̇́ į̇́ j̇̃"
+    },
+    "ga": {
+      "name": "Irish",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ga.xml",
+      "source_sha256": "93319deecccf6195c3f875fa3cf4fb3e18e7955cc4b9d676dc1cc0bb17350de7",
+      "exemplars": {
+        "main": "[aá b c d eé f g h ií l m n oó p r s t uú]",
+        "auxiliary": "[å ḃ ċ ḋ ḟ ġ j k ṁ ṗ q ṡ ṫ v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "“Iompraíonn an abhainn chiúin solas; tosaíonn scéal nua anocht.” · Gaeilge · á é í ó ú · ḃ ċ ḋ ḟ ġ ṁ ṗ ṡ ṫ"
+    },
+    "gd": {
+      "name": "Scottish Gaelic",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/gd.xml",
+      "source_sha256": "2a01ee715d973a075af19f76cdc959a3962e3301d3ed0762457a87a66949bff4",
+      "exemplars": {
+        "main": "[aà b c d eè f g h iì l m n oò p r s t uù]",
+        "auxiliary": "[áăâåäãā æ ċç ḋ éĕêëē ḟ ġ íĭîïī ı j k ł ṁ ñ óŏôöøō œ ṗ q ṡşș ṫ úŭûüū v w x yÿ z]",
+        "index": "[A B C D E F G H I L M N O P R S T U]"
+      },
+      "sample": "“Tha an abhainn chiùin a’ giùlan solais; tòisichidh sgeulachd ùr a-nochd.” · Gàidhlig · à è ì ò ù · ḋ ḟ ṁ ṗ ṡ ṫ"
+    },
+    "cy": {
+      "name": "Welsh",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/cy.xml",
+      "source_sha256": "63098964ec6247f21a173fba848f0f743b1d25060d1500128c2fced8b6825f3d",
+      "exemplars": {
+        "main": "[aáàâä b c {ch} d {dd} eéèêë f {ff} g {ng} h iíìîï j l {ll} m n oóòôö p {ph} r {rh} s t {th} uúùûü wẃẁŵẅ yýỳŷÿ]",
+        "auxiliary": "[ăåãā æ ç ĕē ĭī k ñ ŏøō œ q ŭū v x z]",
+        "index": "[A B C {CH} D {DD} E F {FF} G {NG} H I J K L {LL} M N O P {PH} Q R {RH} S T {TH} U V W X Y Z]"
+      },
+      "sample": "“Mae’r afon dawel yn cludo golau; dechreuodd stori newydd heno.” · Cymraeg · dŵr · gŵyl · ẁ ẃ ŵ ẅ · Ẁ Ẃ Ŵ Ẅ"
+    },
+    "gl": {
+      "name": "Galician",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/gl.xml",
+      "source_sha256": "72465b5219d910178f9923cc96d0ed058c5e641be85d11a1458e68d44ee85fdc",
+      "exemplars": {
+        "main": "[aá b c d eé f g h iíï j k l m n ñ oó p q r s t uúü v w x y z]",
+        "auxiliary": "[ªàăâåäãā æ ɑ ç èĕêëē ìĭîī ºòŏôöõøō œ ùŭûū]",
+        "index": "[A B C D E F G H I J K L M N Ñ O P Q R S T U V W X Y Z]"
+      },
+      "sample": "«O río tranquilo leva a luz; unha nova historia comeza esta noite.» · galego · á é í ñ ó ú ü · ɑ Ɑ"
+    },
+    "ast": {
+      "name": "Asturian",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ast.xml",
+      "source_sha256": "78b29b4431b687971f559b6f1a491c398b3e6007f8cd709c53317c6d284af7b0",
+      "exemplars": {
+        "main": "[aá b c d eé f g hḥ ií lḷ m nñ oó p q r s t uúü v x y z]",
+        "auxiliary": "[ªàăâåäãā æ ç èĕêëē ìĭîïī j k ºòŏôöøō œ ùŭûū w ÿ]",
+        "index": "[A B C D E F G H I L M NÑ O P Q R S T U V X Y Z]"
+      },
+      "sample": "«El ríu sele lleva la lluz; una hestoria nueva empecipia esta nueche.» · asturianu · ḷḷuna · ḥuente · ḥ ḷ Ḥ Ḷ ñ"
+    },
+    "nds": {
+      "name": "Low German",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nds.xml",
+      "source_sha256": "5c57c398f806a5370869efe0ab16758e4e22535eec19c3eca844f65726420082",
+      "exemplars": {
+        "main": "[aåä b c d e f g h i j k l m n oö p q r s t uü v w x y z]",
+        "auxiliary": "[áàăâā æ ç éèĕêëęē íìĭîïī ñ óòŏôøō œ úùŭûū ÿ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S ẞ T U V W X Y Z]"
+      },
+      "sample": "„De stille Stroom driggt dat Licht dör de Nacht.“ · Neddersass’sch · Januaar · Februaar · å ä ö ü ß ẞ"
+    },
+    "wa": {
+      "name": "Walloon",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/wa.xml",
+      "source_sha256": "20a0f9890f00b42a63f8f10007eeafd079e949c722284c751495b2813b9c4c05",
+      "exemplars": {
+        "main": "[aàâå æ b cç d eéèêë f g h iîï j k l m n oô œ p q r s t uùûü v w x yÿ z]",
+        "auxiliary": "[áäãā ē íìī ñ óòöø úǔ]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "walon · måjhon · påjhûle · å â ç è é ê î ô û ǔ · Å Ǔ"
+    },
+    "az": {
+      "name": "Azerbaijani",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/az.xml",
+      "source_sha256": "36a770b21b3a3d9eb2f93145539e446a2325feb11bd28e9a92890255a3024cce",
+      "exemplars": {
+        "main": "[a b c ç d e ə f g ğ h x ı iİ j k q l m n o ö p r s ş t u ü v y z]",
+        "auxiliary": "[w]",
+        "index": "[A B C Ç D E Ə F G Ğ H X I İ J K Q L M N O Ö P R S Ş T U Ü V Y Z W]"
+      },
+      "sample": "“Sakit çay işıq daşıyır; bu gecə yeni bir hekayə başlayır.” · azərbaycan · Ə ə ç ğ ı İ ö ş ü"
+    },
+    "yo": {
+      "name": "Yoruba",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/yo.xml",
+      "source_sha256": "c3267dfc0b4dea3bccfa7718cb81eb2dcf9c16c2163978fc1f83ff9df0f6cb0f",
+      "exemplars": {
+        "main": "[aáà b d eéè ẹ{ẹ́}{ẹ̀} f g {gb} h iíì j k l mḿ{m̀}{m̄} nńǹ{n̄} oóò ọ{ọ́}{ọ̀} p r s ṣ t uúù w y]",
+        "auxiliary": "[c q v x z]",
+        "index": "[A B D E F G H I J K L M N O P R S T U W Y]"
+      },
+      "sample": "Èdè Yorùbá · Oṣù Ṣẹ́rẹ́ · Oṣù Èrèlè · Oṣù Ẹrẹ̀nà · ìmọ́lẹ̀ · ẹ ọ ṣ Ṣ ẹ́ ọ̀"
+    },
+    "ak": {
+      "name": "Akan",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ak.xml",
+      "source_sha256": "1cdd56c32d02271c5c0c8c795e101bb27dcbacbaefdae15cb5b2dd100cdc9563",
+      "exemplars": {
+        "main": "[a b d e ɛ f g h i k l m n o ɔ p r s t u w y]",
+        "auxiliary": "[áäã c éë í j óö q ü v z]",
+        "index": "[A B C D E Ɛ F G H I J K L M N O Ɔ P Q R S T U V W X Y Z]"
+      },
+      "sample": "Akan · Ɔpɛpɔn · Ɔgyefoɔ · Ɔbɛnem · Abibirem · wiase · Ɛ ɛ Ɔ ɔ"
+    },
+    "ee": {
+      "name": "Ewe",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ee.xml",
+      "source_sha256": "26943f9ad4eeefc93b0ac3bc37b28f891419502a52a040dee5db0ac2d4bebcc9",
+      "exemplars": {
+        "main": "[aáàã b d ɖ eéèẽ ɛ{ɛ́}{ɛ̀}{ɛ̃} f ƒ g ɣ h x iíìĩ k l m n ŋ oóòõ ɔ{ɔ́}{ɔ̀}{ɔ̃} p r s t uúùũ v ʋ w y z]",
+        "auxiliary": "[ăâåäā æ cç ĕêë ĭîï j ñ ŏôöø œ q ŭûü ÿ]",
+        "index": "[A B D Ɖ E Ɛ F Ƒ G Ɣ H X I K L M N Ŋ O Ɔ P R S T U V Ʋ W Y Z]"
+      },
+      "sample": "eʋegbe · afɔfiɛ · kuɖa · fiɖa · dzove · tedoxe · Ɖ ɖ Ɛ ɛ Ƒ ƒ Ɣ ɣ Ŋ ŋ Ɔ ɔ Ʋ ʋ · ẽ ɛ̃ ɔ̃"
+    },
+    "bm": {
+      "name": "Bambara",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bm.xml",
+      "source_sha256": "6d54d55cf76aacae0a752e54fafed9a9d68d045166697cec46ef191a6f6d021d",
+      "exemplars": {
+        "main": "[a b c d e ɛ f g h i j k l m n ɲ ŋ o ɔ p r s t u w y z]",
+        "auxiliary": "[q v x]",
+        "index": "[A B C D E Ɛ F G H I J K L M N Ɲ Ŋ O Ɔ P R S T U W Y Z]"
+      },
+      "sample": "«Bamanakan» · ntɛnɛn · zanwuye · sɛtanburu · ɔkutɔburu · Ɛ ɛ Ɲ ɲ Ŋ ŋ Ɔ ɔ"
+    },
+    "ln": {
+      "name": "Lingala",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ln.xml",
+      "source_sha256": "55c6e138b7befc8ca4bee9330b9c9d5920e57d86b708149e1bfac772d84d1d76",
+      "exemplars": {
+        "main": "[aáâǎ b c d eéêě ɛ{ɛ́}{ɛ̂}{ɛ̌} f g {gb} h iíîǐ k l m {mb} {mp} n {nd} {ng} {nk} {ns} {nt} {ny} {nz} oóôǒɔ{ɔ́}{ɔ̂}{ɔ̌} p r s t uú v w y z]",
+        "auxiliary": "[j q x]",
+        "index": "[A B C D E Ɛ F G {Gb} H I K L M {Mb} {Mp} N {Nd} {Ng} {Nk} {Ns} {Nt} {Ny} {Nz} OƆ P R S T U V W Y Z]"
+      },
+      "sample": "lingála · sánzá ya míbalé · mpɔ́sɔ · ɔkɔtɔ́bɛ · Mabelé · ǎ ě ǐ ǒ ɛ̌ ɔ̌ · Ǎ Ǐ Ǒ Ɛ Ɔ"
+    },
+    "vmw": {
+      "name": "Makhuwa",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/vmw.xml",
+      "source_sha256": "8097a40cdf6ae4f53574a0ba2cb4d0a447f8610b0eec53543f06644eea425eea",
+      "exemplars": {
+        "main": "[a c e f h i j k {kh} l m n o p {ph} r s t {th} {tt} {tth} u v w x y z]",
+        "auxiliary": "[b d g q]"
+      },
+      "sample": "emakhuwa · ettiminku · nihiku noolempwa · namathanu · oMosambikhi · tt tth TT"
+    },
+    "kaj": {
+      "name": "Jju",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kaj.xml",
+      "source_sha256": "e701541091a3576c5599abf02ab6e2cdd9c2281cbb7b6f1f4cb81f66c4aabdb0",
+      "exemplars": {
+        "main": "[a b c d e f g h i j k l m n o p q r s t u v w x y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Kaje · Jju · Hywan A̱yrnig · Hywan A̱hwa · Hywan A̱pfwon · Hywan Swak B’a̱yrnig · A̱ a̱"
+    },
+    "ann": {
+      "name": "Obolo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ann.xml",
+      "source_sha256": "b1db3127c4441efee88ebce764b687416825dbe1d7f61d04a74aaf62b71adab9",
+      "exemplars": {
+        "main": "[aàâ b {ch} d eèê f g iìî j k l m{m̀} nǹ{n̄} oòôọ{ọ̀}ộ p r s {sh} t uùû v w y z]",
+        "auxiliary": "[áǎ c éě h íǐ ḿ ń óǒ{ọ́}{ọ̌} q ṣ úǔ x]",
+        "index": "[a b {ch} d e f g i j k l m n{n̄} oọ p r s t u v w y z]"
+      },
+      "sample": "Obolo · m̀ ǹ n̄ ọ ọ̀ ộ ṣ · ǎ ě ǐ ǒ ǔ · Ǎ Ǐ Ǒ Ǔ Ṣ"
+    },
+    "bss": {
+      "name": "Akoose",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/bss.xml",
+      "source_sha256": "0b02edf3ad34550f7721b20aae3e02493ce495e291c95a018e5b022811b3b642",
+      "exemplars": {
+        "main": "[aáâǎā b c d eéêěē ə{ə́}{ə̂}{ə̌}{ə̄} ɛ{ɛ́}{ɛ̂}{ɛ̌}{ɛ̄} g h iíîǐī j k l mḿ nń ŋ oóôǒō ɔ{ɔ́}{ɔ̂}{ɔ̌}{ɔ̄} p s t uúûǔū w y z ʼ]",
+        "auxiliary": "[f q r v x]",
+        "index": "[A B C D E Ə Ɛ G H I J K L M N Ŋ O Ɔ P S T U W Y Z]"
+      },
+      "sample": "Akoose · mwɛ̌ · ngɔn · sɔ̂ndé · chǎn ábe éʼtómé · Ə ə Ɛ ɛ Ŋ ŋ Ɔ ɔ ǎ ǐ ǒ ǔ"
+    },
+    "dje": {
+      "name": "Zarma",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/dje.xml",
+      "source_sha256": "91fd42da0acbaac65a3cdae90caf59d3bf8e400868e1783acd42f5a9797042b5",
+      "exemplars": {
+        "main": "[aã b c d eẽ f g h i j k l m n ɲ ŋ oõ p q r sš t u w x y zž]",
+        "auxiliary": "[v]",
+        "index": "[A B C D E F G H I J K L M N Ɲ Ŋ O P Q R S T U W X Y Z]"
+      },
+      "sample": "Zarmaciine · Žanwiye · Hõo · Suba · Espaaɲe senni · Almaŋ senni · Ɲ ɲ Ŋ ŋ ã ẽ õ š ž"
+    },
+    "dua": {
+      "name": "Duala",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/dua.xml",
+      "source_sha256": "e94999f6f9cb15fc0fc2cd40f71956ca3b5f329766d4f7f35ef573e3068d58c2",
+      "exemplars": {
+        "main": "[aá b ɓ c d ɗ eé ɛ{ɛ́} f g ií j k l m n {ny} ŋ oó ɔ{ɔ́} p r s t uúū w y]",
+        "auxiliary": "[h q v x z]",
+        "index": "[A B Ɓ C D Ɗ E Ɛ F G I J K L M N Ŋ O Ɔ P S T U W Y]"
+      },
+      "sample": "duálá · dimɔ́di · ŋgɔndɛ · sɔŋɛ · diɓáɓá · mɔ́sú · Ɓ ɓ Ɗ ɗ Ɛ ɛ Ŋ ŋ Ɔ ɔ"
+    },
+    "ewo": {
+      "name": "Ewondo",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ewo.xml",
+      "source_sha256": "113820634dcf43f6b0d7789dca8ca22d34db8ff248660918e74b0d8c5467a019",
+      "exemplars": {
+        "main": "[aáàâǎ b d {dz} eéèêě ə{ə́}{ə̀}{ə̂}{ə̌} ɛ{ɛ́}{ɛ̀}{ɛ̂}{ɛ̌} f g h iíìîǐ k {kp} l m nńǹ {ng} {nk} ŋ oóòôǒ ɔ{ɔ́}{ɔ̀}{ɔ̂}{ɔ̌} p r s t {ts} uúùûǔ v w y z]",
+        "auxiliary": "[c j q x]",
+        "index": "[A B D E Ə Ɛ F G H I K L M N Ŋ O Ɔ P R S T U V W Y Z]"
+      },
+      "sample": "ewondo · ngɔn osú · ngɔn bɛ̌ · sɔ́ndɔ məlú mə́bɛ̌ · Abǒg · M̀bú · Ə ə Ɛ ɛ Ŋ ŋ Ɔ ɔ ǎ ǐ ǒ ǔ"
+    },
+    "gaa": {
+      "name": "Ga",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/gaa.xml",
+      "source_sha256": "07120c75befd17ad41ce5b022c639891e2fd43cbe4d223bda21515ffa7546528",
+      "exemplars": {
+        "main": "[a b d e ɛ f g h i j k l m n ŋ o ɔ p r s t u v w y z]",
+        "auxiliary": "[áã é íĩ ó ũ]",
+        "index": "[A B D E Ɛ F G H I J K L M N Ŋ O Ɔ P Q R S T U V W Y Z]"
+      },
+      "sample": "Gã · Aharabata · Oflɔ · Abɛibe · Hɔgbaa · Ŋmɛnɛŋmɛnɛ Beiaŋ · Ɛ ɛ Ŋ ŋ Ɔ ɔ ã ĩ ũ"
+    },
+    "kcg": {
+      "name": "Tyap",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kcg.xml",
+      "source_sha256": "1ad4e9b117b9b725b32a1a9afc0c2ad484b82f506e0e9ca77c3762aaa7d7a043",
+      "exemplars": {
+        "main": "[a{a̱} b {ch} {chy} d e f g {gb} {gh} {ghw} {ghy} i{i̱} j {jhy} k {kh} {kp} l m n {ng} {ny} o p r s {sh} {shy} t {ts} u v w y z]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U V W X Y Z]"
+      },
+      "sample": "Katab · A̱tyap · Zwat Juwung · Zwat Swiyang · Zwat Tsat · a̱ i̱ · A̱ I̱"
+    },
+    "khq": {
+      "name": "Koyra Chiini",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/khq.xml",
+      "source_sha256": "29920c87da187d76bfddfa9028649bff689b73cc5f5ec931289f66134b630241",
+      "exemplars": {
+        "main": "[aã b c d eẽ f g h i j k l m n ɲ ŋ oõ p q r sš t u w x y zž]",
+        "auxiliary": "[v]",
+        "index": "[AÃ B C D EẼ F G H I J K L M N Ɲ Ŋ OÕ P Q R SŠ T U W X Y ZŽ]"
+      },
+      "sample": "Koyra ciini · Žanwiye · Hõo · Atini · Almaŋ senni · Espaaɲe senni · Ɲ ɲ Ŋ ŋ ã ẽ õ š ž"
+    },
+    "kkj": {
+      "name": "Kako",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kkj.xml",
+      "source_sha256": "d1dfbd77c818ed5ed61acf57a3d47128bc2da7eaef9af84cc6622994605bab26",
+      "exemplars": {
+        "main": "[aáàâ{a̧} b ɓ c d ɗ {ɗy} eéèê ɛ{ɛ́}{ɛ̀}{ɛ̂}{ɛ̧} f g {gb} {gw} h iíìî{i̧} j k {kp} {kw} l m {mb} n {nd} {nj} {ny} ŋ {ŋg} {ŋgb} {ŋgw} oóòô ɔ{ɔ́}{ɔ̀}{ɔ̂}{ɔ̧} p r s t uúùû{u̧} v w y]",
+        "auxiliary": "[q x z]",
+        "index": "[A B Ɓ C D Ɗ {Ɗy} E Ɛ F G {Gb} {Gw} H I{I̧} J K {Kp} {Kw} L M {Mb} N {Nd} {Nj} {Ny} Ŋ {Ŋg} {Ŋgb} {Ŋgw} O Ɔ{Ɔ̧} P R S T U{U̧} V W Y]"
+      },
+      "sample": "kakɔ · pamba · mbiyɔ mɛndoŋgɔ · Nyɔlɔmbɔŋgɔ · Kamɛrun · Ɓ ɓ Ɗ ɗ Ɛ ɛ Ŋ ŋ Ɔ ɔ a̧ ɛ̧ ɔ̧"
+    },
+    "kpe": {
+      "name": "Kpelle",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/kpe.xml",
+      "source_sha256": "769347db3ab96cb2b43b9e2a0ebfad85d91713cb2a1a51b9a93181a4fe36b5b5",
+      "exemplars": {
+        "main": "[a b ɓ d e ə ɛ f gĝ {gb} {gw} ɣ h i j k {kp} {kw} l m n {ny} ɲ ŋ {ŋw} o ɔ p t u v w y z]",
+        "index": "[A B Ɓ C D E Ə Ɛ F G Ɣ H I J K L M N Ɲ Ŋ O Ɔ P Q R S T U V W X Y Z]"
+      },
+      "sample": "Kpɛlɛɛ · Ɓ ɓ Ə ə Ɛ ɛ Ɣ ɣ Ɲ ɲ Ŋ ŋ Ɔ ɔ ĝ Ĝ"
+    },
+    "lu": {
+      "name": "Luba-Katanga",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/lu.xml",
+      "source_sha256": "bf45b55c76e48d982e3c4cdb3158e025ab16e177922e7b10e2e0c515bdf7ee6a",
+      "exemplars": {
+        "main": "[aáà b c d eéè ɛ{ɛ́}{ɛ̀} f h iíì j k l m n {ng} {ny} oóò ɔ{ɔ́}{ɔ̀} p {ph} q s {shi} t uúù v w y z]",
+        "auxiliary": "[g r x]",
+        "index": "[A B C D E F H I J K L M N O P Q S T U V W Y Z]"
+      },
+      "sample": "Tshiluba · Ciongo · Lùishi · Lusòlo · Lumingu · Ngondo · Ɛ ɛ Ɔ ɔ ɛ́ ɛ̀ ɔ́ ɔ̀"
+    },
+    "mgo": {
+      "name": "Metaʼ",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/mgo.xml",
+      "source_sha256": "6da5a3c040c06d156525e80e79cd06d90a84b3c2364ab0a1c76c89d744e5d769",
+      "exemplars": {
+        "main": "[aà b {ch} d eè ə{ə̀} f g {gh} iì j k m n ŋ oò ɔ{ɔ̀} p r s t uù w y z ʼ]",
+        "auxiliary": "[c h l q v x]",
+        "index": "[A B {CH} D E Ə F G {GH} I J K M N Ŋ O Ɔ P R S T U W Y Z ʼ]"
+      },
+      "sample": "metaʼ · iməg mbegtug · imeg mbəŋchubi · iməg ngwə̀t · fituʼ · Ə ə Ŋ ŋ Ɔ ɔ ə̀ ɔ̀"
+    },
+    "nus": {
+      "name": "Nuer",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/nus.xml",
+      "source_sha256": "b7d6b0f0dcbedc5bb2962694ef8ffbde04ad320de31d525a929ec25d913b470d",
+      "exemplars": {
+        "main": "[aä{a̱} b c d eë{e̱} ɛ{ɛ̈}{ɛ̱}{ɛ̱̈} f g ɣ h iï{i̱} j k l m n ŋ oö{o̱} ɔ{ɔ̈}{ɔ̱} p q r s t u v w x y z]",
+        "index": "[A B C D E Ɛ F G Ɣ H I J K L M N Ŋ O Ɔ P Q R S T U V W X Y Z]"
+      },
+      "sample": "Thok Nath · Tiop thar pɛt · Duɔ̱ɔ̱ŋ · Cäŋ kuɔth · Gua̱a̱th Ruëc · Ɛ ɛ Ɣ ɣ Ŋ ŋ Ɔ ɔ a̱ e̱ i̱ o̱ ɛ̱̈"
+    },
+    "ses": {
+      "name": "Koyraboro Senni",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/ses.xml",
+      "source_sha256": "35a14d6d631a1ac0418b970d0c57edf52009bdef48939cc73cee41b33f6bdae5",
+      "exemplars": {
+        "main": "[aã b c d eẽ f g h i j k l m n ɲ ŋ oõ p q r sš t u w x y zž]",
+        "auxiliary": "[v]",
+        "index": "[AÃ B C D EẼ F G H I J K L M N Ɲ Ŋ OÕ P Q R SŠ T U W X Y ZŽ]"
+      },
+      "sample": "Koyraboro senni · Žanwiye · Hõo · Alhadi · Almaŋ senni · Espaaɲe senni · Ɲ ɲ Ŋ ŋ ã ẽ õ š ž"
+    },
+    "twq": {
+      "name": "Tasawaq",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/twq.xml",
+      "source_sha256": "6ff3abad2f91619a9531736be22c26df3135007714d8204df5ab501430d2f067",
+      "exemplars": {
+        "main": "[aã b c d eẽ f g h i j k l m n ɲ ŋ oõ p q r sš t u w x y zž]",
+        "auxiliary": "[v]",
+        "index": "[A B C D E F G H I J K L M N O P Q R S T U W X Y Z]"
+      },
+      "sample": "Tasawaq senni · Žanwiye · Hõo · Atalaata · Almaŋ senni · Espaaɲe senni · Ɲ ɲ Ŋ ŋ ã ẽ õ š ž"
+    },
+    "yav": {
+      "name": "Yangben",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/yav.xml",
+      "source_sha256": "81c739e09be27658e9bb76c736a23315b80e62b41f31612451c5bc32947baeed",
+      "exemplars": {
+        "main": "[aáàâǎā b c d eéè ɛ{ɛ́}{ɛ̀} f h iíìîī k l m {mb} n {ny} ŋ {ŋg} oóòôǒō ɔ{ɔ́}{ɔ̀} p s t uúùûǔū v w y]",
+        "auxiliary": "[g j q r x z]",
+        "index": "[A B C D E Ɛ F H I K L M N Ŋ O Ɔ P S T U V W Y]"
+      },
+      "sample": "nuasue · siɛyɛ́ · ɔnsúmbɔl · sɔ́ndiɛ · kipéŋén · yɔɔŋ · Ɛ ɛ Ŋ ŋ Ɔ ɔ ǎ ǒ ǔ"
+    },
+    "cho": {
+      "name": "Choctaw",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/cho.xml",
+      "source_sha256": "a508ba2f23790bd041d7b3fb4e58ff40b8beba486bd761211cab19bdaff8cacc",
+      "exemplars": {
+        "main": "[a{a̱} b {ch} e f h {hl} i{i̱} k l m n o{o̱} p s {sh} t u v ʋ w y]",
+        "auxiliary": "[cč d g j q r š x z]",
+        "index": "[A{A̱} B {CH} E F H {HL} I{I̱} K L M N O{O̱} P S {SH} T U V Ʋ W Z]"
+      },
+      "sample": "Chahta · Anumpa · a̱ i̱ o̱ ʋ · A̱ I̱ O̱ Ʋ · č š"
+    },
+    "cic": {
+      "name": "Chickasaw",
+      "script": "Latn",
+      "source": "https://raw.githubusercontent.com/unicode-org/cldr/release-48/common/main/cic.xml",
+      "source_sha256": "d23643f8a962a47f21c0d581d8ebc9151db2bd45e2cfc9ca1c9103dff8a65f24",
+      "exemplars": {
+        "main": "[a{a̱} b {ch} f h i{i̱} k l {lh} m n {ng} o{o̱} p s {sh} t w y ʼ]",
+        "auxiliary": "[á{á̱} c d e g í{í̱} j ó{ó̱} q r u v x z]",
+        "index": "[A{A̱} B {CH} D E F H I{I̱} K L {LH} M N O{O̱} P S {SH} T V W Y]"
+      },
+      "sample": "Chikashshanompaʼ · Hashiʼ Ammoʼnaʼ · Hashiʼ Atochchíʼnaʼ · Nittak Holloʼ · a̱ i̱ o̱ á̱ í̱ ó̱"
     }
   }
 }
