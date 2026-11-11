@@ -644,7 +644,7 @@ const COMBINING = Object.fromEntries([
   ['\u0327','cedilla','bottom'],['\u0328','ogonek','ogonek'],
 ].map(([ch,mark,place]) => [ch,{mark,place}]));
 for(const ch of Object.keys(COMBINING)) G[ch] = { comp:true };
-const DOTLESS = { 'i.dotless':'i', 'j.dotless':'j' };
+const DOTLESS = { 'i.dotless':'i', 'j.dotless':'j', 'dotlessiogonek':'į' };
 def('◌',440,'low',[],Array.from({length:12},(_,i) => {
   const t=i*Math.PI/6; return [220+190*Math.cos(t),250+190*Math.sin(t),.24];
 }),[38,38]);
@@ -732,6 +732,8 @@ acc('ŷ','y',['circ'],{additive:true,marks:["\u0302"]});
 // Latvian small g uses the turned comma above its bowl, clear of the descender.
 MARK.commaAbove=(cx,y)=>({shapes:[RAW([['M',cx-15,y],['C',cx-30,y+40,cx-10,y+80,cx+25,y+95]])]});
 COMBINING['\u0312']={mark:'commaAbove',place:'top'}; G['\u0312']={comp:true};
+// Guarded U+0331 (combining macron below) fallback stub so layout/shaping builds standalone and merges cleanly with @glyph-designer.
+if(!COMBINING['\u0331']){ MARK.macronBelow=(cx,y=0)=>({shapes:[o([[cx-100,y-55],[cx+100,y-55]])]}); COMBINING['\u0331']={mark:'macronBelow',place:'bottom'}; G['\u0331']={comp:true}; }
 ACC['ģ'].mark='commaAbove'; ACC['ģ'].marks=['\u0312'];
 for(const ch of 'ĢĶķĻļŅņŖŗ'){ ACC[ch].mark='comma'; ACC[ch].marks=['\u0326']; }
 const PHASE4_SPECIALS = {'Đ':'D','đ':'d','Ħ':'H','ħ':'h','Ŧ':'T','ŧ':'t','ĸ':'k','Ŋ':'N','ŋ':'n','ſ':'f','Ĳ':'I','ĳ':'i','Ŀ':'L','ŀ':'l','ŉ':'n'};
@@ -1213,6 +1215,7 @@ function latinClusters(text){
   return clusters.map(c=>{
     if(['i','j'].includes(c.base) && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base+='.dotless';
     if(c.base==='ị' && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base='i.below.dotless';
+    if(c.base==='į' && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base='dotlessiogonek';
     return c;
   });
 }
@@ -1288,6 +1291,13 @@ function glyph(ch, S){
   if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));
   if(ch==='i.loclTRK') return (cache[ck]=glyph('i',S));
   if(ch==='i.below.dotless') return (cache[ck]=languageGlyph('ị',S,true));
+  if(ch==='dotlessiogonek'){
+    const base=glyph('i.dotless',S),og=glyph('\u0328',S),a=latinAnchors('i',S).ogonek;
+    const dx=a[0]-og.attach[0],dy=a[1]-og.attach[1];
+    const result={...base,body:base.body+moveNumericBody(og.body,1,dx,-dy,1),clipId:ensureClip(1250,-500)};
+    delete result.ink; delete result._tt; delete result._ttF;
+    return (cache[ck]=result);
+  }
   if(COMBINING[ch]) return (cache[ck] = combiningGlyph(ch,S));
   if(ch === 'ʻ' || ch === 'ʼ') return (cache[ck] = glyph(ch === 'ʻ' ? '‘' : '’',S));
   if(ch === '\u2009' || ch === '\u202f') return (cache[ck] = { body:'',clipId:ensureClip(700,0),sb0:0,sb1:0,w:120-S });
