@@ -13,9 +13,10 @@ Newest first.
   Malagasy (`mg`), Estonian (`et`), Latvian (`lv`), Albanian (`sq`), Bosnian
   (`bs`), Maltese (`mt`), Luxembourgish (`lb`), Basque (`eu`), Faroese (`fo`),
   Romansh (`rm`), Kalaallisut (`kl`), and 71 additional ready European and
-  African Latin inventories. Updated `verify_phase4.py` to route Latin locales
-  using `U+1EA0–1EF9` letters (`pcm`, `mg`, `kl`) through the `vietnamese` web
-  subset matching CSS `unicode-range` delivery, and regenerated `lab/index.html`
+  African Latin inventories. Updated `verify_phase4.py` to test Latin locales
+  using `U+1EA0–1EF9` letters (`pcm`, `mg`, `kl`) against the `vietnamese` web
+  subset and other Latin locales against both `latin-ext-2` and `vietnamese`
+  subsets matching CSS `unicode-range` order, and regenerated `lab/index.html`
   and `lab/comparison.html`. All font binaries remain byte-identical to `0.39`.
 
 - **Reader Night-mode optical grade (2026-10-25)** Added a Night-mode optical

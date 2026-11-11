@@ -128,18 +128,27 @@ def verify(baseline=None):
             block=next(b for b in css.split('@font-face')[1:] if f'SEIReader-{style}.{name}.woff2' in b)
             assert f'font-weight: {weight};' in block and f'font-style: {slant};' in block
             assert f'unicode-range: {unicode_range(groups[name])};' in block
-        for code,row in inventory()['locales'].items():
-            examples=[*test_strings(row),row['sample']]
-            if code=='vi': examples.extend(VIETNAMESE_PROSE)
-            uses_vietnamese=any(ord(ch) in VIETNAMESE_NEW for text in examples for ch in text)
-            delivery={'Latn':'vietnamese' if uses_vietnamese else 'latin-ext-2','Cyrl':'cyrillic','Grek':'greek'}[row['script']]
-            with TTFont(ROOT/'fonts'/f'SEIReader-{style}.{delivery}.woff2') as web:
+        subset_fonts={name:TTFont(ROOT/'fonts'/f'SEIReader-{style}.{name}.woff2')
+                      for name in ('latin-ext-2','cyrillic','greek','vietnamese') if name in SUBSETS}
+        shared_latn=tuple(n for n in ('latin-ext-2','vietnamese') if n in subset_fonts)
+        try:
+            for code,row in inventory()['locales'].items():
+                examples=[*test_strings(row),row['sample']]
+                if code=='vi': examples.extend(VIETNAMESE_PROSE)
                 for text in examples:
                     shaped=shape(font,text,language=code)
                     assert all(name!='.notdef' for name,_,_,_ in shaped),(style,code,text,'fallback')
                     assert shaped==shape(font,unicodedata.normalize('NFD',text),language=code),(style,code,text,'NFD mismatch')
-                    assert shaped==shape(web,text,language=code),(style,code,text,'subset shaping')
+                    if row['script']=='Latn':
+                        uses_vietnamese=any(ord(ch) in VIETNAMESE_NEW for ch in text+unicodedata.normalize('NFC',text))
+                        deliveries=('vietnamese',) if uses_vietnamese else shared_latn
+                    else:
+                        deliveries={'Cyrl':('cyrillic',),'Grek':('greek',)}[row['script']]
+                    for delivery in deliveries:
+                        assert shaped==shape(subset_fonts[delivery],text,language=code),(style,code,delivery,text,'subset shaping')
                     check_ink(font,text,code);total+=1
+        finally:
+            for web in subset_fonts.values(): web.close()
         before.close();font.close()
         print(f'{style}: {len(before.getGlyphOrder())} previous glyphs/metrics, old pairs/layout preserved; {len(additions)} additions and {len(SUBSETS)} deliveries pass',flush=True)
     print(f'Phase 4 step {release["step"]}: all ten styles; {total:,} language strings; unchanged settings and old design.',flush=True)
