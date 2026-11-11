@@ -1,0 +1,88 @@
+{
+  "commit": "fcdf047",
+  "reason": "Complete frozen 0.40 engine exports with refined g/S/question curves before 0.41 additions.",
+  "settings": {
+    "family": "SEIHouse Sans",
+    "version": "0.36",
+    "weight": 85,
+    "contrast": 1.12,
+    "lowercaseRoundness": 0.55,
+    "spaceBetweenAllLetters": 2.8,
+    "letterSpace": {},
+    "pairSpace": {},
+    "xHeight": 510,
+    "capitalRoundness": 245,
+    "letterWidth": 0.95,
+    "wordSpace": 220,
+    "overshoot": true,
+    "uFoot": false,
+    "reader": {
+      "lineLength": 60,
+      "lineSpacing": 1.4,
+      "night": true,
+      "size": 20
+    },
+    "weights": {
+      "Light": 70,
+      "Regular": 85,
+      "Medium": 100,
+      "SemiBold": 115,
+      "Bold": 140
+    },
+    "italicAngle": 9,
+    "uprightStraightness": 0.82,
+    "ascender": 700
+  },
+  "styles": {
+    "Light": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "54dab552a987b8060dc8ea60b4bf21e8b6c492536616931a79d13234d42af26a"
+    },
+    "Regular": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "f4f0d7bc8cdb69e0aebc4e8a774984af16650c30bbeeb558fa4657a1eaf85270"
+    },
+    "Medium": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "a7c2a94771bf950cd2d1f6afda96f848998ad164e1c10f438565293d5206d5ea"
+    },
+    "SemiBold": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "24a6407d8189881a4a4bffd55bb467b61e7c1b082953d297d51aef5d44820e9d"
+    },
+    "Bold": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "2fe62933b72fd4ffb2c18e198e4db85800f3810c2f13d644abd22049f72b5b16"
+    },
+    "LightItalic": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "8d2b53c963a70b8abe8241332c0285a2b1bc4659efb483c1b1fe2de4b190df7e"
+    },
+    "Italic": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "9ab6e67d2166d7d2696d8f1e235dcc1227494ea89ae1ade9e471121ffd3a99eb"
+    },
+    "MediumItalic": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "65fe542c7467e6fc793e6b78d6611765ffdfc07db9d21296c2817de11ef70fec"
+    },
+    "SemiBoldItalic": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "c746d130a08cadc4bbf6a42a0a57ad4c7cf316f8ef1484ca293957c25e4b7171"
+    },
+    "BoldItalic": {
+      "glyphs": 696,
+      "alternates": 34,
+      "sha256": "4460763b99faac015afbb4a03fee946f0dc48a9b9549b402cdfc942c2cf26387"
+    }
+  }
+}

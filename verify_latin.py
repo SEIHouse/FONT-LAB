@@ -21,8 +21,9 @@ from verify_spacing import WORDS
 
 ROOT = Path(__file__).resolve().parent
 BASELINE = ROOT/'old/0.32'
-MARKS = '\u0300\u0301\u0302\u0303\u0304\u0306\u0307\u0308\u0309\u030a\u030b\u030c\u031b\u0323\u0326\u0327\u0328'
-ADDITIONS = MARKS+'‚„‛‟ʻʼ◌\u2009\u202f'
+FOUNDATION_MARKS = '\u0300\u0301\u0302\u0303\u0304\u0306\u0307\u0308\u0309\u030a\u030b\u030c\u031b\u0323\u0326\u0327\u0328'
+MARKS = FOUNDATION_MARKS+'\u0331'
+ADDITIONS = FOUNDATION_MARKS+'‚„‛‟ʻʼ◌\u2009\u202f'
 PROSE = WORDS+('“Mei’s,” Iñés said: “Entry 12? Wait… don’t!”',
                '0123456789 1,234.56 8.50% ½¼¾ ²₃ ☯⚡▲♥',
                'To AV P. “A office reflection affinity flame',
@@ -122,7 +123,7 @@ def verify(candidate=ROOT):
                     assert shape(before,ch,**{feature:1})==shape(after,ch,**{feature:1}), (style,ch,feature)
             assert shape(before,'12/34',frac=1)==shape(after,'12/34',frac=1), style
             gdef = after['GDEF'].table.GlyphClassDef.classDefs
-            for ch in MARKS:
+            for ch in (FOUNDATION_MARKS if candidate!=ROOT else MARKS):
                 name = cmap[ord(ch)]
                 assert after['hmtx'][name][0]==0 and gdef[name]==3, (style,name,'mark width/class')
             for table,features in [('GSUB',{'ccmp'}),('GPOS',{'mark','mkmk'})]:

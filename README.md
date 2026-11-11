@@ -36,15 +36,15 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.40-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.41-web-full.zip` into your app's public assets
   and load its `sans.css` for `font-family: "SEIHouse Sans"`.
-- **Vite/npm:** install `seihouse-seireader-0.40.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.41.0.tgz` and import
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses twelve full WOFF2 files: **854,848 font bytes (834.8 KiB)** for all
-five weights, their real italics, and both Night grades. That is **71.6% less** than storing all 84
-overlapping subsets. The Regular/italic bundle with Night uses **284,348 bytes**; the browser requests
+The default uses twelve full WOFF2 files: **911,376 font bytes (890.0 KiB)** for all
+five weights, their real italics, and both Night grades. That is **72.0% less** than storing all 84
+overlapping subsets. The Regular/italic bundle with Night uses **303,472 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -127,7 +127,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.40 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.41 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -152,7 +152,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | [`docs/LANGUAGES-0.34.md`](docs/LANGUAGES-0.34.md) | The first language batch: scope per locale, 94 additions, local behavior, usage, inspection, data provenance, and remaining work |
 | `references/` | Official Literata/Rubik comparison fonts with OFL licenses and source hashes, plus the separate Unicode license for CLDR locale data |
 | `emoji_demo.py` | Original SEIHouse emoji art used in the comments demo |
-| `kern_base.json`, `kern_auto.json`, `kern_styles.json`, `kern_languages.json` | Pair spacing: hand-set pairs, automatic and finished per-style maps, and Hungarian-only capital adjustments used by the Lab |
+| `kern_base.json`, `kern_auto.json`, `kern_styles.json`, `kern_languages.json` | Pair spacing: hand-set pairs, automatic and finished per-style maps, and Hungarian/Makhuwa local capital adjustments used by the Lab |
 | `render_small_text.py`, `render_windows.ps1` | Optional Windows WPF small-text proof renderer; uses HarfBuzz shaping and the actual glyph indices, with no font installation |
 | `old/` | The 0.6 version for the Lab and all ten styles of 0.27 through 0.33 as preserved baselines; 0.31 through 0.33 also include their thirty subsets |
 
@@ -181,7 +181,7 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.40.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.41.0.tgz
 python verify_license.py           # legal metadata in all current full/subset fonts
 ```
 
@@ -215,8 +215,13 @@ The [size density check](docs/SIZE-DENSITY-0.39.md) measures whether the app's
 reading sizes look evenly weighted on Windows, macOS WebKit and Linux. The 0.35
 proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 
-## What SEIHouse Sans has (version 0.40)
+## What SEIHouse Sans has (version 0.41)
 
+- Fifty-four additive CLDR 48 Latin characters (`Ə/ə, Ɑ/ɑ, ẞ, Ɛ/ɛ, Ɔ/ɔ, Ɲ/ɲ, Ɖ/ɖ, Ƒ/ƒ, Ɣ/ɣ, Ʋ/ʋ`,
+  combining macron below `U+0331`, and 34 Welsh/Gaelic/Asturian/Yoruba/Walloon/Lingala
+  precomposed accents), Lithuanian `dotlessiogonek` contextual dot removal, and Makhuwa
+  (`MAK`) local `TT` kerning — unlocking 34 additional CLDR 48 Latin locales (148 pinned CLDR
+  locales / 161 verified languages total) with zero changes to existing `0.40` glyphs or advances.
 - A smooth shared `b/d/p/q` bowl on `g`, plus continuous capital `S` and `?`
   curves, with all Reader advances and positioning preserved. See the
   [0.40 comparison proofs and scope audit](docs/READING-CURVES-0.40.md).
@@ -248,9 +253,9 @@ proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
   unchanged. These are static refinements at every size, with no optical-size axis
 - Optional tabular figures (`tnum`), superscript and subscript figures (`sups`, `subs`),
   and stacked fractions (`frac`); Unicode superscripts/subscripts and ½ ¼ ¾ are also included
-- Eighteen zero-width combining accents with automatic `ccmp`, `mark`, and `mkmk` layout.
+- Nineteen zero-width combining accents with automatic `ccmp`, `mark`, and `mkmk` layout.
   Existing accented text has identical NFC/NFD shaping; new combinations support above/below
-  attachment, stacks, real italic placement, and dot removal under above accents on `i/j`
+  attachment, stacks, real italic placement, and dot removal under above accents on `i/j/į`
 - Local low/reversed quotes `‚ „ ‛ ‟`, lexical apostrophes `ʻ ʼ`, a dotted circle `◌`,
   and U+2009 thin/U+202F narrow nonbreaking spaces. All 295 existing drawings, metrics,
   settings, and pair values are preserved from 0.32. See the [Latin foundation notes](docs/LATIN-FOUNDATION-0.33.md)
@@ -268,10 +273,10 @@ proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 - Screen tuning (alignment zones and Adobe autohinting) for crisp small text
 - Established Latin coverage: English, Spanish, French, Portuguese, German, Italian,
   Dutch, Catalan, Danish, Norwegian, Swedish, Finnish, Icelandic. Additional audited
-  inventories: the ten locales above, Slovak, Croatian, Slovenian, 93 additional
-  Indonesian/Malay/Filipino/European/African Latin locales, the six Cyrillic
-  locales, monotonic Greek and Vietnamese in Phase 4 (114 pinned CLDR locales /
-  127 verified languages total). Alphabet coverage is separate from native-reader
+  inventories: the ten locales above, Slovak, Croatian, Slovenian, 127 additional
+  Indonesian/Malay/Filipino/European/African/Americas Latin locales, the six Cyrillic
+  locales, monotonic Greek and Vietnamese in Phase 4 (148 pinned CLDR locales /
+  161 verified languages total). Alphabet coverage is separate from native-reader
   and physical device certification; other scripts/spelling traditions may need fallback
 - Web-novel and system-screen symbols, music marks, player controls, icons, and the SEIHouse `Ⓢ`
   brand mark, with private in-app codes (U+E000–E00F) so phones can't swap in color emoji
@@ -306,10 +311,12 @@ tone input. Horn and tone clearance uses literal pairs for new glyphs; prior
 letter outlines, advances, weights and spacing remain unchanged. The Lab adds
 a pinned Vietnamese inventory/sample and every new letter. The `vietnamese`
 subset includes complete Latin text, all encoded vowels and their combining
-ingredients together. All 114 recorded CLDR 48 locale inventories (127 verified
+ingredients together. All 148 recorded CLDR 48 locale inventories (161 verified
 languages alongside the 13 established Western/Northern European samples, now
-including Indonesian, Malay, Filipino, Swahili, and ready European and African
-Latin inventories) pass the declared scope; frequent capital stacks can use 1.5
+including Lithuanian, Irish, Scottish Gaelic, Welsh, Galician, Asturian, Low
+German, Walloon, Azerbaijani, Yoruba, Akan, Ewe, Bambara, Lingala, Makhuwa,
+Jju, and 111 additional European, SE Asian, African, and Americas Latin
+inventories) pass the declared scope; frequent capital stacks can use 1.5
 line height after checking the app.
 
 `phase4.json` records release metadata separately from unchanged `settings.json`.

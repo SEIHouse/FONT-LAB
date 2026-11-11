@@ -15,9 +15,12 @@ const setup=source=>{
  vm.runInContext(source,ctx);
  return ctx;
 };
-const before=setup(execFileSync('git',['show',`${baseline}:engine.js`],{cwd:root,encoding:'utf8'}));
-const after=setup(fs.readFileSync(join(root,'engine.js'),'utf8'));
-const preserved=setup(beforeReadingCurves(fs.readFileSync(join(root,'engine.js'),'utf8')));
+const beforeSource=execFileSync('git',['show',`${baseline}:engine.js`],{cwd:root,encoding:'utf8'});
+const before=setup(beforeSource);
+const afterSource=fs.readFileSync(join(root,'engine.js'),'utf8');
+const after=setup(afterSource);
+const preserved=setup(beforeReadingCurves(afterSource));
+const target=beforeSource===beforeReadingCurves(beforeSource)?preserved:after;
 const oldChars=vm.runInContext('[...Object.keys(G),...Object.keys(DOTLESS),...Object.keys(LANGUAGE_ALTERNATES),...Object.keys(NUMERIC_VARIANTS)]',before);
 let count=0;
 for(const weight of [70,85,100,115,140]){
@@ -33,7 +36,7 @@ for(const weight of [70,85,100,115,140]){
    }
    const snapshot=ctx=>vm.runInContext('(()=>{const g=glyph(ch,weight);return JSON.stringify([g.body,g.w,g.sb0,g.sb1]);})()',ctx);
    const label=[ch,weight,italic,contrast].join(' ');
-   assert.equal(snapshot(preserved),snapshot(before),label);
+   assert.equal(snapshot(target),snapshot(before),label);
    assert.deepEqual(JSON.parse(snapshot(after)).slice(1),JSON.parse(snapshot(before)).slice(1),label+' metrics');count++;
   }
   after.weight=weight;

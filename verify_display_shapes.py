@@ -26,8 +26,8 @@ ROOT = Path(__file__).resolve().parent
 CUTS = ('soft', 'edge', 'ink', 'wide')
 SIZE = 400
 DESIGN = ROOT/'docs/proofs/display-step1/design.json'
-SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.39-identity.json'
-SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design-0.39.json'
+SHARED_REFERENCE = ROOT/'tests/fixtures/reader-0.41-identity.json'
+SHARED_DESIGN = ROOT/'tests/fixtures/display-step2-design-0.41.json'
 COUNTER_TOPOLOGY = ROOT/'tests/fixtures/display-counter-topology.json'
 ALTERNATE_TOPOLOGY = ROOT/'tests/fixtures/display-alternate-topology.json'
 BLANK_GLYPHS = frozenset(('space', 'uni2009', 'uni202F'))
@@ -336,7 +336,7 @@ def verify(fonts, proof_dir=None):
     # hash predates this refactor; Step 1's original design/proofs stay intact.
     skeleton = (ROOT/'engine.js').read_text(encoding='utf-8').split('const P =', 1)[0]
     # Keep the Step 2 design reference immutable; gate today's shared source separately.
-    current_reader = json.loads((ROOT/'tests/fixtures/reader-curves-identity.json').read_text(encoding='utf-8'))
+    current_reader = json.loads((ROOT/'tests/fixtures/reader-0.41-identity.json').read_text(encoding='utf-8'))
     if hashlib.sha256(skeleton.encode()).hexdigest() != current_reader['reader_skeleton_sha256']:
         report['flags'].append(dict(cut='all', kind='letter-skeletons'))
     for cut in CUTS:

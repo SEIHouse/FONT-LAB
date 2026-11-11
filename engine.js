@@ -732,8 +732,6 @@ acc('ŷ','y',['circ'],{additive:true,marks:["\u0302"]});
 // Latvian small g uses the turned comma above its bowl, clear of the descender.
 MARK.commaAbove=(cx,y)=>({shapes:[RAW([['M',cx-15,y],['C',cx-30,y+40,cx-10,y+80,cx+25,y+95]])]});
 COMBINING['\u0312']={mark:'commaAbove',place:'top'}; G['\u0312']={comp:true};
-// Guarded U+0331 (combining macron below) fallback stub so layout/shaping builds standalone and merges cleanly with @glyph-designer.
-if(!COMBINING['\u0331']){ MARK.macronBelow=(cx,y=0)=>({shapes:[o([[cx-100,y-55],[cx+100,y-55]])]}); COMBINING['\u0331']={mark:'macronBelow',place:'bottom'}; G['\u0331']={comp:true}; }
 ACC['ģ'].mark='commaAbove'; ACC['ģ'].marks=['\u0312'];
 for(const ch of 'ĢĶķĻļŅņŖŗ'){ ACC[ch].mark='comma'; ACC[ch].marks=['\u0326']; }
 const PHASE4_SPECIALS = {'Đ':'D','đ':'d','Ħ':'H','ħ':'h','Ŧ':'T','ŧ':'t','ĸ':'k','Ŋ':'N','ŋ':'n','ſ':'f','Ĳ':'I','ĳ':'i','Ŀ':'L','ŀ':'l','ŉ':'n'};

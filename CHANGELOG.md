@@ -2,6 +2,19 @@
 
 Newest first.
 
+- **CLDR 48 rare Latin accents, African/Celtic/European letters, and Sans 0.41 (2026-11-11)**
+  Added 54 encoded characters (`Ə/ə, Ɑ/ɑ, ẞ, Ɛ/ɛ, Ɔ/ɔ, Ɲ/ɲ, Ɖ/ɖ, Ƒ/ƒ, Ɣ/ɣ, Ʋ/ʋ` with
+  real italic `ɑ`/`ɲ`, zero-width combining macron below `U+0331`, and 34 Welsh,
+  Irish/Scottish Gaelic, Asturian, Yoruba, Walloon, and Lingala precomposed accents),
+  contextual Lithuanian `dotlessiogonek` under above marks (`UseMarkFilteringSet @TOP`),
+  and Makhuwa (`MAK` / `vmw`) local `TT` capital kerning. Certified 34 newly unlocked
+  CLDR 48 Latin locales (`lt, ga, gd, cy, gl, ast, nds, wa, az, yo, ak, ee, bm, ln, vmw,
+  kaj` plus 18 additional African and Americas locales), expanding `languages.json` to
+  148 pinned CLDR 48 locales and 161 verified languages total. Preserved 100% of `0.40`
+  glyph outlines, advances, vertical metrics, `PROSE` shaping, and Day/Night parity;
+  rebuilt all 12 Reader styles, 4 Display cuts, Labs, and shipped Sans `0.41.0` /
+  Living Titles `0.1.3`.
+
 - **Expanded CLDR 48 Latin language certification (2026-11-11)** Added 93 ready
   Unicode CLDR 48 Latin-script locale inventories (with pinned source URLs,
   SHA-256 hashes, verbatim `main`/`auxiliary`/`index` exemplars, and native
