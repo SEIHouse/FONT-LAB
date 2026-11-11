@@ -2,9 +2,9 @@
   "name": "@seihouse/living-titles",
   "version": "0.1.3",
   "filename": "seihouse-living-titles-0.1.3.tgz",
-  "bytes": 665920,
-  "sha256": "db356d40a7fee3177b8202f1e9610d4195cd075368d901d2d5ea1bc1698a2f86",
-  "integrity": "sha512-GDeOGzXxQYDlVMUGQ8NYBZwGZwHkgTajzlsgWPnQ1DQg7qPPKmpUtNAT4vAb/2GUp6cipFXkjUSP8rkpeQVjXQ==",
+  "bytes": 666001,
+  "sha256": "154d217dfd43162582e54a8d6bb67fc0d6e9be3dd477af88e4245f246892c2d9",
+  "integrity": "sha512-qYSsopHDi9XuN9kE87u+ZGcBRz9o/HSEjty0Sfa20ZXKQxFpVGQoru7Yb4Rwg33TodEh/Wjz98tZeaKLhaWJGg==",
   "provenance": {
     "schema": 2,
     "profiles": [
@@ -15,27 +15,27 @@
     ],
     "cuts": {
       "soft": {
-        "source_sha256": "c61dcce5167b8bcc8e6449e090a8a2c0a3089fb3adbca7e1264dc9abdd573d65",
+        "source_sha256": "c712e5e0d5dda86f01b8b55b77144fd8ad63bffa2718738759946a89af1dbddf",
         "fixture_sha256": "a96b8f74331ffd055e7a7fdec56951e6e1d72a2744bacddfbc4a3e073a16c89b"
       },
       "edge": {
-        "source_sha256": "b993ae9e3aecc7597da4814b5bc2fe071532c8b9043a3f518d3410e781169c2c",
+        "source_sha256": "1a1bac6096f6cdd8a0e7b266ab6656b73f5f31b7c834871d47aefac90379fe9e",
         "fixture_sha256": "ef2398f3c405a3edad01a99becae96ede7d473fd71aa27277a6214ab105e57ac"
       },
       "ink": {
-        "source_sha256": "a2aaca933bb3c8a9cb0850dc460d0717bb9504eaa09d35d9339efa150f787394",
+        "source_sha256": "b4b36fbee68dd734fec5f74cd33cf9612799a886411949842a9764effcd1791a",
         "fixture_sha256": "18c6d8e98170cf97706558ff59e6c71b54c319d1c89d7eed57897ac65ff8d610"
       },
       "wide": {
-        "source_sha256": "5b1446f0cfb4693e174767452eb7dea602e5a7dc072af081e2154c8cc2a72e00",
+        "source_sha256": "f0f2689386e9f091ac211c103c94878eaf303e3ad2afb0d238dc93becd84eabb",
         "fixture_sha256": "1dc5cb9529d3fb819809350e76e239b6c70e00ac096b0344052ea42024c60ca8"
       }
     },
     "fonts": {
-      "SEIHouseDisplay-Edge.woff2": "78b8eacdec8338ef624338cf858f4aa619191232b5bd90c7434b91e11b5ba00c",
-      "SEIHouseDisplay-Ink.woff2": "da1c30074b4fa34ea21ea6d9e49abbbc99d9e1b86ba9a9578e453fb8b37415e6",
-      "SEIHouseDisplay-Soft.woff2": "dba8aa73110ca1758c7139c2ca1665f5b6856e4996b050992053531a508791df",
-      "SEIHouseDisplay-Wide.woff2": "c7a77a315949b1a03369da8e3dfaa598376df907913af3995cc231b39e894e7a"
+      "SEIHouseDisplay-Edge.woff2": "0b77572b9f4178d313079e9fb1f7488658291d53332631344b58189582e68a0e",
+      "SEIHouseDisplay-Ink.woff2": "00f8177601307373e11f0726a43a628d37ef58f4a20347c95a8b7ea8dfea3192",
+      "SEIHouseDisplay-Soft.woff2": "e92d0713376079d2cb4c4c377c42d02919d69fbd59351145ca548051b814144f",
+      "SEIHouseDisplay-Wide.woff2": "09fb18bfecada426eb0bcfe39f92a4fb978955385a76742f953642b920dea50a"
     }
   },
   "files": [
