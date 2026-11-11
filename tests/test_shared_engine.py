@@ -9,9 +9,9 @@ import unittest
 from fontTools.ttLib import TTFont
 import uharfbuzz as hb
 
-from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, ROOT, audit_features,
+from verify_shared_engine import (FIXTURE, LEGACY_FIXTURE, CURVE_CHANGES, ROOT, audit_features,
                                   reader_flags, legacy_flags)
-from verify_display_shapes import (DESIGN, SHARED_DESIGN, design_flags,
+from verify_display_shapes import (DESIGN, SHARED_DESIGN, SHARED_REFERENCE, design_flags,
                                    validate_design_reference, web_flags,
                                    blank_flags, outline)
 
@@ -35,6 +35,18 @@ class ReaderIdentityTests(unittest.TestCase):
 
     def test_complete_current_reader_matches_frozen_reference(self):
         self.assertEqual(self.failures(), [])
+
+    def test_curve_refinement_preserves_every_original_positioning_table(self):
+        """The new drawing fixture cannot bless kerning or mark-placement changes."""
+        original = json.loads((ROOT/'tests/fixtures/reader-0.39-identity.json').read_text(encoding='utf-8'))
+        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        night = json.loads(CURVE_CHANGES.read_text(encoding='utf-8'))['night_layout_before']
+        self.assertTrue(set(original['files']) <= set(current['files']))
+        for filename, new in current['files'].items():
+            old_tables = night[filename] if 'Night' in filename else original['files'][filename]['tables']
+            for tag in ('GPOS', 'GDEF', 'GSUB'):
+                self.assertEqual(new['tables'].get(tag), old_tables.get(tag),
+                                 f'{filename}/{tag}')
 
     def test_build_timestamps_are_the_only_ignored_fields(self):
         font = TTFont(self.path, recalcTimestamp=False)
@@ -105,7 +117,7 @@ class DisplayDesignTests(unittest.TestCase):
     def setUp(self):
         self.original = json.loads(DESIGN.read_text(encoding='utf-8'))
         self.shared = json.loads(SHARED_DESIGN.read_text(encoding='utf-8'))
-        self.reader = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        self.reader = json.loads(SHARED_REFERENCE.read_text(encoding='utf-8'))
         self.font = TTFont(ROOT/'display/fonts/soft/SEIHouseDisplay-Soft.otf')
         self.addCleanup(self.font.close)
 

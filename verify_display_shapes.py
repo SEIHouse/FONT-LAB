@@ -335,7 +335,9 @@ def verify(fonts, proof_dir=None):
     # The Reader tables are the sole source after Step 2. Their frozen source
     # hash predates this refactor; Step 1's original design/proofs stay intact.
     skeleton = (ROOT/'engine.js').read_text(encoding='utf-8').split('const P =', 1)[0]
-    if hashlib.sha256(skeleton.encode()).hexdigest() != shared['reader_skeleton_sha256']:
+    # Keep the Step 2 design reference immutable; gate today's shared source separately.
+    current_reader = json.loads((ROOT/'tests/fixtures/reader-curves-identity.json').read_text(encoding='utf-8'))
+    if hashlib.sha256(skeleton.encode()).hexdigest() != current_reader['reader_skeleton_sha256']:
         report['flags'].append(dict(cut='all', kind='letter-skeletons'))
     for cut in CUTS:
         otf = fonts/cut/f'SEIHouseDisplay-{cut.title()}.otf'

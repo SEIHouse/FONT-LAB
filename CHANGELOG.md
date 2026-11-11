@@ -2,6 +2,12 @@
 
 Newest first.
 
+- **Reader curve refinement 0.40 (2026-11-11)** Reuse the smooth `b/d/p/q` bowl
+  for `g`, and soften capital `S` and `?` with continuous curves. Preserve all
+  Reader advances, positioning tables, line metrics, and unrelated outlines in
+  every weight, italic and Night face. Rebuild the shared Display cuts and ship
+  Sans 0.40.0 / Living Titles 0.1.2. See [proofs and preservation](docs/READING-CURVES-0.40.md).
+
 - **Reader Night-mode optical grade (2026-10-25)** Added a Night-mode optical
   grade at `81` source stroke units (`NIGHT_GRADE = -4` from Regular `85`) for
   upright (`SEIReader-RegularNight`) and real italic (`SEIReader-ItalicNight`)

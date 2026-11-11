@@ -45,16 +45,18 @@ def outline_hash(font, name):
 
 
 def preservation_flags(font, cut, spacing, baseline):
-    """Only alternate-covered default forms may change; every other old outline is exact."""
+    """Gate alternate defaults and the exact reviewed shared curve replacements."""
     allowed = {spacing['glyphs'][source]['name'] for source, spec in spacing['variants'].items()
                if spec['default'] != ORIGINAL[spec['key']]}
+    curves = json.loads((ROOT/'tests/fixtures/display-reading-curves.json').read_text(encoding='utf-8'))['cuts'][cut]
     changed, found = [], []
     for name, before in baseline['cuts'][cut].items():
         if name not in font.getGlyphOrder():
             found.append(dict(kind='missing-original-glyph', glyph=name))
-        elif outline_hash(font, name) != before:
+        elif (actual := outline_hash(font, name)) != before:
             changed.append(name)
-            if name not in allowed:
+            approved = curves.get(name, {})
+            if name not in allowed and not (approved.get('before') == before and approved.get('after') == actual):
                 found.append(dict(kind='unrelated-outline-change', glyph=name))
     return found, changed
 

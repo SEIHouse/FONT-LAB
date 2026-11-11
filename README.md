@@ -36,15 +36,15 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.39-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.40-web-full.zip` into your app's public assets
   and load its `sans.css` for `font-family: "SEIHouse Sans"`.
-- **Vite/npm:** install `seihouse-seireader-0.39.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.40.0.tgz` and import
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses ten full WOFF2 files: **712,464 font bytes (695.8 KiB)** for all
-five weights and their real italics. That is **71.6% less** than storing all seventy
-overlapping subsets. Regular plus italic uses **141,632 bytes**; the browser requests
+The default uses twelve full WOFF2 files: **854,848 font bytes (834.8 KiB)** for all
+five weights, their real italics, and both Night grades. That is **71.6% less** than storing all 84
+overlapping subsets. The Regular/italic bundle with Night uses **284,348 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -127,7 +127,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.39 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.40 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -181,7 +181,7 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.39.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.40.0.tgz
 python verify_license.py           # legal metadata in all current full/subset fonts
 ```
 
@@ -215,8 +215,11 @@ The [size density check](docs/SIZE-DENSITY-0.39.md) measures whether the app's
 reading sizes look evenly weighted on Windows, macOS WebKit and Linux. The 0.35
 proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 
-## What SEIHouse Sans has (version 0.39)
+## What SEIHouse Sans has (version 0.40)
 
+- A smooth shared `b/d/p/q` bowl on `g`, plus continuous capital `S` and `?`
+  curves, with all Reader advances and positioning preserved. See the
+  [0.40 comparison proofs and scope audit](docs/READING-CURVES-0.40.md).
 - 5 weights with real italics (handwriting-style italic letters, not a tilted copy)
 - Thick and thin: horizontal strokes 12% thinner than vertical ones
 - Tall lowercase letters exactly capital height
