@@ -822,6 +822,51 @@
           "closed": "nine.dnom",
           "open": "nine.dnom.ss08.open"
         }
+      },
+      "ǎ": {
+        "key": "a",
+        "tag": "ss01",
+        "default": "single",
+        "choices": {
+          "single": "uni01CE",
+          "double": "alt01CE.ss01.double"
+        }
+      },
+      "Ṁ": {
+        "key": "M",
+        "tag": "ss04",
+        "default": "vertical",
+        "choices": {
+          "vertical": "uni1E40",
+          "splayed": "alt1E40.ss04.splayed"
+        }
+      },
+      "Ẁ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wgrave",
+          "crossed": "alt1E80.ss04.crossed"
+        }
+      },
+      "Ẃ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wacute",
+          "crossed": "alt1E82.ss04.crossed"
+        }
+      },
+      "Ẅ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wdieresis",
+          "crossed": "alt1E84.ss04.crossed"
+        }
       }
     },
     "edge": {
@@ -1588,6 +1633,51 @@
         "choices": {
           "open": "nine.dnom",
           "closed": "nine.dnom.ss08.closed"
+        }
+      },
+      "ǎ": {
+        "key": "a",
+        "tag": "ss01",
+        "default": "double",
+        "choices": {
+          "double": "uni01CE",
+          "single": "alt01CE.ss01.single"
+        }
+      },
+      "Ṁ": {
+        "key": "M",
+        "tag": "ss04",
+        "default": "splayed",
+        "choices": {
+          "splayed": "uni1E40",
+          "vertical": "alt1E40.ss04.vertical"
+        }
+      },
+      "Ẁ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wgrave",
+          "crossed": "alt1E80.ss04.crossed"
+        }
+      },
+      "Ẃ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wacute",
+          "crossed": "alt1E82.ss04.crossed"
+        }
+      },
+      "Ẅ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wdieresis",
+          "crossed": "alt1E84.ss04.crossed"
         }
       }
     },
@@ -2356,6 +2446,51 @@
           "open": "nine.dnom",
           "closed": "nine.dnom.ss08.closed"
         }
+      },
+      "ǎ": {
+        "key": "a",
+        "tag": "ss01",
+        "default": "single",
+        "choices": {
+          "single": "uni01CE",
+          "double": "alt01CE.ss01.double"
+        }
+      },
+      "Ṁ": {
+        "key": "M",
+        "tag": "ss04",
+        "default": "vertical",
+        "choices": {
+          "vertical": "uni1E40",
+          "splayed": "alt1E40.ss04.splayed"
+        }
+      },
+      "Ẁ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wgrave",
+          "crossed": "alt1E80.ss04.crossed"
+        }
+      },
+      "Ẃ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wacute",
+          "crossed": "alt1E82.ss04.crossed"
+        }
+      },
+      "Ẅ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wdieresis",
+          "crossed": "alt1E84.ss04.crossed"
+        }
       }
     },
     "wide": {
@@ -3123,6 +3258,51 @@
           "closed": "nine.dnom",
           "open": "nine.dnom.ss08.open"
         }
+      },
+      "ǎ": {
+        "key": "a",
+        "tag": "ss01",
+        "default": "double",
+        "choices": {
+          "double": "uni01CE",
+          "single": "alt01CE.ss01.single"
+        }
+      },
+      "Ṁ": {
+        "key": "M",
+        "tag": "ss04",
+        "default": "splayed",
+        "choices": {
+          "splayed": "uni1E40",
+          "vertical": "alt1E40.ss04.vertical"
+        }
+      },
+      "Ẁ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wgrave",
+          "crossed": "alt1E80.ss04.crossed"
+        }
+      },
+      "Ẃ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wacute",
+          "crossed": "alt1E82.ss04.crossed"
+        }
+      },
+      "Ẅ": {
+        "key": "W",
+        "tag": "ss04",
+        "default": "plain",
+        "choices": {
+          "plain": "Wdieresis",
+          "crossed": "alt1E84.ss04.crossed"
+        }
       }
     }
   },
@@ -3355,6 +3535,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              182,
+              61,
+              true
+            ],
+            [
+              182,
+              230,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -3366,6 +3561,36 @@
             [
               182,
               229,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              180,
+              222,
+              true
+            ],
+            [
+              182,
+              61,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              180,
+              230,
+              true
+            ],
+            [
+              182,
+              61,
               true
             ]
           ]
@@ -4325,6 +4550,26 @@
             ]
           ]
         },
+        "alt01CE.ss01.double": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              106,
+              145,
+              true
+            ],
+            [
+              134,
+              70,
+              false
+            ],
+            [
+              139,
+              230,
+              true
+            ]
+          ]
+        },
         "alt039A.ss03.joined": {
           "closed_counters": 0,
           "white_spaces": [
@@ -4471,6 +4716,66 @@
             [
               179,
               253,
+              true
+            ]
+          ]
+        },
+        "alt1E40.ss04.splayed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              79,
+              true
+            ],
+            [
+              178,
+              240,
+              true
+            ]
+          ]
+        },
+        "alt1E80.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              181,
+              222,
+              true
+            ],
+            [
+              182,
+              40,
+              true
+            ]
+          ]
+        },
+        "alt1E82.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              182,
+              40,
+              true
+            ],
+            [
+              182,
+              222,
+              true
+            ]
+          ]
+        },
+        "alt1E84.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              182,
+              40,
+              true
+            ],
+            [
+              183,
+              211,
               true
             ]
           ]
@@ -5560,6 +5865,21 @@
             ]
           ]
         },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              134,
+              105,
+              false
+            ],
+            [
+              138,
+              226,
+              true
+            ]
+          ]
+        },
         "uni040C": {
           "closed_counters": 0,
           "white_spaces": [
@@ -5666,6 +5986,21 @@
             [
               180,
               248,
+              true
+            ]
+          ]
+        },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              79,
+              true
+            ],
+            [
+              178,
+              236,
               true
             ]
           ]
@@ -6320,6 +6655,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              76,
+              true
+            ],
+            [
+              179,
+              222,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -6331,6 +6681,36 @@
             [
               178,
               222,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              76,
+              true
+            ],
+            [
+              178,
+              208,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              176,
+              223,
+              true
+            ],
+            [
+              178,
+              76,
               true
             ]
           ]
@@ -7240,6 +7620,21 @@
             ]
           ]
         },
+        "alt01CE.ss01.single": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              129,
+              105,
+              false
+            ],
+            [
+              137,
+              225,
+              true
+            ]
+          ]
+        },
         "alt039A.ss03.branched": {
           "closed_counters": 0,
           "white_spaces": [
@@ -7381,6 +7776,66 @@
             [
               174,
               246,
+              true
+            ]
+          ]
+        },
+        "alt1E40.ss04.vertical": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              174,
+              91,
+              true
+            ],
+            [
+              174,
+              230,
+              true
+            ]
+          ]
+        },
+        "alt1E80.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              176,
+              217,
+              true
+            ],
+            [
+              178,
+              51,
+              true
+            ]
+          ]
+        },
+        "alt1E82.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              51,
+              true
+            ],
+            [
+              179,
+              216,
+              true
+            ]
+          ]
+        },
+        "alt1E84.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              51,
+              true
+            ],
+            [
+              178,
+              201,
               true
             ]
           ]
@@ -8535,6 +8990,26 @@
             ]
           ]
         },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              107,
+              141,
+              true
+            ],
+            [
+              129,
+              68,
+              false
+            ],
+            [
+              133,
+              229,
+              true
+            ]
+          ]
+        },
         "uni040C": {
           "closed_counters": 0,
           "white_spaces": [
@@ -8646,6 +9121,21 @@
             [
               174,
               250,
+              true
+            ]
+          ]
+        },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              174,
+              92,
+              true
+            ],
+            [
+              174,
+              234,
               true
             ]
           ]
@@ -9350,6 +9840,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              181,
+              222,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -9361,6 +9866,36 @@
             [
               178,
               219,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              167,
+              210,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              172,
+              222,
               true
             ]
           ]
@@ -10335,6 +10870,26 @@
             ]
           ]
         },
+        "alt01CE.ss01.double": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              88,
+              138,
+              true
+            ],
+            [
+              108,
+              68,
+              false
+            ],
+            [
+              125,
+              226,
+              true
+            ]
+          ]
+        },
         "alt039A.ss03.joined": {
           "closed_counters": 0,
           "white_spaces": [
@@ -10481,6 +11036,66 @@
             [
               193,
               250,
+              true
+            ]
+          ]
+        },
+        "alt1E40.ss04.splayed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              165,
+              91,
+              true
+            ],
+            [
+              196,
+              235,
+              true
+            ]
+          ]
+        },
+        "alt1E80.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              45,
+              true
+            ],
+            [
+              175,
+              216,
+              true
+            ]
+          ]
+        },
+        "alt1E82.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              45,
+              true
+            ],
+            [
+              180,
+              215,
+              true
+            ]
+          ]
+        },
+        "alt1E84.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              45,
+              true
+            ],
+            [
+              179,
+              204,
               true
             ]
           ]
@@ -11625,6 +12240,21 @@
             ]
           ]
         },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              113,
+              105,
+              false
+            ],
+            [
+              127,
+              219,
+              true
+            ]
+          ]
+        },
         "uni040C": {
           "closed_counters": 0,
           "white_spaces": [
@@ -11731,6 +12361,21 @@
             [
               196,
               246,
+              true
+            ]
+          ]
+        },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              165,
+              91,
+              true
+            ],
+            [
+              197,
+              231,
               true
             ]
           ]
@@ -12375,7 +13020,52 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              88,
+              true
+            ],
+            [
+              212,
+              205,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              88,
+              true
+            ],
+            [
+              212,
+              205,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              176,
+              189,
+              true
+            ],
+            [
+              197,
+              88,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
           "closed_counters": 0,
           "white_spaces": [
             [
@@ -13295,6 +13985,21 @@
             ]
           ]
         },
+        "alt01CE.ss01.single": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              158,
+              95,
+              false
+            ],
+            [
+              164,
+              210,
+              true
+            ]
+          ]
+        },
         "alt039A.ss03.branched": {
           "closed_counters": 0,
           "white_spaces": [
@@ -13436,6 +14141,66 @@
             [
               209,
               102,
+              true
+            ]
+          ]
+        },
+        "alt1E40.ss04.vertical": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              190,
+              219,
+              true
+            ],
+            [
+              209,
+              102,
+              true
+            ]
+          ]
+        },
+        "alt1E80.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              59,
+              true
+            ],
+            [
+              197,
+              195,
+              true
+            ]
+          ]
+        },
+        "alt1E82.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              59,
+              true
+            ],
+            [
+              197,
+              195,
+              true
+            ]
+          ]
+        },
+        "alt1E84.ss04.crossed": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              59,
+              true
+            ],
+            [
+              197,
+              180,
               true
             ]
           ]
@@ -14580,6 +15345,26 @@
             ]
           ]
         },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              148,
+              127,
+              true
+            ],
+            [
+              158,
+              60,
+              false
+            ],
+            [
+              163,
+              214,
+              true
+            ]
+          ]
+        },
         "uni040C": {
           "closed_counters": 0,
           "white_spaces": [
@@ -14691,6 +15476,21 @@
             [
               190,
               235,
+              true
+            ]
+          ]
+        },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              171,
+              104,
+              true
+            ],
+            [
+              190,
+              220,
               true
             ]
           ]

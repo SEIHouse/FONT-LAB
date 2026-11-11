@@ -19,7 +19,7 @@ from verify_latin import CLUSTERS, MARKS, shape
 from verify_lowercase import recorded
 
 ROOT = Path(__file__).resolve().parent
-FIXTURE = ROOT/'tests/fixtures/reader-curves-identity.json'
+FIXTURE = ROOT/'tests/fixtures/reader-0.41-identity.json'
 LEGACY_FIXTURE = ROOT/'tests/fixtures/reader-0.35-original-glyphs.json'
 CURVE_CHANGES = ROOT/'tests/fixtures/reader-curves-changes.json'
 CUTS = ('soft', 'edge', 'ink', 'wide')
@@ -225,6 +225,8 @@ def audit_features(font):
         check(shape(font, text)[0][0]==name, 'display-dotless', text=text)
     check([row[0] for row in shape(font, 'fi', language='tr')]==['f', 'i.loclTRK'],
           'display-turkish-local-form')
+    check([row[0] for row in shape(font, 'fi', language='az')]==['f', 'i.loclTRK'],
+          'display-azerbaijani-local-form')
     check(shape(font, 'fi')[0][0]==cmap[0xFB01], 'display-default-ligature')
     check(shape(font, 'ŞşŢţ', language='ro')==shape(font, 'ȘșȚț', language='ro'),
           'display-romanian-local-form')

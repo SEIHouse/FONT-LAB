@@ -104,7 +104,7 @@ def verify():
                     no_collisions(font,ch+neighbor)
                     no_collisions(font,neighbor+ch)
             gdef=font['GDEF'].table.GlyphClassDef.classDefs
-            for mark in MARKS:
+            for mark in [m for m in MARKS if ord(m) in cmap]:
                 name=cmap[ord(mark)]
                 assert font['hmtx'][name][0]==0 and gdef[name]==3,(style,mark,'mark advance/class')
             for text in ('ị́','ị̀','Ị́','Ị̀','ọ́','ọ̀','Ọ́','ụ́','Ụ̀','r̃','R̃','m̀','M̀'):

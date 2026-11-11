@@ -11,7 +11,10 @@ const tail = readFileSync(new URL('export_tail.js', root), 'utf8');
 const settings = JSON.parse(readFileSync(new URL('settings.json', root), 'utf8'));
 const historicalFixture = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.35.json', root), 'utf8'));
 const historicalInventory = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.35-inventory.json', root), 'utf8'));
-const currentFixture = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.39.json', root), 'utf8'));
+const fixture039 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.39.json', root), 'utf8'));
+const fixture040 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.40.json', root), 'utf8'));
+const inventory040 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.40-inventory.json', root), 'utf8'));
+const currentFixture = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.41.json', root), 'utf8'));
 /** Evaluate drawing and export code without a browser or persistent glyph cache. */
 function engine(code = source, options = {}) {
   const document = {getElementById:() => ({insertAdjacentHTML(){}})};
@@ -52,8 +55,15 @@ test('all ten Reader styles retain their historical 0.35 exports outside the thr
 });
 
 test('all ten Reader styles retain 0.39 exports outside the three refined drawings', () => {
+  assert.deepEqual(settings, fixture039.settings, 'Reader settings must remain unchanged');
+  assert.deepEqual(readerExports(beforeReadingCurves(source), inventory040), fixture039.styles);
+});
+
+test('all ten Reader styles retain exact 0.40 exports and complete 0.41 exports', () => {
+  assert.deepEqual(settings, fixture040.settings, 'Reader settings must remain unchanged');
+  assert.deepEqual(readerExports(source, inventory040), fixture040.styles);
   assert.deepEqual(settings, currentFixture.settings, 'Reader settings must remain unchanged');
-  assert.deepEqual(readerExports(beforeReadingCurves(source)), currentFixture.styles);
+  assert.deepEqual(readerExports(source), currentFixture.styles);
 });
 
 test('reading curves preserve every advance, bearing, pair and unrelated drawing in all twelve faces', () => {
@@ -83,7 +93,7 @@ test('reading curves preserve every advance, bearing, pair and unrelated drawing
     }
   }
   // Accented forms plus Cyrillic Dze and italic de reuse these Latin skeletons.
-  assert.deepEqual([...changed].sort(), [...'gS?ĝğġģŚŜŞŠȘЅд'].sort());
+  assert.deepEqual([...changed].sort(), [...'gS?ĝğġģŚŜŞŠȘṠṢЅд'].sort());
 });
 
 test('g shares the d/q bowl and S/question use continuous curves', () => {

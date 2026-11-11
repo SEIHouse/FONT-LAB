@@ -37,9 +37,9 @@ class ReaderIdentityTests(unittest.TestCase):
         self.assertEqual(self.failures(), [])
 
     def test_curve_refinement_preserves_every_original_positioning_table(self):
-        """The new drawing fixture cannot bless kerning or mark-placement changes."""
+        """The 0.40 drawing fixture cannot bless kerning or mark-placement changes."""
         original = json.loads((ROOT/'tests/fixtures/reader-0.39-identity.json').read_text(encoding='utf-8'))
-        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        current = json.loads((ROOT/'tests/fixtures/reader-curves-identity.json').read_text(encoding='utf-8'))
         night = json.loads(CURVE_CHANGES.read_text(encoding='utf-8'))['night_layout_before']
         self.assertTrue(set(original['files']) <= set(current['files']))
         for filename, new in current['files'].items():
@@ -86,9 +86,25 @@ class DisplayInheritanceTests(unittest.TestCase):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:
             failures, report = audit_features(font)
         self.assertEqual(failures, [])
-        self.assertEqual(report['pinned_cldr_locales'], 114)
-        self.assertEqual(report['languages'], 127)
-        self.assertGreater(report['language_strings'], 3300)
+        self.assertEqual(report['pinned_cldr_locales'], 148)
+        self.assertEqual(report['languages'], 161)
+        self.assertGreater(report['language_strings'], 17000)
+
+    def test_041_additions_preserve_all_040_outlines_and_metrics(self):
+        """Every 0.40 glyph across all 12 Reader styles keeps identical outlines and hmtx."""
+        import json
+        from build_subsets import ALL_STYLES
+        from verify_shared_engine import legacy_identity
+        fixture_file = ROOT / 'tests/fixtures/reader-0.40-original-glyphs.json'
+        baseline = json.loads(fixture_file.read_text(encoding='utf-8'))['styles']
+        for style, *_ in ALL_STYLES:
+            with self.subTest(style=style), TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
+                old_id = baseline[style]
+                new_id = legacy_identity(after, list(old_id['glyphs']))
+                self.assertEqual(new_id['glyphs'], old_id['glyphs'])
+                self.assertEqual(new_id['metrics'], old_id['metrics'])
+                for code, gname in old_id['cmap'].items():
+                    self.assertEqual(after.getBestCmap().get(int(code)), gname)
 
     def test_missing_mark_feature_fails_the_behavior_gate(self):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:

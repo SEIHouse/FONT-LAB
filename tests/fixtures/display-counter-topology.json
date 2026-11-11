@@ -2096,6 +2096,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              182,
+              61,
+              true
+            ],
+            [
+              182,
+              230,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -2107,6 +2122,36 @@
             [
               182,
               229,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              180,
+              222,
+              true
+            ],
+            [
+              182,
+              61,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              180,
+              230,
+              true
+            ],
+            [
+              182,
+              61,
               true
             ]
           ]
@@ -3226,6 +3271,26 @@
             [
               175,
               176,
+              true
+            ]
+          ]
+        },
+        "florin": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              59,
+              67,
+              true
+            ],
+            [
+              193,
+              79,
+              true
+            ],
+            [
+              208,
+              222,
               true
             ]
           ]
@@ -5290,6 +5355,26 @@
             ]
           ]
         },
+        "uni0186": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              129,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni0189": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              185,
+              141,
+              false
+            ]
+          ]
+        },
         "uni018A": {
           "closed_counters": 1,
           "white_spaces": [
@@ -5302,6 +5387,76 @@
               231,
               141,
               false
+            ]
+          ]
+        },
+        "uni018F": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              130,
+              198,
+              true
+            ],
+            [
+              160,
+              78,
+              false
+            ]
+          ]
+        },
+        "uni0190": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              184,
+              165,
+              true
+            ]
+          ]
+        },
+        "uni0191": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              52,
+              73,
+              true
+            ],
+            [
+              210,
+              45,
+              true
+            ],
+            [
+              239,
+              196,
+              true
+            ]
+          ]
+        },
+        "uni0194": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              64,
+              131,
+              true
+            ],
+            [
+              150,
+              220,
+              true
+            ],
+            [
+              151,
+              27,
+              false
+            ],
+            [
+              237,
+              133,
+              true
             ]
           ]
         },
@@ -5345,6 +5500,36 @@
             ]
           ]
         },
+        "uni019D": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              50,
+              110,
+              true
+            ],
+            [
+              206,
+              64,
+              true
+            ],
+            [
+              212,
+              188,
+              true
+            ]
+          ]
+        },
+        "uni01B2": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              144,
+              162,
+              true
+            ]
+          ]
+        },
         "uni01B3": {
           "closed_counters": 0,
           "white_spaces": [
@@ -5381,6 +5566,126 @@
             [
               210,
               64,
+              true
+            ]
+          ]
+        },
+        "uni01CD": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              153,
+              40,
+              true
+            ],
+            [
+              153,
+              157,
+              false
+            ],
+            [
+              209,
+              215,
+              true
+            ]
+          ]
+        },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              134,
+              105,
+              false
+            ],
+            [
+              138,
+              226,
+              true
+            ]
+          ]
+        },
+        "uni01CF": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              51,
+              141,
+              true
+            ],
+            [
+              106,
+              301,
+              true
+            ],
+            [
+              161,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni01D0": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              29,
+              156,
+              true
+            ],
+            [
+              62,
+              268,
+              true
+            ]
+          ]
+        },
+        "uni01D1": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              168,
+              141,
+              false
+            ],
+            [
+              169,
+              297,
+              true
+            ]
+          ]
+        },
+        "uni01D2": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              141,
+              105,
+              false
+            ],
+            [
+              142,
+              222,
+              true
+            ]
+          ]
+        },
+        "uni01D3": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              160,
+              194,
+              true
+            ]
+          ]
+        },
+        "uni01D4": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              144,
+              158,
               true
             ]
           ]
@@ -5485,6 +5790,16 @@
             ]
           ]
         },
+        "uni0251": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              141,
+              105,
+              false
+            ]
+          ]
+        },
         "uni0253": {
           "closed_counters": 1,
           "white_spaces": [
@@ -5496,6 +5811,41 @@
             [
               160,
               223,
+              true
+            ]
+          ]
+        },
+        "uni0254": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              109,
+              105,
+              true
+            ]
+          ]
+        },
+        "uni0256": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              141,
+              105,
+              false
+            ],
+            [
+              141,
+              234,
+              true
+            ],
+            [
+              157,
+              -27,
+              true
+            ],
+            [
+              286,
+              103,
               true
             ]
           ]
@@ -5512,6 +5862,81 @@
               141,
               105,
               false
+            ]
+          ]
+        },
+        "uni0259": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              106,
+              145,
+              true
+            ],
+            [
+              137,
+              60,
+              false
+            ]
+          ]
+        },
+        "uni025B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              167,
+              129,
+              true
+            ]
+          ]
+        },
+        "uni0263": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              54,
+              90,
+              true
+            ],
+            [
+              133,
+              165,
+              true
+            ],
+            [
+              134,
+              6,
+              false
+            ],
+            [
+              213,
+              89,
+              true
+            ]
+          ]
+        },
+        "uni0272": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              48,
+              67,
+              true
+            ],
+            [
+              187,
+              49,
+              true
+            ]
+          ]
+        },
+        "uni028B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              126,
+              126,
+              true
             ]
           ]
         },
@@ -7185,6 +7610,176 @@
             ]
           ]
         },
+        "uni1E02": {
+          "closed_counters": 2,
+          "white_spaces": [
+            [
+              139,
+              292,
+              true
+            ],
+            [
+              143,
+              200,
+              false
+            ],
+            [
+              152,
+              81,
+              false
+            ]
+          ]
+        },
+        "uni1E03": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              148,
+              105,
+              false
+            ],
+            [
+              148,
+              249,
+              true
+            ]
+          ]
+        },
+        "uni1E0A": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              147,
+              292,
+              true
+            ],
+            [
+              161,
+              141,
+              false
+            ]
+          ]
+        },
+        "uni1E0B": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              141,
+              105,
+              false
+            ],
+            [
+              141,
+              248,
+              true
+            ]
+          ]
+        },
+        "uni1E1E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              163,
+              66,
+              true
+            ],
+            [
+              175,
+              292,
+              true
+            ],
+            [
+              190,
+              196,
+              true
+            ]
+          ]
+        },
+        "uni1E1F": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              49,
+              99,
+              true
+            ],
+            [
+              113,
+              268,
+              true
+            ],
+            [
+              176,
+              98,
+              true
+            ],
+            [
+              188,
+              222,
+              true
+            ]
+          ]
+        },
+        "uni1E24": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              160,
+              43,
+              true
+            ],
+            [
+              161,
+              221,
+              true
+            ]
+          ]
+        },
+        "uni1E25": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              144,
+              67,
+              true
+            ],
+            [
+              145,
+              235,
+              true
+            ]
+          ]
+        },
+        "uni1E36": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              161,
+              -8,
+              true
+            ],
+            [
+              174,
+              150,
+              true
+            ]
+          ]
+        },
+        "uni1E37": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              83,
+              -7,
+              true
+            ],
+            [
+              109,
+              144,
+              true
+            ]
+          ]
+        },
         "uni1E3E": {
           "closed_counters": 0,
           "white_spaces": [
@@ -7220,6 +7815,41 @@
             ]
           ]
         },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              79,
+              true
+            ],
+            [
+              178,
+              236,
+              true
+            ]
+          ]
+        },
+        "uni1E41": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              125,
+              84,
+              true
+            ],
+            [
+              174,
+              220,
+              true
+            ],
+            [
+              255,
+              84,
+              true
+            ]
+          ]
+        },
         "uni1E44": {
           "closed_counters": 0,
           "white_spaces": [
@@ -7246,6 +7876,176 @@
             [
               143,
               84,
+              true
+            ]
+          ]
+        },
+        "uni1E56": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              141,
+              293,
+              true
+            ],
+            [
+              150,
+              192,
+              false
+            ],
+            [
+              158,
+              66,
+              true
+            ]
+          ]
+        },
+        "uni1E57": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              139,
+              221,
+              true
+            ],
+            [
+              148,
+              105,
+              false
+            ],
+            [
+              149,
+              -29,
+              true
+            ]
+          ]
+        },
+        "uni1E60": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              125,
+              112,
+              true
+            ],
+            [
+              154,
+              293,
+              true
+            ],
+            [
+              184,
+              168,
+              true
+            ]
+          ]
+        },
+        "uni1E61": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              110,
+              85,
+              true
+            ],
+            [
+              140,
+              223,
+              true
+            ],
+            [
+              169,
+              127,
+              true
+            ]
+          ]
+        },
+        "uni1E62": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              125,
+              112,
+              true
+            ],
+            [
+              155,
+              -8,
+              true
+            ],
+            [
+              184,
+              168,
+              true
+            ]
+          ]
+        },
+        "uni1E63": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              110,
+              85,
+              true
+            ],
+            [
+              139,
+              -11,
+              true
+            ],
+            [
+              169,
+              127,
+              true
+            ]
+          ]
+        },
+        "uni1E6A": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              62,
+              134,
+              true
+            ],
+            [
+              142,
+              301,
+              true
+            ],
+            [
+              222,
+              134,
+              true
+            ]
+          ]
+        },
+        "uni1E6B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              57,
+              111,
+              true
+            ],
+            [
+              127,
+              270,
+              true
+            ],
+            [
+              182,
+              107,
+              true
+            ]
+          ]
+        },
+        "uni1E9E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              155,
+              120,
               true
             ]
           ]
@@ -9005,6 +9805,16 @@
             ]
           ]
         },
+        "uni2C6D": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              156,
+              141,
+              false
+            ]
+          ]
+        },
         "uniFB01": {
           "closed_counters": 0,
           "white_spaces": [
@@ -9140,6 +9950,21 @@
             ]
           ]
         },
+        "wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              170,
+              46,
+              true
+            ],
+            [
+              172,
+              185,
+              true
+            ]
+          ]
+        },
         "wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -9151,6 +9976,36 @@
             [
               170,
               184,
+              true
+            ]
+          ]
+        },
+        "wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              170,
+              46,
+              true
+            ],
+            [
+              170,
+              179,
+              true
+            ]
+          ]
+        },
+        "wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              168,
+              185,
+              true
+            ],
+            [
+              170,
+              46,
               true
             ]
           ]
@@ -11535,6 +12390,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              76,
+              true
+            ],
+            [
+              179,
+              222,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -11546,6 +12416,36 @@
             [
               178,
               222,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              178,
+              76,
+              true
+            ],
+            [
+              178,
+              208,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              176,
+              223,
+              true
+            ],
+            [
+              178,
+              76,
               true
             ]
           ]
@@ -12705,6 +13605,31 @@
             [
               168,
               172,
+              true
+            ]
+          ]
+        },
+        "florin": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              64,
+              73,
+              true
+            ],
+            [
+              98,
+              243,
+              true
+            ],
+            [
+              185,
+              83,
+              true
+            ],
+            [
+              192,
+              217,
               true
             ]
           ]
@@ -14839,6 +15764,26 @@
             ]
           ]
         },
+        "uni0186": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              127,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni0189": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              178,
+              141,
+              false
+            ]
+          ]
+        },
         "uni018A": {
           "closed_counters": 1,
           "white_spaces": [
@@ -14851,6 +15796,81 @@
               228,
               141,
               false
+            ]
+          ]
+        },
+        "uni018F": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              134,
+              209,
+              true
+            ],
+            [
+              157,
+              75,
+              false
+            ]
+          ]
+        },
+        "uni0190": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              50,
+              142,
+              true
+            ],
+            [
+              173,
+              160,
+              true
+            ]
+          ]
+        },
+        "uni0191": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              58,
+              84,
+              true
+            ],
+            [
+              203,
+              43,
+              true
+            ],
+            [
+              227,
+              190,
+              true
+            ]
+          ]
+        },
+        "uni0194": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              66,
+              135,
+              true
+            ],
+            [
+              144,
+              24,
+              false
+            ],
+            [
+              144,
+              220,
+              true
+            ],
+            [
+              222,
+              137,
+              true
             ]
           ]
         },
@@ -14894,6 +15914,36 @@
             ]
           ]
         },
+        "uni019D": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              57,
+              111,
+              true
+            ],
+            [
+              205,
+              179,
+              true
+            ],
+            [
+              206,
+              71,
+              true
+            ]
+          ]
+        },
+        "uni01B2": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              150,
+              156,
+              true
+            ]
+          ]
+        },
         "uni01B3": {
           "closed_counters": 0,
           "white_spaces": [
@@ -14930,6 +15980,131 @@
             [
               193,
               75,
+              true
+            ]
+          ]
+        },
+        "uni01CD": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              91,
+              200,
+              true
+            ],
+            [
+              146,
+              38,
+              true
+            ],
+            [
+              146,
+              162,
+              false
+            ]
+          ]
+        },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              107,
+              141,
+              true
+            ],
+            [
+              129,
+              68,
+              false
+            ],
+            [
+              133,
+              229,
+              true
+            ]
+          ]
+        },
+        "uni01CF": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              55,
+              141,
+              true
+            ],
+            [
+              94,
+              303,
+              true
+            ],
+            [
+              149,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni01D0": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              61,
+              270,
+              true
+            ],
+            [
+              87,
+              143,
+              true
+            ]
+          ]
+        },
+        "uni01D1": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              164,
+              141,
+              false
+            ],
+            [
+              164,
+              288,
+              true
+            ]
+          ]
+        },
+        "uni01D2": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              136,
+              105,
+              false
+            ],
+            [
+              136,
+              216,
+              true
+            ]
+          ]
+        },
+        "uni01D3": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              154,
+              188,
+              true
+            ]
+          ]
+        },
+        "uni01D4": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              138,
+              151,
               true
             ]
           ]
@@ -15039,6 +16214,16 @@
             ]
           ]
         },
+        "uni0251": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              136,
+              105,
+              false
+            ]
+          ]
+        },
         "uni0253": {
           "closed_counters": 1,
           "white_spaces": [
@@ -15050,6 +16235,41 @@
             [
               149,
               224,
+              true
+            ]
+          ]
+        },
+        "uni0254": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              108,
+              105,
+              true
+            ]
+          ]
+        },
+        "uni0256": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              136,
+              105,
+              false
+            ],
+            [
+              137,
+              238,
+              true
+            ],
+            [
+              156,
+              -27,
+              true
+            ],
+            [
+              269,
+              113,
               true
             ]
           ]
@@ -15066,6 +16286,81 @@
               136,
               105,
               false
+            ]
+          ]
+        },
+        "uni0259": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              109,
+              157,
+              true
+            ],
+            [
+              132,
+              58,
+              false
+            ]
+          ]
+        },
+        "uni025B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              157,
+              124,
+              true
+            ]
+          ]
+        },
+        "uni0263": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              57,
+              94,
+              true
+            ],
+            [
+              128,
+              3,
+              false
+            ],
+            [
+              128,
+              166,
+              true
+            ],
+            [
+              198,
+              96,
+              true
+            ]
+          ]
+        },
+        "uni0272": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              55,
+              77,
+              true
+            ],
+            [
+              188,
+              54,
+              true
+            ]
+          ]
+        },
+        "uni028B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              120,
+              true
             ]
           ]
         },
@@ -16769,6 +18064,181 @@
             ]
           ]
         },
+        "uni1E02": {
+          "closed_counters": 2,
+          "white_spaces": [
+            [
+              136,
+              284,
+              true
+            ],
+            [
+              137,
+              203,
+              false
+            ],
+            [
+              145,
+              78,
+              false
+            ],
+            [
+              225,
+              145,
+              true
+            ]
+          ]
+        },
+        "uni1E03": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              134,
+              249,
+              true
+            ],
+            [
+              142,
+              105,
+              false
+            ]
+          ]
+        },
+        "uni1E0A": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              156,
+              284,
+              true
+            ],
+            [
+              158,
+              141,
+              false
+            ]
+          ]
+        },
+        "uni1E0B": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              136,
+              105,
+              false
+            ],
+            [
+              144,
+              249,
+              true
+            ]
+          ]
+        },
+        "uni1E1E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              160,
+              63,
+              true
+            ],
+            [
+              177,
+              189,
+              true
+            ],
+            [
+              188,
+              302,
+              true
+            ]
+          ]
+        },
+        "uni1E1F": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              52,
+              91,
+              true
+            ],
+            [
+              118,
+              266,
+              true
+            ],
+            [
+              165,
+              91,
+              true
+            ],
+            [
+              172,
+              217,
+              true
+            ]
+          ]
+        },
+        "uni1E24": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              154,
+              45,
+              true
+            ],
+            [
+              154,
+              219,
+              true
+            ]
+          ]
+        },
+        "uni1E25": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              138,
+              72,
+              true
+            ],
+            [
+              139,
+              237,
+              true
+            ]
+          ]
+        },
+        "uni1E36": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              165,
+              -6,
+              true
+            ],
+            [
+              165,
+              155,
+              true
+            ]
+          ]
+        },
+        "uni1E37": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              78,
+              -3,
+              true
+            ],
+            [
+              100,
+              153,
+              true
+            ]
+          ]
+        },
         "uni1E3E": {
           "closed_counters": 0,
           "white_spaces": [
@@ -16804,6 +18274,41 @@
             ]
           ]
         },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              174,
+              92,
+              true
+            ],
+            [
+              174,
+              234,
+              true
+            ]
+          ]
+        },
+        "uni1E41": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              122,
+              90,
+              true
+            ],
+            [
+              161,
+              218,
+              true
+            ],
+            [
+              250,
+              90,
+              true
+            ]
+          ]
+        },
         "uni1E44": {
           "closed_counters": 0,
           "white_spaces": [
@@ -16830,6 +18335,181 @@
             [
               138,
               90,
+              true
+            ]
+          ]
+        },
+        "uni1E56": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              133,
+              56,
+              true
+            ],
+            [
+              136,
+              284,
+              true
+            ],
+            [
+              144,
+              194,
+              false
+            ]
+          ]
+        },
+        "uni1E57": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              126,
+              221,
+              true
+            ],
+            [
+              142,
+              105,
+              false
+            ],
+            [
+              144,
+              -32,
+              true
+            ]
+          ]
+        },
+        "uni1E60": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              126,
+              107,
+              true
+            ],
+            [
+              146,
+              293,
+              true
+            ],
+            [
+              171,
+              172,
+              true
+            ]
+          ]
+        },
+        "uni1E61": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              112,
+              83,
+              true
+            ],
+            [
+              136,
+              223,
+              true
+            ],
+            [
+              157,
+              126,
+              true
+            ]
+          ]
+        },
+        "uni1E62": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              126,
+              107,
+              true
+            ],
+            [
+              147,
+              -8,
+              true
+            ],
+            [
+              171,
+              172,
+              true
+            ]
+          ]
+        },
+        "uni1E63": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              112,
+              83,
+              true
+            ],
+            [
+              134,
+              -10,
+              true
+            ],
+            [
+              157,
+              126,
+              true
+            ]
+          ]
+        },
+        "uni1E6A": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              64,
+              127,
+              true
+            ],
+            [
+              136,
+              301,
+              true
+            ],
+            [
+              209,
+              127,
+              true
+            ]
+          ]
+        },
+        "uni1E6B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              52,
+              125,
+              true
+            ],
+            [
+              114,
+              275,
+              true
+            ],
+            [
+              169,
+              105,
+              true
+            ]
+          ]
+        },
+        "uni1E9E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              158,
+              126,
+              true
+            ],
+            [
+              252,
+              154,
               true
             ]
           ]
@@ -18634,6 +20314,16 @@
             ]
           ]
         },
+        "uni2C6D": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              152,
+              141,
+              false
+            ]
+          ]
+        },
         "uniFB01": {
           "closed_counters": 0,
           "white_spaces": [
@@ -18774,12 +20464,57 @@
             ]
           ]
         },
+        "wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              166,
+              58,
+              true
+            ],
+            [
+              169,
+              180,
+              true
+            ]
+          ]
+        },
         "wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
             [
               165,
               179,
+              true
+            ],
+            [
+              166,
+              58,
+              true
+            ]
+          ]
+        },
+        "wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              166,
+              58,
+              true
+            ],
+            [
+              167,
+              166,
+              true
+            ]
+          ]
+        },
+        "wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              164,
+              180,
               true
             ],
             [
@@ -21144,6 +22879,21 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              181,
+              222,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -21155,6 +22905,36 @@
             [
               178,
               219,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              167,
+              210,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              132,
+              68,
+              true
+            ],
+            [
+              172,
+              222,
               true
             ]
           ]
@@ -22309,6 +24089,26 @@
             [
               162,
               178,
+              true
+            ]
+          ]
+        },
+        "florin": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              42,
+              80,
+              true
+            ],
+            [
+              160,
+              79,
+              true
+            ],
+            [
+              191,
+              213,
               true
             ]
           ]
@@ -24423,6 +26223,26 @@
             ]
           ]
         },
+        "uni0186": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              115,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni0189": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              163,
+              141,
+              false
+            ]
+          ]
+        },
         "uni018A": {
           "closed_counters": 1,
           "white_spaces": [
@@ -24435,6 +26255,81 @@
               212,
               141,
               false
+            ]
+          ]
+        },
+        "uni018F": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              123,
+              192,
+              true
+            ],
+            [
+              145,
+              76,
+              false
+            ]
+          ]
+        },
+        "uni0190": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              39,
+              131,
+              true
+            ],
+            [
+              160,
+              161,
+              true
+            ]
+          ]
+        },
+        "uni0191": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              43,
+              74,
+              true
+            ],
+            [
+              178,
+              47,
+              true
+            ],
+            [
+              222,
+              187,
+              true
+            ]
+          ]
+        },
+        "uni0194": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              60,
+              130,
+              true
+            ],
+            [
+              109,
+              25,
+              false
+            ],
+            [
+              155,
+              223,
+              true
+            ],
+            [
+              208,
+              147,
+              true
             ]
           ]
         },
@@ -24478,6 +26373,36 @@
             ]
           ]
         },
+        "uni019D": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              46,
+              106,
+              true
+            ],
+            [
+              145,
+              63,
+              true
+            ],
+            [
+              208,
+              191,
+              true
+            ]
+          ]
+        },
+        "uni01B2": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              128,
+              159,
+              true
+            ]
+          ]
+        },
         "uni01B3": {
           "closed_counters": 0,
           "white_spaces": [
@@ -24514,6 +26439,126 @@
             [
               158,
               79,
+              true
+            ]
+          ]
+        },
+        "uni01CD": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              86,
+              192,
+              true
+            ],
+            [
+              102,
+              37,
+              true
+            ],
+            [
+              122,
+              159,
+              false
+            ]
+          ]
+        },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              113,
+              105,
+              false
+            ],
+            [
+              127,
+              219,
+              true
+            ]
+          ]
+        },
+        "uni01CF": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              45,
+              154,
+              true
+            ],
+            [
+              102,
+              306,
+              true
+            ],
+            [
+              138,
+              128,
+              true
+            ]
+          ]
+        },
+        "uni01D0": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              79,
+              267,
+              true
+            ],
+            [
+              82,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni01D1": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              155,
+              141,
+              false
+            ],
+            [
+              171,
+              297,
+              true
+            ]
+          ]
+        },
+        "uni01D2": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              117,
+              105,
+              false
+            ],
+            [
+              125,
+              218,
+              true
+            ]
+          ]
+        },
+        "uni01D3": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              159,
+              191,
+              true
+            ]
+          ]
+        },
+        "uni01D4": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              134,
+              155,
               true
             ]
           ]
@@ -24623,6 +26668,16 @@
             ]
           ]
         },
+        "uni0251": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              118,
+              105,
+              false
+            ]
+          ]
+        },
         "uni0253": {
           "closed_counters": 1,
           "white_spaces": [
@@ -24638,6 +26693,41 @@
             ]
           ]
         },
+        "uni0254": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              85,
+              105,
+              true
+            ]
+          ]
+        },
+        "uni0256": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              106,
+              -25,
+              true
+            ],
+            [
+              119,
+              105,
+              false
+            ],
+            [
+              133,
+              235,
+              true
+            ],
+            [
+              221,
+              111,
+              true
+            ]
+          ]
+        },
         "uni0257": {
           "closed_counters": 1,
           "white_spaces": [
@@ -24645,6 +26735,81 @@
               119,
               105,
               false
+            ]
+          ]
+        },
+        "uni0259": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              89,
+              141,
+              true
+            ],
+            [
+              111,
+              58,
+              false
+            ]
+          ]
+        },
+        "uni025B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              140,
+              125,
+              true
+            ]
+          ]
+        },
+        "uni0263": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              45,
+              87,
+              true
+            ],
+            [
+              93,
+              4,
+              false
+            ],
+            [
+              132,
+              169,
+              true
+            ],
+            [
+              179,
+              106,
+              true
+            ]
+          ]
+        },
+        "uni0272": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              41,
+              81,
+              true
+            ],
+            [
+              142,
+              53,
+              true
+            ]
+          ]
+        },
+        "uni028B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              110,
+              123,
+              true
             ]
           ]
         },
@@ -26328,6 +28493,176 @@
             ]
           ]
         },
+        "uni1E02": {
+          "closed_counters": 2,
+          "white_spaces": [
+            [
+              120,
+              79,
+              false
+            ],
+            [
+              130,
+              202,
+              false
+            ],
+            [
+              145,
+              295,
+              true
+            ]
+          ]
+        },
+        "uni1E03": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              122,
+              105,
+              false
+            ],
+            [
+              135,
+              253,
+              true
+            ]
+          ]
+        },
+        "uni1E0A": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              142,
+              141,
+              false
+            ],
+            [
+              160,
+              295,
+              true
+            ]
+          ]
+        },
+        "uni1E0B": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              119,
+              105,
+              false
+            ],
+            [
+              139,
+              242,
+              true
+            ]
+          ]
+        },
+        "uni1E1E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              138,
+              60,
+              true
+            ],
+            [
+              173,
+              187,
+              true
+            ],
+            [
+              174,
+              287,
+              true
+            ]
+          ]
+        },
+        "uni1E1F": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              47,
+              90,
+              true
+            ],
+            [
+              118,
+              266,
+              true
+            ],
+            [
+              144,
+              87,
+              true
+            ],
+            [
+              171,
+              213,
+              true
+            ]
+          ]
+        },
+        "uni1E24": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              120,
+              45,
+              true
+            ],
+            [
+              140,
+              222,
+              true
+            ]
+          ]
+        },
+        "uni1E25": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              106,
+              71,
+              true
+            ],
+            [
+              138,
+              233,
+              true
+            ]
+          ]
+        },
+        "uni1E36": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              128,
+              -11,
+              true
+            ],
+            [
+              141,
+              156,
+              true
+            ]
+          ]
+        },
+        "uni1E37": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              57,
+              -12,
+              true
+            ],
+            [
+              82,
+              153,
+              true
+            ]
+          ]
+        },
         "uni1E3E": {
           "closed_counters": 0,
           "white_spaces": [
@@ -26363,6 +28698,41 @@
             ]
           ]
         },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              165,
+              91,
+              true
+            ],
+            [
+              197,
+              231,
+              true
+            ]
+          ]
+        },
+        "uni1E41": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              110,
+              86,
+              true
+            ],
+            [
+              164,
+              217,
+              true
+            ],
+            [
+              233,
+              86,
+              true
+            ]
+          ]
+        },
         "uni1E44": {
           "closed_counters": 0,
           "white_spaces": [
@@ -26389,6 +28759,176 @@
             [
               120,
               219,
+              true
+            ]
+          ]
+        },
+        "uni1E56": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              128,
+              66,
+              true
+            ],
+            [
+              133,
+              193,
+              false
+            ],
+            [
+              146,
+              296,
+              true
+            ]
+          ]
+        },
+        "uni1E57": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              107,
+              -30,
+              true
+            ],
+            [
+              122,
+              105,
+              false
+            ],
+            [
+              122,
+              222,
+              true
+            ]
+          ]
+        },
+        "uni1E60": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              98,
+              107,
+              true
+            ],
+            [
+              150,
+              288,
+              true
+            ],
+            [
+              167,
+              175,
+              true
+            ]
+          ]
+        },
+        "uni1E61": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              83,
+              80,
+              true
+            ],
+            [
+              127,
+              216,
+              true
+            ],
+            [
+              146,
+              130,
+              true
+            ]
+          ]
+        },
+        "uni1E62": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              98,
+              107,
+              true
+            ],
+            [
+              116,
+              -4,
+              true
+            ],
+            [
+              167,
+              175,
+              true
+            ]
+          ]
+        },
+        "uni1E63": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              83,
+              80,
+              true
+            ],
+            [
+              103,
+              -5,
+              true
+            ],
+            [
+              146,
+              130,
+              true
+            ]
+          ]
+        },
+        "uni1E6A": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              67,
+              126,
+              true
+            ],
+            [
+              138,
+              302,
+              true
+            ],
+            [
+              188,
+              123,
+              true
+            ]
+          ]
+        },
+        "uni1E6B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              47,
+              106,
+              true
+            ],
+            [
+              111,
+              277,
+              true
+            ],
+            [
+              154,
+              92,
+              true
+            ]
+          ]
+        },
+        "uni1E9E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              129,
+              122,
               true
             ]
           ]
@@ -28188,6 +30728,16 @@
             ]
           ]
         },
+        "uni2C6D": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              146,
+              141,
+              false
+            ]
+          ]
+        },
         "uniFB01": {
           "closed_counters": 0,
           "white_spaces": [
@@ -28323,6 +30873,21 @@
             ]
           ]
         },
+        "wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              121,
+              52,
+              true
+            ],
+            [
+              158,
+              180,
+              true
+            ]
+          ]
+        },
         "wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -28334,6 +30899,36 @@
             [
               154,
               176,
+              true
+            ]
+          ]
+        },
+        "wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              121,
+              52,
+              true
+            ],
+            [
+              148,
+              166,
+              true
+            ]
+          ]
+        },
+        "wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              121,
+              52,
+              true
+            ],
+            [
+              147,
+              179,
               true
             ]
           ]
@@ -30728,7 +33323,52 @@
             ]
           ]
         },
+        "Wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              88,
+              true
+            ],
+            [
+              212,
+              205,
+              true
+            ]
+          ]
+        },
         "Wcircumflex": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              197,
+              88,
+              true
+            ],
+            [
+              212,
+              205,
+              true
+            ]
+          ]
+        },
+        "Wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              176,
+              189,
+              true
+            ],
+            [
+              197,
+              88,
+              true
+            ]
+          ]
+        },
+        "Wgrave": {
           "closed_counters": 0,
           "white_spaces": [
             [
@@ -31903,6 +34543,31 @@
             [
               182,
               178,
+              true
+            ]
+          ]
+        },
+        "florin": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              81,
+              58,
+              true
+            ],
+            [
+              109,
+              225,
+              true
+            ],
+            [
+              203,
+              66,
+              true
+            ],
+            [
+              218,
+              221,
               true
             ]
           ]
@@ -34057,6 +36722,26 @@
             ]
           ]
         },
+        "uni0186": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              156,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni0189": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              215,
+              141,
+              false
+            ]
+          ]
+        },
         "uni018A": {
           "closed_counters": 1,
           "white_spaces": [
@@ -34069,6 +36754,81 @@
               241,
               141,
               false
+            ]
+          ]
+        },
+        "uni018F": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              159,
+              203,
+              true
+            ],
+            [
+              170,
+              73,
+              false
+            ]
+          ]
+        },
+        "uni0190": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              68,
+              143,
+              true
+            ],
+            [
+              195,
+              155,
+              true
+            ]
+          ]
+        },
+        "uni0191": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              56,
+              79,
+              true
+            ],
+            [
+              213,
+              41,
+              true
+            ],
+            [
+              249,
+              202,
+              true
+            ]
+          ]
+        },
+        "uni0194": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              95,
+              132,
+              true
+            ],
+            [
+              182,
+              27,
+              false
+            ],
+            [
+              182,
+              207,
+              true
+            ],
+            [
+              269,
+              132,
+              true
             ]
           ]
         },
@@ -34112,6 +36872,36 @@
             ]
           ]
         },
+        "uni019D": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              55,
+              108,
+              true
+            ],
+            [
+              223,
+              89,
+              true
+            ],
+            [
+              242,
+              160,
+              true
+            ]
+          ]
+        },
+        "uni01B2": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              184,
+              152,
+              true
+            ]
+          ]
+        },
         "uni01B3": {
           "closed_counters": 0,
           "white_spaces": [
@@ -34148,6 +36938,131 @@
             [
               233,
               65,
+              true
+            ]
+          ]
+        },
+        "uni01CD": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              135,
+              210,
+              true
+            ],
+            [
+              186,
+              45,
+              true
+            ],
+            [
+              186,
+              177,
+              false
+            ]
+          ]
+        },
+        "uni01CE": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              148,
+              127,
+              true
+            ],
+            [
+              158,
+              60,
+              false
+            ],
+            [
+              163,
+              214,
+              true
+            ]
+          ]
+        },
+        "uni01CF": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              73,
+              141,
+              true
+            ],
+            [
+              123,
+              303,
+              true
+            ],
+            [
+              163,
+              141,
+              true
+            ]
+          ]
+        },
+        "uni01D0": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              43,
+              133,
+              true
+            ],
+            [
+              57,
+              247,
+              true
+            ]
+          ]
+        },
+        "uni01D1": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              180,
+              141,
+              false
+            ],
+            [
+              180,
+              305,
+              true
+            ]
+          ]
+        },
+        "uni01D2": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              166,
+              95,
+              false
+            ],
+            [
+              166,
+              212,
+              true
+            ]
+          ]
+        },
+        "uni01D3": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              190,
+              186,
+              true
+            ]
+          ]
+        },
+        "uni01D4": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              167,
+              139,
               true
             ]
           ]
@@ -34257,6 +37172,16 @@
             ]
           ]
         },
+        "uni0251": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              166,
+              95,
+              false
+            ]
+          ]
+        },
         "uni0253": {
           "closed_counters": 1,
           "white_spaces": [
@@ -34272,6 +37197,41 @@
             ]
           ]
         },
+        "uni0254": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              153,
+              95,
+              true
+            ]
+          ]
+        },
+        "uni0256": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              166,
+              95,
+              false
+            ],
+            [
+              184,
+              222,
+              true
+            ],
+            [
+              208,
+              -23,
+              true
+            ],
+            [
+              331,
+              103,
+              true
+            ]
+          ]
+        },
         "uni0257": {
           "closed_counters": 1,
           "white_spaces": [
@@ -34283,6 +37243,81 @@
             [
               172,
               215,
+              true
+            ]
+          ]
+        },
+        "uni0259": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              149,
+              136,
+              true
+            ],
+            [
+              160,
+              51,
+              false
+            ]
+          ]
+        },
+        "uni025B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              172,
+              109,
+              true
+            ]
+          ]
+        },
+        "uni0263": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              83,
+              80,
+              true
+            ],
+            [
+              160,
+              3,
+              false
+            ],
+            [
+              160,
+              140,
+              true
+            ],
+            [
+              236,
+              79,
+              true
+            ]
+          ]
+        },
+        "uni0272": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              54,
+              57,
+              true
+            ],
+            [
+              197,
+              47,
+              true
+            ]
+          ]
+        },
+        "uni028B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              159,
+              106,
               true
             ]
           ]
@@ -35997,6 +39032,176 @@
             ]
           ]
         },
+        "uni1E02": {
+          "closed_counters": 2,
+          "white_spaces": [
+            [
+              154,
+              295,
+              true
+            ],
+            [
+              167,
+              205,
+              false
+            ],
+            [
+              178,
+              77,
+              false
+            ]
+          ]
+        },
+        "uni1E03": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              169,
+              237,
+              true
+            ],
+            [
+              173,
+              95,
+              false
+            ]
+          ]
+        },
+        "uni1E0A": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              149,
+              291,
+              true
+            ],
+            [
+              171,
+              141,
+              false
+            ]
+          ]
+        },
+        "uni1E0B": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              166,
+              95,
+              false
+            ],
+            [
+              169,
+              236,
+              true
+            ]
+          ]
+        },
+        "uni1E1E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              173,
+              68,
+              true
+            ],
+            [
+              199,
+              200,
+              true
+            ],
+            [
+              212,
+              297,
+              true
+            ]
+          ]
+        },
+        "uni1E1F": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              73,
+              90,
+              true
+            ],
+            [
+              135,
+              260,
+              true
+            ],
+            [
+              187,
+              89,
+              true
+            ],
+            [
+              198,
+              221,
+              true
+            ]
+          ]
+        },
+        "uni1E24": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              190,
+              51,
+              true
+            ],
+            [
+              190,
+              216,
+              true
+            ]
+          ]
+        },
+        "uni1E25": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              153,
+              216,
+              true
+            ],
+            [
+              167,
+              69,
+              true
+            ]
+          ]
+        },
+        "uni1E36": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              181,
+              148,
+              true
+            ],
+            [
+              195,
+              -12,
+              true
+            ]
+          ]
+        },
+        "uni1E37": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              85,
+              -5,
+              true
+            ],
+            [
+              92,
+              144,
+              true
+            ]
+          ]
+        },
         "uni1E3E": {
           "closed_counters": 0,
           "white_spaces": [
@@ -36032,6 +39237,41 @@
             ]
           ]
         },
+        "uni1E40": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              171,
+              104,
+              true
+            ],
+            [
+              190,
+              220,
+              true
+            ]
+          ]
+        },
+        "uni1E41": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              129,
+              84,
+              true
+            ],
+            [
+              182,
+              189,
+              true
+            ],
+            [
+              278,
+              84,
+              true
+            ]
+          ]
+        },
         "uni1E44": {
           "closed_counters": 0,
           "white_spaces": [
@@ -36058,6 +39298,176 @@
             [
               167,
               84,
+              true
+            ]
+          ]
+        },
+        "uni1E56": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              157,
+              297,
+              true
+            ],
+            [
+              163,
+              62,
+              true
+            ],
+            [
+              175,
+              196,
+              false
+            ]
+          ]
+        },
+        "uni1E57": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              153,
+              -26,
+              true
+            ],
+            [
+              155,
+              197,
+              true
+            ],
+            [
+              173,
+              95,
+              false
+            ]
+          ]
+        },
+        "uni1E60": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              172,
+              106,
+              true
+            ],
+            [
+              183,
+              293,
+              true
+            ],
+            [
+              194,
+              175,
+              true
+            ]
+          ]
+        },
+        "uni1E61": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              154,
+              74,
+              true
+            ],
+            [
+              166,
+              203,
+              true
+            ],
+            [
+              175,
+              117,
+              true
+            ]
+          ]
+        },
+        "uni1E62": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              172,
+              106,
+              true
+            ],
+            [
+              183,
+              -8,
+              true
+            ],
+            [
+              194,
+              175,
+              true
+            ]
+          ]
+        },
+        "uni1E63": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              154,
+              74,
+              true
+            ],
+            [
+              164,
+              -10,
+              true
+            ],
+            [
+              175,
+              117,
+              true
+            ]
+          ]
+        },
+        "uni1E6A": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              93,
+              136,
+              true
+            ],
+            [
+              173,
+              300,
+              true
+            ],
+            [
+              252,
+              136,
+              true
+            ]
+          ]
+        },
+        "uni1E6B": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              81,
+              102,
+              true
+            ],
+            [
+              140,
+              245,
+              true
+            ],
+            [
+              194,
+              97,
+              true
+            ]
+          ]
+        },
+        "uni1E9E": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              192,
+              130,
               true
             ]
           ]
@@ -37862,6 +41272,16 @@
             ]
           ]
         },
+        "uni2C6D": {
+          "closed_counters": 1,
+          "white_spaces": [
+            [
+              166,
+              141,
+              false
+            ]
+          ]
+        },
         "uniFB01": {
           "closed_counters": 0,
           "white_spaces": [
@@ -38007,6 +41427,21 @@
             ]
           ]
         },
+        "wacute": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              183,
+              61,
+              true
+            ],
+            [
+              189,
+              157,
+              true
+            ]
+          ]
+        },
         "wcircumflex": {
           "closed_counters": 0,
           "white_spaces": [
@@ -38018,6 +41453,36 @@
             [
               189,
               157,
+              true
+            ]
+          ]
+        },
+        "wdieresis": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              166,
+              142,
+              true
+            ],
+            [
+              183,
+              61,
+              true
+            ]
+          ]
+        },
+        "wgrave": {
+          "closed_counters": 0,
+          "white_spaces": [
+            [
+              180,
+              158,
+              true
+            ],
+            [
+              183,
+              61,
               true
             ]
           ]

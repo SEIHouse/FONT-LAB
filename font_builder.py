@@ -835,7 +835,8 @@ class FontBuilderCore:
         self.retain_curve_spacing(KERN, script_exceptions, base_ps_style)
         if night:
             if base_ps_style in self.STYLE_KERN:
-                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
+                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style])
+                hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu']); vmw = dict(self.LANGUAGE_KERN[base_ps_style]['vmw'])
             else:
                 saved_grade = self.GRADE; self.GRADE = 0
                 try:
@@ -855,10 +856,12 @@ class FontBuilderCore:
                     self.GRADE = saved_grade
 
 
-                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style]); hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu'])
+                KERN = dict(self.STYLE_KERN[base_ps_style]); script_exceptions = dict(self._STYLE_SCRIPT_EXCEPTIONS[base_ps_style])
+                hu = dict(self.LANGUAGE_KERN[base_ps_style]['hu']); vmw = dict(self.LANGUAGE_KERN[base_ps_style]['vmw'])
         else:
             self.STYLE_KERN[ps_style] = dict(KERN); self._STYLE_SCRIPT_EXCEPTIONS[ps_style] = dict(script_exceptions)
-            self.LANGUAGE_KERN[ps_style] = {'hu': self.hungarian_caps(paths, hm, cmap, KERN)}; hu = self.LANGUAGE_KERN[ps_style]['hu']
+            hu = self.hungarian_caps(paths, hm, cmap, KERN); vmw = {'TT': hu['TT']} if 'TT' in hu else {}
+            self.LANGUAGE_KERN[ps_style] = {'hu': hu, 'vmw': vmw}
         if style == 'Regular' and not italic and not night:
             name = 'kern_auto_'+self.settings['name'].lower().replace(' ', '-')+'.json' if self.display else 'kern_auto.json'
             with open(os.path.join(self.asset_dir, name), 'w', encoding='utf-8') as file:
@@ -880,7 +883,9 @@ class FontBuilderCore:
                              for source, spec in data.get('designs', {}).items() if source in '469' and len(source)==1}
         members = lambda c: ' '.join([self.gname(c)] + [self.gname(a) for a, b in sorted(bm.items()) if b == c and ord(a) in cmap and a not in SEPARATE_LATIN]
                                     + figure_alternates.get(c, [])
-                                    + (['i.dotless','i.loclTRK','i.below.dotless'] if c == 'i' else ['j.dotless'] if c == 'j' else []))
+                                    + (['i.dotless','i.loclTRK','i.below.dotless'] if c == 'i'
+                                       else ['j.dotless'] if c == 'j'
+                                       else ['dotlessiogonek'] if c == 'į' and 'dotlessiogonek' in records else []))
         alternate_lines, alternate_classes = [], []
         if self.display:
             from display.letter_alternates import alternate_kerning
@@ -912,6 +917,10 @@ class FontBuilderCore:
             fea+='feature kern {\n script latn; language HUN; lookup HungarianCaps {\n lookupflag IgnoreMarks;\n'
             fea+='\n'.join(f' pos {self.gname(pair[0])} {self.gname(pair[1])} {value*SC};' for pair,value in hu.items())
             fea+='\n } HungarianCaps;\n} kern;\n'
+        if vmw:
+            fea+='feature kern {\n script latn; language MAK; lookup MakhuwaCaps {\n lookupflag IgnoreMarks;\n'
+            fea+='\n'.join(f' pos {self.gname(pair[0])} {self.gname(pair[1])} {value*SC};' for pair,value in vmw.items())
+            fea+='\n } MakhuwaCaps;\n} kern;\n'
         if ord('ﬁ') in cmap and ord('ﬂ') in cmap:   # joined fi / fl, switched on automatically
             fea += f"feature liga {{\n  sub {self.gname('f')} {self.gname('i')} by {self.gname('ﬁ')};\n  sub {self.gname('f')} {self.gname('l')} by {self.gname('ﬂ')};\n}} liga;\n"
             # where the text cursor can stop inside a joined letter (between the f and the i / l)
