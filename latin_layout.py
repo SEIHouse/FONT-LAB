@@ -13,8 +13,8 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
         if record.get('mark'): classes[record['mark']].append(name)
     lines = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;',
              'languagesystem latn TRK;', 'languagesystem latn ROM;',
-             'languagesystem latn HUN;', 'languagesystem cyrl dflt;',
-             'languagesystem grek dflt;']
+             'languagesystem latn HUN;', 'languagesystem latn MAK;',
+             'languagesystem cyrl dflt;', 'languagesystem grek dflt;']
     for kind, names in classes.items():
         lines.append(f'@{kind.upper()} = [{" ".join(names)}];')
         for name in names:
@@ -57,11 +57,13 @@ def latin_features(records, origins, advances, cmap, scale, slant, center):
         for sequence,name in sorted(stacks,key=lambda row:(-len(row[0]),row[0])):
             lines.append(f'  sub {" ".join(sequence)} by {name};')
         lines.append(' } VietnameseStacks;')
+    dotless = ['  sub i\' @TOP by i.dotless;', '  sub j\' @TOP by j.dotless;',
+               '  sub i.loclTRK\' @TOP by i.dotless;',
+               f'  sub {cmap[0x1ECB]}\' @TOP by i.below.dotless;']
+    if 0x012F in cmap and 'dotlessiogonek' in records:
+        dotless.append(f'  sub {cmap[0x012F]}\' @TOP by dotlessiogonek;')
     lines += [' lookup Dotless {', '  lookupflag UseMarkFilteringSet @TOP;',
-              '  sub i\' @TOP by i.dotless;', '  sub j\' @TOP by j.dotless;',
-              '  sub i.loclTRK\' @TOP by i.dotless;',
-              f'  sub {cmap[0x1ECB]}\' @TOP by i.below.dotless;',
-              ' } Dotless;', '} ccmp;', 'feature mark {']
+              *dotless, ' } Dotless;', '} ccmp;', 'feature mark {']
     ligatures = {cmap[code] for code in (0xFB01,0xFB02)}
     for name, record in records.items():
         if record.get('mark') or 'anchors' not in record: continue

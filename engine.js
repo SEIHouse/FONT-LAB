@@ -644,7 +644,7 @@ const COMBINING = Object.fromEntries([
   ['\u0327','cedilla','bottom'],['\u0328','ogonek','ogonek'],
 ].map(([ch,mark,place]) => [ch,{mark,place}]));
 for(const ch of Object.keys(COMBINING)) G[ch] = { comp:true };
-const DOTLESS = { 'i.dotless':'i', 'j.dotless':'j' };
+const DOTLESS = { 'i.dotless':'i', 'j.dotless':'j', 'dotlessiogonek':'į' };
 def('◌',440,'low',[],Array.from({length:12},(_,i) => {
   const t=i*Math.PI/6; return [220+190*Math.cos(t),250+190*Math.sin(t),.24];
 }),[38,38]);
@@ -732,6 +732,8 @@ acc('ŷ','y',['circ'],{additive:true,marks:["\u0302"]});
 // Latvian small g uses the turned comma above its bowl, clear of the descender.
 MARK.commaAbove=(cx,y)=>({shapes:[RAW([['M',cx-15,y],['C',cx-30,y+40,cx-10,y+80,cx+25,y+95]])]});
 COMBINING['\u0312']={mark:'commaAbove',place:'top'}; G['\u0312']={comp:true};
+// Guarded U+0331 (combining macron below) fallback stub so layout/shaping builds standalone and merges cleanly with @glyph-designer.
+if(!COMBINING['\u0331']){ MARK.macronBelow=(cx,y=0)=>({shapes:[o([[cx-100,y-55],[cx+100,y-55]])]}); COMBINING['\u0331']={mark:'macronBelow',place:'bottom'}; G['\u0331']={comp:true}; }
 ACC['ģ'].mark='commaAbove'; ACC['ģ'].marks=['\u0312'];
 for(const ch of 'ĢĶķĻļŅņŖŗ'){ ACC[ch].mark='comma'; ACC[ch].marks=['\u0326']; }
 const PHASE4_SPECIALS = {'Đ':'D','đ':'d','Ħ':'H','ħ':'h','Ŧ':'T','ŧ':'t','ĸ':'k','Ŋ':'N','ŋ':'n','ſ':'f','Ĳ':'I','ĳ':'i','Ŀ':'L','ŀ':'l','ŉ':'n'};
@@ -1060,6 +1062,89 @@ acc("ỷ","y",["hook"],{additive:true,marks:["\u0309"]});
 acc("Ỹ","Y",["tilde"],{additive:true,marks:["\u0303"]});
 acc("ỹ","y",["tilde"],{additive:true,marks:["\u0303"]});
 const VIETNAMESE_ADDED=new Set([..."ƠơƯưẠạẢảẤấẦầẨẩẪẫẬậẮắẰằẲẳẴẵẶặẸẹẺẻẼẽẾếỀềỂểỄễỆệỈỉỎỏỐốỒồỔổỖỗỘộỚớỜờỞởỠỡỢợỦủỨứỪừỬửỮữỰựỲỳỴỵỶỷỸỹ"]);
+/* 0.41: additive CLDR 48 Latin letters, combining macron below, and precomposed accents.
+   Existing 0.40 outlines, advances, sidebearings, and base-class mappings stay untouched. */
+MARK.macronBelow=(cx)=>({shapes:[o([[cx-100,-55],[cx+100,-55]])]});
+COMBINING['\u0331']={mark:'macronBelow',place:'bottom'}; G['\u0331']={comp:true};
+// Azerbaijani schwa: 180-degree rotated e construction with matching crossbar and open aperture.
+def('Ə',520,'cap',[o([[0,344],[514,344]]),RAW([['M',0,344],
+  ['C',0,133,78,0,251,0],['C',417,0,520,84,520,336],
+  ['C',520,596,423,700,242,700],['C',136,700,73,692,34,672]])],[],[52,52]);
+def('ə',398,'low',[o([[0,245],[393,245]]),RAW([['M',0,245],
+  ['C',0,95,60,0,192,0],['C',319,0,398,60,398,240],
+  ['C',398,426,324,500,185,500],['C',104,500,56,494,26,480]])],[],[50,50]);
+// Galician Latin alpha: single-storey bowl + stem, distinct from upright double-storey a.
+def('Ɑ',500,'cap',[o([[500,700],[500,0]]),RAW([['M',500,518],
+  ['C',500,641,370,700,248,700],['C',88,700,0,591,0,388],LN(0,388,0,312),
+  ['C',0,109,88,0,248,0],['C',370,0,500,67,500,185]])],[],[52,66]);
+def('ɑ',420,'low',[o([[420,500],[420,0]]),bowlOnStem(420,true)],[],[50,66]);
+IT['ɑ']={...G['ɑ'],shapes:[o([[420,500],[420,0,0.6],[475,0]]),bowlOnStem(420,true)],sb:[50,28]};
+// Low German Capital Sharp S: squared-cap arch and open lower-left aperture matching ß.
+def('ẞ',500,'cap',[o([[0,0],[0,700],[420,700],[420,385],[240,385]]),
+  o([[240,385],[500,385],[500,0],[245,0]])],[],[66,48]);
+// West/Central African open vowels and hooked/tailed consonants.
+def('Ɛ',480,'cap',[RAW([['M',468,602],['C',414,679,354,700,252,700],
+  ['C',102,700,0,630,0,532],['C',0,427,84,350,228,350],
+  ['C',90,350,0,287,0,182],['C',0,77,108,0,258,0],
+  ['C',360,0,426,28,480,105]]),o([[228,350],[396,350]])],[],[52,44]);
+def('ɛ',400,'low',[...G['ε'].shapes],[],[50,40]);
+def('Ɔ',480,'cap',[{fn:()=>cCurve(480,700,0).map(seg=>seg.map((v,i)=>i&&i%2?480-v:v))}],[],[44,52]);
+def('ɔ',420,'low',[RAW(G['c'].shapes[0].raw.map(seg=>seg.map((v,i)=>i&&i%2?420-v:v)))],[],[40,50]);
+def('Ɲ',500,'cap',[...G['N'].shapes,RAW([['M',0,120],LN(0,120,0,0),['C',0,-125,-45,-195,-135,-195]])],[],[185,66]);
+def('ɲ',400,'low',[o([[0,0],[0,500]]),shoulder(0,400),RAW([['M',0,120],LN(0,120,0,0),['C',0,-140,-40,-200,-126,-200]])],[],[176,66]);
+IT['ɲ']={...G['ɲ'],shapes:[o([[0,0],[0,500]]),shoulder(0,400,210,55),G['ɲ'].shapes.at(-1)],sb:[176,28]};
+hooked('Ɖ','D',[['M',-50,350],LN(-50,350,170,350)],50);
+def('ɖ',420,'low',[RAW([['M',420,740],LN(420,740,420,0),['C',420,-140,460,-200,550,-200]]),bowlOnStem(420,true)],[],[50,180]);
+def('Ƒ',480,'cap',[...G['F'].shapes,RAW([['M',0,120],LN(0,120,0,0),['C',0,-125,-45,-195,-140,-195]])],[],[190,35]);
+def('ƒ',350,'low',[...F_IT.shapes],[],[80,24]);
+def('Ɣ',520,'cap',[RAW([['M',0,700],['C',100,440,430,130,430,-30],
+  ['C',430,-125,355,-195,260,-195],['C',165,-195,90,-125,90,-30],
+  ['C',90,130,420,440,520,700]])],[],[20,20]);
+def('ɣ',440,'low',[RAW([['M',0,500],['C',85,310,360,85,360,-45],
+  ['C',360,-135,298,-200,220,-200],['C',142,-200,80,-135,80,-45],
+  ['C',80,85,355,310,440,500]])],[],[20,20]);
+def('Ʋ',510,'cap',[RAW([['M',0,700],['C',20,320,115,0,245,0],
+  ['C',395,0,510,195,510,440],['C',510,595,450,700,360,700]])],[],[40,44]);
+def('ʋ',430,'low',[RAW([['M',0,500],['C',15,230,95,0,205,0],
+  ['C',330,0,430,140,430,315],['C',430,425,380,500,305,500]])],[],[36,40]);
+for(const ch of 'ƏəɑⱭẞƐɛƆɔƝɲƉɖƑƒƔɣƲʋ') READING_LETTERS.add(ch);
+for(const ch of 'ƏəɑⱭƐɛƆɔ') OVS.add(ch);
+for(const ch of 'ƏⱭƆ') WIDE.add(ch);
+// Welsh, Irish/Scottish Gaelic, Asturian/Yoruba, and Walloon/Lingala precomposed accents.
+acc('Ẁ','W',['grave'],{additive:true,marks:['\u0300']});
+acc('ẁ','w',['grave'],{additive:true,marks:['\u0300']});
+acc('Ẃ','W',['acute'],{additive:true,marks:['\u0301']});
+acc('ẃ','w',['acute'],{additive:true,marks:['\u0301']});
+acc('Ẅ','W',['dier'],{additive:true,marks:['\u0308']});
+acc('ẅ','w',['dier'],{additive:true,marks:['\u0308']});
+acc('Ḃ','B',['dot'],{additive:true,marks:['\u0307']});
+acc('ḃ','b',['dot'],{additive:true,marks:['\u0307']});
+acc('Ḋ','D',['dot'],{additive:true,marks:['\u0307']});
+acc('ḋ','d',['dot'],{additive:true,marks:['\u0307']});
+acc('Ḟ','F',['dot'],{additive:true,marks:['\u0307']});
+acc('ḟ','f',['dot'],{additive:true,marks:['\u0307']});
+acc('Ṁ','M',['dot'],{additive:true,marks:['\u0307']});
+acc('ṁ','m',['dot'],{additive:true,marks:['\u0307']});
+acc('Ṗ','P',['dot'],{additive:true,marks:['\u0307']});
+acc('ṗ','p',['dot'],{additive:true,marks:['\u0307']});
+acc('Ṡ','S',['dot'],{additive:true,marks:['\u0307']});
+acc('ṡ','s',['dot'],{additive:true,marks:['\u0307']});
+acc('Ṫ','T',['dot'],{additive:true,marks:['\u0307']});
+acc('ṫ','t',['dot'],{additive:true,marks:['\u0307']});
+acc('Ḥ','H',['below'],{additive:true,marks:['\u0323']});
+acc('ḥ','h',['below'],{additive:true,marks:['\u0323']});
+acc('Ḷ','L',['below'],{additive:true,marks:['\u0323']});
+acc('ḷ','l',['below'],{additive:true,marks:['\u0323']});
+acc('Ṣ','S',['below'],{additive:true,marks:['\u0323']});
+acc('ṣ','s',['below'],{additive:true,marks:['\u0323']});
+acc('Ǎ','A',['caron'],{additive:true,marks:['\u030c']});
+acc('ǎ','a',['caron'],{additive:true,marks:['\u030c']});
+acc('Ǐ','I',['caron'],{additive:true,marks:['\u030c']});
+acc('ǐ','i',['caron'],{additive:true,marks:['\u030c']});
+acc('Ǒ','O',['caron'],{additive:true,marks:['\u030c']});
+acc('ǒ','o',['caron'],{additive:true,marks:['\u030c']});
+acc('Ǔ','U',['caron'],{additive:true,marks:['\u030c']});
+acc('ǔ','u',['caron'],{additive:true,marks:['\u030c']});
 /** Choose the established cursive skeleton before applying the family's italic shear. */
 function scriptReuse(ch){ return (P.ital && SCRIPT_ITALIC_REUSE[ch]) || SCRIPT_REUSE[ch]; }
 window.getScriptChars=()=>[...PHASE4_SCRIPT].filter(ch=>G[ch] && !ACC[ch] && latinBase(ch)===ch).join('');
@@ -1213,6 +1298,7 @@ function latinClusters(text){
   return clusters.map(c=>{
     if(['i','j'].includes(c.base) && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base+='.dotless';
     if(c.base==='ị' && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base='i.below.dotless';
+    if(c.base==='į' && c.marks.some(ch=>COMBINING[ch].place==='top')) c.base='dotlessiogonek';
     return c;
   });
 }
@@ -1288,6 +1374,13 @@ function glyph(ch, S){
   if(ch==='ı') return (cache[ck]=glyph('i.dotless',S));
   if(ch==='i.loclTRK') return (cache[ck]=glyph('i',S));
   if(ch==='i.below.dotless') return (cache[ck]=languageGlyph('ị',S,true));
+  if(ch==='dotlessiogonek'){
+    const base=glyph('i.dotless',S),og=glyph('\u0328',S),a=latinAnchors('i',S).ogonek;
+    const dx=a[0]-og.attach[0],dy=a[1]-og.attach[1];
+    const result={...base,body:base.body+moveNumericBody(og.body,1,dx,-dy,1),clipId:ensureClip(1250,-500)};
+    delete result.ink; delete result._tt; delete result._ttF;
+    return (cache[ck]=result);
+  }
   if(COMBINING[ch]) return (cache[ck] = combiningGlyph(ch,S));
   if(ch === 'ʻ' || ch === 'ʼ') return (cache[ck] = glyph(ch === 'ʻ' ? '‘' : '’',S));
   if(ch === '\u2009' || ch === '\u202f') return (cache[ck] = { body:'',clipId:ensureClip(700,0),sb0:0,sb1:0,w:120-S });
