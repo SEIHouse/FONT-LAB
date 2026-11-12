@@ -42,7 +42,28 @@ Compare using the same size, weight, colors, and passage. Review both full parag
 and enlarged letter details. The comparison is the default Noto test page in the
 Font Lab navigation; the first three studies remain accessible from its footer.
 
-## Evidence and boundaries
+## Redraw 02 — candidate, not a new owner decision
+
+On 2026-11-12 the owner asked for SEIHouse Noto to be reimagined: more professional,
+keeping its flavour. Source and outputs: `studies/redraw/` (version 0.010).
+
+- New construction: stroke thickness follows direction (88 upright / 74 horizontal
+  at Regular) and tapers where arches and bowls meet a stem. The constant 74-unit
+  line of the earlier drawings is retired in this candidate.
+- Regular carries a text weight. Light is close to the earlier colour; Medium and
+  Bold come from the same rules.
+- Kept from Balanced: the softness (one corner radius, 13 units at Regular), the
+  .585 full curve, two-storey a and g, hooked l, distinct I / l / 1.
+- Changed from Balanced: vertical proportions (x-height 520, capitals 700,
+  ascender 744), the 1.025 horizontal factor (letters are drawn to width instead),
+  and all spacing, which is now shape-based with automatic kerning.
+- 314 characters: keyboard symbols and composed Latin-1 / Latin Extended-A letters.
+
+The owner has not yet compared or approved it. Until then Balanced is the approved
+direction and Refinement 01 the last reviewed drawing. See
+[the study notes](studies/redraw/README.md) for limits.
+
+## Evidence and boundaries (Refinement 01)
 
 This pass has 94 encoded characters / 95 glyphs including .notdef: Latin letters,
 digits, selected punctuation and nine precomposed accented letters. It adds no new

@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<link rel="icon" href="data:,">
+<title>SEIHouse Noto — Redraw 02</title>
+<style>
+@font-face{font-family:NotoRedraw;font-weight:300;src:url('fonts/SEIHouseNoto-Light.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:400;src:url('fonts/SEIHouseNoto-Regular.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:500;src:url('fonts/SEIHouseNoto-Medium.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:700;src:url('fonts/SEIHouseNoto-Bold.woff2') format('woff2');font-display:block}
+@font-face{font-family:BalancedRefined;src:url('../warmth/fonts/SEIHouseNotoBalanced-Regular.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoReference;src:url('../warmth/reference/NotoSans-Reference.ttf') format('truetype');font-weight:100 900;font-display:swap}
+:root{color-scheme:light;--paper:#f4f0e8;--card:#fffcf6;--ink:#273b35;--muted:#5f6d64;--line:#d9dcd0;--accent:#7a5720;--soft:#e8eddf;--size:20px;--weight:400}
+body.dark{color-scheme:dark;--paper:#172620;--card:#20352c;--ink:#f1eddd;--muted:#b3c0b2;--line:#405347;--accent:#e3c17d;--soft:#30483b}
+*{box-sizing:border-box}
+body{margin:0;background:var(--paper);color:var(--ink);font:400 15px/1.55 NotoRedraw,system-ui,sans-serif;font-synthesis:none;-webkit-text-size-adjust:100%}
+main{max-width:1240px;margin:auto;padding:20px 32px 40px}
+a{color:inherit;text-underline-offset:4px}
+.home-link{display:inline-flex;align-items:center;min-height:44px;margin-bottom:10px}
+.eyebrow{color:var(--accent);font-size:11px;font-weight:700;letter-spacing:.13em;text-transform:uppercase}
+header{padding-bottom:26px;border-bottom:1px solid var(--line)}
+h1{font:500 clamp(38px,7vw,60px)/1.08 NotoRedraw,sans-serif;letter-spacing:-.012em;margin:12px 0 14px}
+header p{font-size:17px;line-height:1.6;max-width:62ch;margin:0 0 14px;color:var(--muted)}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1px solid var(--line);border-radius:20px;padding:5px 12px;font-size:12.5px;color:var(--muted);background:var(--card)}
+.chip.key{border-color:var(--accent);color:var(--accent)}
+.toolbar{display:flex;gap:12px 18px;flex-wrap:wrap;align-items:center;padding:20px 0;position:sticky;top:0;background:var(--paper);z-index:2;border-bottom:1px solid var(--line);margin-bottom:22px}
+.field{display:flex;align-items:center;gap:10px;font-size:14px}
+.range output{min-width:44px;color:var(--accent);font-variant-numeric:tabular-nums}
+input[type=range]{accent-color:var(--accent);width:140px;min-height:44px}
+button,select{font:inherit;font-size:14px;min-height:44px;border:1px solid var(--line);background:var(--card);color:var(--ink);border-radius:9px;padding:9px 13px}
+button{cursor:pointer}button:hover{background:var(--soft)}
+:focus-visible{outline:3px solid var(--accent);outline-offset:3px}
+.weights{display:inline-flex;border:1px solid var(--line);border-radius:9px;overflow:hidden;background:var(--card)}
+.weights button{border:0;border-radius:0;border-inline-start:1px solid var(--line);padding:9px 12px}
+.weights button:first-child{border-inline-start:0}
+.weights button[aria-pressed=true]{background:var(--ink);color:var(--card)}
+.grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.card{background:var(--card);border:1px solid var(--line);border-radius:15px;padding:27px;min-width:0}
+.card.redraw{border-color:var(--accent)}
+h2{font:500 20px/1.35 NotoRedraw,sans-serif;margin:5px 0 0}
+.sub{color:var(--muted);font-size:13.5px;min-height:42px;margin:10px 0 22px}
+.redraw{--face:NotoRedraw;--w:var(--weight)}.current{--face:BalancedRefined;--w:400}
+.drawing{font-family:var(--face),sans-serif;font-weight:var(--w);font-synthesis:none}
+.hero{font-size:54px;line-height:1.14;margin:0 0 20px;min-height:124px}
+.details{font-size:52px;line-height:1.4;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0;overflow-wrap:anywhere}
+.prose{font-size:var(--size);line-height:1.65;margin:22px 0;white-space:pre-wrap;overflow-wrap:anywhere;min-height:200px}
+.metadata{font-size:14px;border-top:1px solid var(--line);padding-top:16px;color:var(--muted)}
+.numerals{font-size:22px;margin-top:8px}
+.detail-proof{display:none}
+.detail-proof .label{font:12px NotoRedraw,sans-serif;color:var(--muted);margin:22px 0 2px}
+.detail-proof .glyphs{font-size:64px;line-height:1.35;overflow-wrap:anywhere}
+.detail-proof .pairs{font-size:42px;line-height:1.45;overflow-wrap:anywhere}
+.zoom .detail-proof{display:block}.zoom .reading{display:none}.zoom .sub{margin-bottom:4px}
+.grid[data-view=redraw] .current,.grid[data-view=current] .redraw{display:none}
+.grid:not([data-view=compare]){grid-template-columns:minmax(0,1fr);max-width:760px;margin-inline:auto}
+main>section{padding:30px 0;border-bottom:1px solid var(--line)}
+main>section>h3{font:500 22px/1.3 NotoRedraw,sans-serif;margin:6px 0 16px}
+.columns{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px 28px}
+.columns h4{margin:0 0 4px;font:700 15px/1.4 NotoRedraw,sans-serif}
+.columns p{margin:0;color:var(--muted);font-size:14.5px}
+.family{display:grid;gap:4px}
+.family div{display:grid;grid-template-columns:86px minmax(0,1fr);align-items:baseline;gap:12px;padding:10px 0;border-top:1px solid var(--line)}
+.family div:first-child{border-top:0}
+.family span{font-size:12px;color:var(--muted)}
+.family p{margin:0;font-size:clamp(22px,4vw,34px);line-height:1.25;overflow-wrap:anywhere}
+.editor{display:grid;grid-template-columns:1fr 2fr;gap:24px}
+.editor p{color:var(--muted);margin:0 0 12px}
+textarea{width:100%;min-height:130px;resize:vertical;background:var(--card);color:var(--ink);border:1px solid var(--line);border-radius:10px;padding:14px;font:400 16px/1.5 NotoRedraw,system-ui}
+.status{color:var(--muted);font-size:12.5px;margin-top:7px}.status.warning{color:var(--accent)}
+.glyphs-all{font:400 26px/1.7 NotoRedraw,sans-serif;font-weight:var(--weight);overflow-wrap:anywhere;margin:0}
+.glyphs-all span{display:block;font:700 11px/1 NotoRedraw,sans-serif;letter-spacing:.13em;text-transform:uppercase;color:var(--accent);margin:18px 0 2px}
+.reference{padding:16px 22px;background:var(--soft);border-radius:12px;margin:26px 0 0}
+.reference summary{cursor:pointer;min-height:44px;align-content:center}
+.reference .text{font:400 38px/1.4 NotoReference,sans-serif;margin:10px 0}
+.reference p{color:var(--muted);font-size:12.5px;margin:0 0 8px}
+footer{padding-top:22px;font-size:12.5px;color:var(--muted)}
+footer p{max-width:85ch}
+footer nav{display:flex;flex-wrap:wrap;gap:4px 22px}
+footer a{display:inline-flex;align-items:center;min-height:44px}
+@media(max-width:780px){
+main{padding:14px 18px 30px}.grid{grid-template-columns:1fr}.card{padding:22px}
+.hero{font-size:46px;min-height:0}.details{font-size:44px}.prose,.sub{min-height:0}
+.columns{grid-template-columns:1fr}.editor{grid-template-columns:1fr;gap:14px}
+.toolbar{position:static;gap:10px 14px}.field.view{width:100%}.field.view select{flex:1}
+.field.range{width:100%}.field.range input{flex:1}
+.detail-proof .glyphs{font-size:56px}.detail-proof .pairs{font-size:36px}
+.family div{grid-template-columns:1fr;gap:0}
+}
+</style>
+</head>
+<body>
+<main>
+<a class="home-link" href="../../../index.html">← Back to Font Lab</a>
+<header>
+<div class="eyebrow">SEIHouse Noto · Redraw 02 · candidate</div>
+<h1>Balanced, redrawn.</h1>
+<p>The warmth you chose, drawn the way professional type is drawn: strokes that swell and thin, arches that taper into their stems, steadier proportions, and a real family around it.</p>
+<div class="chips"><span class="chip key">Foundation: Balanced</span><span class="chip">4 weights</span><span class="chip" id="count">300+ characters</span><span class="chip">Automatic kerning</span></div>
+</header>
+<div class="toolbar">
+<label class="field view" for="view">View <select id="view"><option value="compare" selected>Compare both</option><option value="redraw">Redraw 02</option><option value="current">Refinement 01</option></select></label>
+<div class="field"><span id="weight-label">Weight</span><div class="weights" role="group" aria-labelledby="weight-label"><button type="button" data-weight="300" aria-pressed="false">Light</button><button type="button" data-weight="400" aria-pressed="true">Regular</button><button type="button" data-weight="500" aria-pressed="false">Medium</button><button type="button" data-weight="700" aria-pressed="false">Bold</button></div></div>
+<label class="field range" for="size">Reading size <input id="size" type="range" min="14" max="28" value="20"><output id="sizeValue" for="size">20 px</output></label>
+<button id="theme" type="button" aria-pressed="false">View on dark</button><button id="zoom" type="button" aria-pressed="false">Letter details</button>
+</div>
+<div class="grid" data-view="compare">
+<section class="card redraw" aria-labelledby="redraw-title">
+<div class="eyebrow">The new drawing</div><h2 id="redraw-title">Redraw 02</h2><p class="sub">Modulated strokes, tapered joins, kerning.<br>The weight buttons above change this card.</p>
+<div class="reading"><div class="drawing hero">A familiar<br>warmth.</div><p class="drawing details">a e g n o r</p><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></div>
+<div class="detail-proof drawing"><p class="label">Curves and openings</p><div class="glyphs">a e g s</div><p class="label">Joins and rhythm</p><div class="glyphs">n m h b</div><p class="label">Letters and numbers</p><div class="glyphs">I l 1 O 0</div><p class="label">Spacing in words</p><div class="pairs">To AV Wa Yo<br>minimum river</div></div>
+</section>
+<section class="card current" aria-labelledby="current-title">
+<div class="eyebrow">Where it was</div><h2 id="current-title">Balanced · Refinement 01</h2><p class="sub">The previous drawing, unchanged.<br>One even line weight, Regular only.</p>
+<div class="reading"><div class="drawing hero">A familiar<br>warmth.</div><p class="drawing details">a e g n o r</p><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></div>
+<div class="detail-proof drawing"><p class="label">Curves and openings</p><div class="glyphs">a e g s</div><p class="label">Joins and rhythm</p><div class="glyphs">n m h b</div><p class="label">Letters and numbers</p><div class="glyphs">I l 1 O 0</div><p class="label">Spacing in words</p><div class="pairs">To AV Wa Yo<br>minimum river</div></div>
+</section>
+</div>
+<details class="reference"><summary>Google Noto Sans, for reference</summary><div class="text">A familiar warmth. a e g n o r</div><p>Unchanged Google Noto Sans at weight 400, shown only as a yardstick. Every SEIHouse drawing is original.</p></details>
+
+<section aria-labelledby="changed-title">
+<div class="eyebrow">What is different</div><h3 id="changed-title">Why it reads as more professional</h3>
+<div class="columns">
+<div><h4>Strokes with life</h4><p>Upright strokes are full, horizontal ones a little lighter, and curves pass smoothly between the two, so text has an even, calm colour.</p></div>
+<div><h4>Clean joins</h4><p>Arches and bowls thin as they meet a stem. The dark knots where n, m, b and d used to clot are gone.</p></div>
+<div><h4>Reading weight</h4><p>Regular now carries a proper text weight, close to Google Noto Sans. The earlier lightness lives on as the Light.</p></div>
+<div><h4>Fitted spacing</h4><p>Each letter is spaced by its shape, and awkward pairs such as To, AV and Yo are kerned automatically.</p></div>
+<div><h4>A family</h4><p>Light, Regular, Medium and Bold come from the same drawing rules, so they stay related.</p></div>
+<div><h4>Room to write</h4><p>Full keyboard symbols and accented letters for most European languages, up from 94 characters.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="stays-title">
+<div class="eyebrow">What stays yours</div><h3 id="stays-title">The SEIHouse flavour</h3>
+<div class="columns">
+<div><h4>Soft corners</h4><p>Balanced’s moderate softness is kept on every stroke end, at every weight.</p></div>
+<div><h4>Full, round bowls</h4><p>The same generous curve that made Balanced feel welcoming.</p></div>
+<div><h4>Signature letters</h4><p>Two-storey a and g, the hooked l, the curved y, and clearly different I, l and 1.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="family-title">
+<div class="eyebrow">The family</div><h3 id="family-title">Four weights from one set of rules</h3>
+<div class="family">
+<div><span>Light 300</span><p style="font-weight:300">A quiet library at first light.</p></div>
+<div><span>Regular 400</span><p style="font-weight:400">A quiet library at first light.</p></div>
+<div><span>Medium 500</span><p style="font-weight:500">A quiet library at first light.</p></div>
+<div><span>Bold 700</span><p style="font-weight:700">A quiet library at first light.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="editor-title">
+<div class="editor"><div><div class="eyebrow">Try it</div><h3 id="editor-title" style="font:500 22px/1.3 NotoRedraw,sans-serif;margin:6px 0 10px">Read it in your own words</h3><p>Your passage appears in both cards above at the same size.</p><button id="reset" type="button">Reset passage</button></div><div><label for="passage" class="eyebrow">Comparison text</label><textarea id="passage" spellcheck="false"></textarea><div id="status" class="status" aria-live="polite"></div></div></div>
+</section>
+
+<section aria-labelledby="set-title">
+<div class="eyebrow">Character set</div><h3 id="set-title">Everything Redraw 02 can write</h3>
+<p class="glyphs-all"><span>Capitals</span>ABCDEFGHIJKLMNOPQRSTUVWXYZ<span>Lowercase</span>abcdefghijklmnopqrstuvwxyz<span>Figures</span>0123456789<span>Punctuation and symbols</span>. , : ; ! ? ¡ ¿ … · • - – — ' " ‘ ’ “ ” ‚ „ ‹ › « » ( ) [ ] { } / \ | _ &amp; @ # % * + − × ÷ ± = &lt; &gt; ^ ~ ° $ € £ ¥ ¢<span>Accented and special letters</span>À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö Ø Ù Ú Û Ü Ý Þ ß à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ø ù ú û ü ý þ ÿ Ā ā Ă ă Ą ą Ć ć Č č Ď ď Đ đ Ē ē Ė ė Ę ę Ě ě Ğ ğ Ģ ģ Ī ī Į į İ ı Ķ ķ Ĺ ĺ Ļ ļ Ľ ľ Ł ł Ń ń Ņ ņ Ň ň Ő ő Œ œ Ŕ ŕ Ř ř Ś ś Ş ş Š š Ţ ţ Ť ť Ū ū Ů ů Ű ű Ų ų Ź ź Ż ż Ž ž Ș ș Ț ț</p>
+</section>
+
+<footer><p id="study-scope">Redraw 02 is a candidate for your review, not a release. Balanced remains the approved direction; nothing replaces it until you say so. Latin only so far; the wider scripts planned for SEIHouse Noto are still ahead, and native-speaker review of the accented letters has not happened yet.</p><nav aria-label="Study resources"><a href="../warmth/index.html">Previous comparison</a><a href="../warmth/warmth-01.html">First three studies</a><a href="README.md">Design notes</a><a href="proofs/redraw-glyphs.svg">Every glyph</a><a href="../warmth/reference/OFL.txt">Reference license</a></nav></footer>
+</main>
+<script>
+const initial='The morning light settled gently over the quiet library. She opened the book and found a world that felt strangely familiar. “Good evening,” it began — and every Wave, Tower and Yard in it was waiting.';
+const supported=new Set(/*CHARSET*/" !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~¡¢£¥«°±·»¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖ×ØÙÚÛÜÝÞßàáâãäåæçèéêëìíîïðñòóôõö÷øùúûüýþÿĀāĂăĄąĆćĈĉĊċČčĎďĐđĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĦħĨĩĪīĬĭĮįİıĴĵĶķĹĺĻļĽľŁłŃńŅņŇňŌōŎŏŐőŒœŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŦŧŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțȷẀẁẂẃẄẅỲỳ–—‘’‚“”„•…‹›€−"/*END*/+"\n\r");
+const legacy=new Set("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789 .,;:!?-–—'’‘“”\"()/&+=·éáíóúöüñè\n\r");
+const passage=document.querySelector('#passage');
+let fontsLoaded=false,fontsFailed=false;
+function update(){const text=passage.value;document.querySelectorAll('.prose').forEach(el=>el.textContent=text);const chars=[...new Set([...text])];const missing=chars.filter(c=>!supported.has(c));const old=chars.filter(c=>supported.has(c)&&!legacy.has(c));const status=document.querySelector('#status');status.classList.toggle('warning',!!missing.length||fontsFailed);status.textContent=fontsFailed?'The study fonts could not load. Please reopen the comparison.':!fontsLoaded?'Loading study fonts…':missing.length?'Outside Redraw 02’s character set (shown with a fallback): '+missing.join(' '):old.length?'Redraw 02 covers this passage. Refinement 01 has no drawing for: '+old.join(' '):'Both drawings cover every character in this passage.';}
+document.querySelector('#count').textContent=(supported.size-3)+' characters';
+passage.value=initial;passage.addEventListener('input',update);update();
+document.querySelector('#reset').addEventListener('click',()=>{passage.value=initial;update()});
+document.querySelector('#view').addEventListener('change',event=>{document.querySelector('.grid').dataset.view=event.target.value});
+document.querySelector('#size').addEventListener('input',event=>{document.documentElement.style.setProperty('--size',event.target.value+'px');document.querySelector('#sizeValue').value=event.target.value+' px'});
+document.querySelectorAll('.weights button').forEach(button=>button.addEventListener('click',()=>{document.documentElement.style.setProperty('--weight',button.dataset.weight);document.querySelectorAll('.weights button').forEach(other=>other.setAttribute('aria-pressed',String(other===button)))}));
+document.querySelector('#theme').addEventListener('click',event=>{const dark=document.body.classList.toggle('dark');event.target.setAttribute('aria-pressed',String(dark));event.target.textContent=dark?'View on light':'View on dark'});
+document.querySelector('#zoom').addEventListener('click',event=>{const zoom=document.body.classList.toggle('zoom');event.target.setAttribute('aria-pressed',String(zoom));event.target.textContent=zoom?'Reading samples':'Letter details'});
+window.fontsReady=Promise.all(['300','400','500','700'].map(weight=>document.fonts.load(weight+' 20px NotoRedraw')).concat(document.fonts.load('20px BalancedRefined'))).then(()=>document.fonts.ready).then(()=>{fontsLoaded=true;update()}).catch(()=>{fontsFailed=true;update()});
+</script>
+</body>
+</html>

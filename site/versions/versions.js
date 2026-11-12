@@ -179,10 +179,11 @@
     byId('italic').hidden = isDisplay;
 
     const weightSelect = byId('weight');
+    const notoWeights = new Set(isNoto ? trackData.versions.flatMap(v => v.capabilities?.weights || [400]) : []);
     Array.from(weightSelect.options).forEach(opt => {
-      opt.disabled = isNoto && opt.value !== '400';
+      opt.disabled = isNoto && !notoWeights.has(Number(opt.value));
     });
-    if (isNoto && state.weight !== 400) {
+    if (isNoto && !notoWeights.has(Number(state.weight))) {
       state.weight = 400;
       weightSelect.value = '400';
     }

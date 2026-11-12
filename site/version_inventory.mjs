@@ -3,7 +3,7 @@ import { existsSync, readFileSync } from 'node:fs';
 import { join, resolve } from 'node:path';
 import { createHash } from 'node:crypto';
 
-const SAFE_VERSION_WOFF2 = /^(?:fonts\/SEIReader-[A-Za-z0-9-]+\.woff2|old\/(?:previous\.woff2|[0-9]+\.[0-9]+\/SEIReader-[A-Za-z0-9-]+\.woff2|display\/[a-z0-9.-]+\/SEIHouseDisplay-[A-Za-z0-9-]+\.woff2)|display\/fonts\/[a-z0-9-]+\/(?:[A-Za-z]+\/)?SEIHouseDisplay-[A-Za-z0-9-]+\.woff2|noto\/studies\/warmth\/fonts\/SEIHouseNoto[A-Za-z0-9-]+\.woff2)$/;
+const SAFE_VERSION_WOFF2 = /^(?:fonts\/SEIReader-[A-Za-z0-9-]+\.woff2|old\/(?:previous\.woff2|[0-9]+\.[0-9]+\/SEIReader-[A-Za-z0-9-]+\.woff2|display\/[a-z0-9.-]+\/SEIHouseDisplay-[A-Za-z0-9-]+\.woff2)|display\/fonts\/[a-z0-9-]+\/(?:[A-Za-z]+\/)?SEIHouseDisplay-[A-Za-z0-9-]+\.woff2|noto\/studies\/(?:warmth|redraw)\/fonts\/SEIHouseNoto[A-Za-z0-9-]+\.woff2)$/;
 
 /**
  * Validate `site/versions.json`, `phase4.json`, and `index.html` version badges,

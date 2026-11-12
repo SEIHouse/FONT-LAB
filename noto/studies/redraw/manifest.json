@@ -1,0 +1,47 @@
+{
+  "family": "SEIHouse Noto",
+  "version": "0.010",
+  "status": "candidate",
+  "foundation": "Balanced (Study B)",
+  "metrics": {
+    "unitsPerEm": 1000,
+    "xHeight": 520,
+    "capHeight": 700,
+    "ascender": 744,
+    "descender": -212
+  },
+  "fonts": [
+    {
+      "style": "Light",
+      "psname": "SEIHouseNoto-Light",
+      "glyphs": 317,
+      "kerning_pairs": 5222,
+      "characters": "nhmurobpdqceasiȷıjltfkvwxyzgHIEFLTOQCGDBPRAVWMNKXYZUJS0123456978.,:;·!?-–—'\"’‘”“()/&+=  …•‚„¡¿‹›«»<>^_|\\[]{}~*#%°@$€£¥¢−×÷±`ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĨĩĪīĬĭĮįİĴĵĶķĹĺĻļĽľŃńŅņŇňŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțẀẁẂẃẄẅỲỳøØœæŒÆßþÞðđħĐÐŧŦĦłŁ",
+      "sha256": "71c166c1305f54e178e069a39386d51e4aa676558b80c8dcb8747c1442112ae6"
+    },
+    {
+      "style": "Regular",
+      "psname": "SEIHouseNoto-Regular",
+      "glyphs": 317,
+      "kerning_pairs": 4991,
+      "characters": "nhmurobpdqceasiȷıjltfkvwxyzgHIEFLTOQCGDBPRAVWMNKXYZUJS0123456978.,:;·!?-–—'\"’‘”“()/&+=  …•‚„¡¿‹›«»<>^_|\\[]{}~*#%°@$€£¥¢−×÷±`ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĨĩĪīĬĭĮįİĴĵĶķĹĺĻļĽľŃńŅņŇňŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțẀẁẂẃẄẅỲỳøØœæŒÆßþÞðđħĐÐŧŦĦłŁ",
+      "sha256": "9a6c2a6de4b455077b9a8192814180fb1a5d90d0fa73e93c75f991e35b0f652d"
+    },
+    {
+      "style": "Medium",
+      "psname": "SEIHouseNoto-Medium",
+      "glyphs": 317,
+      "kerning_pairs": 4870,
+      "characters": "nhmurobpdqceasiȷıjltfkvwxyzgHIEFLTOQCGDBPRAVWMNKXYZUJS0123456978.,:;·!?-–—'\"’‘”“()/&+=  …•‚„¡¿‹›«»<>^_|\\[]{}~*#%°@$€£¥¢−×÷±`ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĨĩĪīĬĭĮįİĴĵĶķĹĺĻļĽľŃńŅņŇňŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțẀẁẂẃẄẅỲỳøØœæŒÆßþÞðđħĐÐŧŦĦłŁ",
+      "sha256": "7574516a3ef0d8311c116b4f9f30ad02935ed4e677a70a06e335995424b9a81a"
+    },
+    {
+      "style": "Bold",
+      "psname": "SEIHouseNoto-Bold",
+      "glyphs": 317,
+      "kerning_pairs": 4832,
+      "characters": "nhmurobpdqceasiȷıjltfkvwxyzgHIEFLTOQCGDBPRAVWMNKXYZUJS0123456978.,:;·!?-–—'\"’‘”“()/&+=  …•‚„¡¿‹›«»<>^_|\\[]{}~*#%°@$€£¥¢−×÷±`ÀÁÂÃÄÅÇÈÉÊËÌÍÎÏÑÒÓÔÕÖÙÚÛÜÝàáâãäåçèéêëìíîïñòóôõöùúûüýÿĀāĂăĄąĆćĈĉĊċČčĎďĒēĔĕĖėĘęĚěĜĝĞğĠġĢģĤĥĨĩĪīĬĭĮįİĴĵĶķĹĺĻļĽľŃńŅņŇňŌōŎŏŐőŔŕŖŗŘřŚśŜŝŞşŠšŢţŤťŨũŪūŬŭŮůŰűŲųŴŵŶŷŸŹźŻżŽžȘșȚțẀẁẂẃẄẅỲỳøØœæŒÆßþÞðđħĐÐŧŦĦłŁ",
+      "sha256": "d43dee8e9c9c865e7332c0ed88f339ee08b41997bba041c67c4f0bd1181de673"
+    }
+  ]
+}

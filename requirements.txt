@@ -2,6 +2,7 @@ fonttools[woff]>=4.62
 skia-pathops>=0.9
 brotli>=1.1
 uharfbuzz>=0.56
+numpy>=2.0
 playwright>=1.40
 freetype-py>=2.3
 afdko>=4.0
