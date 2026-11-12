@@ -1,4 +1,10 @@
-import type { HTMLAttributes, JSX, Ref } from "react";
+import type {
+  ForwardRefExoticComponent,
+  HTMLAttributes,
+  JSX,
+  Ref,
+  RefAttributes,
+} from "react";
 
 export type ElementalTitleElement = "span" | "p" | "h1" | "h2" | "h3" | "h4" | "h5" | "h6";
 export type ElementalTitleEffect =
@@ -96,4 +102,6 @@ export interface ElementalTitleProps extends Omit<
 }
 
 /** Readable semantic text with optional, non-interactive elemental decoration. */
-export declare function ElementalTitle(props: ElementalTitleProps): JSX.Element;
+export declare const ElementalTitle: ForwardRefExoticComponent<
+  ElementalTitleProps & RefAttributes<HTMLElement>
+>;

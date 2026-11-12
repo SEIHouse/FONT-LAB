@@ -106,11 +106,12 @@ try {
     join(temporary, 'elemental-title.css')
   );
   const browserEntry = `
-    import React, { useState } from 'react';
+    import React, { useState, createRef } from 'react';
     import { createRoot } from 'react-dom/client';
     import { ElementalTitle } from '@seihouse/elemental-title';
 
     window.moments = [];
+    window.headingRef = createRef();
     let nextKey = 0;
 
     function App() {
@@ -126,6 +127,7 @@ try {
           React.createElement(
             ElementalTitle,
             {
+              ref: window.headingRef,
               as: 'h2',
               element: 'lightning',
               intensity: 'legendary',

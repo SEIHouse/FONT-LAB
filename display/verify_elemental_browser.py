@@ -28,6 +28,7 @@ def verify(directory):
             assert page.get_by_role('heading', name='Still Waters', exact=True).count() == 1
             assert page.locator('#lightning .elemental-title__text').inner_text() == 'Kept Reading'
             assert page.locator('#water .elemental-title__text').inner_text() == 'Still Waters'
+            assert page.evaluate('window.headingRef?.current?.tagName') == 'H2'
 
             # Trigger an explicit strike and verify onMoment reports cues & beats
             page.evaluate('window.playStrike()')

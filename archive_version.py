@@ -837,7 +837,7 @@ def snapshot_current_display(milestone_id: str, title: str, summary: str) -> Non
 
 
 def sync_homepage_version(sans_version: str) -> None:
-    """Update data-sans-version markers in index.html if present."""
+    """Update data-sans-version markers and current specimen label in index.html if present."""
     index_path = ROOT / 'index.html'
     if not index_path.exists():
         return
@@ -848,6 +848,16 @@ def sync_homepage_version(sans_version: str) -> None:
         if 'SEIHouse Sans' in m.group(0)
         else f'{m.group(1)}{sans_version}{m.group(2)}',
         html,
+    )
+    updated = re.sub(
+        r'(<[^>]+id=["\']sans-current-label["\'][^>]*>Current\s+·\s+SEIHouse\s+Sans\s+)\d+\.\d+(?:\.\d+)?(</[^>]+>)',
+        rf'\g<1>{sans_version}\g<2>',
+        updated,
+    )
+    updated = re.sub(
+        r'(Current\s+·\s+SEIHouse\s+Sans\s+)\d+\.\d+(?:\.\d+)?',
+        rf'\g<1>{sans_version}',
+        updated,
     )
     if updated != html:
         write_lf(index_path, updated)

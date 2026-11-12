@@ -29,6 +29,7 @@
   let activeCut = 'edge';
   let displayAllCaps = false;
   let versionsCache = null;
+  let sansUpdateSeq = 0;
   const loadedFaces = new Map();
 
   /** Fit a resizable textarea cleanly to its wrapped lines up to maxPx. */
@@ -83,6 +84,7 @@
 
   /** Update the SEIHouse Sans live specimen and optional quick side-by-side comparison. */
   async function updateSansSpecimen() {
+    const seq = ++sansUpdateSeq;
     const sample = byId('specimen');
     const weight = byId('sans-weight').value;
     const size = byId('sans-size').value;
@@ -121,10 +123,12 @@
 
     try {
       const manifest = await loadManifest();
+      if (seq !== sansUpdateSeq) return;
       const entry = manifest.tracks.sans.versions.find(v => v.version === compareVer);
       if (!entry) return;
       byId('sans-old-label').textContent = `${entry.version} · ${entry.shortTitle}`;
       const loaded = await ensureHistoricalFace(entry, weight, sansItalic, isNight);
+      if (seq !== sansUpdateSeq) return;
       oldPreview.style.fontFamily = `"${loaded.familyName}", sans-serif`;
       oldPreview.style.fontWeight = String(loaded.resolvedWeight);
       oldPreview.style.fontStyle = loaded.resolvedItalic ? 'italic' : 'normal';

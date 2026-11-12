@@ -1,6 +1,7 @@
 "use client";
 
 import {
+  forwardRef,
   useEffect,
   useMemo,
   useRef,
@@ -552,32 +553,34 @@ function ElementalLettering({
 }
 
 /** Readable semantic text with optional, non-interactive elemental decoration. */
-export function ElementalTitle({
-  as: Tag = "span",
-  children,
-  className,
-  ref,
-  element = "none",
-  color,
-  intensity = "active",
-  motion = "ambient",
-  size = "inherit",
-  shadow = keylineElements.has(element) ? "outlined" : "soft",
-  strikeKey,
-  signatures,
-  playMoment,
-  onMoment,
-  timeScale,
-  style,
-  ...props
-}: ElementalTitleProps) {
+export const ElementalTitle = forwardRef<HTMLElement, ElementalTitleProps>(function ElementalTitle(
+  {
+    as: Tag = "span",
+    children,
+    className,
+    element = "none",
+    color,
+    intensity = "active",
+    motion = "ambient",
+    size = "inherit",
+    shadow = keylineElements.has(element) ? "outlined" : "soft",
+    strikeKey,
+    signatures,
+    playMoment,
+    onMoment,
+    timeScale,
+    style,
+    ...props
+  }: ElementalTitleProps,
+  ref: Ref<HTMLElement>
+) {
   const titleStyle = color
     ? ({ ...style, color, "--et-custom-color": color } as CSSProperties)
     : style;
   return (
     <Tag
       {...props}
-      ref={ref as Ref<HTMLHeadingElement>}
+      ref={ref as any}
       className={cn("elemental-title", className)}
       style={titleStyle}
       data-element={element}
@@ -610,4 +613,6 @@ export function ElementalTitle({
       )}
     </Tag>
   );
-}
+});
+
+ElementalTitle.displayName = "ElementalTitle";
