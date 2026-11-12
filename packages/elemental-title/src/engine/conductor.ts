@@ -511,7 +511,6 @@ export function createConductor(options: ConductorOptions): Conductor {
     };
     showing = { entry, signature, kind };
     playing.add(entry);
-    options.onSignature?.(signature.id);
     // Composing the scene and drawing its first beat run as separate tasks, so neither
     // blocks the main thread for long on a slow device.
     entry.timer = setTimeout(() => pump(entry, 0, 0), 0);
@@ -523,6 +522,7 @@ export function createConductor(options: ConductorOptions): Conductor {
       (timelineDuration(timeline) + 20) / scale,
     );
     notify(timeline, kind === "explicit");
+    options.onSignature?.(signature.id);
     return true;
   };
 

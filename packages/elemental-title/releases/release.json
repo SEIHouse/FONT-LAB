@@ -2,9 +2,9 @@
   "name": "@seihouse/elemental-title",
   "version": "0.1.0",
   "filename": "seihouse-elemental-title-0.1.0.tgz",
-  "bytes": 72257,
-  "sha256": "8ef706ac625c6c40e982a907939ea8f3392c42761f3a5b74f02d1b19288acb92",
-  "integrity": "sha512-hWsV6vWd1lqjiSSA8mhtVvTbGDrN2Wu6rWo4nAVDfqEDY+CMZ7Kgd/c5W6bJY5gZZEb7OMIdEBG/AIoqVxBeDQ==",
+  "bytes": 72253,
+  "sha256": "9e40e7c90547918ad82fa6c5867dcc0de421b9e74c681df77f1d5eb5ba2af5ec",
+  "integrity": "sha512-I+fhYGzuEFLHW729NNTWY0cwuAoQEEZsHEXmCqve2XulTZZsaeoBJvXOuvSOdFfXY5H4dNZM3n2N7tBhat0gDA==",
   "provenance": {
     "schema": 1,
     "package": "@seihouse/elemental-title",
@@ -35,7 +35,7 @@
       "engine/PoisonMaterial.tsx": "5517134610122d09b3b57192b07e43622fd3fe40d842acdf1a9b1ee23a519905",
       "engine/WaterMaterial.tsx": "0c61df8955c65b4cd2e913cea29d73b600afd9660c048329ddecf163f26f5724",
       "engine/anchors.ts": "f27089f9c1e81bf504c82b65cf31fdb29044b7e00855150ef109bb9d03168c67",
-      "engine/conductor.ts": "a31ac8be988bfe7cdc8d6392b0bd35cf60d0ef7f5d742ea887107a5b9929ab5d",
+      "engine/conductor.ts": "96d019966b67e30764fa86c5961eddb2ce07bfcbc35ccafeb6a152c6145a1e20",
       "engine/coordinator.ts": "d908e555ed07ea3b7358a8a863ac13dbecedef56509044c8fe909fde9328047c",
       "engine/effects.ts": "70c8fc2bde978ac06cfe2832458a79c617396f680131ad857e576284e199bcbe",
       "engine/frames.ts": "f2be5d428e0d06dfee29ee830471f074e2116a5a5c444d14bb9075fe68d0f278",
@@ -64,7 +64,7 @@
       "public.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58"
     },
     "outputs": {
-      "index.js": "4bd38d59c0efaca0b52cdead5c9079762e44d0c3a945ecd586dbe354c092861a",
+      "index.js": "c3120e40dceebe338bf2deec01b4a3d3cdb0af17b5617811c8139ff886367b60",
       "index.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58",
       "styles.css": "fec57d6023ee03dcba3ce1b27d35ba5fd06608a5da944efbc2b256fcbd64a848"
     }
