@@ -16,9 +16,10 @@ import zipfile
 
 ROOT = Path(__file__).resolve().parent
 WEIGHTS = (300, 400, 500, 600, 700)
+NIGHT_WEIGHTS = (300, 400, 500)
 from phase4_support import face_order
 SUBSETS = face_order()
-NIGHT_CSS_TAIL = '''/* Night-mode optical grade (-4 source stroke units -> 81 units at Regular 85; exact 85 advances, zero reflow). */
+NIGHT_CSS_TAIL = '''/* Night-mode optical grade for weights 300-500 (-4 source stroke units: Light 74 -> 70, Regular 85 -> 81, Medium 97 -> 93; exact Day advances, zero reflow). */
 :root {
   --seihouse-sans-family: "SEIReader";
   --seihouse-sans-regular-family: "SEIReader";
@@ -58,8 +59,9 @@ def family_faces(root=ROOT):
     if len(standard) != 10 or {(f['weight'], f['slant']) for f in standard} != {
             (w, s) for w in WEIGHTS for s in ('normal', 'italic')}:
         raise ValueError('Expected five weights, each upright and italic')
-    if len(night_faces) != 2 or {(f['weight'], f['slant']) for f in night_faces} != {(400, 'normal'), (400, 'italic')}:
-        raise ValueError('Expected RegularNight and ItalicNight optical grade faces')
+    if len(night_faces) != 6 or {(f['weight'], f['slant']) for f in night_faces} != {
+            (w, s) for w in NIGHT_WEIGHTS for s in ('normal', 'italic')}:
+        raise ValueError('Expected Light, Regular and Medium Night optical grade faces, each upright and italic')
     if any(tuple(f['blocks']) != SUBSETS for f in faces.values()):
         raise ValueError('Subset face order or inventory changed')
     return list(faces.values())

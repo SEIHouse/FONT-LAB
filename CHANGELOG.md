@@ -2,6 +2,22 @@
 
 Newest first.
 
+- **Light and Medium Night-mode grades, Sans 0.42 (2026-11-12)** Added Night-mode
+  optical grades for Light (300) and Medium (500), upright and real italic
+  (`SEIReader-LightNight`, `-LightItalicNight`, `-MediumNight`, `-MediumItalicNight`),
+  beside the existing Regular pair. Each uses the same `NIGHT_GRADE = -4`: reading
+  strokes go from `74` to `70` in Light and `97` to `93` in Medium, as Regular goes
+  from `85` to `81`. Every Night face keeps its Day face's exact advance widths
+  (`hmtx`) and kerning, so line breaks never reflow when a reader changes weight or
+  toggles Day and Night. The `"SEIHouse Sans Night"` / `"SEIReader Night"` CSS family
+  now holds weights 300, 400 and 500, so `--seihouse-sans-regular-family` /
+  `--seireader-regular-family` grades all three body weights in dark themes; SemiBold
+  and Bold keep the Day family. Added full `.otf`/`.woff2` faces and 28 Unicode-range
+  subsets (16 full faces and 112 subsets in total) and wired the grades into the
+  comparison preview, three-chapter reading test and homepage specimen. All 108
+  existing `0.41` deliveries keep identical outlines, hints, metrics and layout; only
+  their version stamp changes. Shipped Sans `0.42.0`.
+
 - **CLDR 48 rare Latin accents, African/Celtic/European letters, and Sans 0.41 (2026-11-11)**
   Added 54 encoded characters (`Ə/ə, Ɑ/ɑ, ẞ, Ɛ/ɛ, Ɔ/ɔ, Ɲ/ɲ, Ɖ/ɖ, Ƒ/ƒ, Ɣ/ɣ, Ʋ/ʋ` with
   real italic `ɑ`/`ɲ`, zero-width combining macron below `U+0331`, and 34 Welsh,

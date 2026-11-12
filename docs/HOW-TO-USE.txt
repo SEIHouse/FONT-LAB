@@ -8,7 +8,7 @@ EASIEST APP INSTALL
   LICENSE permits ecosystem creative use/customization and authorized SEIHouse
   app/web distribution. Unrelated app embedding and standalone redistribution
   require permission; see the included full license.
-  The default is 12 full WOFF2 fonts (ten Day faces plus two Night-mode Regular/Italic optical-grade faces; 855,196 font bytes), with no build dependencies,
+  The default is 16 full WOFF2 fonts (ten Day faces plus six Night-mode optical-grade faces: Light, Regular and Medium, each upright and italic; 1,213,508 font bytes), with no build dependencies,
   OTFs, reference fonts, old versions, Lab pages, or proof images. The browser loads the
   faces the page uses. Full language/symbol coverage stays together in each face.
   docs/APP-INSTALL.md has the inspected Development/NovelExpanded host handoff.
@@ -16,8 +16,8 @@ EASIEST APP INSTALL
   optional subset delivery. Choose one route so the same faces are not registered twice.
 
 WHAT YOU HAVE
-  Five weights, each in upright and italic, plus Night-mode RegularNight and ItalicNight optical-grade faces (12 full faces total), each as full .woff2 (websites and apps) and .otf (computers).
-  There are also 84 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
+  Five weights, each in upright and italic, plus Night-mode optical-grade faces for Light, Regular and Medium with their italics (16 full faces total), each as full .woff2 (websites and apps) and .otf (computers).
+  There are also 112 subset WOFF2 files: Latin basic, legacy Latin extended, symbols/icons,
   latin-ext-2, cyrillic, greek and vietnamese for each style.
     Light 300, Regular 400, Medium 500, SemiBold 600, Bold 700
   Built in: automatic pair spacing, joined fi / fl (apps switch these on by themselves),
@@ -31,15 +31,15 @@ WHAT TO TELL YOUR CODING AGENT (copy and paste)
 
     @import url('/fonts.css');
 
-  fonts.css contains all 84 @font-face rules. Latin-ext-2 completes Latin coverage;
+  fonts.css contains all 112 @font-face rules. Latin-ext-2 completes Latin coverage;
   Cyrillic, Greek and Vietnamese faces follow it. Each includes base Latin letters,
   combining accents and prose punctuation so complete clusters can shape in one face.
   Vietnamese is the final preferred face for shared Latin text. Keep the generated order.
   Its ./fonts/... URLs are relative to fonts.css. Browsers fetch only the subsets needed for
   each weight, style, and character range. Keep all seven subset files for every style.
 
-  If you instead want the full .woff2 files, add all 12 (the ten Day faces plus RegularNight and ItalicNight) and register them like fonts-full.css,
-  with the ten Day faces under 'SEIReader' and RegularNight/ItalicNight under 'SEIReader Night'. Do not add, swap, or restyle other fonts for reading text.
+  If you instead want the full .woff2 files, add all 16 (the ten Day faces plus the six Night faces) and register them like fonts-full.css,
+  with the ten Day faces under 'SEIReader' and the six Night faces under 'SEIReader Night' at weights 300, 400 and 500. Do not add, swap, or restyle other fonts for reading text.
 
   @font-face {
     font-family: 'SEIReader';

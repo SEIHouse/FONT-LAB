@@ -1,7 +1,7 @@
 {
   "schema": 1,
   "step": 3,
-  "version": "0.41",
+  "version": "0.42",
   "baseline_commit": "bc61d90d25730f7768b92f51e190221045810e9a",
   "scope": "Additive CLDR 48 Latin rare accents and letters (148 pinned locales / 161 verified languages), Lithuanian dotlessiogonek, Makhuwa MAK TT kerning, and U+0331 macron below; preserve all 0.40 glyphs, metrics, settings and pair spacing.",
   "previous_step_commit": "fcdf047efb59f501e3e8b4cdfd16930a98f39198"

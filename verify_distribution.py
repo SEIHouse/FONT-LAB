@@ -20,7 +20,7 @@ def css_fonts(css, family='SEIReader'):
     for block in re.findall(r'@font-face\s*\{([^}]+)\}', css):
         url = re.search(r'src:\s*url\("(\./fonts/SEIReader-[A-Za-z0-9.-]+\.woff2)"\)', block)
         assert url, 'Invalid relative WOFF2 source'
-        is_night = 'RegularNight' in url.group(1) or 'ItalicNight' in url.group(1)
+        is_night = 'Night' in url.group(1)
         expected_family = f'{family} Night' if is_night else family
         assert f'font-family: "{expected_family}";' in block and 'font-display: swap;' in block
         assert 'format("woff2")' in block
@@ -28,7 +28,10 @@ def css_fonts(css, family='SEIReader'):
         slant = re.search(r'font-style:\s*(normal|italic);', block).group(1)
         faces.append((url.group(1)[2:], weight, slant, block))
     assert faces and len({p for p, _, _, _ in faces}) == len(faces), 'Missing/duplicate CSS faces'
-    if any(w == 400 for _, w, _, _ in faces):
+    night = [(w, s) for p, w, s, _ in faces if 'Night' in p]
+    assert all(w in (300, 400, 500) for w, _ in night), 'Night grades cover Light, Regular and Medium only'
+    if any(w in (300, 400, 500) for _, w, _, _ in faces):
+        assert night, 'Missing Night grade faces'
         assert f'--seireader-regular-family: "{family} Night", "{family}";' in css and '--seireader-grade: -4;' in css
     return faces
 
@@ -58,11 +61,11 @@ def verify_zip(path):
     source = {p: (w, s, block) for p, w, s, block in css_fonts((ROOT/'fonts.css').read_text(encoding='utf-8'))}
     full = {p.split('.')[0] + '.woff2': (w, s) for p, (w, s, _) in source.items()}
     if manifest['delivery'] == 'full':
-        expected_count = len(weights) * 2 + (2 if 400 in weights else 0); assert len(faces) == expected_count
+        expected_count = len(weights) * 2 + 2 * len(weights & {300, 400, 500}); assert len(faces) == expected_count
         assert {p: (w, s) for p, w, s, _ in faces} == {p: ws for p, ws in full.items() if ws[0] in weights}
         assert all('unicode-range' not in block for _, _, _, block in faces)
     else:
-        expected_count = len(weights) * 2 + (2 if 400 in weights else 0); assert manifest['delivery'] == 'subsets' and len(faces) == expected_count * len(__import__('phase4_support').face_order())
+        expected_count = len(weights) * 2 + 2 * len(weights & {300, 400, 500}); assert manifest['delivery'] == 'subsets' and len(faces) == expected_count * len(__import__('phase4_support').face_order())
         expected = [p for p, (w, _, _) in source.items() if w in weights]
         assert [p for p, _, _, _ in faces] == expected, 'Subset priority changed'
         for p, w, s, block in faces:
@@ -94,7 +97,7 @@ def verify_npm(path):
     assert meta['exports']['./styles.css'] == './fonts-full.css'
     assert meta['exports']['./sans.css'] == './fonts-sans.css'
     faces = css_fonts(data['fonts-full.css'].decode('utf-8'))
-    assert len(faces) == 12 and {(w, s) for _, w, s, _ in faces} == {
+    assert len(faces) == 16 and {(w, s) for _, w, s, _ in faces} == {
         (w, s) for w in (300, 400, 500, 600, 700) for s in ('normal', 'italic')}
     assert all('unicode-range' not in block for _, _, _, block in faces)
     assert set(data) == {p for p, _, _, _ in faces} | {'package.json', 'README.md', 'LICENSE', 'FONT-LICENSE.txt', 'fonts-full.css', 'fonts-sans.css', 'docs/APP-INSTALL.md'}
@@ -104,7 +107,7 @@ def verify_npm(path):
         if name != 'package.json':
             assert content == (ROOT/name).read_bytes(), name
     assert all(target.removeprefix('./') in data for target in meta['exports'].values())
-    print(f'{path.name}: zero dependencies/scripts; exact 19-file payload, licensed canonical/legacy CSS, exports and source bytes pass')
+    print(f'{path.name}: zero dependencies/scripts; exact 23-file payload, licensed canonical/legacy CSS, exports and source bytes pass')
 
 
 def main():
