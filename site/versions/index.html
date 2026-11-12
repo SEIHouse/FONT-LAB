@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Compare today's SEIHouse fonts with any earlier version across SEIHouse Sans, the Title Engine, and SEIHouse Noto.">
+  <meta name="theme-color" content="#141917">
+  <script>
+    try {
+      if (localStorage.getItem('seihouse.home.theme') === 'day') {
+        document.documentElement.dataset.theme = 'day';
+        document.querySelector('meta[name="theme-color"]').content = '#f4f3ea';
+      }
+    } catch { /* Keep Night mode when browser storage is unavailable. */ }
+  </script>
+  <title>Past Versions &amp; Compare — SEIHouse Font Lab</title>
+  <link rel="icon" href="../favicon.svg" type="image/svg+xml">
+  <link rel="stylesheet" href="../../fonts-full.css">
+  <link rel="stylesheet" href="./versions.css">
+  <script src="./versions.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#page-title">Skip to content</a>
+
+  <header class="masthead wrap">
+    <a class="back-btn" href="../../index.html">← Back to Font Lab Home</a>
+    <div class="masthead-actions">
+      <a class="workspace-jump" id="active-workspace-link" href="../../lab/index.html">Open Reader Lab ↗</a>
+      <button class="theme-button" id="theme" type="button" aria-pressed="false">Day mode</button>
+    </div>
+  </header>
+
+  <main id="main" class="wrap">
+    <section class="intro">
+      <div class="intro-row">
+        <div>
+          <h1 id="page-title" tabindex="-1">Past versions</h1>
+          <p class="intro-note">Type anything below to compare today’s font with an earlier release.</p>
+        </div>
+        <div class="track-tabs" role="tablist" aria-label="Font families">
+          <button type="button" role="tab" id="tab-sans" data-track="sans" aria-selected="true" aria-controls="arena">SEIHouse Sans</button>
+          <button type="button" role="tab" id="tab-display" data-track="display" aria-selected="false" aria-controls="arena" tabindex="-1">Title Engine</button>
+          <button type="button" role="tab" id="tab-noto" data-track="noto" aria-selected="false" aria-controls="arena" tabindex="-1">SEIHouse Noto</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="arena" class="arena" role="tabpanel" aria-labelledby="tab-sans">
+      <div class="sample-bar">
+        <div class="sample-input-wrap">
+          <label for="sample-input">Sample text</label>
+          <textarea id="sample-input" rows="2" spellcheck="false"></textarea>
+        </div>
+        <div class="sample-controls">
+          <div class="field" id="cut-field" hidden>
+            <label for="display-cut">Cut</label>
+            <select id="display-cut">
+              <option value="soft">Soft</option>
+              <option value="edge" selected>Edge</option>
+              <option value="ink">Ink</option>
+              <option value="wide">Wide</option>
+            </select>
+          </div>
+          <div class="field" id="weight-field">
+            <label for="weight">Weight</label>
+            <select id="weight">
+              <option value="300">Light</option>
+              <option value="400" selected>Regular</option>
+              <option value="500">Medium</option>
+              <option value="600">SemiBold</option>
+              <option value="700">Bold</option>
+            </select>
+          </div>
+          <div class="field size-field">
+            <label for="size">Size <output id="size-value" for="size">24px</output></label>
+            <input id="size" type="range" min="14" max="64" step="1" value="24">
+          </div>
+          <button type="button" id="italic" class="quiet-button" aria-pressed="false">Italic</button>
+          <button type="button" id="all-caps" class="quiet-button" aria-pressed="false" hidden>All caps</button>
+        </div>
+      </div>
+
+      <p id="load-status" class="sr-only" role="status"></p>
+
+      <div class="compare-grid" id="compare-grid">
+        <!-- Current / Base Card -->
+        <article class="version-card current-card" id="card-left">
+          <div class="card-header-bar">
+            <div class="picker-inline">
+              <span class="pill accent-pill" id="badge-left">Current</span>
+              <label class="sr-only" for="left-version">Base version</label>
+              <select id="left-version" class="inline-select"></select>
+            </div>
+            <span class="card-date" id="date-left"></span>
+          </div>
+          <div class="live-passage" id="passage-left"></div>
+          <p class="card-one-liner" id="summary-left"></p>
+        </article>
+
+        <!-- Compact Alternate Version Card -->
+        <article class="version-card alt-card" id="card-right">
+          <div class="card-header-bar">
+            <div class="picker-inline">
+              <label class="compare-label" for="right-version">Compare:</label>
+              <select id="right-version" class="inline-select"></select>
+            </div>
+            <span class="card-date" id="date-right"></span>
+          </div>
+          <div class="live-passage alt-passage" id="passage-right"></div>
+          <p class="card-one-liner" id="summary-right"></p>
+        </article>
+      </div>
+    </section>
+
+    <section class="timeline-section">
+      <div class="timeline-header">
+        <h2 id="timeline-heading">All releases <span class="count-badge" id="timeline-count"></span></h2>
+        <span class="timeline-sub">Select any version to preview it in the Compare card above.</span>
+      </div>
+      <ol class="timeline-list" id="timeline-list" role="list"></ol>
+    </section>
+  </main>
+
+  <footer class="wrap">
+    <span>SEIHOUSE FONT LAB</span>
+    <a href="../../index.html">← Back to Font Lab Home</a>
+  </footer>
+</body>
+</html>

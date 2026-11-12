@@ -5,4 +5,11 @@ display/production-manifest.json text eol=lf
 packages/living-titles/** text eol=lf
 packages/living-titles/**/*.tgz -text
 packages/living-titles/**/*.woff2 -text
+packages/elemental-title/** text eol=lf
+packages/elemental-title/**/*.tgz -text
+display/elemental/lab.js text eol=lf
+display/elemental/lab.css text eol=lf
+old/**/*.woff2 -text
+old/**/SHA256.json text eol=lf
+site/versions.json text eol=lf
 display/novel-expanded/runtime/*.js text eol=lf

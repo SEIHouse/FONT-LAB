@@ -8,12 +8,12 @@ posters, chapter titles, and other large text. It shares the Reader drawing
 engine and builder core; its four cut settings, live Lab and prebuilt fonts are
 under [`display/`](display/README.md).
 
-## Font Lab homepage & Vercel
+## Font Lab homepage, version archive & Vercel
 
-Open [`index.html`](index.html) for the workshop homepage: an editable specimen
-using the actual font files, Reader/Display workspaces, comparisons, chapter
-reading tests, and downloads. Both Labs can save browser drafts and download JSON
-settings on a normal website.
+Open [`index.html`](index.html) for the workshop homepage, organized into two clear sections:
+- **01 / Regular & Reading Fonts:** Live specimen and workspaces for **SEIHouse Sans 0.42** (Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and quick version comparison) alongside the **SEIHouse Noto (`Balanced · Refinement 01`)** warmth study.
+- **02 / The Title Engine:** Live cut switcher (**Soft, Edge, Ink, Wide**) and workspaces for **SEIHouse Display 0.1**, **Living Titles 0.1.3**, and **Elemental Title 0.1.0** (Display Lab, Elemental Title Lab, specimen gallery, and NovelExpanded living-title cover mock).
+- **Version History & Compare ([`site/versions/index.html`](site/versions/index.html)):** Browse and compare every preserved version side by side across **SEIHouse Sans** (`0.6` → `0.42`), **Display** (7 milestones), and **SEIHouse Noto** (4 warmth studies). Both Labs can save browser drafts and download JSON settings on a normal website.
 
 Import this repository into Vercel with **Other** as the framework and the repo
 root as the Root Directory. `vercel.json` builds the website with
@@ -116,12 +116,19 @@ is a separate private runtime package with a ready-to-install tarball, ESM/TypeS
 interfaces, a browser player, an optional React component and four static Display
 faces. The [NovelExpanded mock](display/novel-expanded/index.html) consumes that same
 runtime. Audio remains caller-owned; menu and Reader Chamber systems stay separate.
+Alongside it, [`@seihouse/elemental-title`](packages/elemental-title/README.md) (`0.1.0`)
+ships the standalone animated `ElementalTitle` React component, its SVG choreography
+engine (Lightning, Water, Poison, plus Fire, Frost, Celestial, and Void CSS accents),
+the page-wide motion budget coordinator, and official [Familiar Signatures](docs/FAMILIAR-SIGNATURES.md)
+(Quill's *Stormwrit* and *True North*), together with the interactive [Elemental Title Lab](display/elemental/index.html).
 The existing Reader font package and font build interfaces remain unchanged.
 
 | Folder / file | What it is |
 |---|---|
-| `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
-| [`display/`](display/README.md) | SEIHouse Display 0.1: four cut settings, live Lab, shared-core entry point, kerning maps and OTF/WOFF2 fonts |
+| `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Two-studio workshop homepage, dedicated Version History & Compare viewer (`site/versions/`), browser draft helpers, and validated static website build for Vercel |
+| `archive_version.py`, `site/versions.json` | Version snapshot & manifest tool keeping `old/` archives, SHA-256 digests, and homepage version badges synced with `phase4.json` |
+| [`display/`](display/README.md), [`display/elemental/`](display/elemental/README.md) | SEIHouse Display 0.1 (four cut settings, live Lab, kerning maps, OTF/WOFF2 fonts) and the standalone interactive Elemental Title Lab |
+| [`packages/living-titles/`](packages/living-titles/README.md), [`packages/elemental-title/`](packages/elemental-title/README.md) | Installable private Title Engine packages (`@seihouse/living-titles` and `@seihouse/elemental-title`) with checked-in release tarballs and browser verification gates |
 | `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, plus the Night-mode optical grade for Light, Regular and Medium (`SEIReader-LightNight`, `-RegularNight`, `-MediumNight` and their italics; each `4` source stroke units thinner than its Day face with exactly the same advance widths), as full `.woff2` and `.otf` files plus seven WOFF2 subset deliveries per style |
 | `fonts.css` | Ready-to-use `@font-face` rules for all 112 Latin and script WOFF2 subsets plus `--seireader-regular-family` / `--seihouse-sans-regular-family` |
 | `fonts-full.css` | Recommended app stylesheet for the full web fonts (10 weights/italics + 6 Night-grade faces); no Unicode face splitting |
@@ -155,7 +162,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `emoji_demo.py` | Original SEIHouse emoji art used in the comments demo |
 | `kern_base.json`, `kern_auto.json`, `kern_styles.json`, `kern_languages.json` | Pair spacing: hand-set pairs, automatic and finished per-style maps, and Hungarian/Makhuwa local capital adjustments used by the Lab |
 | `render_small_text.py`, `render_windows.ps1` | Optional Windows WPF small-text proof renderer; uses HarfBuzz shaping and the actual glyph indices, with no font installation |
-| `old/` | The 0.6 version for the Lab and all ten styles of 0.27 through 0.33 as preserved baselines; 0.31 through 0.33 also include their thirty subsets |
+| `old/` | Complete preserved version archive: `0.6` (`previous.woff2`), all Sans releases `0.25` through `0.41` (`0.27`–`0.34` retain their full `.otf`/subset baselines for verification gates; `0.25`, `0.26`, `0.35`, `0.36`, `0.39`–`0.41` store verified `.woff2` web faces + `SHA256.json`), and six Display `0.1` milestones (`old/display/*`) |
 
 ## Rebuilding
 
