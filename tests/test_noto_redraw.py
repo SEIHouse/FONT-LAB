@@ -56,6 +56,10 @@ class RedrawTests(unittest.TestCase):
                         self.assertAlmostEqual(x, y, delta=1.5, msg=f'{style} {name}')
             with TTFont(ROOT/'fonts'/f'SEIHouseNoto-{style}.woff2') as web:
                 self.assertEqual(web.getGlyphOrder(), self.fonts[style].getGlyphOrder())
+        manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
+        for report, entry in zip(self.reports, manifest['fonts'], strict=True):
+            self.assertEqual(report['kerning_pairs'], entry['kerning_pairs'], report['style'])
+            self.assertEqual(report['glyphs'], entry['glyphs'], report['style'])
 
     def test_every_glyph_is_a_clean_outline_inside_the_line(self):
         for style, font in self.fonts.items():
@@ -156,7 +160,8 @@ class RedrawTests(unittest.TestCase):
                 self.assertEqual(width(pair), width(pair, False), f'{style} {pair}')
             # Kerned neighbours keep clear ink, also under accents and overhangs.
             for text in ['To', 'Tö', 'Tï', 'Vé', 'fï', 'f)', 'f”', 'AV', 'Wa', 'r.', 'LT', 'Yo', '(j', 'gj',
-                         'ïï', 'îî', 'ĩĩ', 'īī', 'ĭĭ', 'ïl', 'lï', 'ťď', 'ľľ', 'řï', 'ÏÏ', 'ŤÖ', 'ÿï', 'őő']:
+                         'ïï', 'îî', 'ĩĩ', 'īī', 'ĭĭ', 'ïl', 'lï', 'ťď', 'ľľ', 'řï', 'ÏÏ', 'ŤÖ', 'ÿï', 'őő',
+                         'ÂÂ', 'ÃÃ', 'ŠŤ', 'ŤŠ', 'ÑÑ', 'ÎÏ', 'ŴÂ', 'ÝÃ', 'ĽŤ', 'ÅÅ', 'ĥĥ', 'ĺĺ', 'Ťĥ']:
                 buffer = shape(text)
                 a, b = (outline(font, order[info.codepoint]) for info in buffer.glyph_infos)
                 shift = buffer.glyph_positions[0].x_advance

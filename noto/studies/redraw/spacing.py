@@ -10,7 +10,7 @@ import numpy as np
 from pen import _contours, _cubic, bez
 
 STEP = 8
-Y0, Y1 = -240, 808
+Y0, Y1 = -240, 960
 BANDS = np.arange(Y0, Y1, STEP) + STEP/2
 OPEN = 300.0          # a gap wider than this reads as open space
 POWER = -2.0          # weight nearer ink more strongly
