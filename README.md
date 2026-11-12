@@ -11,9 +11,9 @@ under [`display/`](display/README.md).
 ## Font Lab homepage, version archive & Vercel
 
 Open [`index.html`](index.html) for the workshop homepage, organized into two clear sections:
-- **01 / Regular & Reading Fonts:** Live specimen and workspaces for **SEIHouse Sans 0.42** (Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and quick version comparison) alongside the **SEIHouse Noto (`Balanced · Refinement 01`)** warmth study.
-- **02 / The Title Engine:** Live cut switcher (**Soft, Edge, Ink, Wide**) and workspaces for **SEIHouse Display 0.1**, **Living Titles 0.1.3**, and **Elemental Title 0.1.0** (Display Lab, Elemental Title Lab, specimen gallery, and NovelExpanded living-title cover mock).
-- **Version History & Compare ([`site/versions/index.html`](site/versions/index.html)):** Browse and compare every preserved version side by side across **SEIHouse Sans** (`0.6` → `0.42`), **Display** (7 milestones), and **SEIHouse Noto** (4 warmth studies). Both Labs can save browser drafts and download JSON settings on a normal website.
+- **01 / Regular & Reading Fonts:** Live specimen and workspaces for **SEIHouse Sans 0.43** (Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and quick version comparison) alongside the **SEIHouse Noto (`Balanced · Refinement 01`)** warmth study.
+- **02 / The Title Engine:** Live cut switcher (**Soft, Edge, Ink, Wide**) and workspaces for **SEIHouse Display 0.1**, **Living Titles 0.1.4**, and **Elemental Title 0.1.0** (Display Lab, Elemental Title Lab, specimen gallery, and NovelExpanded living-title cover mock).
+- **Version History & Compare ([`site/versions/index.html`](site/versions/index.html)):** Browse and compare every preserved version side by side across **SEIHouse Sans** (`0.6` → `0.43`), **Display** (8 milestones), and **SEIHouse Noto** (4 warmth studies). Both Labs can save browser drafts and download JSON settings on a normal website.
 
 Import this repository into Vercel with **Other** as the framework and the repo
 root as the Root Directory. `vercel.json` builds the website with
@@ -36,16 +36,16 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.42-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.43-web-full.zip` into your app's public assets
   and load its `sans.css` for `font-family: "SEIHouse Sans"`.
-- **Vite/npm:** install `seihouse-seireader-0.42.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.43.0.tgz` and import
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses sixteen full WOFF2 files: **1,213,508 font bytes (1,185.1 KiB)** for all
+The default uses sixteen full WOFF2 files: **1,198,972 font bytes (1,170.9 KiB)** for all
 five weights, their real italics, and the six Night grades (Light, Regular and Medium, each
-upright and italic). That is **72.0% less** than storing all 112
-overlapping subsets. The Regular/italic bundle with Night uses **303,224 bytes**; the browser requests
+upright and italic). That is **72.2% less** than storing all 112
+overlapping subsets. The Regular/italic bundle with Night uses **299,376 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -135,7 +135,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.42 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.43 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -162,7 +162,7 @@ The existing Reader font package and font build interfaces remain unchanged.
 | `emoji_demo.py` | Original SEIHouse emoji art used in the comments demo |
 | `kern_base.json`, `kern_auto.json`, `kern_styles.json`, `kern_languages.json` | Pair spacing: hand-set pairs, automatic and finished per-style maps, and Hungarian/Makhuwa local capital adjustments used by the Lab |
 | `render_small_text.py`, `render_windows.ps1` | Optional Windows WPF small-text proof renderer; uses HarfBuzz shaping and the actual glyph indices, with no font installation |
-| `old/` | Complete preserved version archive: `0.6` (`previous.woff2`), all Sans releases `0.25` through `0.41` (`0.27`–`0.34` retain their full `.otf`/subset baselines for verification gates; `0.25`, `0.26`, `0.35`, `0.36`, `0.39`–`0.41` store verified `.woff2` web faces + `SHA256.json`), and six Display `0.1` milestones (`old/display/*`) |
+| `old/` | Complete preserved version archive: `0.6` (`previous.woff2`), all Sans releases `0.25` through `0.42` (`0.27`–`0.34` retain their full `.otf`/subset baselines for verification gates; `0.25`, `0.26`, `0.35`, `0.36`, `0.39`–`0.42` store verified `.woff2` web faces + `SHA256.json`), and seven Display `0.1` milestones (`old/display/*`) |
 
 ## Rebuilding
 
@@ -189,7 +189,7 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.42.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.43.0.tgz
 python verify_license.py           # legal metadata in all current full/subset fonts
 ```
 
@@ -223,7 +223,9 @@ The [size density check](docs/SIZE-DENSITY-0.39.md) measures whether the app's
 reading sizes look evenly weighted on Windows, macOS WebKit and Linux. The 0.35
 proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 
-## What SEIHouse Sans has (version 0.42)
+## What SEIHouse Sans has (version 0.43)
+
+- Studio-refined monochrome brand, cultivation, web-novel, player, and music symbols across all 44 icons (including `Ⓢ` rebuilt with a true non-squished circle and the smooth `0.40` `S` curve, plus `☯`, `⚡`, `⚔`, `☆`, `♡`, `🎧`, `🎤`, `💿`, `🔊`, `🔔`, `⚙`, and `U+E000–U+E00F` in-app mirrors), tuned for both 16px Day/Night reading and 400px Display cuts with 100% preserved advances and layout. See [symbol proofs and scope notes](docs/SYMBOLS-0.43.md).
 
 - Fifty-four additive CLDR 48 Latin characters (`Ə/ə, Ɑ/ɑ, ẞ, Ɛ/ɛ, Ɔ/ɔ, Ɲ/ɲ, Ɖ/ɖ, Ƒ/ƒ, Ɣ/ɣ, Ʋ/ʋ`,
   combining macron below `U+0331`, and 34 Welsh/Gaelic/Asturian/Yoruba/Walloon/Lingala

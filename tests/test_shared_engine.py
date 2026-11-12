@@ -51,7 +51,7 @@ class ReaderIdentityTests(unittest.TestCase):
     def test_night_grade_release_only_restamps_the_version_of_every_0_41_delivery(self):
         """Adding Light and Medium Night faces cannot redraw, rehint or respace an existing font."""
         previous = json.loads((ROOT/'tests/fixtures/reader-0.41-identity.json').read_text(encoding='utf-8'))
-        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        current = json.loads((ROOT/'tests/fixtures/reader-0.42-identity.json').read_text(encoding='utf-8'))
         self.assertTrue(set(previous['files']) < set(current['files']))
         self.assertEqual(current['cmap'], previous['cmap'])
         for filename, old in previous['files'].items():
@@ -62,6 +62,19 @@ class ReaderIdentityTests(unittest.TestCase):
             self.assertEqual(changed, {'CFF ', 'head', 'name'}, filename)
             for part in ('glyphs', 'subroutines', 'private_dict'):
                 self.assertEqual(new['programs'][part], old['programs'][part], f'{filename}/{part}')
+
+    def test_043_symbol_refinement_preserves_every_layout_table_and_cmap(self):
+        """Refining the 44 symbols in 0.43 cannot alter GPOS, GSUB, GDEF, cmap, OS/2, hhea, or STAT."""
+        previous = json.loads((ROOT/'tests/fixtures/reader-0.42-identity.json').read_text(encoding='utf-8'))
+        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        self.assertEqual(set(previous['files']), set(current['files']))
+        self.assertEqual(current['cmap'], previous['cmap'])
+        for filename, old in previous['files'].items():
+            new = current['files'][filename]
+            self.assertEqual(new['glyphs'], old['glyphs'], filename)
+            for tag in ('GPOS', 'GSUB', 'GDEF', 'cmap', 'OS/2', 'hhea', 'post', 'STAT', 'maxp'):
+                if tag in old['tables'] or tag in new['tables']:
+                    self.assertEqual(new['tables'].get(tag), old['tables'].get(tag), f'{filename}/{tag}')
 
     def test_build_timestamps_are_the_only_ignored_fields(self):
         font = TTFont(self.path, recalcTimestamp=False)
@@ -106,20 +119,23 @@ class DisplayInheritanceTests(unittest.TestCase):
         self.assertGreater(report['language_strings'], 17000)
 
     def test_041_additions_preserve_all_040_outlines_and_metrics(self):
-        """Every 0.40 glyph across the 12 Reader styles of 0.40 keeps identical outlines and hmtx."""
-        import json
+        """Every 0.40 non-symbol glyph keeps identical outlines/hmtx; refined 0.43 symbols keep advances."""
         from build_subsets import ALL_STYLES
-        from verify_shared_engine import legacy_identity
         fixture_file = ROOT / 'tests/fixtures/reader-0.40-original-glyphs.json'
         baseline = json.loads(fixture_file.read_text(encoding='utf-8'))['styles']
+        refined_chars = '★☯⚡☀☾☽⚔✦☆◆◇▲▼▶◀♥♡♪©®™Ⓢ♩♫♬♭♮♯⏸⏹⏺⏭⏮🎧💻📖🔖🔍🔔⚙⌂🎤💿🔊'
         self.assertTrue(set(baseline) <= {style for style, *_ in ALL_STYLES})
         for style, old_id in baseline.items():
             with self.subTest(style=style), TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
-                new_id = legacy_identity(after, list(old_id['glyphs']))
-                self.assertEqual(new_id['glyphs'], old_id['glyphs'])
-                self.assertEqual(new_id['metrics'], old_id['metrics'])
+                cmap = after.getBestCmap()
+                allowed_symbols = {cmap[ord(ch)] for ch in refined_chars}
+                self.assertEqual(legacy_flags(after, old_id), [])
+                for gname, old_row in old_id['glyphs'].items():
+                    self.assertEqual(after['hmtx'][gname][0], old_row['hmtx'][0], f'{style}/{gname}')
+                    if gname not in allowed_symbols:
+                        self.assertEqual(list(after['hmtx'][gname]), old_row['hmtx'], f'{style}/{gname}')
                 for code, gname in old_id['cmap'].items():
-                    self.assertEqual(after.getBestCmap().get(int(code)), gname)
+                    self.assertEqual(cmap.get(int(code)), gname)
 
     def test_missing_mark_feature_fails_the_behavior_gate(self):
         with TTFont(ROOT/'fonts/SEIReader-Regular.otf') as font:

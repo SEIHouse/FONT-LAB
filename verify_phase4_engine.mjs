@@ -6,7 +6,7 @@ import assert from 'node:assert/strict';
 import {execFileSync} from 'node:child_process';
 import {dirname,join} from 'node:path';
 import {fileURLToPath} from 'node:url';
-import {beforeReadingCurves} from './tests/reader-curve-scope.mjs';
+import {beforeReadingCurves, beforeSymbols043} from './tests/reader-curve-scope.mjs';
 const root=dirname(fileURLToPath(import.meta.url));
 const release=JSON.parse(fs.readFileSync(join(root,'phase4.json'),'utf8'));
 const baseline=process.argv[2] || release.previous_step_commit || release.baseline_commit;
@@ -19,19 +19,21 @@ const beforeSource=execFileSync('git',['show',`${baseline}:engine.js`],{cwd:root
 const before=setup(beforeSource);
 const afterSource=fs.readFileSync(join(root,'engine.js'),'utf8');
 const after=setup(afterSource);
+const preSymbols=setup(beforeSymbols043(afterSource));
 const preserved=setup(beforeReadingCurves(afterSource));
-const target=beforeSource===beforeReadingCurves(beforeSource)?preserved:after;
+const norm=s=>s.replace(/\r\n/g,'\n');
+const target=norm(beforeSource)===norm(beforeReadingCurves(beforeSource))?preserved:norm(beforeSource)===norm(beforeSymbols043(beforeSource))?preSymbols:after;
 const oldChars=vm.runInContext('[...Object.keys(G),...Object.keys(DOTLESS),...Object.keys(LANGUAGE_ALTERNATES),...Object.keys(NUMERIC_VARIANTS)]',before);
 let count=0;
 for(const weight of [70,85,100,115,140]){
  for(const italic of [0,1]) for(const contrast of [1,1.12,1.4]){
   const values={base:weight,ital:italic,contrast,round:0.55,xh:510,caprx:245,ws:0.95,os:1,ufoot:0,straight:0.82,asc:700,trk:2.8};
-  for(const ctx of [before,after,preserved]){
+  for(const ctx of [before,after,preSymbols,preserved]){
    ctx.values=values;
    vm.runInContext('Object.assign(P,values)',ctx);
   }
   for(const ch of oldChars){
-   for(const ctx of [before,after,preserved]){
+   for(const ctx of [before,after,preSymbols,preserved]){
     ctx.ch=ch;ctx.weight=weight;
    }
    const snapshot=ctx=>vm.runInContext('(()=>{const g=glyph(ch,weight);return JSON.stringify([g.body,g.w,g.sb0,g.sb1]);})()',ctx);

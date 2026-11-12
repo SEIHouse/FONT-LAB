@@ -267,36 +267,259 @@ def('}',200,'low',[RAW([['M',0,760],['C',90,760,110,720,110,640], LN(110,640,110
     ['C',130,290,110,260,110,190], LN(110,190,110,-60), ['C',110,-140,90,-180,0,-180]])],[],[30,40]);
 def('<',420,'cap',[o([[420,560],[0,320],[420,80]])],[],[50,50]);
 def('>',420,'cap',[o([[0,560],[420,320],[0,80]])],[],[50,50]);
+/* ---------- true-space studio symbol helpers (0.43) ---------- */
+/** Map true cap-centered icon coordinates around [mx(W/2), cy] into glyph source space so circular
+    and geometric symbols stay true across every weight, Night grade, and Display width cut. */
+function iconSpace(W, cy, ws, ky){
+  const tx = dx => W/2 + dx / ws;
+  const ty = dy => 350 + (cy - 350 + dy) / ky;
+  const K = 0.5522847498;
+  const circle = (cx0, cy0, r, ccw = true) => {
+    const s = ccw ? 1 : -1, kr = K * r;
+    return [
+      ['M', tx(cx0 + r), ty(cy0)],
+      ['C', tx(cx0 + r), ty(cy0 + s*kr), tx(cx0 + kr), ty(cy0 + s*r), tx(cx0), ty(cy0 + s*r)],
+      ['C', tx(cx0 - kr), ty(cy0 + s*r), tx(cx0 - r), ty(cy0 + s*kr), tx(cx0 - r), ty(cy0)],
+      ['C', tx(cx0 - r), ty(cy0 - s*kr), tx(cx0 - kr), ty(cy0 - s*r), tx(cx0), ty(cy0 - s*r)],
+      ['C', tx(cx0 + kr), ty(cy0 - s*r), tx(cx0 + r), ty(cy0 - s*kr), tx(cx0 + r), ty(cy0)],
+      ['Z']
+    ];
+  };
+  const oval = (cx0, cy0, rx, ry, deg = 0, ccw = true) => {
+    const rad = deg * Math.PI / 180, ca = Math.cos(rad), sa = Math.sin(rad), s = ccw ? 1 : -1;
+    const rot = (u, v) => [tx(cx0 + u*ca - v*sa), ty(cy0 + u*sa + v*ca)];
+    const kx = K * rx, ky0 = K * ry;
+    return [
+      ['M', ...rot(rx, 0)],
+      ['C', ...rot(rx, s*ky0), ...rot(kx, s*ry), ...rot(0, s*ry)],
+      ['C', ...rot(-kx, s*ry), ...rot(-rx, s*ky0), ...rot(-rx, 0)],
+      ['C', ...rot(-rx, -s*ky0), ...rot(-kx, -s*ry), ...rot(0, -s*ry)],
+      ['C', ...rot(kx, -s*ry), ...rot(rx, -s*ky0), ...rot(rx, 0)],
+      ['Z']
+    ];
+  };
+  const arcSegs = (cx0, cy0, r, a0Deg, a1Deg, moveFirst = true) => {
+    const total = (a1Deg - a0Deg) * Math.PI / 180;
+    const steps = Math.max(1, Math.ceil(Math.abs(total) / (Math.PI / 2 - 1e-6)));
+    const dTheta = total / steps, k = 4 / 3 * Math.tan(dTheta / 4), out = [];
+    for(let i = 0; i < steps; i++){
+      const t0 = a0Deg * Math.PI / 180 + i * dTheta, t1 = t0 + dTheta;
+      const x0 = cx0 + r * Math.cos(t0), y0 = cy0 + r * Math.sin(t0);
+      const x3 = cx0 + r * Math.cos(t1), y3 = cy0 + r * Math.sin(t1);
+      if(i === 0 && moveFirst) out.push(['M', tx(x0), ty(y0)]);
+      out.push(['C', tx(x0 - k*r*Math.sin(t0)), ty(y0 + k*r*Math.cos(t0)),
+                     tx(x3 + k*r*Math.sin(t1)), ty(y3 - k*r*Math.cos(t1)), tx(x3), ty(y3)]);
+    }
+    return out;
+  };
+  const pill = (cx0, cy0, w, h, r0, ccw = true) => {
+    const hw = w / 2, hh = h / 2, r = Math.min(r0, hw, hh);
+    if(r <= 0){
+      const pts = ccw ? [[cx0-hw,cy0-hh],[cx0+hw,cy0-hh],[cx0+hw,cy0+hh],[cx0-hw,cy0+hh]]
+                      : [[cx0-hw,cy0-hh],[cx0-hw,cy0+hh],[cx0+hw,cy0+hh],[cx0+hw,cy0-hh]];
+      return [...pts.map((p,i) => [i ? 'L' : 'M', tx(p[0]), ty(p[1])]), ['Z']];
+    }
+    const out = [];
+    if(ccw){
+      out.push(...arcSegs(cx0 + hw - r, cy0 + hh - r, r, 0, 90, true));
+      if(hw - r > 0.1) out.push(['L', tx(cx0 - hw + r), ty(cy0 + hh)]);
+      out.push(...arcSegs(cx0 - hw + r, cy0 + hh - r, r, 90, 180, false));
+      if(hh - r > 0.1) out.push(['L', tx(cx0 - hw), ty(cy0 - hh + r)]);
+      out.push(...arcSegs(cx0 - hw + r, cy0 - hh + r, r, 180, 270, false));
+      if(hw - r > 0.1) out.push(['L', tx(cx0 + hw - r), ty(cy0 - hh)]);
+      out.push(...arcSegs(cx0 + hw - r, cy0 - hh + r, r, 270, 360, false));
+    } else {
+      out.push(...arcSegs(cx0 + hw - r, cy0 + hh - r, r, 90, 0, true));
+      if(hh - r > 0.1) out.push(['L', tx(cx0 + hw), ty(cy0 - hh + r)]);
+      out.push(...arcSegs(cx0 + hw - r, cy0 - hh + r, r, 360, 270, false));
+      if(hw - r > 0.1) out.push(['L', tx(cx0 - hw + r), ty(cy0 - hh)]);
+      out.push(...arcSegs(cx0 - hw + r, cy0 - hh + r, r, 270, 180, false));
+      if(hh - r > 0.1) out.push(['L', tx(cx0 - hw), ty(cy0 + hh - r)]);
+      out.push(...arcSegs(cx0 - hw + r, cy0 + hh - r, r, 180, 90, false));
+    }
+    out.push(['Z']);
+    return out;
+  };
+  const roundPoly = (pts, defaultR = 0) => {
+    const n = pts.length, corners = [];
+    for(let i = 0; i < n; i++){
+      const prev = pts[(i - 1 + n) % n], cur = pts[i], next = pts[(i + 1) % n];
+      const rWant = cur[2] !== undefined ? cur[2] : defaultR;
+      const v1x = prev[0] - cur[0], v1y = prev[1] - cur[1], l1 = Math.hypot(v1x, v1y);
+      const v2x = next[0] - cur[0], v2y = next[1] - cur[1], l2 = Math.hypot(v2x, v2y);
+      if(rWant <= 0 || l1 < 1e-6 || l2 < 1e-6){
+        corners.push({ sharp: [cur[0], cur[1]] }); continue;
+      }
+      const u1x = v1x / l1, u1y = v1y / l1, u2x = v2x / l2, u2y = v2y / l2;
+      const cosA = Math.max(-0.9999, Math.min(0.9999, u1x*u2x + u1y*u2y));
+      const theta = Math.acos(cosA), tanHalf = Math.tan(theta / 2);
+      if(tanHalf < 1e-4){ corners.push({ sharp: [cur[0], cur[1]] }); continue; }
+      const d = Math.min(rWant / tanHalf, 0.46 * Math.min(l1, l2));
+      const rEff = d * tanHalf, hLen = 4 / 3 * Math.tan((Math.PI - theta) / 4) * rEff;
+      const ax = cur[0] + d*u1x, ay = cur[1] + d*u1y;
+      const bx = cur[0] + d*u2x, by = cur[1] + d*u2y;
+      corners.push({ a:[ax, ay], c1:[ax - hLen*u1x, ay - hLen*u1y], c2:[bx - hLen*u2x, by - hLen*u2y], b:[bx, by] });
+    }
+    const out = [];
+    for(let i = 0; i < n; i++){
+      const c = corners[i];
+      if(c.sharp){
+        out.push([i === 0 ? 'M' : 'L', tx(c.sharp[0]), ty(c.sharp[1])]);
+      } else {
+        out.push([i === 0 ? 'M' : 'L', tx(c.a[0]), ty(c.a[1])]);
+        out.push(['C', tx(c.c1[0]), ty(c.c1[1]), tx(c.c2[0]), ty(c.c2[1]), tx(c.b[0]), ty(c.b[1])]);
+      }
+    }
+    out.push(['Z']);
+    return out;
+  };
+  const mapCmds = cmds => cmds.map(seg => {
+    if(seg[0] === 'Z') return ['Z'];
+    if(seg[0] === 'M' || seg[0] === 'L') return [seg[0], tx(seg[1]), ty(seg[2])];
+    return ['C', tx(seg[1]), ty(seg[2]), tx(seg[3]), ty(seg[4]), tx(seg[5]), ty(seg[6])];
+  });
+  return { tx, ty, circle, oval, arcSegs, pill, roundPoly, mapCmds };
+}
+const iconStroke = (fn, cap = 64) => ({ fn, swFn: cap });
+const iconFill = (fillFn, nostroke = true, cap = 0) => ({ fillFn, nostroke, ...(cap ? { swFn: cap } : {}) });
+const starPts5 = (rOut, rIn) => {
+  const pts = [];
+  for(let i = 0; i < 10; i++){
+    const a = (90 + i*36) * Math.PI / 180, r = i % 2 ? rIn : rOut;
+    pts.push([r * Math.cos(a), r * Math.sin(a)]);
+  }
+  return pts;
+};
+const crescentCmds = (sp, dir) => {
+  /* Tangent-continuous crescent moon with rCap=12 smooth horn tips (dir=1: ☾, dir=-1: ☽). */
+  const R1 = 288, R2 = 246, d = 134, rCap = 12, cx1 = -38;
+  const D1 = R1 - rCap, D2 = R2 + rCap;
+  const hx = (D1*D1 - D2*D2 + d*d) / (2 * d), hy = Math.sqrt(D1*D1 - hx*hx);
+  const a1 = Math.atan2(hy, hx) * 180 / Math.PI;
+  const a2 = Math.atan2(hy, d - hx) * 180 / Math.PI;
+  const rawArc = (cx0, cy0, r, a0Deg, a1Deg, moveFirst) => {
+    const total = (a1Deg - a0Deg) * Math.PI / 180;
+    const steps = Math.max(1, Math.ceil(Math.abs(total) / (Math.PI / 2 - 1e-6)));
+    const dTheta = total / steps, k = 4 / 3 * Math.tan(dTheta / 4), out = [];
+    for(let i = 0; i < steps; i++){
+      const t0 = a0Deg * Math.PI / 180 + i * dTheta, t1 = t0 + dTheta;
+      const x0 = cx0 + r * Math.cos(t0), y0 = cy0 + r * Math.sin(t0);
+      const x3 = cx0 + r * Math.cos(t1), y3 = cy0 + r * Math.sin(t1);
+      if(i === 0 && moveFirst) out.push(['M', x0, y0]);
+      out.push(['C', x0 - k*r*Math.sin(t0), y0 + k*r*Math.cos(t0),
+                     x3 + k*r*Math.sin(t1), y3 - k*r*Math.cos(t1), x3, y3]);
+    }
+    return out;
+  };
+  const leftMoon = [
+    ...rawArc(cx1, 0, R1, a1, 360 - a1, true),
+    ...rawArc(cx1 + hx, -hy, rCap, -a1, a2, false),
+    ...rawArc(cx1 + d, 0, R2, 180 + a2, 180 - a2, false),
+    ...rawArc(cx1 + hx, hy, rCap, 360 - a2, 360 + a1, false),
+  ];
+  if(dir > 0) return sp.mapCmds([...leftMoon, ['Z']]);
+  // Mirror x -> -x and reverse segment order so ☽ retains identical CCW winding
+  const start = leftMoon[0];
+  const rev = [['M', -start[1], start[2]]];
+  for(let i = leftMoon.length - 1; i >= 1; i--){
+    const cur = leftMoon[i], prev = i === 1 ? [start[1], start[2]] : [leftMoon[i-1][5], leftMoon[i-1][6]];
+    rev.push(['C', -cur[3], cur[4], -cur[1], cur[2], -prev[0], prev[1]]);
+  }
+  rev.push(['Z']);
+  return sp.mapCmds(rev);
+};
+const heartCmds = (sp, sc, dy0 = 0, ccw = true) => {
+  const raw = [
+    ['M', 0, dy0 - 266*sc],
+    ['C', 62*sc, dy0 - 204*sc, 304*sc, dy0 - 38*sc, 304*sc, dy0 + 118*sc],
+    ['C', 304*sc, dy0 + 226*sc, 224*sc, dy0 + 286*sc, 150*sc, dy0 + 286*sc],
+    ['C', 82*sc, dy0 + 286*sc, 28*sc, dy0 + 236*sc, 0, dy0 + 168*sc],
+    ['C', -28*sc, dy0 + 236*sc, -82*sc, dy0 + 286*sc, -150*sc, dy0 + 286*sc],
+    ['C', -224*sc, dy0 + 286*sc, -304*sc, dy0 + 226*sc, -304*sc, dy0 + 118*sc],
+    ['C', -304*sc, dy0 - 38*sc, -62*sc, dy0 - 204*sc, 0, dy0 - 266*sc],
+    ['Z']
+  ];
+  if(ccw) return sp.mapCmds(raw);
+  const rev = [['M', 0, dy0 - 266*sc]];
+  for(let i = 6; i >= 1; i--){
+    const cur = raw[i], prevEnd = i === 1 ? [0, dy0 - 266*sc] : [raw[i-1][5], raw[i-1][6]];
+    rev.push(['C', cur[3], cur[4], cur[1], cur[2], prevEnd[0], prevEnd[1]]);
+  }
+  rev.push(['Z']);
+  return sp.mapCmds(rev);
+};
 /* novel and system-screen symbols */
-{ const pts = []; for(let i = 0; i < 10; i++){ const a = (90 + i*36) * Math.PI/180, r = i % 2 ? 135 : 330; pts.push([320 + r*Math.cos(a), 310 + r*Math.sin(a)]); }
-  def('★',640,'cap',[FILL(pts)],[],[30,30]); }
+def('★',640,'cap',[iconFill((dS, ws, ky) => iconSpace(640, 340, ws, ky).roundPoly(starPts5(326, 140), 14))],[],[30,30]);
 def('•',220,'low',[],[[110,250,1.8]],[40,40]);
 def('·',0,'low',[],[[0,260]],[60,60]);
 /* cultivation */
-{ const R = 320, cx = 320, cy = 330, hole = 50;
-  const dark = [...arcPts(cx, cy, R, 90, 270, 64), ...arcPts(cx, cy - R/2, R/2, -90, 90, 32), ...arcPts(cx, cy + R/2, R/2, -90, -270, 32)];
-  def('☯',640,'cap',[{ fill:[dark, arcPts(cx, cy - R/2, hole + 42, 0, 360, 32)], nostroke:true }, RAW(circ(cx, cy, R))],[[cx, cy + R/2, 0.95]],[40,40]); }
-def('⚡',380,'cap',[FILL([[240,700],[30,300],[190,300],[110,-40],[370,400],[210,400],[320,700]])],[],[40,40]);
-def('☀',680,'cap',[FILL(arcPts(340, 320, 60, 0, 360, 40)),
-    ...[0,45,90,135,180,225,270,315].map(a => { const r = a*Math.PI/180; return o([[340 + 235*Math.cos(r), 320 + 235*Math.sin(r)], [340 + 335*Math.cos(r), 320 + 335*Math.sin(r)]]); })],[],[40,40]);
-{ const cx = 320, cy = 330, R = 310;
-  const moon = sgn => [...arcPts(cx, cy, R, 60*sgn + (sgn < 0 ? 180 : 0), sgn < 0 ? 180 + 300 : 300, 48)];
-  const outerL = arcPts(cx, cy, R, 60, 300, 48), innerL = arcPts(cx + 155, cy, Math.hypot(0, R*Math.sin(Math.PI/3)), 270, 90, 48);
-  const outerR = arcPts(cx, cy, R, 120, -120, 48), innerR = arcPts(cx - 155, cy, Math.hypot(0, R*Math.sin(Math.PI/3)), -90, 90, 48);
-  def('☾',600,'cap',[FILL([...outerL, ...innerL])],[],[30,30]);
-  def('☽',600,'cap',[FILL([...outerR, ...innerR])],[],[30,30]); }
-def('⚔',640,'cap',[o([[60,20],[560,620]]), o([[580,20],[80,620]]), o([[20,150],[180,10]]), o([[620,150],[460,10]])],[],[30,30]);
+def('☯',640,'cap',[
+  iconFill((dS, ws, ky) => {
+    const sp = iconSpace(640, 350, ws, ky), R = 288, Rs = 264, rHalf = Rs / 2;
+    const yin = [
+      ...sp.arcSegs(0, 0, R, 90, 270, true),
+      ['L', sp.tx(0), sp.ty(-Rs)],
+      ...sp.arcSegs(0, -rHalf, rHalf, 270, 90, false),
+      ...sp.arcSegs(0, rHalf, rHalf, -90, 90, false),
+      ['L', sp.tx(0), sp.ty(R)],
+      ['Z']
+    ];
+    return [yin, sp.circle(0, rHalf, 40, false), sp.circle(0, -rHalf, 44, true)];
+  }),
+  iconStroke((dS, ws, ky) => iconSpace(640, 350, ws, ky).circle(0, 0, 288), 56)
+],[],[40,40]);
+def('⚡',380,'cap',[iconFill((dS, ws, ky) => iconSpace(380, 345, ws, ky).roundPoly([
+  [68, 368, 7], [-192, -18, 10], [-28, -18, 0], [-68, -368, 7], [192, 18, 10], [28, 18, 0]
+]))],[],[40,40]);
+def('☀',680,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(680, 345, ws, ky).circle(0, 0, 126)),
+  ...[0,45,90,135,180,225,270,315].map(a => iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(680, 345, ws, ky), r = a * Math.PI / 180;
+    return sp.mapCmds([['M', 198*Math.cos(r), 198*Math.sin(r)], ['L', 298*Math.cos(r), 298*Math.sin(r)]]);
+  }, 56))
+],[],[40,40]);
+def('☾',600,'cap',[iconFill((dS, ws, ky) => crescentCmds(iconSpace(600, 345, ws, ky), 1))],[],[30,30]);
+def('☽',600,'cap',[iconFill((dS, ws, ky) => crescentCmds(iconSpace(600, 345, ws, ky), -1))],[],[30,30]);
+{ const swordPoly = (sp, sgn) => {
+    const ca = Math.SQRT1_2;
+    const base = [
+      [416, 0, 6], [248, 36, 6], [-162, 36, 0], [-162, 108, 8], [-208, 108, 8], [-208, 25, 0],
+      [-336, 25, 0], [-356, 38, 10], [-382, 0, 12], [-356, -38, 10], [-336, -25, 0],
+      [-208, -25, 0], [-208, -108, 8], [-162, -108, 8], [-162, -36, 0], [248, -36, 6]
+    ];
+    return sp.roundPoly(base.map(([u, v, r]) => [sgn * (u*ca - v*ca), u*ca + v*ca, r]));
+  };
+  def('⚔',640,'cap',[
+    iconFill((dS, ws, ky) => swordPoly(iconSpace(640, 345, ws, ky), 1)),
+    iconFill((dS, ws, ky) => swordPoly(iconSpace(640, 345, ws, ky), -1))
+  ],[],[30,30]); }
 /* scene breaks, ratings, bullets */
-def('✦',400,'cap',[FILL([[200,660],[250,370],[400,320],[250,270],[200,-20],[150,270],[0,320],[150,370]])],[],[40,40]);
-{ const pts = []; for(let i = 0; i < 10; i++){ const a = (90 + i*36) * Math.PI/180, r = i % 2 ? 135 : 330; pts.push([320 + r*Math.cos(a), 310 + r*Math.sin(a)]); }
-  def('☆',640,'cap',[c(pts.map(p => [p[0], p[1], 0]))],[],[30,30]); }
-def('◆',440,'cap',[FILL([[220,560],[440,320],[220,80],[0,320]])],[],[40,40]);
-def('◇',440,'cap',[c([[220,560,0],[440,320,0],[220,80,0],[0,320,0]])],[],[40,40]);
+def('✦',400,'cap',[iconFill((dS, ws, ky) => {
+  const sp = iconSpace(400, 345, ws, ky), rx = 228, ry = 318, wx = 50, wy = 58, tr = 9;
+  return sp.mapCmds([
+    ['M', -tr, ry - 18], ['C', -tr*0.4, ry, tr*0.4, ry, tr, ry - 18],
+    ['C', 24, 150, wx, wy, rx - 18, tr], ['C', rx, tr*0.4, rx, -tr*0.4, rx - 18, -tr],
+    ['C', wx, -wy, 24, -150, tr, -ry + 18], ['C', tr*0.4, -ry, -tr*0.4, -ry, -tr, -ry + 18],
+    ['C', -24, -150, -wx, -wy, -rx + 18, -tr], ['C', -rx, -tr*0.4, -rx, tr*0.4, -rx + 18, tr],
+    ['C', -wx, wy, -24, 150, -tr, ry - 18], ['Z']
+  ]);
+})],[],[40,40]);
+def('☆',640,'cap',[iconFill((dS, ws, ky) => {
+  const sp = iconSpace(640, 340, ws, ky), t = Math.max(0, Math.min(1, (dS - 55) / 75));
+  const rOutIn = 208 - 14*t, rInIn = 90 - 6*t;
+  return [sp.roundPoly(starPts5(338, 150), 14), sp.roundPoly(starPts5(rOutIn, rInIn).reverse(), 8)];
+})],[],[30,30]);
+def('◆',440,'cap',[iconFill((dS, ws, ky) => iconSpace(440, 340, ws, ky).roundPoly([[0, 272], [-234, 0], [0, -272], [234, 0]], 16))],[],[40,40]);
+def('◇',440,'cap',[iconFill((dS, ws, ky) => {
+  const sp = iconSpace(440, 340, ws, ky), t = Math.max(0, Math.min(1, (dS - 55) / 75));
+  const ix = 148 - 10*t, iy = 172 - 12*t;
+  return [sp.roundPoly([[0, 280], [-240, 0], [0, -280], [240, 0]], 16), sp.roundPoly([[0, iy], [ix, 0], [0, -iy], [-ix, 0]], 8)];
+})],[],[40,40]);
 /* stat screens */
-def('▲',480,'cap',[FILL([[0,40],[480,40],[240,480]])],[],[40,40]);
-def('▼',480,'cap',[FILL([[0,480],[480,480],[240,40]])],[],[40,40]);
-def('▶',440,'cap',[FILL([[0,20],[0,500],[440,260]])],[],[40,40]);
-def('◀',440,'cap',[FILL([[440,20],[440,500],[0,260]])],[],[40,40]);
+def('▲',480,'cap',[iconFill((dS, ws, ky) => iconSpace(480, 300, ws, ky).roundPoly([[0, 250], [-248, -220], [248, -220]], 24))],[],[40,40]);
+def('▼',480,'cap',[iconFill((dS, ws, ky) => iconSpace(480, 300, ws, ky).roundPoly([[0, -250], [248, 220], [-248, 220]], 24))],[],[40,40]);
+def('▶',440,'cap',[iconFill((dS, ws, ky) => iconSpace(440, 300, ws, ky).roundPoly([[235, 0], [-215, 255], [-215, -255]], 24))],[],[40,40]);
+def('◀',440,'cap',[iconFill((dS, ws, ky) => iconSpace(440, 300, ws, ky).roundPoly([[-235, 0], [215, -255], [215, 255]], 24))],[],[40,40]);
 def('↑',400,'cap',[o([[200,0],[200,680]]), o([[20,500],[200,680],[380,500]])],[],[40,40]);
 def('↓',400,'cap',[o([[200,680],[200,0]]), o([[20,180],[200,0],[380,180]])],[],[40,40]);
 def('−',420,'cap',[o([[30,300],[390,300]])],[],[50,50]);
@@ -306,18 +529,44 @@ def('≠',420,'cap',[o([[30,220],[390,220]]), o([[30,400],[390,400]]), o([[90,40
 def('≈',420,'cap',[RAW([['M',10,380],['C',90,480,160,480,210,420],['C',260,360,330,360,410,460]]),
                     RAW([['M',10,170],['C',90,270,160,270,210,210],['C',260,150,330,150,410,250]])],[],[50,50]);
 /* hearts and quests */
-{ const heart = []; for(let i = 0; i < 72; i++){ const t = i/72 * 2*Math.PI;
-    heart.push([280 + 17.5*16*Math.pow(Math.sin(t),3), 330 + 17.5*(13*Math.cos(t) - 5*Math.cos(2*t) - 2*Math.cos(3*t) - Math.cos(4*t))]); }
-  def('♥',560,'cap',[FILL(heart)],[],[30,30]);
-  def('♡',560,'cap',[c(heart.map(p => [p[0], p[1], 0]))],[],[30,30]); }
+def('♥',560,'cap',[iconFill((dS, ws, ky) => heartCmds(iconSpace(560, 340, ws, ky), 1.0, 0, true))],[],[30,30]);
+def('♡',560,'cap',[iconFill((dS, ws, ky) => {
+  const sp = iconSpace(560, 340, ws, ky), t = Math.max(0, Math.min(1, (dS - 55) / 75));
+  const scIn = 0.65 - 0.04*t;
+  return [heartCmds(sp, 1.02, 0, true), heartCmds(sp, scIn, 12, false)];
+})],[],[30,30]);
 def('✓',460,'cap',[o([[0,300],[160,80],[460,620]])],[],[40,40]);
 def('✗',440,'cap',[o([[0,560],[440,40]]), o([[40,40],[440,580]])],[],[40,40]);
 /* music, for SEA */
-def('♪',400,'cap',[o([[260,120],[260,700],[400,560]])],[[130,120,2.2]],[40,40]);
+def('♪',400,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(400, 350, ws, ky).oval(-74, -215, 92, 66, 24)),
+  iconStroke((dS, ws, ky) => iconSpace(400, 350, ws, ky).mapCmds([
+    ['M', -6, -205], ['L', -6, 330],
+    ['C', 54, 290, 152, 222, 150, 118], ['C', 149, 70, 126, 28, 92, -4]
+  ]), 56)
+],[],[40,40]);
 /* brand */
-def('©',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, { swFn: true, fn: () => cCurve(260, 330, 190).map(seg => seg[0] === 'M' ? ['M', seg[1], seg[2] + 155] : ['C', seg[1], seg[2] + 155, seg[3], seg[4] + 155, seg[5], seg[6] + 155]) }],[],[40,40]);
-def('®',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, Object.assign(o([[210,160],[210,490],[420,490,0.5],[420,330,0.5],[210,330]]), { swFn:true }), Object.assign(o([[320,330],[430,160]]), { swFn:true })],[],[40,40]);
-def('™',560,'cap',[o([[0,700],[220,700]]), o([[110,700],[110,440]]), o([[300,440],[300,700],[430,540],[560,700],[560,440]])],[],[40,40]);
+def('©',640,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).circle(0, 0, 288), 62),
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).arcSegs(10, 0, 146, 44, 316, true), 58)
+],[],[40,40]);
+def('®',640,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).circle(0, 0, 290), 60),
+  iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(640, 345, ws, ky);
+    return [...sp.mapCmds([['M', -88, -148], ['L', -88, 148], ['L', 24, 148]]),
+            ...sp.arcSegs(24, 65, 83, 90, -90, false),
+            ...sp.mapCmds([['L', -88, -18]])];
+  }, 48),
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).mapCmds([['M', 14, -18], ['L', 102, -148]]), 48)
+],[],[40,40]);
+def('™',560,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(560, 565, ws, ky).mapCmds([['M', -275, 135], ['L', -65, 135]]), 52),
+  iconStroke((dS, ws, ky) => iconSpace(560, 565, ws, ky).mapCmds([['M', -170, 135], ['L', -170, -135]]), 52),
+  iconStroke((dS, ws, ky) => iconSpace(560, 565, ws, ky).mapCmds([
+    ['M', 15, -135], ['L', 15, 135], ['L', 145, -35], ['L', 275, 135], ['L', 275, -135]
+  ]), 52)
+],[],[40,40]);
 /* languages: letters with their own shapes */
 { const sh = (shapes, dx) => shapes.map(s => s.p ? Object.assign({}, s, { p: s.p.map(q => [q[0] + dx, q[1], q[2]]) })
                                    : s.raw ? { raw: s.raw.map(seg => seg[0] === 'M' ? ['M', seg[1] + dx, seg[2]] : ['C', seg[1] + dx, seg[2], seg[3] + dx, seg[4], seg[5] + dx, seg[6]]) } : s);
@@ -336,40 +585,170 @@ def('™',560,'cap',[o([[0,700],[220,700]]), o([[110,700],[110,440]]), o([[300,4
   def('¿',380,'cap',[o([[190,340],[190,160],[0,160],[0,-120],[380,-120],[380,20]])],[[190,510]],[50,50]);
   def('º',240,'cap',[R(0,400,240,700), o([[0,300],[240,300]])],[],[40,40]);
   def('ª',240,'cap',[R(0,400,240,600), o([[240,700],[240,400]]), o([[0,700],[240,700]]), o([[0,300],[240,300]])],[],[40,40]); }
-/* SEIHouse brand mark: circled S, drawn with SEIReader's own S */
-def('Ⓢ',660,'cap',[{ fn: () => circ(330, 320, 330), swFn: true },
-    { p: [[480,560],[480,700],[0,700],[0,350],[480,350],[480,0],[0,0],[0,140]].map(p => [196 + p[0]*0.56, 124 + p[1]*0.56, 0.55]), z: 0, swFn: true }],[],[40,40]);
+/* SEIHouse brand mark: true circle around the smooth 0.40 continuous S curve */
+def('Ⓢ',660,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(660, 350, ws, ky).circle(0, 0, 296), 62),
+  iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(660, 350, ws, ky), sx = 0.475, sy = 0.455;
+    return G['S'].shapes[0].raw.map(seg => seg[0] === 'M'
+      ? ['M', sp.tx((seg[1] - 240)*sx), sp.ty((seg[2] - 350)*sy)]
+      : ['C', sp.tx((seg[1] - 240)*sx), sp.ty((seg[2] - 350)*sy),
+              sp.tx((seg[3] - 240)*sx), sp.ty((seg[4] - 350)*sy),
+              sp.tx((seg[5] - 240)*sx), sp.ty((seg[6] - 350)*sy)]);
+  }, 58)
+],[],[40,40]);
 /* music */
-def('♩',300,'cap',[o([[260,120],[260,700]])],[[130,120,2.2]],[40,40]);
-def('♫',620,'cap',[o([[240,80],[240,640],[580,720],[580,160]])],[[110,80,2.2],[450,160,2.2]],[40,40]);
-def('♬',620,'cap',[o([[240,80],[240,640],[580,720],[580,160]]), o([[240,520],[580,600]])],[[110,80,2.2],[450,160,2.2]],[40,40]);
-def('♭',260,'cap',[o([[0,0],[0,720]]), RAW([['M',0,320],['C',120,420,260,380,260,260],['C',260,150,120,60,0,0]])],[],[50,40]);
-def('♮',260,'cap',[o([[0,700],[0,180],[260,230]]), o([[260,0],[260,520],[0,470]])],[],[50,50]);
-def('♯',360,'cap',[o([[100,-40],[100,660]]), o([[260,0],[260,700]]), o([[0,420],[360,480]]), o([[0,200],[360,260]])],[],[40,40]);
+def('♩',300,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(300, 350, ws, ky).oval(-34, -215, 92, 66, 24)),
+  iconStroke((dS, ws, ky) => iconSpace(300, 350, ws, ky).mapCmds([['M', 34, -205], ['L', 34, 330]]), 56)
+],[],[40,40]);
+def('♫',620,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).oval(-190, -238, 88, 64, 24)),
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).oval(140, -168, 88, 64, 24)),
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).mapCmds([['M', -125, -228], ['L', -125, 238]]), 54),
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).mapCmds([['M', 205, -158], ['L', 205, 308]]), 54),
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).roundPoly([[-152, 266], [232, 336], [232, 258], [-152, 188]], 10))
+],[],[40,40]);
+def('♬',620,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).oval(-190, -238, 88, 64, 24)),
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).oval(140, -168, 88, 64, 24)),
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).mapCmds([['M', -125, -228], ['L', -125, 244]]), 54),
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).mapCmds([['M', 205, -158], ['L', 205, 314]]), 54),
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).roundPoly([[-152, 270], [232, 340], [232, 278], [-152, 208]], 8)),
+  iconFill((dS, ws, ky) => iconSpace(620, 350, ws, ky).roundPoly([[-152, 134], [232, 204], [232, 142], [-152, 72]], 8))
+],[],[40,40]);
+def('♭',260,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(260, 355, ws, ky).mapCmds([
+    ['M', -108, 365], ['L', -108, -342],
+    ['C', -8, -278, 126, -184, 126, -68], ['C', 126, 56, -4, 92, -108, -10]
+  ]), 56)
+],[],[50,40]);
+def('♮',260,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(260, 350, ws, ky).mapCmds([['M', -108, 350], ['L', -108, -165], ['L', 108, -105]]), 54),
+  iconStroke((dS, ws, ky) => iconSpace(260, 350, ws, ky).mapCmds([['M', 108, -350], ['L', 108, 165], ['L', -108, 105]]), 54)
+],[],[50,50]);
+def('♯',360,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(360, 340, ws, ky).mapCmds([['M', -85, -355], ['L', -85, 325]]), 52),
+  iconStroke((dS, ws, ky) => iconSpace(360, 340, ws, ky).mapCmds([['M', 85, -325], ['L', 85, 355]]), 52),
+  iconStroke((dS, ws, ky) => iconSpace(360, 340, ws, ky).mapCmds([['M', -172, 75], ['L', 172, 140]]), 52),
+  iconStroke((dS, ws, ky) => iconSpace(360, 340, ws, ky).mapCmds([['M', -172, -140], ['L', 172, -75]]), 52)
+],[],[40,40]);
 /* player controls (SEA / SAP) */
-def('⏸',440,'cap',[o([[80,40],[80,600]]), o([[360,40],[360,600]])],[],[50,50]);
-def('⏹',500,'cap',[FILL([[0,40],[500,40],[500,540],[0,540]])],[],[50,50]);
-def('⏺',500,'cap',[FILL(arcPts(250, 290, 250, 0, 360, 48))],[],[50,50]);
-def('⏭',480,'cap',[FILL([[0,40],[0,560],[370,300]]), o([[480,40],[480,560]])],[],[40,40]);
-def('⏮',480,'cap',[FILL([[480,40],[480,560],[110,300]]), o([[0,40],[0,560]])],[],[40,40]);
+def('⏸',440,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(440, 310, ws, ky).pill(-118, 0, 84, 520, 30)),
+  iconFill((dS, ws, ky) => iconSpace(440, 310, ws, ky).pill(118, 0, 84, 520, 30))
+],[],[50,50]);
+def('⏹',500,'cap',[iconFill((dS, ws, ky) => iconSpace(500, 310, ws, ky).pill(0, 0, 480, 480, 34))],[],[50,50]);
+def('⏺',500,'cap',[iconFill((dS, ws, ky) => iconSpace(500, 310, ws, ky).circle(0, 0, 246))],[],[50,50]);
+def('⏭',480,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(480, 310, ws, ky).roundPoly([[-232, 255], [-232, -255], [116, 0]], 22)),
+  iconFill((dS, ws, ky) => iconSpace(480, 310, ws, ky).pill(204, 0, 68, 500, 28))
+],[],[40,40]);
+def('⏮',480,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(480, 310, ws, ky).roundPoly([[232, -255], [232, 255], [-116, 0]], 22)),
+  iconFill((dS, ws, ky) => iconSpace(480, 310, ws, ky).pill(-204, 0, 68, 500, 28))
+],[],[40,40]);
 /* utilities */
-def('🎧',640,'cap',[RAW([['M',70,300],['C',70,520,180,660,320,660],['C',460,660,570,520,570,300]]),
-    FILL([[20,30],[190,30],[190,330],[20,330]]), FILL([[450,30],[620,30],[620,330],[450,330]])],[],[40,40]);
-def('💻',680,'cap',[c([[100,230,0.25],[580,230,0.25],[580,660,0.25],[100,660,0.25]]), o([[0,70],[680,70]])],[],[30,30]);
-def('📖',660,'cap',[RAW([['M',330,90],['C',250,150,130,150,20,120], LN(20,120,20,610), ['C',130,640,250,640,330,580]]),
-    RAW([['M',330,90],['C',410,150,530,150,640,120], LN(640,120,640,610), ['C',530,640,410,640,330,580]]), o([[330,90],[330,580]])],[],[30,30]);
-def('🔖',400,'cap',[c([[0,700,0.3],[400,700,0.3],[400,-40,0],[200,140,0],[0,-40,0]])],[],[60,60]);
-def('🔍',620,'cap',[{ fn: () => circ(250, 410, 220), swFn: true }, o([[410,250],[600,40]])],[],[40,40]);
-def('🔔',600,'cap',[RAW([['M',70,150],['C',110,210,120,290,120,380],['C',120,540,210,650,300,650],['C',390,650,480,540,480,380],['C',480,290,490,210,530,150]]),
-    o([[20,150],[580,150]])],[[300,40,1.3]],[40,40]);
-def('⚙',640,'cap',[{ fn: () => circ(320, 320, 205), swFn: true }, { fn: () => circ(320, 320, 70), swFn: true },
-    ...[0,45,90,135,180,225,270,315].map(a => { const r = a*Math.PI/180; return Object.assign(o([[320 + 240*Math.cos(r), 320 + 240*Math.sin(r)], [320 + 315*Math.cos(r), 320 + 315*Math.sin(r)]]), { swFn:true }); })],[],[40,40]);
-def('⌂',600,'cap',[o([[20,300],[300,620],[580,300]]), o([[90,350],[90,0],[510,0],[510,350]])],[],[40,40]);
-def('🎤',520,'cap',[c([[150,330],[370,330],[370,720],[150,720]]),
-    RAW([['M',50,470],['C',50,290,150,200,260,200],['C',370,200,470,290,470,470]]), o([[260,200],[260,20]]), o([[120,20],[400,20]])],[],[40,40]);
-def('💿',640,'cap',[{ fn: () => circ(320, 320, 320), swFn: true }, { fn: () => circ(320, 320, 80), swFn: true }],[],[40,40]);
-def('🔊',640,'cap',[FILL([[0,210],[130,210],[300,50],[300,590],[130,430],[0,430]]),
-    o(arcPts(320, 320, 150, -45, 45, 16).map(p => [p[0], p[1], 0])), o(arcPts(320, 320, 280, -50, 50, 24).map(p => [p[0], p[1], 0]))],[],[30,30]);
+def('🎧',640,'cap',[
+  iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(640, 345, ws, ky);
+    return [...sp.mapCmds([['M', -246, -135], ['L', -246, 22]]),
+            ...sp.arcSegs(0, 22, 246, 180, 0, false),
+            ...sp.mapCmds([['L', 246, -135]])];
+  }, 60),
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).arcSegs(0, 22, 252, 48, 132, true), 82),
+  iconFill((dS, ws, ky) => iconSpace(640, 345, ws, ky).pill(-172, -152, 58, 264, 29)),
+  iconFill((dS, ws, ky) => iconSpace(640, 345, ws, ky).pill(-232, -156, 102, 214, 48)),
+  iconFill((dS, ws, ky) => iconSpace(640, 345, ws, ky).pill(172, -152, 58, 264, 29)),
+  iconFill((dS, ws, ky) => iconSpace(640, 345, ws, ky).pill(232, -156, 102, 214, 48))
+],[],[40,40]);
+def('💻',680,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(680, 355, ws, ky).pill(0, 82, 488, 376, 36), 60),
+  iconFill((dS, ws, ky) => iconSpace(680, 355, ws, ky).roundPoly([
+    [-335, -205, 16], [335, -205, 16], [305, -275, 22], [-305, -275, 22]
+  ]))
+],[],[30,30]);
+def('📖',660,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(660, 350, ws, ky).mapCmds([
+    ['M', 0, 220],
+    ['C', 78, 275, 196, 275, 304, 245], ['L', 304, -220],
+    ['C', 196, -190, 78, -190, 0, -245],
+    ['C', -78, -190, -196, -190, -304, -220], ['L', -304, 245],
+    ['C', -196, 275, -78, 275, 0, 220], ['Z']
+  ]), 58),
+  iconStroke((dS, ws, ky) => iconSpace(660, 350, ws, ky).mapCmds([['M', 0, -236], ['L', 0, 212]]), 58)
+],[],[30,30]);
+def('🔖',400,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(400, 340, ws, ky).roundPoly([
+    [-188, 336, 34], [188, 336, 34], [188, -336, 10], [0, -148, 8], [-188, -336, 10]
+  ]), 62)
+],[],[60,60]);
+def('🔍',620,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).circle(-65, 65, 205), 64),
+  iconStroke((dS, ws, ky) => iconSpace(620, 350, ws, ky).mapCmds([['M', 78, -78], ['L', 270, -270]]), 74)
+],[],[40,40]);
+def('🔔',600,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(600, 350, ws, ky).pill(0, 266, 86, 98, 43)),
+  iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(600, 350, ws, ky);
+    return [
+      ...sp.mapCmds([['M', -236, -138], ['C', -186, -86, -166, -24, -166, 82]]),
+      ...sp.arcSegs(0, 82, 166, 180, 0, false),
+      ...sp.mapCmds([['C', 166, -24, 186, -86, 236, -138], ['L', -236, -138], ['Z']])
+    ];
+  }, 58),
+  iconStroke((dS, ws, ky) => iconSpace(600, 350, ws, ky).mapCmds([['M', -276, -138], ['L', 276, -138]]), 60),
+  iconFill((dS, ws, ky) => {
+    const sp = iconSpace(600, 350, ws, ky);
+    return [...sp.arcSegs(0, -198, 68, 180, 360, true), ['L', sp.tx(-68), sp.ty(-198)], ['Z']];
+  })
+],[],[40,40]);
+def('⚙',640,'cap',[iconFill((dS, ws, ky) => {
+  const sp = iconSpace(640, 350, ws, ky), rRoot = 220, rTip = 306, rHole = 136, outer = [];
+  for(let i = 0; i < 8; i++){
+    const a = i * 45, a0 = (a - 13.5) * Math.PI/180, a1 = (a - 9) * Math.PI/180;
+    outer.push([i === 0 ? 'M' : 'L', sp.tx(rRoot*Math.cos(a0)), sp.ty(rRoot*Math.sin(a0))]);
+    outer.push(['L', sp.tx(rTip*Math.cos(a1)), sp.ty(rTip*Math.sin(a1))]);
+    outer.push(...sp.arcSegs(0, 0, rTip, a - 9, a + 9, false));
+    outer.push(['L', sp.tx(rRoot*Math.cos((a + 13.5)*Math.PI/180)), sp.ty(rRoot*Math.sin((a + 13.5)*Math.PI/180))]);
+    outer.push(...sp.arcSegs(0, 0, rRoot, a + 13.5, a + 31.5, false));
+  }
+  outer.push(['Z']);
+  return [outer, sp.circle(0, 0, rHole, false)];
+})],[],[40,40]);
+def('⌂',600,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(600, 335, ws, ky).mapCmds([['M', -284, -18], ['L', 0, 282], ['L', 284, -18]]), 62),
+  iconStroke((dS, ws, ky) => iconSpace(600, 335, ws, ky).mapCmds([
+    ['M', -194, 77], ['L', -194, -295], ['L', 194, -295], ['L', 194, 77]
+  ]), 62)
+],[],[40,40]);
+def('🎤',520,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(520, 355, ws, ky).pill(0, 152, 204, 376, 102)),
+  iconStroke((dS, ws, ky) => {
+    const sp = iconSpace(520, 355, ws, ky);
+    return [...sp.mapCmds([['M', -204, 118], ['L', -204, 66]]),
+            ...sp.arcSegs(0, 66, 204, 180, 360, false),
+            ...sp.mapCmds([['L', 204, 118]])];
+  }, 56),
+  iconStroke((dS, ws, ky) => iconSpace(520, 355, ws, ky).mapCmds([['M', 0, -138], ['L', 0, -320]]), 56),
+  iconStroke((dS, ws, ky) => iconSpace(520, 355, ws, ky).mapCmds([['M', -136, -320], ['L', 136, -320]]), 56)
+],[],[40,40]);
+def('💿',640,'cap',[
+  iconStroke((dS, ws, ky) => iconSpace(640, 350, ws, ky).circle(0, 0, 294), 58),
+  iconFill((dS, ws, ky) => {
+    const sp = iconSpace(640, 350, ws, ky);
+    return [sp.circle(0, 0, 84, true), sp.circle(0, 0, 42, false)];
+  }),
+  iconStroke((dS, ws, ky) => iconSpace(640, 350, ws, ky).arcSegs(0, 0, 190, 118, 156, true), 34),
+  iconStroke((dS, ws, ky) => iconSpace(640, 350, ws, ky).arcSegs(0, 0, 190, 298, 336, true), 34)
+],[],[40,40]);
+def('🔊',640,'cap',[
+  iconFill((dS, ws, ky) => iconSpace(640, 345, ws, ky).roundPoly([
+    [-296, 108, 24], [-182, 108, 0], [-32, 258, 22], [-32, -258, 22], [-182, -108, 0], [-296, -108, 24]
+  ])),
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).arcSegs(-20, 0, 154, -44, 44, true), 56),
+  iconStroke((dS, ws, ky) => iconSpace(640, 345, ws, ky).arcSegs(-20, 0, 284, -48, 48, true), 56)
+],[],[30,30]);
 def('×',420,'cap',[o([[20,110],[400,490]]), o([[20,490],[400,110]])],[],[50,50]);
 def('÷',420,'cap',[o([[0,300],[420,300]])],[[210,510],[210,90]],[50,50]);
 def('±',420,'cap',[o([[0,400],[420,400]]), o([[210,220],[210,580]]), o([[0,60],[420,60]])],[],[50,50]);
@@ -1411,6 +1790,7 @@ function glyph(ch, S){
   const hy = penHalf(isFigure || `'"‘’“”‛‟`.includes(ch) ? strokeS : drawS).hy;
   const os = (P.os && OVS.has(bch)) ? OSV : 0;
   const ws = (WIDE.has(bch) ? 1 - (1 - P.ws) * 0.4 : P.ws) * (P.ital ? 0.94 : 1);
+  const ky = (700 - 2*hy + 2*os)/700;
   const mx = x => h + x*ws;
   const my = y => kind === 'cap'
     ? hy - os + y*(700 - 2*hy + 2*os)/700
@@ -1422,12 +1802,34 @@ function glyph(ch, S){
   const seeY = yy => { topO = Math.max(topO, yy + strokeS/2); botO = Math.min(botO, yy - strokeS/2); };
   const stroke = (d, k = 1) => strokePath(d,strokeS*k);
   for(let s of g.shapes){
-    if(s.swFn) s = Object.assign({}, s, { sw: Math.min(1, 80 / drawS) });
-    if(s.fn) s = Object.assign({ raw: s.fn() }, s.sw ? { sw: s.sw } : {});
+    if(s.swFn) s = Object.assign({}, s, {
+      sw: typeof s.swFn === 'number'
+        ? Math.min(1, (drawS > s.swFn ? s.swFn + Math.min(8, (drawS - s.swFn) * 0.1) : drawS) / drawS)
+        : Math.min(1, 80 / drawS)
+    });
+    if(s.fn) s = Object.assign({ raw: s.fn(drawS, ws, ky, hy) }, s.sw ? { sw: s.sw } : {});
+    if(s.fillFn) s = Object.assign({ fill: s.fillFn(drawS, ws, ky, hy), nostroke: s.nostroke }, s.sw ? { sw: s.sw } : {});
     if(s.fill){
-      const parts = Array.isArray(s.fill[0][0]) ? s.fill : [s.fill];      // several outlines = shape with holes
-      const d = parts.map(pp => pp.map((q, i) => { const yy = my(q[1]); seeY(yy); return `${i ? 'L' : 'M'}${f1(mx(q[0]))} ${f1(-yy)}`; }).join('') + 'Z').join('');
-      const sw = s.nostroke ? 0 : strokeS;
+      const isCmdList = pp => Array.isArray(pp) && typeof pp[0]?.[0] === 'string';
+      const parts = (Array.isArray(s.fill[0]?.[0]) && !isCmdList(s.fill)) ? s.fill : [s.fill];   // several outlines = shape with holes
+      const d = parts.map(pp => {
+        if(isCmdList(pp)){
+          let subD = '';
+          const pt = (x,y) => `${f1(mx(x))} ${f1(-my(y))}`;
+          for(const seg of pp){
+            if(seg[0] === 'M'){ subD += `M${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
+            else if(seg[0] === 'L'){ subD += `L${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
+            else if(seg[0] === 'C'){
+              subD += `C${pt(seg[1],seg[2])} ${pt(seg[3],seg[4])} ${pt(seg[5],seg[6])}`;
+              seeY(my(seg[2])); seeY(my(seg[4])); seeY(my(seg[6]));
+            }
+            else if(seg[0] === 'Z'){ subD += 'Z'; }
+          }
+          return subD.endsWith('Z') ? subD : subD + 'Z';
+        }
+        return pp.map((q, i) => { const yy = my(q[1]); seeY(yy); return `${i ? 'L' : 'M'}${f1(mx(q[0]))} ${f1(-yy)}`; }).join('') + 'Z';
+      }).join('');
+      const sw = s.nostroke ? 0 : strokeS * (s.sw || 1);
       body += `<path data-fill="1" d="${d}" fill="currentColor" fill-rule="evenodd" stroke="currentColor" stroke-width="${f1(sw)}" stroke-linejoin="round"/>`;
       continue;
     }
@@ -1436,6 +1838,7 @@ function glyph(ch, S){
       for(const seg of s.raw){
         const pt = (x,y) => `${f1(mx(x))} ${f1(-my(y))}`;
         if(seg[0] === 'M'){ d += `M${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
+        else if(seg[0] === 'L'){ d += `L${pt(seg[1],seg[2])}`; seeY(my(seg[2])); }
         else if(seg[0] === 'Z'){ d += 'Z'; }
         else { d += `C${pt(seg[1],seg[2])} ${pt(seg[3],seg[4])} ${pt(seg[5],seg[6])}`; seeY(my(seg[6])); }
       }

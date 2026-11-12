@@ -3,7 +3,7 @@ import {createHash} from 'node:crypto';
 import {readFileSync} from 'node:fs';
 import {test} from 'node:test';
 import vm from 'node:vm';
-import {beforeReadingCurves} from './reader-curve-scope.mjs';
+import {beforeReadingCurves, beforeSymbols043, REFINED_SYMBOLS_043} from './reader-curve-scope.mjs';
 
 const root = new URL('../', import.meta.url);
 const source = readFileSync(new URL('engine.js', root), 'utf8');
@@ -14,7 +14,8 @@ const historicalInventory = JSON.parse(readFileSync(new URL('tests/fixtures/read
 const fixture039 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.39.json', root), 'utf8'));
 const fixture040 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.40.json', root), 'utf8'));
 const inventory040 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.40-inventory.json', root), 'utf8'));
-const currentFixture = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.41.json', root), 'utf8'));
+const fixture041 = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.41.json', root), 'utf8'));
+const currentFixture = JSON.parse(readFileSync(new URL('tests/fixtures/reader-engine-0.43.json', root), 'utf8'));
 /** Evaluate drawing and export code without a browser or persistent glyph cache. */
 function engine(code = source, options = {}) {
   const document = {getElementById:() => ({insertAdjacentHTML(){}})};
@@ -59,9 +60,12 @@ test('all ten Reader styles retain 0.39 exports outside the three refined drawin
   assert.deepEqual(readerExports(beforeReadingCurves(source), inventory040), fixture039.styles);
 });
 
-test('all ten Reader styles retain exact 0.40 exports and complete 0.41 exports', () => {
+test('all ten Reader styles retain exact 0.40/0.41 exports outside 0.43 symbols and complete 0.43 exports', () => {
+  const preSymbolSource = beforeSymbols043(source);
   assert.deepEqual(settings, fixture040.settings, 'Reader settings must remain unchanged');
-  assert.deepEqual(readerExports(source, inventory040), fixture040.styles);
+  assert.deepEqual(readerExports(preSymbolSource, inventory040), fixture040.styles);
+  assert.deepEqual(settings, fixture041.settings, 'Reader settings must remain unchanged');
+  assert.deepEqual(readerExports(preSymbolSource), fixture041.styles);
   assert.deepEqual(settings, currentFixture.settings, 'Reader settings must remain unchanged');
   assert.deepEqual(readerExports(source), currentFixture.styles);
 });
@@ -71,6 +75,7 @@ const nightWeights = ['Light', 'Regular', 'Medium'].map(style => settings.weight
 
 test('reading curves preserve every advance, bearing, pair and unrelated drawing in all sixteen faces', () => {
   const oldSource = beforeReadingCurves(source);
+  const preSymbolSource = beforeSymbols043(source);
   const changed = new Set();
   for (const italic of [0, 1]) for (const weight of Object.values(settings.weights)) {
     for (const grade of nightWeights.includes(weight) ? [0, -4] : [0]) {
@@ -78,7 +83,7 @@ test('reading curves preserve every advance, bearing, pair and unrelated drawing
         contrast:settings.contrast, xh:settings.xHeight, caprx:settings.capitalRoundness,
         ws:settings.letterWidth, os:+settings.overshoot, ufoot:+settings.uFoot,
         straight:settings.uprightStraightness, asc:settings.ascender};
-      const before = engine(oldSource, options), after = engine(source, options);
+      const before = engine(oldSource, options), after = engine(preSymbolSource, options);
       const snapshot = evaluate => JSON.parse(evaluate(`JSON.stringify({glyphs:exportGlyphs(${weight}),
         alternates:exportAlternates(${weight}), kern:getKern(), basemap:getBaseMap()})`));
       const old = snapshot(before), current = snapshot(after);
@@ -97,6 +102,36 @@ test('reading curves preserve every advance, bearing, pair and unrelated drawing
   }
   // Accented forms plus Cyrillic Dze and italic de reuse these Latin skeletons.
   assert.deepEqual([...changed].sort(), [...'gS?ĝğġģŚŜŞŠȘṠṢЅд'].sort());
+});
+
+test('0.43 symbol refinement changes only the 44 approved symbols while preserving all widths, bearings, kerning and letters', () => {
+  const preSymbolSource = beforeSymbols043(source);
+  const changed = new Set();
+  for (const italic of [0, 1]) for (const weight of Object.values(settings.weights)) {
+    for (const grade of nightWeights.includes(weight) ? [0, -4] : [0]) {
+      const options = {base:weight, ital:italic, grade, round:settings.lowercaseRoundness,
+        contrast:settings.contrast, xh:settings.xHeight, caprx:settings.capitalRoundness,
+        ws:settings.letterWidth, os:+settings.overshoot, ufoot:+settings.uFoot,
+        straight:settings.uprightStraightness, asc:settings.ascender};
+      const before = engine(preSymbolSource, options), after = engine(source, options);
+      const snapshot = evaluate => JSON.parse(evaluate(`JSON.stringify({glyphs:exportGlyphs(${weight}),
+        alternates:exportAlternates(${weight}), kern:getKern(), basemap:getBaseMap()})`));
+      const old = snapshot(before), current = snapshot(after);
+      assert.deepEqual(current.kern, old.kern);
+      assert.deepEqual(current.basemap, old.basemap);
+      assert.deepEqual(current.alternates, old.alternates, 'no alternate may change in 0.43');
+      assert.deepEqual(Object.keys(current.glyphs), Object.keys(old.glyphs));
+      for (const [ch, glyph] of Object.entries(current.glyphs)) {
+        const previous = old.glyphs[ch];
+        assert.equal(glyph.w, previous.w, `${ch} skeleton width must stay frozen`);
+        assert.equal(glyph.sb0, previous.sb0, `${ch} left sidebearing must stay frozen`);
+        assert.equal(glyph.sb1, previous.sb1, `${ch} right sidebearing must stay frozen`);
+        assert.deepEqual(glyph.anchors, previous.anchors, `${ch} anchors must stay frozen`);
+        if (JSON.stringify(glyph) !== JSON.stringify(previous)) changed.add(ch);
+      }
+    }
+  }
+  assert.deepEqual([...changed].sort(), [...REFINED_SYMBOLS_043].sort());
 });
 
 test('g shares the d/q bowl and S/question use continuous curves', () => {
