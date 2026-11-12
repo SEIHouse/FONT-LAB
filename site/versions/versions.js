@@ -311,10 +311,14 @@
       if (seq !== renderSeq) return;
       renderCard('left', leftEntry, leftSel, leftFamily);
       renderCard('right', rightEntry, rightSel, rightFamily);
-      byId('load-status').textContent = `Comparing ${leftEntry.label} and ${rightEntry.label}.`;
+      const statusEl = byId('load-status');
+      statusEl.textContent = `Comparing ${leftEntry.label} and ${rightEntry.label}.`;
+      statusEl.className = 'sr-only';
     } catch {
       if (seq !== renderSeq) return;
-      byId('load-status').textContent = 'Could not load one of the archived font files.';
+      const statusEl = byId('load-status');
+      statusEl.textContent = 'Could not load one of the archived font files. Displaying fallback font.';
+      statusEl.className = 'load-error-visible';
     }
   }
 

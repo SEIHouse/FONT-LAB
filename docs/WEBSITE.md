@@ -124,7 +124,7 @@ web fonts into `old/` and refresh `site/versions.json` + homepage version badges
 
 ```sh
 # Snapshot current Sans web faces into old/<version>/ before bumping phase4.json:
-python archive_version.py --snapshot-sans 0.42
+python archive_version.py --snapshot-sans
 
 # Snapshot current Display cuts into old/display/<milestone-slug>/:
 python archive_version.py --snapshot-display 0.1-step7

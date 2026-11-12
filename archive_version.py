@@ -582,14 +582,21 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
     for folder in archived_dirs:
         ver = folder.name
         faces, caps = collect_sans_faces(folder, f'old/{ver}')
-        # Verify against folder SHA256.json if present
         sha_file = folder / 'SHA256.json'
-        if sha_file.exists():
-            recorded = json.loads(sha_file.read_text(encoding='utf-8'))
-            for face in faces:
-                fname = Path(face['path']).name
-                if fname in recorded and recorded[fname] != face['sha256']:
-                    raise ValueError(f'SHA-256 mismatch for {face["path"]} against {sha_file}')
+        if not sha_file.exists():
+            raise FileNotFoundError(f'Missing checksum file {sha_file}')
+        recorded = json.loads(sha_file.read_text(encoding='utf-8'))
+        face_names = {Path(face['path']).name for face in faces}
+        recorded_names = set(recorded.keys())
+        if face_names != recorded_names:
+            raise ValueError(
+                f'Archived faces in {folder} do not match {sha_file}: '
+                f'missing={sorted(recorded_names - face_names)}, unexpected={sorted(face_names - recorded_names)}'
+            )
+        for face in faces:
+            fname = Path(face['path']).name
+            if recorded[fname] != face['sha256']:
+                raise ValueError(f'SHA-256 mismatch for {face["path"]} against {sha_file}')
         meta = {
             **existing_sans.get(ver, {}),
             **SANS_METADATA.get(ver, {}),
@@ -681,18 +688,29 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
         ordered_ids = extra_ids + [k for k in known_order if k in found_dirs]
         for mid in ordered_ids:
             m_dir = found_dirs[mid]
-            m_faces = []
             sha_file = m_dir / 'SHA256.json'
-            recorded = json.loads(sha_file.read_text(encoding='utf-8')) if sha_file.exists() else {}
+            if not sha_file.exists():
+                raise FileNotFoundError(f'Missing checksum file {sha_file}')
+            recorded = json.loads(sha_file.read_text(encoding='utf-8'))
+            m_faces = []
+            found_cuts = {}
             for slug, cut_name in DISPLAY_CUTS:
                 fname = f'SEIHouseDisplay-{cut_name}.woff2'
                 fpath = m_dir / fname
-                if not fpath.exists():
-                    continue
+                if fpath.exists():
+                    found_cuts[fname] = (slug, cut_name, fpath)
+            found_names = set(found_cuts.keys())
+            recorded_names = set(recorded.keys())
+            if found_names != recorded_names:
+                raise ValueError(
+                    f'Archived display cuts in {m_dir} do not match {sha_file}: '
+                    f'missing={sorted(recorded_names - found_names)}, unexpected={sorted(found_names - recorded_names)}'
+                )
+            for fname, (slug, cut_name, fpath) in found_cuts.items():
                 data = fpath.read_bytes()
                 verify_woff2(data, str(fpath))
                 digest = sha256_bytes(data)
-                if fname in recorded and recorded[fname] != digest:
+                if recorded[fname] != digest:
                     raise ValueError(f'SHA-256 mismatch for {fpath} against {sha_file}')
                 m_faces.append({
                     'cut': slug,
@@ -798,7 +816,13 @@ def snapshot_current_sans(title: str, summary: str) -> None:
         if src.exists():
             data = src.read_bytes()
             verify_woff2(data, str(src))
-            (dest_dir / fname).write_bytes(data)
+            target_file = dest_dir / fname
+            if target_file.exists() and target_file.read_bytes() != data:
+                raise ValueError(
+                    f'Conflicting snapshot: {fname} already exists in {dest_dir} with different contents. '
+                    f'Bump phase4.json version before snapshotting new fonts.'
+                )
+            target_file.write_bytes(data)
             hashes[fname] = sha256_bytes(data)
     for meta_name in ('settings.json', 'phase4.json'):
         if (ROOT / meta_name).exists():
@@ -825,7 +849,13 @@ def snapshot_current_display(milestone_id: str, title: str, summary: str) -> Non
         src = ROOT / 'display' / 'fonts' / slug / fname
         data = src.read_bytes()
         verify_woff2(data, str(src))
-        (dest_dir / fname).write_bytes(data)
+        target_file = dest_dir / fname
+        if target_file.exists() and target_file.read_bytes() != data:
+            raise ValueError(
+                f'Conflicting snapshot: {fname} already exists in {dest_dir} with different contents. '
+                f'Choose a new milestone id.'
+            )
+        target_file.write_bytes(data)
         hashes[fname] = sha256_bytes(data)
     write_lf(dest_dir / 'SHA256.json', json.dumps(dict(sorted(hashes.items())), indent=2) + '\n')
     write_lf(

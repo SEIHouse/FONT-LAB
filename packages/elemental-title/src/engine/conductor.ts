@@ -443,6 +443,7 @@ export function createConductor(options: ConductorOptions): Conductor {
       moment,
       setTimeout(
         () => {
+          if (stopped) return;
           // Plan the next occurrence before telling the host, so a throwing
           // listener can never end the schedule.
           const timeline = begin(moment, false);
@@ -543,6 +544,9 @@ export function createConductor(options: ConductorOptions): Conductor {
       // Starting twice never counts a title twice.
       leaveAmbient?.();
       leaveAmbient = undefined;
+      for (const timer of plans.values()) clearTimeout(timer);
+      plans.clear();
+      stopped = false;
       if (options.engaged && budgeted) leaveAmbient = coordinator.joinAmbient(ambientRate(program));
       if (options.engaged) for (const moment of Object.keys(program.cadence)) plan(moment, true);
       if (options.interactive && options.engaged) touch();

@@ -217,10 +217,16 @@ export function createStageCoordinator({
         release(previous.contender);
         previous.contender.preempt();
       }
+      current = { contender, kind: request.kind };
       if (contender.begin(request.kind, request.signature)) {
-        winner = contender;
-        current = { contender, kind: request.kind };
-        memory(contender.key).lastStart = now();
+        if (current?.contender === contender) {
+          winner = contender;
+          memory(contender.key).lastStart = now();
+        }
+      } else {
+        if (current?.contender === contender) {
+          current = null;
+        }
       }
     }
   };

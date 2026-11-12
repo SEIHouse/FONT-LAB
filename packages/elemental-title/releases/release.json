@@ -2,9 +2,9 @@
   "name": "@seihouse/elemental-title",
   "version": "0.1.0",
   "filename": "seihouse-elemental-title-0.1.0.tgz",
-  "bytes": 72219,
-  "sha256": "7f66a285ed53ed37df61c16fd79c12558ec472888f644506bc2feb488bf99e37",
-  "integrity": "sha512-0hoQV5H0EbJH8vOZAXMu8EKvhSYTgx1CRFlzekOixYBSxHwPICj3zu8WguKKsXab7Ub4RxR+mpb7HHmLcqcaJw==",
+  "bytes": 72257,
+  "sha256": "8ef706ac625c6c40e982a907939ea8f3392c42761f3a5b74f02d1b19288acb92",
+  "integrity": "sha512-hWsV6vWd1lqjiSSA8mhtVvTbGDrN2Wu6rWo4nAVDfqEDY+CMZ7Kgd/c5W6bJY5gZZEb7OMIdEBG/AIoqVxBeDQ==",
   "provenance": {
     "schema": 1,
     "package": "@seihouse/elemental-title",
@@ -35,8 +35,8 @@
       "engine/PoisonMaterial.tsx": "5517134610122d09b3b57192b07e43622fd3fe40d842acdf1a9b1ee23a519905",
       "engine/WaterMaterial.tsx": "0c61df8955c65b4cd2e913cea29d73b600afd9660c048329ddecf163f26f5724",
       "engine/anchors.ts": "f27089f9c1e81bf504c82b65cf31fdb29044b7e00855150ef109bb9d03168c67",
-      "engine/conductor.ts": "eba99e06dff5d1e20c5fde1021e39c0ed3e9b211a999b67d57d1d7e9f39e447e",
-      "engine/coordinator.ts": "4f444f4fb65024da3cd689a576341a8caf4d45a73c1fd398662a586d1c9d3fdf",
+      "engine/conductor.ts": "a31ac8be988bfe7cdc8d6392b0bd35cf60d0ef7f5d742ea887107a5b9929ab5d",
+      "engine/coordinator.ts": "d908e555ed07ea3b7358a8a863ac13dbecedef56509044c8fe909fde9328047c",
       "engine/effects.ts": "70c8fc2bde978ac06cfe2832458a79c617396f680131ad857e576284e199bcbe",
       "engine/frames.ts": "f2be5d428e0d06dfee29ee830471f074e2116a5a5c444d14bb9075fe68d0f278",
       "engine/geometry.ts": "0e73420ea6d4c4009bb34635f42bc4e9989baaf1709e090a725926b6d48ee7da",
@@ -64,7 +64,7 @@
       "public.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58"
     },
     "outputs": {
-      "index.js": "82de230385241dc8a7bdb49feadcebeef24b9347fb270175b065ec5c847dd968",
+      "index.js": "4bd38d59c0efaca0b52cdead5c9079762e44d0c3a945ecd586dbe354c092861a",
       "index.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58",
       "styles.css": "fec57d6023ee03dcba3ce1b27d35ba5fd06608a5da944efbc2b256fcbd64a848"
     }
