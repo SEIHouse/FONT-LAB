@@ -103,4 +103,19 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
                 v = value(a, b)
                 if abs(v - pairs.get((a, base), 0)) >= 8:
                     exceptions[(a, b)] = v
+    # Any pair with an accented letter must also keep clear ink.
+    def base(c):
+        return groups.get(c, c)
+
+    for a in prof:
+        for b in prof:
+            if (a in groups or b in groups) and (a, b) not in exceptions:
+                ra, lb = prof[a][1], prof[b][0]
+                both = np.isfinite(ra) & np.isfinite(lb)
+                if not both.any():
+                    continue
+                current = pairs.get((base(a), base(b)), 0)
+                need = int(np.ceil(clear - float((ra[both] + lb[both]).min())))
+                if current < need:
+                    exceptions[(a, b)] = need
     return pairs, exceptions

@@ -155,7 +155,8 @@ class RedrawTests(unittest.TestCase):
             for pair in ['nn', 'oo', 'HH', 'il']:
                 self.assertEqual(width(pair), width(pair, False), f'{style} {pair}')
             # Kerned neighbours keep clear ink, also under accents and overhangs.
-            for text in ['To', 'Tö', 'Tï', 'Vé', 'fï', 'f)', 'f”', 'AV', 'Wa', 'r.', 'LT', 'Yo', '(j', 'gj']:
+            for text in ['To', 'Tö', 'Tï', 'Vé', 'fï', 'f)', 'f”', 'AV', 'Wa', 'r.', 'LT', 'Yo', '(j', 'gj',
+                         'ïï', 'îî', 'ĩĩ', 'īī', 'ĭĭ', 'ïl', 'lï', 'ťď', 'ľľ', 'řï', 'ÏÏ', 'ŤÖ', 'ÿï', 'őő']:
                 buffer = shape(text)
                 a, b = (outline(font, order[info.codepoint]) for info in buffer.glyph_infos)
                 shift = buffer.glyph_positions[0].x_advance

@@ -458,6 +458,7 @@ def extended(sh):
         ogonek=ribbon("M-4 14 C-58 -22 -94 -62 -94 -110 C-94 -160 -46 -184 16 -164", flat(58), {0: 1.1, 2: .9}),
         commabelow=below,
     )
+    narrow_dots = union(oval(-112, 14, -22, 104, .62), oval(22, 14, 112, 104, .62))
     turned = rotate180(below, 0, -120)                 # for g-cedilla
     apostrophe = poly((0, 0), (70*wt, 0), (46*wt, -176), (12*wt, -176))
 
@@ -491,6 +492,9 @@ def extended(sh):
                 g[ch] = (width, union(path, soften(move(turned, anchor('g', 'acute', x0, x1), X+312), lc)))
                 return
         x = anchor(base, kind, x0, x1)
+        if kind not in BELOW and x1-x0 < 150:
+            # A one-stem base carries a narrower accent, so neighbours' accents stay apart.
+            shape = narrow_dots if kind == 'dieresis' else shape.transform(.8, 0, 0, 1, 0, 0) if kind != 'dot' else shape
         if kind in BELOW:
             placed = move(shape, x, 0)
         elif y1 <= X+OV+12:
@@ -498,6 +502,13 @@ def extended(sh):
         else:
             flatter = shape.transform(1, 0, 0, .86, 0, 0)
             placed = move(flatter, x, (CAP if base.isupper() else ASC)+38)
+        if kind not in BELOW:
+            # Keep every accent inside its own advance, widening the letter if it must.
+            margin = 14
+            px0, _, px1, _ = placed.bounds
+            left, right = max(0, margin-px0), max(0, px1-(width-margin))
+            if left or right:
+                path, placed, width = move(path, left), move(placed, left), round(width+left+right)
         g[ch] = (width, union(path, soften(placed, lc)))
         sh.groups[ch] = base if base not in 'ıȷ' else {'ı': 'i', 'ȷ': 'j'}[base]
 
