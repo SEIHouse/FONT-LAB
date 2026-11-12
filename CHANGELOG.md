@@ -8,8 +8,8 @@ Newest first.
   beside the existing Regular pair. Each uses the same `NIGHT_GRADE = -4`: reading
   strokes go from `74` to `70` in Light and `97` to `93` in Medium, as Regular goes
   from `85` to `81`. Every Night face keeps its Day face's exact advance widths
-  (`hmtx`) and kerning, so line breaks never reflow when a reader changes weight or
-  toggles Day and Night. The `"SEIHouse Sans Night"` / `"SEIReader Night"` CSS family
+  (`hmtx`) and kerning, so line breaks never reflow when a reader toggles Day and
+  Night at any of the three weights. The `"SEIHouse Sans Night"` / `"SEIReader Night"` CSS family
   now holds weights 300, 400 and 500, so `--seihouse-sans-regular-family` /
   `--seireader-regular-family` grades all three body weights in dark themes; SemiBold
   and Bold keep the Day family. Added full `.otf`/`.woff2` faces and 28 Unicode-range
