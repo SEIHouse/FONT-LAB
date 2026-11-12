@@ -1,10 +1,10 @@
 {
   "name": "@seihouse/living-titles",
-  "version": "0.1.3",
-  "filename": "seihouse-living-titles-0.1.3.tgz",
-  "bytes": 666001,
-  "sha256": "154d217dfd43162582e54a8d6bb67fc0d6e9be3dd477af88e4245f246892c2d9",
-  "integrity": "sha512-qYSsopHDi9XuN9kE87u+ZGcBRz9o/HSEjty0Sfa20ZXKQxFpVGQoru7Yb4Rwg33TodEh/Wjz98tZeaKLhaWJGg==",
+  "version": "0.1.4",
+  "filename": "seihouse-living-titles-0.1.4.tgz",
+  "bytes": 666956,
+  "sha256": "70d8b0c430cf7caac6c8c3a5229ff989047b454f7314e0bec50b3a8597d6feb8",
+  "integrity": "sha512-ZJNK6i+w2m/q7m0ssbmz6WCqmzXaPeK2SmnaKyLx+5uQJQXDECei07dny80o+AKWnNudrwGs8dWIRBNoo4/ufw==",
   "provenance": {
     "schema": 2,
     "profiles": [
@@ -15,27 +15,27 @@
     ],
     "cuts": {
       "soft": {
-        "source_sha256": "c712e5e0d5dda86f01b8b55b77144fd8ad63bffa2718738759946a89af1dbddf",
-        "fixture_sha256": "a96b8f74331ffd055e7a7fdec56951e6e1d72a2744bacddfbc4a3e073a16c89b"
+        "source_sha256": "4e94334f0b6fdc59b95ec377e29135377f6c862333396844ab7d054f52a9859f",
+        "fixture_sha256": "7e7e771a3cd3443b6de68f053c88be1e0e24918c5758d4c1aa54d1cf8c770367"
       },
       "edge": {
-        "source_sha256": "1a1bac6096f6cdd8a0e7b266ab6656b73f5f31b7c834871d47aefac90379fe9e",
-        "fixture_sha256": "ef2398f3c405a3edad01a99becae96ede7d473fd71aa27277a6214ab105e57ac"
+        "source_sha256": "725d5d037ff0ecb159b7e5992d01081b2bc6933f33ea4621c3f049903faeacd3",
+        "fixture_sha256": "13ee970cb14d9aebf80a80f8cff7cd13c7256008c67a7072227e3b98ae25e7f3"
       },
       "ink": {
-        "source_sha256": "b4b36fbee68dd734fec5f74cd33cf9612799a886411949842a9764effcd1791a",
-        "fixture_sha256": "18c6d8e98170cf97706558ff59e6c71b54c319d1c89d7eed57897ac65ff8d610"
+        "source_sha256": "3cbc82a4f06e47b0befe5079c491ff21927a784426605baa5699fe144dece175",
+        "fixture_sha256": "6c99900d04e495620f5513324d30e34fb7a1553c2b1df7c0b945bee2d7b8e50d"
       },
       "wide": {
-        "source_sha256": "f0f2689386e9f091ac211c103c94878eaf303e3ad2afb0d238dc93becd84eabb",
-        "fixture_sha256": "1dc5cb9529d3fb819809350e76e239b6c70e00ac096b0344052ea42024c60ca8"
+        "source_sha256": "4b65c16bd8b104c08a8ccbd4c53eaae4390b1715b642507a95cd6b2db60c182d",
+        "fixture_sha256": "45e82ab9743c3feab940d49656beb58e8a4b3cc2ed649a2ed55ea28b059d3155"
       }
     },
     "fonts": {
-      "SEIHouseDisplay-Edge.woff2": "0b77572b9f4178d313079e9fb1f7488658291d53332631344b58189582e68a0e",
-      "SEIHouseDisplay-Ink.woff2": "00f8177601307373e11f0726a43a628d37ef58f4a20347c95a8b7ea8dfea3192",
-      "SEIHouseDisplay-Soft.woff2": "e92d0713376079d2cb4c4c377c42d02919d69fbd59351145ca548051b814144f",
-      "SEIHouseDisplay-Wide.woff2": "09fb18bfecada426eb0bcfe39f92a4fb978955385a76742f953642b920dea50a"
+      "SEIHouseDisplay-Edge.woff2": "35185da80dfab6fa4bb4e8af12198ee69dd0081bc7fdae791067f265563fff99",
+      "SEIHouseDisplay-Ink.woff2": "c5e5e1ad9e1e71b22c1fe06898f3ae6f3287bf8ceeb7a75480e127228eeab38f",
+      "SEIHouseDisplay-Soft.woff2": "d30dd08893c3e352e38816275e7a256025fb9f3fed5febd4a6d9fd6a08f5f213",
+      "SEIHouseDisplay-Wide.woff2": "665fd927c34ac9e5127921f495b1b0b25a53afded1364600649497c359840c4b"
     }
   },
   "files": [

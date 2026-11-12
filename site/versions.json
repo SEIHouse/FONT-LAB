@@ -5,22 +5,22 @@
       "id": "sans",
       "name": "SEIHouse Sans",
       "subtitle": "Long-form chapter reading & interface typeface",
-      "currentVersion": "0.42",
+      "currentVersion": "0.43",
       "defaultCompareVersion": "0.39",
       "workspaceUrl": "../../lab/index.html",
       "workspaceLabel": "Open Reader Lab",
       "versions": [
         {
-          "version": "0.42",
-          "label": "SEIHouse Sans 0.42",
-          "shortTitle": "Light & Medium Night-mode grades",
+          "version": "0.43",
+          "label": "SEIHouse Sans 0.43",
+          "shortTitle": "Custom studio web-novel & music symbols",
           "date": "2026-11-12",
           "current": true,
-          "summary": "Added Night-mode optical grades for Light and Medium alongside Regular so all three reading weights soften glare on dark screens without changing letter widths or shifting line breaks.",
+          "summary": "Redrew all 44 custom monochrome brand, cultivation, web-novel, player, and music icons (including Ⓢ, ☯, ⚡, ⚔, ☆, ♡, 🎧, 🎤, 💿, 🔊, 🔔, ⚙) with true geometric circles and smooth cubic curves for 16px reading and 400px Display titles, without changing any character widths or line breaks.",
           "highlights": [
-            "6 Night-mode faces across Light, Regular, and Medium (upright and real italic)",
-            "Exact Day-mode character widths and kerning so toggling Day/Night never reflows a page",
-            "16 full web faces covering 148 verified languages across Latin, Cyrillic, Greek, and Vietnamese"
+            "True non-squished circle around the smooth 0.40 S curve in Ⓢ across every weight and width",
+            "Custom studio-craft Yin-Yang, lightning, crossed swords, stars, hearts, headphones, mic, disc, speaker, bell, gear, and music notation",
+            "Zero line-break reflow: 100% of letter shapes, advances, and kerning preserved identically"
           ],
           "capabilities": {
             "weights": [
@@ -44,11 +44,185 @@
               "weight": 300,
               "style": "normal",
               "night": false,
+              "bytes": 74136,
+              "sha256": "a33d406ddfc6fd8f9bbb33a9e7ec1e3b0c02accef9e4accaa16240237000edbd"
+            },
+            {
+              "path": "fonts/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 77828,
+              "sha256": "00c222a102ed1e38e6e54bfa7e442bba4cb9f16dc21328a7a7a223a5421b6f3c"
+            },
+            {
+              "path": "fonts/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 72688,
+              "sha256": "17bca0d9c1e842389609ebc5ca956ba823c0271c1218b7af53f7aab2296aeeaa"
+            },
+            {
+              "path": "fonts/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 76196,
+              "sha256": "655665941e93a57d8f0b8d0da018add80e9c6be350fc5d885238789692a3672b"
+            },
+            {
+              "path": "fonts/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 72452,
+              "sha256": "df2e210f3dc1dc6307b63fbb02bf7d27412e11240e8caf8e60692240ac940bcb"
+            },
+            {
+              "path": "fonts/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 76608,
+              "sha256": "57ad94f86dafb99039e991a5e8a339874fb4b3a3e15e360b6166c4fcc768318b"
+            },
+            {
+              "path": "fonts/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 72488,
+              "sha256": "ffd562084a2223d371f1d040035d313bdc343cf509c966c1e5651938a6b8af95"
+            },
+            {
+              "path": "fonts/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 77368,
+              "sha256": "75948f228ece2f30b47ccd4a0d38d2ef6ab5fd00c726006032e0049e0faf865b"
+            },
+            {
+              "path": "fonts/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 72848,
+              "sha256": "e3fbc909dbdfbac5d2b22adf1260c6644d58fbd65fef3a9d4ea7948ab18e364a"
+            },
+            {
+              "path": "fonts/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 76416,
+              "sha256": "21d4034db0b0574d318384f694811c8a9430624d9e57fed4fdc8a4b8fd6eac4c"
+            },
+            {
+              "path": "fonts/SEIReader-LightNight.woff2",
+              "styleName": "LightNight",
+              "weight": 300,
+              "style": "normal",
+              "night": true,
+              "bytes": 73660,
+              "sha256": "a534a170317657859bf930205230f87291bd6a572a00de2d4366911c940cffb6"
+            },
+            {
+              "path": "fonts/SEIReader-LightItalicNight.woff2",
+              "styleName": "LightItalicNight",
+              "weight": 300,
+              "style": "italic",
+              "night": true,
+              "bytes": 77264,
+              "sha256": "e9df44e3602f8de3cf9834bf8e7127ddfb0bc0e26f71843ddc12d1aaa4aed657"
+            },
+            {
+              "path": "fonts/SEIReader-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 73500,
+              "sha256": "999799986afc6775affe7c326654801f13d1dfb368744bea1ad08a1e4d57650e"
+            },
+            {
+              "path": "fonts/SEIReader-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 76816,
+              "sha256": "4760403a5a11c2cf65948e3f374d9f0dc97c6f03e2e9df0635000c009db87386"
+            },
+            {
+              "path": "fonts/SEIReader-MediumNight.woff2",
+              "styleName": "MediumNight",
+              "weight": 500,
+              "style": "normal",
+              "night": true,
+              "bytes": 72508,
+              "sha256": "9be039977eb82b1f9ec07e966483b652f49957d4155359b39168ded6e1cae69f"
+            },
+            {
+              "path": "fonts/SEIReader-MediumItalicNight.woff2",
+              "styleName": "MediumItalicNight",
+              "weight": 500,
+              "style": "italic",
+              "night": true,
+              "bytes": 76204,
+              "sha256": "415320f275de31b2145c02da36d25c037f8c7041c892394a7c4b4864d2ad6ddc"
+            }
+          ]
+        },
+        {
+          "version": "0.42",
+          "label": "SEIHouse Sans 0.42",
+          "shortTitle": "Light & Medium Night-mode grades",
+          "date": "2026-11-12",
+          "current": false,
+          "summary": "Added Night-mode optical grades for Light and Medium alongside Regular so all three reading weights soften glare on dark screens without changing letter widths or shifting line breaks.",
+          "highlights": [
+            "6 Night-mode faces across Light, Regular, and Medium (upright and real italic)",
+            "Exact Day-mode character widths and kerning so toggling Day/Night never reflows a page",
+            "16 full web faces covering 148 verified languages across Latin, Cyrillic, Greek, and Vietnamese"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": [
+              300,
+              400,
+              500
+            ]
+          },
+          "faces": [
+            {
+              "path": "old/0.42/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
               "bytes": 74840,
               "sha256": "a3e86a926081b8362672112022649cac54331a25f498017c63e0151ea8bb790d"
             },
             {
-              "path": "fonts/SEIReader-LightItalic.woff2",
+              "path": "old/0.42/SEIReader-LightItalic.woff2",
               "styleName": "LightItalic",
               "weight": 300,
               "style": "italic",
@@ -57,7 +231,7 @@
               "sha256": "e5d26a732e19fa5d24f4c4b5edf31b927ccac160cc7d8667f1a3984d6c53bfab"
             },
             {
-              "path": "fonts/SEIReader-Regular.woff2",
+              "path": "old/0.42/SEIReader-Regular.woff2",
               "styleName": "Regular",
               "weight": 400,
               "style": "normal",
@@ -66,7 +240,7 @@
               "sha256": "9178eb5e2311e6f9697c1238b491e6ae5923c2691dc559c40d45b25dd3896f14"
             },
             {
-              "path": "fonts/SEIReader-Italic.woff2",
+              "path": "old/0.42/SEIReader-Italic.woff2",
               "styleName": "Italic",
               "weight": 400,
               "style": "italic",
@@ -75,7 +249,7 @@
               "sha256": "04eb16b5e11a6e52bf51cd34b45528e15ff5ed4dc8d7e429e100e16ef7657e6c"
             },
             {
-              "path": "fonts/SEIReader-Medium.woff2",
+              "path": "old/0.42/SEIReader-Medium.woff2",
               "styleName": "Medium",
               "weight": 500,
               "style": "normal",
@@ -84,7 +258,7 @@
               "sha256": "eb50cda2cc224a52ec7addfb83b72eade5070495965d9156bd9f5848ce39e8f6"
             },
             {
-              "path": "fonts/SEIReader-MediumItalic.woff2",
+              "path": "old/0.42/SEIReader-MediumItalic.woff2",
               "styleName": "MediumItalic",
               "weight": 500,
               "style": "italic",
@@ -93,7 +267,7 @@
               "sha256": "d9eabef0f6176256116566771cb36435790e272e99103d38265c34b188a7c84d"
             },
             {
-              "path": "fonts/SEIReader-SemiBold.woff2",
+              "path": "old/0.42/SEIReader-SemiBold.woff2",
               "styleName": "SemiBold",
               "weight": 600,
               "style": "normal",
@@ -102,7 +276,7 @@
               "sha256": "90d866c33e83ab776ab0bfa1d1d38382d1091d21211cb03040a6ff19a4340f13"
             },
             {
-              "path": "fonts/SEIReader-SemiBoldItalic.woff2",
+              "path": "old/0.42/SEIReader-SemiBoldItalic.woff2",
               "styleName": "SemiBoldItalic",
               "weight": 600,
               "style": "italic",
@@ -111,7 +285,7 @@
               "sha256": "aafce0484885e662d1709b66723a3ae42c074b0339077e8d9232216eef6ee8ea"
             },
             {
-              "path": "fonts/SEIReader-Bold.woff2",
+              "path": "old/0.42/SEIReader-Bold.woff2",
               "styleName": "Bold",
               "weight": 700,
               "style": "normal",
@@ -120,7 +294,7 @@
               "sha256": "1b4af5a2891075f914735aee4984a8e1709fb597f81e1a5f2fce5061e32088aa"
             },
             {
-              "path": "fonts/SEIReader-BoldItalic.woff2",
+              "path": "old/0.42/SEIReader-BoldItalic.woff2",
               "styleName": "BoldItalic",
               "weight": 700,
               "style": "italic",
@@ -129,7 +303,7 @@
               "sha256": "26f152be77984e278188bcbdca3744442376c90aa3b1d596f1300e53e878cd48"
             },
             {
-              "path": "fonts/SEIReader-LightNight.woff2",
+              "path": "old/0.42/SEIReader-LightNight.woff2",
               "styleName": "LightNight",
               "weight": 300,
               "style": "normal",
@@ -138,7 +312,7 @@
               "sha256": "636c3312ace082e81440493659f7f76454868a6cfc5be4646b9e47d6a5e1de9b"
             },
             {
-              "path": "fonts/SEIReader-LightItalicNight.woff2",
+              "path": "old/0.42/SEIReader-LightItalicNight.woff2",
               "styleName": "LightItalicNight",
               "weight": 300,
               "style": "italic",
@@ -147,7 +321,7 @@
               "sha256": "b79f6bf54bee9e536d46d42e027d8b0250bde52e432dea246574f10e186f25fb"
             },
             {
-              "path": "fonts/SEIReader-RegularNight.woff2",
+              "path": "old/0.42/SEIReader-RegularNight.woff2",
               "styleName": "RegularNight",
               "weight": 400,
               "style": "normal",
@@ -156,7 +330,7 @@
               "sha256": "0ea227c5f17e765714a96dc195b025e48958265b634764d77216e12dc63cd264"
             },
             {
-              "path": "fonts/SEIReader-ItalicNight.woff2",
+              "path": "old/0.42/SEIReader-ItalicNight.woff2",
               "styleName": "ItalicNight",
               "weight": 400,
               "style": "italic",
@@ -165,7 +339,7 @@
               "sha256": "6256ae3fd4a327028d749de5c905788ea1378d767b58afd0111344fe7deaa577"
             },
             {
-              "path": "fonts/SEIReader-MediumNight.woff2",
+              "path": "old/0.42/SEIReader-MediumNight.woff2",
               "styleName": "MediumNight",
               "weight": 500,
               "style": "normal",
@@ -174,7 +348,7 @@
               "sha256": "373202e1a91693209cd42ea2474c3854f96f2dd2dd8d4ccfc52014bb84fbc76c"
             },
             {
-              "path": "fonts/SEIReader-MediumItalicNight.woff2",
+              "path": "old/0.42/SEIReader-MediumItalicNight.woff2",
               "styleName": "MediumItalicNight",
               "weight": 500,
               "style": "italic",
@@ -2022,7 +2196,7 @@
       "name": "Title Engine · Display",
       "subtitle": "Covers, chapter headers, posters & Living Titles",
       "currentVersion": "0.1",
-      "livingTitlesVersion": "0.1.3",
+      "livingTitlesVersion": "0.1.4",
       "defaultCompareVersion": "0.1-initial",
       "cuts": [
         {
@@ -2047,15 +2221,15 @@
       "versions": [
         {
           "version": "0.1",
-          "label": "Display 0.1 · Current (Living Titles 0.1.3)",
-          "shortTitle": "Refined curves, 148 locales & certified Living Titles",
-          "date": "2026-11-11",
+          "label": "Display 0.1 · Current (Living Titles 0.1.4)",
+          "shortTitle": "Studio symbol craft, 148 locales & certified Living Titles",
+          "date": "2026-11-12",
           "current": true,
-          "summary": "All four cuts (Soft, Edge, Ink, Wide) share the latest smooth reading curves, 148-language character set, stylistic alternates, compiled title kerning, and certified Living Title motion.",
+          "summary": "All four cuts (Soft, Edge, Ink, Wide) inherit the 0.43 studio-crafted symbol suite with true non-distorted circles and smooth 400px silhouettes, alongside 148-language coverage, stylistic alternates, compiled title kerning, and certified Living Title motion.",
           "highlights": [
+            "True 1:1 geometric circles and custom 400px studio symbols across Soft, Edge, Ink, and Wide",
             "Inherits Sans 0.40 smooth g/S/? curves and 0.41 rare Latin/African/Celtic characters",
-            "Per-cut motion certification and flat-nib / true-italic Lab authoring",
-            "Ships static OTF/WOFF2 cuts plus the @seihouse/living-titles 0.1.3 runtime"
+            "Ships static OTF/WOFF2 cuts plus the @seihouse/living-titles 0.1.4 runtime"
           ],
           "faces": [
             {
@@ -2064,13 +2238,64 @@
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
               "weight": 400,
               "style": "normal",
+              "bytes": 92236,
+              "sha256": "d30dd08893c3e352e38816275e7a256025fb9f3fed5febd4a6d9fd6a08f5f213"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 73556,
+              "sha256": "35185da80dfab6fa4bb4e8af12198ee69dd0081bc7fdae791067f265563fff99"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 89644,
+              "sha256": "c5e5e1ad9e1e71b22c1fe06898f3ae6f3287bf8ceeb7a75480e127228eeab38f"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 86748,
+              "sha256": "665fd927c34ac9e5127921f495b1b0b25a53afded1364600649497c359840c4b"
+            }
+          ]
+        },
+        {
+          "version": "0.1-pre-symbols",
+          "label": "Display 0.1 · Milestone 7 (Pre-0.43 Symbols)",
+          "shortTitle": "Refined curves, 148 locales & certified Living Titles 0.1.3",
+          "date": "2026-11-11",
+          "current": false,
+          "summary": "Snapshot of Soft, Edge, Ink, and Wide immediately prior to the 0.43 studio symbol redraw pass.",
+          "highlights": [
+            "Inherits Sans 0.40 smooth g/S/? curves and 0.41 rare Latin/African/Celtic characters",
+            "Per-cut motion certification and flat-nib / true-italic Lab authoring",
+            "Preserved baseline for side-by-side 400px Display symbol comparison"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-pre-symbols/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
               "bytes": 93156,
               "sha256": "e92d0713376079d2cb4c4c377c42d02919d69fbd59351145ca548051b814144f"
             },
             {
               "cut": "edge",
               "cutLabel": "Edge",
-              "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
+              "path": "old/display/0.1-pre-symbols/SEIHouseDisplay-Edge.woff2",
               "weight": 400,
               "style": "normal",
               "bytes": 72656,
@@ -2079,7 +2304,7 @@
             {
               "cut": "ink",
               "cutLabel": "Ink",
-              "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
+              "path": "old/display/0.1-pre-symbols/SEIHouseDisplay-Ink.woff2",
               "weight": 400,
               "style": "normal",
               "bytes": 90472,
@@ -2088,7 +2313,7 @@
             {
               "cut": "wide",
               "cutLabel": "Wide",
-              "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
+              "path": "old/display/0.1-pre-symbols/SEIHouseDisplay-Wide.woff2",
               "weight": 400,
               "style": "normal",
               "bytes": 88004,

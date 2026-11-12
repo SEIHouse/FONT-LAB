@@ -19,7 +19,7 @@ from verify_latin import CLUSTERS, MARKS, shape
 from verify_lowercase import recorded
 
 ROOT = Path(__file__).resolve().parent
-FIXTURE = ROOT/'tests/fixtures/reader-0.42-identity.json'
+FIXTURE = ROOT/'tests/fixtures/reader-0.43-identity.json'
 LEGACY_FIXTURE = ROOT/'tests/fixtures/reader-0.35-original-glyphs.json'
 CURVE_CHANGES = ROOT/'tests/fixtures/reader-curves-changes.json'
 CUTS = ('soft', 'edge', 'ink', 'wide')

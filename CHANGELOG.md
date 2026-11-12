@@ -2,6 +2,23 @@
 
 Newest first.
 
+- **Monochrome studio symbol refinement, Sans 0.43 & Living Titles 0.1.4 (2026-11-12)**
+  Redrew and tuned all 44 monochrome brand, cultivation, web-novel, player, and music
+  symbols (`★ ☯ ⚡ ☀ ☾ ☽ ⚔ ✦ ☆ ◆ ◇ ▲ ▼ ▶ ◀ ♥ ♡ ♪ © ® ™ Ⓢ ♩ ♫ ♬ ♭ ♮ ♯ ⏸ ⏹ ⏺ ⏭ ⏮ 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊`,
+  together with their `U+E000–U+E00F` in-app PUA mirrors) in `engine.js` and added cubic
+  Bezier contour support (`'C'`) for `data-fill="1"` shapes in `font_builder.py` so every
+  symbol renders cleanly at both 16px reading sizes (Day & Night, Light through Bold) and
+  400px Display hero sizes (`Soft`, `Edge`, `Ink`, `Wide`, plus `Nib`). Replaced `Ⓢ` with
+  a true non-squished circle (`iconSpace` aspect compensation across wide/narrow cuts)
+  housing the smooth `0.40` `S` curve, and rebuilt `☯`, `⚡`, `⚔`, `☆`, `♡`, `🎧`, `🎤`,
+  `💿`, `🔊`, `🔔`, `⚙`, and the remaining 32 symbols with clean cubic geometry, optical
+  counter clearance, and zero self-intersections. Archived `old/0.42/` and
+  `old/display/0.1-pre-symbols/`, rebuilt all 16 Reader faces + 112 subsets, 4 Display
+  cuts + 24 subsets, Labs, motion certificates, and `@seihouse/living-titles` `0.1.4`.
+  Preserved 100% of letter, digit, punctuation, and alternate outlines, advance widths
+  (`hmtx[0]`), kerning (`GPOS`), and layout tables (`GSUB`, `GDEF`). See
+  [symbol proofs and scope notes](docs/SYMBOLS-0.43.md).
+
 - **Elemental Title (`@seihouse/elemental-title` 0.1.0) & Elemental Title Lab moved into Font Lab (2026-11-12)**
   Brought the animated `ElementalTitle` lettering engine into `seihouse-font-lab` as its dedicated
   home alongside `@seihouse/living-titles`, separating it from `SENSEIDUKES/UI`. Added the standalone,

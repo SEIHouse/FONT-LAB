@@ -80,6 +80,16 @@ HISTORICAL_DISPLAY_GIT = [
 
 # Canonical plain-language release notes for SEIHouse Sans (newest first except current, which is read/merged dynamically)
 SANS_METADATA = {
+    '0.43': {
+        'shortTitle': 'Custom studio web-novel & music symbols',
+        'date': '2026-11-12',
+        'summary': 'Redrew all 44 custom monochrome brand, cultivation, web-novel, player, and music icons (including Ⓢ, ☯, ⚡, ⚔, ☆, ♡, 🎧, 🎤, 💿, 🔊, 🔔, ⚙) with true geometric circles and smooth cubic curves for 16px reading and 400px Display titles, without changing any character widths or line breaks.',
+        'highlights': [
+            'True non-squished circle around the smooth 0.40 S curve in Ⓢ across every weight and width',
+            'Custom studio-craft Yin-Yang, lightning, crossed swords, stars, hearts, headphones, mic, disc, speaker, bell, gear, and music notation',
+            'Zero line-break reflow: 100% of letter shapes, advances, and kerning preserved identically',
+        ],
+    },
     '0.42': {
         'shortTitle': 'Light & Medium Night-mode grades',
         'date': '2026-11-12',
@@ -254,14 +264,25 @@ SANS_METADATA = {
 
 DISPLAY_METADATA = {
     '0.1': {
-        'label': 'Display 0.1 · Current (Living Titles 0.1.3)',
-        'shortTitle': 'Refined curves, 148 locales & certified Living Titles',
+        'label': 'Display 0.1 · Current (Living Titles 0.1.4)',
+        'shortTitle': 'Studio symbol craft, 148 locales & certified Living Titles',
+        'date': '2026-11-12',
+        'summary': 'All four cuts (Soft, Edge, Ink, Wide) inherit the 0.43 studio-crafted symbol suite with true non-distorted circles and smooth 400px silhouettes, alongside 148-language coverage, stylistic alternates, compiled title kerning, and certified Living Title motion.',
+        'highlights': [
+            'True 1:1 geometric circles and custom 400px studio symbols across Soft, Edge, Ink, and Wide',
+            'Inherits Sans 0.40 smooth g/S/? curves and 0.41 rare Latin/African/Celtic characters',
+            'Ships static OTF/WOFF2 cuts plus the @seihouse/living-titles 0.1.4 runtime',
+        ],
+    },
+    '0.1-pre-symbols': {
+        'label': 'Display 0.1 · Milestone 7 (Pre-0.43 Symbols)',
+        'shortTitle': 'Refined curves, 148 locales & certified Living Titles 0.1.3',
         'date': '2026-11-11',
-        'summary': 'All four cuts (Soft, Edge, Ink, Wide) share the latest smooth reading curves, 148-language character set, stylistic alternates, compiled title kerning, and certified Living Title motion.',
+        'summary': 'Snapshot of Soft, Edge, Ink, and Wide immediately prior to the 0.43 studio symbol redraw pass.',
         'highlights': [
             'Inherits Sans 0.40 smooth g/S/? curves and 0.41 rare Latin/African/Celtic characters',
             'Per-cut motion certification and flat-nib / true-italic Lab authoring',
-            'Ships static OTF/WOFF2 cuts plus the @seihouse/living-titles 0.1.3 runtime',
+            'Preserved baseline for side-by-side 400px Display symbol comparison',
         ],
     },
     '0.1-pre-step5': {

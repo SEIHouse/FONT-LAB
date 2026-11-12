@@ -252,14 +252,15 @@ class FontBuilderCore:
         shapes = [self.stroke(self.parse(p['d']), dx, p['w']) for p in g['paths']] + [self.circle(cx, cy, r, dx) for cx, cy, r in g['circles']]
         for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
             cmds = self.parse(f['d'])
-            if f['sw'] > 0: shapes.append(self.stroke(cmds, dx))
+            if f['sw'] > 0: shapes.append(self.stroke(cmds, dx, f['sw']))
             fp = Path(); pen = fp.getPen(); open_ = False
             for c in cmds:
-                pt = None if c[0] == 'Z' else ((c[1][0] + dx) * SC, -c[1][1] * SC)
+                pt = None if c[0] in ('Z', 'C') else ((c[1][0] + dx) * SC, -c[1][1] * SC)
                 if c[0] == 'M':
                     if open_: pen.closePath()
                     pen.moveTo(pt); open_ = True
                 elif c[0] == 'L': pen.lineTo(pt)
+                elif c[0] == 'C': pen.curveTo(*(((p[0] + dx) * SC, -p[1] * SC) for p in c[1]))
                 elif c[0] == 'Z': pen.closePath(); open_ = False
             if open_: pen.closePath()
             fp.fillType = pathops.FillType.EVEN_ODD
@@ -1150,11 +1151,12 @@ class FontBuilderCore:
         """A filled engine shape (holes allowed) at font scale."""
         fp = Path(); pen = fp.getPen(); open_ = False
         for c in cmds:
-            pt = None if c[0] == 'Z' else ((c[1][0] + dx) * SC, -c[1][1] * SC)
+            pt = None if c[0] in ('Z', 'C') else ((c[1][0] + dx) * SC, -c[1][1] * SC)
             if c[0] == 'M':
                 if open_: pen.closePath()
                 pen.moveTo(pt); open_ = True
             elif c[0] == 'L': pen.lineTo(pt)
+            elif c[0] == 'C': pen.curveTo(*(((p[0] + dx) * SC, -p[1] * SC) for p in c[1]))
             elif c[0] == 'Z': pen.closePath(); open_ = False
         if open_: pen.closePath()
         fp.fillType = pathops.FillType.EVEN_ODD
@@ -1237,6 +1239,6 @@ class FontBuilderCore:
                 shapes.append(self.configured_stroke(cmds, dx, min(width, other_width), (False, False)))
         for f in g.get('fills', []):            # filled shapes (holes allowed), plus a round-cornered outline unless turned off
             cmds = self.parse(f['d'])
-            if f['sw'] > 0: shapes.append(self.configured_stroke(cmds, dx))
+            if f['sw'] > 0: shapes.append(self.configured_stroke(cmds, dx, f['sw']))
             shapes.append(self.fill_shape(cmds, dx))
         return self.finish_outline(shapes)
