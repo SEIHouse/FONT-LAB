@@ -2,6 +2,36 @@
 
 Newest first.
 
+- **Elemental Title (`@seihouse/elemental-title` 0.1.0) & Elemental Title Lab moved into Font Lab (2026-11-12)**
+  Brought the animated `ElementalTitle` lettering engine into `seihouse-font-lab` as its dedicated
+  home alongside `@seihouse/living-titles`, separating it from `SENSEIDUKES/UI`. Added the standalone,
+  zero-dependency private package `packages/elemental-title/` (`@seihouse/elemental-title` `0.1.0`,
+  React 18/19 peer-compatible, preserving `"use client"` for Next.js App Router, shipping
+  `packages/elemental-title/releases/seihouse-elemental-title-0.1.0.tgz` + `release.json`),
+  including the SVG choreography engine (Lightning, Water, provisional Poison, plus Fire, Frost,
+  Celestial, and Void CSS accents), the page-wide motion budget coordinator, and official Familiar
+  Signatures (`quill/stormwrit` and `quill/true-north`, documented in `docs/FAMILIAR-SIGNATURES.md`).
+  Built the standalone 6-tab **Elemental Title Lab** (`display/elemental/index.html`) with live
+  SEIHouse typeface switching (`Display Edge`, `Soft`, `Ink`, `Wide`, `SEIHouse Sans 0.42`, and
+  `SEIHouse Noto`), wired it into **Section 02: The Title Engine** on `index.html`, and added
+  automated engine/package unit tests (`tests/elemental-title.test.mjs`, `tests/elemental-package.test.mjs`),
+  Playwright consumer verification (`display/verify_elemental_package.mjs`), and CI gating (`elemental-package`
+  in `.github/workflows/distribution.yml`). `@seihouse/seireader` and `@seihouse/living-titles` remain unchanged.
+
+- **Two-studio homepage redesign & complete interactive version archive (2026-11-12)**
+  Reimagined `index.html` into two clear studio sections—**01 / Regular & Reading Fonts**
+  (**SEIHouse Sans 0.42** with live weight/italic/size/Night-grade specimen, inline Quick Compare,
+  and Reader workspaces, plus **SEIHouse Noto `Balanced · Refinement 01`** companion card) and
+  **02 / The Title Engine** (**SEIHouse Display 0.1** & **Living Titles 0.1.3** with interactive
+  Soft/Edge/Ink/Wide cut switcher and Display workspaces). Recovered all missing historical web
+  font releases from git history into `old/` (`0.25`, `0.26`, `0.35`, `0.36`, `0.39`, `0.40`, `0.41`
+  with `SHA256.json` manifests, plus six Display `0.1` milestones under `old/display/`), leaving
+  existing `0.27`–`0.34` verification baselines and runtime app packages (`@seihouse/seireader`,
+  `@seihouse/living-titles`) untouched. Added `site/versions/index.html` for side-by-side, stacked,
+  and quick-flip comparison across all 17 Sans versions (`0.6` → `0.42`), 7 Display passes, and
+  4 Noto studies, plus `archive_version.py` and build-time `site/version_inventory.mjs` gates so
+  homepage version badges never drift behind `phase4.json`.
+
 - **Light and Medium Night-mode grades, Sans 0.42 (2026-11-12)** Added Night-mode
   optical grades for Light (300) and Medium (500), upright and real italic
   (`SEIReader-LightNight`, `-LightItalicNight`, `-MediumNight`, `-MediumItalicNight`),

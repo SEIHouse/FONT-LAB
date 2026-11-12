@@ -1,0 +1,11 @@
+Copyright 2026 SEIHouse Productions LLC. All rights reserved.
+
+Private SEIHouse Title Engine runtime delivery for authorized SEIHouse products.
+This package provides the standalone @seihouse/elemental-title runtime, stylesheet,
+choreography coordinator, and official familiar signatures (Quill: Stormwrit and
+True North). It makes no additional public license grant.
+
+Font family, weight, line height, and size inherit from the host surface. Combine
+with @seihouse/living-titles or @seihouse/seireader when SEIHouse Display or
+SEIHouse Sans fonts are desired. No third-party runtime dependencies or external
+media are bundled.

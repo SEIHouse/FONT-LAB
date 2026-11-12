@@ -1,0 +1,1068 @@
+/* Text is the only in-flow layer. No surface, box shadow, font request, or moving layout. */
+@layer components {
+  :where(.elemental-title) {
+    margin: 0;
+    min-width: 0;
+    max-width: 100%;
+    font: inherit;
+    letter-spacing: inherit;
+    text-transform: inherit;
+    color: inherit;
+    white-space: normal;
+    overflow-wrap: anywhere;
+    --et-low: light-dark(#8d240c, #ff741f);
+    --et-mid: light-dark(#9c3807, #ffae38);
+    --et-high: light-dark(#722900, #fff3bb);
+    --et-glow: #ff6a13;
+    --et-edge: light-dark(#ffcf72, #752209);
+    --et-strength: 0.5;
+    --et-active-strength: 0.75;
+    --et-energy-opacity: 0.32;
+    --et-active-energy-opacity: 0.48;
+    --et-outline-width: 0.45px;
+    --et-halo: none;
+    --et-active-halo: drop-shadow(0 0 0.2em var(--et-glow));
+  }
+  :where(.elemental-title[data-size="sm"]) {
+    font-size: clamp(0.875rem, 0.8rem + 0.3vw, 1rem);
+  }
+  :where(.elemental-title[data-size="md"]) {
+    font-size: clamp(1.25rem, 1rem + 1vw, 1.75rem);
+  }
+  :where(.elemental-title[data-size="lg"]) {
+    font-size: clamp(1.75rem, 1.25rem + 2vw, 3rem);
+  }
+  :where(.elemental-title[data-size="xl"]) {
+    font-size: clamp(2.25rem, 1.75rem + 3.2vw, 4.5rem);
+  }
+  :where(.elemental-title[data-intensity="subtle"]) {
+    --et-strength: 0.25;
+    --et-active-strength: 0.42;
+    --et-energy-opacity: 0.12;
+    --et-active-energy-opacity: 0.26;
+    --et-outline-width: 0.25px;
+    --et-halo: none;
+    --et-active-halo: drop-shadow(0 0 0.08em var(--et-glow));
+  }
+  :where(.elemental-title[data-intensity="common"]) {
+    --et-strength: 0.1;
+    --et-active-strength: 0.36;
+    --et-energy-opacity: 0.04;
+    --et-active-energy-opacity: 0.2;
+    --et-outline-width: 0.2px;
+    --et-halo: none;
+    --et-active-halo: drop-shadow(0 0 0.1em var(--et-glow));
+  }
+  :where(.elemental-title[data-intensity="rare"]) {
+    --et-strength: 0.3;
+    --et-active-strength: 0.56;
+    --et-energy-opacity: 0.16;
+    --et-active-energy-opacity: 0.36;
+    --et-outline-width: 0.3px;
+    --et-halo: drop-shadow(0 0 0.07em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.2em var(--et-glow));
+  }
+  :where(.elemental-title[data-intensity="epic"]) {
+    --et-strength: 0.56;
+    --et-active-strength: 0.8;
+    --et-energy-opacity: 0.34;
+    --et-active-energy-opacity: 0.55;
+    --et-outline-width: 0.45px;
+    --et-halo: drop-shadow(0 0 0.13em var(--et-glow)) drop-shadow(0 0 0.25em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.25em var(--et-glow)) drop-shadow(0 0 0.4em var(--et-glow));
+  }
+  :where(.elemental-title[data-intensity="legendary"]) {
+    --et-strength: 0.82;
+    --et-active-strength: 1;
+    --et-energy-opacity: 0.54;
+    --et-active-energy-opacity: 0.72;
+    --et-outline-width: 0.65px;
+    --et-halo: drop-shadow(0 0 0.16em var(--et-glow)) drop-shadow(0 0 0.35em var(--et-glow))
+      drop-shadow(0 0 0.55em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.25em var(--et-glow)) drop-shadow(0 0 0.5em var(--et-glow))
+      drop-shadow(0 0 0.8em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"]) {
+    --et-low: light-dark(#2142a4, #79bbff);
+    --et-mid: light-dark(#254796, #e0efff);
+    --et-high: light-dark(#153078, #fff5d6);
+    --et-glow: #2589ff;
+    --et-edge: light-dark(#bfdcff, #21345b);
+    /* Arc palette: white-hot core, plasma edge, softer light. Independent of the text color. */
+    --et-arc-core: light-dark(#eef7ff, #ffffff);
+    --et-arc-plasma: light-dark(#2f7af4, #7fd2ff);
+    --et-arc-glow: light-dark(#2453d6, #3d8bff);
+    --et-arc-haze: light-dark(#8eb0ff, #4f68ff);
+    --et-arc-light: light-dark(#3f7dff, #74b8ff);
+    /* A letter-bound glow, about 80% of the previous lightning halo, so the arcs lead. */
+    --et-halo: drop-shadow(0 0 0.045em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.075em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"][data-intensity="subtle"]) {
+    --et-halo: none;
+    --et-active-halo: drop-shadow(0 0 0.04em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"][data-intensity="common"]) {
+    --et-halo: none;
+    --et-active-halo: drop-shadow(0 0 0.05em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"][data-intensity="rare"]) {
+    --et-halo: drop-shadow(0 0 0.028em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.056em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"][data-intensity="epic"]) {
+    --et-halo: drop-shadow(0 0 0.044em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.072em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="lightning"][data-intensity="legendary"]) {
+    --et-halo: drop-shadow(0 0 0.064em var(--et-glow));
+    --et-active-halo: drop-shadow(0 0 0.096em var(--et-glow));
+  }
+  :where(.elemental-title[data-element="water"]) {
+    --et-low: light-dark(#135c7c, #ace5ef);
+    --et-mid: light-dark(#155776, #d7f5fa);
+    --et-high: light-dark(#144664, #f1fcff);
+    --et-glow: #248fab;
+    --et-edge: light-dark(#b5f6f3, #164d89);
+    --et-water-body: light-dark(#289db5, #68cbd6);
+    --et-water-mid: light-dark(#157c9c, #3294af);
+    --et-water-deep: light-dark(#175269, #135572);
+    --et-water-rim: light-dark(#e0ffff, #d9ffff);
+    --et-halo: none;
+    --et-active-halo: none;
+  }
+  :where(.elemental-title[data-element="poison"]) {
+    --et-low: light-dark(#35520c, #b2e36b);
+    --et-mid: light-dark(#3b6310, #d5f69b);
+    --et-high: light-dark(#293f0b, #eeffce);
+    --et-glow: #8bbd24;
+    --et-edge: light-dark(#d5ec9c, #293e0b);
+    /* Poison palette: a semi-clear body, deep poison where gravity pools it, a light rim on
+       the side facing the letters and one clean highlight. Independent of the text color. */
+    --et-poison-body: light-dark(#608820, #91bd32);
+    --et-poison-deep: light-dark(#243c0a, #35560e);
+    --et-poison-rim: light-dark(#c7e777, #d6f599);
+    --et-poison-glint: light-dark(#f5ffd6, #f1ffc4);
+    /* Smooth and weighty rather than sparkly: no bloom around the letters. */
+    --et-halo: none;
+    --et-active-halo: none;
+  }
+  :where(.elemental-title[data-element="frost"]) {
+    --et-low: light-dark(#176376, #7bd2e5);
+    --et-mid: light-dark(#135367, #d2f6ff);
+    --et-high: light-dark(#19495c, #f2ffff);
+    --et-glow: #6bd6f0;
+    --et-edge: light-dark(#c1f4ff, #264e69);
+  }
+  :where(.elemental-title[data-element="celestial"]) {
+    --et-low: light-dark(#725117, #d6a950);
+    --et-mid: light-dark(#745315, #f6dfa1);
+    --et-high: light-dark(#5d3b07, #fffbe2);
+    --et-glow: #d5b668;
+    --et-edge: light-dark(#f2dea4, #67501f);
+  }
+  :where(.elemental-title[data-element="void"]) {
+    --et-low: light-dark(#6935a3, #b892f4);
+    --et-mid: light-dark(#572994, #d6b3ff);
+    --et-high: light-dark(#432071, #eee0ff);
+    --et-glow: #994bfa;
+    --et-edge: light-dark(#dac2ff, #392457);
+  }
+  :where(.elemental-title[data-color="custom"]) {
+    --et-low: var(--et-custom-color);
+    --et-mid: var(--et-custom-color);
+    --et-high: var(--et-custom-color);
+    --et-glow: var(--et-custom-color);
+    --et-edge: var(--et-custom-color);
+  }
+  :where(
+      .elemental-title:is(:hover, :focus-within),
+      :is(button, a, [role="button"]):is(:hover, :focus-within) .elemental-title
+    )
+    .elemental-title__ink,
+  :where(.elemental-title__ink[data-burst="true"]) {
+    --et-strength: var(--et-active-strength);
+    --et-energy-opacity: var(--et-active-energy-opacity);
+    --et-halo: var(--et-active-halo);
+  }
+  :where(.elemental-title__ink) {
+    display: inline-block;
+    position: relative;
+    isolation: isolate;
+    max-width: 100%;
+    vertical-align: baseline;
+    text-indent: 0;
+    filter: var(--et-halo);
+  }
+  :where(.elemental-title__text, .elemental-title__letter-text) {
+    position: relative;
+    z-index: 1;
+    color: var(--et-high, currentColor);
+  }
+  :where(.elemental-title__edge, .elemental-title__letter-edge) {
+    color: var(--et-edge);
+    z-index: 0;
+  }
+  :where(.elemental-title[data-shadow="none"])
+    :where(.elemental-title__edge, .elemental-title__letter-edge) {
+    display: none;
+  }
+  :where(.elemental-title[data-shadow="soft"])
+    :where(.elemental-title__edge, .elemental-title__letter-edge) {
+    text-shadow: 0 1px 1px var(--et-edge);
+  }
+  :where(.elemental-title[data-shadow="outlined"])
+    :where(.elemental-title__edge, .elemental-title__letter-edge) {
+    -webkit-text-stroke: var(--et-outline-width) var(--et-high);
+    paint-order: stroke fill;
+    text-shadow:
+      0 1px 0 var(--et-edge),
+      1px 0 0 var(--et-edge),
+      -1px 0 0 var(--et-edge);
+  }
+  :where(
+    .elemental-title__aura,
+    .elemental-title__edge,
+    .elemental-title__energy,
+    .elemental-title__particles,
+    .elemental-title__letter-aura,
+    .elemental-title__letter-edge,
+    .elemental-title__letter-energy,
+    .elemental-title__letter-hot
+  ) {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+  }
+  :where(.elemental-title__aura, .elemental-title__letter-aura) {
+    z-index: -1;
+    color: var(--et-glow);
+    text-shadow:
+      0 0 0.035em var(--et-high),
+      0 0 0.13em var(--et-glow),
+      0 0 0.28em var(--et-glow);
+    opacity: var(--et-strength);
+    animation: elemental-title-aura 6.7s linear infinite paused;
+  }
+  :where(.elemental-title__energy, .elemental-title__letter-energy) {
+    display: none;
+  }
+  @supports ((background-clip: text) or (-webkit-background-clip: text)) {
+    :where(
+      .elemental-title__text,
+      .elemental-title__energy,
+      .elemental-title__letter-text,
+      .elemental-title__letter-energy
+    ) {
+      background-image: linear-gradient(
+        0deg,
+        var(--et-low) 0%,
+        var(--et-mid) 28%,
+        var(--et-high) 51%,
+        var(--et-mid) 73%,
+        var(--et-high) 100%
+      );
+      background-clip: text;
+      -webkit-background-clip: text;
+      color: transparent;
+      -webkit-box-decoration-break: clone;
+      box-decoration-break: clone;
+    }
+    :where(.elemental-title__energy, .elemental-title__letter-energy) {
+      display: block;
+      z-index: 2;
+      opacity: var(--et-energy-opacity);
+      background-size: 100% 240%;
+      animation: elemental-title-fill 4.9s linear infinite paused;
+    }
+  }
+  :where(.elemental-title[data-color="custom"])
+    :where(.elemental-title__text, .elemental-title__letter-text) {
+    color: var(--et-custom-color, currentColor);
+    background: none;
+  }
+  :where(.elemental-title[data-color="custom"])
+    :where(.elemental-title__energy, .elemental-title__letter-energy) {
+    background-image: linear-gradient(
+      0deg,
+      transparent 0%,
+      var(--et-custom-color) 45%,
+      transparent 100%
+    );
+  }
+  :where(.elemental-title__particles) {
+    /* Behind the real text (z-index 1): the letters are the front plane, so embers rise
+       from behind them rather than across them. */
+    z-index: 0;
+  }
+  :where(.elemental-title__particle) {
+    position: absolute;
+    width: 0;
+    height: 0;
+    opacity: 0;
+    animation: elemental-title-ember var(--et-duration) var(--et-delay) ease-out infinite paused;
+  }
+  :where(.elemental-title__particle)::after {
+    content: "";
+    position: absolute;
+    width: 0.045em;
+    height: 0.06em;
+    border-radius: 50%;
+    background: var(--et-custom-color, var(--et-high));
+    box-shadow:
+      0 0 0.045em 0.02em var(--et-glow),
+      0 0 0.12em var(--et-glow);
+  }
+  :where(.elemental-title__particle)::before {
+    content: "";
+    position: absolute;
+    left: -0.06em;
+    top: -0.25em;
+    width: 0.4em;
+    height: 0.65em;
+    background: linear-gradient(0deg, transparent, var(--et-glow), var(--et-high), transparent);
+    clip-path: polygon(45% 100%, 55% 73%, 30% 50%, 55% 32%, 45% 0%, 68% 34%, 43% 52%, 66% 73%);
+    transform: rotate(var(--et-turn));
+  }
+  /* ---- Lightning: arcs drawn behind and around the letters by the overlay engine ---- */
+  :where(.elemental-title[data-element="lightning"])
+    :where(.elemental-title__aura, .elemental-title__letter-aura) {
+    /* A tight glyph edge avoids connecting the word into a glowing underline. */
+    text-shadow: 0 0 0.05em var(--et-glow);
+  }
+  :where(.elemental-title:is([data-element="poison"], [data-element="water"]))
+    :where(.elemental-title__aura, .elemental-title__letter-aura) {
+    /* A tight, steady edge: poison carries no flickering glow, and none at all on a light
+       surface, where a glow would read as a blur around the letters. */
+    color: light-dark(transparent, var(--et-glow));
+    text-shadow: 0 0 0.04em light-dark(transparent, var(--et-glow));
+    animation: none;
+  }
+  :where(
+    .elemental-title:is([data-element="lightning"], [data-element="water"], [data-element="poison"])
+      .elemental-title__ink
+  ) {
+    /* The glow belongs to the letters. Filtering the ink box would also blur the arcs. */
+    filter: none;
+  }
+  :where(.elemental-title[data-element="lightning"])
+    :where(.elemental-title__text, .elemental-title__letter-text) {
+    filter: var(--et-halo);
+  }
+  :where(
+      .elemental-title:is(
+        [data-element="lightning"],
+        [data-element="water"],
+        [data-element="poison"]
+      )
+    )
+    :where(.elemental-title__energy, .elemental-title__letter-energy) {
+    /* A soft band of light in the title's own color. The component sweeps it across at
+       irregular intervals with varied speed, angle, strength and direction, so it never
+       settles into a rhythm; at rest the band is invisible. */
+    opacity: 0;
+    background-image: linear-gradient(
+      var(--et-shine-angle, 108deg),
+      transparent 0%,
+      transparent 41%,
+      var(--et-high) 50%,
+      transparent 59%,
+      transparent 100%
+    );
+    background-size: 300% 100%;
+    background-repeat: no-repeat;
+    background-position: 100% 0;
+    animation: none;
+  }
+  :where(.elemental-title__flash) {
+    /* Edge light: a brief rim of arc light behind the letters nearest a point. It sits
+       under the real text and animates opacity only, so letter fill never changes. */
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    z-index: 0;
+    opacity: 0;
+    color: transparent;
+    background: none;
+    text-shadow:
+      0 0 0.03em var(--et-arc-core),
+      0 0 0.1em var(--et-arc-light),
+      0 0 0.24em var(--et-arc-glow);
+    --et-rim-mask: radial-gradient(
+      circle at var(--et-light-x, 50%) var(--et-light-y, 50%),
+      #000 0,
+      rgba(0, 0, 0, 0.6) calc(var(--et-light-radius, 1.9em) * 0.42),
+      transparent var(--et-light-radius, 1.9em)
+    );
+    -webkit-mask-image: var(--et-rim-mask);
+    mask-image: var(--et-rim-mask);
+    animation: none;
+  }
+  :where(.elemental-title__flash[data-holes]) {
+    /* Letters that carry their own light (a jolt's hot edge) get a feathered hole, so
+       they are never lit twice and the rim keeps no hard edge. */
+    -webkit-mask-image: var(--et-rim-mask), var(--et-rim-holes);
+    mask-image: var(--et-rim-mask), var(--et-rim-holes);
+    -webkit-mask-composite: source-in;
+    mask-composite: intersect;
+  }
+  :where(.elemental-title__arcs) {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    user-select: none;
+    overflow: visible;
+  }
+  :where(.elemental-title__arcs--back) {
+    /* Depth: the letters are the front plane. Every arc, twig and fragment sits here,
+       behind the real text (z-index 1), so opaque letter ink — clipped to the exact glyph
+       shapes by the text layer's own CSS — swallows whatever falls under a stroke, and the
+       overlay's depth shade dims what shows between strokes. */
+    z-index: 0;
+  }
+  :where(.elemental-title__arcs--front) {
+    /* Signature scenes only: they run beneath the name and finish beside it. */
+    z-index: 3;
+  }
+  :where(.elemental-title__stage) {
+    position: absolute;
+    display: block;
+    max-width: none;
+    overflow: visible;
+    pointer-events: none;
+  }
+  :where(.elemental-title__stage) :is(.et-haze, .et-glow) path {
+    fill: none;
+    stroke: var(--et-arc-glow);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+  :where(.elemental-title__stage) .et-haze path {
+    stroke: var(--et-arc-haze, var(--et-arc-glow));
+  }
+  :where(.elemental-title__stage) .et-haze {
+    /* The wide light fades ahead of the core, so a resting arc stays crisp instead of smudged. */
+    opacity: 0.2;
+    animation: elemental-title-arc-haze var(--et-life, 480ms) ease-out forwards;
+  }
+  :where(.elemental-title__stage) .et-glow {
+    opacity: 0.5;
+    animation: elemental-title-arc-glow var(--et-life, 480ms) ease-out forwards;
+  }
+  :where(.elemental-title__stage) .et-plasma path {
+    fill: var(--et-arc-plasma);
+  }
+  :where(.elemental-title__stage) .et-core path {
+    fill: var(--et-arc-core);
+  }
+  :where(.elemental-title__stage) .et-shard path {
+    fill: none;
+    stroke: var(--et-arc-core);
+    stroke-linecap: round;
+  }
+  :where(.elemental-title__stage) .et-light-core {
+    stop-color: var(--et-arc-light);
+    stop-opacity: 0.7;
+  }
+  :where(.elemental-title__stage) .et-light-mid {
+    stop-color: var(--et-arc-glow);
+    stop-opacity: 0.26;
+  }
+  :where(.elemental-title__stage) .et-light-edge {
+    stop-color: var(--et-arc-glow);
+    stop-opacity: 0;
+  }
+  :where(.elemental-title__stage) .et-frame {
+    /* Each frame flashes in at full power, flickers, then rests visibly until replaced. */
+    opacity: var(--et-rest, 0.2);
+    animation: elemental-title-arc-strike var(--et-life, 480ms) linear forwards;
+  }
+  :where(.elemental-title__stage) .et-frame[data-slot="crackle"] {
+    animation-name: elemental-title-arc-crackle;
+  }
+  :where(.elemental-title__stage) .et-core {
+    animation: elemental-title-arc-core var(--et-life, 480ms) linear forwards;
+  }
+  :where(.elemental-title__stage) .et-shard {
+    animation: elemental-title-arc-shard var(--et-life, 480ms) ease-out forwards;
+  }
+  :where(.elemental-title__stage) .et-frame[data-slot="still"],
+  :where(.elemental-title__stage)
+    .et-frame[data-slot="still"]
+    :is(.et-haze, .et-glow, .et-core, .et-shard) {
+    animation: none;
+  }
+  :where(.elemental-title__stage) .et-frame[data-slot="still"] .et-core {
+    /* A resting arc shows more plasma than core, so it stays blue rather than gray. */
+    opacity: 0.55;
+  }
+  :where(.elemental-title__stage) .et-frame[data-stale="true"] {
+    animation: elemental-title-arc-out 220ms ease-out forwards;
+  }
+  /* Liquid shape morphs natively in SVG; transport shares the letter timeline. */
+  :where(.elemental-title__stage) .et-frame[data-material="water"]:not([data-stale]) {
+    opacity: 1;
+    animation: none;
+  }
+  :where(.elemental-title__stage) .wv-travel {
+    animation: elemental-title-wave var(--wv-duration) var(--wv-delay) linear both;
+  }
+  :where(.elemental-title__stage) [data-still] .wv-travel {
+    animation: none;
+    transform: translateX(var(--wv-rest));
+  }
+  :where(.elemental-title__stage) :is(.wv-caustic, .wv-reflection, .wv-foam) {
+    fill: none;
+    stroke: var(--et-water-rim);
+    stroke-width: 0.014;
+    stroke-linecap: round;
+  }
+  :where(.elemental-title__stage) .wv-caustic {
+    opacity: 0.36;
+    stroke-width: 0.025;
+  }
+  :where(.elemental-title__stage) .wv-reflection {
+    opacity: 0.88;
+  }
+  :where(.elemental-title__stage) .wv-wake-edge {
+    opacity: 0.52;
+  }
+  :where(.elemental-title__stage) .wv-foam {
+    stroke-width: 0.022;
+    stroke-dasharray: 0.024 0.036 0.05 0.023;
+    opacity: 0.8;
+  }
+  :where(.elemental-title__stage) .wv-spray {
+    fill: var(--et-water-rim);
+    opacity: 0.72;
+  }
+  /* ---- Poison: a flowing edge and beads drawn behind the letters by the overlay engine ---- */
+  :where(.elemental-title__stage) .et-frame[data-material="poison"]:not([data-stale]) {
+    /* Poison frames never flash: each bead and highlight carries its own motion. */
+    opacity: 1;
+    animation: none;
+  }
+  :where(.elemental-title__stage) .pt-band {
+    /* One group, so the layers of a band blend once instead of stacking their alpha. */
+    opacity: 0.84;
+  }
+  :where(.elemental-title__stage) :is(.pt-body, .pt-drop, .pt-remnant) {
+    fill: var(--et-poison-body);
+  }
+  :where(.elemental-title__stage) :is(.pt-deep, .pt-drop-deep) {
+    fill: var(--et-poison-deep);
+    opacity: 0.7;
+  }
+  :where(.elemental-title__stage) .pt-rim {
+    fill: var(--et-poison-rim);
+    opacity: 0.8;
+  }
+  :where(.elemental-title__stage) :is(.pt-glint, .pt-drop-glint) {
+    fill: var(--et-poison-glint);
+    opacity: 0.92;
+  }
+  :where(.elemental-title__stage) .pt-bead {
+    opacity: 0.9;
+  }
+  :where(.elemental-title__stage) .pt-grow {
+    opacity: 0;
+    transform: scale(0.15);
+    animation: elemental-title-poison-grow var(--pt-gather) var(--pt-delay)
+      cubic-bezier(0.45, 0, 0.55, 1) both;
+  }
+  :where(.elemental-title__stage) .pt-fall {
+    /* Gravity: the bead accelerates as it falls, stretching a little. */
+    animation: elemental-title-poison-fall var(--pt-fall) var(--pt-release)
+      cubic-bezier(0.55, 0.085, 0.68, 0.53) forwards;
+  }
+  :where(.elemental-title__stage) .pt-remnant {
+    transform: scale(0);
+    animation:
+      elemental-title-poison-remnant-in var(--pt-gather) var(--pt-delay) ease-in-out forwards,
+      elemental-title-poison-remnant-out var(--pt-retract) var(--pt-release) ease-in forwards;
+  }
+  :where(.elemental-title__stage) :is(.pt-flow, .pt-current) {
+    fill: none;
+    stroke-linecap: round;
+    opacity: 0;
+  }
+  :where(.elemental-title__stage) .pt-flow {
+    stroke: var(--et-poison-glint);
+    stroke-dashoffset: var(--pt-from);
+    animation: elemental-title-poison-flow var(--pt-duration) var(--pt-delay)
+      cubic-bezier(0.45, 0, 0.4, 1) forwards;
+  }
+  :where(.elemental-title__stage) .pt-current {
+    stroke: var(--et-poison-rim);
+    stroke-dasharray: 2.5 4.5;
+    animation: elemental-title-poison-current var(--pt-duration) var(--pt-delay) linear forwards;
+  }
+  /* ---- Signature scenes: authored primitives in the element's own material ----
+     Colors come from the element's arc tokens (core, plasma, glow, haze); an optional
+     accent edge comes from the signature, and hosts may override it or turn it off with
+     --et-signature-accent (a color, or none). Letter color is never touched. */
+  :where(.elemental-title__stage) .et-scene {
+    pointer-events: none;
+  }
+  :where(.elemental-title__stage) :is(.et-scene-glow) {
+    fill: none;
+    stroke: var(--et-arc-glow);
+    stroke-linecap: round;
+    stroke-linejoin: round;
+    opacity: 0.55;
+  }
+  :where(.elemental-title__stage) .et-scene-stroke[data-part="back"] .et-scene-glow {
+    stroke: var(--et-arc-haze, var(--et-arc-glow));
+    opacity: 0.5;
+  }
+  :where(.elemental-title__stage) .et-scene-plasma {
+    fill: var(--et-arc-plasma);
+  }
+  :where(.elemental-title__stage) .et-scene-core {
+    fill: var(--et-arc-core);
+  }
+  :where(.elemental-title__stage) .et-scene-accent {
+    fill: var(--et-signature-accent, var(--et-accent-default, transparent));
+  }
+  :where(.elemental-title__stage) .et-scene-accent-line {
+    fill: none;
+    stroke: var(--et-signature-accent, var(--et-accent-default, transparent));
+    stroke-linejoin: round;
+  }
+  :where(.elemental-title__stage) .et-scene-head-glow {
+    fill: var(--et-arc-glow);
+    opacity: 0.7;
+  }
+  :where(.elemental-title__stage) .et-scene-head-plasma {
+    fill: var(--et-arc-plasma);
+  }
+  :where(.elemental-title__stage) .et-scene-head-core {
+    fill: var(--et-arc-core);
+  }
+  :where(.elemental-title__stage) .et-scene-flare {
+    fill: var(--et-arc-light, var(--et-arc-glow));
+  }
+  :where(.elemental-title__stage) .et-scene-spark {
+    fill: none;
+    stroke: var(--et-arc-core);
+    stroke-linecap: round;
+  }
+  :where(.elemental-title[data-element="frost"] .elemental-title__particle)::before {
+    clip-path: polygon(50% 0, 62% 42%, 100% 50%, 62% 58%, 50% 100%, 38% 58%, 0 50%, 38% 42%);
+    height: 0.18em;
+    width: 0.18em;
+  }
+  :where(.elemental-title[data-element="celestial"] .elemental-title__particle)::before {
+    clip-path: polygon(50% 0, 57% 40%, 100% 50%, 57% 60%, 50% 100%, 43% 60%, 0 50%, 43% 40%);
+    height: 0.24em;
+    width: 0.24em;
+  }
+  :where(.elemental-title[data-element="void"] .elemental-title__particle) {
+    animation-direction: reverse;
+  }
+  :where(.elemental-title[data-element="void"] .elemental-title__particle)::before {
+    display: none;
+  }
+  :where(
+      .elemental-title[data-motion="ambient"] .elemental-title__ink[data-running="true"],
+      .elemental-title[data-motion="hover"]:is(:hover, :focus-within)
+        .elemental-title__ink[data-running="true"],
+      :is(button, a, [role="button"]):is(:hover, :focus-within)
+        .elemental-title[data-motion="hover"]
+        .elemental-title__ink[data-running="true"],
+      .elemental-title[data-motion="burst"]
+        .elemental-title__ink[data-running="true"][data-burst="true"]
+    )
+    :where(
+      .elemental-title__aura,
+      .elemental-title__energy,
+      .elemental-title__particle,
+      .elemental-title__letter-aura,
+      .elemental-title__letter-energy
+    ) {
+    animation-play-state: running;
+  }
+  :where(.elemental-title[data-motion="burst"] .elemental-title__ink[data-burst="false"])
+    :where(
+      .elemental-title__aura,
+      .elemental-title__energy,
+      .elemental-title__particle,
+      .elemental-title__letter-aura,
+      .elemental-title__letter-energy
+    ) {
+    animation-name: none;
+  }
+  :where(.elemental-title[data-motion="burst"] .elemental-title__ink[data-burst="true"])
+    :where(
+      .elemental-title__aura,
+      .elemental-title__energy,
+      .elemental-title__particle,
+      .elemental-title__letter-aura,
+      .elemental-title__letter-energy
+    ) {
+    animation-duration: 1.6s;
+    animation-delay: 0s;
+    animation-iteration-count: 1;
+  }
+  :where(.elemental-title__ink[data-running="false"] .elemental-title__particles) {
+    visibility: hidden;
+  }
+  /* Letter ink is copied only during a glyph event. The whole shaped run keeps
+     kerning, bidi and continuous gradients; measured slices select its ink. */
+  :where(.elemental-title__surface) {
+    position: relative;
+    z-index: 1;
+    display: block;
+  }
+  :where(.elemental-title__letters) {
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    user-select: none;
+  }
+  :where(.elemental-title__letter, .elemental-title__letter-copy) {
+    position: absolute;
+  }
+  :where(.elemental-title__letter-copy) {
+    display: block;
+    isolation: isolate;
+  }
+  /* Keep legacy shadows unchanged. Lightning and poison outlined become the rank keyline. */
+  :where(
+      .elemental-title:is(
+          [data-element="lightning"],
+          [data-element="poison"],
+          [data-element="water"]
+        )[data-shadow="outlined"]
+    )
+    :where(.elemental-title__edge, .elemental-title__letter-edge) {
+    color: inherit;
+    -webkit-text-fill-color: transparent;
+    -webkit-text-stroke: min(0.035em, 0.85px)
+      light-dark(
+        color-mix(in srgb, var(--et-custom-color, currentColor) 18%, transparent),
+        color-mix(in srgb, var(--et-custom-color, currentColor) 42%, black)
+      );
+    text-shadow: none;
+    paint-order: stroke fill;
+  }
+  :where(.elemental-title__letter-hot) {
+    z-index: 0;
+    color: transparent;
+    -webkit-text-stroke: min(0.035em, 0.85px) white;
+    text-shadow: 0 0 0.05em white;
+  }
+  @media (max-width: 640px) {
+    :where(.elemental-title__particle:nth-child(n + 5)) {
+      display: none;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    :where(.elemental-title__letters) {
+      display: none;
+    }
+    :where(.elemental-title__surface) {
+      clip-path: none !important;
+    }
+    :where(.elemental-title)
+      :where(.elemental-title__aura, .elemental-title__energy, .elemental-title__particle) {
+      animation: none !important;
+    }
+    :where(.elemental-title__particles) {
+      display: none;
+    }
+    :where(.elemental-title__stage) :is(.et-frame, .et-haze, .et-glow, .et-core, .et-shard) {
+      animation: none !important;
+    }
+    /* Poison rests: its edge and hanging beads stay, nothing gathers, falls or flows. */
+    :where(.elemental-title__stage)
+      .et-frame:is([data-material="poison"], [data-material="water"]):not([data-slot="still"]) {
+      display: none;
+    }
+    /* No signatures under reduced motion: only the still frame. */
+    :where(.elemental-title__stage) .et-scene {
+      display: none;
+    }
+  }
+  @media (forced-colors: active) {
+    :where(.elemental-title__letters) {
+      display: none;
+    }
+    :where(.elemental-title__surface) {
+      clip-path: none !important;
+    }
+    :where(.elemental-title__ink) {
+      filter: none;
+    }
+    :where(.elemental-title__text) {
+      color: CanvasText;
+      background: none;
+      -webkit-text-stroke: 0;
+      text-shadow: none;
+    }
+    :where(
+      .elemental-title__aura,
+      .elemental-title__edge,
+      .elemental-title__energy,
+      .elemental-title__particles,
+      .elemental-title__flash,
+      .elemental-title__arcs
+    ) {
+      display: none;
+    }
+    :where(.elemental-title__text) {
+      filter: none;
+    }
+  }
+}
+
+/* The edge light's centre is animatable, so a passing light glides along the letters. */
+@property --et-light-x {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+@property --et-light-y {
+  syntax: "<percentage>";
+  inherits: false;
+  initial-value: 50%;
+}
+
+@keyframes elemental-title-arc-strike {
+  0% {
+    opacity: 1;
+  }
+  6% {
+    opacity: 0.55;
+  }
+  11% {
+    opacity: 1;
+  }
+  20% {
+    opacity: 0.8;
+  }
+  34% {
+    opacity: 0.92;
+  }
+  52% {
+    opacity: 0.5;
+  }
+  72% {
+    opacity: 0.62;
+  }
+  100% {
+    opacity: var(--et-rest, 0.2);
+  }
+}
+@keyframes elemental-title-arc-crackle {
+  0% {
+    opacity: 0.9;
+  }
+  40% {
+    opacity: 0.5;
+  }
+  60% {
+    opacity: 0.75;
+  }
+  100% {
+    opacity: var(--et-rest, 0.1);
+  }
+}
+@keyframes elemental-title-arc-out {
+  to {
+    opacity: 0;
+  }
+}
+@keyframes elemental-title-arc-haze {
+  0% {
+    opacity: 0.55;
+  }
+  18% {
+    opacity: 0.38;
+  }
+  100% {
+    opacity: 0.16;
+  }
+}
+@keyframes elemental-title-arc-glow {
+  0% {
+    opacity: 0.95;
+  }
+  20% {
+    opacity: 0.72;
+  }
+  100% {
+    opacity: 0.42;
+  }
+}
+@keyframes elemental-title-arc-core {
+  0% {
+    opacity: 1;
+  }
+  5% {
+    opacity: 0.4;
+  }
+  9% {
+    opacity: 1;
+  }
+  16% {
+    opacity: 0.65;
+  }
+  22% {
+    opacity: 1;
+  }
+  40% {
+    opacity: 0.8;
+  }
+  58% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.48;
+  }
+}
+@keyframes elemental-title-arc-shard {
+  0% {
+    opacity: 1;
+    transform: translate(0, 0);
+  }
+  70% {
+    opacity: 0.8;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(var(--et-sx, 0), var(--et-sy, 0));
+  }
+}
+
+@keyframes elemental-title-poison-grow {
+  0% {
+    opacity: 0;
+    transform: scale(0.15);
+  }
+  18% {
+    opacity: 1;
+  }
+  82% {
+    transform: scale(1, 1);
+  }
+  100% {
+    opacity: 1;
+    transform: scale(0.95, 1.12);
+  }
+}
+@keyframes elemental-title-poison-fall {
+  0% {
+    transform: translate(0, 0);
+  }
+  22% {
+    transform: translate(0, calc(var(--pt-drop, 8px) * 0.1)) scale(0.92, 1.16);
+  }
+  65% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(0, var(--pt-drop, 8px)) scale(0.88, 1.22);
+  }
+}
+@keyframes elemental-title-poison-remnant-in {
+  to {
+    transform: scale(1);
+  }
+}
+@keyframes elemental-title-poison-remnant-out {
+  from {
+    transform: scale(1);
+  }
+  to {
+    transform: scale(0);
+  }
+}
+@keyframes elemental-title-poison-flow {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: var(--pt-from);
+  }
+  18%,
+  80% {
+    opacity: var(--pt-gain);
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: var(--pt-to);
+  }
+}
+@keyframes elemental-title-poison-current {
+  0% {
+    opacity: 0;
+    stroke-dashoffset: 0;
+  }
+  25%,
+  75% {
+    opacity: var(--pt-gain);
+  }
+  100% {
+    opacity: 0;
+    stroke-dashoffset: var(--pt-shift);
+  }
+}
+
+@keyframes elemental-title-fill {
+  to {
+    background-position: 0 -240%;
+  }
+}
+@keyframes elemental-title-aura {
+  0%,
+  100% {
+    opacity: var(--et-strength);
+  }
+  19%,
+  57% {
+    opacity: calc(var(--et-strength) * 0.7);
+  }
+  36%,
+  73%,
+  89% {
+    opacity: calc(var(--et-strength) * 1.15);
+  }
+}
+@keyframes elemental-title-ember {
+  0%,
+  12%,
+  100% {
+    opacity: 0;
+    transform: translate(0, 0) scale(0.7);
+  }
+  23% {
+    opacity: var(--et-strength);
+  }
+  43% {
+    opacity: 1;
+  }
+  82% {
+    opacity: 0;
+    transform: translate(var(--et-drift), -0.65em) scale(0.25);
+  }
+}
+
+@keyframes elemental-title-wave {
+  0% {
+    transform: translateX(var(--wv-from));
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  88% {
+    opacity: 1;
+  }
+  100% {
+    transform: translateX(var(--wv-to));
+    opacity: 0;
+  }
+}

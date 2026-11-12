@@ -3,6 +3,7 @@ import {copyFileSync, existsSync, lstatSync, mkdirSync, realpathSync, rmSync, st
 import {dirname, join, relative, resolve, sep} from 'node:path';
 import {fileURLToPath} from 'node:url';
 import {displayInventory} from './display/site_inventory.mjs';
+import {versionInventory} from './site/version_inventory.mjs';
 
 const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist', 'site');
@@ -27,7 +28,11 @@ const pages = [
   ...['engine.js','index.js','player.js'].map(name => `display/novel-expanded/runtime/${name}`),
   'display/novel-expanded/assets/emblem.jpg', 'display/novel-expanded/assets/immortal-land.jpg',
   'display/novel-expanded/README.md',
+  'display/elemental/index.html', 'display/elemental/lab.css',
+  'display/elemental/lab.js', 'display/elemental/README.md',
   'packages/living-titles/README.md',
+  'packages/elemental-title/README.md',
+  'docs/FAMILIAR-SIGNATURES.md',
   'docs/DISPLAY-LIVING-TITLES-STEP6.md', 'docs/proofs/display-step6/index.html',
   ...['soft','edge','ink','wide'].flatMap(cut => ['caps','mixed'].map(kind => `docs/proofs/display-step6/${cut}-${kind}.svg`)),
   'docs/APP-INSTALL.md', 'docs/HOW-TO-USE.txt', 'docs/DEVICE-TEST.md', 'docs/SIZE-DENSITY-0.39.md',
@@ -35,8 +40,13 @@ const pages = [
 ];
 const styles = ['Light','LightItalic','Regular','Italic','Medium','MediumItalic','SemiBold','SemiBoldItalic','Bold','BoldItalic','LightNight','LightItalicNight','RegularNight','ItalicNight','MediumNight','MediumItalicNight'];
 const displayFiles = displayInventory(root);
-const files = [...pages, ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
-  ...new Set(displayFiles)];
+const versionFiles = versionInventory(root);
+const files = [...new Set([
+  ...pages,
+  ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
+  ...displayFiles,
+  ...versionFiles,
+])];
 
 // Validate all inputs before replacing the fixed, generated output directory.
 for (const file of files) {

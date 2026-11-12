@@ -1,0 +1,81 @@
+{
+  "name": "@seihouse/elemental-title",
+  "version": "0.1.0",
+  "filename": "seihouse-elemental-title-0.1.0.tgz",
+  "bytes": 72253,
+  "sha256": "9e40e7c90547918ad82fa6c5867dcc0de421b9e74c681df77f1d5eb5ba2af5ec",
+  "integrity": "sha512-I+fhYGzuEFLHW729NNTWY0cwuAoQEEZsHEXmCqve2XulTZZsaeoBJvXOuvSOdFfXY5H4dNZM3n2N7tBhat0gDA==",
+  "provenance": {
+    "schema": 1,
+    "package": "@seihouse/elemental-title",
+    "elements": [
+      "lightning",
+      "water",
+      "poison",
+      "fire",
+      "frost",
+      "celestial",
+      "void",
+      "none"
+    ],
+    "engineElements": [
+      "lightning",
+      "water",
+      "poison"
+    ],
+    "signatures": [
+      "quill/stormwrit",
+      "quill/true-north"
+    ],
+    "sources": {
+      "elemental-title.css": "fec57d6023ee03dcba3ce1b27d35ba5fd06608a5da944efbc2b256fcbd64a848",
+      "elemental-title.tsx": "5f4e0b28537bcea5635a43773dc1495d2109d6ed1baf579728a19a3263ad80d2",
+      "engine/ElementalOverlay.tsx": "8e15effa88aa48fe2dc2418aa161cf8fe5e5c53ff842c0de036719c5efe7a48a",
+      "engine/LetterLayer.tsx": "6e4dba03b2294836ef5ae99743ef42d615c5a06d4854497f45f0bb07a16133bd",
+      "engine/PoisonMaterial.tsx": "5517134610122d09b3b57192b07e43622fd3fe40d842acdf1a9b1ee23a519905",
+      "engine/WaterMaterial.tsx": "0c61df8955c65b4cd2e913cea29d73b600afd9660c048329ddecf163f26f5724",
+      "engine/anchors.ts": "f27089f9c1e81bf504c82b65cf31fdb29044b7e00855150ef109bb9d03168c67",
+      "engine/conductor.ts": "96d019966b67e30764fa86c5961eddb2ce07bfcbc35ccafeb6a152c6145a1e20",
+      "engine/coordinator.ts": "d908e555ed07ea3b7358a8a863ac13dbecedef56509044c8fe909fde9328047c",
+      "engine/effects.ts": "70c8fc2bde978ac06cfe2832458a79c617396f680131ad857e576284e199bcbe",
+      "engine/frames.ts": "f2be5d428e0d06dfee29ee830471f074e2116a5a5c444d14bb9075fe68d0f278",
+      "engine/geometry.ts": "0e73420ea6d4c4009bb34635f42bc4e9989baaf1709e090a725926b6d48ee7da",
+      "engine/letters.ts": "ade38c7c56e65b030a20a11dbc1911054ef70bd6482ed9951c4642bff8dc10e7",
+      "engine/lightning.ts": "e2e683f2105e61459ec7b7338baeefffb95f2ddf3104917220f75b3883a295ce",
+      "engine/lines.ts": "13da9c9ae5cc477aa30f27cb6fcee46998d6991a821ac3a1a130b01b19997e74",
+      "engine/poison.ts": "cdf7b12b10c582a507acea49b5ee1f4fa854e1f7df4baaae2b8dc22b092a31af",
+      "engine/program.ts": "dbffad72a80f20409223e88484a905ed385a09799e97d667c456b131634f1588",
+      "engine/random.ts": "a5af7a76a0cb6096ff9b8559a73c06326636ee1c442aadac0dfd20d961a154af",
+      "engine/recipe.ts": "41522f87eb486692f702ba3405121634f89ec55a1eab0403bd53fc963826fea6",
+      "engine/scene-player.ts": "501fde00d997ae6999b41c7d63e6f702ea40bbfa031d4796bf7c4e2b6512bb89",
+      "engine/scene.ts": "34a65ebc7eb5399f858682026a41bd1d1f4b43a12f5506f082cf0f03769fb046",
+      "engine/signatures/index.ts": "ecd513e211f3309e6983fa7f29f835d3a0691bff6ddb9bb2f96785496d0391f9",
+      "engine/signatures/official.ts": "b05db76c5c4008aead69a34a43fa21ba1527cca2753fc7ffbd0841ae5a45a49a",
+      "engine/signatures/signature.ts": "fe8c1025d1970175ba34c70eabaa86d36e0a293a902f302634183ea57616cb97",
+      "engine/signatures/stormwrit.ts": "015ee60328043130e016bc752662201cf059c9a5be1c975f5887cdf0c57ac914",
+      "engine/signatures/true-north.ts": "1664171280084575a970f0432a3f31f30f6d51a2c6c6bfb8cbf7b710d9493ed0",
+      "engine/stage.ts": "01f6193d84d69153ec2d4a341f94b901955549d273cdd0d4d1855164b4ce3d95",
+      "engine/test-ripple.ts": "53191ceb6cc48092bdc81dce92c2f91dc1c9e97e043c4d80f610d2aa259cc367",
+      "engine/timeline.ts": "23dfde65bbe21b7075fa741a3cbeca04e0878797d07a1366b4dd84bb3701eaf0",
+      "engine/types.ts": "634f46c13bf12e4407ae83129f1d69332fd3b7e1de57f57e634d3a78841fed06",
+      "engine/water-surface.ts": "878fde35b8ca3f8d4bfcd81676164cf2ff897b778158864af161a9d711d4d13c",
+      "engine/water.ts": "5d65fb8e4d9a5fd109d80e53a85e78a80b870d3097e63563c0a3446d40bd5ab7",
+      "index.ts": "85e69a409366aea830a685ee9bb6c84bc923e787b8c806192c57d8dcfe35f2c2",
+      "public.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58"
+    },
+    "outputs": {
+      "index.js": "c3120e40dceebe338bf2deec01b4a3d3cdb0af17b5617811c8139ff886367b60",
+      "index.d.ts": "a9f62274d1aedcf1c64b4ea783431b4782f7eea83fc669167e4b5cc09aec3c58",
+      "styles.css": "fec57d6023ee03dcba3ce1b27d35ba5fd06608a5da944efbc2b256fcbd64a848"
+    }
+  },
+  "files": [
+    "NOTICE.txt",
+    "README.md",
+    "dist/index.d.ts",
+    "dist/index.js",
+    "dist/provenance.json",
+    "dist/styles.css",
+    "package.json"
+  ]
+}

@@ -1,0 +1,2543 @@
+{
+  "schema": 1,
+  "tracks": {
+    "sans": {
+      "id": "sans",
+      "name": "SEIHouse Sans",
+      "subtitle": "Long-form chapter reading & interface typeface",
+      "currentVersion": "0.42",
+      "defaultCompareVersion": "0.39",
+      "workspaceUrl": "../../lab/index.html",
+      "workspaceLabel": "Open Reader Lab",
+      "versions": [
+        {
+          "version": "0.42",
+          "label": "SEIHouse Sans 0.42",
+          "shortTitle": "Light & Medium Night-mode grades",
+          "date": "2026-11-12",
+          "current": true,
+          "summary": "Added Night-mode optical grades for Light and Medium alongside Regular so all three reading weights soften glare on dark screens without changing letter widths or shifting line breaks.",
+          "highlights": [
+            "6 Night-mode faces across Light, Regular, and Medium (upright and real italic)",
+            "Exact Day-mode character widths and kerning so toggling Day/Night never reflows a page",
+            "16 full web faces covering 148 verified languages across Latin, Cyrillic, Greek, and Vietnamese"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": [
+              300,
+              400,
+              500
+            ]
+          },
+          "faces": [
+            {
+              "path": "fonts/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 74840,
+              "sha256": "a3e86a926081b8362672112022649cac54331a25f498017c63e0151ea8bb790d"
+            },
+            {
+              "path": "fonts/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 78828,
+              "sha256": "e5d26a732e19fa5d24f4c4b5edf31b927ccac160cc7d8667f1a3984d6c53bfab"
+            },
+            {
+              "path": "fonts/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 73808,
+              "sha256": "9178eb5e2311e6f9697c1238b491e6ae5923c2691dc559c40d45b25dd3896f14"
+            },
+            {
+              "path": "fonts/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 77164,
+              "sha256": "04eb16b5e11a6e52bf51cd34b45528e15ff5ed4dc8d7e429e100e16ef7657e6c"
+            },
+            {
+              "path": "fonts/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 73540,
+              "sha256": "eb50cda2cc224a52ec7addfb83b72eade5070495965d9156bd9f5848ce39e8f6"
+            },
+            {
+              "path": "fonts/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 77564,
+              "sha256": "d9eabef0f6176256116566771cb36435790e272e99103d38265c34b188a7c84d"
+            },
+            {
+              "path": "fonts/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 73852,
+              "sha256": "90d866c33e83ab776ab0bfa1d1d38382d1091d21211cb03040a6ff19a4340f13"
+            },
+            {
+              "path": "fonts/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 78444,
+              "sha256": "aafce0484885e662d1709b66723a3ae42c074b0339077e8d9232216eef6ee8ea"
+            },
+            {
+              "path": "fonts/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 73100,
+              "sha256": "1b4af5a2891075f914735aee4984a8e1709fb597f81e1a5f2fce5061e32088aa"
+            },
+            {
+              "path": "fonts/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 77420,
+              "sha256": "26f152be77984e278188bcbdca3744442376c90aa3b1d596f1300e53e878cd48"
+            },
+            {
+              "path": "fonts/SEIReader-LightNight.woff2",
+              "styleName": "LightNight",
+              "weight": 300,
+              "style": "normal",
+              "night": true,
+              "bytes": 74232,
+              "sha256": "636c3312ace082e81440493659f7f76454868a6cfc5be4646b9e47d6a5e1de9b"
+            },
+            {
+              "path": "fonts/SEIReader-LightItalicNight.woff2",
+              "styleName": "LightItalicNight",
+              "weight": 300,
+              "style": "italic",
+              "night": true,
+              "bytes": 77492,
+              "sha256": "b79f6bf54bee9e536d46d42e027d8b0250bde52e432dea246574f10e186f25fb"
+            },
+            {
+              "path": "fonts/SEIReader-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 74464,
+              "sha256": "0ea227c5f17e765714a96dc195b025e48958265b634764d77216e12dc63cd264"
+            },
+            {
+              "path": "fonts/SEIReader-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 77788,
+              "sha256": "6256ae3fd4a327028d749de5c905788ea1378d767b58afd0111344fe7deaa577"
+            },
+            {
+              "path": "fonts/SEIReader-MediumNight.woff2",
+              "styleName": "MediumNight",
+              "weight": 500,
+              "style": "normal",
+              "night": true,
+              "bytes": 73500,
+              "sha256": "373202e1a91693209cd42ea2474c3854f96f2dd2dd8d4ccfc52014bb84fbc76c"
+            },
+            {
+              "path": "fonts/SEIReader-MediumItalicNight.woff2",
+              "styleName": "MediumItalicNight",
+              "weight": 500,
+              "style": "italic",
+              "night": true,
+              "bytes": 77472,
+              "sha256": "3882ea36bbede22f80054b9713f610e451ca6ab555f5518459d38cbe266a3d4c"
+            }
+          ]
+        },
+        {
+          "version": "0.41",
+          "label": "SEIHouse Sans 0.41",
+          "shortTitle": "Rare Latin, African & Celtic languages (148 locales)",
+          "date": "2026-11-11",
+          "current": false,
+          "summary": "Added 54 characters and accents for Welsh, Irish, Scottish Gaelic, Asturian, Yoruba, Lingala, Ewe, Akan, Bambara, and more, plus Lithuanian dotless-į and Makhuwa capital TT spacing.",
+          "highlights": [
+            "54 new Latin, African, Celtic, and European letters and precomposed accents",
+            "148 pinned Unicode CLDR locales (161 verified languages total)",
+            "100% of existing 0.40 letter shapes and spacing preserved unchanged"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": [
+              400
+            ]
+          },
+          "faces": [
+            {
+              "path": "old/0.41/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 75048,
+              "sha256": "96996265345bb79b66641d37f4acd1cfae24ec6aa2da63236dc06e2f2de43020"
+            },
+            {
+              "path": "old/0.41/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 78744,
+              "sha256": "1a39d1889103b1f0a118b56559202d06ada168df1b4295411f325fc479724892"
+            },
+            {
+              "path": "old/0.41/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 74076,
+              "sha256": "096e84894f547983dcff4290e82d40c0e4fa3d7be6459185e7bc88211121df76"
+            },
+            {
+              "path": "old/0.41/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 77180,
+              "sha256": "cd97376f07f299f03cc69dea9d2d3e62d1dec10ed721244e4c481138d9edcaad"
+            },
+            {
+              "path": "old/0.41/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 73472,
+              "sha256": "c59bdb6f2c682a9a04bf673ae894fb78cc0c60cb9693b1cc055a760bf5d3c479"
+            },
+            {
+              "path": "old/0.41/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 77680,
+              "sha256": "7ce34a0a5aac04cf9354ed4a2a722999f79858ad1c1a227073e869166abb6979"
+            },
+            {
+              "path": "old/0.41/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 73584,
+              "sha256": "e03200ce71242f036791bef802982ac1f8bb139fa389a1c9cd6084da71939639"
+            },
+            {
+              "path": "old/0.41/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 78412,
+              "sha256": "e708d032d6ca6a69a8712631f5a94fdee7604cce5643a6ffac9fd80bf563dc50"
+            },
+            {
+              "path": "old/0.41/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 73332,
+              "sha256": "b5c8aa32de863fe815b2bdaeb48eba29ae72464a4efa5c191408e0fa92be83b5"
+            },
+            {
+              "path": "old/0.41/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 77372,
+              "sha256": "cb5e14fdbbc6602b5e8fdd1ff680db039eccaa93f85bc91366d8d41d993932bb"
+            },
+            {
+              "path": "old/0.41/SEIReader-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 74468,
+              "sha256": "cc31ad06cac24ea67b5ebf9d061c23f2441c7abbdf03e80129bfbb0311fef6ef"
+            },
+            {
+              "path": "old/0.41/SEIReader-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 77752,
+              "sha256": "0c7df95335b4f4ca013013d0345c01618d62837fb64a02b677c89cb865730b22"
+            }
+          ]
+        },
+        {
+          "version": "0.40",
+          "label": "SEIHouse Sans 0.40",
+          "shortTitle": "Smoother g, S, and question-mark curves",
+          "date": "2026-11-11",
+          "current": false,
+          "summary": "Gave lowercase g the same smooth shared bowl as b/d/p/q and softened capital S and ? into continuous reading curves while preserving all letter widths and spacing.",
+          "highlights": [
+            "Unified lowercase g bowl matching b, d, p, and q",
+            "Continuous, calmer curves on capital S and ?",
+            "Identical spacing and line breaks across all weights and Night grades"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": [
+              400
+            ]
+          },
+          "faces": [
+            {
+              "path": "old/0.40/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 70324,
+              "sha256": "1aa1b861adb8689b17b5de1e7c044fb89ecd2d4bb9339e9288f4adcdc4965ac1"
+            },
+            {
+              "path": "old/0.40/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 73864,
+              "sha256": "d0ee67b9a7bf25aece5fda3759bdf8a65a80a39053a4b5c2592a1615b270003a"
+            },
+            {
+              "path": "old/0.40/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 69060,
+              "sha256": "6533f895d744bb89b8f2cb4456bb7b18ec44cd5d8bff96360d2ace4b3e321866"
+            },
+            {
+              "path": "old/0.40/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 72600,
+              "sha256": "9c7802581eeb529ea2a33b029ff26e3d0beab4f51cea7635a6581aaa02766123"
+            },
+            {
+              "path": "old/0.40/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 68756,
+              "sha256": "e5f7a52579586e2a6b2f015dae35b227557173011bdc76480618ff3958f3103f"
+            },
+            {
+              "path": "old/0.40/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 72844,
+              "sha256": "8efdb2a7752344f741a2bc2388bb8d36b657e41f384ce34fb84efdf0b9ea53a2"
+            },
+            {
+              "path": "old/0.40/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 68812,
+              "sha256": "e99a80fbf6d0a20f515371f1ccf28e2571476e7abfcb08b81cd97318cefeb0f6"
+            },
+            {
+              "path": "old/0.40/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 74180,
+              "sha256": "0381662e987af66454fd31ee5bc12a22d24b8bcfe15db189e235a5b461679aa8"
+            },
+            {
+              "path": "old/0.40/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 68976,
+              "sha256": "014f2f3890a5c2bd0c9354f9e5c1e0715a4f6bd715fae367edbec05487a8b289"
+            },
+            {
+              "path": "old/0.40/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 72744,
+              "sha256": "4ab5f04592b6f25e224ef3b310f917779ce93a6faf1158d9f1f6ea1eb8b2d093"
+            },
+            {
+              "path": "old/0.40/SEIReader-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 69608,
+              "sha256": "1486f2b4d15b3ef96c5eca0275cc2d92c0de7de4c40321b5637bfa32d89510ca"
+            },
+            {
+              "path": "old/0.40/SEIReader-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 73080,
+              "sha256": "d1251670341088ce83386ca2c1e2a3bb81cf84335db5754a360665888104cc3e"
+            }
+          ]
+        },
+        {
+          "version": "0.39",
+          "label": "SEIHouse Sans 0.39",
+          "shortTitle": "Cyrillic, Greek, Vietnamese & first Night grade",
+          "date": "2026-10-25",
+          "current": false,
+          "summary": "Completed Latin Extended-A, common Slavic Cyrillic (with cursive italics), modern Greek, and full Vietnamese tone stacks, followed by the first Regular & Italic Night-mode optical grade.",
+          "highlights": [
+            "Added Cyrillic, modern Greek, and 88 Vietnamese vowel-and-tone letters",
+            "Introduced RegularNight & ItalicNight (-4 stroke units on dark backgrounds)",
+            "Verified even size density across 15px-22px app reading steps"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": [
+              400
+            ]
+          },
+          "faces": [
+            {
+              "path": "old/0.39/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 70136,
+              "sha256": "bd9d564f74f5a4018ba5a006f7652f7560a27b497e3be1a59b6b813e6854f0c1"
+            },
+            {
+              "path": "old/0.39/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 73908,
+              "sha256": "9bb1769ca9d5a8ccc2a188448b7a9ea5ed17ce70a1414dda7dc2f40f1961d36f"
+            },
+            {
+              "path": "old/0.39/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 69192,
+              "sha256": "bda226580ef374a55e4e199a59cb23dbd720862820f682b6d7f2e8adbaa9f6f9"
+            },
+            {
+              "path": "old/0.39/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 72440,
+              "sha256": "6ea296f28a1b4a134e87ae6a00b6a294f713a4432c1214c01b681f3442dc895b"
+            },
+            {
+              "path": "old/0.39/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 69092,
+              "sha256": "e2f40446275de278fc297792040aa8bfc74e781677309092e37a58fb7cace1aa"
+            },
+            {
+              "path": "old/0.39/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 72888,
+              "sha256": "81108ab0d46899c417b0191f4266a24a01f6913f2d4cd3670962fc7b801553b7"
+            },
+            {
+              "path": "old/0.39/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 68992,
+              "sha256": "4df9baafcb595d73051126f6d326c5e9b53fd5e1239aab0e6a1b562c05521686"
+            },
+            {
+              "path": "old/0.39/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 73940,
+              "sha256": "42b40b4083773883dc92a89265c561e6cc5f2f145392b67019ef24ab27a2efcd"
+            },
+            {
+              "path": "old/0.39/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 68900,
+              "sha256": "3e48ad1389055fb817bf2f8e3e149319dc96e5f3aa8ca5015b00ec2f2e205044"
+            },
+            {
+              "path": "old/0.39/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 72976,
+              "sha256": "412a6f21d716a7677cf68794e652e4116266235cb536a4e0884ae8af94402cf7"
+            },
+            {
+              "path": "old/0.39/SEIReader-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 69712,
+              "sha256": "85bb789c149f154a784417a3601e19a3a7d9e08f3391842389cf59bdf18ba42c"
+            },
+            {
+              "path": "old/0.39/SEIReader-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 73020,
+              "sha256": "316b44ff5f74eb13af8f76d0c38832905610cdb4375ea0447a49297697fc581a"
+            }
+          ]
+        },
+        {
+          "version": "0.36",
+          "label": "SEIHouse Sans 0.36",
+          "shortTitle": "Renamed to SEIHouse Sans & Ecosystem License",
+          "date": "2026-10-03",
+          "current": false,
+          "summary": "Officially named the family SEIHouse Sans and embedded the SEIHouse Sans Ecosystem License 1.0 in every font file while keeping legacy SEIReader stylesheets working.",
+          "highlights": [
+            "Adopted the SEIHouse Sans family name alongside SEIReader compatibility",
+            "Embedded SEIHouse Productions LLC ownership and Ecosystem License 1.0",
+            "Preserved every 0.35 letter drawing and spacing value unchanged"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.36/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 40976,
+              "sha256": "8a2f11b01b721f757910421deac746c400d56f16236cd0cca4307a2896078b3b"
+            },
+            {
+              "path": "old/0.36/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 43696,
+              "sha256": "06d6f48d6665cb91fd73af4734cccf06982165e5cd6e2c50664b825c944cab3d"
+            },
+            {
+              "path": "old/0.36/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 41440,
+              "sha256": "78aa53f634b35db6430fe7df64e973d2d24d458229864894f3b30b693c08145a"
+            },
+            {
+              "path": "old/0.36/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 43568,
+              "sha256": "2470d8e40671a80e94d27a7619d29844b0a3f3de75b94460daf53b2ea775dcca"
+            },
+            {
+              "path": "old/0.36/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 41800,
+              "sha256": "2c59ff38990f5d1cedbbcdb84c3dd9b5bc62f720900f4b2573555de007a1f6e3"
+            },
+            {
+              "path": "old/0.36/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 44672,
+              "sha256": "4b5d05ad86a1f5987f54204875f212c1a3dd74e462a51ea78a29fb2fce1c60ee"
+            },
+            {
+              "path": "old/0.36/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 42164,
+              "sha256": "627c77dfaff2e49dd8b03d39c84df80def8562df173657cd791e6e71f586325e"
+            },
+            {
+              "path": "old/0.36/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 45132,
+              "sha256": "ebcf29e0524607478715dbf22cf853c1cfaa2d87782467e0e2ba6c85e49a0bba"
+            },
+            {
+              "path": "old/0.36/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 42900,
+              "sha256": "beedfbaeff23395ea1343f13cdb758731a833e177257dcb46c66913b260ddc50"
+            },
+            {
+              "path": "old/0.36/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 45432,
+              "sha256": "94cfc2b7ae265211582ba0218f14e90f1671d93e95bb018d05f66c1189093f68"
+            }
+          ]
+        },
+        {
+          "version": "0.35",
+          "label": "SEIReader 0.35",
+          "shortTitle": "Sharp stroke-join ink repair & paragraph audit",
+          "date": "2026-10-02",
+          "current": false,
+          "summary": "Fixed tiny missing-ink gaps where diagonal strokes met in v, V, w, W, and digits, and audited full-paragraph sentence and apostrophe spacing across all ten styles.",
+          "highlights": [
+            "Clean, solid ink joins in v/V/w/W, numeric alternates, and symbols",
+            "Full-paragraph spacing inspection across upright and italic weights",
+            "Zero changes to letter widths, weights, or kerning pairs"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.35/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 40448,
+              "sha256": "72c27357b80aa9ab0331bb78532f576b3e524db00b7aedbaae2bfd9801c91cfb"
+            },
+            {
+              "path": "old/0.35/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 43192,
+              "sha256": "2263e9bccf2a724c8c66dbc35e0247385d0b419893062577d0cd66622d3f9e65"
+            },
+            {
+              "path": "old/0.35/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 40940,
+              "sha256": "9ec6df6775d1e9f23c401727cbcc72cc4a4f1a129a2d2ecfda00467747313890"
+            },
+            {
+              "path": "old/0.35/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 43060,
+              "sha256": "c79d16fafd4ef154e23fcd0a205e709b2b66e38a155f725bc152fa193ec38d10"
+            },
+            {
+              "path": "old/0.35/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 41648,
+              "sha256": "a4a086d643c1572dd1cbfb2a81fa1e3108834f28503ec7a70651d8c1d820005b"
+            },
+            {
+              "path": "old/0.35/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 44260,
+              "sha256": "962e43077d1aaa7b86f52ad7b1ff9cb141db376c5c5103c6f6256a704235d89c"
+            },
+            {
+              "path": "old/0.35/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 41584,
+              "sha256": "6a08792820f5f0bece60bdc0d3e8f282d46089504edd78d40e9610ef0753bf8f"
+            },
+            {
+              "path": "old/0.35/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 44572,
+              "sha256": "b66fc4b4cce4535dd6e201a9b5f1ca7b71a441cb9b82660d3b1d5153b32c776e"
+            },
+            {
+              "path": "old/0.35/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 42384,
+              "sha256": "ccdca53055316a8881328a3fb4db97e068a5b3dc49ce0bda113604aa31fed5ea"
+            },
+            {
+              "path": "old/0.35/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 45160,
+              "sha256": "db727325c5a8438b254eb93a60a44f348ceabdcf79a9825ff96f33f04a8ed320"
+            }
+          ]
+        },
+        {
+          "version": "0.34",
+          "label": "SEIReader 0.34",
+          "shortTitle": "First 10 multilingual alphabets & decimal spacing",
+          "date": "2026-10-02",
+          "current": false,
+          "summary": "Added 94 letters for Polish, Czech, Hungarian, Romanian, Turkish, Hausa, Kurdish, Māori, Igbo, and Uzbek, plus clearer breathing room around decimal points and commas in numbers.",
+          "highlights": [
+            "94 new letters including hooked Hausa capitals, Turkish dotted-i, and Romanian commas",
+            "Roomier decimal periods and commas in prices and percentages (1,234.56 / 8.50%)",
+            "Created the lean app font bundle format"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.34/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 41868,
+              "sha256": "d71b1c79e8760cf85436d61dd7f52fa09c3846a68796fe609708b91998f1d9f4"
+            },
+            {
+              "path": "old/0.34/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 44728,
+              "sha256": "98e57d5bc7609eabc39da12311b0b7c568d3ec2f75451f18cedf0f3ca8c8f362"
+            },
+            {
+              "path": "old/0.34/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 42164,
+              "sha256": "aec853568f26c25df37c0a08cef80b984fa41391fa646d5b57073a138690ede6"
+            },
+            {
+              "path": "old/0.34/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 44768,
+              "sha256": "efd3691a1785265f98d54440542a3a8e45a99b7339dbe0c0655fdec9d363306f"
+            },
+            {
+              "path": "old/0.34/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 43068,
+              "sha256": "3398ed0e62710aa780860b41261f86b30b67571ed87bec7f06bfa9399a1b2395"
+            },
+            {
+              "path": "old/0.34/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 45916,
+              "sha256": "efb7b8d971bdc45c6108a76cc5466f469153e4f97913e95a67b0712fdc8d0e88"
+            },
+            {
+              "path": "old/0.34/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 43376,
+              "sha256": "ce93a91ce91303e640404fc93f8504f823150acc3a87caff9bb2bfdfb8ee76e5"
+            },
+            {
+              "path": "old/0.34/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 46588,
+              "sha256": "a481315b38635849aa9e9d6ac208fbb5fa2d58cd6e24f6b051ddb6963dcd48cd"
+            },
+            {
+              "path": "old/0.34/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 44676,
+              "sha256": "a0933fb382bb4a3d7588db0b32b757acfba85b6ab87d3e13da304c6018a47355"
+            },
+            {
+              "path": "old/0.34/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 47304,
+              "sha256": "ee9714ff6c2762599d05bdd80f0a68d08f9ee1a00c388dee6419d1dff3c7021a"
+            }
+          ]
+        },
+        {
+          "version": "0.33",
+          "label": "SEIReader 0.33",
+          "shortTitle": "Latin accent foundation & international quotes",
+          "date": "2026-10-01",
+          "current": false,
+          "summary": "Built automatic mark attachment and accent stacking for 19 combining marks, dotless i/j under accents, and local European quotation marks and apostrophes.",
+          "highlights": [
+            "19 combining accents with automatic stacking and italic placement",
+            "Identical rendering whether text is precomposed (NFC) or decomposed (NFD)",
+            "Added German/Polish/French quotes and lexical apostrophes"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.33/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 36404,
+              "sha256": "d85424b03b41b4b959972129e2c8881ab33c162993871cdfe4d5dea3ce92d30b"
+            },
+            {
+              "path": "old/0.33/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 38876,
+              "sha256": "672f6ac128410406ca95063309c0609795399ebbae2e9449e50af3f2f059f598"
+            },
+            {
+              "path": "old/0.33/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 36932,
+              "sha256": "e720f9d194c7f9d7a5db8e423445e9db8a1e1e4b6f4ea2fe2f808df0b60e1fc1"
+            },
+            {
+              "path": "old/0.33/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 38896,
+              "sha256": "86dcdde883b25f00d3198531f9208704aa5745150461182e53267cd5e3702cb9"
+            },
+            {
+              "path": "old/0.33/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 37672,
+              "sha256": "a028acd7ef3692ec666c0a5d9a7d7a4c58b8f7c7660f4e421973f1af689a0f45"
+            },
+            {
+              "path": "old/0.33/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 40140,
+              "sha256": "6d0324351e55a3959da26cb86ce3d97f879786d436b72ae823bc7f4718f304e9"
+            },
+            {
+              "path": "old/0.33/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 37980,
+              "sha256": "898d568f9f08db74e515904fd8cbd4af45e6bd35f648a1db54a21bce1a17e844"
+            },
+            {
+              "path": "old/0.33/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 40904,
+              "sha256": "e0528b5d9efc2ab22f77a90452a50b1836b444f8ab74e9a52995b6393dd561f7"
+            },
+            {
+              "path": "old/0.33/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 38972,
+              "sha256": "b75c5ba66eaa1748fe94dbeb421e0e93cf4eef0da45afdfc5e125deea6453bbb"
+            },
+            {
+              "path": "old/0.33/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 41188,
+              "sha256": "7e91b15f5e6871f74697fcafdd41b22502715ca3616417686e3dede56d745443"
+            }
+          ]
+        },
+        {
+          "version": "0.32",
+          "label": "SEIReader 0.32",
+          "shortTitle": "Quieter punctuation, smoother digits & balanced weights",
+          "date": "2026-10-01",
+          "current": false,
+          "summary": "Softened dots, commas, quotes, and dashes; redrew 2, 3, 5, 6, 8, and 9 with continuous curves; and tuned Light (slightly firmer) and Medium (slightly lighter) for small screens.",
+          "highlights": [
+            "Curved comma/quote tails and gentler punctuation weight in prose",
+            "Smoother figure curves across default, tabular, and fraction numerals",
+            "Firmer Light (74) and calmer Medium (97) strokes for phone reading"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.32/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 32656,
+              "sha256": "94e2330afcc9a8ac472abcefbd3f1a52fc2dc19bc7156def3f8f4eb6c933ee31"
+            },
+            {
+              "path": "old/0.32/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 34904,
+              "sha256": "bc54f1b3184c9593c8b362b9bf7da6194cede677a29a2d5b9cff37bc5e0799dc"
+            },
+            {
+              "path": "old/0.32/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 33060,
+              "sha256": "c72a5b5cfa7d76d8b5c4f189d84ec80bfb6946eefc44ca759e73a189e970a61f"
+            },
+            {
+              "path": "old/0.32/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 34900,
+              "sha256": "8195f19425dee4aeeaa747ae921c3b3cdd61c53a9880653fd34511e0db18d7af"
+            },
+            {
+              "path": "old/0.32/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 33956,
+              "sha256": "73e92ad11fab73f7221cbc7696dce5dd38a54e3c413624108ed2ed6c8f55c00e"
+            },
+            {
+              "path": "old/0.32/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 35996,
+              "sha256": "242c8a581a7c7a8d0fe29bc575a8631e6d5fb40f35fc902fe2de15357ffaf844"
+            },
+            {
+              "path": "old/0.32/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 34164,
+              "sha256": "52e21e967a1445a3069975274f64f9c119f45c34bdf9dd6faabf7d096ec79141"
+            },
+            {
+              "path": "old/0.32/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 36752,
+              "sha256": "6d283868d22f902f51ffd23daceceb9e8d3b02729394a5e81b3e7fc0b5bcc27b"
+            },
+            {
+              "path": "old/0.32/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 35260,
+              "sha256": "ddf0bd1f6762685c4e848134097fadf4fff2c04fffba21c34a67003daa86104a"
+            },
+            {
+              "path": "old/0.32/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 37328,
+              "sha256": "464023476fa344e2196e757e009877dbf5f1a2891f73deeffab9be6af86aacc4"
+            }
+          ]
+        },
+        {
+          "version": "0.31",
+          "label": "SEIReader 0.31",
+          "shortTitle": "Broader paragraph rhythm pass",
+          "date": "2026-10-01",
+          "current": false,
+          "summary": "Tuned word-level rhythm across dense repeating stems and diagonals in words like minimum, murmur, river, climate, parallel, and everywhere across all ten styles.",
+          "highlights": [
+            "Balanced double-l (ll) and protected yw/tw separation",
+            "Opened crowded italic ur and um combinations",
+            "Preserved all character widths and earlier optical pairs"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.31/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 31572,
+              "sha256": "ef56a4e7beea78df45ed6d62a0bce149754a462d985c05cca92234503696694a"
+            },
+            {
+              "path": "old/0.31/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 33340,
+              "sha256": "b8903d0bf4e468c1626a384544fef1875855e1c411e69d62e796f20ef0f8ff96"
+            },
+            {
+              "path": "old/0.31/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 32236,
+              "sha256": "c911999ac7251fe2b0b9f66964b84aa574afa62d16851822c236dc8a9070d297"
+            },
+            {
+              "path": "old/0.31/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 33632,
+              "sha256": "5f4e17eee1287815cbe442d8a66dc352d523a859f788f85e6b0faaad2bc0c6e3"
+            },
+            {
+              "path": "old/0.31/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 32496,
+              "sha256": "96cc4d0ae736b74eb0d1c5d54114f3adcf423358d17689bb17c4509e493609fc"
+            },
+            {
+              "path": "old/0.31/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 34296,
+              "sha256": "ccf59953887fd074de644d7bec4881119e297c0309b4bb9c9201729d23bbc08d"
+            },
+            {
+              "path": "old/0.31/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 33356,
+              "sha256": "f8bb846a944e64e8bf6f1082b286529fe3a4ab1ed076c3946546d498064f7d8b"
+            },
+            {
+              "path": "old/0.31/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 35572,
+              "sha256": "0fd0eea85177db6a83a9468c35293472cb0d94584b5ed68dd8389c067cf1dbbd"
+            },
+            {
+              "path": "old/0.31/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 34228,
+              "sha256": "e15ec89ad9e85a763d73f8b66ce3ec2536d489171d1c55d4c31babddee21362c"
+            },
+            {
+              "path": "old/0.31/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 36364,
+              "sha256": "96591b2461dacbae1385b9f0b93470531fead94443126cc056302d6e787812b2"
+            }
+          ]
+        },
+        {
+          "version": "0.30",
+          "label": "SEIReader 0.30",
+          "shortTitle": "Optical pair spacing for snag words",
+          "date": "2026-10-01",
+          "current": false,
+          "summary": "Measured and refined spacing around narrow letters and ligatures in snag words like Lian, Iñés, blade, Entry, Mei’s, acquittal, and ri/rn/cl/li.",
+          "highlights": [
+            "Joined fi and fl ligatures now space cleanly beside neighboring letters",
+            "Extra small-size breathing room for tt and ry pairs",
+            "Separate upright and italic optical pair tuning at every weight"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.30/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 31688,
+              "sha256": "5cb87a9259406851d3c4e19bd5e3f02ed13640e5fbae4be75901a2dfccd1b113"
+            },
+            {
+              "path": "old/0.30/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 33304,
+              "sha256": "050041a643ea10ed28948ded46152bc5c8eae77ceba34fe73a673edd35033f78"
+            },
+            {
+              "path": "old/0.30/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 32184,
+              "sha256": "d879529f0a89c9711790509d21751e61d85c5a079b5c43c6059dbb984d98e62b"
+            },
+            {
+              "path": "old/0.30/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 33684,
+              "sha256": "5a4227be360e0e9485d1880045df122f0bbc79ec23c226f59a004a6818e2915e"
+            },
+            {
+              "path": "old/0.30/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 32552,
+              "sha256": "a339f7922698fc5cfcbdb50d165771a62149e2390f4d952c2dd0020ed8665f34"
+            },
+            {
+              "path": "old/0.30/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 34416,
+              "sha256": "f6fb10d23add3c6e5e15926a4d17183c12f2549f48192ca73b8a1804a1cfdaa0"
+            },
+            {
+              "path": "old/0.30/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 33320,
+              "sha256": "5024616c26c55aaf3877a8f802171bd4ffd1fe3a8413d693ce5abec14eea0953"
+            },
+            {
+              "path": "old/0.30/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 35552,
+              "sha256": "076dd1ff845ca25e3e85bd59ab2a840cd538db9fc74173b7f091e31042f2ff82"
+            },
+            {
+              "path": "old/0.30/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 34180,
+              "sha256": "ee4fa9f0c22dadbf217039d36850e4380e25c16754eff08dcc3fba53f9320ccf"
+            },
+            {
+              "path": "old/0.30/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 36368,
+              "sha256": "eb8022b02cb103742eca52a12a684ba2e09e9f96f3f14bd1da3bfda705d8d509"
+            }
+          ]
+        },
+        {
+          "version": "0.29",
+          "label": "SEIReader 0.29",
+          "shortTitle": "Cohesive lowercase arches & bowls",
+          "date": "2026-09-30",
+          "current": false,
+          "summary": "Refined h, n, and m shoulders, the lower curve of u, and shared b/d/p/q bowls so every lowercase letter sits naturally beside the 0.28 a/e/c/s curves.",
+          "highlights": [
+            "Continuous arches on h, n, and m with smooth stem joins",
+            "Harmonized b, d, p, and q bowls with softly squared sides",
+            "Handwriting-style italics kept their distinct lower branches and exits"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.29/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 31336,
+              "sha256": "f4e99effd8695aaaf9c4e2e930922197e2dc1097646b3e3fd49a0bb5e18a2ed2"
+            },
+            {
+              "path": "old/0.29/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 32972,
+              "sha256": "6fc812991fa822c97fd1098ffa5b5e70bb4e824ff81296fcaf47867a7bd9a3c3"
+            },
+            {
+              "path": "old/0.29/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 31768,
+              "sha256": "8332f20c0bd8a524e8f9c0b6dbc378ec5b02023b69b92c5af57a225f047fb90a"
+            },
+            {
+              "path": "old/0.29/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 33420,
+              "sha256": "a382a0e5a1ee41915a1fd4be0bc8d446d6569bc59ad2b223d7e2ac94185fe8bb"
+            },
+            {
+              "path": "old/0.29/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 32260,
+              "sha256": "d9404e3da8ebfe79069ee43a116d9b977ce5ca03d2347c0d596a0bc3689c4839"
+            },
+            {
+              "path": "old/0.29/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 34292,
+              "sha256": "366fb8895d8dc62325b13b35f73bca19643a3def5488d3b44f59011db6f33f8b"
+            },
+            {
+              "path": "old/0.29/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 33040,
+              "sha256": "010db847502d1b68f56e3e97c0b73a2094cb03d002c1c6cf1f7e2d4e0d3c4522"
+            },
+            {
+              "path": "old/0.29/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 35328,
+              "sha256": "4088bd6b42e843fd10fe05224f39eb3479114905d56e9c9029821aba33f25695"
+            },
+            {
+              "path": "old/0.29/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 33916,
+              "sha256": "82c940e244d0274e6d39dd4e243fa97459e8c331a55ce96d314c57f76401d2cb"
+            },
+            {
+              "path": "old/0.29/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 36112,
+              "sha256": "b78395823f77a7e442044eeb53b808c9eb13c826ff71bed515a5a45b2fde0918"
+            }
+          ]
+        },
+        {
+          "version": "0.28",
+          "label": "SEIReader 0.28",
+          "shortTitle": "Reading curves for a, e, c, s & roomier word space",
+          "date": "2026-09-30",
+          "current": false,
+          "summary": "Introduced dedicated continuous reading curves for upright a, e, c, and s, gave i a touch more side room, and opened the word space from 0.205 em to 0.220 em.",
+          "highlights": [
+            "Individual reading curves for upright a, e, c, and s",
+            "Word space opened to 0.220 em for calmer chapter lines",
+            "Added the 4-column Literata & Rubik reference comparison"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.28/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 31028,
+              "sha256": "1b525a9d762a432baede55db3ff8622525411e1fef6c426ba565ab35f8032a53"
+            },
+            {
+              "path": "old/0.28/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 32560,
+              "sha256": "86291dd21a85f2e50e195d46ffa77b78b04ca29ccd7642a7f2cd4a11cc949a9f"
+            },
+            {
+              "path": "old/0.28/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 31496,
+              "sha256": "cfd474d13fbfaaa6b44f139ba81d7ba6541496b50b2b0eccfea2759bb7c3be26"
+            },
+            {
+              "path": "old/0.28/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 33124,
+              "sha256": "b1245c3f933d8cee01f44f6b9d62f91c5cef7c7ec9d863bb07c52a6289b813df"
+            },
+            {
+              "path": "old/0.28/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 32048,
+              "sha256": "bc486be37fd09971142f88d8c9a36b80df569e4e946593e6332712c8df3f9ee9"
+            },
+            {
+              "path": "old/0.28/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 34040,
+              "sha256": "ecba0bca8b5ba4f0ce5ca069b092790c1615859ba7ce663a8558305ec0eb2226"
+            },
+            {
+              "path": "old/0.28/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 32744,
+              "sha256": "7ee31e119656069e3d61bc8a5587e5044881c70e9db0d2086c4429b0cb1ac210"
+            },
+            {
+              "path": "old/0.28/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 34980,
+              "sha256": "89c821a7f6a6588d39c030c1c986c5e2bae2ccd0198f1f9414c7c61958b5760c"
+            },
+            {
+              "path": "old/0.28/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 33512,
+              "sha256": "cb20fc6415b19453527a294450b7b519f3cd2e97da44fa5602d1e2bfa0c44bd4"
+            },
+            {
+              "path": "old/0.28/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 35732,
+              "sha256": "22be74917c7f5d3e6290c3922e443e94e5cc13d169221c84eb3ed00c04a4a1bb"
+            }
+          ]
+        },
+        {
+          "version": "0.27",
+          "label": "SEIReader 0.27",
+          "shortTitle": "Rounder upright forms & raised quotation marks",
+          "date": "2026-09-30",
+          "current": false,
+          "summary": "Applied long-form reading feedback: rounder and slightly wider upright letters, raised curly and straight quotes, and gentler lowercase pair spacing.",
+          "highlights": [
+            "Softer, slightly wider upright letter proportions",
+            "Raised quotation marks with apostrophes tucked naturally near letters",
+            "Added the 3-chapter reading test and device checklist"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.27/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 30696,
+              "sha256": "18baae99e52afd91f31731bda76873ed4859ef283765c00828e0684290ce184c"
+            },
+            {
+              "path": "old/0.27/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 32504,
+              "sha256": "18b0ce75e3168996fa4f3c07cfff2d7a53282beedc64df4bdcaa29f1f1a7b1a4"
+            },
+            {
+              "path": "old/0.27/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 31140,
+              "sha256": "6a237a13229d53e649d70384ff494414986a8eb7a902b95f702c7de58155df3c"
+            },
+            {
+              "path": "old/0.27/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 32964,
+              "sha256": "ec3ee5215fecddca409c3ccdf0a0c3d827336792821bd709117c6856f6919be3"
+            },
+            {
+              "path": "old/0.27/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 31564,
+              "sha256": "f7361b3bc8baf16de1bcac20e7fd2d0d3d9ce81e96b012d5cca77961c0169004"
+            },
+            {
+              "path": "old/0.27/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 33780,
+              "sha256": "d0bdb52da6baa087cb4d14586f535026a93d152731a1f53854cdd68aec23fb10"
+            },
+            {
+              "path": "old/0.27/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 32336,
+              "sha256": "bd88b98aa5545fc45a71329ab1fc0352cc7e19ac6e6d561cb260f9b8d11e00ae"
+            },
+            {
+              "path": "old/0.27/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 34828,
+              "sha256": "255a861b8b0b38fdc068ac9356c79935168d6bcb0e5a59b721bf31101315ef7d"
+            },
+            {
+              "path": "old/0.27/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 33168,
+              "sha256": "821eaec8184ae46eb5c38b5c2273d8dc2794313fa430cafa5a3679068c22c7ed"
+            },
+            {
+              "path": "old/0.27/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 35468,
+              "sha256": "3623a5d0fba38f972918c58fc7318489d573251e4cfe95bdcdd7ed16c8bddbbd"
+            }
+          ]
+        },
+        {
+          "version": "0.26",
+          "label": "SEIReader 0.26",
+          "shortTitle": "Tabular numbers, fractions & web subsets",
+          "date": "2026-09-30",
+          "current": false,
+          "summary": "Added stat-screen tabular figures (tnum), stacked fractions (frac), superscripts and subscripts, and split web deliveries for faster browser loading.",
+          "highlights": [
+            "Equal-width tabular digits (tnum) so stat columns stay aligned",
+            "Automatic fractions (1/2, ½, ¼, ¾) and superscript/subscript digits",
+            "First multi-subset WOFF2 web stylesheet"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.26/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 29908,
+              "sha256": "dec51ba7d4856607b13b328bb945457ab7fe3386a8bbd98300f61dc90bb9377f"
+            },
+            {
+              "path": "old/0.26/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 32136,
+              "sha256": "ba63c24c334bb6ff4aafa5a06ce8c15001f5845ed8a76c3408cf99071d95e218"
+            },
+            {
+              "path": "old/0.26/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 30196,
+              "sha256": "2cf112278ee47c73285f662db4b94bc3f8be254da1ef9437cec5d738aff49595"
+            },
+            {
+              "path": "old/0.26/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 32788,
+              "sha256": "35f6c3ce5972d1650717cc5b7ce2e9a42710e65ded1f00331060ed2ac847752a"
+            },
+            {
+              "path": "old/0.26/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 30936,
+              "sha256": "942714a22055e47a4e6f7e3792e70f15b9dd7be16c9d7b6864629a8d90b8105f"
+            },
+            {
+              "path": "old/0.26/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 33144,
+              "sha256": "55479522967ecb553fe5c1bcb2f276ffeb45c452572fe870bf561093ef3bfc7c"
+            },
+            {
+              "path": "old/0.26/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 31736,
+              "sha256": "ff450b6fe7f26111abb4e3c3fcffff367d0eb0a01e937ad3919ddbc31fc30022"
+            },
+            {
+              "path": "old/0.26/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 33964,
+              "sha256": "95486ebaa5c9602fd19c29ea2798f56c8fc89c0f5a1fceefdd4f0300bcc577e8"
+            },
+            {
+              "path": "old/0.26/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 32364,
+              "sha256": "da89c52d2c613d01c73909640e999d19f3175372f0b538afb791788a379cdb4e"
+            },
+            {
+              "path": "old/0.26/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 35156,
+              "sha256": "38f3612bb08579ca2275e9127ff252aff54bb982edd5c684f13feb8a4f31c6df"
+            }
+          ]
+        },
+        {
+          "version": "0.25",
+          "label": "SEIReader 0.25",
+          "shortTitle": "First full Font Lab family & screen hinting",
+          "date": "2026-09-30",
+          "current": false,
+          "summary": "First complete 10-style Font Lab build: 5 weights with real handwriting-inspired italics, ~1,800 automatic kerning pairs per style, joined fi/fl, and crisp screen hinting.",
+          "highlights": [
+            "5 weights (Light to Bold), each with upright and real italic forms",
+            "Automatic optical pair spacing and joined fi / fl ligatures",
+            "Alignment zones and autohinting for sharp small text"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              600,
+              700
+            ],
+            "italic": true,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/0.25/SEIReader-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 26664,
+              "sha256": "c9eb7ccc0229f89377a3675020786b3f8d39b0e0ef2c771ce1e8fe3ec8bfdd8b"
+            },
+            {
+              "path": "old/0.25/SEIReader-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 28960,
+              "sha256": "12c69aa83fe68ac47b35a6176aed130ed4b9109a660c75b6aa8e1c486c0c0603"
+            },
+            {
+              "path": "old/0.25/SEIReader-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 27216,
+              "sha256": "1aefc85ef01436c41aff7df6a2b3aae61d2a2488d1dc89e618b85356d684ab97"
+            },
+            {
+              "path": "old/0.25/SEIReader-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 29408,
+              "sha256": "f1262ba0161416db8eee9e56532435c9a813b3c1283b4ac0ba86b786b562c11d"
+            },
+            {
+              "path": "old/0.25/SEIReader-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 27848,
+              "sha256": "9135db825907f6b48fc6ac43ec72023732ae4892c3a63d58addafe7bf035667c"
+            },
+            {
+              "path": "old/0.25/SEIReader-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 29780,
+              "sha256": "976d7cb4617af4cddc8f88adc9c07dd839c73206073c57d527543ce57c299a45"
+            },
+            {
+              "path": "old/0.25/SEIReader-SemiBold.woff2",
+              "styleName": "SemiBold",
+              "weight": 600,
+              "style": "normal",
+              "night": false,
+              "bytes": 28636,
+              "sha256": "cbcd84fa4e87d9c3cecbbc89d611e2363fcd5deab59923be1d6c6aad1c1af276"
+            },
+            {
+              "path": "old/0.25/SEIReader-SemiBoldItalic.woff2",
+              "styleName": "SemiBoldItalic",
+              "weight": 600,
+              "style": "italic",
+              "night": false,
+              "bytes": 30640,
+              "sha256": "ba4781d095db79fd6e237b99599e9b067e8d88ed0d9fa53026a385b3248418a7"
+            },
+            {
+              "path": "old/0.25/SEIReader-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 29276,
+              "sha256": "31e53b027693aed69d0b28b52f73be290ecdda73328420c13a724d7a2033b55f"
+            },
+            {
+              "path": "old/0.25/SEIReader-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 31816,
+              "sha256": "c6e989f01d745481be3351259b475b0bf7cce5368c9e4d7bd388410ffe2fd62e"
+            }
+          ]
+        },
+        {
+          "version": "0.6",
+          "label": "SEIHouse Soft 0.6 (Prototype)",
+          "shortTitle": "Original SEIHouse Soft prototype",
+          "date": "2026-09-15",
+          "current": false,
+          "summary": "The earliest preserved prototype (SEIHouse Soft): heavier stroke weight, taller lowercase height, and the original squared-curve silhouette before long-form reading refinements.",
+          "highlights": [
+            "Original Regular upright prototype preserved for historical comparison",
+            "Taller lowercase x-height (550) and heavier Regular stroke (108)",
+            "Shows how far SEIHouse Sans has evolved for chapter reading"
+          ],
+          "capabilities": {
+            "weights": [
+              400
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "old/previous.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 46036,
+              "sha256": "8959e5dc981634c3442dfbf82b74bfbf4ee1c26332e51151d58a3de633ae03a4"
+            }
+          ]
+        }
+      ]
+    },
+    "display": {
+      "id": "display",
+      "name": "Title Engine · Display",
+      "subtitle": "Covers, chapter headers, posters & Living Titles",
+      "currentVersion": "0.1",
+      "livingTitlesVersion": "0.1.3",
+      "defaultCompareVersion": "0.1-initial",
+      "cuts": [
+        {
+          "id": "soft",
+          "label": "Soft"
+        },
+        {
+          "id": "edge",
+          "label": "Edge"
+        },
+        {
+          "id": "ink",
+          "label": "Ink"
+        },
+        {
+          "id": "wide",
+          "label": "Wide"
+        }
+      ],
+      "workspaceUrl": "../../display/lab/index.html",
+      "workspaceLabel": "Open Display Lab",
+      "versions": [
+        {
+          "version": "0.1",
+          "label": "Display 0.1 · Current (Living Titles 0.1.3)",
+          "shortTitle": "Refined curves, 148 locales & certified Living Titles",
+          "date": "2026-11-11",
+          "current": true,
+          "summary": "All four cuts (Soft, Edge, Ink, Wide) share the latest smooth reading curves, 148-language character set, stylistic alternates, compiled title kerning, and certified Living Title motion.",
+          "highlights": [
+            "Inherits Sans 0.40 smooth g/S/? curves and 0.41 rare Latin/African/Celtic characters",
+            "Per-cut motion certification and flat-nib / true-italic Lab authoring",
+            "Ships static OTF/WOFF2 cuts plus the @seihouse/living-titles 0.1.3 runtime"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 93156,
+              "sha256": "e92d0713376079d2cb4c4c377c42d02919d69fbd59351145ca548051b814144f"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 72656,
+              "sha256": "0b77572b9f4178d313079e9fb1f7488658291d53332631344b58189582e68a0e"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 90472,
+              "sha256": "00f8177601307373e11f0726a43a628d37ef58f4a20347c95a8b7ea8dfea3192"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 88004,
+              "sha256": "09fb18bfecada426eb0bcfe39f92a4fb978955385a76742f953642b920dea50a"
+            }
+          ]
+        },
+        {
+          "version": "0.1-pre-step5",
+          "label": "Display 0.1 · Milestone 6 (Production Ready)",
+          "shortTitle": "Plain W/w default, licensing & web subsets",
+          "date": "2026-10-06",
+          "current": false,
+          "summary": "Made plain W/w the default across all four cuts (moving crossed W to optional ss04), embedded ecosystem licensing, and added 6 fast web subsets per cut.",
+          "highlights": [
+            "Plain W/w default in Soft, Edge, Ink, and Wide (crossed W in ss04)",
+            "Matched SEIHouse ecosystem license metadata and sub-25 KB Latin-basic subsets",
+            "Added finished-cut cover, poster, and tracklist specimen pages"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-pre-step5/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 87884,
+              "sha256": "811094c6ffd3cefc04f115f2684bac9910c976bf593c98d9f89d50ebf17f9486"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-pre-step5/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 68180,
+              "sha256": "bf69e9701e81509024973760471c3eed84cac5162531328f849e54fb35fe4177"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-pre-step5/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 85504,
+              "sha256": "69e745f1c53c564482bbb62e32eadbc7b353083004213212defc335fcf322929"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-pre-step5/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 83272,
+              "sha256": "eb050df1d6dbf6c2b338f6d1cc93b236b25f7e3cdc6ca715ab5a249d7d42e615"
+            }
+          ]
+        },
+        {
+          "version": "0.1-step4-alternates",
+          "label": "Display 0.1 · Milestone 5 (Letter Alternates)",
+          "shortTitle": "Custom letter designs & stylistic sets ss01-ss08",
+          "date": "2026-10-06",
+          "current": false,
+          "summary": "Added selectable alternate designs for a/g, R, K/k, M/W, y, G, Q, and open/closed 4/6/9 so each cut has its own distinct signature letters.",
+          "highlights": [
+            "8 OpenType stylistic sets (ss01-ss08) baked into every Display font",
+            "Each cut preset chooses defaults suited to its weight and mood",
+            "Full kerning support across every alternate letterform"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-step4-alternates/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 87908,
+              "sha256": "67ea0123fa0b65383822c5e15b7bbc2359299438bfb487480cfb98d558d2fe0a"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-step4-alternates/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 67792,
+              "sha256": "4254e0850fd12f7c69d1303ac72e741ed57f1abbb394d14c6e0158959e444ef9"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-step4-alternates/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 85088,
+              "sha256": "a9d10997f0fb0341a4708a22e6fb7b8be308c7a6d82d759745b47dfdbb849c11"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-step4-alternates/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 82992,
+              "sha256": "b440f9c5d83375fc2d9b02b7cc1fbc18c46ce98c8e4f9a2a4c396a135b5adf77"
+            }
+          ]
+        },
+        {
+          "version": "0.1-step3-spacing",
+          "label": "Display 0.1 · Milestone 4 (Title Kerning)",
+          "shortTitle": "0.1-step3-spacing",
+          "date": "2026-10-06",
+          "current": false,
+          "summary": "Introduced dedicated capital-height title kerning and optional all-caps spacing (cpsp) tuned to each cut’s geometry.",
+          "highlights": [
+            "Separate optical spacing policies for Soft, Edge, Ink, and Wide titles",
+            "Additive cpsp capital spacing for all-caps covers and headers",
+            "Exact width parity between the live Display Lab and built font files"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-step3-spacing/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 80004,
+              "sha256": "4e1b0b7e78b8f2c13b536fd310d6889f5cb15487794ee2819527c00dee7d2040"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-step3-spacing/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 60504,
+              "sha256": "0fad76ad90124bbf326799c82851d83a0f56350725ab8d274871a1f96107e103"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-step3-spacing/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 76936,
+              "sha256": "e8256f161d18beb0d3e9be1c13e194c18c06969be55e8d511a93550f4e69f44e"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-step3-spacing/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 74728,
+              "sha256": "ba35fcd09a80456842861f46cd2e249fadb0931fc7d9a0ee53cd2cd7e96e802f"
+            }
+          ]
+        },
+        {
+          "version": "0.1-counter-repair",
+          "label": "Display 0.1 · Milestone 3 (Counter Repair)",
+          "shortTitle": "Opened crowded interiors in heavy cuts",
+          "date": "2026-10-06",
+          "current": false,
+          "summary": "Added heavy-pen counter compensation so bold cuts like Soft and Edge keep clear, open spaces inside letters like a and e without losing stem weight.",
+          "highlights": [
+            "Repaired nearly closed lowercase a and e counters in Soft and Edge",
+            "Horizontal strokes automatically reserve interior room at heavy weights",
+            "Ink and Wide remained crisp and untouched"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-counter-repair/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 70320,
+              "sha256": "67a5f2838ce2969034a00e5ba7aa6bdee48f37d0c9977cb5514682e7543300c8"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-counter-repair/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 53720,
+              "sha256": "c0eaef12b1b44af8793f7d8b2f575b393a8cc45acf919b3a904d6feb2379b052"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-counter-repair/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 67560,
+              "sha256": "0b93a984950fc43b500b8af9596c2a6c1da64cca910ab15b50fcd6d43826cf68"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-counter-repair/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 65740,
+              "sha256": "154639b2723f964d40a25899607a53eaa70b96ad1a90bfc6ea25bf296f22749d"
+            }
+          ]
+        },
+        {
+          "version": "0.1-step2-shapes",
+          "label": "Display 0.1 · Milestone 2 (Clean Shapes & Shared Engine)",
+          "shortTitle": "Repaired stroke caps/miters & unified engine",
+          "date": "2026-10-04",
+          "current": false,
+          "summary": "Unified Display with the main Sans drawing engine, repaired angled flat terminals and sharp miters, and unlocked multilingual Cyrillic, Greek, and Vietnamese titles.",
+          "highlights": [
+            "Clean flat-cap and miter geometry with zero outline debris",
+            "Shared core engine bringing 732 multilingual glyphs to every cut",
+            "Passed FontBakery quality checks with 0 failures and 0 warnings"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-step2-shapes/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 70416,
+              "sha256": "4335ad412637fffac25b0bec731f12e0299d88b670968139ecaddb7c5268d0f0"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-step2-shapes/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 52984,
+              "sha256": "50b7d15d3c09a2fe1504a2eb82dfbcfbb9a1f5c0264d0d1be528ba12f79ef40e"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-step2-shapes/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 67560,
+              "sha256": "0b93a984950fc43b500b8af9596c2a6c1da64cca910ab15b50fcd6d43826cf68"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-step2-shapes/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 65740,
+              "sha256": "154639b2723f964d40a25899607a53eaa70b96ad1a90bfc6ea25bf296f22749d"
+            }
+          ]
+        },
+        {
+          "version": "0.1-initial",
+          "label": "Display 0.1 · Milestone 1 (Original Import)",
+          "shortTitle": "First Soft, Edge, Ink & Wide prototype cuts",
+          "date": "2026-10-02",
+          "current": false,
+          "summary": "The initial imported SEIHouse Display 0.1 workshop introducing the four signature cut personalities before outline cleanup, counter repair, and title kerning.",
+          "highlights": [
+            "Established the four core Display voices: Soft, Edge, Ink, and Wide",
+            "Basic Latin character set prior to shared-engine unification",
+            "Preserved baseline showing how far title shapes and spacing progressed"
+          ],
+          "faces": [
+            {
+              "cut": "soft",
+              "cutLabel": "Soft",
+              "path": "old/display/0.1-initial/SEIHouseDisplay-Soft.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 30588,
+              "sha256": "841a16090e32fed9ba83453d00db2aebd17c1035f3b4e3f748fbec29aeb0c047"
+            },
+            {
+              "cut": "edge",
+              "cutLabel": "Edge",
+              "path": "old/display/0.1-initial/SEIHouseDisplay-Edge.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 19028,
+              "sha256": "7a0cac9329cbd2d40a66e7da1fa6acc0f121f6f116c431fc699da9067891454d"
+            },
+            {
+              "cut": "ink",
+              "cutLabel": "Ink",
+              "path": "old/display/0.1-initial/SEIHouseDisplay-Ink.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 26552,
+              "sha256": "bc22be4b571419532d1702f5dcb1e2538b9f7e3564b4474526da47abeaf71af2"
+            },
+            {
+              "cut": "wide",
+              "cutLabel": "Wide",
+              "path": "old/display/0.1-initial/SEIHouseDisplay-Wide.woff2",
+              "weight": 400,
+              "style": "normal",
+              "bytes": 26820,
+              "sha256": "e2c6810bf09370145a0d3efbe4a18294a2aa397ea7ad92645af5b26a68b9f413"
+            }
+          ]
+        }
+      ]
+    },
+    "noto": {
+      "id": "noto",
+      "name": "SEIHouse Noto",
+      "subtitle": "Warm Noto-based reading foundation study",
+      "currentVersion": "Refinement 01",
+      "defaultCompareVersion": "Study B",
+      "workspaceUrl": "../../noto/studies/warmth/index.html",
+      "workspaceLabel": "Open Noto Warmth Study",
+      "versions": [
+        {
+          "version": "Refinement 01",
+          "label": "Balanced · Refinement 01",
+          "shortTitle": "Smoother bowls, clearer openings & steadier spacing",
+          "date": "2026-11-11",
+          "current": true,
+          "summary": "Refined pass on the chosen Balanced foundation: smoother curves in a, c, e, g, and s, coordinated arches in n, m, h, and r, lighter crossbars on e/f/t, and steadier word spacing.",
+          "highlights": [
+            "Builds directly on your selected Balanced (Study B) warmth direction",
+            "Smoother lowercase bowls and cleaner interior openings",
+            "Prototype Latin character set for side-by-side reading evaluation"
+          ],
+          "capabilities": {
+            "weights": [
+              400
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "noto/studies/warmth/fonts/SEIHouseNotoBalanced-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 10236,
+              "sha256": "2f8ac2bcf09904ed87f2fd23cf031f27608b11a002f49329fc71bb9d303f65d8"
+            }
+          ]
+        },
+        {
+          "version": "Study B",
+          "label": "Original Balanced (Study B)",
+          "shortTitle": "Approved warmth foundation (unchanged baseline)",
+          "date": "2026-10-28",
+          "current": false,
+          "summary": "The original middle-ground study you selected as the SEIHouse Noto foundation (14-unit terminal rounding, 0.585 curve fullness, 1.025 width), kept unchanged as a fixed reference.",
+          "highlights": [
+            "Chosen foundation balancing crispness with gentle SEIHouse warmth",
+            "14-unit rounded terminals and moderate curve fullness",
+            "Preserved byte-for-byte to anchor future refinements"
+          ],
+          "capabilities": {
+            "weights": [
+              400
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "noto/studies/warmth/fonts/SEIHouseNotoStudyB-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 10000,
+              "sha256": "e8a81727e9fdcde265498f2bdcbe1876802e538368bdeda146ef57b0c56a35b0"
+            }
+          ]
+        },
+        {
+          "version": "Study A",
+          "label": "Study A · Subtle Warmth",
+          "shortTitle": "Crisper corners & closer to neutral",
+          "date": "2026-10-28",
+          "current": false,
+          "summary": "Exploratory study with minimal corner rounding (3 source units) and narrower proportions (1.000 width) to test the crisp end of the warmth spectrum.",
+          "highlights": [
+            "3-unit subtle terminal rounding and tighter 0.545 curve fullness",
+            "Standard 1.000 width factor",
+            "Part of the initial three-way warmth study"
+          ],
+          "capabilities": {
+            "weights": [
+              400
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "noto/studies/warmth/fonts/SEIHouseNotoStudyA-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 9600,
+              "sha256": "3652099548a483246c6caf33dc0ca34bb580f88292e51c530c7c82f7263d873d"
+            }
+          ]
+        },
+        {
+          "version": "Study C",
+          "label": "Study C · Pronounced Warmth",
+          "shortTitle": "Rounder terminals & wider, softer bowls",
+          "date": "2026-10-28",
+          "current": false,
+          "summary": "Exploratory study pushing softness further (29-unit terminal rounding, 0.625 curve fullness, 1.050 width) to test the warm boundary of the design space.",
+          "highlights": [
+            "29-unit pronounced terminal rounding and fuller 0.625 curves",
+            "Wider 1.050 letter proportions",
+            "Helped confirm Study B (Balanced) as the sweet spot"
+          ],
+          "capabilities": {
+            "weights": [
+              400
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "noto/studies/warmth/fonts/SEIHouseNotoStudyC-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 10124,
+              "sha256": "46732bfa095c7cae261c4de603b4ae7a244a9c63ef3e5d1f4b4cfcc56eb4f351"
+            }
+          ]
+        }
+      ]
+    }
+  }
+}

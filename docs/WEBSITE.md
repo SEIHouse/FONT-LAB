@@ -1,15 +1,24 @@
 # Font Lab website
 
-The repository now has a homepage at [`index.html`](../index.html), with the actual
-Reader and Display fonts, an editable specimen, and links to every workspace.
+The repository has a workshop homepage at [`index.html`](../index.html) organized into two
+clear studio sections—**01 / Regular & Reading Fonts** and **02 / The Title Engine**—plus a
+dedicated **Version History & Side-by-Side Compare** page at [`site/versions/index.html`](../site/versions/index.html).
 
-**Noto test** in the main navigation opens the SEIHouse Noto warmth comparison at
-`noto/studies/warmth/index.html`. Balanced is the selected base; the page compares
-Refinement 01 with the unchanged original B. A matching workspace card sits above
-Reader and Display. The comparison includes its prototype web fonts, the separately
-licensed Noto reference, an offline HTML download, study notes, and proof images
-in the public build. Its **Back to Font Lab** link returns to the homepage.
-The first A/B/C study remains linked from the comparison footer.
+- **Section 01 — Regular & Reading Fonts:** Showcases the current **SEIHouse Sans 0.42**
+  release with a live interactive specimen (weight, real italic, size, Night-mode optical
+  grade status, and a Quick Compare dropdown for older milestones), workspace cards for the
+  Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and version archive, plus a
+  companion card for **SEIHouse Noto (`Balanced · Refinement 01`)** linking directly to
+  `noto/studies/warmth/index.html`.
+- **Section 02 — The Title Engine:** Showcases **SEIHouse Display 0.1**, **Living Titles 0.1.3**,
+  and **Elemental Title 0.1.0** with interactive cut tabs (**Soft, Edge, Ink, Wide**), a live
+  title tester, workspace cards for the Display Lab, Elemental Title Lab (`display/elemental/index.html`),
+  finished cut gallery, and NovelExpanded living-title cover mock, plus direct `.otf` starter downloads.
+- **Version History & Compare (`site/versions/index.html`):** Tracks and compares every
+  preserved release across **SEIHouse Sans** (`0.6` through `0.42`, 17 versions),
+  **Title Engine / Display** (7 milestones across Soft, Edge, Ink, and Wide), and
+  **SEIHouse Noto** (Studies A, B, C, and `Balanced · Refinement 01`). Fonts are loaded on
+  demand via `FontFace` so visitors only download the two versions they are actively comparing.
 
 ## Deploy to Vercel
 
@@ -29,16 +38,18 @@ Lab pages are copied, so commit rebuilt pages when changing a Lab template.
 The configuration follows Vercel's [build settings](https://vercel.com/docs/builds/configure-a-build)
 and [vercel.json reference](https://vercel.com/docs/project-configuration/vercel-json).
 Only the output directory is served; the build copies an explicit Reader/site
-allowlist plus Display's production manifest inventory. This includes six web subsets per face,
-`display/fonts.css`, spacing exports and the finished-cut specimen pages under
-`site/display/`. Regenerate the manifest and pages with
-`python -X utf8 display/build_all_cuts.py` after changing cut settings; the
-website build rejects a stale inventory. It does not require a font compiler
-when deploying already-built assets.
-Archived font versions, proof images, development scripts, and the
-source repository are excluded. The dependency-free SEIReader npm package remains
-separate and uses a 17-file allowlist, including the operative Sans license and
-both canonical and legacy family stylesheets.
+allowlist, Display's production manifest inventory (`display/site_inventory.mjs`), and
+the validated version-history WOFF2 inventory (`site/version_inventory.mjs` + `site/versions.json`).
+This includes six web subsets per Display face, `display/fonts.css`, spacing exports, the
+finished-cut specimen pages under `site/display/`, and the archived `.woff2` web fonts under
+`old/` so the Version History & Compare page works on the deployed site.
+`build_site.mjs` also verifies that `index.html` and `site/versions.json` match the active
+version in `phase4.json`, preventing stale homepage version badges from shipping.
+Regenerate the Display manifest and pages with `python -X utf8 display/build_all_cuts.py`
+after changing cut settings, and run `python archive_version.py --sync` (or `--snapshot-sans` /
+`--snapshot-display` before bumping a release) to keep the version archive and homepage badges in sync.
+Historical `.otf` files, development scripts, and the source repository remain excluded from `dist/site`.
+The dependency-free SEIReader npm/ZIP app packages remain completely separate and exclude `old/` and `site/`.
 
 ## Work on the hosted Labs
 
@@ -50,6 +61,14 @@ Chamber audio remain separate and unconnected. The mock has a caller-owned signa
 seam for a future menu connection. It consumes the installable
 [`@seihouse/living-titles`](../packages/living-titles/README.md) runtime. Rebuild its checked-in drawing bundle with
 `python display/build_novel_mock.py` after changing shared engine/spacing inputs.
+
+The [Elemental Title Lab](../display/elemental/index.html) lets you test every element
+(Lightning, Water, provisional Poison, Fire, Frost, Celestial, Void), rank palette, bond tier,
+page-wide crowd budget, and Quill familiar signature (*Stormwrit* and *True North*) across all
+SEIHouse typefaces (`Display Edge`, `Soft`, `Ink`, `Wide`, `SEIHouse Sans 0.42`, and `SEIHouse Noto`).
+It consumes [`@seihouse/elemental-title`](../packages/elemental-title/README.md); rebuild its checked-in
+bundle after editing `packages/elemental-title/src/` or `display/elemental/src/` with `npm ci --prefix display`
+and `node display/build_elemental_lab.mjs`.
 
 - **Reader Lab:** change the live font settings, then **Save** to keep a browser draft.
   Reloading restores that saved draft.
@@ -98,10 +117,26 @@ committing the Lab. The website deploy itself retains its dependency-free build.
 See [Living Titles](DISPLAY-LIVING-TITLES-STEP6.md) for supported profiles, formats
 and certification.
 
+## Archiving a font release
+
+Before building a new version over `fonts/` or `display/fonts/`, snapshot the outgoing
+web fonts into `old/` and refresh `site/versions.json` + homepage version badges:
+
+```sh
+# Snapshot current Sans web faces into old/<version>/ before bumping phase4.json:
+python archive_version.py --snapshot-sans
+
+# Snapshot current Display cuts into old/display/<milestone-slug>/:
+python archive_version.py --snapshot-display 0.1-step7
+
+# After updating phase4.json and rebuilding fonts, sync site/versions.json & index.html:
+python archive_version.py --sync
+```
+
 ## Verification
 
 ```sh
-node --test tests/site.test.mjs
+node --test tests/site.test.mjs tests/site-production.test.mjs
 node build_site.mjs
 ```
 

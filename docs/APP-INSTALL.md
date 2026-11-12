@@ -100,10 +100,11 @@ legacy `"SEIReader"` alias. Use one family stylesheet per integration.
 Installed on 2026-10-10 by Development PR #353, from this repository at
 `93954df`. Development uses the npm tarball route for both families:
 
-| Package | Tarball in Development's `vendor/` | Family names it uses |
+| Package | Tarball in Development's `vendor/` | Family names / exports it uses |
 |---|---|---|
 | `@seihouse/seireader@0.39.0` | `seihouse-seireader-0.39.0.tgz` (`npm pack --ignore-scripts` at this repository's root) | `"SEIHouse Sans"` |
 | `@seihouse/living-titles@0.1.0` | `seihouse-living-titles-0.1.0.tgz`, copied unchanged with its `release.json` | `"SEIHouse Display Soft"`, `"… Edge"`, `"… Ink"`, `"… Wide"` |
+| `@seihouse/elemental-title@0.1.0` | `seihouse-elemental-title-0.1.0.tgz`, copied unchanged with its `release.json` from `packages/elemental-title/releases/` | `ElementalTitle`, `@seihouse/elemental-title/styles.css` |
 
 Development records each tarball's source commit and SHA-512 integrity in
 `vendor/font-artifacts.json`, and describes them in `vendor/README.md`. Both are
@@ -170,6 +171,22 @@ Development. Do not edit font files inside Development.
    - Display: rebuild and validate Living Titles with the "Rebuild and validate
      in FONT-LAB" steps in `packages/living-titles/README.md`.
      Use the new tarball and `release.json` from `packages/living-titles/releases/`.
+   - Elemental Title: rebuild and validate `@seihouse/elemental-title` with:
+     ```sh
+     npm ci --prefix display
+     node display/build_elemental_package.mjs
+     node display/pack_elemental_package.mjs
+     node display/build_elemental_lab.mjs
+     node --test tests/elemental-title.test.mjs tests/elemental-package.test.mjs
+     node display/verify_elemental_package.mjs
+     ```
+     Copy `packages/elemental-title/releases/seihouse-elemental-title-0.1.0.tgz` (and its
+     `release.json`) into `SENSEIDUKES/development/vendor/`, add
+     `"@seihouse/elemental-title": "file:vendor/seihouse-elemental-title-0.1.0.tgz"` to
+     `package.json`, import `@seihouse/elemental-title/styles.css` in the host stylesheet,
+     and import `{ ElementalTitle } from "@seihouse/elemental-title"` directly instead of
+     from `@seihouse/ui`. Once `SENSEIDUKES/UI` removes its legacy `elemental-title` copy,
+     this repository is the sole home of Elemental Title.
 2. **Development: swap the tarballs.** Copy each new tarball into `vendor/`
    (and Living Titles' `release.json` as `<tarball name>.release.json`). Delete
    the old ones, and point the `file:vendor/…` dependencies in `package.json` at

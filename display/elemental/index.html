@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en" data-page-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Elemental Title Lab · SEIHouse Font Lab</title>
+    <meta
+      name="description"
+      content="Interactive Elemental Title Lab — test lightning, water, poison, fire, frost, celestial, void, page-wide choreography budgets, and Quill familiar signatures across SEIHouse Display, Sans, and Noto typefaces."
+    />
+    <link rel="stylesheet" href="../../fonts-sans.css" />
+    <link rel="stylesheet" href="../fonts.css" />
+    <link rel="stylesheet" href="./lab.css" />
+    <script>
+      try {
+        if (localStorage.getItem("seihouse-theme") === "day") {
+          document.documentElement.dataset.pageTheme = "day";
+        }
+      } catch {}
+    </script>
+  </head>
+  <body>
+    <div id="elemental-lab-root"></div>
+    <script type="module" src="./lab.js"></script>
+  </body>
+</html>
