@@ -44,8 +44,8 @@
               "weight": 300,
               "style": "normal",
               "night": false,
-              "bytes": 74136,
-              "sha256": "a33d406ddfc6fd8f9bbb33a9e7ec1e3b0c02accef9e4accaa16240237000edbd"
+              "bytes": 74284,
+              "sha256": "7d97851bb9864daf800514205d9f2dd0abd29ed7623c2f3674ff32424bf0f141"
             },
             {
               "path": "fonts/SEIReader-LightItalic.woff2",
@@ -53,8 +53,8 @@
               "weight": 300,
               "style": "italic",
               "night": false,
-              "bytes": 77828,
-              "sha256": "00c222a102ed1e38e6e54bfa7e442bba4cb9f16dc21328a7a7a223a5421b6f3c"
+              "bytes": 77780,
+              "sha256": "3adee3aa233eb104a4e52b0670d60a741cf9732eeb94014535301788e2efd09a"
             },
             {
               "path": "fonts/SEIReader-Regular.woff2",
@@ -62,8 +62,8 @@
               "weight": 400,
               "style": "normal",
               "night": false,
-              "bytes": 72688,
-              "sha256": "17bca0d9c1e842389609ebc5ca956ba823c0271c1218b7af53f7aab2296aeeaa"
+              "bytes": 72728,
+              "sha256": "300cd30205a700c1f98fc48527dbeb2c5c2308da8702c634b621340084401f55"
             },
             {
               "path": "fonts/SEIReader-Italic.woff2",
@@ -71,8 +71,8 @@
               "weight": 400,
               "style": "italic",
               "night": false,
-              "bytes": 76196,
-              "sha256": "655665941e93a57d8f0b8d0da018add80e9c6be350fc5d885238789692a3672b"
+              "bytes": 76416,
+              "sha256": "8ab270ca5016c25c5745295b69370024ced9b0cbc9d28b9c6814c12386e3dd0b"
             },
             {
               "path": "fonts/SEIReader-Medium.woff2",
@@ -80,8 +80,8 @@
               "weight": 500,
               "style": "normal",
               "night": false,
-              "bytes": 72452,
-              "sha256": "df2e210f3dc1dc6307b63fbb02bf7d27412e11240e8caf8e60692240ac940bcb"
+              "bytes": 72412,
+              "sha256": "db60cad45f114bef8a5081522c5edb43d225c204ca9386581893d9712891cd9d"
             },
             {
               "path": "fonts/SEIReader-MediumItalic.woff2",
@@ -89,8 +89,8 @@
               "weight": 500,
               "style": "italic",
               "night": false,
-              "bytes": 76608,
-              "sha256": "57ad94f86dafb99039e991a5e8a339874fb4b3a3e15e360b6166c4fcc768318b"
+              "bytes": 76552,
+              "sha256": "308fd26564771e85385674a43daa04cfdafc4e7b42e06e24b053501abb67aed4"
             },
             {
               "path": "fonts/SEIReader-SemiBold.woff2",
@@ -98,8 +98,8 @@
               "weight": 600,
               "style": "normal",
               "night": false,
-              "bytes": 72488,
-              "sha256": "ffd562084a2223d371f1d040035d313bdc343cf509c966c1e5651938a6b8af95"
+              "bytes": 72548,
+              "sha256": "bb37cfc050211205075f838da53eff5b4ec01276b180e9be9854736a84eb9338"
             },
             {
               "path": "fonts/SEIReader-SemiBoldItalic.woff2",
@@ -107,8 +107,8 @@
               "weight": 600,
               "style": "italic",
               "night": false,
-              "bytes": 77368,
-              "sha256": "75948f228ece2f30b47ccd4a0d38d2ef6ab5fd00c726006032e0049e0faf865b"
+              "bytes": 77236,
+              "sha256": "da95098447faab3c552fd02451b4060249e3e1c359687e0aa75328512ed9c35b"
             },
             {
               "path": "fonts/SEIReader-Bold.woff2",
@@ -116,8 +116,8 @@
               "weight": 700,
               "style": "normal",
               "night": false,
-              "bytes": 72848,
-              "sha256": "e3fbc909dbdfbac5d2b22adf1260c6644d58fbd65fef3a9d4ea7948ab18e364a"
+              "bytes": 72716,
+              "sha256": "8fd0d01ae111a04d6d7b4ec16f84cc626e3b3795545447047e9c3783815de1b0"
             },
             {
               "path": "fonts/SEIReader-BoldItalic.woff2",
@@ -125,8 +125,8 @@
               "weight": 700,
               "style": "italic",
               "night": false,
-              "bytes": 76416,
-              "sha256": "21d4034db0b0574d318384f694811c8a9430624d9e57fed4fdc8a4b8fd6eac4c"
+              "bytes": 76584,
+              "sha256": "9267dbe47128c56c51f8b8336e8f464afb948e415dd773db3c7a01ea0e08458c"
             },
             {
               "path": "fonts/SEIReader-LightNight.woff2",
@@ -134,8 +134,8 @@
               "weight": 300,
               "style": "normal",
               "night": true,
-              "bytes": 73660,
-              "sha256": "a534a170317657859bf930205230f87291bd6a572a00de2d4366911c940cffb6"
+              "bytes": 73652,
+              "sha256": "f4b7df617460ad5216ec79164df9a41fbb416b389c9f875537f6b78d7ce77e64"
             },
             {
               "path": "fonts/SEIReader-LightItalicNight.woff2",
@@ -143,8 +143,8 @@
               "weight": 300,
               "style": "italic",
               "night": true,
-              "bytes": 77264,
-              "sha256": "e9df44e3602f8de3cf9834bf8e7127ddfb0bc0e26f71843ddc12d1aaa4aed657"
+              "bytes": 77128,
+              "sha256": "d50f6d0fc459b3010f0ccbc8c842897c4befd6acf56eaf80069e0fcc6d3fdb58"
             },
             {
               "path": "fonts/SEIReader-RegularNight.woff2",
@@ -152,8 +152,8 @@
               "weight": 400,
               "style": "normal",
               "night": true,
-              "bytes": 73500,
-              "sha256": "999799986afc6775affe7c326654801f13d1dfb368744bea1ad08a1e4d57650e"
+              "bytes": 73492,
+              "sha256": "ae6f38f95a8e9853f4a87e5a41fac29680925c47435bf8b75ca9c9f8ad7950de"
             },
             {
               "path": "fonts/SEIReader-ItalicNight.woff2",
@@ -161,8 +161,8 @@
               "weight": 400,
               "style": "italic",
               "night": true,
-              "bytes": 76816,
-              "sha256": "4760403a5a11c2cf65948e3f374d9f0dc97c6f03e2e9df0635000c009db87386"
+              "bytes": 76740,
+              "sha256": "6da73f8e00fa9f623ee92ea910c6558b2d9ab6d6a6a65198f38a4cd647ca4618"
             },
             {
               "path": "fonts/SEIReader-MediumNight.woff2",
@@ -170,8 +170,8 @@
               "weight": 500,
               "style": "normal",
               "night": true,
-              "bytes": 72508,
-              "sha256": "9be039977eb82b1f9ec07e966483b652f49957d4155359b39168ded6e1cae69f"
+              "bytes": 72392,
+              "sha256": "ff029527848bef674d6564dd8e32567099d2198167ec076602e78f2e50920a4b"
             },
             {
               "path": "fonts/SEIReader-MediumItalicNight.woff2",
@@ -179,8 +179,8 @@
               "weight": 500,
               "style": "italic",
               "night": true,
-              "bytes": 76204,
-              "sha256": "415320f275de31b2145c02da36d25c037f8c7041c892394a7c4b4864d2ad6ddc"
+              "bytes": 76312,
+              "sha256": "7a2d91550174025ddc27ba0d42e9f979fd461455c1f78e45b321495c8377c41e"
             }
           ]
         },
@@ -2238,8 +2238,8 @@
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
               "weight": 400,
               "style": "normal",
-              "bytes": 92236,
-              "sha256": "d30dd08893c3e352e38816275e7a256025fb9f3fed5febd4a6d9fd6a08f5f213"
+              "bytes": 92304,
+              "sha256": "9fa7721c401301efddd679b9a8d909224c50e3e9818dd50fb02b35d18d30d200"
             },
             {
               "cut": "edge",
@@ -2247,8 +2247,8 @@
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
               "weight": 400,
               "style": "normal",
-              "bytes": 73556,
-              "sha256": "35185da80dfab6fa4bb4e8af12198ee69dd0081bc7fdae791067f265563fff99"
+              "bytes": 73612,
+              "sha256": "0d25888c4d7367edc2b3f2fa200b6e15c565931b5d8c86940ae15e024b565a9e"
             },
             {
               "cut": "ink",
@@ -2256,8 +2256,8 @@
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
               "weight": 400,
               "style": "normal",
-              "bytes": 89644,
-              "sha256": "c5e5e1ad9e1e71b22c1fe06898f3ae6f3287bf8ceeb7a75480e127228eeab38f"
+              "bytes": 89344,
+              "sha256": "557553322e2e5677f822a0b367080513156bd73cea3ac4758cf62dd9d342880e"
             },
             {
               "cut": "wide",
@@ -2265,8 +2265,8 @@
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
               "weight": 400,
               "style": "normal",
-              "bytes": 86748,
-              "sha256": "665fd927c34ac9e5127921f495b1b0b25a53afded1364600649497c359840c4b"
+              "bytes": 86836,
+              "sha256": "9155eb5940efea98bc3da71a4e4b894c46be462474f3d7ff186dfb391fdc6378"
             }
           ]
         },

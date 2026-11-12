@@ -61,8 +61,8 @@ Every Night face keeps 100% identical advance widths and kerning to its Day face
 Keep the app's existing size, line height, spacing, and width for its first trial.
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.
 The CSS registers all styles, but the browser requests the faces that rendered
-text uses. Do not preload all sixteen. A Regular-only page uses 72,688 font bytes;
-Regular with its italic uses 148,884. Icons and all supported letters are in each
+text uses. Do not preload all sixteen. A Regular-only page uses 72,728 font bytes;
+Regular with its italic uses 149,144. Icons and all supported letters are in each
 full file. Missing scripts, such as Chinese, still use the host's fallback fonts.
 
 Set `lang` on the actual passage, for example `tr`, `ro`, `hu`, `vmw`, `ig`, `ku-Latn`, or
@@ -214,15 +214,15 @@ request.
 
 | Delivery | Font files | Font bytes | Intended use |
 |---|---:|---:|---|
-| Full family (default) | 16 | 1,198,980 (1170.9 KiB) | All weights, languages and symbols in one face per style |
-| Regular + italic, with Night | 4 | 299,200 (292.2 KiB) | Explicit 400-only experiments; no other weights supplied |
-| Seven subsets, all styles | 112 | 4,316,136 (4215.0 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
+| Full family (default) | 16 | 1,198,972 (1170.9 KiB) | All weights, languages and symbols in one face per style |
+| Regular + italic, with Night | 4 | 299,376 (292.4 KiB) | Explicit 400-only experiments; no other weights supplied |
+| Seven subsets, all styles | 112 | 4,314,176 (4213.1 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
 
 The full family is 72.2% smaller than storing all 112 subset files. The
 subsets intentionally overlap Latin letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
-For Regular, the preferred vietnamese face alone is 43,168 bytes
-and the full face is 72,688 bytes. The browser can request additional script
+For Regular, the preferred vietnamese face alone is 43,200 bytes
+and the full face is 72,728 bytes. The browser can request additional script
 faces for mixed-language passages. Measure actual reading content before
 choosing subsets.
 

@@ -413,9 +413,9 @@ const crescentCmds = (sp, dir) => {
   };
   const leftMoon = [
     ...rawArc(cx1, 0, R1, a1, 360 - a1, true),
-    ...rawArc(cx1 + hx, -hy, rCap, -a1, 180 - a2, false),
-    ...rawArc(cx1 + d, 0, R2, 360 - a2, a2, false),
-    ...rawArc(cx1 + hx, hy, rCap, 180 + a2, 360 + a1, false),
+    ...rawArc(cx1 + hx, -hy, rCap, -a1, a2, false),
+    ...rawArc(cx1 + d, 0, R2, 180 + a2, 180 - a2, false),
+    ...rawArc(cx1 + hx, hy, rCap, 360 - a2, 360 + a1, false),
   ];
   if(dir > 0) return sp.mapCmds([...leftMoon, ['Z']]);
   // Mirror x -> -x and reverse segment order so ☽ retains identical CCW winding

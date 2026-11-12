@@ -1,11 +1,11 @@
 {
   "reference": "Reader 0.43: studio refinement of all 44 monochrome brand, cultivation, web-novel, player, and music symbols (including true-circle Ⓢ with 0.40 S curve); all letters, digits, punctuation, advances, kerning and layout preserved; 0.35/0.39/0.40/0.41/0.42 fixtures retained",
   "normalization": "Only head.created, head.modified and head.checkSumAdjustment are zeroed. All SFNT tables including complete CFF outline/hint programs, names, metrics and layout must match.",
-  "reader_skeleton_sha256": "a812f3386dc59df03f21ff9b5f7d8bce0a29b9ef2b733dd0c25605aabf9b4c01",
-  "source_sha256": "da1c60d21201dac6a0b4606f29b1eafeafd38914cece6f0efb135f44e9a021c9",
+  "reader_skeleton_sha256": "950564225b9bc8530966ebcb4569753c3383a0fa5df9523ab03a3f6303f4b992",
+  "source_sha256": "f17c40ec41713f5f97814ffe59a7e994a4a64aaaf17d09c7ac02888a0190981e",
   "files": {
     "SEIReader-Bold.cyrillic.woff2": {
-      "sha256": "af7ff6936a1257e030ecc8c6619719e7370d27ebdef3441c99d220b7cddeb19f",
+      "sha256": "4675a421ba266005472be28e097985d6b8721f44dc728ad5775364a3c9e61e6d",
       "glyphs": 649,
       "tables": {
         "CFF ": "3cc0774365532aa2f8527104f4716c6bbb9dad8d0ab03088b15e61cd1be4f6ec",
@@ -29,7 +29,7 @@
       }
     },
     "SEIReader-Bold.greek.woff2": {
-      "sha256": "80bea17cb2de2592bb3a226b3c39516385b9407e56b5d48de0407734c9d64fa4",
+      "sha256": "ca1cf688ecdd92795622e24c56ad2d7b4c71d0345ceb1bf2cf229bd6d57b31a2",
       "glyphs": 622,
       "tables": {
         "CFF ": "76cbed6926ae5978f83a57568d530d650a637434dfee832ec970d910c3273cb5",
@@ -53,7 +53,7 @@
       }
     },
     "SEIReader-Bold.latin-basic.woff2": {
-      "sha256": "62b87293c9c5cdcd4a8aa29b797e10532aa1f2dc1235ae43bef3ed4f83d46d2a",
+      "sha256": "a0043091e67946ec2a6d10e4401de1560888f3086708a682b697a27ab5673645",
       "glyphs": 148,
       "tables": {
         "CFF ": "d36845bbb0588996a47655bb1e1e171796f723000dbf3a5668b8da4d6e992c0b",
@@ -77,7 +77,7 @@
       }
     },
     "SEIReader-Bold.latin-ext-2.woff2": {
-      "sha256": "ae6db7abd934fae7052205ee13bfaaf376847cb60285277bddeafc3e26e9daad",
+      "sha256": "e127e969dcc23f4655dab51fd228d99fa49221b037ebf4b57e23ddbc5367d96d",
       "glyphs": 551,
       "tables": {
         "CFF ": "a3c40f714de0d5e6fda14ca1f42444e0557514198690dbbc9d77fdef415f1de7",
@@ -101,7 +101,7 @@
       }
     },
     "SEIReader-Bold.latin-extended.woff2": {
-      "sha256": "220c3226d5702318c4510cc59877f7cadbaef4320eab16a359ef84f64921d9eb",
+      "sha256": "17ff6b26ef52c52a8ac71c7ecf2721c3a4f500e12cc1b591a15142ab69030437",
       "glyphs": 515,
       "tables": {
         "CFF ": "0b9ae640ea5efd29733cc610dc07468010692318771d5803e5bb41469234fe00",
@@ -125,10 +125,10 @@
       }
     },
     "SEIReader-Bold.otf": {
-      "sha256": "027392c2839a24c3584f5d3c259706458197979e904fb0b20e5beb8957a4fdb0",
+      "sha256": "453558d8653e3c9aeb4ef814599bca9c1d0e205ed9be9b2b51d3055c8061d0ed",
       "glyphs": 787,
       "tables": {
-        "CFF ": "5207607aa80773a9875d0803a7209e17062fb22b0e41f298988bf1a325586f11",
+        "CFF ": "44272e51cc6a4218760cec2ee45ab99260942469b953a50c34220279891f4ddd",
         "GDEF": "a7dc65f67346833131dae6e4144b7978aaac57021b48cded711d2f8f1f1c4a77",
         "GPOS": "a957e280c92888133b0f9a5f97250ddd2a0479e5f9c2aac8e448ea192fc79208",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -137,22 +137,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "a605356c8ef01a4629769e4ada7bd832a11261312bb6500ae24d68c4fbfe3bcd",
         "hhea": "80ab507132ee8c23070d5c10c7551d6e423a7fdb9dc39f1da1c9b9a313c10aa8",
-        "hmtx": "66bf7b29f691e66def07e803540dffcf934c63f073cd26cb1bd25dfd6fe9ea21",
+        "hmtx": "ca2b324e35d2ab87794e80a82bf07f9e28a8cae6765fef142d595003ddd491d4",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "bebba1fd56d315504846bbbc73853b2500ace9ace904bd6937df2c837967fef9",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "18e84d3bdd1e88341379ab4e48946d66ddf2a72a3c90fd99e2296576e1cb89bd",
+        "glyphs": "abba61c131b724e699c944d9842d08d5f2b6a7af2580974b1871a219c30a413f",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-Bold.symbols-icons.woff2": {
-      "sha256": "65f8fa23d14b2407092b7b03a5bd6a099b79a420465966bb4dd8b64329c7092e",
+      "sha256": "49801a743fc307d0031849b64d50c40e662dbb4cced531152a7bab60a75b56c0",
       "glyphs": 89,
       "tables": {
-        "CFF ": "5d509c3e46491dff891105d9e23608dcba60bf9922ea162a34d3e81b5980c59e",
+        "CFF ": "658a8dfc6dcac3c8b705a605a852774e94b762bab7bc7c437321a3890ef65535",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "55246b71e6e65d036bf35628534d814c1a259a5abe6994926493ab9390c92cc4",
@@ -160,19 +160,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "7768a4a06b1b21aae12664a28838606f60ff8fe683220c23ee8d87a7ffca9b28",
         "hhea": "084b043cd665b4467aa1722fa476a4ec04d51095121912569fb63cb0b7ec9e72",
-        "hmtx": "3c4446bf93bbe8bfaa483c61e83ad34fb9d0d2668b06d4592770c7444ac63d8e",
+        "hmtx": "8421f7ccd3b2a5548d230ecf380ed3a68b65bc965445c6cc94f71bc92ddbbe14",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "bebba1fd56d315504846bbbc73853b2500ace9ace904bd6937df2c837967fef9",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "953507319370f63626bab7cf852bef6b7759c3df10a615fa253e3b14ae4e506b",
+        "glyphs": "014c81538183e150ca9cb1259d3f78da39a57c22a6c9b1209400f418a2fc5f4f",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-Bold.vietnamese.woff2": {
-      "sha256": "20df4c42df11f3ec75e4c401eb2ef8a8802ae6a511f3e571a983d6689a702186",
+      "sha256": "e84d8be64914bbc71269233633fa8212e62d9851159a7dcff175e5ba2f2c7ff9",
       "glyphs": 551,
       "tables": {
         "CFF ": "a3c40f714de0d5e6fda14ca1f42444e0557514198690dbbc9d77fdef415f1de7",
@@ -196,10 +196,10 @@
       }
     },
     "SEIReader-Bold.woff2": {
-      "sha256": "e3fbc909dbdfbac5d2b22adf1260c6644d58fbd65fef3a9d4ea7948ab18e364a",
+      "sha256": "8fd0d01ae111a04d6d7b4ec16f84cc626e3b3795545447047e9c3783815de1b0",
       "glyphs": 787,
       "tables": {
-        "CFF ": "5207607aa80773a9875d0803a7209e17062fb22b0e41f298988bf1a325586f11",
+        "CFF ": "44272e51cc6a4218760cec2ee45ab99260942469b953a50c34220279891f4ddd",
         "GDEF": "a7dc65f67346833131dae6e4144b7978aaac57021b48cded711d2f8f1f1c4a77",
         "GPOS": "a957e280c92888133b0f9a5f97250ddd2a0479e5f9c2aac8e448ea192fc79208",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -208,19 +208,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "1c0778dc660ea2f2345f9d7b6cd0e167358a66cffdcdf79a4a3ed9abbc3aaeb5",
         "hhea": "80ab507132ee8c23070d5c10c7551d6e423a7fdb9dc39f1da1c9b9a313c10aa8",
-        "hmtx": "66bf7b29f691e66def07e803540dffcf934c63f073cd26cb1bd25dfd6fe9ea21",
+        "hmtx": "ca2b324e35d2ab87794e80a82bf07f9e28a8cae6765fef142d595003ddd491d4",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "bebba1fd56d315504846bbbc73853b2500ace9ace904bd6937df2c837967fef9",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "18e84d3bdd1e88341379ab4e48946d66ddf2a72a3c90fd99e2296576e1cb89bd",
+        "glyphs": "abba61c131b724e699c944d9842d08d5f2b6a7af2580974b1871a219c30a413f",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-BoldItalic.cyrillic.woff2": {
-      "sha256": "7f20ceaa5ec6da152cae07eba95d504a92629288802210b504e24d44f08cd3b0",
+      "sha256": "4a96031e57f79a24822c97554cfe7ce0dfde533939435ca718bd1cc48863f3bd",
       "glyphs": 649,
       "tables": {
         "CFF ": "5dba0c95c99e073ec7a1e26026639f8740f7e170be8798ca53b546fc417a5adc",
@@ -244,7 +244,7 @@
       }
     },
     "SEIReader-BoldItalic.greek.woff2": {
-      "sha256": "866a26c6a30832d432a44adac986fe797ad143c25f3d02a711e6a4b13650a92b",
+      "sha256": "adef83cf648e624146466339f3af3eeced4e47e55be34fdcf50b5de0bedaad6d",
       "glyphs": 622,
       "tables": {
         "CFF ": "5a406e4425f53f2cd7f7448413e364f41837a176b633195890ca560f3ab58ffe",
@@ -268,7 +268,7 @@
       }
     },
     "SEIReader-BoldItalic.latin-basic.woff2": {
-      "sha256": "725bac446f31b126e05352ebc076fdedcc359fd899dbe24cfb9425e0a22c0c7c",
+      "sha256": "7c11fa09bddfe08652e24781eec4d9a5746ce3557ae416e1c10842c878b891b7",
       "glyphs": 148,
       "tables": {
         "CFF ": "090ec5d49661b827338cc457965628c586ad0ac140c6d727ae8c03b9ed1a80da",
@@ -292,7 +292,7 @@
       }
     },
     "SEIReader-BoldItalic.latin-ext-2.woff2": {
-      "sha256": "b4e322afe1a6ebbca42b8ca6965132d5429a6c6be67d00cdf88300dd44ce2812",
+      "sha256": "e5d800d5fa3a737b75779c0ef77bb552c91f7c1e9ae1393c3b748df0b45b17f4",
       "glyphs": 551,
       "tables": {
         "CFF ": "6145df6b24b510950243feb92014a80d45c32f797cad5e48f6dbfb3e928efa33",
@@ -316,7 +316,7 @@
       }
     },
     "SEIReader-BoldItalic.latin-extended.woff2": {
-      "sha256": "78c31d9fd5f9cd0aeb2693ec1bf4bdd6355212b7eb9c631e5a5cc0181121804b",
+      "sha256": "28b7df4d6840525ad0c134aa2507dcd3a1f1fe105c1516be90e4ed436b1be88a",
       "glyphs": 515,
       "tables": {
         "CFF ": "851d3220910c67e61c135478b9a73c63d22ee914570b8eedd9f2c91339d9bb87",
@@ -340,10 +340,10 @@
       }
     },
     "SEIReader-BoldItalic.otf": {
-      "sha256": "21ba00800da44da3d76c7ee52c737f05da3824cb44f90e767c648464c3bb035d",
+      "sha256": "fad9c80d594d49445860097731ce42cb79f6d72cf31b7c0b7c15f67e2c7127ef",
       "glyphs": 787,
       "tables": {
-        "CFF ": "6b2a67b9f1e3d1a8adf6e7e4d578663f1adcf622e844733f2b921920c98103ea",
+        "CFF ": "8c81ea512d00f5d0bdd30dac6c2d64e6ee455979401e8795d213ec9d8fc3a57e",
         "GDEF": "10cb0829aef21796a9d1d186ed67faaa3ddedea93753118a936537e3892d96cc",
         "GPOS": "e88ee4f51cd57ac1acc2ad6501022aef5b0d1540338ac15b2579c32c5760a4e4",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -358,16 +358,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "b36d0f1c93adec17ffe4b0291b172f2e4757d3e2f2fa5e6e087f9edf77957b9b",
+        "glyphs": "1bd23758c1dc5458226cf01487dfb6605a559e812e2d273d1170dcf9f143f20e",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-BoldItalic.symbols-icons.woff2": {
-      "sha256": "b6c044ad09fe390205b5786947fe3d9b664c16144ca561411f204986350b34bd",
+      "sha256": "bbd98f1043e8c35a4f9f58d91afe8ccc3db8b2dc952a80b68b7506d2328671fe",
       "glyphs": 89,
       "tables": {
-        "CFF ": "58aedf94f7694a1f73186091e729255e91928250e4eb0e96829771b07269047f",
+        "CFF ": "2d0b3564e499f0eed703febd859b56bbbba13add8c34db2290e0cecc44a8532c",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "6710cc34c135f435a70364cef09f2187861674f54191d25c1c07117065f123a5",
@@ -381,13 +381,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "a24b64f12a25ff59e167d3bb3450b22e7df5586d9557b4b103bbaaed0ad9c02f",
+        "glyphs": "87578b3990ff3c1de83bfa82562ac226db0be76dfa3b8d3635a7fc04b14c128d",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-BoldItalic.vietnamese.woff2": {
-      "sha256": "17881c5ffcd34cbb967ac21b148308ab24ffc9c6db79be5124ccc0d78cf05e58",
+      "sha256": "2e28a3216469098c6f8a23354f850d719cbeae8bbff414137085a090333d1eb6",
       "glyphs": 551,
       "tables": {
         "CFF ": "6145df6b24b510950243feb92014a80d45c32f797cad5e48f6dbfb3e928efa33",
@@ -411,10 +411,10 @@
       }
     },
     "SEIReader-BoldItalic.woff2": {
-      "sha256": "21d4034db0b0574d318384f694811c8a9430624d9e57fed4fdc8a4b8fd6eac4c",
+      "sha256": "9267dbe47128c56c51f8b8336e8f464afb948e415dd773db3c7a01ea0e08458c",
       "glyphs": 787,
       "tables": {
-        "CFF ": "6b2a67b9f1e3d1a8adf6e7e4d578663f1adcf622e844733f2b921920c98103ea",
+        "CFF ": "8c81ea512d00f5d0bdd30dac6c2d64e6ee455979401e8795d213ec9d8fc3a57e",
         "GDEF": "10cb0829aef21796a9d1d186ed67faaa3ddedea93753118a936537e3892d96cc",
         "GPOS": "e88ee4f51cd57ac1acc2ad6501022aef5b0d1540338ac15b2579c32c5760a4e4",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -429,13 +429,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "b36d0f1c93adec17ffe4b0291b172f2e4757d3e2f2fa5e6e087f9edf77957b9b",
+        "glyphs": "1bd23758c1dc5458226cf01487dfb6605a559e812e2d273d1170dcf9f143f20e",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "3603861e760bf66a0a0a05c7120b688bc1e1ef1371db7522fa66e0bac0c12ee7"
       }
     },
     "SEIReader-Italic.cyrillic.woff2": {
-      "sha256": "350a28a1d604d4aad8699f47fbbbcfd76d26cdbbd5171b0fb3994b5ad03d1039",
+      "sha256": "8d6b93ff11113761b82517b02335557f48ac6d1c2ec3495298aa61e71a572a8b",
       "glyphs": 649,
       "tables": {
         "CFF ": "d83ac73d7249ba54d7b14912dd7cd4e4cfcb0c604eeda67c4fbcbb7b60fafcbc",
@@ -459,7 +459,7 @@
       }
     },
     "SEIReader-Italic.greek.woff2": {
-      "sha256": "9482b74e4b12951b9741608f5730e278d1f084f9f00c1acc362e11c1e17f1004",
+      "sha256": "8303ddc6391f05ac2967206c10692fa94b9f0a4b25802489503d2e5511980456",
       "glyphs": 622,
       "tables": {
         "CFF ": "6dcdeb8c2a77c4c7ef37827bde7f2b94c409d916c7803e0dc26ecd63974d9248",
@@ -483,7 +483,7 @@
       }
     },
     "SEIReader-Italic.latin-basic.woff2": {
-      "sha256": "92e8e323ae43b1f7805d0513ed81b0c8790aedec7432f6f497f4ec17263671dc",
+      "sha256": "2c41a96531d82d794371281d270fef3a150041e99aec71685db5dbfa55b586c0",
       "glyphs": 148,
       "tables": {
         "CFF ": "9f3737246124796d23d080beb0c424dd6cc7c3ebbf23b1f4fcc59ec015cd8425",
@@ -507,7 +507,7 @@
       }
     },
     "SEIReader-Italic.latin-ext-2.woff2": {
-      "sha256": "2dbcff352917cb4a3f39e1e7a23cdf226d70d86298314f57bd342a6456493e1e",
+      "sha256": "e99ca23fb935265a507445b7a9eee3f66fe834552d06d7438174092b12da98b0",
       "glyphs": 551,
       "tables": {
         "CFF ": "4ef4baeaa534c9916a0e88dfbcc7053b28841374e47ac5c655a4bc6f69ea067e",
@@ -531,7 +531,7 @@
       }
     },
     "SEIReader-Italic.latin-extended.woff2": {
-      "sha256": "4bc6b41074bfc2578651826137d2b90668bb033e083615f93bd658807b86f5a5",
+      "sha256": "d792fc7524d04fbf6476f9969dbf3077f1063c232fa7e566725338c00d93805a",
       "glyphs": 515,
       "tables": {
         "CFF ": "05b968712bb8c9851597c32db3d5adba9b38d1bb78950b0cd5ff18ed16da2dc1",
@@ -555,10 +555,10 @@
       }
     },
     "SEIReader-Italic.otf": {
-      "sha256": "910cd2a14afe2555136d2102c7196f08e55e047c9469fd00a4955623bd605da7",
+      "sha256": "519ef35d242cf1ae55c46ec8cff1bb55937198c1093a45e3ffa28444513d00e4",
       "glyphs": 787,
       "tables": {
-        "CFF ": "5dcf7d3147b6b4e0872ff69a2c80a5bceb70aedd0f54f4aed76768a00454d61f",
+        "CFF ": "96d3d2b7d13a969ead415bdd0273b7b89ea08471e9eccad063996eadb6d37017",
         "GDEF": "70beb6a7e561173f3f32907ed7cde3ee6bba1717d0385a25113225812adfdf0d",
         "GPOS": "85ddbfb6e9872a76531c44952212cbf108e7c2ed4a687b3a4fe248c50c6f69c9",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -573,16 +573,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "47111f828be8d7979950b4108b384e5e137e427dc52223e992158475d63ab74a",
+        "glyphs": "d0a284d2061c9089384723834fe8d3b8d6c889a8b0c21ac1cf05530785acd889",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-Italic.symbols-icons.woff2": {
-      "sha256": "a30d572ae386110d131842fa65436b8a86bf14b5eb9fbd2864f6348fabb4a5e7",
+      "sha256": "ba48562047caf0ff968605ef01158bfd657597a2e7d27e4461ad012502240123",
       "glyphs": 89,
       "tables": {
-        "CFF ": "f1382739854f51b1f627fd5231ecdda4353cf6d68660474e714b93f865027736",
+        "CFF ": "e8d9dec690f038c117cbba2ae6837dad0330cdefefe3a62ec6616ed8f0002593",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "62609131ab4009797addca2fc85d72f1c7564d22684e7b7c8e9801ae7609944b",
@@ -596,13 +596,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "2f03db3f6389404c4d55d9c00664c238c2ec753d4ab243f5ae740f516797de42",
+        "glyphs": "84322b3a80b73bccb5fd6cfd7f83bc62c300ea26959f17b30cfa5da81726a0c0",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-Italic.vietnamese.woff2": {
-      "sha256": "5567543cd616b31a88277714137a810b7a53af2f5bc88d48c8e4959eaaef2369",
+      "sha256": "347c9dba07b1409fa155eb325422ea41a051336bf41dd956d1d2afebb8b579eb",
       "glyphs": 551,
       "tables": {
         "CFF ": "4ef4baeaa534c9916a0e88dfbcc7053b28841374e47ac5c655a4bc6f69ea067e",
@@ -626,10 +626,10 @@
       }
     },
     "SEIReader-Italic.woff2": {
-      "sha256": "655665941e93a57d8f0b8d0da018add80e9c6be350fc5d885238789692a3672b",
+      "sha256": "8ab270ca5016c25c5745295b69370024ced9b0cbc9d28b9c6814c12386e3dd0b",
       "glyphs": 787,
       "tables": {
-        "CFF ": "5dcf7d3147b6b4e0872ff69a2c80a5bceb70aedd0f54f4aed76768a00454d61f",
+        "CFF ": "96d3d2b7d13a969ead415bdd0273b7b89ea08471e9eccad063996eadb6d37017",
         "GDEF": "70beb6a7e561173f3f32907ed7cde3ee6bba1717d0385a25113225812adfdf0d",
         "GPOS": "85ddbfb6e9872a76531c44952212cbf108e7c2ed4a687b3a4fe248c50c6f69c9",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -644,13 +644,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "47111f828be8d7979950b4108b384e5e137e427dc52223e992158475d63ab74a",
+        "glyphs": "d0a284d2061c9089384723834fe8d3b8d6c889a8b0c21ac1cf05530785acd889",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-ItalicNight.cyrillic.woff2": {
-      "sha256": "44f548eff1703da6d834b9f4987791fbcbb24452fd7bf35a06de5655db4e7c13",
+      "sha256": "db47a18b079002c54f7a5d4c217e7e4ea3c5428b64ebae0848b63688a25d963d",
       "glyphs": 649,
       "tables": {
         "CFF ": "3095b51fb59f643659edebeae9acefab9fdb62eeaab3c7d33cd5f3e8de63e787",
@@ -674,7 +674,7 @@
       }
     },
     "SEIReader-ItalicNight.greek.woff2": {
-      "sha256": "0b05aad1d440ff05220fd233d7bae6957b72fec6db22404e059c855237332e92",
+      "sha256": "0c809ed04d61447a8c1d3f8fffdf845b06653d6792638b94ec3f4aa3ef30c715",
       "glyphs": 622,
       "tables": {
         "CFF ": "b58a61929be0fb18be12f9abd3585c03188e63bd0c989d9ad0d8a5b9c41e70f9",
@@ -698,7 +698,7 @@
       }
     },
     "SEIReader-ItalicNight.latin-basic.woff2": {
-      "sha256": "e4150717f0fafaf00164666134faeae46c9a591b9701a234d2e27c4311085c43",
+      "sha256": "d01cadba5eed7a1b83bcd8f6b57656c1c7e203961746fbccfd3e98b4ee627d76",
       "glyphs": 148,
       "tables": {
         "CFF ": "263459903aacf7e077a1238c8d87fcff751b1e6a63ee2c6a5d67e84f5ce15be7",
@@ -722,7 +722,7 @@
       }
     },
     "SEIReader-ItalicNight.latin-ext-2.woff2": {
-      "sha256": "294bdb88b0da25aa0e15e5dc1406d405d4169624ca40d734a56306e064d77b18",
+      "sha256": "72503bd4200b061bc780c9c9f6a81595238e4f99e8aea863a1efff04bbccd633",
       "glyphs": 551,
       "tables": {
         "CFF ": "aa6cb9a6bede96baddde06552e18686e2b25d58be902960eae8a57a876b1d01b",
@@ -746,7 +746,7 @@
       }
     },
     "SEIReader-ItalicNight.latin-extended.woff2": {
-      "sha256": "59c7e974b8c9b3cc1eb4af694783c8dceadbafb6945d306ba94ab67e17f867cd",
+      "sha256": "0e588ade62f2fcb7419ca43a21f3e69ee0384085f13ab796fcfe99f1927f6959",
       "glyphs": 515,
       "tables": {
         "CFF ": "0d1c4b40067aa720f7ee60da875e457081654eb9b1dcc1d64763cde80ee15a8c",
@@ -770,10 +770,10 @@
       }
     },
     "SEIReader-ItalicNight.otf": {
-      "sha256": "95919e241867cf723ebdf4ab11adf2c99c0a263d67ca85e61af2e7c47cbba819",
+      "sha256": "ba78d8696a757522867f24ad9a061e89664a78bca2fc7c90f51ae27bbd1796f3",
       "glyphs": 787,
       "tables": {
-        "CFF ": "7509fcd801ab2e9d63ea9ba2ada8384cba64c1084bd53437baf7c4071aab63c3",
+        "CFF ": "8bb1b4dbd6373b396d7500feeb50b595f20f203293fe56c65711c2673730ab49",
         "GDEF": "70beb6a7e561173f3f32907ed7cde3ee6bba1717d0385a25113225812adfdf0d",
         "GPOS": "2607972b0446197aa5f56e4cb049639457f57e20b930100b152a86d0c5ea6f5d",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -788,16 +788,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "bc5b4fea09fa1d0354d20e862795ab005bbc46c6887e72bc62aabb9380264fd8",
+        "glyphs": "3e168d83ee4f625d2c677f48a72bf4cca79e22d295940878125ebeb94f5c62a4",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-ItalicNight.symbols-icons.woff2": {
-      "sha256": "823552583e655d6f21bd74c4dabfd867505b68166c73bf2afa69057a390cd3e1",
+      "sha256": "051939655f3063c71be9e12f4af54364658eb1a529af25535c59e1b97c4d6979",
       "glyphs": 89,
       "tables": {
-        "CFF ": "9c9ac796516b7aa5ee7457b118953fb36ee9b4e9a87bcbee8c5f5370f8413cd4",
+        "CFF ": "74ad179253d7dcf38f53da731f717121b16f28e168222538b0d9a07854aa8580",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "62609131ab4009797addca2fc85d72f1c7564d22684e7b7c8e9801ae7609944b",
@@ -811,13 +811,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "f3ef180f88cf11f87c914516404d3b4ab124cc11177951e3b8cdf1b2316e4c0e",
+        "glyphs": "36479d4655ff23b7deab7da3d482c2b5ef8ed490981cd3e7ff81d6ac384e556b",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-ItalicNight.vietnamese.woff2": {
-      "sha256": "60e6cf1b229a2bebb2d8969d0e32360c0262d1fed5fb532510a1b62aa22b77ee",
+      "sha256": "e16b3f8747fb363c9897f22ee92bd3d67ee5a013279f9e5119ab5710102be439",
       "glyphs": 551,
       "tables": {
         "CFF ": "aa6cb9a6bede96baddde06552e18686e2b25d58be902960eae8a57a876b1d01b",
@@ -841,10 +841,10 @@
       }
     },
     "SEIReader-ItalicNight.woff2": {
-      "sha256": "4760403a5a11c2cf65948e3f374d9f0dc97c6f03e2e9df0635000c009db87386",
+      "sha256": "6da73f8e00fa9f623ee92ea910c6558b2d9ab6d6a6a65198f38a4cd647ca4618",
       "glyphs": 787,
       "tables": {
-        "CFF ": "7509fcd801ab2e9d63ea9ba2ada8384cba64c1084bd53437baf7c4071aab63c3",
+        "CFF ": "8bb1b4dbd6373b396d7500feeb50b595f20f203293fe56c65711c2673730ab49",
         "GDEF": "70beb6a7e561173f3f32907ed7cde3ee6bba1717d0385a25113225812adfdf0d",
         "GPOS": "2607972b0446197aa5f56e4cb049639457f57e20b930100b152a86d0c5ea6f5d",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -859,13 +859,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "bc5b4fea09fa1d0354d20e862795ab005bbc46c6887e72bc62aabb9380264fd8",
+        "glyphs": "3e168d83ee4f625d2c677f48a72bf4cca79e22d295940878125ebeb94f5c62a4",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-Light.cyrillic.woff2": {
-      "sha256": "a02324d1bd8a8a3fc2b19f08044ba9f2e9351dbde223e4889c9f9c0b16aad5e4",
+      "sha256": "76731808221e546474787993150159c762ca931291bc43cee816fbdeb9547d5a",
       "glyphs": 649,
       "tables": {
         "CFF ": "90e88713c0ed0143165aa30587ba425cdccea2d3d6ba07556267e31c162f094a",
@@ -889,7 +889,7 @@
       }
     },
     "SEIReader-Light.greek.woff2": {
-      "sha256": "1d32b5b571045d79d8a4825617f849fccb9ffb34f7c33d11ce76f0b736a2949d",
+      "sha256": "e81919bace9a6e4b875cb77f2b9682ff458ea461bfb2b29c31f7dc22494280d6",
       "glyphs": 622,
       "tables": {
         "CFF ": "e7f637ccbe3432c79b575371f8f7a1b301ef3dd8e9972ee4a1af876e44274984",
@@ -913,7 +913,7 @@
       }
     },
     "SEIReader-Light.latin-basic.woff2": {
-      "sha256": "19985ef3c033090b332e49e956240b7e3ee20c5ad789a7dd2ae80de07833bc9e",
+      "sha256": "eefd0ee7df834e011e5a875e5517793363d1a4e0d6310c21bf554acbb9e67635",
       "glyphs": 148,
       "tables": {
         "CFF ": "98f85d476360bced77948607ce2535610e869c94ac1c194090b5921a9f502041",
@@ -937,7 +937,7 @@
       }
     },
     "SEIReader-Light.latin-ext-2.woff2": {
-      "sha256": "80e4c664accb2848073ff50434f72438782be22a3ef8789f2f1026c7651d95b9",
+      "sha256": "12d4cd7b128202475106ba0bc1416419a49fb5fd45843c386b431ca07f8e3e32",
       "glyphs": 551,
       "tables": {
         "CFF ": "0a707a4b9207fc70bc5c0c19c51eb33b84e522b13c4f620bf190a23ae6c17507",
@@ -961,7 +961,7 @@
       }
     },
     "SEIReader-Light.latin-extended.woff2": {
-      "sha256": "4035202f4fabe70043de6f0118df5569b6db1e521c8df6058827008db7d1fa15",
+      "sha256": "ebf4a6c77e7fc694c3089b79a76affd85cd12ff4fa1bc83d3444318a8c05679e",
       "glyphs": 515,
       "tables": {
         "CFF ": "f8364e9178f04c50df0586035771e742fb06088b96c3484e81022d05aaaa8ddc",
@@ -985,10 +985,10 @@
       }
     },
     "SEIReader-Light.otf": {
-      "sha256": "6dd97a63a3a441f49e32b4da8b16f61d58b9230ee787b9c3374eb6b1bdf0ec7e",
+      "sha256": "d86946f08d210751b62c7d80addd17255752e3d9aded4c27f13f66390c9cc3d4",
       "glyphs": 787,
       "tables": {
-        "CFF ": "d553ded481f3b20888aa5ce316b0ba50d21ef51291c95031302e0992994e7694",
+        "CFF ": "7ee6c13cd7880edb3a4ee3f46c98cc736d3a0c426c596af9cef60e1739106f83",
         "GDEF": "747d7464fa72184142a5999b80dce38504507a615a30cf020b6c4c5b7e77f0dd",
         "GPOS": "e06234336f16b0e4f32c0172268046b155758a69abe88c409aefd3bdac1765d1",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -997,22 +997,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "2354089935ffbc11c9385ef29524f298d0ba9f63f293d8408a41ab2761ebed9b",
         "hhea": "51c4ac4b20c366bbb6e8be4e43b74caf33f5177deb781c25f784a666f36ed0ea",
-        "hmtx": "d5acb5d6f6ac9d3580ab93bf75991a379cc146734fd0704964ee65023c383db9",
+        "hmtx": "81b32008fe7b5dcb6e06d83da16bcfc2be7721a0d1d0bee57c82e96451f83a1f",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "bab13a83766223a4321270091f6973129fa5d5d1f72c8af4321c4e7149143fcb",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "7b65b614665f5bb476a6ee518e78349861cccbfcf22c9e5b2829f214cce76b42",
+        "glyphs": "055e4b962bd6dbf845519c7b2f6b674bb8d35e5fa6ba61ab9485231f499cb8ce",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-Light.symbols-icons.woff2": {
-      "sha256": "6b85ff626c9120bf4ae81f2ecf8d85ab823f5967a71750932ba58a979584617b",
+      "sha256": "bb303e1021dd275c424ac5e660dae5e1e679d0c7720c70a450e3099df10fac34",
       "glyphs": 89,
       "tables": {
-        "CFF ": "565df6aed2b3cffbfadf921e9a4845a9fb28423abc229cbf04a439ab9532d22a",
+        "CFF ": "18e0481811134c27cfe3ecbfd1a15d11ab43a7968dc24486367f81507b1d7d3d",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "810711e5f95e2ecfb511da20a75d020c1db1bd256b2dbb19a28dc44777b0cb04",
@@ -1020,19 +1020,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "e154d529fcd24c0bcd734ba39a835a8c653f1ede4edb7b766fd37f7c13427809",
         "hhea": "7ae2660f8ce7498209d8052eea8bbdf7a9f56c533afd9c3d729bebdb745dd5f1",
-        "hmtx": "37e5a5c72e98725d6b26681aa185beee0ac0a7ac689250e54b3e3abef8c1a32d",
+        "hmtx": "cfcbf5187f2ed11279bdb4e967046723c95dbb9f8833f785a77f292c26ac6bba",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "bab13a83766223a4321270091f6973129fa5d5d1f72c8af4321c4e7149143fcb",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "047cbd51d1edd08167514067b2fc422a639bcac5f14f2894861d8894edf8835b",
+        "glyphs": "4bf540af61880c9454c4014f85a98afead5a87f12d63f0e6ff01df73d1790390",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-Light.vietnamese.woff2": {
-      "sha256": "9aaf70182bc7f0038dba12a00dc7929d9528b3c89cb2186acd946021282bee60",
+      "sha256": "0ddf1c73868c3dd7a70a1fc20e5dcbde7f72fe382bab79e5628b78e0b5b5d80b",
       "glyphs": 551,
       "tables": {
         "CFF ": "0a707a4b9207fc70bc5c0c19c51eb33b84e522b13c4f620bf190a23ae6c17507",
@@ -1056,10 +1056,10 @@
       }
     },
     "SEIReader-Light.woff2": {
-      "sha256": "a33d406ddfc6fd8f9bbb33a9e7ec1e3b0c02accef9e4accaa16240237000edbd",
+      "sha256": "7d97851bb9864daf800514205d9f2dd0abd29ed7623c2f3674ff32424bf0f141",
       "glyphs": 787,
       "tables": {
-        "CFF ": "d553ded481f3b20888aa5ce316b0ba50d21ef51291c95031302e0992994e7694",
+        "CFF ": "7ee6c13cd7880edb3a4ee3f46c98cc736d3a0c426c596af9cef60e1739106f83",
         "GDEF": "747d7464fa72184142a5999b80dce38504507a615a30cf020b6c4c5b7e77f0dd",
         "GPOS": "e06234336f16b0e4f32c0172268046b155758a69abe88c409aefd3bdac1765d1",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1068,19 +1068,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "d17b05d2eb0d6269689f9aa86521fa75bcfdc84fc67a02e1bb6ad560f1666045",
         "hhea": "51c4ac4b20c366bbb6e8be4e43b74caf33f5177deb781c25f784a666f36ed0ea",
-        "hmtx": "d5acb5d6f6ac9d3580ab93bf75991a379cc146734fd0704964ee65023c383db9",
+        "hmtx": "81b32008fe7b5dcb6e06d83da16bcfc2be7721a0d1d0bee57c82e96451f83a1f",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "bab13a83766223a4321270091f6973129fa5d5d1f72c8af4321c4e7149143fcb",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "7b65b614665f5bb476a6ee518e78349861cccbfcf22c9e5b2829f214cce76b42",
+        "glyphs": "055e4b962bd6dbf845519c7b2f6b674bb8d35e5fa6ba61ab9485231f499cb8ce",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-LightItalic.cyrillic.woff2": {
-      "sha256": "83366ea1ef2841ab06dd346d8226236449f5965445416275705bea2c78126f1a",
+      "sha256": "8b2694f8b44cf70fa6f5e9acb54842546135bec212078fd3210ba250b4d3d64e",
       "glyphs": 649,
       "tables": {
         "CFF ": "b7a68fccc529a1cbc8ed597a10d316cd8b2595faa401c2299cdbaada02799de2",
@@ -1104,7 +1104,7 @@
       }
     },
     "SEIReader-LightItalic.greek.woff2": {
-      "sha256": "3fd7be96ac9108d1829dd916170823e1a98dba4a186b9b45e370895a8d9584eb",
+      "sha256": "28fb43073bea854361aef970e87acf03b1a3d8a3b1433c35570582eeb2a20aaa",
       "glyphs": 622,
       "tables": {
         "CFF ": "615a2463aeb4ec9ae0e9f77728626bea1f138d7decff4263c6ad2c7dd45d884d",
@@ -1128,7 +1128,7 @@
       }
     },
     "SEIReader-LightItalic.latin-basic.woff2": {
-      "sha256": "c4562791515c0f57dbd60723ec9fba6f332ee84fb09c7bdb970703cab7477b66",
+      "sha256": "078c9cabbbdfc2fdfa29047a639ecc23b31e2090b60c416af503bfdc6221eafc",
       "glyphs": 148,
       "tables": {
         "CFF ": "18c11995844358348d858ffb0d0c11b04e87a919b4fb4b4140802d75ffdce304",
@@ -1152,7 +1152,7 @@
       }
     },
     "SEIReader-LightItalic.latin-ext-2.woff2": {
-      "sha256": "a0b3e1b72fa7bfee8c0e6074356bec14ff5f90c6574b181ded1a7bf5f0f94651",
+      "sha256": "0518c45bad1a48d9683f0a57ead3ede76e0990135d5f69861ce31d1cee61f3d5",
       "glyphs": 551,
       "tables": {
         "CFF ": "82c0ee825dd5b16977898aa6840fcee388773b481c6a67447443c2eff8a84c3c",
@@ -1176,7 +1176,7 @@
       }
     },
     "SEIReader-LightItalic.latin-extended.woff2": {
-      "sha256": "8cc1dcadf31ec93bf7df9cba8a0f1fe322ec0e719e3477f708b84ea7bf593cca",
+      "sha256": "25cb5efd66270304fd404f3c1238e261de56d0320bd16123847a5c8201eb4548",
       "glyphs": 515,
       "tables": {
         "CFF ": "dc810b42ff88cae3d969be2961d6c244491e8a041e17fce0ee0fd64e825c771b",
@@ -1200,10 +1200,10 @@
       }
     },
     "SEIReader-LightItalic.otf": {
-      "sha256": "8a6addd9bd93ed1a9f807e53605df95f1d84468eb0b60a6fcf5a97319b16fdae",
+      "sha256": "5fc3dd602bedc1d1f8ffc6a0552bb7f04a039eed43e361b4393f5db9e0cf228e",
       "glyphs": 787,
       "tables": {
-        "CFF ": "e1ea2c98af52dbbd4100265ca2dd5478c001f03d64c997e4f1531fea06567d82",
+        "CFF ": "601fa3397c57cea2c513ac2f9fab44a10af2743b92573d3df478089c38c95621",
         "GDEF": "e9da60b2c047e07fe47e2005fbaa8ff66bfb2144a32eab74442f80704527e845",
         "GPOS": "f61dcce177d0aa1e8c91e769901f95bd90f22c899e271184b4a5a8309eab6db0",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1218,16 +1218,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "60c1ce7a1214b01674a8969427ac753c02026046145a389c8124e362e7737861",
+        "glyphs": "81d4e589871de4e0fbb2abb06298fd42c47e0ad5fc2babdd9806be6a24848098",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-LightItalic.symbols-icons.woff2": {
-      "sha256": "f279e8710522652a436763bc119891568ec35773bb4ad5047704c44a7e68539d",
+      "sha256": "67bc976205654cfed1f0003107c7afbe7b82c72794bc9f4bd039533d662d35b7",
       "glyphs": 89,
       "tables": {
-        "CFF ": "7bc629545c66c4dd21f950049de1e7ae0bcfb369c84495c404056e30fbe728dc",
+        "CFF ": "d6f08e37c6c1f183199b579d6236e3fb232093c07e4d3bf05f7a380e5e3e808b",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "3d0ffa0c45ee2bf89c51ae7fbcaf49358b7c90918014c16715100dd42337ada3",
@@ -1241,13 +1241,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "f297b7470ee7f2a3624ad89c36598b614943f6d066b6a3e68329725043d61df6",
+        "glyphs": "c64d5cbbeaa8b666710ad5dfdb516502ad212267ccd90a5bd9ab17216ac3e757",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-LightItalic.vietnamese.woff2": {
-      "sha256": "04a89b6408e6080f53c14d8d912f5134bdf2567e0f6b685406fcf78f2778c0c8",
+      "sha256": "4b5fec98de519ef2e4d148f4a85ca784a1c708d9948c96a2773fe67ae8cf26ae",
       "glyphs": 551,
       "tables": {
         "CFF ": "82c0ee825dd5b16977898aa6840fcee388773b481c6a67447443c2eff8a84c3c",
@@ -1271,10 +1271,10 @@
       }
     },
     "SEIReader-LightItalic.woff2": {
-      "sha256": "00c222a102ed1e38e6e54bfa7e442bba4cb9f16dc21328a7a7a223a5421b6f3c",
+      "sha256": "3adee3aa233eb104a4e52b0670d60a741cf9732eeb94014535301788e2efd09a",
       "glyphs": 787,
       "tables": {
-        "CFF ": "e1ea2c98af52dbbd4100265ca2dd5478c001f03d64c997e4f1531fea06567d82",
+        "CFF ": "601fa3397c57cea2c513ac2f9fab44a10af2743b92573d3df478089c38c95621",
         "GDEF": "e9da60b2c047e07fe47e2005fbaa8ff66bfb2144a32eab74442f80704527e845",
         "GPOS": "f61dcce177d0aa1e8c91e769901f95bd90f22c899e271184b4a5a8309eab6db0",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1289,13 +1289,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "60c1ce7a1214b01674a8969427ac753c02026046145a389c8124e362e7737861",
+        "glyphs": "81d4e589871de4e0fbb2abb06298fd42c47e0ad5fc2babdd9806be6a24848098",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "f132aefd34e5b388e03ff48a7fb163f0d07847d7c91cd0cc31a4f5836ca6bdef"
       }
     },
     "SEIReader-LightItalicNight.cyrillic.woff2": {
-      "sha256": "38a2adf88654ff4dabcddba3f603c8fade670a8959d46074197f2519239412d7",
+      "sha256": "ac920127f353c05072397920c8e7cf23e83b0b8c43e840677e161c46dabaa10e",
       "glyphs": 649,
       "tables": {
         "CFF ": "6f33bda8cb9f21925304eda1d7b3253b869c3a248bcfd8e3da8d60227c455b3f",
@@ -1319,7 +1319,7 @@
       }
     },
     "SEIReader-LightItalicNight.greek.woff2": {
-      "sha256": "eb7e79796d73421b227d0704d4762cb0fbf70eb45f5e61a6bf3196d101a4f023",
+      "sha256": "eba9f70cb0632cbb6f08764e1b5db66c8bd4b13235f1fe6c4beb56d32449a674",
       "glyphs": 622,
       "tables": {
         "CFF ": "b3831b93969a8f38601eb70e891aa0c79ad47f583e66a3fdf474a4d438c1030e",
@@ -1343,7 +1343,7 @@
       }
     },
     "SEIReader-LightItalicNight.latin-basic.woff2": {
-      "sha256": "e92090010ab72c91e92625cc2bc88196448fe97795253467a768e0713cfe2b54",
+      "sha256": "1ffb2d1c81dc306c2b4beeb76e9219b63d7249a2665c332ab977455eb7376d9f",
       "glyphs": 148,
       "tables": {
         "CFF ": "32a5406e1957a09f89e1e0bbdf335af2ce7f58ec1f97e90a77c21ff630cc19fb",
@@ -1367,7 +1367,7 @@
       }
     },
     "SEIReader-LightItalicNight.latin-ext-2.woff2": {
-      "sha256": "01f8595201202da9ea716248b4584e922289d3404ea98fc32a0b57e4a9545e16",
+      "sha256": "c342412a5adf26609c8e2643e9774ea44dba48f61b8b0fe5f9f9ba6bdbc3c4d6",
       "glyphs": 551,
       "tables": {
         "CFF ": "4050aa450126a91554c81bcd13771fd5be01b6866ed94cbf694ed41ba7917eb9",
@@ -1391,7 +1391,7 @@
       }
     },
     "SEIReader-LightItalicNight.latin-extended.woff2": {
-      "sha256": "23d1d342ca8937facd90c02e61fc9238c246b6772e78bc4cde60cce344aa5f92",
+      "sha256": "5f75558b21916eecb2c2ee5357bd7c421d63a88ad70202aca8e3c16dcc5bf0f5",
       "glyphs": 515,
       "tables": {
         "CFF ": "e9c25219d628a2392c8dddb31a688cba9dc17869eb4388c2a1b1d0c850e2e1cd",
@@ -1415,10 +1415,10 @@
       }
     },
     "SEIReader-LightItalicNight.otf": {
-      "sha256": "b13f791c820b32b75e4264982335cf4dc8e4e021562efac8cb3be34f6401e390",
+      "sha256": "ebf4cf8d0f8e2c8d952ec967a63594112a1f9741f89dbf1890e873db34656a2d",
       "glyphs": 787,
       "tables": {
-        "CFF ": "041ff85dc78635e540a49879319f6888f637df7bd0120b485d012c1cacce847e",
+        "CFF ": "0c98dd5a13c961725e75e084b92611427b8bd31e0e36ebab4365fda4f2d43085",
         "GDEF": "e9da60b2c047e07fe47e2005fbaa8ff66bfb2144a32eab74442f80704527e845",
         "GPOS": "9d3fcc70ac140a423083d1ed36d3261965bde7c81159912b2c2bb2731f249cbc",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1433,16 +1433,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "4607855c4abb4249ab2325c09f3dc2aa1c786e50aefb2002dedace7049d6711f",
+        "glyphs": "c7e79f6cca617576bee91def7a6912a082b4d6bad76d4dfbf0b608fbcbabd8bd",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-LightItalicNight.symbols-icons.woff2": {
-      "sha256": "57b5f5de6fd2b3edb699f13b1418a07b5096ff5703e1deb1e712a1c91ecb6405",
+      "sha256": "7eec0aa58bd33993829908f191929ecb84c91648ef993ac7d006dcb6bf334d05",
       "glyphs": 89,
       "tables": {
-        "CFF ": "a86905d0d7d7ef0a1cccd5cc1bcb94002d8a46f2b31ee14e5c4b4db4dbf31ccb",
+        "CFF ": "2aeb5fae6b47d1a198c91eb07d98c591fc19cce921574685b9f317346f53f919",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "3d0ffa0c45ee2bf89c51ae7fbcaf49358b7c90918014c16715100dd42337ada3",
@@ -1456,13 +1456,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "53cd0914bd9c858ceec128d5b7c4e226c3e6d51f2ce63f818b69c90c4375bbc8",
+        "glyphs": "37c0d8aeaf2ff9ddbdc9eb76a068444cfa4ce72bee26c758a76603a7ca603f9b",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-LightItalicNight.vietnamese.woff2": {
-      "sha256": "ed908116072882768bb7f597811199cb15ea67b875f465b143ed14c0c0c86baa",
+      "sha256": "3e9cc2b85aef4aa431e7c82ac5d0545dfd95cf9b49da14ad537d7b09318a1b71",
       "glyphs": 551,
       "tables": {
         "CFF ": "4050aa450126a91554c81bcd13771fd5be01b6866ed94cbf694ed41ba7917eb9",
@@ -1486,10 +1486,10 @@
       }
     },
     "SEIReader-LightItalicNight.woff2": {
-      "sha256": "e9df44e3602f8de3cf9834bf8e7127ddfb0bc0e26f71843ddc12d1aaa4aed657",
+      "sha256": "d50f6d0fc459b3010f0ccbc8c842897c4befd6acf56eaf80069e0fcc6d3fdb58",
       "glyphs": 787,
       "tables": {
-        "CFF ": "041ff85dc78635e540a49879319f6888f637df7bd0120b485d012c1cacce847e",
+        "CFF ": "0c98dd5a13c961725e75e084b92611427b8bd31e0e36ebab4365fda4f2d43085",
         "GDEF": "e9da60b2c047e07fe47e2005fbaa8ff66bfb2144a32eab74442f80704527e845",
         "GPOS": "9d3fcc70ac140a423083d1ed36d3261965bde7c81159912b2c2bb2731f249cbc",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1504,13 +1504,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "4607855c4abb4249ab2325c09f3dc2aa1c786e50aefb2002dedace7049d6711f",
+        "glyphs": "c7e79f6cca617576bee91def7a6912a082b4d6bad76d4dfbf0b608fbcbabd8bd",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-LightNight.cyrillic.woff2": {
-      "sha256": "bd2150b1e4ff370133f43f74c17226422d369c2b7d5b2a9eacefece4b5db29ab",
+      "sha256": "232de3b61a53ce017bef5671e4e47034e756d7f7728457c605106912a19cd685",
       "glyphs": 649,
       "tables": {
         "CFF ": "6805c2a965ba6cb1126709c820ec3ddc79c7c515de2e338afd2afb9561c1b0ec",
@@ -1534,7 +1534,7 @@
       }
     },
     "SEIReader-LightNight.greek.woff2": {
-      "sha256": "6cd26976aba1e578cd74ab09e5b86cb90521f57dc5f91ebed55c8b6594ae1220",
+      "sha256": "30524c0044a6ab900cbebd1f57adb1e0930f045fe4e2ffa8788de2cd036e328a",
       "glyphs": 622,
       "tables": {
         "CFF ": "84f701f8ea2de886203ab53137a2d9c61a727a19c04ae9a04a6875210c698fcb",
@@ -1558,7 +1558,7 @@
       }
     },
     "SEIReader-LightNight.latin-basic.woff2": {
-      "sha256": "ea2df8bc9cfee30920e93723bbeb99ed7750106eef3a54f6a1f3bcf0af247f69",
+      "sha256": "eb9a9dfa1f4270c02d6482f48e2f659315d74d8640114f20f316f2aa0af2f1fe",
       "glyphs": 148,
       "tables": {
         "CFF ": "b629032d2927c6ac2230817de92e623b9b6c0831b5f2d25ee5df7d16a3794180",
@@ -1582,7 +1582,7 @@
       }
     },
     "SEIReader-LightNight.latin-ext-2.woff2": {
-      "sha256": "842b5f7fbd620e1dca2cd2e536c30ee1d0742d87725706ea9eb0697e66148ae4",
+      "sha256": "18652d63cc098476d85e7df8e0a34601e4b62995f0014b45dcece6bdf31b2dff",
       "glyphs": 551,
       "tables": {
         "CFF ": "7b217a6f5cfd8f0d037ae4d675529f42ce787bd1f646eda37d23edabca3db9ba",
@@ -1606,7 +1606,7 @@
       }
     },
     "SEIReader-LightNight.latin-extended.woff2": {
-      "sha256": "afee04766e812b1ed63fb4a836996a0f155ea97e30b794f9179ec7443c145b3e",
+      "sha256": "5849cb13c802ff9cc9ec57d621bd3f5487a8c8bcd3278cc9206c24612129fee7",
       "glyphs": 515,
       "tables": {
         "CFF ": "7021984f2f3846496d4d481a1416bdbb96b18c790e4131060cbc25c71a516bb9",
@@ -1630,10 +1630,10 @@
       }
     },
     "SEIReader-LightNight.otf": {
-      "sha256": "4c5b90f3fa5908cc04d94df3a43c60f7b58927fdae27e8bd4c97cc079a26ab15",
+      "sha256": "ddd9953c9f327550e25940412ec710b221390dde081c6d1de36e5202abfa37f0",
       "glyphs": 787,
       "tables": {
-        "CFF ": "0dc0193a2146eec0ba3669146cdc65c6059b5990fd37c1a0c127a5c24203bb36",
+        "CFF ": "b96c7fc76154c8ee6ddd085934f63eb9a2dd362cf6e45bfcfd15752d69a07bac",
         "GDEF": "747d7464fa72184142a5999b80dce38504507a615a30cf020b6c4c5b7e77f0dd",
         "GPOS": "82ee636862dc84b0e90f748ea1ac40f70be3a2536ec00b26a76ffae17f327b05",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1642,22 +1642,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "04d523d10b3c44945a0ae2f96c8f5759191e8320ca77e16a66c95b78d831ec15",
         "hhea": "b8a5bad2e9bcaf38d43a799b1725fd2089e0e9c9e179b3c8415288e0bdd918bc",
-        "hmtx": "6a654cc5fec923c3cd09f389dddd451b471a0cb3a546c7bf60ac15344f39555a",
+        "hmtx": "08d6003c564843260e176fbf2485b96f02f54a1e6700a550f120c028eef92de1",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "de1e36d8e3d1757178c868ad9981cc9bc1abff43b92b341612a93d65cd5254c2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "4cb6f3b2a2b9e0a8fec9136c0c0faf4dae54a41d66cf7158baa73c965c342adb",
+        "glyphs": "d2e42693c360052ccfff8d7fdb06de3cfa102e2ba7ddb8081505fba302962089",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-LightNight.symbols-icons.woff2": {
-      "sha256": "8d5eab46e621e8b8722f3b5ba17ae2b08ae2113c651bff593f96214366893ce2",
+      "sha256": "fe87e9a20765a1952b12451020eecb733bfb59fab0aa40605a7e195860c305f2",
       "glyphs": 89,
       "tables": {
-        "CFF ": "7fd3e8a6e565f3df0a7b44b0a344edf8b06cc6e331a3570519abe800360c2852",
+        "CFF ": "2c0ac315e43fef7c58059c4850e60b84a2bc52eb2290e33deb8e0b0de394e249",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "810711e5f95e2ecfb511da20a75d020c1db1bd256b2dbb19a28dc44777b0cb04",
@@ -1665,19 +1665,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "431b55c9bd0e9e24e87cad52f8094178220012612ee4088013706ec02a2d4cd7",
         "hhea": "855433118bcaff3815864b2c9af966851a3846372c5b67b65d797c458436b542",
-        "hmtx": "d118e3bd6539302c9eceb19c35da29b066995bfa3c502cf6728fc346a28fd023",
+        "hmtx": "3e5fc9ae72b21b8760e51eaa52a698d2f8b55e55771f35d2b5b7210f0ff80635",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "de1e36d8e3d1757178c868ad9981cc9bc1abff43b92b341612a93d65cd5254c2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "7f4adc2469f04cc3adfaefada97e6d9e63ac0dab43c61f5c01ef98270f54f8ca",
+        "glyphs": "c1a467def11852c6218680903ccb82539b756b9d3a57f8e957dc2990e8d79e8e",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-LightNight.vietnamese.woff2": {
-      "sha256": "0de9dcc1328721386182e9cd836bfe401c9d0c6b99df725f725c601b70973326",
+      "sha256": "9460cf48997525e9c050bbae12f530dd91f57576e21a7963e9dae2d486c2e5a3",
       "glyphs": 551,
       "tables": {
         "CFF ": "7b217a6f5cfd8f0d037ae4d675529f42ce787bd1f646eda37d23edabca3db9ba",
@@ -1701,10 +1701,10 @@
       }
     },
     "SEIReader-LightNight.woff2": {
-      "sha256": "a534a170317657859bf930205230f87291bd6a572a00de2d4366911c940cffb6",
+      "sha256": "f4b7df617460ad5216ec79164df9a41fbb416b389c9f875537f6b78d7ce77e64",
       "glyphs": 787,
       "tables": {
-        "CFF ": "0dc0193a2146eec0ba3669146cdc65c6059b5990fd37c1a0c127a5c24203bb36",
+        "CFF ": "b96c7fc76154c8ee6ddd085934f63eb9a2dd362cf6e45bfcfd15752d69a07bac",
         "GDEF": "747d7464fa72184142a5999b80dce38504507a615a30cf020b6c4c5b7e77f0dd",
         "GPOS": "82ee636862dc84b0e90f748ea1ac40f70be3a2536ec00b26a76ffae17f327b05",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1713,19 +1713,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "44e99dc5f596d0e91b9d5010e5d9aed4dae923b4016ee7a411211b86a4dcb526",
         "hhea": "b8a5bad2e9bcaf38d43a799b1725fd2089e0e9c9e179b3c8415288e0bdd918bc",
-        "hmtx": "6a654cc5fec923c3cd09f389dddd451b471a0cb3a546c7bf60ac15344f39555a",
+        "hmtx": "08d6003c564843260e176fbf2485b96f02f54a1e6700a550f120c028eef92de1",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "de1e36d8e3d1757178c868ad9981cc9bc1abff43b92b341612a93d65cd5254c2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "4cb6f3b2a2b9e0a8fec9136c0c0faf4dae54a41d66cf7158baa73c965c342adb",
+        "glyphs": "d2e42693c360052ccfff8d7fdb06de3cfa102e2ba7ddb8081505fba302962089",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "b34aada1cc94cf1b427d17a3ec98284bdc223c5e5a305ecda669be6e78d892d1"
       }
     },
     "SEIReader-Medium.cyrillic.woff2": {
-      "sha256": "8fcbe9013d0fa16ed5e756e0b26d0a129ef27b3c189b9a4a3ac9b01c27e8fcc4",
+      "sha256": "4d81622dce61036ad376249f087d8ec3443d67a9a17fed8e5bebc5bfb00ab39b",
       "glyphs": 649,
       "tables": {
         "CFF ": "fd543a949ec8acec0eaa18a3b99cec1e81cfcca4e22cd398f1d39108c771b044",
@@ -1749,7 +1749,7 @@
       }
     },
     "SEIReader-Medium.greek.woff2": {
-      "sha256": "d08596d66fe16ddbd3efafa5b57d5ab469c1ca5ed443998c8b0a01eb27648973",
+      "sha256": "1b549b6f5bbafbd3468542b722a3cb0e406f3fbbc6c27dd2d4fb352da75281a9",
       "glyphs": 622,
       "tables": {
         "CFF ": "668434d7550f63c25277b0f6d7c9e4579aadf0b71a3c65e3965c3a43ad512c1d",
@@ -1773,7 +1773,7 @@
       }
     },
     "SEIReader-Medium.latin-basic.woff2": {
-      "sha256": "f90359944a90c9e6d1e50d7fab3f6ae95a957a825e52724861ddbabb0f2db2de",
+      "sha256": "008c41dedf7c477b81520ba7a8b8a60b15566fd566f5fd57b672f946df147001",
       "glyphs": 148,
       "tables": {
         "CFF ": "e2662a68f4eae3d9c5f8ad90140378ba42aee238a26f778bd8cf4313c463eb56",
@@ -1797,7 +1797,7 @@
       }
     },
     "SEIReader-Medium.latin-ext-2.woff2": {
-      "sha256": "9f83bbf3b27f8ffc7536ebb2235c5ba19e4d7ca873c7d30fd4543257c8780d98",
+      "sha256": "d9e4ef1140f1647246f4f085487825d94699572792305fb07128caaee8ad2a28",
       "glyphs": 551,
       "tables": {
         "CFF ": "be5778703f9a7730c780954905bed342af5d6ad32ab18fc5c275b8078e9d7e20",
@@ -1821,7 +1821,7 @@
       }
     },
     "SEIReader-Medium.latin-extended.woff2": {
-      "sha256": "34241740eee401086d979fab416b74f00fdc061640c7c8c8e393501d61666acc",
+      "sha256": "6e28068c92a30830a85b414413ac05470cbd2bba56bc94fd9597f63c48111b2c",
       "glyphs": 515,
       "tables": {
         "CFF ": "1f7f630b7bf7f5e5a791f1114fe994da6f48cfc60417ed1c02a057058cf108a8",
@@ -1845,10 +1845,10 @@
       }
     },
     "SEIReader-Medium.otf": {
-      "sha256": "29a1ac7e6619a5076db8b5e639dd760da0e28f175c8ffb35458e46444fd76f71",
+      "sha256": "40c3be54b63cfa000d593496051399ece7dc8120825ecdd829da5a99a99a0432",
       "glyphs": 787,
       "tables": {
-        "CFF ": "8036b0bdb688ab673a8ef9daf19067f6f3104989529c5335e991f014e5d1b424",
+        "CFF ": "ca0bcdb140dfce505f217dc938a12c1c32628cdbe8d15d717a9770ceb0156edf",
         "GDEF": "296e27f37bfe2fa21f65e72000560b4a116e83c487d941c591fa0ae52022b244",
         "GPOS": "ec91991ba85f5a65bc36d11196a6a428f3f6e935dc7458239b6e7cc3736c6550",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1857,22 +1857,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "c192f4a6bbdd68ad5a9740756471446fa11f95b26ff90ed217e8f29ed3f7ea3e",
         "hhea": "22ace7e6036a129561effc4273bd7e1e38d3418612e40b425d835032fa1288ba",
-        "hmtx": "7c7b9a213717c1bfa8e59dc684c9f5bf49063602af936aba2c56cd184ba7a865",
+        "hmtx": "bb0fc98dfca9b790036c1863b3661e819fc5f78bb1736879d8570bee351e2a5a",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "c7aa588272b1cde7c60d857a714a0775c2f59860ff7ee86603f409dd82064d3b",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "6d00681a8b03b4a95d214d4b9e66f5365d23df214ecd63cc824e1db4de3c66df",
+        "glyphs": "2eaf8d13653b58ff531710231b45410907b86441878f80bc3be1f0eb4176766d",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-Medium.symbols-icons.woff2": {
-      "sha256": "60af04ccf19f097bc98c1b8f57c650bc2ab41549edd8b0115d98ccdb8d686b68",
+      "sha256": "e3ec80ed2c7c44fcd827314ec3dd367e89509ede18ed1174e11558f4627f0471",
       "glyphs": 89,
       "tables": {
-        "CFF ": "138fc65722100879e9d69652fd8bfc767f4f16824c79790d2dc2b8cdfa816bef",
+        "CFF ": "58828cbc56b2c01e354ca3bc2747bba68b5f66201d2ac5c0cece28950a30b618",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "e8966a7c63dbd3734d652a2086b47056ee78e5f66395dfa19f94f4bd8c1f8e7c",
@@ -1880,19 +1880,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "c1db177d94dff5f5cbab9062ea6b7645bea683b36f46fb67abbbcd3c95f514db",
         "hhea": "17be1cde449fe616b31b5e90c36e07ea73124b36b9697cbdfaa9d15d43730267",
-        "hmtx": "a630bedda450fe1e0e16bb3f27363dc6098fcc6bc8f37dddf24a63e9e2a4a8dc",
+        "hmtx": "bda3351ce7b31c73428238763fd6f1ebea6a489bdcb416cb9538b068c11f7bfb",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "c7aa588272b1cde7c60d857a714a0775c2f59860ff7ee86603f409dd82064d3b",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "dd9b9f8a7cd7277248f03e0fd245b451242951ad394b7a9a40e9334c05cd6a62",
+        "glyphs": "c6d92472816442fd6a79216b4ad11e9a7fb202dc06b3756bdb65b8e4151b1a7f",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-Medium.vietnamese.woff2": {
-      "sha256": "f10eca3bb27db79d18deb87ad9ad10d6d0ca74014cf48a2b7457580f40505608",
+      "sha256": "aa8c369bfe5502efc995a7085f1d0ce46ca43ae8bc2f2e9305004d1da4aa4915",
       "glyphs": 551,
       "tables": {
         "CFF ": "be5778703f9a7730c780954905bed342af5d6ad32ab18fc5c275b8078e9d7e20",
@@ -1916,10 +1916,10 @@
       }
     },
     "SEIReader-Medium.woff2": {
-      "sha256": "df2e210f3dc1dc6307b63fbb02bf7d27412e11240e8caf8e60692240ac940bcb",
+      "sha256": "db60cad45f114bef8a5081522c5edb43d225c204ca9386581893d9712891cd9d",
       "glyphs": 787,
       "tables": {
-        "CFF ": "8036b0bdb688ab673a8ef9daf19067f6f3104989529c5335e991f014e5d1b424",
+        "CFF ": "ca0bcdb140dfce505f217dc938a12c1c32628cdbe8d15d717a9770ceb0156edf",
         "GDEF": "296e27f37bfe2fa21f65e72000560b4a116e83c487d941c591fa0ae52022b244",
         "GPOS": "ec91991ba85f5a65bc36d11196a6a428f3f6e935dc7458239b6e7cc3736c6550",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -1928,19 +1928,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "4f17d6914e6611fa0dfe0c705439af18421a77c8738d8cc044c399be9cce8823",
         "hhea": "22ace7e6036a129561effc4273bd7e1e38d3418612e40b425d835032fa1288ba",
-        "hmtx": "7c7b9a213717c1bfa8e59dc684c9f5bf49063602af936aba2c56cd184ba7a865",
+        "hmtx": "bb0fc98dfca9b790036c1863b3661e819fc5f78bb1736879d8570bee351e2a5a",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "c7aa588272b1cde7c60d857a714a0775c2f59860ff7ee86603f409dd82064d3b",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "6d00681a8b03b4a95d214d4b9e66f5365d23df214ecd63cc824e1db4de3c66df",
+        "glyphs": "2eaf8d13653b58ff531710231b45410907b86441878f80bc3be1f0eb4176766d",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-MediumItalic.cyrillic.woff2": {
-      "sha256": "053bf18c93584bba715acc7c562d9521dcf7f1b73f202941d13ba2a1afaedaa2",
+      "sha256": "6e1205f4803aca4f6b1ad7105b8695e4e30cf4c47eb4bff6b4eea0399077f6b7",
       "glyphs": 649,
       "tables": {
         "CFF ": "79f0773ca03191cc81d49ca25cf3f14d5e406f6a33fd2ec40566273c927e2047",
@@ -1964,7 +1964,7 @@
       }
     },
     "SEIReader-MediumItalic.greek.woff2": {
-      "sha256": "1d4eabcf1653dcf6419d262b97172b6739aaf19f1af1b47c82762e879d0a2240",
+      "sha256": "5fc7d2cf21096090e35806a988899aebf3af793f1879b8451f1396e3129322a1",
       "glyphs": 622,
       "tables": {
         "CFF ": "367f78d30ab71edb660434d0430697f61734e52017542e251d773130a6caccf1",
@@ -1988,7 +1988,7 @@
       }
     },
     "SEIReader-MediumItalic.latin-basic.woff2": {
-      "sha256": "45c2a3936dcaf30650a26f8e03fa7e1fa5cf134253def96a5931e51925ec9dd3",
+      "sha256": "96feb1ec0cc34b6b9bc53e570867e677d355479a94bef1a5620ddd2e22c78842",
       "glyphs": 148,
       "tables": {
         "CFF ": "051021a5c3c39bbfc522afc96251be4e1dea977f82b7ba5787bcd4812fcfb91e",
@@ -2012,7 +2012,7 @@
       }
     },
     "SEIReader-MediumItalic.latin-ext-2.woff2": {
-      "sha256": "7fd0700e8ab09655db34510e2aa5b97262393256a760eca770ab805a73952323",
+      "sha256": "70a3422e1a3edf9a8a4676da9c83eece39447c1478c6bd89edae50c8e1676fad",
       "glyphs": 551,
       "tables": {
         "CFF ": "f0528084032a82977b077090ac310eb65cc1fbe605b89c45e09a3b935a1c70ef",
@@ -2036,7 +2036,7 @@
       }
     },
     "SEIReader-MediumItalic.latin-extended.woff2": {
-      "sha256": "76c81fcfd20c3d8ad82761c252bc67e5f8c3ad588f2d239a03a1d9c2f200add5",
+      "sha256": "8e183cdd6ddf6997f45a4931d31b09022940f7acc2bfc93d808dc7dff601c74f",
       "glyphs": 515,
       "tables": {
         "CFF ": "52d091fd05ba7ca24e4a7e502aace1e47da8e07b7bd556989da430736c479cfd",
@@ -2060,10 +2060,10 @@
       }
     },
     "SEIReader-MediumItalic.otf": {
-      "sha256": "9a98801c561faa6f450efbca23ad7263a1d7f4d89d8a33e1b35b4f0f8912e1ce",
+      "sha256": "7ff04efe01141845cc515a7c51d399e003a41fdaac204eb5b65ed3a3e222e87f",
       "glyphs": 787,
       "tables": {
-        "CFF ": "76211fa3007df37800dccf627cbb9fdef25993b11e7bbced90189526b6c3cb5f",
+        "CFF ": "8644bf8a268d0036804801ccd2e6bd574af67d5465e763b5fde4db37057f56ae",
         "GDEF": "ddc96c5f88d7ba18de396d05af1c50425dfc9aa0ca374bf2b7b11ec2830cd499",
         "GPOS": "32e762440a6992f9c2d17fef94b97b2474127ed95bed75a5bc54602f0b0478bb",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2078,16 +2078,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "a52cfb2280eab7495b8565e194972d7b213dcb386d87429b96602d8621f60cfe",
+        "glyphs": "041220e8cfad23693001c06a38e9334a5884e27b44e62fa6c4599f6deeb9d126",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-MediumItalic.symbols-icons.woff2": {
-      "sha256": "9b4725cb0c304eb78fcacf6ca526b6cc3d24e2c34b5fcd446027a22e4d1f2eaa",
+      "sha256": "e4f1749f0e5589c9bedf9252fe28969d3ccc3ad5b5b72516e926e096ab0ec3f6",
       "glyphs": 89,
       "tables": {
-        "CFF ": "5889c2388b92712282bc9ebecf9a39a81dd904e53cb9f46f159e00366176e542",
+        "CFF ": "0f77bb5d65d6fbd0535b75edd14def06a43ea801339bf0e261a2f6d0931c5ce2",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "269b9393f7367ce3d0049c297c901ac4322e577d289ef01abd0d053d53416677",
@@ -2101,13 +2101,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "cde9bc0ec3ee68bc8c5358dea9cb0bf24f87dfde7074f7b2b8bde39c2c6209e3",
+        "glyphs": "c7fa1a920a0a19bc6699c1f95a1b4a9411d38d7c28da57ba07c0e94bfb8e10d2",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-MediumItalic.vietnamese.woff2": {
-      "sha256": "5b6224698aae514fd8dd7760a052ba0619aa1cbe8aded3b336724b6cd506ceeb",
+      "sha256": "f815d14ef21b6dffaa1605a75d1988c2873259539e93e8d29aea707c53166a98",
       "glyphs": 551,
       "tables": {
         "CFF ": "f0528084032a82977b077090ac310eb65cc1fbe605b89c45e09a3b935a1c70ef",
@@ -2131,10 +2131,10 @@
       }
     },
     "SEIReader-MediumItalic.woff2": {
-      "sha256": "57ad94f86dafb99039e991a5e8a339874fb4b3a3e15e360b6166c4fcc768318b",
+      "sha256": "308fd26564771e85385674a43daa04cfdafc4e7b42e06e24b053501abb67aed4",
       "glyphs": 787,
       "tables": {
-        "CFF ": "76211fa3007df37800dccf627cbb9fdef25993b11e7bbced90189526b6c3cb5f",
+        "CFF ": "8644bf8a268d0036804801ccd2e6bd574af67d5465e763b5fde4db37057f56ae",
         "GDEF": "ddc96c5f88d7ba18de396d05af1c50425dfc9aa0ca374bf2b7b11ec2830cd499",
         "GPOS": "32e762440a6992f9c2d17fef94b97b2474127ed95bed75a5bc54602f0b0478bb",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2149,13 +2149,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "a52cfb2280eab7495b8565e194972d7b213dcb386d87429b96602d8621f60cfe",
+        "glyphs": "041220e8cfad23693001c06a38e9334a5884e27b44e62fa6c4599f6deeb9d126",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4eabe9b76293b5c0ec16bd2a285f9d99afe205af03016259dc35d195320d7565"
       }
     },
     "SEIReader-MediumItalicNight.cyrillic.woff2": {
-      "sha256": "3723bca43624d3a221d5313b31c54374e6ee47b5f2364b27f3519f641db00c40",
+      "sha256": "28149f109fb75b48de49ac44f769abdefea91c25018fe2e69b672ea88e86c4e3",
       "glyphs": 649,
       "tables": {
         "CFF ": "8f79bf209ea6aa1b99144e1ea806bea5fef375447beea80bf85862e5fcb29c6b",
@@ -2179,7 +2179,7 @@
       }
     },
     "SEIReader-MediumItalicNight.greek.woff2": {
-      "sha256": "c547935b85ac114c0587b3ca5e3ee95d478c6d2c8c98d575602b11d4291885a8",
+      "sha256": "dcad42753198cf2987ff78a04fd91693f795d28202ec0ef2cf9e841b20e2431d",
       "glyphs": 622,
       "tables": {
         "CFF ": "17c830c07b542135942ae349f331a55685f4b4dc6c49d906904755477869c299",
@@ -2203,7 +2203,7 @@
       }
     },
     "SEIReader-MediumItalicNight.latin-basic.woff2": {
-      "sha256": "581c2fa69274a62f3a14adfb03cbe1a6cf5caafb2f696c9c8265646738d0c4a0",
+      "sha256": "f28185c116cceb89c8453b10c61e37d6a64db5979dcbffc77368fb4594e68b7b",
       "glyphs": 148,
       "tables": {
         "CFF ": "dd20f0a89dac473311cab67d505fe8437e4907e2e03f90c561db844b941e31d3",
@@ -2227,7 +2227,7 @@
       }
     },
     "SEIReader-MediumItalicNight.latin-ext-2.woff2": {
-      "sha256": "60a8f16da874a16e394d5956f0ad2f19ca1fdde6e64329f2dab7b7ea3dc2f139",
+      "sha256": "7980d48c079b9d35872995eaefdc8c2560e4a6cd99052c0c7f2fce436692695b",
       "glyphs": 551,
       "tables": {
         "CFF ": "f3ac35248a3474b94d058944df60951a3e6bfea63bfae24124ac75e69acba3d3",
@@ -2251,7 +2251,7 @@
       }
     },
     "SEIReader-MediumItalicNight.latin-extended.woff2": {
-      "sha256": "fa186a531a60be985dcf1f9f2da166affe59f9640c745b0516a26f041b046017",
+      "sha256": "a90e7b912950852e0ed09ebd4c0c44158f43788921cec0595433bdb8cbda6db1",
       "glyphs": 515,
       "tables": {
         "CFF ": "acfd013d1da9c9cda955cc95832d5c0089c350e5ec6dab547fd0946e3799b0ae",
@@ -2275,10 +2275,10 @@
       }
     },
     "SEIReader-MediumItalicNight.otf": {
-      "sha256": "f109ad292a23d7af2c53d5239b0e8a8a1aa7fe1b7776d0c294e9f4f423014254",
+      "sha256": "35308f74b408d4c715ddb0bc4a3fdf5c71fbbd868cf28661bd058d08829528cd",
       "glyphs": 787,
       "tables": {
-        "CFF ": "bbfbec94116eb0722e95074056176811e30cd8e4bb63d317922b28acd55392b6",
+        "CFF ": "60f27fad8e7c08b5ad06c77037720d0fee9a08cde43cb829f1cc99e1f0faa94b",
         "GDEF": "ddc96c5f88d7ba18de396d05af1c50425dfc9aa0ca374bf2b7b11ec2830cd499",
         "GPOS": "9a624d6f2d4665700fa8e0e26b9951f42fc8bbeea99f0078f756bc7e681e553e",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2293,16 +2293,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "dc2eba7332bf24895d6650abfaceeec53129d2075be4fd6aae02efde4df1417f",
+        "glyphs": "c3ad9b48d582ea58dbc31f23601537ff18826f4f65197606d51df9ec29ee7ac4",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-MediumItalicNight.symbols-icons.woff2": {
-      "sha256": "6b1802b3a28dcda92e1346ec36119ba277f92d5563e78a6d6f5fdfa79e9ab335",
+      "sha256": "f5969e40955e5d9a2ffe5632d18f30a5e4e7541d9f316363c75a85d67b6ebc77",
       "glyphs": 89,
       "tables": {
-        "CFF ": "cfc560f336d79deb08f4d69bd54a6d48e5a9262fbdee6b00bddeb6e5346f015d",
+        "CFF ": "9fa5ad0daa01eab5ee3c3f3fe52352996727c5fbb8fcb386042c7fe62720d8aa",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "269b9393f7367ce3d0049c297c901ac4322e577d289ef01abd0d053d53416677",
@@ -2316,13 +2316,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "46c0713f4bb493bf221ad1521f578b7d043cfa9a6f0f67e05cf5b4e9dcb402e2",
+        "glyphs": "0555bfd4af20bfddafaa1112db173b3b2bd52cd20d2456384c5f93df56e34df0",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-MediumItalicNight.vietnamese.woff2": {
-      "sha256": "65b6c20d6c5ecce0ef3962f8534fc8589b88a357175d331af24678d1724179c4",
+      "sha256": "200c6c29d11d297fecd1b5388afc0e2dbb4090dab61ef85e2b5cdf6ad8401c1c",
       "glyphs": 551,
       "tables": {
         "CFF ": "f3ac35248a3474b94d058944df60951a3e6bfea63bfae24124ac75e69acba3d3",
@@ -2346,10 +2346,10 @@
       }
     },
     "SEIReader-MediumItalicNight.woff2": {
-      "sha256": "415320f275de31b2145c02da36d25c037f8c7041c892394a7c4b4864d2ad6ddc",
+      "sha256": "7a2d91550174025ddc27ba0d42e9f979fd461455c1f78e45b321495c8377c41e",
       "glyphs": 787,
       "tables": {
-        "CFF ": "bbfbec94116eb0722e95074056176811e30cd8e4bb63d317922b28acd55392b6",
+        "CFF ": "60f27fad8e7c08b5ad06c77037720d0fee9a08cde43cb829f1cc99e1f0faa94b",
         "GDEF": "ddc96c5f88d7ba18de396d05af1c50425dfc9aa0ca374bf2b7b11ec2830cd499",
         "GPOS": "9a624d6f2d4665700fa8e0e26b9951f42fc8bbeea99f0078f756bc7e681e553e",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2364,13 +2364,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "dc2eba7332bf24895d6650abfaceeec53129d2075be4fd6aae02efde4df1417f",
+        "glyphs": "c3ad9b48d582ea58dbc31f23601537ff18826f4f65197606d51df9ec29ee7ac4",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-MediumNight.cyrillic.woff2": {
-      "sha256": "dd64843425a8050c7fa8041a2eaf1f4aa3341a885e36f966db22f59d6e6dddde",
+      "sha256": "b7e00b3019088a67567c4ef4a34f5cba3ea63bcc80c9558703e9ba2803c63687",
       "glyphs": 649,
       "tables": {
         "CFF ": "90a138469901e940b6a2952f66dd3e510c44c932e29c5ed7920b89771798f7fa",
@@ -2394,7 +2394,7 @@
       }
     },
     "SEIReader-MediumNight.greek.woff2": {
-      "sha256": "e4a169c02fe57851c218e6d3b42638fbedf8a09c370a5c368cd74de3c761bec3",
+      "sha256": "ec5629d07130c447277c5b85765aef7302e1fa6e13eb839583774ab42f1bf7b6",
       "glyphs": 622,
       "tables": {
         "CFF ": "3ab4ac2fec9b36b1fcd9691a4e6a3a8bfafb6215eee7156d68271e971fe57a81",
@@ -2418,7 +2418,7 @@
       }
     },
     "SEIReader-MediumNight.latin-basic.woff2": {
-      "sha256": "0a9d7f4adc8bbe27609206f773d15222545385dcdb450d5309ee05cf38d6a3d6",
+      "sha256": "f6d7abd13ec84519e5f97fe6887be951e466dac7032a51788f212a7f637177bd",
       "glyphs": 148,
       "tables": {
         "CFF ": "56b222134d3ec9238eb458242573ccbbc7337e58cd82d0dc28852b2a9829ca1d",
@@ -2442,7 +2442,7 @@
       }
     },
     "SEIReader-MediumNight.latin-ext-2.woff2": {
-      "sha256": "4e651627535f09fe8ee2afda996d8c9bad998a7b300faee8c56266725f4e66e9",
+      "sha256": "fbea5e3201848a8baabe0cb3b1329e757fa17eeca8f351df9dce905b0aa902c8",
       "glyphs": 551,
       "tables": {
         "CFF ": "742f61e50e8e09b1d03891dad738fd692921d50f9c97f4d8868f4edc64689a52",
@@ -2466,7 +2466,7 @@
       }
     },
     "SEIReader-MediumNight.latin-extended.woff2": {
-      "sha256": "2d454e58f1ba7172b09651f30814954b0ab55a15e9b6e64ac5cf18864ecba06c",
+      "sha256": "19b06d0f689d209ea0b3c422a55cb0a1ba1df7dc45e821efeccbb30bd7abcdb9",
       "glyphs": 515,
       "tables": {
         "CFF ": "5e0e3d21ea1a9416a240156e551b5840f8d2ab3221c1442e2027f0f91cf1feb0",
@@ -2490,10 +2490,10 @@
       }
     },
     "SEIReader-MediumNight.otf": {
-      "sha256": "2c1d7c1e23ab056626cea49fb96f6ab62f89bf12daf8176077d7c2953887e55c",
+      "sha256": "a962378fc1d66d4c47844061edab10552188e23b1a77cf2517dca1d643273283",
       "glyphs": 787,
       "tables": {
-        "CFF ": "ea9dda4dcc58533fe25f22d52a51b54bdd356cd35993971312b1a6957e8417fd",
+        "CFF ": "c724b6e53826bc8872692333a293d7c7d44201db09247f329c856043b2bce493",
         "GDEF": "296e27f37bfe2fa21f65e72000560b4a116e83c487d941c591fa0ae52022b244",
         "GPOS": "786a0b8d76ecb07bcb3d1be0a37dac2576695a7aa531aabd59f95d87b7ed6401",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2502,22 +2502,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "4535239cba540d6ea0d6d778790a895ae10202b0b4222480cbfcc031008f2207",
         "hhea": "f027391d22c8098b369aef790916394974a329421c9cc1e7e73701a1a16c8b89",
-        "hmtx": "795838618a89f1f5ab9097ed3263119f6448b3254b806a2faabdc22ffbdb35d4",
+        "hmtx": "110c73597ddb6ca622b7634c66f5a602eac8171a95fb8ee4b0ee1154c006afb4",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "5baee6e537381c5a07cff407b9ccf56b1b7afadae2ea64639270dafbc68b4ca2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "21f2e655c63baeae7a98162a9f7c8ba5e219790f05122ba3b2e2dd1e990eb365",
+        "glyphs": "56fd3ce213a300bb94a9edc05a7dc842598d5c6d806ae010048392f5d7333096",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-MediumNight.symbols-icons.woff2": {
-      "sha256": "ad7512db3c529e4a0bcd735f6221caf5ffc066726da42df87b4f86189f61da25",
+      "sha256": "3fdb61aa0c3265d896cdf2d4955c8874930567113ebcabeee23e0c65dc00a3b1",
       "glyphs": 89,
       "tables": {
-        "CFF ": "b36ee14c9f9a5d42f94adf5ae451c244934ffcbc02e6703fb88e28fcb1ba4b39",
+        "CFF ": "ce4423cab359a3d3de7edcf59640f9662502db38bff77ba56c488d64f94cdd28",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "e8966a7c63dbd3734d652a2086b47056ee78e5f66395dfa19f94f4bd8c1f8e7c",
@@ -2525,19 +2525,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "8f7689c7b36178c2753d3505cc4d6766e348dd4c2fe7ab70259d7085de3afe5c",
         "hhea": "83b53d77cd9e1e3cee82de1fbd31aa35c8986b18008cbd0b69dd8517fcd167ff",
-        "hmtx": "841638cfed8b3e3b0eb5b8f9ecbe6faae102c871b2fa06d8760cf5fd312b97b5",
+        "hmtx": "0cacfb80e67369c59e8d54599346ddcd4eb29c4fc9f8a5c40b9ffc1e25f99e05",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "5baee6e537381c5a07cff407b9ccf56b1b7afadae2ea64639270dafbc68b4ca2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "0d9dbe28c11aacc821f79f4e7514d40bdb96b6304f8794c2067126a7455cde8a",
+        "glyphs": "e4e0e3873e2d157d4a2558c37bcb8cea885ad9e1214bfa4385bac2068e2c8154",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-MediumNight.vietnamese.woff2": {
-      "sha256": "0d527541ab49e196d865283cd444db6ff1db9025b1d792124aa68973bdcca8aa",
+      "sha256": "7d212f497c117cca4b7ae967dbe9e510d85ccb2deebff4652210c884583b48a3",
       "glyphs": 551,
       "tables": {
         "CFF ": "742f61e50e8e09b1d03891dad738fd692921d50f9c97f4d8868f4edc64689a52",
@@ -2561,10 +2561,10 @@
       }
     },
     "SEIReader-MediumNight.woff2": {
-      "sha256": "9be039977eb82b1f9ec07e966483b652f49957d4155359b39168ded6e1cae69f",
+      "sha256": "ff029527848bef674d6564dd8e32567099d2198167ec076602e78f2e50920a4b",
       "glyphs": 787,
       "tables": {
-        "CFF ": "ea9dda4dcc58533fe25f22d52a51b54bdd356cd35993971312b1a6957e8417fd",
+        "CFF ": "c724b6e53826bc8872692333a293d7c7d44201db09247f329c856043b2bce493",
         "GDEF": "296e27f37bfe2fa21f65e72000560b4a116e83c487d941c591fa0ae52022b244",
         "GPOS": "786a0b8d76ecb07bcb3d1be0a37dac2576695a7aa531aabd59f95d87b7ed6401",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2573,19 +2573,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "09a8d4ef513260d3647ddd000bcd2ef6b3fc5249221aa3da5cc2858c864cd603",
         "hhea": "f027391d22c8098b369aef790916394974a329421c9cc1e7e73701a1a16c8b89",
-        "hmtx": "795838618a89f1f5ab9097ed3263119f6448b3254b806a2faabdc22ffbdb35d4",
+        "hmtx": "110c73597ddb6ca622b7634c66f5a602eac8171a95fb8ee4b0ee1154c006afb4",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "5baee6e537381c5a07cff407b9ccf56b1b7afadae2ea64639270dafbc68b4ca2",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "21f2e655c63baeae7a98162a9f7c8ba5e219790f05122ba3b2e2dd1e990eb365",
+        "glyphs": "56fd3ce213a300bb94a9edc05a7dc842598d5c6d806ae010048392f5d7333096",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "77ac637219b106226f7618d00cc2d42b14b159bd49dc64da96fb44c10291f465"
       }
     },
     "SEIReader-Regular.cyrillic.woff2": {
-      "sha256": "0c9ab45e0d8921c355d035a6a7303c54d14827c5fc9047fd6b6628372b76ce30",
+      "sha256": "053104827f800bf70515681c0d9e379cdd66e82b7007812efd71aaa161364bb5",
       "glyphs": 649,
       "tables": {
         "CFF ": "cd3419ab325a8a8a3e68213c5d317e3b4be839dd0998cb6025ac899307b6531c",
@@ -2609,7 +2609,7 @@
       }
     },
     "SEIReader-Regular.greek.woff2": {
-      "sha256": "9fb275f23998acd4a21b29061e7db69f677ae045ed13d08de2cd2e11d247a6ee",
+      "sha256": "7131e8daeb53bb8f0e0e3f15b18677a29c08dc14b7d91909d9a2f410a262f832",
       "glyphs": 622,
       "tables": {
         "CFF ": "0f66a34ab83f2ec8e9b9952c2d127b1821cfeb35134cb25d2281664de998d139",
@@ -2633,7 +2633,7 @@
       }
     },
     "SEIReader-Regular.latin-basic.woff2": {
-      "sha256": "80c392ed826340d03ec72060c583e5df2d89c44ed4b223d98dc824a0b90e0c61",
+      "sha256": "91ca8bbb6c539aa89f587e2b887289ee88ed14b3a876baccabe156581d6a17f1",
       "glyphs": 148,
       "tables": {
         "CFF ": "831778d6cfda1e0767813374841514420bf0c51305aa12e7c7ae222c8324b405",
@@ -2657,7 +2657,7 @@
       }
     },
     "SEIReader-Regular.latin-ext-2.woff2": {
-      "sha256": "1644eb1cf4b08b7338c8b9c58d793525dfb1398efdc4e8903e7106ef2cb0301c",
+      "sha256": "a3db42320a74a7ccc44394aa3074f98c0266dc573d9ff36620dc17bbd60607a9",
       "glyphs": 551,
       "tables": {
         "CFF ": "20d340f580861708b57dc44fd03516c78245a8eeb9a6074355999693b4329161",
@@ -2681,7 +2681,7 @@
       }
     },
     "SEIReader-Regular.latin-extended.woff2": {
-      "sha256": "ac9ce4f325984eba1017685a23226635151f40d09039792c5bc9f4ffd37e045e",
+      "sha256": "3e264c43f1c76d43a7ff9dea96e183841c8192de87889af5bf7a7a40c006f846",
       "glyphs": 515,
       "tables": {
         "CFF ": "a6fef205fc114bf08efa30937c49e69bc9b192d5ca71b779303cc9dbb73f70e4",
@@ -2705,10 +2705,10 @@
       }
     },
     "SEIReader-Regular.otf": {
-      "sha256": "9bd75cbfea9e4cea67aaa116ba8e03659b95cb015467b8053bb7e4858e0facdd",
+      "sha256": "e4fb448bf3d4b506128c9fc7f1f1214a8b3b838d4362a2e23d995ee9dc19e247",
       "glyphs": 787,
       "tables": {
-        "CFF ": "e1e82299d605236ab58bb6545e6e4d9fe302e7a045a589f6504dd5e3f4dacf6d",
+        "CFF ": "ce6cafcebdeeeedf81dc1ce1be88895918382f2ddfc2d3421d7717e315e91b91",
         "GDEF": "d5cbeed8fc4c71a70d3643c64e0bbc27a0a0535f52a890d2b3bb6e051c7f49d7",
         "GPOS": "f93ed504e79b79bb08e691db4afc1b0c650b2477e916acac8b1930d4710d7572",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2717,22 +2717,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "788435a5ff6d76dc824a2dd54b467f55ef9859d73364dace4dfbda413eaa0275",
         "hhea": "a47219fe261999e62ae6c4c7d0f6a87b1bb23a4232c637c5df65b1417b0c29cb",
-        "hmtx": "bcb6b7378dc017fa638fa4eec9ec7197022d6bf0fdf4a90ffe2f94ce5d53b26e",
+        "hmtx": "778b8a9b0b0d6f60e3fe2a8c672d1de7906dc2d724df79d2bc9028bbbf2c805c",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "2020a03393fbd2c8a98d7186721862cba25c1be2ba912befa795fcf5bd7b32ab",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "7b63a35d701baaaf18b129dc1c8b96f75f714428db0ff60c0f87c0788227e97b",
+        "glyphs": "82e81472470bdc2a32e0a5d785b19c960de971b78f36cb25f3dc95b30f268171",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-Regular.symbols-icons.woff2": {
-      "sha256": "cf2c7f4f00691cfe2f16c5d1df9e4818b51783e3531b6e5f7db57af6fb606caa",
+      "sha256": "9f9669d74df9acbf8b45e13e7bc8ea28bf39be5576e5776fb6a3a8c7290de890",
       "glyphs": 89,
       "tables": {
-        "CFF ": "acf53ade791849304cbd7249d5d44ea01cefb6b96bad022ea99aba6ccd652fdd",
+        "CFF ": "1dc2981881d99401aba61e9084e39b3e2d4e75a6158f0a1350579227f31cc6d3",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "26fa845a60b25302fa687745f1964aa96c6f613ab48a5028af1e084951ae504a",
@@ -2740,19 +2740,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "b7dd2052b929feb1cafbb1c70b612c7b83b3a240148bf56f9d75fe66e399ac49",
         "hhea": "a9d35c62323731997bb01fe2d628e91dbda657480ea2f91fd3069cebee2fec87",
-        "hmtx": "52bd12102ebfe963a141d9cbbec0f8fbc4950f3d520546069809e94230a9a66a",
+        "hmtx": "7b6dd0756421efd65a061ac30abdd0284e95c05fa545252503fe8d716d20cd15",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "2020a03393fbd2c8a98d7186721862cba25c1be2ba912befa795fcf5bd7b32ab",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "2383ba115936abe48dbd67351f1791b70b2f639789e45e14590a028356293158",
+        "glyphs": "bdd370ed86fc561a73c245d95b6b9330be5995e694797c1a6d0b53fc3066c0e4",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-Regular.vietnamese.woff2": {
-      "sha256": "4012ce7fd5810d05cbdaa16f6f749a4601725267c942212580a0912c1ad771bb",
+      "sha256": "8f64ceb7d0bd50faf4bf7074107e59c5b9446be8f54aadb9db42a0f025de812f",
       "glyphs": 551,
       "tables": {
         "CFF ": "20d340f580861708b57dc44fd03516c78245a8eeb9a6074355999693b4329161",
@@ -2776,10 +2776,10 @@
       }
     },
     "SEIReader-Regular.woff2": {
-      "sha256": "17bca0d9c1e842389609ebc5ca956ba823c0271c1218b7af53f7aab2296aeeaa",
+      "sha256": "300cd30205a700c1f98fc48527dbeb2c5c2308da8702c634b621340084401f55",
       "glyphs": 787,
       "tables": {
-        "CFF ": "e1e82299d605236ab58bb6545e6e4d9fe302e7a045a589f6504dd5e3f4dacf6d",
+        "CFF ": "ce6cafcebdeeeedf81dc1ce1be88895918382f2ddfc2d3421d7717e315e91b91",
         "GDEF": "d5cbeed8fc4c71a70d3643c64e0bbc27a0a0535f52a890d2b3bb6e051c7f49d7",
         "GPOS": "f93ed504e79b79bb08e691db4afc1b0c650b2477e916acac8b1930d4710d7572",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2788,19 +2788,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "eaa31c9d648e25c1b820c612611b4d1fe0611ccdf4ded2426035148adf830ef1",
         "hhea": "a47219fe261999e62ae6c4c7d0f6a87b1bb23a4232c637c5df65b1417b0c29cb",
-        "hmtx": "bcb6b7378dc017fa638fa4eec9ec7197022d6bf0fdf4a90ffe2f94ce5d53b26e",
+        "hmtx": "778b8a9b0b0d6f60e3fe2a8c672d1de7906dc2d724df79d2bc9028bbbf2c805c",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "2020a03393fbd2c8a98d7186721862cba25c1be2ba912befa795fcf5bd7b32ab",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "7b63a35d701baaaf18b129dc1c8b96f75f714428db0ff60c0f87c0788227e97b",
+        "glyphs": "82e81472470bdc2a32e0a5d785b19c960de971b78f36cb25f3dc95b30f268171",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4094f5fc3a4fde4fdbe8d46e1e50abdfabb57cbc680294b05be2775226653d96"
       }
     },
     "SEIReader-RegularNight.cyrillic.woff2": {
-      "sha256": "1d1a04d4fcce6142aa1692cb9a4eec3aad01c214b386e881035c95642e69b45b",
+      "sha256": "d1434cc7dce012f74f4a0b1a0ad69f4569e6d3c2b9ba75187d6cfade3a9ac7eb",
       "glyphs": 649,
       "tables": {
         "CFF ": "e8ccdba98fb350e18e18dd54c02ca2a34a912fd13ab2cdb4f4016a1a53fd5a92",
@@ -2824,7 +2824,7 @@
       }
     },
     "SEIReader-RegularNight.greek.woff2": {
-      "sha256": "8b771cd793635ecaef2b2eb544487cb3e610286f976a4ff0997bff5e5af06e86",
+      "sha256": "df816ab49242dfa9eaf61e4443993033f5b3ffb6861b9002f4cbe5b43241a868",
       "glyphs": 622,
       "tables": {
         "CFF ": "ec7b639753db5c56beab678e02d7bf5656eaa1b6005957bf6c27d1c77a645aec",
@@ -2848,7 +2848,7 @@
       }
     },
     "SEIReader-RegularNight.latin-basic.woff2": {
-      "sha256": "b30f2868b409836f4bb29f4ec0fe4ad2194541157b1789ae6965aeac01736ff9",
+      "sha256": "eb552f3a1ff6d81bea004f3bbdc5317a3ccd1a3e1e5ff499b996e72b6a38c7ca",
       "glyphs": 148,
       "tables": {
         "CFF ": "21bf176713cc5bf4f0863bc51cf70cca48ef838651dc026be270205022467fb2",
@@ -2872,7 +2872,7 @@
       }
     },
     "SEIReader-RegularNight.latin-ext-2.woff2": {
-      "sha256": "e104883bfa2e7fbdc9e97609197c8587a63d854492097a0c2c6d277a1a1f6d42",
+      "sha256": "1da977a1aaf68bae414e81e1934c797b92ae83c4f2295f1d0795620deedbf3f6",
       "glyphs": 551,
       "tables": {
         "CFF ": "6f7f2b9be93a4d048e3e8a499599f8c475e27a49594aaf5766b2523301adf8c8",
@@ -2896,7 +2896,7 @@
       }
     },
     "SEIReader-RegularNight.latin-extended.woff2": {
-      "sha256": "0df405b9952993ff5c35592fda96f15c65c3fd4cc7d669369a671f33b2dae38b",
+      "sha256": "d5ccd640328c6e9ba10b6c69bedb18ceae07b2155503100e6321eab8e318332d",
       "glyphs": 515,
       "tables": {
         "CFF ": "11886e1cfb6195cf2c2bd67a5f4e337035cceaa3a9a44af0f4943d08b1b52ace",
@@ -2920,10 +2920,10 @@
       }
     },
     "SEIReader-RegularNight.otf": {
-      "sha256": "a564e49098c4413f9b012892c71d90a263a062b95d230f70c7cfe9fb7429828d",
+      "sha256": "f4b4cd8e5316f6a7a555a0d2857b7900e87c63d9c93142c201a008d430a4a1c7",
       "glyphs": 787,
       "tables": {
-        "CFF ": "792484cdb3a8a3f1be3eeeebe48ce0df15a851663fe3807382767d2186aed537",
+        "CFF ": "27b6c6c52dca95e9fff3a73b8167d54d7d4f140ddfe85e8804dd003363db314e",
         "GDEF": "d5cbeed8fc4c71a70d3643c64e0bbc27a0a0535f52a890d2b3bb6e051c7f49d7",
         "GPOS": "2bd364602206f29d57ce906dd8bc9c57d630ccb9a06cc08dfb5acebff8d6146f",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -2932,22 +2932,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "94d4b4f9b2932ffb9b4add5e93a3e79ded47abfe8e61e8c3483a9822015de2df",
         "hhea": "3646e03250652f89c4f0253266bcde7a0d33b3e86b4ea4b8f23de54cdebf486d",
-        "hmtx": "4393c0f177370e42e8cf6a4bb8529870ce2a62b83de1e9a51e010b900626a426",
+        "hmtx": "cab7036f59c78fc364bacc0119f9ac5b1efe2822852df20cad9b42b665b3ccbf",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "31b6f53c8e07a2c67fadd14ed561f447be0ff88f9288af5bd0a9eba1cbfcb10e",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "47145e5cbe7c43ce1a1932aaa6d21bf9bc2c4485f7ecc8f0567ace6fb83f323f",
+        "glyphs": "c09df0f24278f92a8acf32121c4d7cde1d98ed48a27b27ad62ce8cf4b553eca8",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-RegularNight.symbols-icons.woff2": {
-      "sha256": "2bbc00bd5bfdac39fcb710c4e70dd664d37fc64f4efd23a4b4d443f249d72d2d",
+      "sha256": "2cdc40b0944f14a80a4a26e134a4931278943b8de9cb679e570a57df598f9180",
       "glyphs": 89,
       "tables": {
-        "CFF ": "5004614e7fc2631547df10f8ed366d29bcc978ae805824d543878aefcffd6f03",
+        "CFF ": "bce0d6a482b6c42832ee6e830649ddc0cc1e40441296518e42a011e6f5671eab",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "26fa845a60b25302fa687745f1964aa96c6f613ab48a5028af1e084951ae504a",
@@ -2955,19 +2955,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "c3e2f3b29f5daf7ab9f774bd5a30f4bee4eb72a74f4ee3ea5a4db9e20fdfa876",
         "hhea": "c48d319066222bb8a04f6cd678cb25a92a7c785a010dad82d26a5101ecf2a179",
-        "hmtx": "411fe299ef7b3cc60317c0fd0a14adc58990eab8eb628dea294a221f9665047d",
+        "hmtx": "5d5f6ee2dd0906c65f00e0d32518c97f69079cb4f7494a4b7adeef6ecb4bf3de",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "31b6f53c8e07a2c67fadd14ed561f447be0ff88f9288af5bd0a9eba1cbfcb10e",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "45ccded0b30c8b1edddced28de17dd4e74eb8a330273c751b01648cbd0e60d6f",
+        "glyphs": "ed2dbe71f8d7796eb59830ce686e93d7a4eb136ed661713062f4bc5658fe3903",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-RegularNight.vietnamese.woff2": {
-      "sha256": "d0e849eca7ab79ccba5e06b8c493a8fed009c283c681b49b95b5050d50cd9f23",
+      "sha256": "af9c04df545c10d55bf5ec6e808205ee03872d557a58fcc7ff042c3fb6afce83",
       "glyphs": 551,
       "tables": {
         "CFF ": "6f7f2b9be93a4d048e3e8a499599f8c475e27a49594aaf5766b2523301adf8c8",
@@ -2991,10 +2991,10 @@
       }
     },
     "SEIReader-RegularNight.woff2": {
-      "sha256": "999799986afc6775affe7c326654801f13d1dfb368744bea1ad08a1e4d57650e",
+      "sha256": "ae6f38f95a8e9853f4a87e5a41fac29680925c47435bf8b75ca9c9f8ad7950de",
       "glyphs": 787,
       "tables": {
-        "CFF ": "792484cdb3a8a3f1be3eeeebe48ce0df15a851663fe3807382767d2186aed537",
+        "CFF ": "27b6c6c52dca95e9fff3a73b8167d54d7d4f140ddfe85e8804dd003363db314e",
         "GDEF": "d5cbeed8fc4c71a70d3643c64e0bbc27a0a0535f52a890d2b3bb6e051c7f49d7",
         "GPOS": "2bd364602206f29d57ce906dd8bc9c57d630ccb9a06cc08dfb5acebff8d6146f",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -3003,19 +3003,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "91c356ac520cacd455843687158527237f8f14a080b3767c52d9f02a4733997b",
         "hhea": "3646e03250652f89c4f0253266bcde7a0d33b3e86b4ea4b8f23de54cdebf486d",
-        "hmtx": "4393c0f177370e42e8cf6a4bb8529870ce2a62b83de1e9a51e010b900626a426",
+        "hmtx": "cab7036f59c78fc364bacc0119f9ac5b1efe2822852df20cad9b42b665b3ccbf",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "31b6f53c8e07a2c67fadd14ed561f447be0ff88f9288af5bd0a9eba1cbfcb10e",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "47145e5cbe7c43ce1a1932aaa6d21bf9bc2c4485f7ecc8f0567ace6fb83f323f",
+        "glyphs": "c09df0f24278f92a8acf32121c4d7cde1d98ed48a27b27ad62ce8cf4b553eca8",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "5d251cbd0e1fe57d8633a94d1371c811c99d1646e7362a220b5d8b1305160998"
       }
     },
     "SEIReader-SemiBold.cyrillic.woff2": {
-      "sha256": "25e69ea05e609f860a9440d44f0013444c5894d234621883202ee3fc6add54a2",
+      "sha256": "09e112cfa2470c3c0dad6ae8ed5c94f704deceb20574f443c2111e59b2c6ba48",
       "glyphs": 649,
       "tables": {
         "CFF ": "e2c946393a5be6bc86094de149c7e1fef47ea65398f7760518515b669dbc6aae",
@@ -3039,7 +3039,7 @@
       }
     },
     "SEIReader-SemiBold.greek.woff2": {
-      "sha256": "8fb298ab74d96be4695a1e1194ab162fd734b27cc82f86c8ac663fed08a8b270",
+      "sha256": "b10da35171f5567a47911cf2e27185ff4564bfaa9b3dd1523346b4313f739bac",
       "glyphs": 622,
       "tables": {
         "CFF ": "7dfdfff9f20a76ff5038c6f1e9f66c371b1ebe7344110e14358eda90ef9f2142",
@@ -3063,7 +3063,7 @@
       }
     },
     "SEIReader-SemiBold.latin-basic.woff2": {
-      "sha256": "c8f2f9ac7ba6045202b2d32a3d099d3a1f1348b1bea9d81144904edaddfc8fd0",
+      "sha256": "e9bc3d744952b56512cad57649c4f5ddd54f9707726a7bb56e717b2c2e713800",
       "glyphs": 148,
       "tables": {
         "CFF ": "e52d0c9698cc5ec4eb3cd586c921447b77b3d9517c8089499b11306fd2d112fe",
@@ -3087,7 +3087,7 @@
       }
     },
     "SEIReader-SemiBold.latin-ext-2.woff2": {
-      "sha256": "fbe55c9ef306fdec089c4ba9ea5ca1bb966a5448b46c962976c4c57b00eab577",
+      "sha256": "ae8ff475b1f0bd9c4bf3e8ee7e8c1ecbcd776401e28648a79ad6eb1d78efab97",
       "glyphs": 551,
       "tables": {
         "CFF ": "5d1ae59cf46cd4fb651b811103b3fb261761348d4eca10ae687429b4bc81b29b",
@@ -3111,7 +3111,7 @@
       }
     },
     "SEIReader-SemiBold.latin-extended.woff2": {
-      "sha256": "fdb447f3a4b5a4251392069397a70b8bddb36c29b197944cae4b5e685144332b",
+      "sha256": "f1c4927a61146573f4ef65eaa6e7ea21a94dcdeb15dedd7018140a3e669047a1",
       "glyphs": 515,
       "tables": {
         "CFF ": "35c94dfd8b3e7a07c9b3fd328ccc794793a6d07593bd2152be66324e46ffcb90",
@@ -3135,10 +3135,10 @@
       }
     },
     "SEIReader-SemiBold.otf": {
-      "sha256": "56539daa7d00c96dfe8887749006fadc39ed809c3c84dc2ac01a8fd871c7649b",
+      "sha256": "b7b08c394707e2f00707d80307e9bf6e9bab59c3f8dc4d1f5bfcbba8e86d543c",
       "glyphs": 787,
       "tables": {
-        "CFF ": "b60c2ec606778cb2b66543202ba9ed5e9232c7c1b273a9912a3873a2324c0603",
+        "CFF ": "99c94e899806ca73f1875752b9c9eac02d3cdcf2a8b5c5032a2dd5d3618e53f4",
         "GDEF": "f1474416de4aacba320c3432878c683e1f63cd0e70d5b7206334d998df930e5c",
         "GPOS": "e8208d6746073fecbaafdd2fac47566f81a70975e70e79b9ce07ae9b4442aa04",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -3147,22 +3147,22 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "3af9707aba1d5bacea05016f4593baa56d54362badb599776b596dad6548198f",
         "hhea": "6f27dd15ced598ad3598e45660785ee65820d40aca6d5d9b17c9e72d110d49bd",
-        "hmtx": "9ae644ca086e85f8330c665791151a8fa1e9fdc0223c1974f26f0010665217d3",
+        "hmtx": "fd27d7e97cd5572276785bf82bffdeb42b9f9c8225d78c90d39b4677bff96f8d",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "b6efdd77a0beaf9e6c939e96413d724dba9fc30af596f3b00fb0b89a62baf2d7",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "2f31346caaabfc3b8ec9debb5656b06179b8d01af7c8c20dec5f613315aca5ad",
+        "glyphs": "9b77d6e180d7aa63e9644c5fb3a5b17dbe5bb61acd9b23a623a2228263878e5e",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }
     },
     "SEIReader-SemiBold.symbols-icons.woff2": {
-      "sha256": "263cbbe8721de2b6b1235b77e5f05af5ceac87c46e1f4894f4a51d9fbe3cab4e",
+      "sha256": "2f569cc36da92cee7f515bd092c05a5de96cb8c2c16cabc01166ac1070f9c81e",
       "glyphs": 89,
       "tables": {
-        "CFF ": "58f77b6017a61b8601088ef4d2892f2e193188dceb7be23efb598b46c641dc71",
+        "CFF ": "b6a40c0d278174d50b3ff67418ffeeef956456848abd146dfd34392306340cf4",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "3875b534aca5ef2553c42d55a41621ed80c4662ca2e547e5da8e5acb0642b5c5",
@@ -3170,19 +3170,19 @@
         "cmap": "5b848901610b84e5103e13a9f60321a29cb851a65e0ffc01f80e86e2abcd2f5d",
         "head": "d92684de3a6b74d3842a61406ea62e3762a53d0f73699f5098ebca043bab15a5",
         "hhea": "9eabc4983b8bfcb99829f45ea7b68d006ae246dc99134a9afadbe3bf0671e7fc",
-        "hmtx": "a9e01db4c2493d1e86598cbf3649e0bfbe54343a96d8e8c34eac7f2523641513",
+        "hmtx": "7c342271099b89ac9a2596019373ed1767e003d1021ee2c343b9b4baf48aff2b",
         "maxp": "093aa71b75fe24b4366168840c97d8b5d5892838167a7e55146212043790e264",
         "name": "b6efdd77a0beaf9e6c939e96413d724dba9fc30af596f3b00fb0b89a62baf2d7",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "2eb341e4178fd778d8e891f215d6f5ca4def6734cac1be6416e11703f1355168",
+        "glyphs": "3e1ef04f1e51cec5f97ae2c6c70972e6add5605cdfa7a6a976efb489ab3b4cd1",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }
     },
     "SEIReader-SemiBold.vietnamese.woff2": {
-      "sha256": "d9820ae26409b39b3ea1328b2dadddb08759afde8fb5f72470d7d77775765e95",
+      "sha256": "ab7b7435125939470e3efdf93d4e1e727ac670c7ba28633e64a4e0266adbafed",
       "glyphs": 551,
       "tables": {
         "CFF ": "5d1ae59cf46cd4fb651b811103b3fb261761348d4eca10ae687429b4bc81b29b",
@@ -3206,10 +3206,10 @@
       }
     },
     "SEIReader-SemiBold.woff2": {
-      "sha256": "ffd562084a2223d371f1d040035d313bdc343cf509c966c1e5651938a6b8af95",
+      "sha256": "bb37cfc050211205075f838da53eff5b4ec01276b180e9be9854736a84eb9338",
       "glyphs": 787,
       "tables": {
-        "CFF ": "b60c2ec606778cb2b66543202ba9ed5e9232c7c1b273a9912a3873a2324c0603",
+        "CFF ": "99c94e899806ca73f1875752b9c9eac02d3cdcf2a8b5c5032a2dd5d3618e53f4",
         "GDEF": "f1474416de4aacba320c3432878c683e1f63cd0e70d5b7206334d998df930e5c",
         "GPOS": "e8208d6746073fecbaafdd2fac47566f81a70975e70e79b9ce07ae9b4442aa04",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -3218,19 +3218,19 @@
         "cmap": "971b8e7ef00bce583687cc369574eb36d88116c085cbf2075a5498548d586750",
         "head": "2355e4c7c4297b1043c150d67b2160407eb6bd6b00cfc68785747fc5fa12dad9",
         "hhea": "6f27dd15ced598ad3598e45660785ee65820d40aca6d5d9b17c9e72d110d49bd",
-        "hmtx": "9ae644ca086e85f8330c665791151a8fa1e9fdc0223c1974f26f0010665217d3",
+        "hmtx": "fd27d7e97cd5572276785bf82bffdeb42b9f9c8225d78c90d39b4677bff96f8d",
         "maxp": "fb1634003ff9ec3b3630e6173985810fefd363093cabd5c5785512892552a4de",
         "name": "b6efdd77a0beaf9e6c939e96413d724dba9fc30af596f3b00fb0b89a62baf2d7",
         "post": "b87f970ffb6af155cbd482e25fcf3088ef663484834e23dab253b34c98586aaa"
       },
       "programs": {
-        "glyphs": "2f31346caaabfc3b8ec9debb5656b06179b8d01af7c8c20dec5f613315aca5ad",
+        "glyphs": "9b77d6e180d7aa63e9644c5fb3a5b17dbe5bb61acd9b23a623a2228263878e5e",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }
     },
     "SEIReader-SemiBoldItalic.cyrillic.woff2": {
-      "sha256": "fbc2abcf52502edd1356b2f1a74a0640a0e5a141cc9dae57628eed02bad3f318",
+      "sha256": "1c32faeed9b572248802f0dc12d72e48ddccaa49d1bd000c51c18445edc7cedd",
       "glyphs": 649,
       "tables": {
         "CFF ": "f324cf051f2e29b3ac051f27e21cbfe3908c8c2bf7a5e5f4279ee1aa92021f92",
@@ -3254,7 +3254,7 @@
       }
     },
     "SEIReader-SemiBoldItalic.greek.woff2": {
-      "sha256": "e4f64d68789dde6ea843656012c09d49cbd27da0ed870c2488abab451db028e2",
+      "sha256": "3d672579ca6ec294211a86d3dd3fd1fec7014271d19d0a3512bef49b16bda938",
       "glyphs": 622,
       "tables": {
         "CFF ": "ad61390a29223b4dff2132081518629406f1a31dd9b53518d75bc7e685777423",
@@ -3278,7 +3278,7 @@
       }
     },
     "SEIReader-SemiBoldItalic.latin-basic.woff2": {
-      "sha256": "d9299d80fa7008e1b433e6a4d8ed7d18160fbc79e1c9e85e00f4e6f557dab6cd",
+      "sha256": "4b31c22bc13f702c714e8e126d6cec42d306729db22318493f0ec4117cd2bfb2",
       "glyphs": 148,
       "tables": {
         "CFF ": "822f3a9d7c97dfcc9488a3f0d2178a69876bbb6e969ad73501f8ca9b48c6c097",
@@ -3302,7 +3302,7 @@
       }
     },
     "SEIReader-SemiBoldItalic.latin-ext-2.woff2": {
-      "sha256": "5ea0912adeabe118d8a67cdc6d9361665a67ef9d0ea5345236430770343bbb40",
+      "sha256": "4cc730df1b3ab25e621559f82b6a2e599fd20926366ab2b77d448b2149e9077f",
       "glyphs": 551,
       "tables": {
         "CFF ": "82d78045e16976f1cbcde5d931816277fef14bb7e36a5eee0f123162bcfb598c",
@@ -3326,7 +3326,7 @@
       }
     },
     "SEIReader-SemiBoldItalic.latin-extended.woff2": {
-      "sha256": "197f259a0ad5a7bed581e8311b1492c45cf1164dd09cf05ff1b0bbfbce1227b8",
+      "sha256": "2a48b0e3c28e8d5d0c1f1d835812b6bef2a0108f7222a54c917ce75521ae4546",
       "glyphs": 515,
       "tables": {
         "CFF ": "e35bfb19c6a9a68ad1f93385b432a3c0f3e676685da7b462e6b26786ab883316",
@@ -3350,10 +3350,10 @@
       }
     },
     "SEIReader-SemiBoldItalic.otf": {
-      "sha256": "353473eca56196d55cd772333f6f2c4a9f748c888b2f0fcf986a7b7b08a2418a",
+      "sha256": "660b8a7247624cf3aefc0e5b9dfcfe3a3eef515585744877520443c3d4e2a117",
       "glyphs": 787,
       "tables": {
-        "CFF ": "31514d1fa220ad074325100745346402e4bff1c0540d2b2dc18f8ecc27d859e9",
+        "CFF ": "e342b127aae7ea2e78ce5a1dcaa66d3fb748578172852de642bae04d7e4c2ba4",
         "GDEF": "5b70e6f5be605bb650969f2deeb2f8469ff3b5327daa769ed49cbbb1e32a45d6",
         "GPOS": "46d72a6d85d710cf22f5ee0c16aeef5f79b5f2636d6484d755eb9c564cf33468",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -3368,16 +3368,16 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "78eeca8c8c07e412c7e331b89a276c29ac8d9f53dbbff366b44812119465658c",
+        "glyphs": "b6b918446d9f15c978ecfeb322b4e3111aeac70a2c73f63ff4b4ea0451d4dedc",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }
     },
     "SEIReader-SemiBoldItalic.symbols-icons.woff2": {
-      "sha256": "d977d4b9d3755aa034b9350a2c54b615e1509b8c2c060d23585abf18dd4e5144",
+      "sha256": "bfacffa2147cdfb4acc210e014b312d843214a1a78d45de5ebf3587e76087907",
       "glyphs": 89,
       "tables": {
-        "CFF ": "8d8bd957b8e47fcd42665e3935ea7aee66e0e02447a67fd2f71f5de8e7f6c2dd",
+        "CFF ": "96315ad53b6de5161b8adc218891be4cfca064f98f91f432a5c816adda10b2f7",
         "GPOS": "c50647ab882aa38d505597949210b411c34e6e43e5ca904d581226221174df76",
         "GSUB": "8dcfe8b013b6d307e71596e0f5c445e69be23e08a84785d215a410a98f8a018a",
         "OS/2": "6ee6b351a6e39549da862977536a94dbbe61706f4e77488fb09d81e5e1a18a48",
@@ -3391,13 +3391,13 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "7182f5834f18b97760d38925001d3b63169ce604f3cea3c0c334d20113336d4a",
+        "glyphs": "892c59896e4927c596481f6a4976ea9562b0d6938d835105e591d01c2ca56021",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }
     },
     "SEIReader-SemiBoldItalic.vietnamese.woff2": {
-      "sha256": "c4dc7c3020796ceb15ec5d31cbd87728463044e6dc69002131bb6e87bf3392a7",
+      "sha256": "743bfa242cb4212598be51b62ae3210fc675f8299b0bddb534bb824725a7335b",
       "glyphs": 551,
       "tables": {
         "CFF ": "82d78045e16976f1cbcde5d931816277fef14bb7e36a5eee0f123162bcfb598c",
@@ -3421,10 +3421,10 @@
       }
     },
     "SEIReader-SemiBoldItalic.woff2": {
-      "sha256": "75948f228ece2f30b47ccd4a0d38d2ef6ab5fd00c726006032e0049e0faf865b",
+      "sha256": "da95098447faab3c552fd02451b4060249e3e1c359687e0aa75328512ed9c35b",
       "glyphs": 787,
       "tables": {
-        "CFF ": "31514d1fa220ad074325100745346402e4bff1c0540d2b2dc18f8ecc27d859e9",
+        "CFF ": "e342b127aae7ea2e78ce5a1dcaa66d3fb748578172852de642bae04d7e4c2ba4",
         "GDEF": "5b70e6f5be605bb650969f2deeb2f8469ff3b5327daa769ed49cbbb1e32a45d6",
         "GPOS": "46d72a6d85d710cf22f5ee0c16aeef5f79b5f2636d6484d755eb9c564cf33468",
         "GSUB": "5c1615c413e6818d84f5cc9eaf5d4c765d50be94da1b8bc4242ea68007bf24ab",
@@ -3439,7 +3439,7 @@
         "post": "7d7b5d2c4d50e4028c4e35300562ab6e2ae78e0a5042f87550d2356cbf1e5226"
       },
       "programs": {
-        "glyphs": "78eeca8c8c07e412c7e331b89a276c29ac8d9f53dbbff366b44812119465658c",
+        "glyphs": "b6b918446d9f15c978ecfeb322b4e3111aeac70a2c73f63ff4b4ea0451d4dedc",
         "subroutines": "643d5437104296e21d906ecb15b2c96ad278f20cfc4af53b12bb6069bd853726",
         "private_dict": "4d0b37bdfe443a79380c161f0b6919914bdc6353a41428a84721b6ff773c6831"
       }

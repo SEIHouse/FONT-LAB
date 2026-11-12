@@ -37,52 +37,52 @@
     "Light": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "6b46868a9fd36fde8bb44b3627041d07760299c4605095dfb07c4c11a272ccdf"
+      "sha256": "05c72755e54fabdf7c7c425cbdf4787b45a1c4dcd5b37d93d7792e524268eed0"
     },
     "Regular": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "76764d7193dd5c0bf235cf7051a0fa4aaeeb7ed63a4af88f9aea4753233b0317"
+      "sha256": "a22d2872f5876d260b5a0e754bacfbbd406e2baccf33c94c1cd5a60ad21a3379"
     },
     "Medium": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "4c69c8780ca50dbfa86d773c09d425561fd5337d428444fde0d3780462093ed8"
+      "sha256": "eb51428e7e999113955f6c791a3f048893e570b0ca4f00c9262c58843e2c8003"
     },
     "SemiBold": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "fad269de095a7e89e6ff1433331370947cbec601e012401a8b190426f8ab2374"
+      "sha256": "8d41b8a5da1ab0067ad4dd0ae8804338dc8fb22b3261d6708fd678d695d5b61b"
     },
     "Bold": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "5a3c7f7c10dbf71c23afe58a9373d27c3ad956ed357092d4783f510af8a52473"
+      "sha256": "d7b94549724b171410faa99d03f4696ff1624c28060f0a87d99367295e66c640"
     },
     "LightItalic": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "898db809cf527a8a2609715c138a99637a6b50ffd4e78d85bcd589e5ba40f715"
+      "sha256": "5e8e68f9c66b5e18737a9f6fc48ed26002e36220d4f9fb82974a5c4336606807"
     },
     "Italic": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "c71276927d654fb5e93036439a098dd69e83117e6110bdce7ee3cd25d7229e8e"
+      "sha256": "1603d15a961315c4ef83613f7876cdec9967526b9c5b464f89348a6d24a27ebd"
     },
     "MediumItalic": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "b6dfa175f8a10b7e70159121377b25e01c66ccfc8069a1bbc226854509f7d685"
+      "sha256": "6a899f531200ce889217a25702b0e742c936ee74a1d65e167b9ee1fec8681ff0"
     },
     "SemiBoldItalic": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "fb90fe38a66b2aca500488ad7f8fe33bc125a1b01178d2750699369897be75d8"
+      "sha256": "f933cfd446fd22becf99b15b9ba532a55667ef3dd80b810c65643b815793cf1e"
     },
     "BoldItalic": {
       "glyphs": 750,
       "alternates": 35,
-      "sha256": "bc56d50a46f4d7cfea157161d5850e85807aca7384a013c705eaa703f3924214"
+      "sha256": "4a778b55d0b5fb323a47ec74e6255f78ed9d6c960028203033e084d49502dd61"
     }
   }
 }

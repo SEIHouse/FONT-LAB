@@ -42,10 +42,10 @@ are needed to package the checked-in fonts.
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses sixteen full WOFF2 files: **1,198,980 font bytes (1,170.9 KiB)** for all
+The default uses sixteen full WOFF2 files: **1,198,972 font bytes (1,170.9 KiB)** for all
 five weights, their real italics, and the six Night grades (Light, Regular and Medium, each
 upright and italic). That is **72.2% less** than storing all 112
-overlapping subsets. The Regular/italic bundle with Night uses **299,200 bytes**; the browser requests
+overlapping subsets. The Regular/italic bundle with Night uses **299,376 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 

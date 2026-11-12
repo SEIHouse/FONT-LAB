@@ -92,48 +92,48 @@
           "assets": [
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.otf",
-              "bytes": 298212,
-              "sha256": "898e36a9e1b1232182f4fd60530a7252a6aaae5857bae162a0c5e16edf26008c"
+              "bytes": 298148,
+              "sha256": "97a318f903ecdb8f492e2459ac9f37cfb938f735cdd9470d8a7166052fd8d8ea"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.woff2",
-              "bytes": 73556,
-              "sha256": "35185da80dfab6fa4bb4e8af12198ee69dd0081bc7fdae791067f265563fff99"
+              "bytes": 73612,
+              "sha256": "0d25888c4d7367edc2b3f2fa200b6e15c565931b5d8c86940ae15e024b565a9e"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.latin-basic.woff2",
-              "bytes": 17460,
-              "sha256": "c98b579bcca13e28dd1ea7decafc348cbab38059307c3944cac52eecf8d0ab8e"
+              "bytes": 17448,
+              "sha256": "4e405eb3d15571cff1506f67a7b9f6343a8e688016fdaf1c4b6e608f0d8833a3"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.symbols.woff2",
-              "bytes": 11456,
-              "sha256": "36893f133551b4b08bb2d45908360d9226e78b0ffcf07d9c6b94ee016884871a"
+              "bytes": 11296,
+              "sha256": "1b1681da28edf5793718f4480e9719148573889ddae5ed415d61d4790ed17757"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.latin-extended.woff2",
-              "bytes": 42368,
-              "sha256": "503651d6963e1872f68d7fa19b58fe99f9aaeed9cd8914b7d0391f23a63468ae"
+              "bytes": 42380,
+              "sha256": "fe65f326b0b8a5c755ad9701c0dd7bb75fa10a6e14ddfcbc7b31f4feee7f7db2"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.cyrillic.woff2",
-              "bytes": 54696,
-              "sha256": "6a0921a6622c6f4c4dfc97313b5e4e115163c54e1a3343548f793b2bdafdb469"
+              "bytes": 54644,
+              "sha256": "41831bfa27a11feb7115f75bb494bdce7de3eb7055e7822059f544e984a5c1a3"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.greek.woff2",
               "bytes": 51300,
-              "sha256": "4a26a7f3c057c653df133da2b955a7ca9cd09cf20bc0d532ecef7887cc692f90"
+              "sha256": "e9b63b47dc31e50e6c04a8ec186f1b1878b1307148de98542e7392566fe00c3b"
             },
             {
               "path": "display/fonts/edge/SEIHouseDisplay-Edge.vietnamese.woff2",
-              "bytes": 42528,
-              "sha256": "cde963076c4fdb357e9063b9b69ce31dde30e7d0441f2e03eabd8df28454e35f"
+              "bytes": 42428,
+              "sha256": "b7bb5d23a35aea975a683c594e07468a5f3abf10416e67218e228ba97240f5e7"
             },
             {
               "path": "display/spacing_edge.json",
               "bytes": 500962,
-              "sha256": "8756a36462bd57642be3168033978d8d4a81d336c3df521a43821bbecbdd5ea4"
+              "sha256": "449b57fa19c20e2f25be0f0605546f15118c0db0685f3aba02ff9b5b3b587bd3"
             }
           ]
         }
@@ -229,48 +229,48 @@
           "assets": [
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.otf",
-              "bytes": 345720,
-              "sha256": "ef9b68860315fb33a305695c67f082bde836e665ee6bdec5ee5709bbbbea02cb"
+              "bytes": 345664,
+              "sha256": "40f84adb5aa7875886ea33d3754fed19fbcb3c90894f0654764fde9a7debf546"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.woff2",
-              "bytes": 89644,
-              "sha256": "c5e5e1ad9e1e71b22c1fe06898f3ae6f3287bf8ceeb7a75480e127228eeab38f"
+              "bytes": 89344,
+              "sha256": "557553322e2e5677f822a0b367080513156bd73cea3ac4758cf62dd9d342880e"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.latin-basic.woff2",
-              "bytes": 22620,
-              "sha256": "c35104755fefbc51be9d71bc7496fc0da0e977a5c11e07b203eaa5a2ca4d04aa"
+              "bytes": 22492,
+              "sha256": "a2354e57ee57a197a114eda1a28e39d8ef674d386f857b6e488489265c2881f5"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.symbols.woff2",
-              "bytes": 13052,
-              "sha256": "1634ff5a9204f57944081dc0c9e649d5d188c3de39a1340c6cc7447c0f458a12"
+              "bytes": 13040,
+              "sha256": "ac6a20ccb3e66183cf467e695922bc4c53e25f5f2d613a909daa3f694e8652c2"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.latin-extended.woff2",
-              "bytes": 51676,
-              "sha256": "e449a8500458f56ff6b6770779db1ad2f41e9b0929cc88b53746223d48b67b23"
+              "bytes": 51624,
+              "sha256": "e3b35b18f4643a3e6376fe2e0b66b9038abe9a570e2a571f72cf6763ebddee7c"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.cyrillic.woff2",
-              "bytes": 68764,
-              "sha256": "0d09af78c642f05f2c2e1af676037fc4e673fa7e07716f50c2b20b177cc76b32"
+              "bytes": 68728,
+              "sha256": "f52b315f58e29e820e24fb5a2ffee35de832f13d93d43705a09bcf6ad45af4f8"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.greek.woff2",
-              "bytes": 62024,
-              "sha256": "689bead6140ec45df6d5921b0c8de908ad9bd5777df6333bf39154d4e3afe9d8"
+              "bytes": 61856,
+              "sha256": "241d92450c29f74b78281f87d336e778b2fd39d5dbfe4c6585ab7551c9e3e5b1"
             },
             {
               "path": "display/fonts/ink/SEIHouseDisplay-Ink.vietnamese.woff2",
-              "bytes": 51708,
-              "sha256": "def78b7184cf3da3d34bfd35405dce761867271e79017ebb354b3c9522394509"
+              "bytes": 51660,
+              "sha256": "27a59ca77018c1e510e40ec57a3f5608e8ce4a96c267c152b6849efca666d30a"
             },
             {
               "path": "display/spacing_ink.json",
               "bytes": 500545,
-              "sha256": "b8d97ff9ce6ea788cd3fb9f96c0bdbd2af21c0157ecd90c6b32a1bd21c6e9db9"
+              "sha256": "5e80c474df12b0206114af16e3a5da9ef6476d0f19a37ed640444dc0a6b40b21"
             }
           ]
         }
@@ -366,48 +366,48 @@
           "assets": [
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.otf",
-              "bytes": 388056,
-              "sha256": "bbe1650f0ab947ab744a18c9c61426d722640335161c5b231d5b2ff72726c9c7"
+              "bytes": 387992,
+              "sha256": "03679f7bafaab2c542e68942a55f55f9b4dbbcad93986436de7df75a47ecb278"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.woff2",
-              "bytes": 92236,
-              "sha256": "d30dd08893c3e352e38816275e7a256025fb9f3fed5febd4a6d9fd6a08f5f213"
+              "bytes": 92304,
+              "sha256": "9fa7721c401301efddd679b9a8d909224c50e3e9818dd50fb02b35d18d30d200"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.latin-basic.woff2",
-              "bytes": 21888,
-              "sha256": "35a69560f0bff504a1f311f2783c4ef1d639a0c2b3df7d0b8001c7a353fd515b"
+              "bytes": 21956,
+              "sha256": "134da224a81771512cf65449bbf41c9402a0f65d35b140600b1994a50aaf53ed"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.symbols.woff2",
-              "bytes": 13264,
-              "sha256": "4b46beef4eb5e0839852251bfaa8d11f89a2a9f8fb9506a96db7378b3448b475"
+              "bytes": 13172,
+              "sha256": "8d01ce038f66f3e5f072ca6947cb37edfd349a9ad370159df78fa98451e65b05"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.latin-extended.woff2",
-              "bytes": 52392,
-              "sha256": "067ce3bc2c8fc71129bc1a00adccbd03c987315523e76f5eadcc8af8a8bcf847"
+              "bytes": 52304,
+              "sha256": "7a8f1b2e9b50f5cd9637df2709f47decdc77e9a454ec3369b78a2af8e9a3fef9"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.cyrillic.woff2",
-              "bytes": 70308,
-              "sha256": "335ecaa532e447704278015910122184a0d500fe4d9502c4067dee05a5783f93"
+              "bytes": 70264,
+              "sha256": "44ff23d0ac435390598dda1eb86da6b84d56a23f7b87c5408f7f8b10a9a89fbd"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.greek.woff2",
-              "bytes": 62948,
-              "sha256": "ed148fad2fc231182eb0b1b684ee37f930f7f7e3779418340233589825be5c44"
+              "bytes": 63188,
+              "sha256": "4de7f949b835623ba02b20676e2ee4170bd3501731dc74065cb2a047224642fe"
             },
             {
               "path": "display/fonts/soft/SEIHouseDisplay-Soft.vietnamese.woff2",
-              "bytes": 52380,
-              "sha256": "bb1812ef43ab69bf627aa697a7a01cf64e42fee5a58ccffeffa9cba0079eab0e"
+              "bytes": 52320,
+              "sha256": "b3745d2e5643b8667bcab4b3b96b10bb86cde38a0f710166accd46a79bbbca5b"
             },
             {
               "path": "display/spacing_soft.json",
               "bytes": 602409,
-              "sha256": "5d599c147fe60fb30f62dd5f19edba3a3d2b1aeeb3b76ca74d2495546dd26f98"
+              "sha256": "c2b60951912d5f30ab181d13cd1fc6f7178013a9e22e00c52589316933167271"
             }
           ]
         }
@@ -503,48 +503,48 @@
           "assets": [
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.otf",
-              "bytes": 386132,
-              "sha256": "d806adcb9575b7a8c60e18d7143477dc041233e41ea17c8a36f7fac9b13dfc6f"
+              "bytes": 386068,
+              "sha256": "cb79f9ba60762f001dd81d5e2a5cbc3dc75b5b515c8da941fe1bf43a43d59d7b"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.woff2",
-              "bytes": 86748,
-              "sha256": "665fd927c34ac9e5127921f495b1b0b25a53afded1364600649497c359840c4b"
+              "bytes": 86836,
+              "sha256": "9155eb5940efea98bc3da71a4e4b894c46be462474f3d7ff186dfb391fdc6378"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.latin-basic.woff2",
-              "bytes": 22116,
-              "sha256": "2f521b3a0d34429e1372a375a048798183c0f012bce49546ac084e442fec8732"
+              "bytes": 22064,
+              "sha256": "725441f62870cc3509cd766b15c0275871cf61fc7b8815826fb0cd021565e3bd"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.symbols.woff2",
-              "bytes": 13216,
-              "sha256": "3c11de255f85bc543c70eb991fa2c92d690f2b8a257ab9bd8f8adc64f091eb9d"
+              "bytes": 13084,
+              "sha256": "84226bd6f02a23651cface65567c0d4e59d507c15c4d9cee73986f073ce3ca8f"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.latin-extended.woff2",
-              "bytes": 50692,
-              "sha256": "a9659febb3a9e46b0f4bd1e0178577e69bdaeb61ab4cf9730886a151a02b4321"
+              "bytes": 50668,
+              "sha256": "84f305e6a523231d99bee2e378f912c761534125127b5af44eebed00f45b3c34"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.cyrillic.woff2",
-              "bytes": 66280,
-              "sha256": "699c9be35d8fa3ad661635a4f10297439840e87bc98b25abe9f369be0ddcae8f"
+              "bytes": 66328,
+              "sha256": "836eedce9ec2c47654122ec7f6361fb3ff912e8578fbef32a8892003a3193737"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.greek.woff2",
-              "bytes": 60700,
-              "sha256": "c28403679402cbb6b00d56bc6f24a88efe1c5b92dac731a90975699c58e1aa3a"
+              "bytes": 60504,
+              "sha256": "0d7a75c46498d91a3f4d30c3d9788a99fa2228927c97d093e9307aa13c587cd4"
             },
             {
               "path": "display/fonts/wide/SEIHouseDisplay-Wide.vietnamese.woff2",
-              "bytes": 50668,
-              "sha256": "f5443e87ae6c9feca6b2e0ec41a6be21b5a63b2b5537ba602e4d027a43b4b62c"
+              "bytes": 50656,
+              "sha256": "8821607e686d556dd644753905d868f31258964c64a955d62220e3f36a7b03df"
             },
             {
               "path": "display/spacing_wide.json",
               "bytes": 545382,
-              "sha256": "1283141a55936139b7e577749c86346ac65fa1107112731347b94b2f4e223ee3"
+              "sha256": "4d7a2b4102b6cc779ce7f84fb7be1966af3ed30d1a77e252260a25640d612202"
             }
           ]
         }
