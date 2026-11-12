@@ -1,4 +1,4 @@
-"""Build the ten Reader styles with the shared engine and font builder.
+"""Build the ten Reader styles and their Night grades with the shared engine and font builder.
 
 python -X utf8 make_fonts.py [my_changes.json] [--output-dir path/to/fonts]
 The default settings and asset filenames retain the approved Reader output.
@@ -7,9 +7,27 @@ import argparse
 import json
 from pathlib import Path
 
+from fontTools.ttLib import TTFont
+
 from font_builder import FontBuilderCore, NIGHT_GRADE
 
 HERE = Path(__file__).resolve().parent
+# Body-text weights that receive a paired Night-mode optical grade.
+NIGHT_WEIGHTS = ('Light', 'Regular', 'Medium')
+
+
+def name_night_family(otf, family, style):
+    """Give a Light or Medium Night face its own legacy family name.
+
+    The shared builder names every graded face "<family> Night", which is unique for
+    Regular only. Desktop menus that group by the legacy name need one family per weight.
+    """
+    with TTFont(otf) as font:
+        font['name'].setName(f'{family} {style} Night', 1, 3, 1, 0x409)
+        font.save(otf)
+    with TTFont(otf) as font:
+        font.flavor = 'woff2'
+        font.save(otf.with_suffix('.woff2'))
 
 
 def build_fonts(settings, outdir=None, *, night_only=False):
@@ -31,11 +49,15 @@ def build_fonts(settings, outdir=None, *, night_only=False):
             name = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style)
             builder.build(data, str(outdir / f'SEIReader-{name}.otf'), style, italic)
             print('built', builder.FAMILY, builder.VERSION, name, 'thickness', weight)
-        builder.S = weights['Regular']; builder.GRADE = NIGHT_GRADE
-        night_data = builder.export()
-        night_name = 'ItalicNight' if italic else 'RegularNight'
-        builder.build(night_data, str(outdir / f'SEIReader-{night_name}.otf'), 'Regular', italic)
-        print('built', builder.FAMILY, builder.VERSION, night_name, 'thickness', weights['Regular'], 'grade', NIGHT_GRADE)
+        for style in (s for s in NIGHT_WEIGHTS if s in weights):
+            builder.S = weights[style]; builder.GRADE = NIGHT_GRADE
+            night_data = builder.export()
+            night_name = (('Italic' if style == 'Regular' else style + 'Italic') if italic else style) + 'Night'
+            night_otf = outdir / f'SEIReader-{night_name}.otf'
+            builder.build(night_data, str(night_otf), style, italic)
+            if style != 'Regular':
+                name_night_family(night_otf, builder.FAMILY, style)
+            print('built', builder.FAMILY, builder.VERSION, night_name, 'thickness', weights[style], 'grade', NIGHT_GRADE)
         builder.GRADE = 0
     styles_path, langs_path = metadata_dir / 'kern_styles.json', metadata_dir / 'kern_languages.json'
     existing_styles = json.loads(styles_path.read_text(encoding='utf-8')) if night_only and styles_path.exists() else {}
@@ -51,7 +73,7 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument('changes', nargs='?')
     parser.add_argument('--output-dir', type=Path)
-    parser.add_argument('--night-only', action='store_true', help='Build only RegularNight and ItalicNight optical grade fonts')
+    parser.add_argument('--night-only', action='store_true', help='Build only the Light, Regular and Medium Night optical grade fonts')
     args = parser.parse_args()
     settings = json.loads((HERE / 'settings.json').read_text(encoding='utf-8'))
     if args.changes:

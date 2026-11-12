@@ -1,27 +1,27 @@
 # Install SEIHouse Sans in an app
 
-SEIHouse Sans 0.41 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
-each with its real italic, plus a Night-mode optical grade (`SEIReader-RegularNight` and `SEIReader-ItalicNight` at `81` source stroke units with exact `85` advance widths so line breaks never reflow when toggling Day/Night). The app needs WOFF2 files and CSS. It needs no Python,
+SEIHouse Sans 0.42 (formerly SEIReader) ships as static web fonts: five weights (300/400/500/600/700),
+each with its real italic, plus a Night-mode optical grade for the three body-text weights, Light, Regular and Medium (`SEIReader-LightNight`, `SEIReader-RegularNight`, `SEIReader-MediumNight` and their italics; each `4` source stroke units thinner than its Day face with exactly the same advance widths so line breaks never reflow when toggling Day/Night). The app needs WOFF2 files and CSS. It needs no Python,
 font-building tools, JavaScript runtime library, or reference fonts.
 
 ## Recommended: the full web family
 
-Use the `SEIReader-0.41-web-full.zip` from a successful **App distribution** GitHub
+Use the `SEIReader-0.42-web-full.zip` from a successful **App distribution** GitHub
 Actions run, or build it with `python build_distribution.py` in the font repository.
 Actions retains these downloads for 30 days; its manual Run workflow button can
 regenerate them from the current branch. This does not create a public npm release.
 Extract the bundle into an app-owned, versioned asset directory such as
-`public/seireader/0.41/`. Keep its `sans.css` next to its `fonts/` directory.
+`public/seireader/0.42/`. Keep its `sans.css` next to its `fonts/` directory.
 Asset/package names retain SEIReader for compatibility; the actual family is
 SEIHouse Sans. Existing `fonts.css` / `"SEIReader"` integrations still work.
 
 ```text
-public/seireader/0.41/
+public/seireader/0.42/
   fonts.css
   sans.css
   fonts/SEIReader-Regular.woff2
   fonts/SEIReader-Italic.woff2
-  ...the other ten styles, including both Night grades
+  ...the other fourteen styles, including the six Night grades
   README.md
   FONT-LICENSE.txt
   LICENSE
@@ -31,7 +31,7 @@ public/seireader/0.41/
 In a Vite app hosted at the domain root, load the CSS from its HTML head:
 
 ```html
-<link rel="stylesheet" href="/seireader/0.41/sans.css">
+<link rel="stylesheet" href="/seireader/0.42/sans.css">
 ```
 
 The URL starts at the site root, including from `/app/` or its query-string
@@ -48,12 +48,20 @@ Apply the face to the intended prose:
 }
 ```
 
-For Regular (400) body text, `var(--seihouse-sans-regular-family, "SEIHouse Sans")` with `sans.css` / `fonts-sans.css` automatically selects `"SEIHouse Sans Night"` (`81` source stroke units, `--seihouse-sans-grade: -4`) in dark/Night themes and `"SEIHouse Sans"` (`85` source stroke units, `--seihouse-sans-grade: 0`) in Day themes, whereas `var(--seireader-regular-family, "SEIReader")` with `fonts.css` / `fonts-full.css` selects `"SEIReader Night"` and `"SEIReader"`, preserving 100% identical advance widths and kerning so line breaks never reflow. For containers that switch weights dynamically (300/400/500), apply `var(--seihouse-sans-regular-family)` at weight 400 and `"SEIHouse Sans"` at other weights.
+For Light (300), Regular (400) and Medium (500) body text, `var(--seihouse-sans-regular-family, "SEIHouse Sans")` with `sans.css` / `fonts-sans.css` automatically selects `"SEIHouse Sans Night"` (`--seihouse-sans-grade: -4`) in dark/Night themes and `"SEIHouse Sans"` (`--seihouse-sans-grade: 0`) in Day themes, whereas `var(--seireader-regular-family, "SEIReader")` with `fonts.css` / `fonts-full.css` selects `"SEIReader Night"` and `"SEIReader"`. The Night family holds one graded face per body weight, so a reader's weight choice keeps the same relief in dark mode:
+
+| Weight | Day stroke | Night stroke |
+|---|---:|---:|
+| Light 300 | 74 | 70 |
+| Regular 400 | 85 | 81 |
+| Medium 500 | 97 | 93 |
+
+Every Night face keeps 100% identical advance widths and kerning to its Day face, so line breaks never reflow. The variable keeps its `regular-family` name for existing apps. The Night family has no SemiBold or Bold: apply the variable to text set at 300, 400 or 500 only, and keep `"SEIHouse Sans"` for 600 and 700 (including `<strong>` inside graded text), otherwise the browser substitutes Night Medium.
 
 Keep the app's existing size, line height, spacing, and width for its first trial.
 An italic needs `font-style: italic`; use `font-weight: 700` for actual Bold.
 The CSS registers all styles, but the browser requests the faces that rendered
-text uses. Do not preload all twelve. A Regular-only page uses 73,700 font bytes;
+text uses. Do not preload all sixteen. A Regular-only page uses 73,808 font bytes;
 Regular with its italic uses 151,140. Icons and all supported letters are in each
 full file. Missing scripts, such as Chinese, still use the host's fallback fonts.
 
@@ -66,11 +74,11 @@ fractions. Ordinary prose and numbers remain the defaults.
 
 ## Alternative: install the private npm tarball
 
-The same Actions run includes `seihouse-seireader-0.41.0.tgz`. Copy it into the
+The same Actions run includes `seihouse-seireader-0.42.0.tgz`. Copy it into the
 app's `vendor/` folder and install it:
 
 ```sh
-npm install ./vendor/seihouse-seireader-0.41.0.tgz
+npm install ./vendor/seihouse-seireader-0.42.0.tgz
 ```
 
 Import its CSS from the host entry point, before the host's prose overrides:
@@ -189,15 +197,15 @@ request.
 
 | Delivery | Font files | Font bytes | Intended use |
 |---|---:|---:|---|
-| Full family (default) | 12 | 911,376 (890.0 KiB) | All weights, languages and symbols in one face per style |
-| Regular + italic, with Night | 4 | 303,472 (296.4 KiB) | Explicit 400-only experiments; no other weights supplied |
-| Seven subsets, all styles | 84 | 3,253,188 (3176.9 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
+| Full family (default) | 16 | 1,213,508 (1185.1 KiB) | All weights, languages and symbols in one face per style |
+| Regular + italic, with Night | 4 | 303,224 (296.1 KiB) | Explicit 400-only experiments; no other weights supplied |
+| Seven subsets, all styles | 112 | 4,333,788 (4232.2 KiB) | Opt-in Unicode delivery when actual usage makes it worthwhile |
 
-The full family is 72.0% smaller than storing all 84 subset files. The
+The full family is 72.0% smaller than storing all 112 subset files. The
 subsets intentionally overlap Latin letters and prose punctuation to preserve
 Latin accent shaping; combining accents must not be split into separate faces.
 For Regular, the preferred vietnamese face alone is 43,152 bytes
-and the full face is 73,700 bytes. The browser can request additional script
+and the full face is 73,808 bytes. The browser can request additional script
 faces for mixed-language passages. Measure actual reading content before
 choosing subsets.
 

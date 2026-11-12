@@ -66,11 +66,14 @@ test('all ten Reader styles retain exact 0.40 exports and complete 0.41 exports'
   assert.deepEqual(readerExports(source), currentFixture.styles);
 });
 
-test('reading curves preserve every advance, bearing, pair and unrelated drawing in all twelve faces', () => {
+// Light, Regular and Medium each ship a paired Night optical grade.
+const nightWeights = ['Light', 'Regular', 'Medium'].map(style => settings.weights[style]);
+
+test('reading curves preserve every advance, bearing, pair and unrelated drawing in all sixteen faces', () => {
   const oldSource = beforeReadingCurves(source);
   const changed = new Set();
   for (const italic of [0, 1]) for (const weight of Object.values(settings.weights)) {
-    for (const grade of weight === settings.weight ? [0, -4] : [0]) {
+    for (const grade of nightWeights.includes(weight) ? [0, -4] : [0]) {
       const options = {base:weight, ital:italic, grade, round:settings.lowercaseRoundness,
         contrast:settings.contrast, xh:settings.xHeight, caprx:settings.capitalRoundness,
         ws:settings.letterWidth, os:+settings.overshoot, ufoot:+settings.uFoot,
@@ -188,7 +191,7 @@ test('live accent clusters do not reuse the cached base letter preview', () => {
   assert.equal(evaluate('penBody(glyph("a",135))'), base);
 });
 
-test('Night-mode optical grade (-4) reduces Regular 85 stroke to 81 while preserving exact glyph widths', () => {
+test('Night-mode optical grade (-4) thins Light, Regular and Medium strokes while preserving exact glyph widths', () => {
   const baseOptions = {round:settings.lowercaseRoundness, contrast:settings.contrast,
     xh:settings.xHeight, caprx:settings.capitalRoundness, ws:settings.letterWidth,
     base:settings.weight, os:+settings.overshoot, ufoot:+settings.uFoot, ital:0,
@@ -199,24 +202,32 @@ test('Night-mode optical grade (-4) reduces Regular 85 stroke to 81 while preser
   assert.equal(evaluate('readingStroke(85)'), 85);
   assert.equal(evaluate('readingStroke(30)'), 30);
   assert.ok(JSON.parse(evaluate('JSON.stringify(exportGlyphs(30).A)')).paths.every(p => p.w === 30));
-  const dayE = evaluate('glyph("e",85).body');
-  const dayExport = JSON.parse(evaluate('JSON.stringify({glyphs:exportGlyphs(85), alternates:exportAlternates(85)})'));
-  evaluate('P.grade = NIGHT_GRADE');
-  assert.equal(evaluate('readingStroke(85)'), 81);
-  const nightE = evaluate('glyph("e",85).body');
-  assert.notEqual(nightE, dayE);
-  assert.ok(nightE.includes('stroke-width="81.0"'));
-  const nightExport = JSON.parse(evaluate('JSON.stringify({glyphs:exportGlyphs(85), alternates:exportAlternates(85)})'));
-  for (const group of ['glyphs', 'alternates']) {
-    assert.deepEqual(Object.keys(nightExport[group]), Object.keys(dayExport[group]));
-    for (const [key, dayGlyph] of Object.entries(dayExport[group])) {
-      const nightGlyph = nightExport[group][key];
-      assert.equal(nightGlyph.w, dayGlyph.w, `${group}.${key} skeleton width`);
-      assert.equal(nightGlyph.sb0, dayGlyph.sb0, `${group}.${key} left sidebearing`);
-      assert.equal(nightGlyph.sb1, dayGlyph.sb1, `${group}.${key} right sidebearing`);
+  // Reading letters already carry a per-weight stroke correction; the grade thins that drawn stroke.
+  const strokes = {70:[74, 70], 85:[85, 81], 100:[97, 93]};
+  assert.deepEqual(nightWeights, Object.keys(strokes).map(Number));
+  for (const weight of nightWeights) {
+    const [dayStroke, nightStroke] = strokes[weight];
+    evaluate(`P.base = ${weight}`);
+    assert.equal(evaluate(`readingStroke(${weight})`), dayStroke);
+    const dayE = evaluate(`glyph("e",${weight}).body`);
+    const dayExport = JSON.parse(evaluate(`JSON.stringify({glyphs:exportGlyphs(${weight}), alternates:exportAlternates(${weight})})`));
+    evaluate('P.grade = NIGHT_GRADE');
+    assert.equal(evaluate(`readingStroke(${weight})`), nightStroke);
+    const nightE = evaluate(`glyph("e",${weight}).body`);
+    assert.notEqual(nightE, dayE);
+    assert.ok(nightE.includes(`stroke-width="${nightStroke}.0"`));
+    const nightExport = JSON.parse(evaluate(`JSON.stringify({glyphs:exportGlyphs(${weight}), alternates:exportAlternates(${weight})})`));
+    for (const group of ['glyphs', 'alternates']) {
+      assert.deepEqual(Object.keys(nightExport[group]), Object.keys(dayExport[group]));
+      for (const [key, dayGlyph] of Object.entries(dayExport[group])) {
+        const nightGlyph = nightExport[group][key];
+        assert.equal(nightGlyph.w, dayGlyph.w, `${weight} ${group}.${key} skeleton width`);
+        assert.equal(nightGlyph.sb0, dayGlyph.sb0, `${weight} ${group}.${key} left sidebearing`);
+        assert.equal(nightGlyph.sb1, dayGlyph.sb1, `${weight} ${group}.${key} right sidebearing`);
+      }
     }
+    assert.ok(nightExport.glyphs.H.paths.every(p => p.w === nightStroke));
+    evaluate('P.grade = 0');
+    assert.equal(evaluate(`glyph("e",${weight}).body`), dayE);
   }
-  assert.ok(nightExport.glyphs.H.paths.every(p => p.w === 81));
-  evaluate('P.grade = 0');
-  assert.equal(evaluate('glyph("e",85).body'), dayE);
 });

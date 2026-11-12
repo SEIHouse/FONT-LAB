@@ -36,15 +36,16 @@ the packages locally with `python build_distribution.py` and
 `npm pack --ignore-scripts --pack-destination dist`. No font-building dependencies
 are needed to package the checked-in fonts.
 
-- **Static assets:** extract `SEIReader-0.41-web-full.zip` into your app's public assets
+- **Static assets:** extract `SEIReader-0.42-web-full.zip` into your app's public assets
   and load its `sans.css` for `font-family: "SEIHouse Sans"`.
-- **Vite/npm:** install `seihouse-seireader-0.41.0.tgz` and import
+- **Vite/npm:** install `seihouse-seireader-0.42.0.tgz` and import
   `@seihouse/seireader/sans.css`. This private package has zero dependencies and
   no installation scripts; it is not published to the npm registry.
 
-The default uses twelve full WOFF2 files: **911,376 font bytes (890.0 KiB)** for all
-five weights, their real italics, and both Night grades. That is **72.0% less** than storing all 84
-overlapping subsets. The Regular/italic bundle with Night uses **303,472 bytes**; the browser requests
+The default uses sixteen full WOFF2 files: **1,213,508 font bytes (1,185.1 KiB)** for all
+five weights, their real italics, and the six Night grades (Light, Regular and Medium, each
+upright and italic). That is **72.0% less** than storing all 112
+overlapping subsets. The Regular/italic bundle with Night uses **303,224 bytes**; the browser requests
 the styles used by rendered text. The package includes no old versions, Lab, OTFs,
 reference fonts, proof images, or font engineering tools.
 
@@ -121,13 +122,13 @@ The existing Reader font package and font build interfaces remain unchanged.
 |---|---|
 | `index.html`, `site/`, `build_site.mjs`, `vercel.json` | Workshop homepage, browser draft/download helpers, and an explicit static website build for Vercel |
 | [`display/`](display/README.md) | SEIHouse Display 0.1: four cut settings, live Lab, shared-core entry point, kerning maps and OTF/WOFF2 fonts |
-| `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, plus the Night-mode optical grade (`SEIReader-RegularNight` and `SEIReader-ItalicNight` at `81` source stroke units with exact `85` advance widths), as full `.woff2` and `.otf` files plus seven WOFF2 subset deliveries per style |
-| `fonts.css` | Ready-to-use `@font-face` rules for all 84 Latin and script WOFF2 subsets plus `--seireader-regular-family` / `--seihouse-sans-regular-family` |
-| `fonts-full.css` | Recommended app stylesheet for the full web fonts (10 weights/italics + 2 Night-grade faces); no Unicode face splitting |
+| `fonts/` | The finished fonts: 5 weights (Light, Regular, Medium, SemiBold, Bold), each upright and italic, plus the Night-mode optical grade for Light, Regular and Medium (`SEIReader-LightNight`, `-RegularNight`, `-MediumNight` and their italics; each `4` source stroke units thinner than its Day face with exactly the same advance widths), as full `.woff2` and `.otf` files plus seven WOFF2 subset deliveries per style |
+| `fonts.css` | Ready-to-use `@font-face` rules for all 112 Latin and script WOFF2 subsets plus `--seireader-regular-family` / `--seihouse-sans-regular-family` |
+| `fonts-full.css` | Recommended app stylesheet for the full web fonts (10 weights/italics + 6 Night-grade faces); no Unicode face splitting |
 | `package.json`, `build_distribution.py`, `verify_distribution.py` | Runtime allowlist, deterministic ZIP delivery, dependency-free npm package, and actual shipped-payload audits |
 | [`docs/APP-INSTALL.md`](docs/APP-INSTALL.md) | App installation, measured sizes, Development's NovelExpanded Reader integration, and the steps for updating the fonts there |
 | `lab/index.html` | **The Lab**: the one page for testing and tuning the font (Reader Chamber, weights, languages, symbols, spacing tools, emoji comments demo) |
-| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.41 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
+| [`lab/comparison.html`](lab/comparison.html) | The same reference preview: 0.42 beside preserved 0.34, Literata, and Rubik, with the expanded language selector, NFC/NFD alphabets, local forms, and the established reading samples |
 | [`lab/reading-test.html`](lab/reading-test.html) | Three full chapters for sustained reading, with Day/Night and weight controls plus locally saved feedback |
 | `docs/HOW-TO-USE.txt` | Copy-paste instructions for a coding agent to add SEIReader to an app |
 | `docs/HEALTH-CHECK.txt` | Results of Google's FontBakery checks, version by version |
@@ -181,7 +182,7 @@ python verify_lowercase.py old/0.31  # historical curve preservation against 0.2
 python verify_spacing.py old/0.31    # historical 0.31 spacing scope against 0.30
 python build_distribution.py       # runtime-only app ZIP; standard library only
 npm pack --ignore-scripts --pack-destination dist # private, dependency-free npm tarball
-python verify_distribution.py --npm dist/seihouse-seireader-0.41.0.tgz
+python verify_distribution.py --npm dist/seihouse-seireader-0.42.0.tgz
 python verify_license.py           # legal metadata in all current full/subset fonts
 ```
 
@@ -215,7 +216,7 @@ The [size density check](docs/SIZE-DENSITY-0.39.md) measures whether the app's
 reading sizes look evenly weighted on Windows, macOS WebKit and Linux. The 0.35
 proof's 17 → 20px Regular jump does not reproduce with the 0.39 fonts.
 
-## What SEIHouse Sans has (version 0.41)
+## What SEIHouse Sans has (version 0.42)
 
 - Fifty-four additive CLDR 48 Latin characters (`Ə/ə, Ɑ/ɑ, ẞ, Ɛ/ɛ, Ɔ/ɔ, Ɲ/ɲ, Ɖ/ɖ, Ƒ/ƒ, Ɣ/ɣ, Ʋ/ʋ`,
   combining macron below `U+0331`, and 34 Welsh/Gaelic/Asturian/Yoruba/Walloon/Lingala

@@ -48,6 +48,21 @@ class ReaderIdentityTests(unittest.TestCase):
                 self.assertEqual(new['tables'].get(tag), old_tables.get(tag),
                                  f'{filename}/{tag}')
 
+    def test_night_grade_release_only_restamps_the_version_of_every_0_41_delivery(self):
+        """Adding Light and Medium Night faces cannot redraw, rehint or respace an existing font."""
+        previous = json.loads((ROOT/'tests/fixtures/reader-0.41-identity.json').read_text(encoding='utf-8'))
+        current = json.loads(FIXTURE.read_text(encoding='utf-8'))
+        self.assertTrue(set(previous['files']) < set(current['files']))
+        self.assertEqual(current['cmap'], previous['cmap'])
+        for filename, old in previous['files'].items():
+            new = current['files'][filename]
+            changed = {tag for tag in set(old['tables']) | set(new['tables'])
+                       if old['tables'].get(tag) != new['tables'].get(tag)}
+            # The release number lives in the name table, CFF top dictionary and head.fontRevision.
+            self.assertEqual(changed, {'CFF ', 'head', 'name'}, filename)
+            for part in ('glyphs', 'subroutines', 'private_dict'):
+                self.assertEqual(new['programs'][part], old['programs'][part], f'{filename}/{part}')
+
     def test_build_timestamps_are_the_only_ignored_fields(self):
         font = TTFont(self.path, recalcTimestamp=False)
         font['head'].created += 60
@@ -91,15 +106,15 @@ class DisplayInheritanceTests(unittest.TestCase):
         self.assertGreater(report['language_strings'], 17000)
 
     def test_041_additions_preserve_all_040_outlines_and_metrics(self):
-        """Every 0.40 glyph across all 12 Reader styles keeps identical outlines and hmtx."""
+        """Every 0.40 glyph across the 12 Reader styles of 0.40 keeps identical outlines and hmtx."""
         import json
         from build_subsets import ALL_STYLES
         from verify_shared_engine import legacy_identity
         fixture_file = ROOT / 'tests/fixtures/reader-0.40-original-glyphs.json'
         baseline = json.loads(fixture_file.read_text(encoding='utf-8'))['styles']
-        for style, *_ in ALL_STYLES:
+        self.assertTrue(set(baseline) <= {style for style, *_ in ALL_STYLES})
+        for style, old_id in baseline.items():
             with self.subTest(style=style), TTFont(ROOT/'fonts'/f'SEIReader-{style}.otf') as after:
-                old_id = baseline[style]
                 new_id = legacy_identity(after, list(old_id['glyphs']))
                 self.assertEqual(new_id['glyphs'], old_id['glyphs'])
                 self.assertEqual(new_id['metrics'], old_id['metrics'])
@@ -217,7 +232,7 @@ class DisplayDesignTests(unittest.TestCase):
 
 
 class NightGradeTests(unittest.TestCase):
-    def test_night_grade_has_81_unit_stroke_and_zero_reflow_metrics(self):
+    def test_night_grades_thin_light_regular_medium_strokes_with_zero_reflow_metrics(self):
         samples = [
             ('The gate will remain closed until morning, Iñés said. Lian placed Mei’s entry beside the lamp and read it again.', None),
             ('“Entry 12?” — 312, 314; 1,234.56 · 8.50% · ½ ¼ ¾ · office reflection', None),
@@ -228,14 +243,23 @@ class NightGradeTests(unittest.TestCase):
             ('Москва · Санкт-Петербург · їжак · ґанок', 'uk'),
             ('Tiếng Việt · Nguyễn · đường phố · trường học', 'vi'),
         ]
-        for day_style, night_style in (('Regular', 'RegularNight'), ('Italic', 'ItalicNight')):
+        # Hinted stem widths are twice the drawn reading stroke: Light 74 -> 70, Regular 85 -> 81, Medium 97 -> 93.
+        for day_style, night_style, day_stem, night_stem in (
+                ('Light', 'LightNight', 148, 140), ('LightItalic', 'LightItalicNight', 148, 140),
+                ('Regular', 'RegularNight', 170, 162), ('Italic', 'ItalicNight', 170, 162),
+                ('Medium', 'MediumNight', 194, 186), ('MediumItalic', 'MediumItalicNight', 194, 186)):
             day_path = ROOT/'fonts'/f'SEIReader-{day_style}.otf'
             night_path = ROOT/'fonts'/f'SEIReader-{night_style}.otf'
             with TTFont(day_path) as day_font, TTFont(night_path) as night_font:
                 day_priv = day_font['CFF '].cff.topDictIndex[0].Private
                 night_priv = night_font['CFF '].cff.topDictIndex[0].Private
-                self.assertEqual(day_priv.StdVW, 170)
-                self.assertEqual(night_priv.StdVW, 162)
+                self.assertEqual(day_priv.StdVW, day_stem, day_style)
+                self.assertEqual(night_priv.StdVW, night_stem, night_style)
+                self.assertEqual(night_font['OS/2'].usWeightClass, day_font['OS/2'].usWeightClass, night_style)
+                self.assertEqual(night_font['name'].getDebugName(16), 'SEIHouse Sans', night_style)
+                weight_name = (day_font['name'].getDebugName(17) or '').removesuffix('Italic').strip()
+                self.assertEqual(night_font['name'].getDebugName(1),
+                                 'SEIHouse Sans Night' if weight_name in ('', 'Regular') else f'SEIHouse Sans {weight_name} Night')
                 self.assertEqual(night_font.getGlyphOrder(), day_font.getGlyphOrder())
                 for table in ('GSUB', 'GDEF'):
                     self.assertEqual(

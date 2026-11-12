@@ -12,9 +12,10 @@
   /** Update the live specimen with actual font files and supported style controls. */
   function updateSpecimen() {
     const isReader = byId('family').value === 'reader';
-    const nightRegular = isReader && document.documentElement.dataset.theme !== 'day' && byId('weight').value === '400';
+    // Light, Regular and Medium have Night optical grades; heavier weights keep the Day faces.
+    const nightGrade = isReader && document.documentElement.dataset.theme !== 'day' && ['300', '400', '500'].includes(byId('weight').value);
     const sample = byId('specimen');
-    sample.style.fontFamily = (nightRegular ? '"SEIReader Night", SEIReader' : families[byId('family').value]) + ', sans-serif';
+    sample.style.fontFamily = (nightGrade ? '"SEIReader Night", SEIReader' : families[byId('family').value]) + ', sans-serif';
     sample.style.fontSize = byId('size').value + 'px';
     sample.style.fontWeight = isReader ? byId('weight').value : '400';
     sample.style.fontStyle = isReader && italic ? 'italic' : 'normal';

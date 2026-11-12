@@ -17,7 +17,12 @@ STYLES = (
     ('Bold', 700, 'normal'), ('BoldItalic', 700, 'italic'),
 )
 from phase4_support import face_order
-NIGHT_STYLES = (('RegularNight', 400, 'normal'), ('ItalicNight', 400, 'italic'))
+# Night-mode optical grades for the body-text weights a reader can choose in dark mode.
+NIGHT_STYLES = (
+    ('LightNight', 300, 'normal'), ('LightItalicNight', 300, 'italic'),
+    ('RegularNight', 400, 'normal'), ('ItalicNight', 400, 'italic'),
+    ('MediumNight', 500, 'normal'), ('MediumItalicNight', 500, 'italic'),
+)
 ALL_STYLES = STYLES + NIGHT_STYLES
 SUBSETS = FACE_ORDER = face_order()
 LANGUAGE_PUNCTUATION = {0x00A1, 0x00AA, 0x00BA, 0x00BF}
