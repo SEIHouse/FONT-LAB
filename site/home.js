@@ -118,12 +118,16 @@
     oldCol.hidden = false;
     oldPreview.textContent = sample.value;
     oldPreview.style.fontSize = Math.max(14, Math.round(Number(size) * 0.9)) + 'px';
-    byId('sans-full-compare-link').href = `./site/versions/index.html?track=sans&left=0.42&right=${encodeURIComponent(compareVer)}`;
+    byId('sans-full-compare-link').href = `./site/versions/index.html?track=sans&right=${encodeURIComponent(compareVer)}`;
     fitTextarea(sample, 416);
 
     try {
       const manifest = await loadManifest();
       if (seq !== sansUpdateSeq) return;
+      const baseVer = manifest?.tracks?.sans?.currentVersion;
+      if (baseVer) {
+        byId('sans-full-compare-link').href = `./site/versions/index.html?track=sans&left=${encodeURIComponent(baseVer)}&right=${encodeURIComponent(compareVer)}`;
+      }
       const entry = manifest.tracks.sans.versions.find(v => v.version === compareVer);
       if (!entry) return;
       byId('sans-old-label').textContent = `${entry.version} · ${entry.shortTitle}`;
