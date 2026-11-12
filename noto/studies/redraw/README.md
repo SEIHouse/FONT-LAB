@@ -28,7 +28,7 @@ replaces that construction:
 | Proportions | x-height 530, capitals 717, ascender 710 | x-height 520, capitals 700, ascender 744 |
 | Spacing | Grouped sidebearings, 34 pairs | Shape-based sidebearings, automatic kerning |
 | Weights | Regular | Light, Regular, Medium, Bold |
-| Characters | 94 | 314 (keyboard symbols, Latin-1 and Latin Extended-A letters) |
+| Characters | 94 | 314 (keyboard symbols, most Latin-1 and Latin Extended-A; gaps listed below) |
 
 ## What stays (the SEIHouse flavour)
 
@@ -65,6 +65,9 @@ Latin only. This is a design candidate, version 0.010, not a release.
 
 - Bold and Light come from the same rules as Regular and have had less individual
   attention; Bold counters in a, e, g and s are the first place to look.
+- Coverage is not complete Latin-1 or Latin Extended-A. Not drawn yet:
+  `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ`. The exact set is
+  in `manifest.json`; the comparison page reports any character it has to borrow.
 - Accented letters are composed by rule and have not had native-reader review.
   Decomposed (combining-mark) input is not supported yet.
 - No italic, no Night grade, no hinting beyond alignment zones, and no native

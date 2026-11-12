@@ -58,6 +58,7 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.010).
   ascender 744), the 1.025 horizontal factor (letters are drawn to width instead),
   and all spacing, which is now shape-based with automatic kerning.
 - 314 characters: keyboard symbols and composed Latin-1 / Latin Extended-A letters.
+  Not complete: `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ` are not drawn.
 
 The owner has not yet compared or approved it. Until then Balanced is the approved
 direction and Refinement 01 the last reviewed drawing. See
