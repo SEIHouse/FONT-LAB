@@ -354,11 +354,26 @@ DISPLAY_METADATA = {
 
 NOTO_VERSIONS = [
     {
+        'version': 'Redraw 02',
+        'label': 'Balanced · Redraw 02 (candidate)',
+        'shortTitle': 'Modulated strokes, tapered joins, four weights & kerning',
+        'date': '2026-11-12',
+        'current': True,
+        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, automatic kerning, four weights and 314 characters. A candidate for review; Balanced remains the approved direction.',
+        'highlights': [
+            'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
+            'Light, Regular, Medium and Bold from one set of drawing rules',
+            'Keyboard symbols and accented letters for most European languages',
+        ],
+        'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight)
+                  for name, weight in (('Light', 300), ('Regular', 400), ('Medium', 500), ('Bold', 700))],
+    },
+    {
         'version': 'Refinement 01',
         'label': 'Balanced · Refinement 01',
         'shortTitle': 'Smoother bowls, clearer openings & steadier spacing',
         'date': '2026-11-11',
-        'current': True,
+        'current': False,
         'summary': 'Refined pass on the chosen Balanced foundation: smoother curves in a, c, e, g, and s, coordinated arches in n, m, h, and r, lighter crossbars on e/f/t, and steadier word spacing.',
         'highlights': [
             'Builds directly on your selected Balanced (Study B) warmth direction',
@@ -761,9 +776,19 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
     # 3. SEIHouse Noto studies
     noto_entries = []
     for item in NOTO_VERSIONS:
-        rel_path = item['path']
-        data = (ROOT / rel_path).read_bytes()
-        verify_woff2(data, rel_path)
+        faces = []
+        for rel_path, style_name, weight in item.get('faces') or [(item['path'], 'Regular', 400)]:
+            data = (ROOT / rel_path).read_bytes()
+            verify_woff2(data, rel_path)
+            faces.append({
+                'path': rel_path,
+                'styleName': style_name,
+                'weight': weight,
+                'style': 'normal',
+                'night': False,
+                'bytes': len(data),
+                'sha256': sha256_bytes(data),
+            })
         noto_entries.append({
             'version': item['version'],
             'label': item['label'],
@@ -772,16 +797,8 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
             'current': item['current'],
             'summary': item['summary'],
             'highlights': item['highlights'],
-            'capabilities': {'weights': [400], 'italic': False, 'nightWeights': []},
-            'faces': [{
-                'path': rel_path,
-                'styleName': 'Regular',
-                'weight': 400,
-                'style': 'normal',
-                'night': False,
-                'bytes': len(data),
-                'sha256': sha256_bytes(data),
-            }],
+            'capabilities': {'weights': [face['weight'] for face in faces], 'italic': False, 'nightWeights': []},
+            'faces': faces,
         })
 
     default_sans_compare = '0.39' if any(v['version'] == '0.39' for v in sans_entries) else sans_entries[1]['version']
@@ -814,10 +831,10 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
                 'id': 'noto',
                 'name': 'SEIHouse Noto',
                 'subtitle': 'Warm Noto-based reading foundation study',
-                'currentVersion': 'Refinement 01',
-                'defaultCompareVersion': 'Study B',
-                'workspaceUrl': '../../noto/studies/warmth/index.html',
-                'workspaceLabel': 'Open Noto Warmth Study',
+                'currentVersion': 'Redraw 02',
+                'defaultCompareVersion': 'Refinement 01',
+                'workspaceUrl': '../../noto/studies/redraw/index.html',
+                'workspaceLabel': 'Open Noto Workspace',
                 'versions': noto_entries,
             },
         },

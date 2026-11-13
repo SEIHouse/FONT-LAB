@@ -8,8 +8,8 @@ dedicated **Version History & Side-by-Side Compare** page at [`site/versions/ind
   release with a live interactive specimen (weight, real italic, size, Night-mode optical
   grade status, and a Quick Compare dropdown for older milestones), workspace cards for the
   Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and version archive, plus a
-  companion card for **SEIHouse Noto (`Balanced · Refinement 01`)** linking directly to
-  `noto/studies/warmth/index.html`.
+  companion card for **SEIHouse Noto (`Balanced · Redraw 02`, candidate)** linking directly to
+  `noto/studies/redraw/index.html`.
 - **Section 02 — The Title Engine:** Showcases **SEIHouse Display 0.1**, **Living Titles 0.1.3**,
   and **Elemental Title 0.1.0** with interactive cut tabs (**Soft, Edge, Ink, Wide**), a live
   title tester, workspace cards for the Display Lab, Elemental Title Lab (`display/elemental/index.html`),
@@ -17,7 +17,7 @@ dedicated **Version History & Side-by-Side Compare** page at [`site/versions/ind
 - **Version History & Compare (`site/versions/index.html`):** Tracks and compares every
   preserved release across **SEIHouse Sans** (`0.6` through `0.42`, 17 versions),
   **Title Engine / Display** (7 milestones across Soft, Edge, Ink, and Wide), and
-  **SEIHouse Noto** (Studies A, B, C, and `Balanced · Refinement 01`). Fonts are loaded on
+  **SEIHouse Noto** (Studies A, B, C, `Balanced · Refinement 01`, and `Redraw 02`). Fonts are loaded on
   demand via `FontFace` so visitors only download the two versions they are actively comparing.
 
 ## Deploy to Vercel

@@ -2633,17 +2633,78 @@
       "id": "noto",
       "name": "SEIHouse Noto",
       "subtitle": "Warm Noto-based reading foundation study",
-      "currentVersion": "Refinement 01",
-      "defaultCompareVersion": "Study B",
-      "workspaceUrl": "../../noto/studies/warmth/index.html",
-      "workspaceLabel": "Open Noto Warmth Study",
+      "currentVersion": "Redraw 02",
+      "defaultCompareVersion": "Refinement 01",
+      "workspaceUrl": "../../noto/studies/redraw/index.html",
+      "workspaceLabel": "Open Noto Workspace",
       "versions": [
+        {
+          "version": "Redraw 02",
+          "label": "Balanced · Redraw 02 (candidate)",
+          "shortTitle": "Modulated strokes, tapered joins, four weights & kerning",
+          "date": "2026-11-12",
+          "current": true,
+          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, automatic kerning, four weights and 314 characters. A candidate for review; Balanced remains the approved direction.",
+          "highlights": [
+            "Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l",
+            "Light, Regular, Medium and Bold from one set of drawing rules",
+            "Keyboard symbols and accented letters for most European languages"
+          ],
+          "capabilities": {
+            "weights": [
+              300,
+              400,
+              500,
+              700
+            ],
+            "italic": false,
+            "nightWeights": []
+          },
+          "faces": [
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-Light.woff2",
+              "styleName": "Light",
+              "weight": 300,
+              "style": "normal",
+              "night": false,
+              "bytes": 21992,
+              "sha256": "e312329b6a23dfa075972eddb4d8e5aace0f4a1ee792dc5ec720da523180a88a"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2",
+              "styleName": "Regular",
+              "weight": 400,
+              "style": "normal",
+              "night": false,
+              "bytes": 21032,
+              "sha256": "5aa08f58bb58fdba673e34450b85ee5a1413806ba85bf7e21ec9b5e679406735"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2",
+              "styleName": "Medium",
+              "weight": 500,
+              "style": "normal",
+              "night": false,
+              "bytes": 22388,
+              "sha256": "cdd1cbd4e9559493933c5cdc8c19c2f2bd192f67db8537b5ecc6303873ec3a21"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2",
+              "styleName": "Bold",
+              "weight": 700,
+              "style": "normal",
+              "night": false,
+              "bytes": 23092,
+              "sha256": "ef35daa213e1083caec791c9d316a0e9eb4c2de84a9e42ff430072eeaee695d1"
+            }
+          ]
+        },
         {
           "version": "Refinement 01",
           "label": "Balanced · Refinement 01",
           "shortTitle": "Smoother bowls, clearer openings & steadier spacing",
           "date": "2026-11-11",
-          "current": true,
+          "current": false,
           "summary": "Refined pass on the chosen Balanced foundation: smoother curves in a, c, e, g, and s, coordinated arches in n, m, h, and r, lighter crossbars on e/f/t, and steadier word spacing.",
           "highlights": [
             "Builds directly on your selected Balanced (Study B) warmth direction",

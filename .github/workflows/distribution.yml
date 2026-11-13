@@ -86,7 +86,7 @@ jobs:
         with:
           node-version: '22'
       - name: Install outline, raster and shaping verification tools
-        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56' 'playwright==1.63.0' 'fontbakery==1.1.0'
+        run: pip install 'fonttools[woff]>=4.62' 'skia-pathops>=0.9' 'freetype-py>=2.3' 'uharfbuzz>=0.56' 'numpy>=2.0' 'playwright==1.63.0' 'fontbakery==1.1.0'
       - name: Install Chromium for title width parity
         run: python -m playwright install chromium
       - name: Gate every Display glyph and construction regression

@@ -2,6 +2,19 @@
 
 Newest first.
 
+- **SEIHouse Noto Redraw 02, a candidate reimagining (2026-11-12)**
+  Added `noto/studies/redraw/`: a new drawing engine (`pen.py`) with direction-based stroke
+  modulation, tapered joins and one family-wide corner softness; every letter redrawn on it
+  (`letters.py`); outline-based automatic kerning (`spacing.py`); and Light, Regular, Medium and
+  Bold fonts with 314 characters (keyboard symbols, Latin-1 and Latin Extended-A). Balanced's
+  softness, full curves, two-storey a/g, hooked l and distinct I/l/1 are kept. The new
+  [comparison page](noto/studies/redraw/index.html) shows it beside the unchanged Refinement 01
+  and is now the homepage's Noto workspace; the version archive lists it with all four weights.
+  It is a candidate for owner review, not a release: Balanced stays the approved direction and
+  all earlier study fonts are byte-for-byte unchanged. `tests/test_noto_redraw.py` gates
+  outlines, counters, heights, weights, shaping, kerning clearance and delivery; the test job
+  now installs `numpy`. See [the study notes](noto/studies/redraw/README.md).
+
 - **Monochrome studio symbol refinement, Sans 0.43 & Living Titles 0.1.4 (2026-11-12)**
   Redrew and tuned all 44 monochrome brand, cultivation, web-novel, player, and music
   symbols (`★ ☯ ⚡ ☀ ☾ ☽ ⚔ ✦ ☆ ◆ ◇ ▲ ▼ ▶ ◀ ♥ ♡ ♪ © ® ™ Ⓢ ♩ ♫ ♬ ♭ ♮ ♯ ⏸ ⏹ ⏺ ⏭ ⏮ 🎧 💻 📖 🔖 🔍 🔔 ⚙ ⌂ 🎤 💿 🔊`,

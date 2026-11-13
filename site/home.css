@@ -20,7 +20,14 @@
 }
 @font-face {
   font-family: "SEIHouseNotoBalanced";
-  src: url("../noto/studies/warmth/fonts/SEIHouseNotoBalanced-Regular.woff2") format("woff2");
+  src: url("../noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SEIHouseNotoBalanced";
+  src: url("../noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2") format("woff2");
+  font-weight: 500;
   font-display: swap;
 }
 
