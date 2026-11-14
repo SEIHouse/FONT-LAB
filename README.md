@@ -11,7 +11,7 @@ under [`display/`](display/README.md).
 ## Font Lab homepage, version archive & Vercel
 
 Open [`index.html`](index.html) for the workshop homepage, organized into two clear sections:
-- **01 / Regular & Reading Fonts:** Live specimen and workspaces for **SEIHouse Sans 0.43** (Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and quick version comparison) alongside **SEIHouse Noto (`Balanced · Redraw 02`, a candidate for review)**.
+- **01 / Regular & Reading Fonts:** Live specimen and workspaces for **SEIHouse Sans 0.43** (Reader Lab, 3-chapter reading test, Literata/Rubik benchmark, and quick version comparison) alongside **SEIHouse Noto (`Balanced · Redraw 02`, a candidate for review, with true italics at all four weights)**.
 - **02 / The Title Engine:** Live cut switcher (**Soft, Edge, Ink, Wide**) and workspaces for **SEIHouse Display 0.1**, **Living Titles 0.1.4**, and **Elemental Title 0.1.0** (Display Lab, Elemental Title Lab, specimen gallery, and NovelExpanded living-title cover mock).
 - **Version History & Compare ([`site/versions/index.html`](site/versions/index.html)):** Browse and compare every preserved version side by side across **SEIHouse Sans** (`0.6` → `0.43`), **Display** (8 milestones), and **SEIHouse Noto** (4 warmth studies and Redraw 02). Both Labs can save browser drafts and download JSON settings on a normal website.
 

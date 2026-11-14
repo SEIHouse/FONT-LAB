@@ -2644,11 +2644,12 @@
           "shortTitle": "Modulated strokes, tapered joins, four weights & kerning",
           "date": "2026-11-12",
           "current": true,
-          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights and 343 characters. A candidate for review; Balanced remains the approved direction.",
+          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics and 343 characters. A candidate for review; Balanced remains the approved direction.",
           "highlights": [
             "Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l",
             "Light, Regular, Medium and Bold with open Bold counters down to 14–16 px",
-            "Complete printable Latin-1 & Extended-A plus everyday typography symbols"
+            "Complete printable Latin-1 & Extended-A plus everyday typography symbols",
+            "True italics at every weight: single-storey a, exit strokes and a descending f"
           ],
           "capabilities": {
             "weights": [
@@ -2657,7 +2658,7 @@
               500,
               700
             ],
-            "italic": false,
+            "italic": true,
             "nightWeights": []
           },
           "faces": [
@@ -2696,6 +2697,42 @@
               "night": false,
               "bytes": 26204,
               "sha256": "a209b12e9685b5d78db4932ee38b78ce104d9eaf9b162802479104e182a2b8ac"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalic.woff2",
+              "styleName": "LightItalic",
+              "weight": 300,
+              "style": "italic",
+              "night": false,
+              "bytes": 26336,
+              "sha256": "e9c1640e13b6a58fbb5c246fc8ee7bd70fe6bea647a6a64969e006a6aab556e2"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-Italic.woff2",
+              "styleName": "Italic",
+              "weight": 400,
+              "style": "italic",
+              "night": false,
+              "bytes": 27088,
+              "sha256": "cb1c0d4366ac620e5edb8580b630cb17991cbae0d9540b336d9a6ff7bf0926de"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalic.woff2",
+              "styleName": "MediumItalic",
+              "weight": 500,
+              "style": "italic",
+              "night": false,
+              "bytes": 27572,
+              "sha256": "99b811309736d095a7dced219fed6eb9d1e26aff75f18e27b7a3b077947cab31"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-BoldItalic.woff2",
+              "styleName": "BoldItalic",
+              "weight": 700,
+              "style": "italic",
+              "night": false,
+              "bytes": 28744,
+              "sha256": "4eda3220bb6eb23852b42b96f2619580e5e25af9d28efbd1f50dbb9b368a6429"
             }
           ]
         },

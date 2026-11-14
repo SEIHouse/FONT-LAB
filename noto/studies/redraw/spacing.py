@@ -69,18 +69,27 @@ OVERHANG = 'TVWYFPKfrſ“”‘’\'"'
 
 
 def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…¤¦§¨©ª¬®¯²³´¶¸¹º¼½¾', damp=.5, least=12,
-            tightest=-76, loosest=32, clear=26):
-    """-> (class pairs {(a, b): value} on base glyphs, exceptions {(a, composite): value})."""
+            tightest=-76, loosest=32, clear=26, ghosts=None):
+    """-> (class pairs {(a, b): value} on base glyphs, exceptions {(a, composite): value}).
+
+    ghosts: {char: path} italic letters without their exit strokes. Rhythm is measured
+    on the ghost (an exit stroke is meant to reach toward its neighbour); clearance is
+    always measured on the real ink.
+    """
     prof = {c: profile(p, w) for c, (w, p) in glyphs.items() if c not in skip}
+    rhythm = dict(prof)
+    for c, path in (ghosts or {}).items():
+        if c in prof:
+            rhythm[c] = profile(path, glyphs[c][0])
     targets = {}
     for key, ref in (('lc', 'n'), ('uc', 'H')):
-        gap = prof[ref][1] + prof[ref][0]
+        gap = rhythm[ref][1] + rhythm[ref][0]
         targets[key] = measure(gap[np.isfinite(gap)], 0)
 
     def value(a, b):
-        ra, lb = prof[a][1], prof[b][0]
-        raw = pair_kern(ra, lb, targets['uc' if a.isupper() and b.isupper() else 'lc'])
+        raw = pair_kern(rhythm[a][1], rhythm[b][0], targets['uc' if a.isupper() and b.isupper() else 'lc'])
         v = max(tightest, min(loosest, raw*damp))
+        ra, lb = prof[a][1], prof[b][0]
         both = np.isfinite(ra) & np.isfinite(lb)
         if both.any():
             v = max(v, clear - float((ra[both] + lb[both]).min()))
