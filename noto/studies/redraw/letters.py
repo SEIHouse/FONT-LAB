@@ -19,9 +19,11 @@ class Sheet:
 
     def __init__(self, weight=1.0, tilt=0.0, soft=13):
         self.weight = weight
+        self.heavy = max(0.0, weight-1.0)
         self.wide = 1 + (weight-1)*.13        # heavier weights are drawn a little wider
         self.tight = 1 - (weight-1)*.3        # and fitted a little closer
-        stem, hair = weight/self.wide, 1 + (weight-1)*.72
+        stem = weight/self.wide
+        hair = 1 + (weight-1)*(.72 if weight <= 1.0 else .64)
         soft *= weight**.5
         self.lc = Style(88*stem, 74*hair, tilt, soft)
         self.uc = Style(95*stem, 79*hair, tilt, soft)
@@ -67,7 +69,7 @@ def arch_d(cl, cr, top, depth=182, lean=.585, down=0):
 
 def lower(sh):
     lc = sh.lc
-    s, h = lc.thick, lc.thin
+    s, h, hv = lc.thick, lc.thin, sh.heavy
     top = X+OV-h/2            # centreline height of a round top
     bot = -OV+h/2
     N, B = 74, 40            # straight and round sidebearings
@@ -105,24 +107,29 @@ def lower(sh):
                f"C{s/2} 120 140 {bot} 272 {bot} C344 {bot} 406 60 448 122", lc, {0: 1.06, 4: 1.06})
     c = minus(minus(c, rect(424, X/2, 700, 700)), rect(432, -100, 700, X/2))
     sh.put('c', c, B, 30)
-    ew = 498
+    ew = 498 + 10*hv
+    ey = 238 - 18*hv
+    e_cross = h*(.9 - .24*hv)
     e = ribbon(f"M452 126 C408 62 346 {bot} 274 {bot} C142 {bot} {s/2} 122 {s/2} {X/2+2} "
-               f"C{s/2} 400 136 {top} 256 {top} C378 {top} {ew-s/2} 404 {ew-s/2} 296 L{ew-s/2} 238", lc, {0: 1.06})
+               f"C{s/2} 400 136 {top} 256 {top} C378 {top} {ew-s/2} 404 {ew-s/2} 296 L{ew-s/2} {ey}",
+               lc, {0: 1.06, 4: 1 - .14*hv})
     e = minus(e, rect(436, -100, 700, 190))
-    sh.put('e', [e, rect(s/2, 238, ew-s/2, 238+h*.9)], B, B-2)
+    sh.put('e', [e, rect(s/2, ey, ew-s/2, ey+e_cross)], B, B-2)
 
     # a
-    aw = 446
-    a_top = ribbon(f"M52 404 C96 462 160 {top} 232 {top} C340 {top} {aw-s/2} 444 {aw-s/2} 344 L{aw-s/2} 0", lc, {0: 1.06})
+    aw = 446 + 24*hv
+    a_top = ribbon(f"M52 404 C96 462 160 {top} 232 {top} C340 {top} {aw-s/2} 444 {aw-s/2} 344 L{aw-s/2} 0",
+                   lc, {0: 1.06 - .18*hv})
     a_top = minus(a_top, rect(-100, 300, 58, 520))
     a_bowl = ribbon(f"M{aw-s/2+6} 286 C352 294 296 296 228 290 C112 280 {s/2-2} 232 {s/2-2} 150 "
-                    f"C{s/2-2} 74 106 {bot} 192 {bot} C290 {bot} 362 88 {aw-s/2} 190", lc, {0: .94, 4: .5})
+                    f"C{s/2-2} 74 106 {bot} 192 {bot} C290 {bot} 362 88 {aw-s/2} 190",
+                    lc, {0: .94 - .28*hv, 1: 1 - .32*hv, 2: 1 - .14*hv, 4: .5})
     sh.put('a', [a_top, a_bowl], B+4, N-8)
 
     # s
     s_d = (f"M386 404 C348 462 298 {top} 228 {top} C140 {top} 80 448 80 380 C80 318 128 290 220 262 "
            f"C316 233 370 202 370 138 C370 68 306 {bot} 216 {bot} C142 {bot} 86 56 42 116")
-    sp = ribbon(s_d, lc, {0: 1.05, 2: .96, 3: 1.2, 4: .96, 6: 1.05})
+    sp = ribbon(s_d, lc, {0: 1.05 - .18*hv, 2: .96 - .14*hv, 3: 1.2 - .4*hv, 4: .96 - .14*hv, 6: 1.05 - .18*hv})
     sp = minus(minus(sp, rect(374, X/2, 700, 700)), rect(-200, -100, 52, X/2))
     sh.put('s', sp, 38, 38)
 
@@ -136,7 +143,7 @@ def lower(sh):
                         lc, {3: 1.05}), dot], N, N, ref=(0, s))
     sh.put('l', ribbon(f"M{s/2} {ASC} L{s/2} 132 C{s/2} 62 82 {h/2-2} 146 {h/2-2} C168 {h/2-2} 188 38 206 44", lc, {3: 1.05}),
            N, 22)
-    cross = h*.9
+    cross = h*(.9 - .16*hv)
     sh.put('t', [ribbon(f"M150 656 L150 138 C150 66 190 {h/2-2} 256 {h/2-2} C284 {h/2-2} 308 39 330 47", lc, {3: 1.05}),
                  rect(22, X-cross, 312, X)], 20, 18)
     sh.put('f', [ribbon(f"M150 0 L150 598 C150 676 194 {ASC+OV-h/2} 264 {ASC+OV-h/2} C292 {ASC+OV-h/2} 316 708 338 700",
@@ -157,11 +164,13 @@ def lower(sh):
            30, 30)
 
     # g: bowl, ear, link and loop
-    g_bowl = ribbon(oval_d(26+s/2-2, 222+h/2-2, 410-s/2+2, top, K), lc, {1: .97, 3: .97, 0: .97, 2: .93})
-    g_ear = keep(ribbon(f"M332 444 C368 476 420 {X-h*.45} 500 {X-h*.45}", lc, {0: .9, 1: .9}), x1=482)
-    g_loop = ribbon("M196 252 C134 234 98 202 98 162 C98 122 134 101 196 100 L330 98 C420 96 470 46 470 -30 "
-                    "C470 -122 386 -190 256 -190 C128 -190 44 -138 44 -68 C44 -10 96 46 186 90",
-                    lc, {0: .7, 1: .76, 2: .9, 3: .92, 4: .97, 5: 1.0, 6: .95, 7: .56})
+    g_bowl = ribbon(oval_d(26+s/2-2-4*hv, 222+h/2-2-14*hv, 410-s/2+2+22*hv, top, K), lc,
+                    {0: .97, 1: .97 - .14*hv, 2: .93 - .26*hv, 3: .97 - .14*hv})
+    g_ear = keep(ribbon(f"M332 444 C368 476 420 {X-h*.45} 500 {X-h*.45}", lc, {0: .85, 1: .85}), x1=482)
+    g_loop = ribbon("M196 260 C134 234 98 202 98 162 C98 122 134 101 196 100 L330 98 C420 96 470 46 470 -30 "
+                    "C470 -122 386 -194 256 -194 C128 -194 44 -138 44 -68 C44 -10 96 46 186 90",
+                    lc, {0: .58*(1-.08*hv), 1: .65*(1-.08*hv), 2: .74*(1-.12*hv), 3: .76*(1-.12*hv),
+                         4: .85*(1-.06*hv), 5: .83*(1-.10*hv), 6: .82*(1-.06*hv), 7: .48*(1-.08*hv)})
     sh.put('g', [g_bowl, g_ear, g_loop], 30, 6)
 
 
@@ -169,18 +178,19 @@ def lower(sh):
 
 def upper(sh):
     uc = sh.uc
-    s, h = uc.thick, uc.thin
+    s, h, hv = uc.thick, uc.thin, sh.heavy
     top, bot = CAP+OV-h/2, -OV+h/2
     ft, fb = CAP-h/2, h/2          # flat (non-overshooting) horizontals
+    cross = h*(.47 - .08*hv)
     N, B = 88, 50
     put = lambda ch, parts, l, r, **kw: sh.put(ch, parts, l, r, uc, **kw)
 
     hw = 560
-    put('H', [rect(0, 0, s, CAP), rect(hw-s, 0, hw, CAP), rect(s/2, 362-h*.47, hw-s/2, 362+h*.47)], N, N)
+    put('H', [rect(0, 0, s, CAP), rect(hw-s, 0, hw, CAP), rect(s/2, 362-cross, hw-s/2, 362+cross)], N, N)
     iw = 236
     put('I', [rect(iw/2-s/2, 0, iw/2+s/2, CAP), rect(0, 0, iw, h*.88), rect(0, CAP-h*.88, iw, CAP)], 46, 46)
-    put('E', [rect(0, 0, s, CAP), rect(s/2, CAP-h, 408, CAP), rect(s/2, 366-h*.47, 378, 366+h*.47), rect(s/2, 0, 420, h)], N, 34)
-    put('F', [rect(0, 0, s, CAP), rect(s/2, CAP-h, 402, CAP), rect(s/2, 346-h*.47, 364, 346+h*.47)], N, 24)
+    put('E', [rect(0, 0, s, CAP), rect(s/2, CAP-h, 408, CAP), rect(s/2, 366-cross, 378, 366+cross), rect(s/2, 0, 420, h)], N, 34)
+    put('F', [rect(0, 0, s, CAP), rect(s/2, CAP-h, 402, CAP), rect(s/2, 346-cross, 364, 346+cross)], N, 24)
     put('L', [rect(0, 0, s, CAP), rect(s/2, 0, 398, h)], N, 16)
     tw = 536
     put('T', [rect(tw/2-s/2, 0, tw/2+s/2, CAP), rect(0, CAP-h, tw, CAP)], 22, 22)
@@ -203,10 +213,13 @@ def upper(sh):
     dw = 664
     put('D', [rect(0, 0, s, CAP), ribbon(f"M{s/2} {ft} L286 {ft} C500 {ft} {dw-s/2-1} 556 {dw-s/2-1} {CAP/2} "
                                          f"C{dw-s/2-1} 144 500 {fb} 286 {fb} L{s/2} {fb}", uc, {2: 1.03})], N, B)
-    mid = 372
+    mid = 372 - 6*hv
+    mid_s = .93 - .30*hv
     put('B', [rect(0, 0, s, CAP),
-              ribbon(f"M{s/2} {ft} L300 {ft} C424 {ft} 492 610 492 518 C492 428 424 {mid} 304 {mid} L{s/2} {mid}", uc, {2: 1.0, 3: .93, 4: .93}),
-              ribbon(f"M{s/2} {mid} L322 {mid} C458 {mid} 532 314 532 204 C532 96 452 {fb} 316 {fb} L{s/2} {fb}", uc, {0: .93, 1: .93, 2: 1.02})],
+              ribbon(f"M{s/2} {ft} L300 {ft} C424 {ft} {492+12*hv} 610 {492+12*hv} 518 C{492+12*hv} 428 424 {mid} 304 {mid} L{s/2} {mid}",
+                     uc, {2: 1.0 - .12*hv, 3: mid_s, 4: mid_s}),
+              ribbon(f"M{s/2} {mid} L322 {mid} C458 {mid} 532 314 532 204 C532 96 452 {fb} 316 {fb} L{s/2} {fb}",
+                     uc, {0: mid_s, 1: mid_s, 2: 1.02 - .10*hv})],
         N, 40)
     pb = 300
     p_bowl = ribbon(f"M{s/2} {ft} L306 {ft} C452 {ft} 530 596 530 482 C530 368 452 {pb} 306 {pb} L{s/2} {pb}", uc, {2: 1.02})
@@ -217,7 +230,7 @@ def upper(sh):
 
     aw = 648
     a = keep(union(bar((42, 0), (aw/2, CAP+8), h+6, 'h', 'h'), bar((aw-42, 0), (aw/2, CAP+8), s, 'h', 'h')), y1=CAP)
-    put('A', [a, rect(142, 196, aw-142, 196+h*.9)], 10, 10)
+    put('A', [a, rect(142, 196, aw-142, 196+h*(.9 - .16*hv))], 10, 10)
     vw = 628
     put('V', keep(union(bar((44, CAP), (vw/2, -8), s, 'h', 'h'), bar((vw-44, CAP), (vw/2, -8), h+6, 'h', 'h')), y0=0), 10, 10)
     w = union(bar((42, CAP), (226, -8), s-3, 'h', 'h'), bar((444, CAP+8), (226, -8), h+3, 'h', 'h'),
@@ -242,7 +255,7 @@ def upper(sh):
     put('J', minus(j, rect(-200, -100, 10, 200)), 14, N-8)
     s_d = (f"M478 574 C430 640 356 {top} 270 {top} C150 {top} 72 612 72 520 C72 440 132 402 256 364 "
            f"C392 322 468 284 468 182 C468 88 388 {bot} 266 {bot} C166 {bot} 92 62 36 136")
-    sp = ribbon(s_d, uc, {0: 1.05, 2: .96, 3: 1.2, 4: .96, 6: 1.05})
+    sp = ribbon(s_d, uc, {0: 1.05 - .15*hv, 2: .96 - .12*hv, 3: 1.2 - .34*hv, 4: .96 - .12*hv, 6: 1.05 - .15*hv})
     sp = minus(minus(sp, rect(468, CAP/2, 900, 900)), rect(-200, -100, 46, CAP/2))
     put('S', sp, 44, 44)
 
@@ -251,7 +264,7 @@ def upper(sh):
 
 def figures(sh):
     fg = sh.fig
-    s, h = fg.thick, fg.thin
+    s, h, hv = fg.thick, fg.thin, sh.heavy
     top, bot = CAP+OV-h/2, -OV+h/2
     ADV = 572
 
@@ -266,10 +279,11 @@ def figures(sh):
               rect(52, 0, 430, h*.9)])
     put('2', [keep(ribbon(f"M56 548 C92 630 160 {top} 248 {top} C350 {top} 416 612 416 522 C416 440 372 376 284 290 L46 46",
                            fg, {0: 1.05, 3: .98, 4: .96}), x0=30, y0=0), rect(30, 0, 446, h)])
+    mid3 = .92 - .18*hv
     three = union(ribbon(f"M58 596 C108 648 170 {top} 244 {top} C344 {top} 404 622 404 538 C404 452 342 388 236 388 L190 388",
-                         fg, {0: 1.05, 3: .92, 4: .92}),
+                         fg, {0: 1.05, 3: mid3, 4: mid3}),
                   ribbon(f"M190 388 L246 388 C366 388 436 320 436 212 C436 98 354 {bot} 232 {bot} C150 {bot} 86 54 30 108",
-                         fg, {0: .92, 1: .92, 4: 1.05}))
+                         fg, {0: mid3, 1: mid3, 4: 1.05}))
     put('3', minus(minus(three, rect(-200, 520, 64, 800)), rect(-200, -100, 40, 180)))
     put('4', [rect(318, 0, 318+s, CAP), keep(bar((356, CAP+20), (40, 178), h+6, 'h', 'h'), y0=180, y1=CAP, x1=400),
               rect(8, 180, 492, 180+h*.94)])
@@ -283,8 +297,11 @@ def figures(sh):
     put('6', six)
     put('9', rotate180(six, 239, CAP/2))
     put('7', [rect(18, CAP-h, 452, CAP), keep(bar((414, CAP+20), (176, -20), s-2, 'h', 'h'), y0=0, y1=CAP)])
-    put('8', [ribbon(oval_d(42+s/2-2, 374, 418-s/2+2, top, .57), fg, {0: .96, 1: .95, 3: .95, 2: .9}),
-              ribbon(oval_d(16+s/2, bot, 444-s/2, 374, .57), fg, {0: .9})])
+    waist = .9 - .28*hv
+    put('8', [ribbon(oval_d(42+s/2-2-8*hv, 374, 418-s/2+2+8*hv, top, .57), fg,
+                     {0: .96 - .06*hv, 1: .95 - .16*hv, 3: .95 - .16*hv, 2: waist}),
+              ribbon(oval_d(16+s/2-2*hv, bot, 444-s/2+2*hv, 374, .57), fg,
+                     {0: waist, 1: 1 - .12*hv, 3: 1 - .12*hv})])
 
 
 # ---------------------------------------------------------------- punctuation and accents
@@ -341,12 +358,12 @@ def marks(sh):
     sh.glyphs[' '] = (252, pathops.Path())
     sh.glyphs['\u00a0'] = (252, pathops.Path())
     symbols(sh, stop, comma, tick, q, bang, R)
-    extended(sh)
+    extended(sh, comma, R)
 
 
 def symbols(sh, stop, comma, tick, q, bang, R):
     lc, uc, fg = sh.lc, sh.uc, sh.fig
-    s, h = lc.thick, lc.thin
+    s, h, hv = lc.thick, lc.thin, sh.heavy
     wt = sh.weight
     flat = lambda w: Style(w*wt, w*wt, soft=lc.soft)
     put = sh.put
@@ -415,7 +432,85 @@ def symbols(sh, stop, comma, tick, q, bang, R):
     d = oval(212-50*wt**.6, 0, 212+50*wt**.6, 100*wt**.6, .62)
     put('÷', [rect(0, 350-mh/2, 424, 350+mh/2), move(d, 0, 500), move(d, 0, 100)], 74, 74, fg)
     put('±', [rect(0, 420-mh/2, 424, 420+mh/2), rect(212-mh/2, 230, 212+mh/2, 610), rect(0, 60, 424, 60+mh)], 74, 74, fg)
+    put('¬', [rect(0, 350, 424, 350+mh), rect(424-mh, 164, 424, 350+mh)], 74, 74, fg)
+    put('¦', [rect(0, 355, h*.95, 796), rect(0, -222, h*.95, 219)], 110, 110)
     put('`', soften(move(sh_grave(wt, lc), 60, X+64), lc), 80, 80)
+
+    cs = Style(fg.thick*.72, fg.thin*(.74 - .08*hv), soft=fg.soft*.8)
+    c_ring = ribbon(oval_d(220-128, 350-128, 220+128, 350+128, .552), cs)
+    c_rays = [bar((220+dx*92, 350+dy*92), (220+dx*204, 350+dy*204), cs.thin) for dx in (-1, 1) for dy in (-1, 1)]
+    put('¤', [c_ring, *c_rays], 54, 54, cs)
+
+    ps = Style(fg.thick*.84, fg.thin*(.86 - .10*hv), soft=fg.soft*.85)
+    pw, ph = ps.thick, ps.thin
+    p_bowl = ribbon(f"M{236+pw/2} {CAP-ph/2} L182 {CAP-ph/2} C72 {CAP-ph/2} {pw/2} 608 {pw/2} 516 "
+                    f"C{pw/2} 424 72 {332+ph/2} 182 {332+ph/2} L{236+pw/2} {332+ph/2}", ps, {2: 1.02})
+    put('¶', [p_bowl, rect(188, CAP-ph, 422+pw, CAP), rect(236, -110, 236+pw, CAP), rect(422, -110, 422+pw, CAP)], 46, 54, ps)
+
+    ss = Style(fg.thick*.72, fg.thin*(.72 - .10*hv), soft=fg.soft*.8)
+    sy_t = CAP + OV - ss.thin/2
+    sec_h = minus(ribbon(f"M384 594 C348 652 296 {sy_t} 228 {sy_t} C134 {sy_t} 76 626 76 554 "
+                         f"C76 484 130 444 236 398 C338 354 394 314 394 252 C394 196 336 160 236 186 "
+                         f"C196 196 164 214 136 238",
+                         ss, {0: 1.04, 3: .92, 4: .94, 5: .9, 6: .82}), rect(376, 540, 600, 760))
+    put('§', [sec_h, rotate180(sec_h, 236, 292)], 48, 48, ss)
+
+    cr_ring = Style(uc.thick*.58, uc.thin*(.62 - .10*hv), soft=uc.soft*.65)
+    c_outer = ribbon(oval_d(cr_ring.thick/2, -6+cr_ring.thin/2, 712-cr_ring.thick/2, 706-cr_ring.thin/2, .552), cr_ring)
+    cr_in = Style(uc.thick*.62, uc.thin*(.62 - .12*hv), soft=uc.soft*.6)
+    ic_t, ic_b = 536-cr_in.thin/2, 164+cr_in.thin/2
+    ic = ribbon(f"M504 452 C474 502 426 {ic_t} 366 {ic_t} C258 {ic_t} {188+cr_in.thick/2} 456 {188+cr_in.thick/2} 350 "
+                f"C{188+cr_in.thick/2} 244 258 {ic_b} 368 {ic_b} C428 {ic_b} 476 198 508 248", cr_in, {0: 1.04, 4: 1.04})
+    ic = minus(minus(ic, rect(498, 350, 700, 600)), rect(502, 100, 700, 350))
+    put('©', [c_outer, ic], 42, 42, cr_in)
+    ir_w, ir_h = cr_in.thick, cr_in.thin
+    ir_ft, ir_m = 532-ir_h/2, 336
+    ir_bowl = ribbon(f"M{228+ir_w/2} {ir_ft} L374 {ir_ft} C454 {ir_ft} 494 492 494 434 "
+                     f"C494 376 454 {ir_m} 374 {ir_m} L{228+ir_w/2} {ir_m}", cr_in, {2: 1.0, 3: .92, 4: .92})
+    put('®', [c_outer, rect(228, 168, 228+ir_w, 532), ir_bowl, bar((374, ir_m+6), (502, 168), ir_w*.96, 'perp', 'h')],
+        42, 42, cr_in)
+
+    sup = Style(fg.thick*.66, fg.thin*(.65 - .08*hv), soft=fg.soft*.68)
+    sw, hw = sup.thick, sup.thin
+    st, sb = 392+7-hw/2, -7+hw/2
+    s1 = union(rect(112, 0, 112+sw, 392), keep(bar((20, 300), (156, 414), hw+3, 'perp', 'h'), y1=392, x1=154),
+               rect(24, 0, 264, hw*.92))
+    s2 = union(keep(ribbon(f"M28 304 C50 352 92 {st} 146 {st} C210 {st} 252 344 252 290 "
+                           f"C252 240 224 204 168 154 L22 26", sup, {0: 1.04, 3: .98, 4: .95}), x0=16, y0=0),
+               rect(16, 0, 270, hw))
+    m3 = .9 - .16*hv
+    t3 = union(ribbon(f"M30 332 C60 364 98 {st} 144 {st} C206 {st} 244 348 244 298 C244 248 206 214 138 214 L108 214",
+                      sup, {0: 1.04, 3: m3, 4: m3}),
+               ribbon(f"M108 214 L144 214 C218 214 262 174 262 114 C262 50 212 {sb} 136 {sb} C86 {sb} 48 26 14 58",
+                      sup, {0: m3, 1: m3, 4: 1.04}))
+    s3 = minus(minus(t3, rect(-120, 290, 34, 500)), rect(-120, -60, 22, 100))
+    s4 = union(rect(198, 0, 198+sw, 392), keep(bar((224, 408), (18, 96), hw+3, 'h', 'h'), y0=98, y1=392, x1=240),
+               rect(4, 98, 308, 98+hw*.92))
+    put('¹', move(s1, 0, CAP-392), 46, 46, sup)
+    put('²', move(s2, 0, CAP-392), 44, 44, sup)
+    put('³', move(s3, 0, CAP-392), 44, 44, sup)
+    fslash = bar((188, -14), (528, CAP+14), hw*1.04, 'h', 'h')
+    put('¼', [move(s1, 0, CAP-380), fslash, move(s4, 436, -6)], 34, 34, sup)
+    put('½', [move(s1, 0, CAP-380), fslash, move(s2, 436, -6)], 34, 34, sup)
+    put('¾', [move(s3, 0, CAP-380), fslash, move(s4, 436, -6)], 34, 34, sup)
+
+    ord_s = Style(lc.thick*.64, lc.thin*(.64 - .08*hv), soft=lc.soft*.65)
+    os, oh = ord_s.thick, ord_s.thin
+    otop, obot = CAP+7-oh/2, 384+oh/2
+    oo = ribbon(oval_d(os/2, obot, 286-os/2, otop, K), ord_s, {1: 1.02, 3: 1.02})
+    put('º', [oo, rect(12, 286, 274, 286+oh*.92)], 44, 44, ord_s)
+    aw_o = 282 + 14*hv
+    oa_top = minus(ribbon(f"M30 634 C58 672 98 {otop} 146 {otop} C214 {otop} {aw_o-os/2} 660 {aw_o-os/2} 598 L{aw_o-os/2} 390",
+                          ord_s, {0: 1.04 - .16*hv}), rect(-80, 560, 34, 720))
+    oa_bowl = ribbon(f"M{aw_o-os/2+4} 562 C222 567 186 568 144 564 C70 558 {os/2-1} 528 {os/2-1} 478 "
+                     f"C{os/2-1} 430 68 {obot} 122 {obot} C184 {obot} 228 438 {aw_o-os/2} 502",
+                     ord_s, {0: .92 - .24*hv, 1: 1 - .28*hv, 2: 1 - .12*hv, 4: .5})
+    put('ª', [oa_top, oa_bowl, rect(8, 286, aw_o, 286+oh*.92)], 44, 44, ord_s)
+
+    mw_u = 366 + s
+    mu_bowl = ribbon(f"M{s/2+3} 170 C{s/2+28} 78 124 {-OV+h/2} {mw_u/2} {-OV+h/2} "
+                     f"C{mw_u-124} {-OV+h/2} {mw_u-s/2-28} 78 {mw_u-s/2-3} 170", lc, {0: .54, 1: 1.0, 2: .54})
+    put('µ', [rect(0, DESC, s, X), rect(mw_u-s, 0, mw_u, X), mu_bowl], 74, 68)
 
 
 def sh_grave(wt, lc):
@@ -431,7 +526,7 @@ BELOW = {'cedilla', 'ogonek', 'commabelow'}
 RANGES = [(0xC0, 0x17F), (0x218, 0x21B), (0x1E80, 0x1E85), (0x1EF2, 0x1EF3)]
 
 
-def extended(sh):
+def extended(sh, comma, R):
     import unicodedata
     lc, uc = sh.lc, sh.uc
     s, h, S = lc.thick, lc.thin, uc.thick
@@ -535,8 +630,9 @@ def extended(sh):
     _, E = g['E']
     Eb = E.bounds
     put('Œ', [O, move(E, Ob[2]-Eb[0]-S*.9)], 50, 34, uc)
-    ae = [keep(bar((40, 0), (392, CAP+8), uc.thin+6, 'h', 'h'), y1=CAP), rect(160, 196, 420, 196+uc.thin*.9),
-          rect(388, 0, 388+S, CAP), rect(340, CAP-uc.thin, 742, CAP), rect(400, 366-uc.thin*.47, 706, 366+uc.thin*.47),
+    uc_cross = uc.thin*(.47 - .08*sh.heavy)
+    ae = [keep(bar((40, 0), (392, CAP+8), uc.thin+6, 'h', 'h'), y1=CAP), rect(160, 196, 420, 196+uc.thin*(.9 - .16*sh.heavy)),
+          rect(388, 0, 388+S, CAP), rect(340, CAP-uc.thin, 742, CAP), rect(400, 366-uc_cross, 706, 366+uc_cross),
           rect(400, 0, 754, uc.thin)]
     put('Æ', ae, 10, 34, uc)
     top = X+OV-h/2
@@ -562,3 +658,47 @@ def extended(sh):
         bx = path.bounds[0]
         shifted = move(path, 40)
         g[ch] = (width+40, union(shifted, soften(bar((bx+40+a[0], a[1]), (bx+40+b[0], b[1]), style.thin*.86), style)))
+
+    # Spacing modifiers and the remaining European letters.
+    put('¨', move(mark['dieresis'], 0, X+62), 54, 54)
+    put('¯', move(mark['macron'], 0, X+62), 48, 48)
+    put('´', move(mark['acute'], 0, X+64), 80, 80)
+    put('¸', mark['cedilla'], 68, 68)
+
+    put('ĸ', [rect(0, 0, s, X), bar((s/2, 150), (384, X), h+5, 'perp', 'h'),
+              bar((196, 322), (406, 0), s, 'perp', 'h')], 74, 10)
+    put('ſ', ribbon(f"M{s/2} 0 L{s/2} 598 C{s/2} 676 {s/2+44} {ASC+OV-h/2} {s/2+114} {ASC+OV-h/2} "
+                    f"C{s/2+142} {ASC+OV-h/2} {s/2+166} 708 {s/2+188} 700", lc, {3: 1.05}), 74, 8)
+    nw_e = 366 + s
+    rc = nw_e - s/2
+    put('ŋ', [rect(0, 0, s, X),
+              ribbon(arch_d(s/2+3, rc, top, down=-70)
+                     + f" C{rc} -144 {rc-42} {DESC+h/2} {rc-114} {DESC+h/2} C{rc-140} {DESC+h/2} {rc-162} -170 {rc-182} -160",
+                     lc, {0: .54, 5: 1.05})], 74, 68, ref=(0, nw_e))
+    nw_U = 594
+    rc_U = nw_U - (S-6)/2
+    put('Ŋ', [rect(0, 0, S-6, CAP),
+              keep(bar((50, CAP+12), (nw_U - (S-6) + S*.58, -12), S+2, 'h', 'h'), y0=0, y1=CAP, x1=nw_U),
+              ribbon(f"M{rc_U} {CAP} L{rc_U} -54 C{rc_U} -138 {rc_U-52} {DESC+uc.thin/2} {rc_U-138} {DESC+uc.thin/2} "
+                     f"C{rc_U-174} {DESC+uc.thin/2} {rc_U-204} -168 {rc_U-230} -154", uc.but(thick=S-6), {3: 1.04})],
+        86, 86, uc, ref=(0, nw_U))
+    j_uc = minus(ribbon(f"M262 {CAP} L262 196 C262 86 204 {-OV+uc.thin/2} 112 {-OV+uc.thin/2} "
+                        f"C72 {-OV+uc.thin/2} 36 36 4 54", uc, {3: 1.05}), rect(-200, -100, 10, 200))
+    put('Ĳ', [rect(0, 0, S, CAP), move(j_uc, S+72)], 88, 80, uc)
+    ij_dot = oval(s/2-52, X+118, s/2+52, X+222, .62)
+    j_lc = ribbon(f"M{s/2} {X} L{s/2} -70 C{s/2} -144 2 {DESC+h/2} -70 {DESC+h/2} C-96 {DESC+h/2} -118 -170 -138 -160",
+                  lc, {3: 1.05})
+    dx_ij = s + 136
+    put('ĳ', [rect(0, 0, s, X), ij_dot, move(j_lc, dx_ij), move(ij_dot, dx_ij)], 74, 74, ref=(0, dx_ij+s))
+    md_u = 96*wt**.6
+    put('Ŀ', [rect(0, 0, S, CAP), rect(S/2, 0, 398, uc.thin), oval(S+138, 342, S+138+md_u, 342+md_u, .62)], 88, 28, uc)
+    md_l = 88*wt**.6
+    l_lc = ribbon(f"M{s/2} {ASC} L{s/2} 132 C{s/2} 62 82 {h/2-2} 146 {h/2-2} C168 {h/2-2} 188 38 206 44", lc, {3: 1.05})
+    dx_l = max(214, s+120)
+    put('ŀ', [l_lc, oval(dx_l, 248, dx_l+md_l, 248+md_l, .62)], 74, 46)
+    ap = move(comma, 0, ASC-(2*R-5))
+    ax0, _, ax1, _ = ap.bounds
+    dx_n = ax1 - ax0 + 52
+    nw_n = 366 + s
+    n_lc = union(rect(0, 0, s, X), ribbon(arch_d(s/2+3, nw_n-s/2, top), lc, {0: .54}))
+    put('ŉ', [move(ap, -ax0), move(n_lc, dx_n)], 44, 68)

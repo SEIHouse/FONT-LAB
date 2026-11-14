@@ -359,11 +359,11 @@ NOTO_VERSIONS = [
         'shortTitle': 'Modulated strokes, tapered joins, four weights & kerning',
         'date': '2026-11-12',
         'current': True,
-        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, automatic kerning, four weights and 314 characters. A candidate for review; Balanced remains the approved direction.',
+        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights and 343 characters. A candidate for review; Balanced remains the approved direction.',
         'highlights': [
             'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
-            'Light, Regular, Medium and Bold from one set of drawing rules',
-            'Keyboard symbols and accented letters for most European languages',
+            'Light, Regular, Medium and Bold with open Bold counters down to 14–16 px',
+            'Complete printable Latin-1 & Extended-A plus everyday typography symbols',
         ],
         'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight)
                   for name, weight in (('Light', 300), ('Regular', 400), ('Medium', 500), ('Bold', 700))],

@@ -65,10 +65,10 @@ def pair_kern(right_of_a, left_of_b, target):
     return (lo+hi)/2
 
 
-OVERHANG = 'TVWYFPKfr“”‘’\'"'
+OVERHANG = 'TVWYFPKfrſ“”‘’\'"'
 
 
-def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…', damp=.5, least=12,
+def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…¤¦§¨©ª¬®¯²³´¶¸¹º¼½¾', damp=.5, least=12,
             tightest=-76, loosest=32, clear=26):
     """-> (class pairs {(a, b): value} on base glyphs, exceptions {(a, composite): value})."""
     prof = {c: profile(p, w) for c, (w, p) in glyphs.items() if c not in skip}

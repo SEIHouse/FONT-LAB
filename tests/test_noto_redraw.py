@@ -20,7 +20,8 @@ spec.loader.exec_module(build)
 STYLES = ['Light', 'Regular', 'Medium', 'Bold']
 PROSE = ['The morning light settled gently over the quiet library.',
          'Zażółć gęślą jaźń. Příliš žluťoučký kůň. Ça va, señor? Größe, Æther, Øre, Þór.',
-         '“Good evening,” it began — (128 chapters) & 50% off @ £9.99!']
+         '“Good evening,” it began — (128 chapters) & 50% off @ £9.99!',
+         '© 2026 ® §12 ¶4: 22° ± 1°, 3×4÷2, ¼ ½ ¾, m¹ m² m³, 15 µm, 1ª 2º, ¬p ¦ q, ¤9, Ĳssel ĳs, ĿL paralŀel, ĸ, ŉ, Ŋ/ŋ, ſi ¨¯´¸.']
 
 
 def outline(font, name):
@@ -64,8 +65,11 @@ class RedrawTests(unittest.TestCase):
             self.assertEqual(report['glyphs'], entry['glyphs'], report['style'])
 
     def test_every_glyph_is_a_clean_outline_inside_the_line(self):
+        required = (set(range(0x20, 0x7F)) | (set(range(0xA0, 0x100)) - {0xAD}) | set(range(0x100, 0x180)))
         for style, font in self.fonts.items():
-            self.assertGreaterEqual(len(font.getBestCmap()), 310)
+            cmap = font.getBestCmap()
+            self.assertGreaterEqual(len(cmap), 345)
+            self.assertFalse(required - set(cmap), f'{style} missing Latin-1/Extended-A codepoints')
             for name in font.getGlyphOrder():
                 with self.subTest(style=style, glyph=name):
                     advance = font['hmtx'][name][0]
@@ -85,7 +89,8 @@ class RedrawTests(unittest.TestCase):
                         self.assertGreater(abs(contour.area), 40, 'Detached outline fragment')
 
     def test_counters_stay_open_at_every_weight(self):
-        expected = {**dict.fromkeys('abdeopqADOPQR0469@', 2), **dict.fromkeys('gB8', 3), '%': 5, 'i': 2, 'j': 2,
+        expected = {**dict.fromkeys('abdeopqADOPQR0469@¤§¶', 2), **dict.fromkeys('gB8©ªº½', 3),
+                    **dict.fromkeys('®¼¾', 4), '%': 5, 'i': 2, 'j': 2,
                     'c': 1, 's': 1, 'n': 1, 'S': 1, 'C': 1, '&': 3, 'æ': 3, 'œ': 3, 'ß': 1}
         for style, font in self.fonts.items():
             cmap = font.getBestCmap()
@@ -163,7 +168,8 @@ class RedrawTests(unittest.TestCase):
             # Kerned neighbours keep clear ink, also under accents and overhangs.
             for text in ['To', 'Tö', 'Tï', 'Vé', 'fï', 'f)', 'f”', 'AV', 'Wa', 'r.', 'LT', 'Yo', '(j', 'gj',
                          'ïï', 'îî', 'ĩĩ', 'īī', 'ĭĭ', 'ïl', 'lï', 'ťď', 'ľľ', 'řï', 'ÏÏ', 'ŤÖ', 'ÿï', 'őő',
-                         'ÂÂ', 'ÃÃ', 'ŠŤ', 'ŤŠ', 'ÑÑ', 'ÎÏ', 'ŴÂ', 'ÝÃ', 'ĽŤ', 'ÅÅ', 'ĥĥ', 'ĺĺ', 'Ťĥ']:
+                         'ÂÂ', 'ÃÃ', 'ŠŤ', 'ŤŠ', 'ÑÑ', 'ÎÏ', 'ŴÂ', 'ÝÃ', 'ĽŤ', 'ÅÅ', 'ĥĥ', 'ĺĺ', 'Ťĥ',
+                         'Ĳs', 'ĳs', 'Tĳ', 'ĿT', 'ĿV', 'ŀl', 'ŋj', 'ſï', 'ſö', 'ſ)']:
                 buffer = shape(text)
                 a, b = (outline(font, order[info.codepoint]) for info in buffer.glyph_infos)
                 shift = buffer.glyph_positions[0].x_advance
