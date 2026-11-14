@@ -2,6 +2,20 @@
 
 Newest first.
 
+- **SEIHouse Noto Redraw 02: true italics at all four weights (2026-11-14)**
+  Added Light Italic, Italic, Medium Italic and Bold Italic to the Redraw 02 candidate, so
+  novel dialogue, inner thoughts and UI emphasis no longer fall back to the browser's faked
+  slant. The italic lowercase is drawn, not tilted: single-storey a; exit strokes on n, m, h,
+  u, i, a and d; lower-branching arches; and a descending f, while the two-storey g, hooked l
+  and curved y keep the SEIHouse voice. Outlines lean 10°, are 4% narrower and drawn with
+  heavier stems so colour matches the upright. Spacing rhythm ignores exit strokes ("ghost"
+  shapes) while collision clearance still uses real ink. Fonts carry correct italic flags,
+  angle, caret slope and RIBBI/typographic names. The comparison page gains an Italic toggle
+  and a dialogue specimen beside the browser's faux slant; the version archive can now
+  compare Noto in italic. All 343 characters are present in every italic; the upright fonts
+  are byte-for-byte unchanged. `tests/test_noto_redraw.py` adds five italic gates. See
+  [the study notes](noto/studies/redraw/README.md#true-italics).
+
 - **SEIHouse Noto Redraw 02, a candidate reimagining (2026-11-12)**
   Added `noto/studies/redraw/`: a new drawing engine (`pen.py`) with direction-based stroke
   modulation, tapered joins and one family-wide corner softness; every letter redrawn on it

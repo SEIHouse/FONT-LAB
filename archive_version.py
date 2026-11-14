@@ -359,14 +359,18 @@ NOTO_VERSIONS = [
         'shortTitle': 'Modulated strokes, tapered joins, four weights & kerning',
         'date': '2026-11-12',
         'current': True,
-        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights and 343 characters. A candidate for review; Balanced remains the approved direction.',
+        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics and 343 characters. A candidate for review; Balanced remains the approved direction.',
         'highlights': [
             'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
             'Light, Regular, Medium and Bold with open Bold counters down to 14–16 px',
             'Complete printable Latin-1 & Extended-A plus everyday typography symbols',
+            'True italics at every weight: single-storey a, exit strokes and a descending f',
         ],
-        'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight)
-                  for name, weight in (('Light', 300), ('Regular', 400), ('Medium', 500), ('Bold', 700))],
+        'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight, slant)
+                  for name, weight, slant in (('Light', 300, 'normal'), ('Regular', 400, 'normal'),
+                                              ('Medium', 500, 'normal'), ('Bold', 700, 'normal'),
+                                              ('LightItalic', 300, 'italic'), ('Italic', 400, 'italic'),
+                                              ('MediumItalic', 500, 'italic'), ('BoldItalic', 700, 'italic'))],
     },
     {
         'version': 'Refinement 01',
@@ -777,14 +781,14 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
     noto_entries = []
     for item in NOTO_VERSIONS:
         faces = []
-        for rel_path, style_name, weight in item.get('faces') or [(item['path'], 'Regular', 400)]:
+        for rel_path, style_name, weight, *slant in item.get('faces') or [(item['path'], 'Regular', 400)]:
             data = (ROOT / rel_path).read_bytes()
             verify_woff2(data, rel_path)
             faces.append({
                 'path': rel_path,
                 'styleName': style_name,
                 'weight': weight,
-                'style': 'normal',
+                'style': slant[0] if slant else 'normal',
                 'night': False,
                 'bytes': len(data),
                 'sha256': sha256_bytes(data),
@@ -797,7 +801,8 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
             'current': item['current'],
             'summary': item['summary'],
             'highlights': item['highlights'],
-            'capabilities': {'weights': [face['weight'] for face in faces], 'italic': False, 'nightWeights': []},
+            'capabilities': {'weights': sorted({face['weight'] for face in faces}),
+                             'italic': any(face['style'] == 'italic' for face in faces), 'nightWeights': []},
             'faces': faces,
         })
 

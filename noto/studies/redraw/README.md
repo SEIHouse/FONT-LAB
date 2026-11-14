@@ -12,7 +12,9 @@ remains the approved direction** until the owner decides otherwise; nothing in
 [On dark](proofs/redraw-dark.png) ·
 [Four weights](proofs/redraw-family.png) ·
 [Phone width](proofs/redraw-mobile.png) ·
-[Every glyph](proofs/redraw-glyphs.svg)
+[Every glyph](proofs/redraw-glyphs.svg) ·
+[True italics](proofs/redraw-italic.png) ·
+[Every italic glyph](proofs/redraw-glyphs-italic.svg)
 
 ## What changed, and why
 
@@ -27,7 +29,7 @@ replaces that construction:
 | Regular weight | Reads as a Light | Text weight, near Noto Sans Regular |
 | Proportions | x-height 530, capitals 717, ascender 710 | x-height 520, capitals 700, ascender 744 |
 | Spacing | Grouped sidebearings, 34 pairs | Shape-based sidebearings, automatic kerning |
-| Weights | Regular | Light, Regular, Medium, Bold |
+| Weights | Regular | Light, Regular, Medium, Bold, each with a true italic |
 | Characters | 94 | 343 (complete printable Basic Latin, Latin-1 and Latin Extended-A, plus Romanian, Welsh and everyday symbols) |
 
 ## What stays (the SEIHouse flavour)
@@ -40,6 +42,40 @@ replaces that construction:
 - Original construction. No outlines, metrics or kerning come from SEIHouse Sans,
   Display, Google Noto or any other font. The Noto reference file is opened only
   by the comparison page.
+
+## True italics
+
+Novel dialogue, inner thoughts and UI emphasis need an italic that is drawn, not a
+browser's faked slant. Every weight now has one: **Light Italic, Italic, Medium Italic
+and Bold Italic** (`SEIHouseNoto-LightItalic` … `-BoldItalic`).
+
+![Italic proof](proofs/redraw-italic.png)
+
+- **Drawn forms** (`cursive()` in `letters.py`): single-storey a; n, m, h, u, i, a and d
+  finish in a short exit stroke that leans toward the next letter; arches branch lower
+  out of the stem (222 instead of 182 units); f descends below the baseline with a hook.
+  The exit-stroke curve is sized from the stem, so Bold keeps a smooth inner curve, and
+  is a little shorter in heavier weights, which are fitted closer.
+- **Kept from upright**: two-storey g, hooked l, curved y, serifed I and flagged 1, the
+  same softness, full curve and stroke modulation. Capitals and figures are the upright
+  drawings slanted.
+- **Slant and colour**: 10°, sheared about the middle of the x-height, and 4% narrower.
+  Stems are drawn heavier first, so after condensing and slanting the italic matches its
+  upright's colour. Figures keep the 572-unit tabular width.
+- **Spacing**: each exit-stroke letter carries a *ghost* (the letter without its exit
+  stroke). Sidebearings, accent placement and kerning rhythm follow the ghost, so `nn`,
+  `in`, `an` are unkerned; collision clearance is still checked on the real ink.
+- **Style linking**: Italic and Bold Italic join SEIHouse Noto's Regular/Bold group;
+  Light Italic and Medium Italic sit in their weight's legacy family, and every face
+  carries typographic family "SEIHouse Noto". Italic flags, `italicAngle` −10° and the
+  caret slope are set, so apps and browsers pick the real italic for `font-style: italic`.
+
+```css
+@font-face { font-family: "SEIHouse Noto"; font-style: italic; font-weight: 400;
+             src: url(fonts/SEIHouseNoto-Italic.woff2) format("woff2"); }
+```
+
+The upright fonts are byte-for-byte unchanged.
 
 ## How it is built
 
@@ -72,8 +108,9 @@ Latin only. This is a design candidate, version 0.010, not a release.
   is in `manifest.json`; the comparison page reports any character it has to borrow.
 - Accented letters are composed by rule and have not had native-reader review.
   Decomposed (combining-mark) input is not supported yet.
-- No italic, no Night grade, no hinting beyond alignment zones, and no native
-  iPhone / Windows rendering review yet.
+- No Night grade, no hinting beyond alignment zones, and no native iPhone / Windows
+  rendering review yet. Italic accents are composed by the same rules as upright and
+  have not had native-reader review; the ĳ digraph and ordinals ª º keep upright forms.
 - The stress-angle setting exists in the engine and is left at 0°: at this low
   contrast a tilt was not visible in text.
 - The public family name is still an open owner decision (handbook OD-01); the

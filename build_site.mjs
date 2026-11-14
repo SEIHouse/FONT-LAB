@@ -10,9 +10,9 @@ const output = join(root, 'dist', 'site');
 const pages = [
   'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
   'noto/studies/redraw/index.html', 'noto/studies/redraw/README.md', 'noto/studies/redraw/manifest.json',
-  'noto/studies/redraw/proofs/redraw-glyphs.svg',
-  ...['compare','details','dark','mobile','family'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
-  ...['Light','Regular','Medium','Bold'].map(style => `noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`),
+  'noto/studies/redraw/proofs/redraw-glyphs.svg', 'noto/studies/redraw/proofs/redraw-glyphs-italic.svg',
+  ...['compare','details','dark','mobile','family','italic'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
+  ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic'].map(style => `noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`),
   'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
   'noto/studies/warmth/warmth-01.html',
   'noto/DESIGN.md', 'noto/studies/warmth/proofs/balanced-glyphs.svg',

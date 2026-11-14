@@ -187,8 +187,11 @@
       state.weight = 400;
       weightSelect.value = '400';
     }
-    byId('italic').disabled = isNoto;
-    if (isNoto && state.italic) state.italic = false;
+    // Noto studies that ship true italics (Redraw 02 onward) can be compared in italic;
+    // older studies fall back to upright in resolveFace.
+    const notoItalic = isNoto && trackData.versions.some(v => v.capabilities?.italic);
+    byId('italic').disabled = isNoto && !notoItalic;
+    if (isNoto && !notoItalic && state.italic) state.italic = false;
 
     byId('size-value').textContent = `${state.size}px`;
     byId('size').value = String(state.size);
