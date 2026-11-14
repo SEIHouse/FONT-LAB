@@ -28,7 +28,7 @@ replaces that construction:
 | Proportions | x-height 530, capitals 717, ascender 710 | x-height 520, capitals 700, ascender 744 |
 | Spacing | Grouped sidebearings, 34 pairs | Shape-based sidebearings, automatic kerning |
 | Weights | Regular | Light, Regular, Medium, Bold |
-| Characters | 94 | 314 (keyboard symbols, most Latin-1 and Latin Extended-A; gaps listed below) |
+| Characters | 94 | 343 (complete printable Basic Latin, Latin-1 and Latin Extended-A, plus Romanian, Welsh and everyday symbols) |
 
 ## What stays (the SEIHouse flavour)
 
@@ -63,11 +63,13 @@ python -m unittest tests.test_noto_redraw
 
 Latin only. This is a design candidate, version 0.010, not a release.
 
-- Bold and Light come from the same rules as Regular and have had less individual
-  attention; Bold counters in a, e, g and s are the first place to look.
-- Coverage is not complete Latin-1 or Latin Extended-A. Not drawn yet:
-  `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ`. The exact set is
-  in `manifest.json`; the comparison page reports any character it has to borrow.
+- Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`),
+  and lowercase `g` carries a lighter neck and lower loop to match `a, e, o` in
+  paragraphs; Light and Medium otherwise come directly from the shared weight rules.
+- Printable Basic Latin, Latin-1 Supplement and Latin Extended-A are complete (alongside
+  Romanian `Ș ș Ț ț`, Welsh `Ẁ–Ẅ Ỳ ỳ`, and everyday typography symbols). Wider Latin
+  blocks (Extended-B, Vietnamese) and non-Latin scripts are not drawn yet. The exact set
+  is in `manifest.json`; the comparison page reports any character it has to borrow.
 - Accented letters are composed by rule and have not had native-reader review.
   Decomposed (combining-mark) input is not supported yet.
 - No italic, no Night grade, no hinting beyond alignment zones, and no native

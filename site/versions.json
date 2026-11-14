@@ -2644,11 +2644,11 @@
           "shortTitle": "Modulated strokes, tapered joins, four weights & kerning",
           "date": "2026-11-12",
           "current": true,
-          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, automatic kerning, four weights and 314 characters. A candidate for review; Balanced remains the approved direction.",
+          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights and 343 characters. A candidate for review; Balanced remains the approved direction.",
           "highlights": [
             "Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l",
-            "Light, Regular, Medium and Bold from one set of drawing rules",
-            "Keyboard symbols and accented letters for most European languages"
+            "Light, Regular, Medium and Bold with open Bold counters down to 14–16 px",
+            "Complete printable Latin-1 & Extended-A plus everyday typography symbols"
           ],
           "capabilities": {
             "weights": [
@@ -2667,8 +2667,8 @@
               "weight": 300,
               "style": "normal",
               "night": false,
-              "bytes": 21992,
-              "sha256": "e312329b6a23dfa075972eddb4d8e5aace0f4a1ee792dc5ec720da523180a88a"
+              "bytes": 25084,
+              "sha256": "0bf45ec0692500479b0c8f27b8c8d3803a0743d6fe1b2dc7a833410c66ad5dc7"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2",
@@ -2676,8 +2676,8 @@
               "weight": 400,
               "style": "normal",
               "night": false,
-              "bytes": 21032,
-              "sha256": "5aa08f58bb58fdba673e34450b85ee5a1413806ba85bf7e21ec9b5e679406735"
+              "bytes": 23912,
+              "sha256": "d08a63904c4bc68f0510a967d985506d0411bb6cc979192fc668a2bc5aee6d93"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2",
@@ -2685,8 +2685,8 @@
               "weight": 500,
               "style": "normal",
               "night": false,
-              "bytes": 22388,
-              "sha256": "cdd1cbd4e9559493933c5cdc8c19c2f2bd192f67db8537b5ecc6303873ec3a21"
+              "bytes": 25564,
+              "sha256": "5363f1e647814984e97db5ea9d6aafed7fa316ca2af75f67d33f0c5a8741fc3a"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2",
@@ -2694,8 +2694,8 @@
               "weight": 700,
               "style": "normal",
               "night": false,
-              "bytes": 23092,
-              "sha256": "ef35daa213e1083caec791c9d316a0e9eb4c2de84a9e42ff430072eeaee695d1"
+              "bytes": 26204,
+              "sha256": "a209b12e9685b5d78db4932ee38b78ce104d9eaf9b162802479104e182a2b8ac"
             }
           ]
         },
