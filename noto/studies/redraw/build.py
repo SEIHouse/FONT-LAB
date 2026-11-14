@@ -3,6 +3,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import math
 import sys
 from pathlib import Path
 
@@ -22,6 +23,9 @@ VERSION = '0.010'
 FAMILY = 'SEIHouse Noto'
 WEIGHTS = [dict(name='Light', weight=.86, cls=300), dict(name='Regular', weight=1.0, cls=400),
            dict(name='Medium', weight=1.2, cls=500), dict(name='Bold', weight=1.46, cls=700)]
+# True italics: the same four weights, with italic lowercase forms, condensed and slanted.
+ITALICS = [dict(spec, name='Italic' if spec['name'] == 'Regular' else spec['name']+' Italic', italic=True)
+           for spec in WEIGHTS]
 
 
 # Alignment zones and standard stems, for rasterisers and later autohinting.
@@ -35,7 +39,8 @@ def glyph_name(char):
 
 
 def build_font(spec, out_dir=None):
-    source, groups = letters.draw(spec['weight'], spec.get('tilt', 0.0))
+    italic = spec.get('italic', False)
+    source, groups, ghosts = letters.draw(spec['weight'], spec.get('tilt', 0.0), italic=italic)
     box = pathops.Path()
     pen = box.getPen()
     for pts in ([(90, 0), (510, 0), (510, 700), (90, 700)], [(160, 70), (160, 630), (440, 630), (440, 70)]):
@@ -55,28 +60,35 @@ def build_font(spec, out_dir=None):
         charstrings[name] = pen.getCharString(private=None, globalSubrs=None)
         metrics[name] = (width, round(path.bounds[0]) if list(path.verbs) else 0)
     style = spec['name']
-    psname = f"SEIHouseNoto-{style}"
+    psname = f"SEIHouseNoto-{style.replace(' ', '')}"
     fb = FontBuilder(UPM, isTTF=False)
     fb.setupGlyphOrder(order)
     fb.setupCharacterMap(cmap)
     fb.setupHorizontalMetrics(metrics)
     fb.setupHorizontalHeader(ascent=960, descent=-260)
-    ribbi = style in ('Regular', 'Bold')
+    ribbi = style in ('Regular', 'Bold', 'Italic', 'Bold Italic')
+    weight_name = style.replace(' Italic', '').replace('Italic', 'Regular')
     fb.setupNameTable(dict(
-        familyName=FAMILY if ribbi else f'{FAMILY} {style}', styleName=style if ribbi else 'Regular',
+        familyName=FAMILY if ribbi else f'{FAMILY} {weight_name}',
+        styleName=style if ribbi else ('Italic' if italic else 'Regular'),
         **({} if ribbi else dict(typographicFamily=FAMILY, typographicSubfamily=style)), uniqueFontIdentifier=f'{psname}-{VERSION}',
         fullName=f'{FAMILY} {style}', psName=psname, version='Version '+VERSION,
         copyright='Original drawings for SEIHouse Productions LLC, 2026.',
         description='Latin design candidate. Not a production or multilingual release.'))
     fb.setupOS2(version=4, sTypoAscender=960, sTypoDescender=-260, sTypoLineGap=0, usWinAscent=1000,
                 usWinDescent=300, sxHeight=letters.X, sCapHeight=letters.CAP, usWeightClass=spec['cls'],
-                fsSelection=0xC0 if style == 'Regular' else 0xA0 if style == 'Bold' else 0x80, achVendID='SEIH')
-    fb.setupPost()
+                fsSelection=(0xC0 if style == 'Regular' else 0xA0 if weight_name == 'Bold' else 0x80) | (0x01 if italic else 0),
+                achVendID='SEIH')
+    fb.setupPost(italicAngle=-letters.SLANT if italic else 0)
+    if italic:
+        fb.font['hhea'].caretSlopeRise = 1000
+        fb.font['hhea'].caretSlopeRun = round(1000*math.tan(math.radians(letters.SLANT)))
     fb.font['head'].fontRevision = float(VERSION)
     fb.font['OS/2'].ulCodePageRange1 = 1
     fb.font['OS/2'].ulCodePageRange2 = 0
-    fb.setupCFF(psname, dict(FullName=f'{FAMILY} {style}', FamilyName=FAMILY, Weight=style), charstrings, PRIVATE)
-    pairs, exceptions = spacing.kerning(source, groups)
+    fb.setupCFF(psname, dict(FullName=f'{FAMILY} {style}', FamilyName=FAMILY, Weight=weight_name,
+                             **(dict(ItalicAngle=-letters.SLANT) if italic else {})), charstrings, PRIVATE)
+    pairs, exceptions = spacing.kerning(source, groups, ghosts=ghosts)
     members = {}
     for composite, base in groups.items():
         members.setdefault(base, []).append(composite)
@@ -89,8 +101,7 @@ def build_font(spec, out_dir=None):
     fea += [f'pos @k_{glyph_name(a)} @k_{glyph_name(b)} {v};' for (a, b), v in pairs.items()]
     fea.append('} kern;')
     addOpenTypeFeaturesFromString(fb.font, '\n'.join(fea))
-    if style == 'Bold':
-        fb.font['head'].macStyle = 1
+    fb.font['head'].macStyle = (1 if weight_name == 'Bold' else 0) | (2 if italic else 0)
     fb.font['head'].created = fb.font['head'].modified = 3877200000
     out = Path(out_dir or ROOT/'fonts')
     out.mkdir(parents=True, exist_ok=True)
@@ -114,7 +125,7 @@ def glyph_proof(psname='SEIHouseNoto-Regular', columns=12):
                  f'viewBox="0 0 {columns*cell_w+24} {rows*cell_h+56}">',
                  '<rect width="100%" height="100%" fill="#fffcf6"/>',
                  f'<text x="12" y="28" font-family="sans-serif" font-size="16" fill="#273b35">'
-                 f'SEIHouse Noto Redraw 02 Regular: every encoded glyph ({len(codes)})</text>']
+                 f'SEIHouse Noto Redraw 02 {psname.split("-")[1]}: every encoded glyph ({len(codes)})</text>']
         for i, code in enumerate(codes):
             x, y = (i % columns)*cell_w+12, (i//columns)*cell_h+48
             pen = SVGPathPen(glyphs)
@@ -126,7 +137,7 @@ def glyph_proof(psname='SEIHouseNoto-Regular', columns=12):
                       f'<text x="{x}" y="{y+116}" font-family="sans-serif" font-size="9" fill="#65736a">U+{code:04X}</text>']
         parts.append('</svg>')
         (ROOT/'proofs').mkdir(exist_ok=True)
-        (ROOT/'proofs/redraw-glyphs.svg').write_text('\n'.join(parts)+'\n', encoding='utf-8')
+        (ROOT/'proofs'/('redraw-glyphs.svg' if psname.endswith('-Regular') else 'redraw-glyphs-italic.svg')).write_text('\n'.join(parts)+'\n', encoding='utf-8')
 
 
 def sync_page(characters):
@@ -141,11 +152,12 @@ def sync_page(characters):
 
 
 if __name__ == '__main__':
-    reports = [build_font(spec) for spec in WEIGHTS]
+    reports = [build_font(spec) for spec in WEIGHTS + ITALICS]
     (ROOT/'manifest.json').write_text(json.dumps(dict(
         family=FAMILY, version=VERSION, status='candidate', foundation='Balanced (Study B)',
         metrics=dict(unitsPerEm=UPM, xHeight=letters.X, capHeight=letters.CAP, ascender=letters.ASC, descender=letters.DESC),
         fonts=reports), ensure_ascii=False, indent=2)+'\n', encoding='utf-8')
     sync_page(reports[0]['characters'])
     glyph_proof()
+    glyph_proof('SEIHouseNoto-Italic')
     print(json.dumps([{k: r[k] for k in ('style', 'glyphs', 'kerning_pairs', 'sha256')} for r in reports], indent=2))

@@ -18,6 +18,7 @@ build = importlib.util.module_from_spec(spec)
 spec.loader.exec_module(build)
 
 STYLES = ['Light', 'Regular', 'Medium', 'Bold']
+ITALICS = ['Light Italic', 'Italic', 'Medium Italic', 'Bold Italic']
 PROSE = ['The morning light settled gently over the quiet library.',
          'Zażółć gęślą jaźń. Příliš žluťoučký kůň. Ça va, señor? Größe, Æther, Øre, Þór.',
          '“Good evening,” it began — (128 chapters) & 50% off @ £9.99!',
@@ -58,7 +59,7 @@ class RedrawTests(unittest.TestCase):
             with TTFont(ROOT/'fonts'/f'SEIHouseNoto-{style}.woff2') as web:
                 self.assertEqual(web.getGlyphOrder(), self.fonts[style].getGlyphOrder())
         manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
-        for report, entry in zip(self.reports, manifest['fonts'], strict=True):
+        for report, entry in zip(self.reports, manifest['fonts'][:len(STYLES)], strict=True):
             # Pairs right at the threshold can flip between platforms' floating-point maths.
             self.assertAlmostEqual(report['kerning_pairs'], entry['kerning_pairs'],
                                    delta=entry['kerning_pairs']*.01, msg=report['style'])
@@ -180,7 +181,7 @@ class RedrawTests(unittest.TestCase):
     def test_page_and_manifest_describe_the_built_fonts(self):
         manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['status'], 'candidate')
-        self.assertEqual([f['style'] for f in manifest['fonts']], STYLES)
+        self.assertEqual([f['style'] for f in manifest['fonts']], STYLES + ITALICS)
         cmap = self.fonts['Regular'].getBestCmap()
         import hashlib
         for entry in manifest['fonts']:
@@ -194,8 +195,146 @@ class RedrawTests(unittest.TestCase):
         import html
         shown = html.unescape(re.sub(r'<span>.*?</span>', '', shown))
         self.assertFalse({c for c in shown if not c.isspace() and ord(c) not in cmap})
-        for style in STYLES:
-            self.assertIn(f'fonts/SEIHouseNoto-{style}.woff2', page)
+        for style in STYLES + ITALICS:
+            self.assertIn(f"fonts/SEIHouseNoto-{style.replace(' ', '')}.woff2", page)
+
+
+def psname(style):
+    return f"SEIHouseNoto-{style.replace(' ', '')}"
+
+
+class ItalicTests(unittest.TestCase):
+    """True italics: drawn italic forms, slanted outlines and correct style linking."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temporary = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls.temporary.cleanup)
+        cls.output = Path(cls.temporary.name)
+        cls.reports = [build.build_font(s, out_dir=cls.output) for s in build.ITALICS]
+        cls.fonts, cls.uprights = {}, {}
+        for style, upright in zip(ITALICS, STYLES):
+            cls.fonts[style] = TTFont(ROOT/'fonts'/f'{psname(style)}.otf')
+            cls.uprights[style] = TTFont(ROOT/'fonts'/f'{psname(upright)}.otf')
+            cls.addClassCleanup(cls.fonts[style].close)
+            cls.addClassCleanup(cls.uprights[style].close)
+
+    def test_checked_in_italics_match_the_source_drawings(self):
+        self.assertEqual([s['name'] for s in build.ITALICS], ITALICS)
+        manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
+        entries = manifest['fonts'][len(STYLES):]
+        for style, report, entry in zip(ITALICS, self.reports, entries, strict=True):
+            with TTFont(self.output/f'{psname(style)}.otf') as rebuilt:
+                shipped = self.fonts[style]
+                self.assertEqual(rebuilt.getGlyphOrder(), shipped.getGlyphOrder())
+                for name in shipped.getGlyphOrder():
+                    self.assertEqual(rebuilt['hmtx'][name][0], shipped['hmtx'][name][0], name)
+                    for x, y in zip(outline(rebuilt, name).bounds, outline(shipped, name).bounds):
+                        self.assertAlmostEqual(x, y, delta=1.5, msg=f'{style} {name}')
+            self.assertEqual(report['glyphs'], entry['glyphs'])
+            self.assertAlmostEqual(report['kerning_pairs'], entry['kerning_pairs'], delta=entry['kerning_pairs']*.01)
+            # Same character set as the upright, so switching style never drops a glyph.
+            self.assertEqual(self.fonts[style].getBestCmap().keys(), self.uprights[style].getBestCmap().keys())
+
+    def test_style_linking_and_slant_metadata(self):
+        for style, font in self.fonts.items():
+            upright = self.uprights[style]
+            self.assertEqual(font['post'].italicAngle, -10)
+            self.assertEqual(font['hhea'].caretSlopeRise, 1000)
+            self.assertEqual(font['hhea'].caretSlopeRun, 176)
+            self.assertTrue(font['OS/2'].fsSelection & 0x01, style)
+            self.assertFalse(font['OS/2'].fsSelection & 0x40, style)
+            self.assertTrue(font['head'].macStyle & 2, style)
+            self.assertEqual(font['OS/2'].usWeightClass, upright['OS/2'].usWeightClass)
+            self.assertEqual(bool(font['head'].macStyle & 1), style == 'Bold Italic')
+            name = font['name']
+            # Legacy apps see a four-style family, modern apps one family with eight styles.
+            self.assertEqual(name.getDebugName(1), upright['name'].getDebugName(1))
+            self.assertEqual(name.getDebugName(2), 'Bold Italic' if style == 'Bold Italic' else 'Italic')
+            self.assertEqual(name.getDebugName(16) or name.getDebugName(1), 'SEIHouse Noto')
+            self.assertEqual(name.getDebugName(17) or name.getDebugName(2), style)
+            self.assertEqual(name.getDebugName(6), psname(style))
+
+    def test_outlines_are_clean_and_lean_at_ten_degrees(self):
+        for style, font in self.fonts.items():
+            cmap = font.getBestCmap()
+            for name in font.getGlyphOrder():
+                if name in ('space', 'u00A0'):
+                    continue
+                path = outline(font, name)
+                x0, y0, x1, y1 = path.bounds
+                self.assertGreaterEqual(y0, font['hhea'].descent, f'{style} {name}')
+                self.assertLessEqual(y1, font['hhea'].ascent, f'{style} {name}')
+                self.assertLess(x1, font['hmtx'][name][0]+190, f'{style} {name}')
+                for contour in path.contours:
+                    self.assertGreater(abs(contour.area), 40, f'{style} {name}: detached fragment')
+            # The I stem leans: its top sits 700·tan 10° ≈ 123 units right of its foot.
+            stem = outline(font, cmap[ord('l')])
+            low = pathops.op(stem, _box(-400, 300, 1200, 304), pathops.PathOp.INTERSECTION).bounds
+            high = pathops.op(stem, _box(-400, 600, 1200, 604), pathops.PathOp.INTERSECTION).bounds
+            self.assertAlmostEqual(high[0]-low[0], 300*.1763, delta=3, msg=style)
+            # Heights are unchanged by the slant.
+            self.assertAlmostEqual(outline(font, cmap[ord('x')]).bounds[3], 520, delta=1)
+            self.assertAlmostEqual(outline(font, cmap[ord('H')]).bounds[3], 700, delta=1)
+            self.assertEqual({font['hmtx'][cmap[ord(d)]][0] for d in '0123456789'}, {572})
+
+    def test_italic_letterforms_are_drawn_not_slanted(self):
+        for style, font in self.fonts.items():
+            cmap = font.getBestCmap()
+            upright = self.uprights[style]
+            ucmap = upright.getBestCmap()
+            contours = lambda f, c, m: len(list(outline(f, m[ord(c)]).contours))
+            # Single-storey a: its counter rises to near the x-height; the upright
+            # two-storey a keeps its closed bowl in the lower half.
+            counter_top = lambda f, m: min((c.bounds for c in outline(f, m[ord('a')]).contours),
+                                           key=lambda box: box[2]-box[0])[3]
+            self.assertLess(counter_top(upright, ucmap), 300, style)
+            self.assertGreater(counter_top(font, cmap), 400, style)
+            # f descends below the baseline; the upright f sits on it.
+            self.assertLess(outline(font, cmap[ord('f')]).bounds[1], -150)
+            self.assertGreater(outline(upright, ucmap[ord('f')]).bounds[1], -2)
+            # Two-storey g stays, as the family signature.
+            self.assertEqual(contours(font, 'g', cmap), 3)
+            # Exit strokes: n, i, u, a, d reach beyond where their stems stand.
+            for char in 'nimuadh':
+                ink = outline(font, cmap[ord(char)]).bounds
+                advance = font['hmtx'][cmap[ord(char)]][0]
+                self.assertGreater(ink[2], advance-40, f'{style} {char}')
+            # Italics are a little narrower than upright.
+            for char in 'nHo':
+                ratio = font['hmtx'][cmap[ord(char)]][0] / upright['hmtx'][ucmap[ord(char)]][0]
+                self.assertTrue(.93 < ratio < .99, f'{style} {char} {ratio}')
+
+    def test_italic_prose_shapes_with_clear_ink(self):
+        for style in ITALICS:
+            data = (ROOT/'fonts'/f'{psname(style)}.otf').read_bytes()
+            hbfont = hb.Font(hb.Face(data))
+            font = self.fonts[style]
+            order = font.getGlyphOrder()
+
+            def shape(text, kern=True):
+                buffer = hb.Buffer()
+                buffer.add_str(text)
+                buffer.guess_segment_properties()
+                hb.shape(hbfont, buffer, {'kern': kern})
+                self.assertTrue(all(info.codepoint for info in buffer.glyph_infos), f'{style}: {text}')
+                return buffer
+
+            for text in PROSE + ['Don’t move, he told himself — not yet.']:
+                shape(text)
+            width = lambda text, kern=True: sum(p.x_advance for p in shape(text, kern).glyph_positions)
+            # Exit strokes reach toward the next letter without loosening the rhythm.
+            for pair in ['nn', 'mn', 'un', 'an', 'dn', 'in', 'ii', 'HH', 'oo']:
+                self.assertEqual(width(pair), width(pair, False), f'{style} {pair}')
+            for pair in ['To', 'AV', 'Wa', 'Yo']:
+                self.assertLess(width(pair), width(pair, False), f'{style} {pair}')
+            for text in ['nn', 'mm', 'uu', 'ii', 'aa', 'dd', 'hh', 'in', 'an', 'nj', 'ng', 'ay', 'af', 'nf', 'gf',
+                         'yf', 'jf', 'ff', 'fï', 'f)', 'f”', 'To', 'Tö', 'AV', 'ïï', 'ââ', 'ďď', 'ťď', 'ĳs', 'ŉn']:
+                buffer = shape(text)
+                a, b = (outline(font, order[info.codepoint]) for info in buffer.glyph_infos)
+                moved = b.transform(1, 0, 0, 1, buffer.glyph_positions[0].x_advance, 0)
+                overlap = pathops.op(a, moved, pathops.PathOp.INTERSECTION)
+                self.assertEqual(len(list(overlap.contours)), 0, f'{style}: ink collision in {text}')
 
 
 def _box(x0, y0, x1, y1):

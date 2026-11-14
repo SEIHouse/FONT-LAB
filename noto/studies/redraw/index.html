@@ -9,6 +9,11 @@
 @font-face{font-family:NotoRedraw;font-weight:400;src:url('fonts/SEIHouseNoto-Regular.woff2') format('woff2');font-display:block}
 @font-face{font-family:NotoRedraw;font-weight:500;src:url('fonts/SEIHouseNoto-Medium.woff2') format('woff2');font-display:block}
 @font-face{font-family:NotoRedraw;font-weight:700;src:url('fonts/SEIHouseNoto-Bold.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:300;font-style:italic;src:url('fonts/SEIHouseNoto-LightItalic.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:400;font-style:italic;src:url('fonts/SEIHouseNoto-Italic.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:500;font-style:italic;src:url('fonts/SEIHouseNoto-MediumItalic.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedraw;font-weight:700;font-style:italic;src:url('fonts/SEIHouseNoto-BoldItalic.woff2') format('woff2');font-display:block}
+@font-face{font-family:NotoRedrawUpright;src:url('fonts/SEIHouseNoto-Regular.woff2') format('woff2');font-display:block}
 @font-face{font-family:BalancedRefined;src:url('../warmth/fonts/SEIHouseNotoBalanced-Regular.woff2') format('woff2');font-display:block}
 @font-face{font-family:NotoReference;src:url('../warmth/reference/NotoSans-Reference.ttf') format('truetype');font-weight:100 900;font-display:swap}
 :root{color-scheme:light;--paper:#f4f0e8;--card:#fffcf6;--ink:#273b35;--muted:#5f6d64;--line:#d9dcd0;--accent:#7a5720;--soft:#e8eddf;--size:20px;--weight:400}
@@ -43,6 +48,17 @@ h2{font:500 20px/1.35 NotoRedraw,sans-serif;margin:5px 0 0}
 .sub{color:var(--muted);font-size:13.5px;min-height:42px;margin:10px 0 22px}
 .redraw{--face:NotoRedraw;--w:var(--weight)}.current{--face:BalancedRefined;--w:400}
 .drawing{font-family:var(--face),sans-serif;font-weight:var(--w);font-synthesis:none}
+body.italic .redraw .drawing{font-style:italic}
+.italics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px}
+.italics .scene{font:400 19px/1.7 NotoRedraw,sans-serif;margin:0}
+.italics .scene em{font-style:italic}
+.italics .notes{color:var(--muted);font-size:14.5px;margin:0}
+.italics .pair{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px;margin-top:6px}
+.italics .pair div{background:var(--soft);border-radius:12px;padding:14px 16px}
+.italics .pair span{display:block;font-size:12px;color:var(--muted);margin-bottom:4px}
+.italics .pair p{margin:0;font-size:clamp(34px,5vw,48px);line-height:1.2}
+.faux{font-family:NotoRedrawUpright,sans-serif;font-style:italic;font-synthesis:style}
+.true-italic{font-family:NotoRedraw,sans-serif;font-style:italic;font-synthesis:none}
 .hero{font-size:54px;line-height:1.14;margin:0 0 20px;min-height:124px}
 .details{font-size:52px;line-height:1.4;padding:12px 0;border-top:1px solid var(--line);border-bottom:1px solid var(--line);margin:0;overflow-wrap:anywhere}
 .prose{font-size:var(--size);line-height:1.65;margin:22px 0;white-space:pre-wrap;overflow-wrap:anywhere;min-height:200px}
@@ -87,6 +103,7 @@ main{padding:14px 18px 30px}.grid{grid-template-columns:1fr}.card{padding:22px}
 .field.range{width:100%}.field.range input{flex:1}
 .detail-proof .glyphs{font-size:56px}.detail-proof .pairs{font-size:36px}
 .family div{grid-template-columns:1fr;gap:0}
+.italics{grid-template-columns:1fr}
 }
 </style>
 </head>
@@ -97,17 +114,17 @@ main{padding:14px 18px 30px}.grid{grid-template-columns:1fr}.card{padding:22px}
 <div class="eyebrow">SEIHouse Noto · Redraw 02 · candidate</div>
 <h1>Balanced, redrawn.</h1>
 <p>The warmth you chose, drawn the way professional type is drawn: strokes that swell and thin, arches that taper into their stems, steadier proportions, and a real family around it.</p>
-<div class="chips"><span class="chip key">Foundation: Balanced</span><span class="chip">4 weights</span><span class="chip" id="count">300+ characters</span><span class="chip">Automatic kerning</span></div>
+<div class="chips"><span class="chip key">Foundation: Balanced</span><span class="chip">4 weights</span><span class="chip key">True italics</span><span class="chip" id="count">300+ characters</span><span class="chip">Automatic kerning</span></div>
 </header>
 <div class="toolbar">
 <label class="field view" for="view">View <select id="view"><option value="compare" selected>Compare both</option><option value="redraw">Redraw 02</option><option value="current">Refinement 01</option></select></label>
 <div class="field"><span id="weight-label">Weight</span><div class="weights" role="group" aria-labelledby="weight-label"><button type="button" data-weight="300" aria-pressed="false">Light</button><button type="button" data-weight="400" aria-pressed="true">Regular</button><button type="button" data-weight="500" aria-pressed="false">Medium</button><button type="button" data-weight="700" aria-pressed="false">Bold</button></div></div>
 <label class="field range" for="size">Reading size <input id="size" type="range" min="14" max="28" value="20"><output id="sizeValue" for="size">20 px</output></label>
-<button id="theme" type="button" aria-pressed="false">View on dark</button><button id="zoom" type="button" aria-pressed="false">Letter details</button>
+<button id="italic" type="button" aria-pressed="false">Italic</button><button id="theme" type="button" aria-pressed="false">View on dark</button><button id="zoom" type="button" aria-pressed="false">Letter details</button>
 </div>
 <div class="grid" data-view="compare">
 <section class="card redraw" aria-labelledby="redraw-title">
-<div class="eyebrow">The new drawing</div><h2 id="redraw-title">Redraw 02</h2><p class="sub">Modulated strokes, tapered joins, kerning.<br>The weight buttons above change this card.</p>
+<div class="eyebrow">The new drawing</div><h2 id="redraw-title">Redraw 02</h2><p class="sub">Modulated strokes, tapered joins, kerning.<br>The weight and Italic buttons above change this card.</p>
 <div class="reading"><div class="drawing hero">A familiar<br>warmth.</div><p class="drawing details">a e g n o r</p><p class="drawing prose"></p><div class="drawing metadata">Chapter 128 · 12 min read</div><div class="drawing numerals">0123456789</div></div>
 <div class="detail-proof drawing"><p class="label">Curves and openings</p><div class="glyphs">a e g s</div><p class="label">Joins and rhythm</p><div class="glyphs">n m h b</div><p class="label">Letters and numbers</p><div class="glyphs">I l 1 O 0</div><p class="label">Spacing in words</p><div class="pairs">To AV Wa Yo<br>minimum river</div></div>
 </section>
@@ -147,6 +164,19 @@ main{padding:14px 18px 30px}.grid{grid-template-columns:1fr}.card{padding:22px}
 <div><span>Regular 400</span><p style="font-weight:400">A quiet library at first light.</p></div>
 <div><span>Medium 500</span><p style="font-weight:500">A quiet library at first light.</p></div>
 <div><span>Bold 700</span><p style="font-weight:700">A quiet library at first light.</p></div>
+<div><span>Light Italic</span><p style="font-weight:300;font-style:italic">A quiet library at first light.</p></div>
+<div><span>Italic</span><p style="font-weight:400;font-style:italic">A quiet library at first light.</p></div>
+<div><span>Medium Italic</span><p style="font-weight:500;font-style:italic">A quiet library at first light.</p></div>
+<div><span>Bold Italic</span><p style="font-weight:700;font-style:italic">A quiet library at first light.</p></div>
+</div>
+</section>
+
+<section aria-labelledby="italics-title">
+<div class="eyebrow">True italics</div><h3 id="italics-title">A real italic for thoughts, voices and emphasis</h3>
+<div class="italics">
+<div><p class="scene">The lantern had gone out an hour ago. <em>Don’t move,</em> Kaien told himself, <em>not yet — he is still listening.</em> Somewhere below, water dripped into the dark. “You hear that?” she whispered. <em>Of course I hear it.</em> He said nothing, and the silence answered for him.</p></div>
+<div><p class="notes">Italic letters are drawn, not tilted. The a is single-storey, n, m, h, u, i, a and d leave in a small exit stroke toward the next letter, arches branch lower, and f drops below the line. The two-storey g, hooked l and curved y stay, so it is still recognisably SEIHouse. All four weights keep their upright partners’ spacing logic, and the browser never has to fake a slant.</p>
+<div class="pair"><div><span>Browser’s faked slant</span><p class="faux">afinum</p></div><div><span>True italic</span><p class="true-italic">afinum</p></div></div></div>
 </div>
 </section>
 
@@ -159,7 +189,7 @@ main{padding:14px 18px 30px}.grid{grid-template-columns:1fr}.card{padding:22px}
 <p class="glyphs-all"><span>Capitals</span>ABCDEFGHIJKLMNOPQRSTUVWXYZ<span>Lowercase</span>abcdefghijklmnopqrstuvwxyz<span>Figures &amp; fractions</span>0123456789 ¹ ² ³ ¼ ½ ¾<span>Punctuation and symbols</span>. , : ; ! ? ¡ ¿ … · • - – — ' " ‘ ’ “ ” ‚ „ ‹ › « » ( ) [ ] { } / \ | ¦ _ &amp; @ # % * + − × ÷ ± ¬ = &lt; &gt; ^ ~ ° ª º µ © ® § ¶ $ € £ ¥ ¢ ¤ ` ´ ¨ ¯ ¸<span>Accented and special letters</span>À Á Â Ã Ä Å Æ Ç È É Ê Ë Ì Í Î Ï Ð Ñ Ò Ó Ô Õ Ö Ø Ù Ú Û Ü Ý Þ ß à á â ã ä å æ ç è é ê ë ì í î ï ð ñ ò ó ô õ ö ø ù ú û ü ý þ ÿ Ā ā Ă ă Ą ą Ć ć Ĉ ĉ Ċ ċ Č č Ď ď Đ đ Ē ē Ĕ ĕ Ė ė Ę ę Ě ě Ĝ ĝ Ğ ğ Ġ ġ Ģ ģ Ĥ ĥ Ħ ħ Ĩ ĩ Ī ī Ĭ ĭ Į į İ ı Ĳ ĳ Ĵ ĵ Ķ ķ ĸ Ĺ ĺ Ļ ļ Ľ ľ Ŀ ŀ Ł ł Ń ń Ņ ņ Ň ň ŉ Ŋ ŋ Ō ō Ŏ ŏ Ő ő Œ œ Ŕ ŕ Ŗ ŗ Ř ř Ś ś Ŝ ŝ Ş ş Š š Ţ ţ Ť ť Ŧ ŧ Ũ ũ Ū ū Ŭ ŭ Ů ů Ű ű Ų ų Ŵ ŵ Ŷ ŷ Ÿ Ź ź Ż ż Ž ž ſ Ș ș Ț ț Ẁ ẁ Ẃ ẃ Ẅ ẅ Ỳ ỳ</p>
 </section>
 
-<footer><p id="study-scope">Redraw 02 is a candidate for your review, not a release. Balanced remains the approved direction; nothing replaces it until you say so. Latin only so far; the wider scripts planned for SEIHouse Noto are still ahead, and native-speaker review of the accented letters has not happened yet.</p><nav aria-label="Study resources"><a href="../warmth/index.html">Previous comparison</a><a href="../warmth/warmth-01.html">First three studies</a><a href="README.md">Design notes</a><a href="proofs/redraw-glyphs.svg">Every glyph</a><a href="../warmth/reference/OFL.txt">Reference license</a></nav></footer>
+<footer><p id="study-scope">Redraw 02 and its italics are a candidate for your review, not a release. Balanced remains the approved direction; nothing replaces it until you say so. Latin only so far; the wider scripts planned for SEIHouse Noto are still ahead, and native-speaker review of the accented letters has not happened yet.</p><nav aria-label="Study resources"><a href="../warmth/index.html">Previous comparison</a><a href="../warmth/warmth-01.html">First three studies</a><a href="README.md">Design notes</a><a href="proofs/redraw-glyphs.svg">Every glyph</a><a href="proofs/redraw-glyphs-italic.svg">Every italic glyph</a><a href="../warmth/reference/OFL.txt">Reference license</a></nav></footer>
 </main>
 <script>
 const initial='The morning light settled gently over the quiet library. She opened the book and found a world that felt strangely familiar. “Good evening,” it began — and every Wave, Tower and Yard in it was waiting.';
@@ -174,9 +204,10 @@ document.querySelector('#reset').addEventListener('click',()=>{passage.value=ini
 document.querySelector('#view').addEventListener('change',event=>{document.querySelector('.grid').dataset.view=event.target.value});
 document.querySelector('#size').addEventListener('input',event=>{document.documentElement.style.setProperty('--size',event.target.value+'px');document.querySelector('#sizeValue').value=event.target.value+' px'});
 document.querySelectorAll('.weights button').forEach(button=>button.addEventListener('click',()=>{document.documentElement.style.setProperty('--weight',button.dataset.weight);document.querySelectorAll('.weights button').forEach(other=>other.setAttribute('aria-pressed',String(other===button)))}));
+document.querySelector('#italic').addEventListener('click',event=>{const on=document.body.classList.toggle('italic');event.target.setAttribute('aria-pressed',String(on))});
 document.querySelector('#theme').addEventListener('click',event=>{const dark=document.body.classList.toggle('dark');event.target.setAttribute('aria-pressed',String(dark));event.target.textContent=dark?'View on light':'View on dark'});
 document.querySelector('#zoom').addEventListener('click',event=>{const zoom=document.body.classList.toggle('zoom');event.target.setAttribute('aria-pressed',String(zoom));event.target.textContent=zoom?'Reading samples':'Letter details'});
-window.fontsReady=Promise.all(['300','400','500','700'].map(weight=>document.fonts.load(weight+' 20px NotoRedraw')).concat(document.fonts.load('20px BalancedRefined'))).then(()=>document.fonts.ready).then(()=>{fontsLoaded=true;update()}).catch(()=>{fontsFailed=true;update()});
+window.fontsReady=Promise.all(['300','400','500','700'].flatMap(weight=>[document.fonts.load(weight+' 20px NotoRedraw'),document.fonts.load('italic '+weight+' 20px NotoRedraw')]).concat(document.fonts.load('20px NotoRedrawUpright')).concat(document.fonts.load('20px BalancedRefined'))).then(()=>document.fonts.ready).then(()=>{fontsLoaded=true;update()}).catch(()=>{fontsFailed=true;update()});
 </script>
 </body>
 </html>

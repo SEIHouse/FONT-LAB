@@ -5,6 +5,8 @@ softened. All coordinates are original to this study, on a 1000-unit em.
 """
 from __future__ import annotations
 
+import math
+
 import pathops
 
 from pen import (Style, bar, flip_x, keep, minus, move, oval, oval_d, poly, polyline, rect, reflect,
@@ -12,17 +14,23 @@ from pen import (Style, bar, flip_x, keep, minus, move, oval, oval_d, poly, poly
 
 X, CAP, ASC, DESC, OV = 520, 700, 744, -212, 11
 K = 0.585                      # Balanced's full curve
+SLANT = 10.0                   # italic angle, degrees from upright
+CONDENSE = .96                 # italics are drawn a little narrower
 
 
 class Sheet:
     """One weight of the family. weight 1.0 is Regular."""
 
-    def __init__(self, weight=1.0, tilt=0.0, soft=13):
+    def __init__(self, weight=1.0, tilt=0.0, soft=13, italic=False):
         self.weight = weight
+        self.italic = italic
         self.heavy = max(0.0, weight-1.0)
         self.wide = 1 + (weight-1)*.13        # heavier weights are drawn a little wider
         self.tight = 1 - (weight-1)*.3        # and fitted a little closer
         stem = weight/self.wide
+        if italic:
+            # Condensing and slanting thin an upright stem; draw it heavier so the colour matches.
+            stem /= CONDENSE*math.cos(math.radians(SLANT))
         hair = 1 + (weight-1)*(.72 if weight <= 1.0 else .64)
         soft *= weight**.5
         self.lc = Style(88*stem, 74*hair, tilt, soft)
@@ -30,30 +38,57 @@ class Sheet:
         self.fig = Style(91*stem, 76*hair, tilt, soft)
         self.glyphs = {}
         self.groups = {}                      # composite -> base, for shared kerning
+        self.ghosts = {}                      # glyph -> its shape without exit strokes, for rhythm
 
-    def put(self, ch, parts, lsb, rsb, style=None, sharp=(), ref=None):
-        """ref=(x0, x1): measure the sidebearings from this span instead of the ink bounds."""
+    def put(self, ch, parts, lsb, rsb, style=None, sharp=(), ref=None, ghost=None):
+        """ref=(x0, x1): measure the sidebearings from this span instead of the ink bounds.
+
+        ghost: the same letter without its italic exit stroke. Sidebearings, accents and
+        spacing rhythm follow the ghost; the exit stroke may reach toward the next letter.
+        """
         path = union(*parts) if isinstance(parts, (list, tuple)) else parts
         path = soften(path, style or self.lc, sharp)
+        if ghost is not None:
+            ghost = soften(union(*ghost) if isinstance(ghost, (list, tuple)) else ghost, style or self.lc, sharp)
+            if ref is None:
+                ref = (ghost.bounds[0], ghost.bounds[2])
         x0, _, x1, _ = path.bounds
         if ref:
             x0, x1 = (x0 if ref[0] is None else ref[0]), (x1 if ref[1] is None else ref[1])
         lsb, rsb = lsb*self.tight, rsb*self.tight
         self.glyphs[ch] = (round(x1-x0+lsb+rsb), move(path, lsb-x0))
+        if ghost is not None:
+            self.ghosts[ch] = move(ghost, lsb-x0)
+        else:
+            self.ghosts.pop(ch, None)
 
 
-def draw(weight=1.0, tilt=0.0, soft=13):
-    """-> ({char: (advance, path)}, {composite: base})."""
-    sh = Sheet(weight, tilt, soft)
+def draw(weight=1.0, tilt=0.0, soft=13, italic=False):
+    """-> ({char: (advance, path)}, {composite: base}, {char: ghost path}).
+
+    italic: true italic lowercase forms (see cursive), then every glyph is condensed
+    and slanted about the middle of the x-height, so advances and spacing keep their
+    upright logic while the letters lean.
+    """
+    sh = Sheet(weight, tilt, soft, italic)
     lower(sh)
+    if italic:
+        cursive(sh)
     upper(sh)
     figures(sh)
     marks(sh)
-    wide = sh.wide
-    glyphs = {ch: (round(width*wide), path.transform(wide, 0, 0, 1, 0, 0)) if ch not in '0123456789'
-              else (width, path.transform(wide, 0, 0, 1, width*(1-wide)/2, 0))
+    wide = sh.wide*(CONDENSE if italic else 1)
+    lean = math.tan(math.radians(SLANT)) if italic else 0.0
+
+    def shape(ch, width, path):
+        if ch in '0123456789':        # tabular figures keep the upright advance
+            return path.transform(wide, 0, lean, 1, width*(1-wide)/2 - lean*X/2, 0)
+        return path.transform(wide, 0, lean, 1, -lean*X/2, 0)
+
+    glyphs = {ch: (width if ch in '0123456789' else round(width*wide), shape(ch, width, path))
               for ch, (width, path) in sh.glyphs.items()}
-    return glyphs, sh.groups
+    ghosts = {ch: shape(ch, sh.glyphs[ch][0], path) for ch, path in sh.ghosts.items()}
+    return glyphs, sh.groups, ghosts
 
 
 # ---------------------------------------------------------------- lowercase
@@ -172,6 +207,82 @@ def lower(sh):
                     lc, {0: .58*(1-.08*hv), 1: .65*(1-.08*hv), 2: .74*(1-.12*hv), 3: .76*(1-.12*hv),
                          4: .85*(1-.06*hv), 5: .83*(1-.10*hv), 6: .82*(1-.06*hv), 7: .48*(1-.08*hv)})
     sh.put('g', [g_bowl, g_ear, g_loop], 30, 6)
+
+
+# ---------------------------------------------------------------- italic lowercase
+
+def cursive(sh):
+    """True italic lowercase, drawn before the slant is applied.
+
+    Single-storey a; n h m u i a d finish in a short exit stroke that leans toward
+    the next letter; arches branch lower out of the stem; f descends with a hook.
+    The two-storey g, hooked l and curved y stay, so the family voice carries over.
+    """
+    lc = sh.lc
+    s, h, hv = lc.thick, lc.thin, sh.heavy
+    top = X+OV-h/2
+    bot = -OV+h/2
+    foot = h/2-6                 # centreline of an exit stroke's lowest point (slight overshoot)
+    N, B = 74, 40
+    depth = 222                  # arches leave the stem lower than upright (182)
+    end = .9                     # exit strokes finish a touch lighter
+
+    # The exit stroke turns on a quarter ellipse sized from the stem, so even Bold's
+    # wide stroke keeps a smooth inner curve.
+    # Heavier weights are fitted closer, so their exit strokes are relatively shorter.
+    short = 1 - .5*hv
+    bend, reach, flick = foot + 1.12*s, .8*s*short, .54*s*short
+
+    def tail(cx):
+        return (f" C{cx} {foot+.5*(bend-foot)} {cx+.45*reach} {foot} {cx+reach} {foot} "
+                f"C{cx+reach+.44*flick} {foot} {cx+reach+.78*flick} {foot+.06*s} {cx+reach+flick} {foot+.16*s}")
+
+    def stroke(cx, y):
+        """A stem from y down to the baseline, leaving in an exit stroke."""
+        return ribbon(f"M{cx} {y} L{cx} {bend}" + tail(cx), lc, {3: end})
+
+    # n h m
+    nw = 366+s
+    arch = ribbon(arch_d(s/2+3, nw-s/2, top, depth), lc, {0: .54})
+    arch_out = ribbon(arch_d(s/2+3, nw-s/2, top, depth, down=bend) + tail(nw-s/2), lc, {0: .54, 5: end})
+    sh.put('n', [rect(0, 0, s, X), arch_out], N, N-6, ghost=[rect(0, 0, s, X), arch])
+    sh.put('h', [rect(0, 0, s, ASC), arch_out], N, N-6, ghost=[rect(0, 0, s, ASC), arch])
+    mw = 318
+    first = ribbon(arch_d(s/2+3, mw+s/2, top, depth, lean=.57), lc, {0: .54})
+    second = ribbon(arch_d(mw+s/2+3, 2*mw+s/2, top, depth, lean=.57), lc, {0: .54})
+    second_out = ribbon(arch_d(mw+s/2+3, 2*mw+s/2, top, depth, lean=.57, down=bend) + tail(2*mw+s/2), lc, {0: .54, 5: end})
+    sh.put('m', [rect(0, 0, s, X), first, second_out], N, N-6, ghost=[rect(0, 0, s, X), first, second])
+
+    # u: the arch turned over, then a stem that leaves in an exit stroke
+    bowl = rotate180(arch, nw/2, X/2)
+    sh.put('u', [bowl, stroke(nw-s/2, X)], N-6, N, ghost=[bowl, rect(nw-s, 0, nw, X)])
+
+    # i and dotless i
+    dot = oval(s/2-52, X+118, s/2+52, X+222, .62)
+    sh.put('i', [stroke(s/2, X), dot], N, N, ghost=[rect(0, 0, s, X), dot])
+    sh.put('ı', stroke(s/2, X), N, N, ghost=rect(0, 0, s, X))
+
+    # single-storey a and d: a round bowl closed by a stem that runs out into the next letter
+    def bowl_d(bw):
+        return reflect(xform(f"M{s/2+3} {top-150} C{s/2+34} {top-58} 150 {top} 258 {top} "
+                             f"C380 {top} {494-s/2} 406 {494-s/2} {X/2} C{494-s/2} 114 380 {bot} 258 {bot} "
+                             f"C150 {bot} {s/2+34} {bot+58} {s/2+3} {bot+150}", sx=bw/494), bw/2)
+    taper = {0: .52, 2: 1.02 - .06*hv, 4: .52}
+    aw = 476 + 14*hv
+    a_bowl = ribbon(bowl_d(aw), lc, taper)
+    sh.put('a', [a_bowl, stroke(aw-s/2, X)], B, N, ghost=[a_bowl, rect(aw-s, 0, aw, X)])
+    bw = 494
+    d_bowl = ribbon(bowl_d(bw), lc, taper)
+    sh.put('d', [d_bowl, stroke(bw-s/2, ASC)], B, N, ghost=[d_bowl, rect(bw-s, 0, bw, ASC)])
+
+    # f: one stroke from a hook below the baseline to the flag above the ascender
+    cx = 150
+    cross = h*(.9 - .16*hv)
+    f = ribbon(f"M{cx-170} -152 C{cx-152} -164 {cx-132} {DESC+h/2} {cx-106} {DESC+h/2} "
+               f"C{cx-40} {DESC+h/2} {cx} -142 {cx} -64 L{cx} 598 "
+               f"C{cx} 676 {cx+44} {ASC+OV-h/2} {cx+114} {ASC+OV-h/2} C{cx+142} {ASC+OV-h/2} {cx+166} 708 {cx+188} 700",
+               lc, {0: 1.0, 5: 1.05})
+    sh.put('f', [f, rect(22, X-cross, 304, X)], 20, -6, ref=(22, None))
 
 
 # ---------------------------------------------------------------- capitals
@@ -575,6 +686,8 @@ def extended(sh, comma, R):
             return
         width, path = g[base]
         x0, _, x1, y1 = path.bounds
+        if base in sh.ghosts:          # italic: place the accent over the letter, not its exit stroke
+            x0, _, x1, _ = sh.ghosts[base].bounds
         shape = mark[kind]
         if kind == 'caron' and base in 'dtlL':
             lift = ASC if base in 'dl' else CAP if base == 'L' else 690
@@ -625,6 +738,7 @@ def extended(sh, comma, R):
     eb = e.bounds
     put('œ', [o, move(e, ob[2]-eb[0]-s*.9)], 40, 38)
     _, a = g['a']
+    a = sh.ghosts.get('a', a)          # italic æ joins the a's stem, not its exit stroke
     ab = a.bounds
     put('æ', [a, move(e, ab[2]-eb[0]-s*.96)], 44, 38)
     _, E = g['E']
@@ -701,4 +815,6 @@ def extended(sh, comma, R):
     dx_n = ax1 - ax0 + 52
     nw_n = 366 + s
     n_lc = union(rect(0, 0, s, X), ribbon(arch_d(s/2+3, nw_n-s/2, top), lc, {0: .54}))
+    if sh.italic:
+        n_lc = move(g['n'][1], -g['n'][1].bounds[0])
     put('ŉ', [move(ap, -ax0), move(n_lc, dx_n)], 44, 68)
