@@ -1111,7 +1111,7 @@ button,select{font:inherit;color:inherit}
 mark.fb{background:#ffcf4d;color:#2a1d00;border-radius:2px;padding:0 1px}
 
 /* ── Page chrome ────────────────────────────────────────── */
-.app{max-width:1840px;margin:0 auto;padding:20px 16px 48px}
+.app{max-width:1840px;margin:0 auto;padding:20px 16px 48px;font-family:var(--noto)}
 .head-top{display:flex;justify-content:space-between;align-items:flex-start;gap:16px}
 .kicker{margin:0;font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
 .head h1{margin:2px 0 14px;font-size:26px;font-weight:500;line-height:1.2}

@@ -81,6 +81,9 @@ export function Title({ text, height, className = "" }: { text: string; height: 
   const player = useRef<TitlePlayer | null>(null);
   const [state, setState] = useState<"static" | "preparing" | "live" | "error">("static");
   const color = s.theme === "night" ? "#f3e2b4" : "#3b2b12";
+  // Preparation is asynchronous: the player must start in the theme current when it finishes.
+  const latestColor = useRef(color);
+  latestColor.current = color;
 
   useEffect(() => {
     if (!s.living) {
@@ -92,7 +95,7 @@ export function Title({ text, height, className = "" }: { text: string; height: 
     createTitleScene({ title: text, cut: s.cut, strength: 0.7, signal: abort.signal })
       .then((scene) => {
         if (abort.signal.aborted || !art.current) return;
-        player.current = createTitlePlayer(art.current, scene, { color });
+        player.current = createTitlePlayer(art.current, scene, { color: latestColor.current });
         setState("live");
       })
       .catch(() => {
