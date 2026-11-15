@@ -71,7 +71,7 @@ export function Sheet({ world }: { world: "sea" | "sen" }) {
 
       <div className="card">
         <h3>Names from distributors and readers, in many scripts</h3>
-        <p className="sheet-note">
+        <p className="sheet-note" role="status">
           {s.metaFace !== "seihouse"
             ? "Fallback marking is shown for SEIHouse Noto only."
             : !charset
