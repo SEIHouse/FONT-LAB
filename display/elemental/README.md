@@ -10,7 +10,7 @@ directly to any review tab.
 ## What You Can Test Here
 
 1. **SEIHouse Typeface Switcher** — Switch every title in the lab live between **Display Edge**,
-   **Display Soft**, **Display Ink**, **Display Wide**, **SEIHouse Sans 0.42**, and **SEIHouse Noto**.
+   **Display Soft**, **Display Ink**, **Display Wide**, **SEIHouse Sans 0.42**, and **SEIHouse Noto** (Redraw 02 candidate).
 2. **Playground** — Live title on Dark and Light surfaces side by side, with element, cultivator
    rank color, bond tier, motion mode, size, outline keyline, and Quill signatures.
 3. **Elements & ranks** — Full palette gallery plus the Cultivator Rank × Bond Tier matrix at 20px.
