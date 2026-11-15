@@ -176,7 +176,10 @@ def verify(out, *, video=True):
         standalone.emulate_media(reduced_motion='reduce')
         if standalone.locator('.motion').evaluate('el=>getComputedStyle(el).display')!='none':raise ValueError('SVG reduced motion failed')
         page.emulate_media(reduced_motion='reduce')
-        if not page.locator('#lt-play').is_disabled():raise ValueError('Reduced-motion preview must rest')
+        try:
+            page.wait_for_function('document.querySelector("#lt-play").disabled',timeout=2000)
+        except Exception as exc:
+            raise ValueError('Reduced-motion preview must rest') from exc
         page.emulate_media(reduced_motion='no-preference')
         # Editing stops stale playback and cancels prepared frames without writing CUT.
         saved=page.evaluate('JSON.stringify(CUT)')
