@@ -12,7 +12,7 @@ const pages = [
   'noto/studies/redraw/index.html', 'noto/studies/redraw/README.md', 'noto/studies/redraw/manifest.json',
   'noto/studies/redraw/proofs/redraw-glyphs.svg', 'noto/studies/redraw/proofs/redraw-glyphs-italic.svg',
   ...['compare','details','dark','mobile','family','italic'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
-  ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic'].map(style => `noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`),
+  ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic','LightNight','RegularNight','MediumNight','LightItalicNight','ItalicNight','MediumItalicNight'].map(style => `noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`),
   'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
   'noto/studies/warmth/warmth-01.html',
   'noto/DESIGN.md', 'noto/studies/warmth/proofs/balanced-glyphs.svg',

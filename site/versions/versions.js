@@ -118,7 +118,7 @@
     let fallbackNote = '';
     if (resolvedWeight !== Number(state.weight) || resolvedItalic !== state.italic) {
       fallbackNote = 'Regular upright only in this version.';
-    } else if (isNight && state.track === 'sans' && [300, 400, 500].includes(Number(state.weight)) && !useNight) {
+    } else if (isNight && ['sans', 'noto'].includes(state.track) && [300, 400, 500].includes(Number(state.weight)) && !useNight) {
       fallbackNote = 'Predates Night grade for this weight.';
     }
 

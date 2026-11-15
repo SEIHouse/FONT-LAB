@@ -26,6 +26,11 @@ WEIGHTS = [dict(name='Light', weight=.86, cls=300), dict(name='Regular', weight=
 # True italics: the same four weights, with italic lowercase forms, condensed and slanted.
 ITALICS = [dict(spec, name='Italic' if spec['name'] == 'Regular' else spec['name']+' Italic', italic=True)
            for spec in WEIGHTS]
+# Zero-reflow Night grade for light/reading weights (Light, Regular, Medium) in upright and italic.
+NIGHT_WEIGHTS = ('Light', 'Regular', 'Medium')
+NIGHTS = [dict(spec, name=f"{spec['name']} Night", grade=letters.NIGHT_GRADE, day_style=spec['name'])
+          for spec in WEIGHTS + ITALICS
+          if spec['name'].replace(' Italic', '').replace('Italic', 'Regular') in NIGHT_WEIGHTS]
 
 
 # Alignment zones and standard stems, for rasterisers and later autohinting.
@@ -38,9 +43,24 @@ def glyph_name(char):
     return 'space' if char == ' ' else f'u{ord(char):04X}'
 
 
-def build_font(spec, out_dir=None):
+def build_font(spec, out_dir=None, day_cache=None):
     italic = spec.get('italic', False)
-    source, groups, ghosts = letters.draw(spec['weight'], spec.get('tilt', 0.0), italic=italic)
+    grade = spec.get('grade', 0)
+    day_style = spec.get('day_style')
+    day_data = None
+    if grade and day_style:
+        if day_cache is not None and day_style in day_cache:
+            day_source, day_groups, day_ghosts, day_pairs, day_exceptions = day_cache[day_style]
+        else:
+            day_spec = next(s for s in WEIGHTS + ITALICS if s['name'] == day_style)
+            day_source, day_groups, day_ghosts = letters.draw(
+                day_spec['weight'], day_spec.get('tilt', 0.0), italic=day_spec.get('italic', False))
+            day_pairs, day_exceptions = spacing.kerning(day_source, day_groups, ghosts=day_ghosts)
+            if day_cache is not None:
+                day_cache[day_style] = (day_source, day_groups, day_ghosts, day_pairs, day_exceptions)
+        day_data = (day_source, day_groups, day_ghosts)
+    source, groups, ghosts = letters.draw(
+        spec['weight'], spec.get('tilt', 0.0), italic=italic, grade=grade, day=day_data)
     box = pathops.Path()
     pen = box.getPen()
     for pts in ([(90, 0), (510, 0), (510, 700), (90, 700)], [(160, 70), (160, 630), (440, 630), (440, 70)]):
@@ -67,9 +87,12 @@ def build_font(spec, out_dir=None):
     fb.setupHorizontalMetrics(metrics)
     fb.setupHorizontalHeader(ascent=960, descent=-260)
     ribbi = style in ('Regular', 'Bold', 'Italic', 'Bold Italic')
-    weight_name = style.replace(' Italic', '').replace('Italic', 'Regular')
+    weight_name = style.removesuffix(' Night').replace(' Italic', '').replace('Italic', 'Regular')
+    suffix = ' Night' if grade else ''
+    legacy_family = FAMILY if ribbi else (
+        f'{FAMILY} Night' if grade and weight_name == 'Regular' else f'{FAMILY} {weight_name}{suffix}')
     fb.setupNameTable(dict(
-        familyName=FAMILY if ribbi else f'{FAMILY} {weight_name}',
+        familyName=legacy_family,
         styleName=style if ribbi else ('Italic' if italic else 'Regular'),
         **({} if ribbi else dict(typographicFamily=FAMILY, typographicSubfamily=style)), uniqueFontIdentifier=f'{psname}-{VERSION}',
         fullName=f'{FAMILY} {style}', psName=psname, version='Version '+VERSION,
@@ -77,7 +100,7 @@ def build_font(spec, out_dir=None):
         description='Latin design candidate. Not a production or multilingual release.'))
     fb.setupOS2(version=4, sTypoAscender=960, sTypoDescender=-260, sTypoLineGap=0, usWinAscent=1000,
                 usWinDescent=300, sxHeight=letters.X, sCapHeight=letters.CAP, usWeightClass=spec['cls'],
-                fsSelection=(0xC0 if style == 'Regular' else 0xA0 if weight_name == 'Bold' else 0x80) | (0x01 if italic else 0),
+                fsSelection=(0xC0 if weight_name == 'Regular' and not italic else 0xA0 if weight_name == 'Bold' else 0x80) | (0x01 if italic else 0),
                 achVendID='SEIH')
     fb.setupPost(italicAngle=-letters.SLANT if italic else 0)
     if italic:
@@ -88,7 +111,12 @@ def build_font(spec, out_dir=None):
     fb.font['OS/2'].ulCodePageRange2 = 0
     fb.setupCFF(psname, dict(FullName=f'{FAMILY} {style}', FamilyName=FAMILY, Weight=weight_name,
                              **(dict(ItalicAngle=-letters.SLANT) if italic else {})), charstrings, PRIVATE)
-    pairs, exceptions = spacing.kerning(source, groups, ghosts=ghosts)
+    if grade and day_style:
+        pairs, exceptions = day_pairs, day_exceptions
+    else:
+        pairs, exceptions = spacing.kerning(source, groups, ghosts=ghosts)
+        if day_cache is not None:
+            day_cache[spec['name']] = (source, groups, ghosts, pairs, exceptions)
     members = {}
     for composite, base in groups.items():
         members.setdefault(base, []).append(composite)
@@ -152,7 +180,8 @@ def sync_page(characters):
 
 
 if __name__ == '__main__':
-    reports = [build_font(spec) for spec in WEIGHTS + ITALICS]
+    day_cache = {}
+    reports = [build_font(spec, day_cache=day_cache) for spec in WEIGHTS + ITALICS + NIGHTS]
     (ROOT/'manifest.json').write_text(json.dumps(dict(
         family=FAMILY, version=VERSION, status='candidate', foundation='Balanced (Study B)',
         metrics=dict(unitsPerEm=UPM, xHeight=letters.X, capHeight=letters.CAP, ascender=letters.ASC, descender=letters.DESC),

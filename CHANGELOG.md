@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 2026-11-15 · SEIHouse Noto Redraw 02 — Zero-reflow Night optical grade
+- **Light, Regular, and Medium Night fonts (`Light Night`, `Regular Night`, `Medium Night`, `Light Italic Night`, `Italic Night`, `Medium Italic Night`)**: Added `NIGHT_GRADE = -4` in `noto/studies/redraw/letters.py`, thinning upright stems by 4.00 units (and italic stems proportionately) so white text on dark backgrounds resists halation without altering character widths or `GPOS` kerning.
+- **Zero-reflow comparison & archive**: Switching between Day and Night in `noto/studies/redraw/index.html` and the `SEIHouse Noto` track of `site/versions/` swaps `NotoRedraw` for `NotoRedrawNight` across all three reading weights without reflowing a single line, while leaving all eight existing Day and Italic font files byte-for-byte unchanged.
+
 - **SEIHouse Noto Redraw 02: true italics at all four weights (2026-11-14)**
   Added Light Italic, Italic, Medium Italic and Bold Italic to the Redraw 02 candidate, so
   novel dialogue, inner thoughts and UI emphasis no longer fall back to the browser's faked

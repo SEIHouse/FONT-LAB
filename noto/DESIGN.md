@@ -63,6 +63,10 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.010).
   Extended-A (including `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and
   `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ`), plus everyday typography symbols, Romanian comma-below
   (`Ș ș Ț ț`) and Welsh accents (`Ẁ ẁ Ẃ ẃ Ẅ ẅ Ỳ ỳ`).
+- Night optical grade (`NIGHT_GRADE = -4`): `Light Night`, `Regular Night`,
+  `Medium Night`, `Light Italic Night`, `Italic Night`, and `Medium Italic Night`
+  thin strokes by 4 upright units to counter dark-mode halation while keeping
+  exact Day advance widths and `GPOS` kerning so Day/Night toggles never reflow.
 
 The owner has not yet compared or approved it. Until then Balanced is the approved
 direction and Refinement 01 the last reviewed drawing. See

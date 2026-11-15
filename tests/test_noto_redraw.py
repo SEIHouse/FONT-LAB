@@ -19,6 +19,7 @@ spec.loader.exec_module(build)
 
 STYLES = ['Light', 'Regular', 'Medium', 'Bold']
 ITALICS = ['Light Italic', 'Italic', 'Medium Italic', 'Bold Italic']
+NIGHTS = ['Light Night', 'Regular Night', 'Medium Night', 'Light Italic Night', 'Italic Night', 'Medium Italic Night']
 PROSE = ['The morning light settled gently over the quiet library.',
          'Zażółć gęślą jaźń. Příliš žluťoučký kůň. Ça va, señor? Größe, Æther, Øre, Þór.',
          '“Good evening,” it began — (128 chapters) & 50% off @ £9.99!',
@@ -181,7 +182,7 @@ class RedrawTests(unittest.TestCase):
     def test_page_and_manifest_describe_the_built_fonts(self):
         manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
         self.assertEqual(manifest['status'], 'candidate')
-        self.assertEqual([f['style'] for f in manifest['fonts']], STYLES + ITALICS)
+        self.assertEqual([f['style'] for f in manifest['fonts']], STYLES + ITALICS + NIGHTS)
         cmap = self.fonts['Regular'].getBestCmap()
         import hashlib
         for entry in manifest['fonts']:
@@ -195,7 +196,7 @@ class RedrawTests(unittest.TestCase):
         import html
         shown = html.unescape(re.sub(r'<span>.*?</span>', '', shown))
         self.assertFalse({c for c in shown if not c.isspace() and ord(c) not in cmap})
-        for style in STYLES + ITALICS:
+        for style in STYLES + ITALICS + NIGHTS:
             self.assertIn(f"fonts/SEIHouseNoto-{style.replace(' ', '')}.woff2", page)
 
 
@@ -222,7 +223,7 @@ class ItalicTests(unittest.TestCase):
     def test_checked_in_italics_match_the_source_drawings(self):
         self.assertEqual([s['name'] for s in build.ITALICS], ITALICS)
         manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
-        entries = manifest['fonts'][len(STYLES):]
+        entries = manifest['fonts'][len(STYLES):len(STYLES) + len(ITALICS)]
         for style, report, entry in zip(ITALICS, self.reports, entries, strict=True):
             with TTFont(self.output/f'{psname(style)}.otf') as rebuilt:
                 shipped = self.fonts[style]
@@ -333,6 +334,117 @@ class ItalicTests(unittest.TestCase):
                 buffer = shape(text)
                 a, b = (outline(font, order[info.codepoint]) for info in buffer.glyph_infos)
                 moved = b.transform(1, 0, 0, 1, buffer.glyph_positions[0].x_advance, 0)
+                overlap = pathops.op(a, moved, pathops.PathOp.INTERSECTION)
+                self.assertEqual(len(list(overlap.contours)), 0, f'{style}: ink collision in {text}')
+
+
+class NightGradeTests(unittest.TestCase):
+    """Zero-reflow Night optical grade: thinner strokes for dark UI, identical widths & kerning."""
+
+    @classmethod
+    def setUpClass(cls):
+        cls.temporary = tempfile.TemporaryDirectory()
+        cls.addClassCleanup(cls.temporary.cleanup)
+        cls.output = Path(cls.temporary.name)
+        day_cache = {}
+        cls.reports = [build.build_font(s, out_dir=cls.output, day_cache=day_cache) for s in build.NIGHTS]
+        cls.fonts, cls.days = {}, {}
+        for style in NIGHTS:
+            day_style = style.removesuffix(' Night')
+            cls.fonts[style] = TTFont(ROOT/'fonts'/f'{psname(style)}.otf')
+            cls.days[style] = TTFont(ROOT/'fonts'/f'{psname(day_style)}.otf')
+            cls.addClassCleanup(cls.fonts[style].close)
+            cls.addClassCleanup(cls.days[style].close)
+
+    def test_checked_in_night_fonts_match_the_source_drawings(self):
+        self.assertEqual([s['name'] for s in build.NIGHTS], NIGHTS)
+        manifest = json.loads((ROOT/'manifest.json').read_text(encoding='utf-8'))
+        entries = manifest['fonts'][len(STYLES) + len(ITALICS):]
+        for style, report, entry in zip(NIGHTS, self.reports, entries, strict=True):
+            self.assertEqual(entry['style'], style)
+            with TTFont(self.output/f'{psname(style)}.otf') as rebuilt:
+                shipped = self.fonts[style]
+                self.assertEqual(rebuilt.getGlyphOrder(), shipped.getGlyphOrder())
+                for name in shipped.getGlyphOrder():
+                    self.assertEqual(rebuilt['hmtx'][name][0], shipped['hmtx'][name][0], f'{style} {name}')
+                    for x, y in zip(outline(rebuilt, name).bounds, outline(shipped, name).bounds):
+                        self.assertAlmostEqual(x, y, delta=1.5, msg=f'{style} {name}')
+            self.assertEqual(report['glyphs'], entry['glyphs'])
+            self.assertAlmostEqual(report['kerning_pairs'], entry['kerning_pairs'], delta=entry['kerning_pairs']*.01)
+            self.assertEqual(self.fonts[style].getBestCmap().keys(), self.days[style].getBestCmap().keys())
+
+    def test_night_strokes_are_thinner_while_counters_and_bounds_stay_clean(self):
+        band = _box(-200, 300, 1200, 304)
+        for style, font in self.fonts.items():
+            day = self.days[style]
+            italic = 'Italic' in style
+            stem_glyph = 'u006C' if italic else 'u0131'
+            d_slice = pathops.op(outline(day, stem_glyph), band, pathops.PathOp.INTERSECTION)
+            n_slice = pathops.op(outline(font, stem_glyph), band, pathops.PathOp.INTERSECTION)
+            d_w = d_slice.bounds[2] - d_slice.bounds[0]
+            n_w = n_slice.bounds[2] - n_slice.bounds[0]
+            expected_thin = 4.06 if italic else 4.0
+            self.assertAlmostEqual(d_w - n_w, expected_thin, delta=0.35, msg=style)
+            for name in day.getGlyphOrder():
+                d_path, n_path = outline(day, name), outline(font, name)
+                d_cnt, n_cnt = len(list(d_path.contours)), len(list(n_path.contours))
+                if name == 'u0160' and d_cnt == 1:
+                    self.assertIn(n_cnt, (1, 2), f'{style} {name}')
+                else:
+                    self.assertEqual(n_cnt, d_cnt, f'{style} {name}')
+                if list(d_path.contours):
+                    self.assertGreater(abs(n_path.area), 40, f'{style} {name}')
+            for ch in ('a', 'e', 'g', 's', 'B', '8'):
+                gname = f'u{ord(ch):04X}'
+                self.assertLess(abs(outline(font, gname).area), abs(outline(day, gname).area), f'{style} {ch}')
+
+    def test_night_metadata_and_style_linking(self):
+        for style, font in self.fonts.items():
+            day = self.days[style]
+            italic = 'Italic' in style
+            weight_name = style.removesuffix(' Night').replace(' Italic', '').replace('Italic', 'Regular')
+            expected_family = 'SEIHouse Noto Night' if weight_name == 'Regular' else f'SEIHouse Noto {weight_name} Night'
+            name = font['name']
+            self.assertEqual(name.getDebugName(1), expected_family, style)
+            self.assertEqual(name.getDebugName(2), 'Italic' if italic else 'Regular', style)
+            self.assertEqual(name.getDebugName(16), 'SEIHouse Noto', style)
+            self.assertEqual(name.getDebugName(17), style, style)
+            self.assertEqual(font['OS/2'].usWeightClass, day['OS/2'].usWeightClass, style)
+            self.assertEqual(bool(font['OS/2'].fsSelection & 0x01), italic, style)
+            self.assertEqual(bool(font['OS/2'].fsSelection & 0x40), style == 'Regular Night', style)
+            self.assertEqual(bool(font['head'].macStyle & 2), italic, style)
+            self.assertEqual(font['post'].italicAngle, -10 if italic else 0, style)
+            self.assertEqual(font['hhea'].caretSlopeRise, 1000 if italic else 1, style)
+            self.assertEqual(font['hhea'].caretSlopeRun, 176 if italic else 0, style)
+            self.assertEqual(font['hhea'].caretSlopeRise, day['hhea'].caretSlopeRise, style)
+            self.assertEqual(font['hhea'].caretSlopeRun, day['hhea'].caretSlopeRun, style)
+
+    def test_zero_reflow_metrics_and_shaping_parity(self):
+        samples = PROSE + ['To', 'AV', 'Wa', 'Yo', 'fï', 'f”', 'nn', 'HH', 'Ångström', 'Zażółć']
+        pairs = ['nn', 'mm', 'uu', 'ii', 'aa', 'dd', 'hh', 'in', 'an', 'nj', 'ng', 'ay', 'af', 'nf', 'gf',
+                 'yf', 'jf', 'ff', 'fï', 'f)', 'f”', 'To', 'Tö', 'AV', 'ïï', 'ââ', 'ďď', 'ťď', 'ĳs', 'ŉn']
+        for style, font in self.fonts.items():
+            day = self.days[style]
+            day_style = style.removesuffix(' Night')
+            for gname in day.getGlyphOrder():
+                self.assertEqual(font['hmtx'][gname][0], day['hmtx'][gname][0], f'{style} {gname}')
+            self.assertEqual(font.getTableData('GPOS'), day.getTableData('GPOS'), style)
+            n_hb = hb.Font(hb.Face(hb.Blob((ROOT/'fonts'/f'{psname(style)}.otf').read_bytes())))
+            d_hb = hb.Font(hb.Face(hb.Blob((ROOT/'fonts'/f'{psname(day_style)}.otf').read_bytes())))
+            for text in samples:
+                nb, db = hb.Buffer(), hb.Buffer()
+                nb.add_str(text); nb.guess_segment_properties(); hb.shape(n_hb, nb)
+                db.add_str(text); db.guess_segment_properties(); hb.shape(d_hb, db)
+                self.assertEqual([(i.codepoint, p.x_advance, p.y_advance, p.x_offset, p.y_offset)
+                                  for i, p in zip(nb.glyph_infos, nb.glyph_positions)],
+                                 [(i.codepoint, p.x_advance, p.y_advance, p.x_offset, p.y_offset)
+                                  for i, p in zip(db.glyph_infos, db.glyph_positions)],
+                                 f'{style}: {text}')
+            order = font.getGlyphOrder()
+            for text in pairs:
+                buf = hb.Buffer(); buf.add_str(text); buf.guess_segment_properties(); hb.shape(n_hb, buf)
+                a, b = (outline(font, order[info.codepoint]) for info in buf.glyph_infos)
+                moved = b.transform(1, 0, 0, 1, buf.glyph_positions[0].x_advance, 0)
                 overlap = pathops.op(a, moved, pathops.PathOp.INTERSECTION)
                 self.assertEqual(len(list(overlap.contours)), 0, f'{style}: ink collision in {text}')
 
