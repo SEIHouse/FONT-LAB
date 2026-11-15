@@ -2644,10 +2644,11 @@
           "shortTitle": "Modulated strokes, tapered joins, four weights, italics & Night grade",
           "date": "2026-11-15",
           "current": true,
-          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.",
+          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning with an eye-reviewed optical pass, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.",
           "highlights": [
             "Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l",
             "Light, Regular, Medium and Bold with open Bold counters down to 14–16 px",
+            "Optical spacing pass on the automatic kerning: closer Wa/We/Wo, air under the f terminal, a tighter gj",
             "Complete printable Latin-1 & Extended-A plus everyday typography symbols",
             "True italics at every weight plus a zero-reflow Night optical grade for Light, Regular and Medium"
           ],
@@ -2672,8 +2673,8 @@
               "weight": 300,
               "style": "normal",
               "night": false,
-              "bytes": 25084,
-              "sha256": "0bf45ec0692500479b0c8f27b8c8d3803a0743d6fe1b2dc7a833410c66ad5dc7"
+              "bytes": 24848,
+              "sha256": "75cb23c131ff3412dd0398f9d0fd9b2e038a7f8b0ec40103bef796b6d9c629ef"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2",
@@ -2681,8 +2682,8 @@
               "weight": 400,
               "style": "normal",
               "night": false,
-              "bytes": 23912,
-              "sha256": "d08a63904c4bc68f0510a967d985506d0411bb6cc979192fc668a2bc5aee6d93"
+              "bytes": 23832,
+              "sha256": "21c35a93f466386f44349a495aa9a35cb3fb9a59b7391987495df7db8dd5e2eb"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2",
@@ -2690,8 +2691,8 @@
               "weight": 500,
               "style": "normal",
               "night": false,
-              "bytes": 25564,
-              "sha256": "5363f1e647814984e97db5ea9d6aafed7fa316ca2af75f67d33f0c5a8741fc3a"
+              "bytes": 25416,
+              "sha256": "786400b2463dff4feded7da20bdeb1bd331a96be87532aac1bdec428da8f029e"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2",
@@ -2699,8 +2700,8 @@
               "weight": 700,
               "style": "normal",
               "night": false,
-              "bytes": 26204,
-              "sha256": "a209b12e9685b5d78db4932ee38b78ce104d9eaf9b162802479104e182a2b8ac"
+              "bytes": 25980,
+              "sha256": "e85572e94e8733baa06afe194d0f5874221c0d552a945112d3279879819e5213"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalic.woff2",
@@ -2708,8 +2709,8 @@
               "weight": 300,
               "style": "italic",
               "night": false,
-              "bytes": 26336,
-              "sha256": "e9c1640e13b6a58fbb5c246fc8ee7bd70fe6bea647a6a64969e006a6aab556e2"
+              "bytes": 26376,
+              "sha256": "8d8fbb575b27122bd0e6d4ce189eac51b639fb6a733b0fbcb50667f6fef368ce"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Italic.woff2",
@@ -2717,8 +2718,8 @@
               "weight": 400,
               "style": "italic",
               "night": false,
-              "bytes": 27088,
-              "sha256": "cb1c0d4366ac620e5edb8580b630cb17991cbae0d9540b336d9a6ff7bf0926de"
+              "bytes": 26996,
+              "sha256": "5ff99c56f67168c7ab7eca9cc16f30f8849c0d06fea83dca84b9c7becf909c4e"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalic.woff2",
@@ -2726,8 +2727,8 @@
               "weight": 500,
               "style": "italic",
               "night": false,
-              "bytes": 27572,
-              "sha256": "99b811309736d095a7dced219fed6eb9d1e26aff75f18e27b7a3b077947cab31"
+              "bytes": 27480,
+              "sha256": "13bccb998f53423f91067f4bb071c1cc4f46006ba3401b637fe602ce272e58ef"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-BoldItalic.woff2",
@@ -2735,8 +2736,8 @@
               "weight": 700,
               "style": "italic",
               "night": false,
-              "bytes": 28744,
-              "sha256": "4eda3220bb6eb23852b42b96f2619580e5e25af9d28efbd1f50dbb9b368a6429"
+              "bytes": 28704,
+              "sha256": "e3aa01132b8d399cd3bf77e89e1706c20f889e502849be309cce85f507b00153"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightNight.woff2",
@@ -2744,8 +2745,8 @@
               "weight": 300,
               "style": "normal",
               "night": true,
-              "bytes": 24972,
-              "sha256": "285307ef55bd7f842fd0eb292046155239f2f4450f8d63776ee7fc9f24f6471c"
+              "bytes": 25028,
+              "sha256": "38fdbbe179dde53971d54076046b77b5fa5292458fb828f0ee1b94e8c284b165"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-RegularNight.woff2",
@@ -2753,8 +2754,8 @@
               "weight": 400,
               "style": "normal",
               "night": true,
-              "bytes": 23860,
-              "sha256": "d0990a654a2c17a3f41d618e8aa7d45605eef86fd96e733cc7175ad07b40928d"
+              "bytes": 23952,
+              "sha256": "3b75400c3a2d2e66eb1c882afd7131f041c94f6a994350e53487c8c4e8945310"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumNight.woff2",
@@ -2762,8 +2763,8 @@
               "weight": 500,
               "style": "normal",
               "night": true,
-              "bytes": 25356,
-              "sha256": "ec15fd2678d474ebf9535cbe9364f63b0d93876e1b4aa4edd231845ac7e66b70"
+              "bytes": 25264,
+              "sha256": "d4a4b37eb8992b8871c502f690b51c2ffd32bbea29c215438afc5099aec23bfc"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalicNight.woff2",
@@ -2771,8 +2772,8 @@
               "weight": 300,
               "style": "italic",
               "night": true,
-              "bytes": 26596,
-              "sha256": "3806bbe19031afcd53ea94f5aba06f87ffb1ec48efaa411a62c786710fbcf9ce"
+              "bytes": 26496,
+              "sha256": "c06ed324a596d42cf6f9cfc1e86467e10d14eafbef3aefa9ba507c4e18641fe0"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-ItalicNight.woff2",
@@ -2780,8 +2781,8 @@
               "weight": 400,
               "style": "italic",
               "night": true,
-              "bytes": 27064,
-              "sha256": "f337ce7f946649229d76d9b30f25ddeb94078f23dbe0e3d7bfb96075e28f48fa"
+              "bytes": 26912,
+              "sha256": "ddac2fe61118945095bb59860c77a656a5fd5b23c2bca9b406de6c6d25f5cf95"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalicNight.woff2",
@@ -2789,8 +2790,8 @@
               "weight": 500,
               "style": "italic",
               "night": true,
-              "bytes": 27852,
-              "sha256": "c767cb357572e0ab083ba5dddc777868998c903037164a19e99c14a972e6cb6e"
+              "bytes": 27664,
+              "sha256": "6239f04ebdc64195e3e46d4402538f68d3ebdd927c45aec7796a8d64d145f343"
             }
           ]
         },

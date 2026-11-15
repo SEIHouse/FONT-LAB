@@ -449,6 +449,63 @@ class NightGradeTests(unittest.TestCase):
                 self.assertEqual(len(list(overlap.contours)), 0, f'{style}: ink collision in {text}')
 
 
+class OpticalSpacingTests(unittest.TestCase):
+    """The eye-reviewed optical pass on top of the automatic kerning (optical.py)."""
+
+    STYLES = STYLES + ITALICS
+
+    @staticmethod
+    def kern(style, text):
+        hbfont = hb.Font(hb.Face((ROOT/'fonts'/f'{psname(style)}.otf').read_bytes()))
+        widths = []
+        for feature in (True, False):
+            buffer = hb.Buffer()
+            buffer.add_str(text)
+            buffer.guess_segment_properties()
+            hb.shape(hbfont, buffer, {'kern': feature})
+            widths.append(sum(p.x_advance for p in buffer.glyph_positions))
+        return widths[0] - widths[1]
+
+    def test_w_follows_v_with_lowercase(self):
+        for style in self.STYLES:
+            for letter in 'aeo':
+                w, v = self.kern(style, 'W'+letter), self.kern(style, 'V'+letter)
+                self.assertLessEqual(w, round(.75*v) + 1, f'{style} W{letter} {w} vs V{letter} {v}')
+
+    def test_f_terminal_gets_air_but_ff_keeps_its_crossbar(self):
+        for style in ['Italic', 'Medium Italic', 'Bold Italic', 'Medium', 'Bold']:
+            self.assertGreater(self.kern(style, 'fi'), 0, style)
+            self.assertGreater(self.kern(style, 'fl'), 0, style)
+        for style in self.STYLES:
+            self.assertEqual(self.kern(style, 'ff'), 0, style)
+            # The air is a polish, never a gap: at most 0.16 of the heaviest stem.
+            self.assertLessEqual(self.kern(style, 'fi'), 22, style)
+
+    def test_tucked_descenders_are_closer_but_clear(self):
+        expected = {'Regular': 23, 'Italic': 27}
+        for style, value in expected.items():
+            self.assertAlmostEqual(self.kern(style, 'gj'), value, delta=2, msg=style)
+        for style in self.STYLES:
+            self.assertEqual(self.kern(style, 'jj'), 0, style)
+            self.assertLess(self.kern(style, 'gj'), 45, style)
+            # Ink still clears: the italic and upright collision gates check gj, nj and ng.
+
+    def test_reviewed_pairs_are_unchanged(self):
+        """T and Y read evenly before the pass, and punctuation is outside it."""
+        sys.path.insert(0, str(ROOT))
+        import letters
+        import spacing
+        source, groups, ghosts = letters.draw(1.0, italic=True)
+        measured = spacing.kerning(source, groups, ghosts=ghosts, optical_pass=False)
+        optical = spacing.kerning(source, groups, ghosts=ghosts)
+        changed = {k for k in set(measured[0]) | set(optical[0]) if measured[0].get(k) != optical[0].get(k)}
+        self.assertTrue(changed)
+        for a, b in changed:
+            self.assertTrue(a in 'Wfſ' or (a.isalpha() and b.isalpha()), f'{a}{b} changed')
+            self.assertNotIn(a, 'TY', f'{a}{b} changed')
+        self.assertLess(len(changed), 250)
+
+
 def _box(x0, y0, x1, y1):
     path = pathops.Path()
     pen = path.getPen()
