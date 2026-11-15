@@ -16,23 +16,26 @@ X, CAP, ASC, DESC, OV = 520, 700, 744, -212, 11
 K = 0.585                      # Balanced's full curve
 SLANT = 10.0                   # italic angle, degrees from upright
 CONDENSE = .96                 # italics are drawn a little narrower
+NIGHT_GRADE = -4               # Night optical grade: 4 units thinner upright stem, zero reflow
 
 
 class Sheet:
     """One weight of the family. weight 1.0 is Regular."""
 
-    def __init__(self, weight=1.0, tilt=0.0, soft=13, italic=False):
-        self.weight = weight
+    def __init__(self, weight=1.0, tilt=0.0, soft=13, italic=False, grade=0):
+        w = weight + grade/88 if grade else weight
+        self.weight = w
+        self.grade = grade
         self.italic = italic
         self.heavy = max(0.0, weight-1.0)
         self.wide = 1 + (weight-1)*.13        # heavier weights are drawn a little wider
         self.tight = 1 - (weight-1)*.3        # and fitted a little closer
-        stem = weight/self.wide
+        stem = w/self.wide
         if italic:
             # Condensing and slanting thin an upright stem; draw it heavier so the colour matches.
             stem /= CONDENSE*math.cos(math.radians(SLANT))
-        hair = 1 + (weight-1)*(.72 if weight <= 1.0 else .64)
-        soft *= weight**.5
+        hair = 1 + (w-1)*(.72 if w <= 1.0 else .64)
+        soft *= w**.5
         self.lc = Style(88*stem, 74*hair, tilt, soft)
         self.uc = Style(95*stem, 79*hair, tilt, soft)
         self.fig = Style(91*stem, 76*hair, tilt, soft)
@@ -63,14 +66,16 @@ class Sheet:
             self.ghosts.pop(ch, None)
 
 
-def draw(weight=1.0, tilt=0.0, soft=13, italic=False):
+def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None):
     """-> ({char: (advance, path)}, {composite: base}, {char: ghost path}).
 
     italic: true italic lowercase forms (see cursive), then every glyph is condensed
     and slanted about the middle of the x-height, so advances and spacing keep their
     upright logic while the letters lean.
+    grade: optical stroke adjustment in upright stem units (e.g. NIGHT_GRADE = -4).
+    Each glyph keeps its paired Day advance width with the thinned ink centred inside.
     """
-    sh = Sheet(weight, tilt, soft, italic)
+    sh = Sheet(weight, tilt, soft, italic, grade=grade)
     lower(sh)
     if italic:
         cursive(sh)
@@ -87,6 +92,11 @@ def draw(weight=1.0, tilt=0.0, soft=13, italic=False):
 
     glyphs = {ch: (width if ch in '0123456789' else round(width*wide), shape(ch, width, path))
               for ch, (width, path) in sh.glyphs.items()}
+    if grade:
+        day_glyphs, day_groups, day_ghosts = day or draw(weight, tilt, soft, italic=italic)
+        glyphs = {ch: (day_glyphs[ch][0], move(path, (day_glyphs[ch][0] - width)/2))
+                  for ch, (width, path) in glyphs.items()}
+        return glyphs, day_groups, day_ghosts
     ghosts = {ch: shape(ch, sh.glyphs[ch][0], path) for ch, path in sh.ghosts.items()}
     return glyphs, sh.groups, ghosts
 
@@ -704,7 +714,8 @@ def extended(sh, comma, R):
             # A one-stem base carries a narrower accent, so neighbours' accents stay apart.
             shape = narrow_dots if kind == 'dieresis' else shape.transform(.8, 0, 0, 1, 0, 0) if kind != 'dot' else shape
         if kind in BELOW:
-            placed = move(shape, x, 0)
+            dy = 6 if kind == 'ogonek' and base == 'a' and sh.italic and sh.grade else 0
+            placed = move(shape, x, dy)
         elif y1 <= X+OV+12:
             placed = move(shape, x, X+62)
         else:

@@ -2641,15 +2641,15 @@
         {
           "version": "Redraw 02",
           "label": "Balanced · Redraw 02 (candidate)",
-          "shortTitle": "Modulated strokes, tapered joins, four weights & kerning",
-          "date": "2026-11-12",
+          "shortTitle": "Modulated strokes, tapered joins, four weights, italics & Night grade",
+          "date": "2026-11-15",
           "current": true,
-          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics and 343 characters. A candidate for review; Balanced remains the approved direction.",
+          "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.",
           "highlights": [
             "Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l",
             "Light, Regular, Medium and Bold with open Bold counters down to 14–16 px",
             "Complete printable Latin-1 & Extended-A plus everyday typography symbols",
-            "True italics at every weight: single-storey a, exit strokes and a descending f"
+            "True italics at every weight plus a zero-reflow Night optical grade for Light, Regular and Medium"
           ],
           "capabilities": {
             "weights": [
@@ -2659,7 +2659,11 @@
               700
             ],
             "italic": true,
-            "nightWeights": []
+            "nightWeights": [
+              300,
+              400,
+              500
+            ]
           },
           "faces": [
             {
@@ -2733,6 +2737,60 @@
               "night": false,
               "bytes": 28744,
               "sha256": "4eda3220bb6eb23852b42b96f2619580e5e25af9d28efbd1f50dbb9b368a6429"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightNight.woff2",
+              "styleName": "LightNight",
+              "weight": 300,
+              "style": "normal",
+              "night": true,
+              "bytes": 24972,
+              "sha256": "285307ef55bd7f842fd0eb292046155239f2f4450f8d63776ee7fc9f24f6471c"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-RegularNight.woff2",
+              "styleName": "RegularNight",
+              "weight": 400,
+              "style": "normal",
+              "night": true,
+              "bytes": 23860,
+              "sha256": "d0990a654a2c17a3f41d618e8aa7d45605eef86fd96e733cc7175ad07b40928d"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumNight.woff2",
+              "styleName": "MediumNight",
+              "weight": 500,
+              "style": "normal",
+              "night": true,
+              "bytes": 25356,
+              "sha256": "ec15fd2678d474ebf9535cbe9364f63b0d93876e1b4aa4edd231845ac7e66b70"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalicNight.woff2",
+              "styleName": "LightItalicNight",
+              "weight": 300,
+              "style": "italic",
+              "night": true,
+              "bytes": 26596,
+              "sha256": "3806bbe19031afcd53ea94f5aba06f87ffb1ec48efaa411a62c786710fbcf9ce"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-ItalicNight.woff2",
+              "styleName": "ItalicNight",
+              "weight": 400,
+              "style": "italic",
+              "night": true,
+              "bytes": 27064,
+              "sha256": "f337ce7f946649229d76d9b30f25ddeb94078f23dbe0e3d7bfb96075e28f48fa"
+            },
+            {
+              "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalicNight.woff2",
+              "styleName": "MediumItalicNight",
+              "weight": 500,
+              "style": "italic",
+              "night": true,
+              "bytes": 27852,
+              "sha256": "c767cb357572e0ab083ba5dddc777868998c903037164a19e99c14a972e6cb6e"
             }
           ]
         },

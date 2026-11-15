@@ -29,7 +29,7 @@ replaces that construction:
 | Regular weight | Reads as a Light | Text weight, near Noto Sans Regular |
 | Proportions | x-height 530, capitals 717, ascender 710 | x-height 520, capitals 700, ascender 744 |
 | Spacing | Grouped sidebearings, 34 pairs | Shape-based sidebearings, automatic kerning |
-| Weights | Regular | Light, Regular, Medium, Bold, each with a true italic |
+| Weights | Regular | Light, Regular, Medium, Bold, each with a true italic, plus a Night grade for Light, Regular, Medium |
 | Characters | 94 | 343 (complete printable Basic Latin, Latin-1 and Latin Extended-A, plus Romanian, Welsh and everyday symbols) |
 
 ## What stays (the SEIHouse flavour)
@@ -77,6 +77,19 @@ and Bold Italic** (`SEIHouseNoto-LightItalic` … `-BoldItalic`).
 
 The upright fonts are byte-for-byte unchanged.
 
+## Night optical grade
+
+Light, Regular, and Medium ship a zero-reflow Night grade in both upright and italic
+(`Light Night`, `Regular Night`, `Medium Night`, `Light Italic Night`, `Italic Night`,
+`Medium Italic Night`), built with `NIGHT_GRADE = -4`:
+
+- Thinner strokes (`w = weight - 4/88`): upright stems thin by 4.00 units (and italic stems
+  proportionately), countering the white-on-dark halation bloom at reading weights while
+  leaving Bold and Bold Italic at full weight.
+- Zero reflow: every Night glyph locks onto its paired Day advance width with the thinned
+  ink centred inside, and reuses the Day font's exact `GPOS` kerning table — switching
+  between Day and Night never shifts a line break.
+
 ## How it is built
 
 - `pen.py` — the drawing engine: a modulated ribbon around a centreline (thickness
@@ -108,7 +121,7 @@ Latin only. This is a design candidate, version 0.010, not a release.
   is in `manifest.json`; the comparison page reports any character it has to borrow.
 - Accented letters are composed by rule and have not had native-reader review.
   Decomposed (combining-mark) input is not supported yet.
-- No Night grade, no hinting beyond alignment zones, and no native iPhone / Windows
+- No hinting beyond alignment zones, and no native iPhone / Windows
   rendering review yet. Italic accents are composed by the same rules as upright and
   have not had native-reader review; the ĳ digraph and ordinals ª º keep upright forms.
 - The stress-angle setting exists in the engine and is left at 0°: at this low

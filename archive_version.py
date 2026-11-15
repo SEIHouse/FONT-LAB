@@ -356,21 +356,25 @@ NOTO_VERSIONS = [
     {
         'version': 'Redraw 02',
         'label': 'Balanced · Redraw 02 (candidate)',
-        'shortTitle': 'Modulated strokes, tapered joins, four weights & kerning',
-        'date': '2026-11-12',
+        'shortTitle': 'Modulated strokes, tapered joins, four weights, italics & Night grade',
+        'date': '2026-11-15',
         'current': True,
-        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics and 343 characters. A candidate for review; Balanced remains the approved direction.',
+        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.',
         'highlights': [
             'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
             'Light, Regular, Medium and Bold with open Bold counters down to 14–16 px',
             'Complete printable Latin-1 & Extended-A plus everyday typography symbols',
-            'True italics at every weight: single-storey a, exit strokes and a descending f',
+            'True italics at every weight plus a zero-reflow Night optical grade for Light, Regular and Medium',
         ],
-        'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight, slant)
-                  for name, weight, slant in (('Light', 300, 'normal'), ('Regular', 400, 'normal'),
-                                              ('Medium', 500, 'normal'), ('Bold', 700, 'normal'),
-                                              ('LightItalic', 300, 'italic'), ('Italic', 400, 'italic'),
-                                              ('MediumItalic', 500, 'italic'), ('BoldItalic', 700, 'italic'))],
+        'faces': [(f'noto/studies/redraw/fonts/SEIHouseNoto-{name}.woff2', name, weight, slant, is_night)
+                  for name, weight, slant, is_night in (
+                      ('Light', 300, 'normal', False), ('Regular', 400, 'normal', False),
+                      ('Medium', 500, 'normal', False), ('Bold', 700, 'normal', False),
+                      ('LightItalic', 300, 'italic', False), ('Italic', 400, 'italic', False),
+                      ('MediumItalic', 500, 'italic', False), ('BoldItalic', 700, 'italic', False),
+                      ('LightNight', 300, 'normal', True), ('RegularNight', 400, 'normal', True),
+                      ('MediumNight', 500, 'normal', True), ('LightItalicNight', 300, 'italic', True),
+                      ('ItalicNight', 400, 'italic', True), ('MediumItalicNight', 500, 'italic', True))],
     },
     {
         'version': 'Refinement 01',
@@ -781,15 +785,17 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
     noto_entries = []
     for item in NOTO_VERSIONS:
         faces = []
-        for rel_path, style_name, weight, *slant in item.get('faces') or [(item['path'], 'Regular', 400)]:
+        for rel_path, style_name, weight, *extra in item.get('faces') or [(item['path'], 'Regular', 400)]:
+            slant = extra[0] if len(extra) > 0 else 'normal'
+            is_night = bool(extra[1]) if len(extra) > 1 else False
             data = (ROOT / rel_path).read_bytes()
             verify_woff2(data, rel_path)
             faces.append({
                 'path': rel_path,
                 'styleName': style_name,
                 'weight': weight,
-                'style': slant[0] if slant else 'normal',
-                'night': False,
+                'style': slant,
+                'night': is_night,
                 'bytes': len(data),
                 'sha256': sha256_bytes(data),
             })
@@ -801,8 +807,11 @@ def build_versions_manifest(extra_sans_meta: dict | None = None, extra_display_m
             'current': item['current'],
             'summary': item['summary'],
             'highlights': item['highlights'],
-            'capabilities': {'weights': sorted({face['weight'] for face in faces}),
-                             'italic': any(face['style'] == 'italic' for face in faces), 'nightWeights': []},
+            'capabilities': {
+                'weights': sorted({face['weight'] for face in faces if not face['night']}),
+                'italic': any(face['style'] == 'italic' and not face['night'] for face in faces),
+                'nightWeights': sorted({face['weight'] for face in faces if face['night']}),
+            },
             'faces': faces,
         })
 
