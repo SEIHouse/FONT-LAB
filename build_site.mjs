@@ -34,6 +34,7 @@ const pages = [
   'display/novel-expanded/README.md',
   'display/elemental/index.html', 'display/elemental/lab.css',
   'display/elemental/lab.js', 'display/elemental/README.md',
+  'site/app-stress/index.html', 'site/app-stress/app.js', 'site/app-stress/app.css', 'site/app-stress/README.md',
   'packages/living-titles/README.md',
   'packages/elemental-title/README.md',
   'docs/FAMILIAR-SIGNATURES.md',

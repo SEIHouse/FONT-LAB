@@ -2,6 +2,12 @@
 
 Newest first.
 
+## 2026-11-15 · App stress test: SEA and SEN screens
+- **New page `site/app-stress/`** (linked from the SEIHouse Noto card on the homepage): real app screens set with all four SEIHouse type roles at once. The Title Engine (Living Titles on the Display cuts) sets album, novel and world titles; Elemental Title sets artist, author, reader and character names; SEIHouse Noto sets everything else; SEIHouse Sans sets chapters, lyrics and synopses; a clearly labelled stand-in marks the future editorial serif.
+- **Two views**: SEA (album, now playing with lyrics, artist page, search and library) and SEN (novel page, a chapter with comments, the novel's world guide, profile and settings).
+- **SEIHouse Noto close-up** under each view: size ladder (10–18 px), labels and buttons, numbers in their real jobs, names in many scripts with live highlighting of characters Noto does not draw yet, line-sharing between the faces, and truncation.
+- **Controls**: Day/Night (Night grades for Noto and Sans), text size, phone width, title cut and motion, name element, rarity and base face, an *Everywhere face* comparison against Google Noto Sans and the system UI font, and a *Show roles* overlay. Built by `site/build_app_stress.mjs`; the site build and production test now cover it.
+
 ## 2026-11-15 · SEIHouse Noto Redraw 02 — Optical spacing pass
 - **Eye-reviewed polish on top of the automatic kerning** (`noto/studies/redraw/optical.py`): real words (`To`, `Te`, `Wa`, `Yo`, italic `ff`, `fi`, `gj`) were read in sentences across all four weights, upright and italic. Three rules came out of it: W with lowercase follows at least ¾ of V's kern (italic `Wa` −14 → −25); the f terminal gets about one stem of air above the x-height before a dot, accent, ascender or quote (italic `fi` 0 → +14, Bold `fi` 0 → +21, `ff` unchanged); and tucked descenders between letters only need a 12-unit clearance and never loosen the rhythm (`gj` +37 → +23).
 - **Scope**: `T` and `Y` pairs were reviewed and left as they were; punctuation is untouched; about 70–190 pairs change per weight, and every pair still keeps clear ink. Outlines and advance widths are unchanged, and Night fonts still reuse their Day `GPOS`, so Day/Night switching still never reflows. Before/after proof: `noto/studies/redraw/proofs/redraw-optical.png`. `tests/test_noto_redraw.py` adds optical-pass gates.
