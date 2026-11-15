@@ -152,30 +152,33 @@ def lower(sh):
                f"C{s/2} 120 140 {bot} 272 {bot} C344 {bot} 406 60 448 122", lc, {0: 1.06, 4: 1.06})
     c = minus(minus(c, rect(424, X/2, 700, 700)), rect(432, -100, 700, X/2))
     sh.put('c', c, B, 30)
-    ew = 498 + 10*hv
-    ey = 238 - 18*hv
-    e_cross = h*(.9 - .24*hv)
-    e = ribbon(f"M452 126 C408 62 346 {bot} 274 {bot} C142 {bot} {s/2} 122 {s/2} {X/2+2} "
-               f"C{s/2} 400 136 {top} 256 {top} C378 {top} {ew-s/2} 404 {ew-s/2} 296 L{ew-s/2} {ey}",
-               lc, {0: 1.06, 4: 1 - .14*hv})
-    e = minus(e, rect(436, -100, 700, 190))
+    ew = 492 + 14*hv
+    ey = 236 - 22*hv
+    e_cross = h*(.88 - .24*hv)
+    e = ribbon(f"M{446+12*hv} 126 C{404+10*hv} 62 {344+6*hv} {bot} {272+4*hv} {bot} C140 {bot} {s/2} 122 {s/2} {X/2+2} "
+               f"C{s/2} 400 136 {top} {254+4*hv} {top} C{374+10*hv} {top} {ew-s/2} 404 {ew-s/2} 294 L{ew-s/2} {ey}",
+               lc, {0: 1.05 - .10*hv, 4: 1 - .16*hv})
+    e = minus(e, rect(430+12*hv, -100, 700, 190))
     sh.put('e', [e, rect(s/2, ey, ew-s/2, ey+e_cross)], B, B-2)
 
     # a
     aw = 446 + 24*hv
-    a_top = ribbon(f"M52 404 C96 462 160 {top} 232 {top} C340 {top} {aw-s/2} 444 {aw-s/2} 344 L{aw-s/2} 0",
-                   lc, {0: 1.06 - .18*hv})
+    a_top = ribbon(f"M52 406 C96 462 160 {top} {232+4*hv} {top} C{340+12*hv} {top} {aw-s/2} 444 {aw-s/2} 344 L{aw-s/2} 0",
+                   lc, {0: 1.04 - .18*hv})
     a_top = minus(a_top, rect(-100, 300, 58, 520))
-    a_bowl = ribbon(f"M{aw-s/2+6} 286 C352 294 296 296 228 290 C112 280 {s/2-2} 232 {s/2-2} 150 "
+    ay = 284 - 6*hv
+    a_bowl = ribbon(f"M{aw-s/2+6} {ay} C352 {ay+8} 296 {ay+10} 228 {ay+4} C112 {ay-6} {s/2-2} 230 {s/2-2} 148 "
                     f"C{s/2-2} 74 106 {bot} 192 {bot} C290 {bot} 362 88 {aw-s/2} 190",
-                    lc, {0: .94 - .28*hv, 1: 1 - .32*hv, 2: 1 - .14*hv, 4: .5})
+                    lc, {0: .90 - .26*hv, 1: .94 - .30*hv, 2: .98 - .14*hv, 4: .5})
     sh.put('a', [a_top, a_bowl], B+4, N-8)
 
     # s
-    s_d = (f"M386 404 C348 462 298 {top} 228 {top} C140 {top} 80 448 80 380 C80 318 128 290 220 262 "
-           f"C316 233 370 202 370 138 C370 68 306 {bot} 216 {bot} C142 {bot} 86 56 42 116")
-    sp = ribbon(s_d, lc, {0: 1.05 - .18*hv, 2: .96 - .14*hv, 3: 1.2 - .4*hv, 4: .96 - .14*hv, 6: 1.05 - .18*hv})
-    sp = minus(minus(sp, rect(374, X/2, 700, 700)), rect(-200, -100, 52, X/2))
+    sw = 380 + 16*hv
+    s_d = (f"M{sw+16} 404 C{sw-22} 462 {sw-72} {top} {230+6*hv} {top} C140 {top} {78-2*hv} 448 {78-2*hv} 380 "
+           f"C{78-2*hv} 318 128 290 {222+6*hv} 262 C{318+12*hv} 233 {sw} 202 {sw} 138 "
+           f"C{sw} 68 {sw-64} {bot} {218+6*hv} {bot} C142 {bot} 84 56 40 116")
+    sp = ribbon(s_d, lc, {0: 1.04 - .18*hv, 2: .95 - .14*hv, 3: 1.10 - .32*hv, 4: .95 - .14*hv, 6: 1.04 - .18*hv})
+    sp = minus(minus(sp, rect(sw+4, X/2, 700, 700)), rect(-200, -100, 50, X/2))
     sh.put('s', sp, 38, 38)
 
     # i j l t f
@@ -208,15 +211,20 @@ def lower(sh):
     sh.put('z', [rect(34, X-h, 398, X), rect(12, 0, 404, h), keep(bar((358, X+20), (52, -20), s-4, 'h', 'h'), y0=0, y1=X)],
            30, 30)
 
-    # g: bowl, ear, link and loop
-    g_bowl = ribbon(oval_d(26+s/2-2-4*hv, 222+h/2-2-14*hv, 410-s/2+2+22*hv, top, K), lc,
-                    {0: .97, 1: .97 - .14*hv, 2: .93 - .26*hv, 3: .97 - .14*hv})
-    g_ear = keep(ribbon(f"M332 444 C368 476 420 {X-h*.45} 500 {X-h*.45}", lc, {0: .85, 1: .85}), x1=482)
-    g_loop = ribbon("M196 260 C134 234 98 202 98 162 C98 122 134 101 196 100 L330 98 C420 96 470 46 470 -30 "
-                    "C470 -122 386 -194 256 -194 C128 -194 44 -138 44 -68 C44 -10 96 46 186 90",
-                    lc, {0: .58*(1-.08*hv), 1: .65*(1-.08*hv), 2: .74*(1-.12*hv), 3: .76*(1-.12*hv),
-                         4: .85*(1-.06*hv), 5: .83*(1-.10*hv), 6: .82*(1-.06*hv), 7: .48*(1-.08*hv)})
-    sh.put('g', [g_bowl, g_ear, g_loop], 30, 6)
+    # g: bowl, ear, compact neck and rounded loop
+    gb_r = 418 + 22*hv
+    g_bowl = ribbon(oval_d(28+s/2-2-4*hv, 218+h/2-2-14*hv, gb_r-s/2+2, top, K), lc,
+                    {0: .97, 1: .96 - .14*hv, 2: .92 - .26*hv, 3: .96 - .14*hv})
+    g_ear = keep(ribbon(f"M{338+10*hv} 444 C{374+10*hv} 476 {424+10*hv} {X-h*.45} {502+10*hv} {X-h*.45}",
+                        lc, {0: .85, 1: .85}), x1=474+10*hv)
+    rx, bx, by, lx = 432 + 14*hv, 244 + 6*hv, -186 - 2*hv, 58 - 4*hv
+    tx, ty = 228 + 4*hv, 105
+    g_neck = ribbon(f"M196 256 C136 232 104 200 104 164 C104 128 142 {ty+4} {tx} {ty}",
+                    lc, {0: .56*(1-.08*hv), 1: .65*(1-.08*hv), 2: .72*(1-.12*hv)})
+    g_loop = ribbon(f"M{tx} {ty} C{tx+116} {ty-5} {rx} 46 {rx} -28 C{rx} -112 {bx+106} {by} {bx} {by} "
+                    f"C{bx-106} {by} {lx} -124 {lx} -50 C{lx} 34 {tx-102} {ty+5} {tx} {ty} Z",
+                    lc, {0: .74*(1-.12*hv), 1: .83*(1-.06*hv), 2: .81*(1-.10*hv), 3: .80*(1-.06*hv)})
+    sh.put('g', [g_bowl, g_ear, g_neck, g_loop], 32, 18)
 
 
 # ---------------------------------------------------------------- italic lowercase
@@ -687,7 +695,7 @@ def extended(sh, comma, R):
             return {'k': mid+10, 'K': mid+10, 'r': x0+s/2, 'l': x0+s/2, 't': x0+150, 'T': mid,
                     'L': mid+10, 'R': mid+6, 's': mid, 'S': mid}.get(base, mid)
         return {'a': mid+8, 'L': x0+S/2+26, 'l': x0+s/2, 'J': x1-S/2, 'h': x0+s/2, 'ȷ': x1-s/2,
-                'r': mid-12, 'd': mid, 't': x0+150, 'g': mid-28, 'c': mid+10, 'C': mid+22, 'G': mid+16}.get(base, mid)
+                'r': mid-12, 'd': mid, 't': x0+150, 'g': mid-20, 'c': mid+10, 'C': mid+22, 'G': mid+16}.get(base, mid)
 
     def compose(ch, base, kind):
         if base in 'ij' and kind not in BELOW:

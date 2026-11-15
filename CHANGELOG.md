@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 2026-11-15 · SEIHouse Noto Redraw 02 — Reading-size polish for a, e, g, s
+- **Lowercase `g` neck & loop**: Replaced the wide, flat-topped open lower loop in `noto/studies/redraw/letters.py` with a compact curved neck and a smooth rounded closed lower loop seated under the upper bowl (`rsb = 18` in Regular), removing the horizontal shelf and ceiling ridge and centering `g` diacritics (`mid - 20`).
+- **Paragraph texture across `a, e, g, s` (14–18 px)**: Tuned `e` width and Bold eye height, lightened `a`'s upper bowl arch, and calmed `s`'s diagonal mid-spine across Regular, Bold, Light, Medium, Italics, and Night grades; rebuilt all 14 fonts (with optical kerning active), proofs, and `site/versions.json` with new regression checks in `tests/test_noto_redraw.py`.
+
 ## 2026-11-15 · SEIHouse Noto Redraw 02 — Optical spacing pass
 - **Eye-reviewed polish on top of the automatic kerning** (`noto/studies/redraw/optical.py`): real words (`To`, `Te`, `Wa`, `Yo`, italic `ff`, `fi`, `gj`) were read in sentences across all four weights, upright and italic. Three rules came out of it: W with lowercase follows at least ¾ of V's kern (italic `Wa` −14 → −25); the f terminal gets about one stem of air above the x-height before a dot, accent, ascender or quote (italic `fi` 0 → +14, Bold `fi` 0 → +21, `ff` unchanged); and tucked descenders between letters only need a 12-unit clearance and never loosen the rhythm (`gj` +37 → +23).
 - **Scope**: `T` and `Y` pairs were reviewed and left as they were; punctuation is untouched; about 70–190 pairs change per weight, and every pair still keeps clear ink. Outlines and advance widths are unchanged, and Night fonts still reuse their Day `GPOS`, so Day/Night switching still never reflows. Before/after proof: `noto/studies/redraw/proofs/redraw-optical.png`. `tests/test_noto_redraw.py` adds optical-pass gates.
