@@ -7,6 +7,8 @@ from __future__ import annotations
 
 import numpy as np
 
+import optical
+from letters import X
 from pen import _contours, _cubic, bez
 
 STEP = 8
@@ -69,12 +71,14 @@ OVERHANG = 'TVWYFPKfrſ“”‘’\'"'
 
 
 def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…¤¦§¨©ª¬®¯²³´¶¸¹º¼½¾', damp=.5, least=12,
-            tightest=-76, loosest=32, clear=26, ghosts=None):
+            tightest=-76, loosest=32, clear=26, ghosts=None, optical_pass=True):
     """-> (class pairs {(a, b): value} on base glyphs, exceptions {(a, composite): value}).
 
     ghosts: {char: path} italic letters without their exit strokes. Rhythm is measured
     on the ghost (an exit stroke is meant to reach toward its neighbour); clearance is
     always measured on the real ink.
+    optical_pass: apply the eye-reviewed corrections in optical.py (False gives the
+    purely measured kerning, for before/after proofs).
     """
     prof = {c: profile(p, w) for c, (w, p) in glyphs.items() if c not in skip}
     rhythm = dict(prof)
@@ -86,14 +90,34 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
         gap = rhythm[ref][1] + rhythm[ref][0]
         targets[key] = measure(gap[np.isfinite(gap)], 0)
 
+    stem = optical.stem_width(BANDS, prof['ı'], glyphs['ı'][0], X) if 'ı' in prof else 88
+
+    def floor(a, b):
+        """Least kern that keeps the pair's real ink clear."""
+        if optical_pass:
+            return optical.clearance(BANDS, a, b, prof[a][1], prof[b][0], clear)
+        gap = prof[a][1] + prof[b][0]
+        both = np.isfinite(gap)
+        return clear - float(gap[both].min()) if both.any() else -np.inf
+
+    def measured(a, b):
+        target = targets['uc' if a.isupper() and b.isupper() else 'lc']
+        ra, lb = rhythm[a][1], rhythm[b][0]
+        raw = pair_kern(ra, lb, target)
+        if optical_pass:
+            # Tucked descenders may stop pushing a letter pair apart, never loosen it.
+            zone = optical.reading_zone(BANDS, a, b, ra, lb)
+            if zone[0] is not ra:
+                raw = min(raw, pair_kern(*zone, target))
+        return max(tightest, min(loosest, raw*damp))
+
     def value(a, b):
-        raw = pair_kern(rhythm[a][1], rhythm[b][0], targets['uc' if a.isupper() and b.isupper() else 'lc'])
-        v = max(tightest, min(loosest, raw*damp))
-        ra, lb = prof[a][1], prof[b][0]
-        both = np.isfinite(ra) & np.isfinite(lb)
-        if both.any():
-            v = max(v, clear - float((ra[both] + lb[both]).min()))
-        return int(round(v))
+        v = measured(a, b)
+        if optical_pass:
+            if a == 'W' and 'V' in rhythm:
+                v = optical.w_follows_v(a, b, v, measured('V', b))
+            v = max(v, optical.terminal_air(BANDS, a, b, prof[a][1], prof[b][0], X, stem))
+        return int(round(max(v, floor(a, b))))
 
     bases = [c for c in prof if c not in groups]
     pairs = {}
@@ -119,12 +143,11 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
     for a in prof:
         for b in prof:
             if (a in groups or b in groups) and (a, b) not in exceptions:
-                ra, lb = prof[a][1], prof[b][0]
-                both = np.isfinite(ra) & np.isfinite(lb)
-                if not both.any():
+                need = floor(a, b)
+                if not np.isfinite(need):
                     continue
                 current = pairs.get((base(a), base(b)), 0)
-                need = int(np.ceil(clear - float((ra[both] + lb[both]).min())))
+                need = int(np.ceil(need))
                 if current < need:
                     exceptions[(a, b)] = need
     return pairs, exceptions

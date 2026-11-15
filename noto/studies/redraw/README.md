@@ -14,7 +14,8 @@ remains the approved direction** until the owner decides otherwise; nothing in
 [Phone width](proofs/redraw-mobile.png) ·
 [Every glyph](proofs/redraw-glyphs.svg) ·
 [True italics](proofs/redraw-italic.png) ·
-[Every italic glyph](proofs/redraw-glyphs-italic.svg)
+[Every italic glyph](proofs/redraw-glyphs-italic.svg) ·
+[Optical spacing, before and after](proofs/redraw-optical.png)
 
 ## What changed, and why
 
@@ -90,6 +91,28 @@ Light, Regular, and Medium ship a zero-reflow Night grade in both upright and it
   ink centred inside, and reuses the Day font's exact `GPOS` kerning table — switching
   between Day and Night never shifts a line break.
 
+## Optical spacing pass
+
+The automatic kerning balances the *measured* gap of every pair. The eye does not
+read gaps as a ruler does, so a polish pass (`optical.py`) sits on top of it. It came
+from reading real words at every weight, upright and italic: `To`, `Te`, `Wa`, `Yo`, and
+italic `ff`, `fi`, `gj`, in sentences as well as in isolation.
+
+![Optical spacing, before and after](proofs/redraw-optical.png)
+
+| What the eye saw | Rule | Example (Regular → Italic) |
+|---|---|---|
+| W sat looser than V beside the same letter, most visibly in italic (*Wanda*, *Waved*) | W with a lowercase letter kerns at least ¾ of V's value | `Wa` −29 → −37, italic −14 → −25 |
+| The f terminal crowded an i dot, accent, ascender or closing quote (*fifty* clotted in Bold Italic) | Above the x-height an f gets about one stem of air, opened by at most 0.16 stem; `ff` keeps its shared crossbar | italic `fi` 0 → +14, Bold `fi` 0 → +21 |
+| `gj` opened a hole at the x-height: tucked descenders were pushing the letters apart | Between letters, descender contact only needs a smaller clearance (12 units) and never loosens the rhythm | `gj` +37 → +23, `jj` +20 → 0 |
+
+Reviewed and left as they were: `T` and `Y` with lowercase (`To`, `Te`, `Ta`, `Tr`, `Ty`,
+`Yo`, `Ya`, `Ye`) already read evenly. Upright Light and Regular `fi` already have enough
+air, so the f rule leaves them as they were. Punctuation pairs are untouched by the
+descender rule. About 70–190 pairs change per weight; every kerned pair still keeps clear ink.
+Night fonts reuse their Day kerning, so they inherit the pass with zero reflow between Day and Night.
+`spacing.kerning(..., optical_pass=False)` gives the purely measured kerning for comparison.
+
 ## How it is built
 
 - `pen.py` — the drawing engine: a modulated ribbon around a centreline (thickness
@@ -100,6 +123,7 @@ Light, Regular, and Medium ship a zero-reflow Night grade in both upright and it
 - `spacing.py` — kerning from the outlines: each pair is adjusted until its
   weighted gap matches "nn" / "HH", with a clearance floor. Accented letters
   share their base's kerning, with exceptions where an accent meets an overhang.
+- `optical.py` — the eye-reviewed optical spacing pass applied on top of `spacing.py`.
 - `build.py` — fonts, `manifest.json`, the glyph sheet, and the page's character list.
 
 ```sh

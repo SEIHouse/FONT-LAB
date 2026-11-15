@@ -359,10 +359,11 @@ NOTO_VERSIONS = [
         'shortTitle': 'Modulated strokes, tapered joins, four weights, italics & Night grade',
         'date': '2026-11-15',
         'current': True,
-        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.',
+        'summary': 'A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning with an eye-reviewed optical pass, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 343 characters. A candidate for review; Balanced remains the approved direction.',
         'highlights': [
             'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
             'Light, Regular, Medium and Bold with open Bold counters down to 14–16 px',
+            'Optical spacing pass on the automatic kerning: closer Wa/We/Wo, air under the f terminal, a tighter gj',
             'Complete printable Latin-1 & Extended-A plus everyday typography symbols',
             'True italics at every weight plus a zero-reflow Night optical grade for Light, Regular and Medium',
         ],

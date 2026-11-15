@@ -2,6 +2,10 @@
 
 Newest first.
 
+## 2026-11-15 · SEIHouse Noto Redraw 02 — Optical spacing pass
+- **Eye-reviewed polish on top of the automatic kerning** (`noto/studies/redraw/optical.py`): real words (`To`, `Te`, `Wa`, `Yo`, italic `ff`, `fi`, `gj`) were read in sentences across all four weights, upright and italic. Three rules came out of it: W with lowercase follows at least ¾ of V's kern (italic `Wa` −14 → −25); the f terminal gets about one stem of air above the x-height before a dot, accent, ascender or quote (italic `fi` 0 → +14, Bold `fi` 0 → +21, `ff` unchanged); and tucked descenders between letters only need a 12-unit clearance and never loosen the rhythm (`gj` +37 → +23).
+- **Scope**: `T` and `Y` pairs were reviewed and left as they were; punctuation is untouched; about 70–190 pairs change per weight, and every pair still keeps clear ink. Outlines and advance widths are unchanged, and Night fonts still reuse their Day `GPOS`, so Day/Night switching still never reflows. Before/after proof: `noto/studies/redraw/proofs/redraw-optical.png`. `tests/test_noto_redraw.py` adds optical-pass gates.
+
 ## 2026-11-15 · SEIHouse Noto Redraw 02 — Zero-reflow Night optical grade
 - **Light, Regular, and Medium Night fonts (`Light Night`, `Regular Night`, `Medium Night`, `Light Italic Night`, `Italic Night`, `Medium Italic Night`)**: Added `NIGHT_GRADE = -4` in `noto/studies/redraw/letters.py`, thinning upright stems by 4.00 units (and italic stems proportionately) so white text on dark backgrounds resists halation without altering character widths or `GPOS` kerning.
 - **Zero-reflow comparison & archive**: Switching between Day and Night in `noto/studies/redraw/index.html` and the `SEIHouse Noto` track of `site/versions/` swaps `NotoRedraw` for `NotoRedrawNight` across all three reading weights without reflowing a single line, while leaving all eight existing Day and Italic font files byte-for-byte unchanged.
