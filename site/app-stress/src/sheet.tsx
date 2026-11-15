@@ -74,7 +74,9 @@ export function Sheet({ world }: { world: "sea" | "sen" }) {
         <p className="sheet-note">
           {s.metaFace !== "seihouse"
             ? "Fallback marking is shown for SEIHouse Noto only."
-            : missing.length
+            : !charset
+              ? "Checking which characters SEIHouse Noto draws… (the character list could not be read if this stays)."
+              : missing.length
               ? <>Highlighted characters are not in SEIHouse Noto yet, so the browser borrows them from another font ({missing.length} distinct). This list is the coverage to-do.</>
               : <>Every character here is drawn by SEIHouse Noto.</>}
         </p>

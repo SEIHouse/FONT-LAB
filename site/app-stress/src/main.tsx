@@ -77,11 +77,11 @@ function App() {
               </div>
               <a className="back" href="../../index.html">← Font Lab</a>
             </div>
-            <div className="worlds" role="tablist" aria-label="App">
-              <button role="tab" aria-selected={world === "sea"} onClick={() => go("sea")}>
+            <div className="worlds" role="group" aria-label="App">
+              <button aria-pressed={world === "sea"} onClick={() => go("sea")}>
                 <strong>SEA</strong><span>Expanded Albums · an album and its songs</span>
               </button>
-              <button role="tab" aria-selected={world === "sen"} onClick={() => go("sen")}>
+              <button aria-pressed={world === "sen"} onClick={() => go("sen")}>
                 <strong>SEN</strong><span>Expanded Novels · a novel and its world</span>
               </button>
             </div>
