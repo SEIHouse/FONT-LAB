@@ -106,7 +106,9 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
         raw = pair_kern(ra, lb, target)
         if optical_pass:
             # Tucked descenders may stop pushing a letter pair apart, never loosen it.
-            raw = min(raw, pair_kern(*optical.reading_zone(BANDS, a, b, ra, lb), target))
+            zone = optical.reading_zone(BANDS, a, b, ra, lb)
+            if zone[0] is not ra:
+                raw = min(raw, pair_kern(*zone, target))
         return max(tightest, min(loosest, raw*damp))
 
     def value(a, b):
