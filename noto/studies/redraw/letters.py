@@ -14,6 +14,11 @@ from pen import (Style, bar, flip_x, keep, minus, move, oval, oval_d, poly, poly
 
 X, CAP, ASC, DESC, OV = 520, 700, 744, -212, 11
 K = 0.585                      # Balanced's full curve
+# Skim pass (measured on real prose at 16 px against Google Noto Sans):
+L_HOOK = (124, 132)            # l: tail reach from the stem centre, and turn height. The reach was 162 at Regular
+                               # (tail at x 206), which left a hole after every l. Reach, not x, so heavy weights
+                               # keep room inside the curve.
+A_KNOT = 0.70                  # a: bowl-top weight at the stem; was 1.0, a dark knot in every word with a
 SLANT = 10.0                   # italic angle, degrees from upright
 CONDENSE = .96                 # italics are drawn a little narrower
 NIGHT_GRADE = -4               # Night optical grade: 4 units thinner upright stem, zero reflow
@@ -37,6 +42,8 @@ class Sheet:
         hair = 1 + (w-1)*(.72 if w <= 1.0 else .64)
         soft *= w**.5
         self.lc = Style(88*stem, 74*hair, tilt, soft)
+        # The Day stem, so a grade can thin strokes while every terminal stays where Day put it.
+        self.day_stem = 88*stem*(weight/w)
         self.uc = Style(95*stem, 79*hair, tilt, soft)
         self.fig = Style(91*stem, 76*hair, tilt, soft)
         self.glyphs = {}
@@ -76,7 +83,8 @@ def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None, with_la
     and slanted about the middle of the x-height, so advances and spacing keep their
     upright logic while the letters lean.
     grade: optical stroke adjustment in upright stem units (e.g. NIGHT_GRADE = -4).
-    Each glyph keeps its paired Day advance width with the thinned ink centred inside.
+    Each glyph keeps its paired Day advance width with the thinned ink centred inside, by whole
+    units so a slanted stem's edges round exactly like the Day stem's.
     """
     sh = Sheet(weight, tilt, soft, italic, grade=grade)
     lower(sh)
@@ -109,13 +117,13 @@ def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None, with_la
         else:
             day_glyphs, day_groups, day_ghosts, day_layout = draw(
                 weight, tilt, soft, italic=italic, with_layout=True)
-        glyphs = {ch: (day_glyphs[ch][0], move(path, (day_glyphs[ch][0] - width)/2))
+        glyphs = {ch: (day_glyphs[ch][0], move(path, round((day_glyphs[ch][0] - width)/2)))
                   for ch, (width, path) in glyphs.items()}
         if with_layout:
             if day_layout is None:
                 _, _, _, day_layout = draw(weight, tilt, soft, italic=italic, with_layout=True)
             night_extras = {
-                name: (day_layout['extras'][name][0], move(path, (day_layout['extras'][name][0] - width)/2))
+                name: (day_layout['extras'][name][0], move(path, round((day_layout['extras'][name][0] - width)/2)))
                 for name, (width, path) in extras.items()}
             layout = dict(extras=night_extras, marks=day_layout['marks'], bases=day_layout['bases'])
             return glyphs, day_groups, day_ghosts, layout
@@ -140,6 +148,19 @@ def arch_d(cl, cr, top, depth=182, lean=.585, down=0):
     ysh = top - rx*1.04
     return (f"M{cl} {top-depth} C{cl+26} {top-94} {px-(px-cl)*.52} {top} {px} {top} "
             f"C{px+K*rx} {top} {cr} {ysh+K*rx*1.04} {cr} {ysh} L{cr} {down}")
+
+
+def l_stroke(sh):
+    """The l: a stem with a hooked foot that keeps l apart from I and 1, tucked close so it reads as a stem in text."""
+    lc = sh.lc
+    s, h = lc.thick, lc.thin
+    reach, lt = L_HOOK
+    base = sh.day_stem/2               # measured from the Day stem, so a Night grade only thins the stroke
+    lx = base + reach
+    k = reach / (206 - base)           # 1 would be the original drawing; smaller tucks the hook in
+    hx = lambda x: base + (x - base)*k
+    return ribbon(f"M{s/2} {ASC} L{s/2} {lt} C{s/2} {lt-70} {hx(82)} {h/2-2} {hx(146)} {h/2-2} "
+                  f"C{hx(168)} {h/2-2} {hx(188)} 38 {lx} 44", lc, {3: 1.05})
 
 
 def lower(sh):
@@ -199,7 +220,7 @@ def lower(sh):
     ay = 284 - 6*hv
     a_bowl = ribbon(f"M{aw-s/2+6} {ay} C352 {ay+8} 296 {ay+10} 228 {ay+4} C112 {ay-6} {s/2-2} 230 {s/2-2} 148 "
                     f"C{s/2-2} 74 106 {bot} 192 {bot} C290 {bot} 362 88 {aw-s/2} 190",
-                    lc, {0: .90 - .26*hv, 1: .94 - .30*hv, 2: .98 - .14*hv, 4: .5})
+                    lc, {0: (.90 - .26*hv)*A_KNOT, 1: (.94 - .30*hv)*A_KNOT, 2: .98 - .14*hv, 4: .5})
     sh.put('a', [a_top, a_bowl], B+4, N-8)
 
     # s
@@ -219,7 +240,7 @@ def lower(sh):
     sh.put('ı', rect(0, 0, s, X), N, N)
     sh.put('j', [ribbon(f"M{s/2} {X} L{s/2} -70 C{s/2} -144 2 {DESC+h/2} -70 {DESC+h/2} C-96 {DESC+h/2} -118 -170 -138 -160",
                         lc, {3: 1.05}), dot], N, N, ref=(0, s))
-    sh.put('l', ribbon(f"M{s/2} {ASC} L{s/2} 132 C{s/2} 62 82 {h/2-2} 146 {h/2-2} C168 {h/2-2} 188 38 206 44", lc, {3: 1.05}),
+    sh.put('l', l_stroke(sh),
            N, 22)
     cross = h*(.9 - .16*hv)
     sh.put('t', [ribbon(f"M150 656 L150 138 C150 66 190 {h/2-2} 256 {h/2-2} C284 {h/2-2} 308 39 330 47", lc, {3: 1.05}),
@@ -881,7 +902,7 @@ def extended(sh, comma, R):
     md_u = 96*wt**.6
     put('Ŀ', [rect(0, 0, S, CAP), rect(S/2, 0, 398, uc.thin), oval(S+138, 342, S+138+md_u, 342+md_u, .62)], 88, 28, uc)
     md_l = 88*wt**.6
-    l_lc = ribbon(f"M{s/2} {ASC} L{s/2} 132 C{s/2} 62 82 {h/2-2} 146 {h/2-2} C168 {h/2-2} 188 38 206 44", lc, {3: 1.05})
+    l_lc = l_stroke(sh)                # the same l as the plain letter, so ŀ and l always match
     dx_l = max(214, s+120)
     put('ŀ', [l_lc, oval(dx_l, 248, dx_l+md_l, 248+md_l, .62)], 74, 46)
     ap = move(comma, 0, ASC-(2*R-5))

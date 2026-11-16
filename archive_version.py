@@ -364,6 +364,7 @@ NOTO_VERSIONS = [
             'Keeps Balanced softness, full bowls, two-storey a and g, and the hooked l',
             'Light, Regular, Medium and Bold with open Bold counters down to 14–16 px',
             'Optical spacing pass on the automatic kerning: closer Wa/We/Wo, air under the f terminal, a tighter gj',
+            'Skim pass: a tucked l hook and a lighter a knot, so paragraphs read as evenly as Google Noto Sans',
             'Complete printable Latin-1 & Extended-A, everyday typography symbols, and 19 combining marks with precomposed/decomposed parity and mark-to-mark stacking',
             'True italics at every weight plus a zero-reflow Night optical grade for Light, Regular and Medium',
         ],

@@ -16,7 +16,8 @@ remains the approved direction** until the owner decides otherwise; nothing in
 [True italics](proofs/redraw-italic.png) ·
 [Every italic glyph](proofs/redraw-glyphs-italic.svg) ·
 [Optical spacing, before and after](proofs/redraw-optical.png) ·
-[Combining marks &amp; stacking](proofs/redraw-marks.png)
+[Combining marks &amp; stacking](proofs/redraw-marks.png) ·
+[Skim pass, before and after](proofs/redraw-skim.png)
 
 ## What changed, and why
 
@@ -91,6 +92,30 @@ Light, Regular, and Medium ship a zero-reflow Night grade in both upright and it
 - Zero reflow: every Night glyph locks onto its paired Day advance width with the thinned
   ink centred inside, and reuses the Day font's exact `GPOS` kerning table — switching
   between Day and Night never shifts a line break.
+
+## Skim pass: l and a
+
+The owner noticed the eye catching on "random little letters" while skimming. To find
+which, 7,500 characters of chapter prose were set at 16 px on a phone-width column in
+SEIHouse Noto, Google Noto Sans and SEIHouse Sans, blurred the way peripheral vision sees a
+page, and measured letter by letter against each line's average grey.
+
+![Skim pass, before and after](proofs/redraw-skim.png)
+
+Overall texture was already as even as Noto Sans, so the catches were specific letters:
+
+| Letter | What the eye met | Measured (vs its line) | Fix |
+|---|---|---|---|
+| **l** (4% of letters) | The hooked foot swung 160 units right, making l 25% wider than a normal l and leaving a light hole after it (`ll`, `ld`, `ul`) | +1.0% (Noto Sans +2.6%) → **+2.6%** | Hook kept, tucked closer: it reaches 124 units from the stem instead of 162 (tail at x 168 instead of 206 at Regular; `L_HOOK` in `letters.py`) |
+| **a** (8% of letters) | The bowl's top stroke met the stem at nearly full weight: a dark knot, and every join with a clotted (`ag`, `as`, `ea`, `wa`) | +6.9% (Noto Sans +2.5%) → **+3.5%** | Bowl top thinned to 70% where it meets the stem (`A_KNOT`) |
+
+Overall texture went from 0.112 to 0.110, the same as Google Noto Sans. The hooked l still
+tells l from I and 1, and the two-storey a keeps its shape at display sizes. Every weight,
+italic (which reuses the l) and Night grade is rebuilt from the same rules.
+
+Still on the list, measured but not changed yet: the two-storey **g** is the darkest
+letter in text (+13%), and the round letters **o, e, c** run 5–7% wider than Noto Sans
+relative to **n**, so they swell slightly in a line.
 
 ## Optical spacing pass
 

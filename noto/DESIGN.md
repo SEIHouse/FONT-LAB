@@ -75,6 +75,10 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.011).
   `Medium Night`, `Light Italic Night`, `Italic Night`, and `Medium Italic Night`
   thin strokes by 4 upright units to counter dark-mode halation while keeping
   exact Day advance widths and `GPOS` kerning so Day/Night toggles never reflow.
+- Skim pass, measured on blurred 16 px prose against Google Noto Sans: the hooked
+  `l` keeps its foot but tucked closer (it left a light hole after every l), and the
+  two-storey `a` meets its stem more lightly (it was a dark knot). Texture now matches
+  Noto Sans (0.110). Next candidates: the `g` (darkest letter) and slightly wide `o e c`.
 - Optical spacing pass (`optical.py`) on top of the automatic kerning, from an
   eye review of real words at every weight: W follows V with lowercase (`Wa`, `We`,
   `Wo`), the f terminal gets air above the x-height (`fi`, `fl`, `fí`, `f”`), and
