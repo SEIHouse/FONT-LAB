@@ -1070,8 +1070,31 @@
 }
 
 @font-face {
-  font-family: "SEIHouse Noto Balanced";
-  src: url("../../noto/studies/warmth/fonts/SEIHouseNotoBalanced-Regular.woff2") format("woff2");
+  font-family: "SEIHouse Noto Redraw 02";
+  src: url("../../noto/studies/redraw/fonts/SEIHouseNoto-Light.woff2") format("woff2");
+  font-weight: 300;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SEIHouse Noto Redraw 02";
+  src: url("../../noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2") format("woff2");
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SEIHouse Noto Redraw 02";
+  src: url("../../noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2") format("woff2");
+  font-weight: 500;
+  font-style: normal;
+  font-display: swap;
+}
+@font-face {
+  font-family: "SEIHouse Noto Redraw 02";
+  src: url("../../noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2") format("woff2");
+  font-weight: 700;
+  font-style: normal;
   font-display: swap;
 }
 

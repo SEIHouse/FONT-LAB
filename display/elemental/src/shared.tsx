@@ -62,8 +62,8 @@ export const fontFaces = [
   {
     id: "noto",
     label: "SEIHouse Noto",
-    note: "Balanced reading study",
-    stack: '"SEIHouse Noto Balanced", "SEIHouse Sans", sans-serif',
+    note: "Redraw 02 reading candidate",
+    stack: '"SEIHouse Noto Redraw 02", "SEIHouse Sans", sans-serif',
   },
 ] as const;
 
