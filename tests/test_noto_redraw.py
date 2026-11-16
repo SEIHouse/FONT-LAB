@@ -644,6 +644,15 @@ class CombiningMarkTests(unittest.TestCase):
                 self.assertEqual(self.shape(style, old, language='ro'), expected, f'{style} {old}')
                 self.assertEqual(self.shape(style, unicodedata.normalize('NFD', old), language='ro'),
                                  expected, f'{style} NFD {old}')
+            horn_tones = ['Ớ', 'Ờ', 'Ở', 'Ỡ', 'Ợ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ',
+                          'Ứ', 'Ừ', 'Ử', 'Ữ', 'Ự', 'ứ', 'ừ', 'ử', 'ữ', 'ự']
+            for text in horn_tones:
+                self.assertEqual(self.shape(style, text),
+                                 self.shape(style, unicodedata.normalize('NFD', text)),
+                                 f'{style} horn NFD: {text}')
+                self.assertEqual(self.shape(style, text),
+                                 self.shape(style, unicodedata.normalize('NFC', text)),
+                                 f'{style} horn NFC: {text}')
 
     def test_base_attachment_dotless_substitution_mark_stacking_and_kerning(self):
         single = ['x\u0301', 'n\u0304', 'm\u0300', 'g\u0303', 'x\u0323', 'b\u0331', 'b\u0307', 'd\u0307',

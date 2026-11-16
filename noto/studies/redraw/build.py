@@ -66,7 +66,6 @@ def build_features(source, groups, layout, pairs, exceptions):
         for name, info in items:
             ax, ay = info['attach']
             lines.append(f'markClass {name} <anchor {ax} {ay}> @MC_{kind};')
-    lines.append('@TOP_HORN = [@TOP @HORN];')
 
     mark_names = {glyph_name(ch) for ch in marks}
     base_names = [glyph_name(ch) for ch in source if ch not in (' ', '\u00a0') and ch not in marks]
@@ -104,7 +103,7 @@ def build_features(source, groups, layout, pairs, exceptions):
         lines.append(' } PrecomposedBelow;')
     if top_subs:
         lines.append(' lookup PrecomposedTop {')
-        lines.append('  lookupflag UseMarkFilteringSet @TOP_HORN;')
+        lines.append('  lookupflag UseMarkFilteringSet @TOP;')
         lines.extend(top_subs)
         lines.append(' } PrecomposedTop;')
     lines += [
