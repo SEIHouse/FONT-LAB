@@ -104,7 +104,7 @@ italic `ff`, `fi`, `gj`, in sentences as well as in isolation.
 |---|---|---|
 | W sat looser than V beside the same letter, most visibly in italic (*Wanda*, *Waved*) | W with a lowercase letter kerns at least ¾ of V's value | `Wa` −29 → −37, italic −14 → −25 |
 | The f terminal crowded an i dot, accent, ascender or closing quote (*fifty* clotted in Bold Italic) | Above the x-height an f gets about one stem of air, opened by at most 0.16 stem; `ff` keeps its shared crossbar | italic `fi` 0 → +14, Bold `fi` 0 → +21 |
-| `gj` opened a hole at the x-height: tucked descenders were pushing the letters apart | Between letters, descender contact only needs a smaller clearance (12 units) and never loosens the rhythm | `gj` +37 → +23, `jj` +20 → 0 |
+| `gj` opened a hole at the x-height: tucked descenders were pushing the letters apart | Between letters, descender contact only needs a smaller clearance (12 units) and never loosens the rhythm | `gj` +31 → 0 (Bold +38 → +24), `jj` +20 → 0 |
 
 Reviewed and left as they were: `T` and `Y` with lowercase (`To`, `Te`, `Ta`, `Tr`, `Ty`,
 `Yo`, `Ya`, `Ye`) already read evenly. Upright Light and Regular `fi` already have enough
@@ -136,9 +136,12 @@ python -m unittest tests.test_noto_redraw
 
 Latin only. This is a design candidate, version 0.010, not a release.
 
-- Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`),
-  and lowercase `g` carries a lighter neck and lower loop to match `a, e, o` in
-  paragraphs; Light and Medium otherwise come directly from the shared weight rules.
+- Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`).
+  For even texture at 14–18 px in Regular and Bold, lowercase `g` uses a compact
+  curved neck and rounded closed lower loop seated under its bowl with balanced
+  right sidebearing, `s` calms its diagonal spine weight, and `a` and `e` balance
+  arch weight and counter openness; Light and Medium otherwise come directly from
+  the shared weight rules.
 - Printable Basic Latin, Latin-1 Supplement and Latin Extended-A are complete (alongside
   Romanian `Ș ș Ț ț`, Welsh `Ẁ–Ẅ Ỳ ỳ`, and everyday typography symbols). Wider Latin
   blocks (Extended-B, Vietnamese) and non-Latin scripts are not drawn yet. The exact set

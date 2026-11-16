@@ -199,6 +199,49 @@ class RedrawTests(unittest.TestCase):
         for style in STYLES + ITALICS + NIGHTS:
             self.assertIn(f"fonts/SEIHouseNoto-{style.replace(' ', '')}.woff2", page)
 
+    def test_reading_size_a_e_g_s_proportions_and_loop_balance(self):
+        cases = {
+            'Regular': {'g_ratio_max': 1.42, 'counter_min': 32000, 's_spine_max': 90},
+            'Bold': {'g_ratio_max': 1.68, 'counter_min': 28000, 's_spine_max': 100},
+        }
+        for style, limits in cases.items():
+            font = self.fonts[style]
+            cmap = font.getBestCmap()
+
+            gp = outline(font, cmap[ord('g')])
+            inner = sorted(sorted(gp.contours, key=lambda c: c.area)[:-1], key=lambda c: c.bounds[1])
+            self.assertEqual(len(inner), 2, f'{style} g should have lower and upper counters')
+            lower_w = inner[0].bounds[2] - inner[0].bounds[0]
+            upper_w = inner[1].bounds[2] - inner[1].bounds[0]
+            self.assertLessEqual(
+                lower_w / upper_w,
+                limits['g_ratio_max'],
+                f'{style} g lower counter too wide vs upper bowl ({lower_w:.1f} vs {upper_w:.1f})',
+            )
+            g_adv, _ = font['hmtx'][cmap[ord('g')]]
+            self.assertGreaterEqual(g_adv - gp.bounds[2], 16, f'{style} g right sidebearing too tight')
+
+            densities = {}
+            for ch in ('a', 'e'):
+                p = outline(font, cmap[ord(ch)])
+                counter = min(p.contours, key=lambda c: c.area)
+                self.assertGreater(counter.area, limits['counter_min'], f'{style} {ch} counter too small')
+                adv, _ = font['hmtx'][cmap[ord(ch)]]
+                ink = pathops.Path()
+                pathops.intersection([p], [_box(-200, 0, adv + 200, 520)], ink.getPen())
+                densities[ch] = ink.area / (adv * 520)
+            self.assertLess(abs(densities['a'] - densities['e']), 0.02, f'{style} a/e x-height density mismatch')
+
+            sp = outline(font, cmap[ord('s')])
+            sb = sp.bounds
+            mid_x = (sb[0] + sb[2]) / 2
+            slice_path = pathops.Path()
+            pathops.intersection([sp], [_box(mid_x - 0.5, sb[1] - 10, mid_x + 0.5, sb[3] + 10)], slice_path.getPen())
+            segs = sorted(slice_path.contours, key=lambda c: c.bounds[1])
+            self.assertEqual(len(segs), 3, f'{style} s center slice should cross 3 strokes')
+            spine_t = segs[1].bounds[3] - segs[1].bounds[1]
+            self.assertLess(spine_t, limits['s_spine_max'], f'{style} s spine too heavy ({spine_t:.1f})')
+
 
 def psname(style):
     return f"SEIHouseNoto-{style.replace(' ', '')}"
@@ -482,7 +525,7 @@ class OpticalSpacingTests(unittest.TestCase):
             self.assertLessEqual(self.kern(style, 'fi'), 22, style)
 
     def test_tucked_descenders_are_closer_but_clear(self):
-        expected = {'Regular': 23, 'Italic': 27}
+        expected = {'Regular': 0, 'Italic': 0, 'Medium': 14, 'Bold': 24, 'Medium Italic': 20, 'Bold Italic': 27}
         for style, value in expected.items():
             self.assertAlmostEqual(self.kern(style, 'gj'), value, delta=2, msg=style)
         for style in self.STYLES:
