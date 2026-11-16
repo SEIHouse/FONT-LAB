@@ -14,6 +14,10 @@ dedicated **Version History & Side-by-Side Compare** page at [`site/versions/ind
   and **Elemental Title 0.1.0** with interactive cut tabs (**Soft, Edge, Ink, Wide**), a live
   title tester, workspace cards for the Display Lab, Elemental Title Lab (`display/elemental/index.html`),
   finished cut gallery, and NovelExpanded living-title cover mock, plus direct `.otf` starter downloads.
+- **App stress test (`site/app-stress/index.html`):** SEA and SEN app screens set with the
+  four type roles together (Title Engine, Elemental Title, SEIHouse Noto, SEIHouse Sans, plus a
+  labelled stand-in for the future serif), with a SEIHouse Noto close-up sheet. Rebuild with
+  `node site/build_app_stress.mjs` after `npm ci` in `display/`.
 - **Version History & Compare (`site/versions/index.html`):** Tracks and compares every
   preserved release across **SEIHouse Sans** (`0.6` through `0.42`, 17 versions),
   **Title Engine / Display** (7 milestones across Soft, Edge, Ink, and Wide), and

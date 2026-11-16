@@ -104,6 +104,22 @@ test('built homepage separates Reading Fonts & Title Engine, showcases 0.42, and
     assert.ok(existsSync(resolve(output, cleanRef)), `Missing deployed homepage target: ${ref}`);
   }
 
+  // The app-screen stress test deploys with every asset its page, stylesheet and script reach for.
+  assert.ok(homeRefs.includes('./site/app-stress/index.html'), 'Homepage must link to the app stress test');
+  const stressDir = join(output, 'site', 'app-stress');
+  const stressHtml = readFileSync(join(stressDir, 'index.html'), 'utf8');
+  const stressCss = readFileSync(join(stressDir, 'app.css'), 'utf8');
+  const stressJs = readFileSync(join(stressDir, 'app.js'), 'utf8');
+  const stressRefs = [
+    ...[...stressHtml.matchAll(/(?:href|src)="([^"]+)"/g)].map(m => m[1]),
+    ...[...stressCss.matchAll(/url\("([^"]+)"\)/g)].map(m => m[1]),
+    ...[...stressJs.matchAll(/fetch\("([^"]+)"\)/g)].map(m => m[1]),
+  ];
+  assert.ok(stressRefs.some(ref => ref.includes('noto/studies/redraw/manifest.json')), 'Stress test must read the Noto character set');
+  for (const ref of stressRefs) {
+    assert.ok(existsSync(resolve(stressDir, ref.split('#')[0])), `Missing app stress test asset: ${ref}`);
+  }
+
   // Verify Elemental Title Lab deploys with its CSS/JS assets while keeping package source & tarballs out of dist/site.
   const elementalLabPath = join(output, 'display', 'elemental', 'index.html');
   assert.ok(existsSync(elementalLabPath), 'Elemental Title Lab must be deployed');

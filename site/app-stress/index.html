@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en" data-theme="night">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>App Stress Test · SEIHouse Font Lab</title>
+    <meta name="description" content="SEA and SEN app screens set with the four SEIHouse type roles: Title Engine, Elemental Title, SEIHouse Noto and SEIHouse Sans, plus a slot for the future serif." />
+    <link rel="icon" href="../favicon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="../../fonts-sans.css" />
+    <link rel="stylesheet" href="../../display/fonts.css" />
+    <link rel="stylesheet" href="./app.css" />
+    <script>
+      try {
+        var saved = JSON.parse(localStorage.getItem("seihouse-app-stress") || "{}");
+        if (saved.theme === "day") document.documentElement.dataset.theme = "day";
+      } catch (e) {}
+    </script>
+  </head>
+  <body>
+    <div id="app-stress-root"></div>
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

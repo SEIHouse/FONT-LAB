@@ -2,6 +2,12 @@
 
 Newest first.
 
+## 2026-11-15 · App stress test: SEA and SEN screens
+- **New page `site/app-stress/`** (linked from the SEIHouse Noto card on the homepage): real app screens set with all four SEIHouse type roles at once. The Title Engine (Living Titles on the Display cuts) sets album, novel and world titles; Elemental Title sets artist, author, reader and character names; SEIHouse Noto sets everything else; SEIHouse Sans sets chapters, lyrics and synopses; a clearly labelled stand-in marks the future editorial serif.
+- **Two views**: SEA (album, now playing with lyrics, artist page, search and library) and SEN (novel page, a chapter with comments, the novel's world guide, profile and settings).
+- **SEIHouse Noto close-up** under each view: size ladder (10–18 px), labels and buttons, numbers in their real jobs, names in many scripts with live highlighting of characters Noto does not draw yet, line-sharing between the faces, and truncation.
+- **Controls**: Day/Night (Night grades for Noto and Sans), text size, phone width, title cut and motion, name element, rarity and base face, an *Everywhere face* comparison against Google Noto Sans and the system UI font, and *Font labels*: coloured tags such as `Noto · Night`, `Sans`, `Title · Soft` or `Elemental · frost on Noto` on each run of text (optionally with outlines), plus a hover/tap inspector naming the exact face, weight and size. The homepage's SEIHouse Noto card has an **Open App Stress Test** button. Built by `site/build_app_stress.mjs`; the site build and production test now cover it.
+
 ## 2026-11-15 · SEIHouse Noto Redraw 02 — Reading-size polish for a, e, g, s
 - **Lowercase `g` neck & loop**: Replaced the wide, flat-topped open lower loop in `noto/studies/redraw/letters.py` with a compact curved neck and a smooth rounded closed lower loop seated under the upper bowl (`rsb = 18` in Regular), removing the horizontal shelf and ceiling ridge and centering `g` diacritics (`mid - 20`).
 - **Paragraph texture across `a, e, g, s` (14–18 px)**: Tuned `e` width and Bold eye height, lightened `a`'s upper bowl arch, and calmed `s`'s diagonal mid-spine across Regular, Bold, Light, Medium, Italics, and Night grades; rebuilt all 14 fonts (with optical kerning active), proofs, and `site/versions.json` with new regression checks in `tests/test_noto_redraw.py`.
