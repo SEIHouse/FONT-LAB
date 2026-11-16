@@ -2,6 +2,13 @@
 
 Newest first.
 
+## 2026-11-16 · SEIHouse Noto Redraw 02 — Skim pass for l and a
+- **Why**: skimming felt snaggy on "random little letters". A skim test (7,500 characters of chapter prose at 16 px, blurred like peripheral vision, measured letter by letter against Google Noto Sans and SEIHouse Sans) showed the overall grey was already even; two frequent letters were the catches.
+- **l**: the hooked foot is kept, tucked closer to the stem (it reaches 124 units from the stem instead of 162 at Regular). The old hook left a light hole after every l (+1.0% vs line; now +2.6%, the same as Google Noto Sans).
+- **a**: the bowl's top stroke now meets the stem at 70% weight. It was a dark knot that also clotted every join with a (+6.9%, now +3.5%; Noto Sans +2.5%).
+- **Night grade**: the hook is measured from the Day stem, and Night glyphs are now centred in their Day width by whole units, so a slanted Night stem rounds exactly like its Day stem (widths unchanged; Day/Night still never reflows).
+- **Result**: texture unevenness 0.112 → 0.110, equal to Google Noto Sans. All 14 fonts rebuilt; italics reuse the new l. Before/after proof: `noto/studies/redraw/proofs/redraw-skim.png`. Next measured candidates: the `g` and slightly wide `o e c`.
+
 ## 2026-11-16 · SEIHouse Noto Redraw 02 — Complete combining-mark support & OpenType polish
 - **Combining-mark repertoire & OpenType layout (`0.011`, `363` characters / `367` glyphs)**: Added all 19 zero-advance Latin combining marks (`U+0300–U+0304`, `U+0306–U+030C`, `U+0312` turned comma above, `U+031B` horn, `U+0323` dot below, `U+0326–U+0328`, `U+0331` macron below), dotted circle (`◌` `U+25CC`), and unencoded `u012F.dotless` across all 14 faces (`noto/studies/redraw/`).
 - **`ccmp`, `locl`, `mark`, `mkmk`, `GDEF` & zero-reflow Night parity**: Compiled canonical precomposition (including `g` + `U+0312` → `ģ`), `Dotless` substitution (`i`, `j`, `į`), Romanian/Moldovan `locl` for both precomposed and decomposed `Ş ş Ţ ț`, ghost-centered sheared `mark` anchors, independent above/below `mkmk` stacking, and `IgnoreMarks` pair kerning. Night faces reuse their Day `GDEF`/`GSUB`/`GPOS` tables byte-for-byte.

@@ -107,6 +107,18 @@ class RedrawTests(unittest.TestCase):
             for char, count in expected.items():
                 self.assertEqual(len(list(outline(font, cmap[ord(char)]).contours)), count, f'{style} {char}')
 
+    def test_skim_pass_l_is_hooked_but_compact(self):
+        """The l keeps its hooked foot (tells l from I and 1) without the wide swing that left holes."""
+        for style, font in self.fonts.items():
+            cmap = font.getBestCmap()
+            l, i = cmap[ord('l')], cmap[ord('ı')]
+            stem = outline(font, i).bounds
+            ink = outline(font, l).bounds
+            # The foot still reaches well past the stem...
+            self.assertGreater(ink[2] - ink[0], (stem[2] - stem[0]) * 1.5, style)
+            # ...but l stays near a normal l's width beside n (it was 0.52 of n; Noto Sans is 0.42).
+            self.assertLess(font['hmtx'][l][0] / font['hmtx'][cmap[ord('n')]][0], 0.49, style)
+
     def test_heights_and_overshoots_are_shared(self):
         for style, font in self.fonts.items():
             cmap = font.getBestCmap()
