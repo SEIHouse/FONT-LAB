@@ -15,7 +15,8 @@ remains the approved direction** until the owner decides otherwise; nothing in
 [Every glyph](proofs/redraw-glyphs.svg) ·
 [True italics](proofs/redraw-italic.png) ·
 [Every italic glyph](proofs/redraw-glyphs-italic.svg) ·
-[Optical spacing, before and after](proofs/redraw-optical.png)
+[Optical spacing, before and after](proofs/redraw-optical.png) ·
+[Combining marks &amp; stacking](proofs/redraw-marks.png)
 
 ## What changed, and why
 
@@ -31,7 +32,7 @@ replaces that construction:
 | Proportions | x-height 530, capitals 717, ascender 710 | x-height 520, capitals 700, ascender 744 |
 | Spacing | Grouped sidebearings, 34 pairs | Shape-based sidebearings, automatic kerning |
 | Weights | Regular | Light, Regular, Medium, Bold, each with a true italic, plus a Night grade for Light, Regular, Medium |
-| Characters | 94 | 343 (complete printable Basic Latin, Latin-1 and Latin Extended-A, plus Romanian, Welsh and everyday symbols) |
+| Characters | 94 | 363 (complete printable Basic Latin, Latin-1 and Latin Extended-A, Romanian, Welsh, everyday symbols, dotted circle `◌` and 19 combining marks) |
 
 ## What stays (the SEIHouse flavour)
 
@@ -113,6 +114,29 @@ descender rule. About 70–190 pairs change per weight; every kerned pair still 
 Night fonts reuse their Day kerning, so they inherit the pass with zero reflow between Day and Night.
 `spacing.kerning(..., optical_pass=False)` gives the purely measured kerning for comparison.
 
+## Combining marks and OpenType layout
+
+Decomposed and multi-mark text now shapes identically to precomposed Latin across all
+14 faces (four weights, true italics, and Night grades), while keeping Day and Night
+line breaks locked together:
+
+![Combining marks and stacking proof](proofs/redraw-marks.png)
+
+- **Repertoire (`363` printable characters)**: adds 19 zero-advance combining marks
+  (`U+0300`–`U+0304`, `U+0306`–`U+030C`, `U+0312`, `U+031B` horn, `U+0323` dot below,
+  `U+0326`–`U+0328`, `U+0331` macron below) and dotted circle `◌` (`U+25CC`), plus
+  unencoded `u012F.dotless` so `į` drops its dot cleanly under above-base marks.
+- **Canonical composition and `locl`**: `GSUB` `ccmp` composes all 173 canonical
+  base+mark pairs (including Latvian `g` + `U+0312` → `ģ`) and swaps `i`, `j`, `į` to
+  dotless bases before above marks; `locl` maps both precomposed and decomposed Romanian/Moldovan
+  `Ş ş Ţ ț` to `Ș ș Ț ț`.
+- **Anchors and stacking (`GDEF`, `mark`, `mkmk`, `kern`)**: `GDEF` classifies bases (`1`)
+  and combining marks (`3`); every base letter (and `◌`) carries `top`, `bottom`, and
+  where needed `horn` and `ogonek` anchors, sheared at 10° in italics and centered on the
+  letter ghost rather than exit strokes. `mkmk` stacks above and below marks independently,
+  `kern` carries `IgnoreMarks` so kerning works across combining marks, and Night faces
+  reuse their Day `GDEF`/`GSUB`/`GPOS` tables byte-for-byte.
+
 ## How it is built
 
 - `pen.py` — the drawing engine: a modulated ribbon around a centreline (thickness
@@ -134,7 +158,7 @@ python -m unittest tests.test_noto_redraw
 
 ## Scope and honest limits
 
-Latin only. This is a design candidate, version 0.010, not a release.
+Latin only. This is a design candidate, version 0.011, not a release.
 
 - Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`).
   For even texture at 14–18 px in Regular and Bold, lowercase `g` uses a compact
@@ -143,11 +167,14 @@ Latin only. This is a design candidate, version 0.010, not a release.
   arch weight and counter openness; Light and Medium otherwise come directly from
   the shared weight rules.
 - Printable Basic Latin, Latin-1 Supplement and Latin Extended-A are complete (alongside
-  Romanian `Ș ș Ț ț`, Welsh `Ẁ–Ẅ Ỳ ỳ`, and everyday typography symbols). Wider Latin
-  blocks (Extended-B, Vietnamese) and non-Latin scripts are not drawn yet. The exact set
-  is in `manifest.json`; the comparison page reports any character it has to borrow.
-- Accented letters are composed by rule and have not had native-reader review.
-  Decomposed (combining-mark) input is not supported yet.
+  Romanian `Ș ș Ț ț`, Welsh `Ẁ–Ẅ Ỳ ỳ`, dotted circle `◌`, 19 combining marks, and everyday
+  typography symbols). Precomposed extended blocks (Extended-B, precomposed Vietnamese
+  `U+1EA0–U+1EF9`) and non-Latin scripts are not encoded yet; decomposed sequences using
+  those 19 marks shape through `ccmp`, `mark` and `mkmk`. The exact set is in `manifest.json`;
+  the comparison page reports any character it has to borrow.
+- Accented letters, combining-mark attachment, and mark-to-mark stacking are rule-built and
+  verified automatically for `NFC == NFD`, contour clearance, and zero clipping; native-reader
+  review is still ahead.
 - No hinting beyond alignment zones, and no native iPhone / Windows
   rendering review yet. Italic accents are composed by the same rules as upright and
   have not had native-reader review; the ĳ digraph and ordinals ª º keep upright forms.

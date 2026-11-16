@@ -42,6 +42,9 @@ class Sheet:
         self.glyphs = {}
         self.groups = {}                      # composite -> base, for shared kerning
         self.ghosts = {}                      # glyph -> its shape without exit strokes, for rhythm
+        self.extras = {}                      # unencoded glyph name -> (advance, path)
+        self.mark_defs = {}                   # mark char -> {kind, attach, stack}
+        self.base_anchors = {}                # glyph key -> {kind: (x, y)}
 
     def put(self, ch, parts, lsb, rsb, style=None, sharp=(), ref=None, ghost=None):
         """ref=(x0, x1): measure the sidebearings from this span instead of the ink bounds.
@@ -66,8 +69,8 @@ class Sheet:
             self.ghosts.pop(ch, None)
 
 
-def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None):
-    """-> ({char: (advance, path)}, {composite: base}, {char: ghost path}).
+def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None, with_layout=False):
+    """-> ({char: (advance, path)}, {composite: base}, {char: ghost path})[, layout].
 
     italic: true italic lowercase forms (see cursive), then every glyph is condensed
     and slanted about the middle of the x-height, so advances and spacing keep their
@@ -90,14 +93,41 @@ def draw(weight=1.0, tilt=0.0, soft=13, italic=False, grade=0, day=None):
             return path.transform(wide, 0, lean, 1, width*(1-wide)/2 - lean*X/2, 0)
         return path.transform(wide, 0, lean, 1, -lean*X/2, 0)
 
+    def pt(xy):
+        return (round(wide*xy[0] + lean*(xy[1] - X/2)), round(xy[1]))
+
     glyphs = {ch: (width if ch in '0123456789' else round(width*wide), shape(ch, width, path))
               for ch, (width, path) in sh.glyphs.items()}
+    extras = {name: (round(width*wide), shape(name, width, path))
+              for name, (width, path) in sh.extras.items()}
     if grade:
-        day_glyphs, day_groups, day_ghosts = day or draw(weight, tilt, soft, italic=italic)
+        if day is not None and len(day) == 4:
+            day_glyphs, day_groups, day_ghosts, day_layout = day
+        elif day is not None:
+            day_glyphs, day_groups, day_ghosts = day
+            day_layout = None
+        else:
+            day_glyphs, day_groups, day_ghosts, day_layout = draw(
+                weight, tilt, soft, italic=italic, with_layout=True)
         glyphs = {ch: (day_glyphs[ch][0], move(path, (day_glyphs[ch][0] - width)/2))
                   for ch, (width, path) in glyphs.items()}
+        if with_layout:
+            if day_layout is None:
+                _, _, _, day_layout = draw(weight, tilt, soft, italic=italic, with_layout=True)
+            night_extras = {
+                name: (day_layout['extras'][name][0], move(path, (day_layout['extras'][name][0] - width)/2))
+                for name, (width, path) in extras.items()}
+            layout = dict(extras=night_extras, marks=day_layout['marks'], bases=day_layout['bases'])
+            return glyphs, day_groups, day_ghosts, layout
         return glyphs, day_groups, day_ghosts
     ghosts = {ch: shape(ch, sh.glyphs[ch][0], path) for ch, path in sh.ghosts.items()}
+    if with_layout:
+        marks_out = {ch: dict(kind=d['kind'], attach=pt(d['attach']),
+                              stack=pt(d['stack']) if d['stack'] is not None else None)
+                     for ch, d in sh.mark_defs.items()}
+        bases_out = {key: {kind: pt(xy) for kind, xy in anchors.items()}
+                     for key, anchors in sh.base_anchors.items()}
+        return glyphs, sh.groups, ghosts, dict(extras=extras, marks=marks_out, bases=bases_out)
     return glyphs, sh.groups, ghosts
 
 
@@ -649,9 +679,16 @@ def sh_grave(wt, lc):
 # ---------------------------------------------------------------- accented and special letters
 
 MARKS = {0x300: 'grave', 0x301: 'acute', 0x302: 'circumflex', 0x303: 'tilde', 0x304: 'macron', 0x306: 'breve',
-         0x307: 'dot', 0x308: 'dieresis', 0x30A: 'ring', 0x30B: 'hungar', 0x30C: 'caron', 0x327: 'cedilla',
-         0x328: 'ogonek', 0x326: 'commabelow'}
-BELOW = {'cedilla', 'ogonek', 'commabelow'}
+         0x307: 'dot', 0x308: 'dieresis', 0x309: 'hookabove', 0x30A: 'ring', 0x30B: 'hungar', 0x30C: 'caron',
+         0x312: 'commaturnedabove', 0x31B: 'horn',
+         0x323: 'dotbelow', 0x326: 'commabelow', 0x327: 'cedilla', 0x328: 'ogonek', 0x331: 'macronbelow'}
+MARK_CLASS = {
+    **dict.fromkeys((0x300, 0x301, 0x302, 0x303, 0x304, 0x306, 0x307, 0x308, 0x309, 0x30A, 0x30B, 0x30C, 0x312), 'top'),
+    0x31B: 'horn',
+    **dict.fromkeys((0x323, 0x326, 0x327, 0x331), 'bottom'),
+    0x328: 'ogonek',
+}
+BELOW = {'dotbelow', 'commabelow', 'cedilla', 'ogonek', 'macronbelow'}
 RANGES = [(0xC0, 0x17F), (0x218, 0x21B), (0x1E80, 0x1E85), (0x1EF2, 0x1EF3)]
 
 
@@ -666,36 +703,46 @@ def extended(sh, comma, R):
     acute = ribbon("M-36 6 L52 128", flat(80), {0: .6, 1: 1.0})
     small_acute = ribbon("M-30 6 L44 128", flat(70), {0: .6, 1: 1.0})
     below = ribbon("M10 -62 C12 -102 -4 -140 -40 -178", flat(72), {0: 1.0, 1: .45})
+    turned = rotate180(below, 0, -120)                 # for g-cedilla and turned comma above
     mark = dict(
         acute=acute, grave=flip_x(acute, 0),
         circumflex=polyline([(-108, 8), (0, 122), (108, 8)], 58*wt),
-        caron=polyline([(-108, 126), (0, 12), (108, 126)], 58*wt),
+        caron=polyline([(-108, 154), (0, 40), (108, 154)], 58*wt),
         tilde=ribbon("M-146 26 C-122 96 -66 112 -8 74 C46 38 102 36 146 112", flat(62), {0: .82, 1: 1.12, 2: .82}),
         dieresis=union(oval(-146, 14, -54, 106, .62), oval(54, 14, 146, 106, .62)),
         dot=oval(-50, 12, 50, 112, .62),
+        hookabove=ribbon("M-60 92 C-48 134 -20 146 6 146 C38 146 58 122 58 96 C58 68 34 54 0 42 L0 8",
+                         flat(44), {0: .9, 1: 1.0, 2: .9, 3: .9}),
         macron=rect(-118, 36, 118, 36+62*wt),
-        breve=ribbon("M-110 128 C-110 56 -62 22 0 22 C62 22 110 56 110 128", flat(56), {0: .8, 1: 1.1, 2: .8}),
+        breve=ribbon("M-110 138 C-110 66 -62 32 0 32 C62 32 110 66 110 138", flat(56), {0: .8, 1: 1.1, 2: .8}),
         ring=ribbon(oval_d(-70+26, 6+26, 70-26, 146-26, .57), flat(52)),
         hungar=union(move(small_acute, -62), move(small_acute, 66)),
+        commaturnedabove=move(turned, 0, 192),
+        horn=ribbon("M-6 -6 C42 -6 74 26 74 72 C74 102 60 124 34 136", flat(50), {0: .72, 1: 1.0, 2: .9}),
+        dotbelow=oval(-50, -138, 50, -38, .62),
         cedilla=union(bar((2, 14), (-14, -64), 40*wt),
                       ribbon("M-34 -64 C28 -58 62 -84 62 -122 C62 -170 2 -190 -62 -164", flat(52), {2: .9})),
         ogonek=ribbon("M-4 14 C-58 -22 -94 -62 -94 -110 C-94 -160 -46 -184 16 -164", flat(58), {0: 1.1, 2: .9}),
         commabelow=below,
+        macronbelow=rect(-118, -38-62*wt, 118, -38),
     )
     narrow_dots = union(oval(-112, 14, -22, 104, .62), oval(22, 14, 112, 104, .62))
-    turned = rotate180(below, 0, -120)                 # for g-cedilla
     apostrophe = poly((0, 0), (70*wt, 0), (46*wt, -176), (12*wt, -176))
+    composed_meta = {}
 
     # Where a mark sits on its base, measured from the base's ink box.
     def anchor(base, kind, x0, x1):
         mid = (x0+x1)/2
         if kind == 'ogonek':
-            return {'a': x1-34, 'e': mid+64, 'u': x1-30, 'A': x1-52, 'E': x1-70, 'U': mid+30}.get(base, mid)
+            return {'a': x1-34, 'e': mid+64, 'u': x1-30, 'o': mid+20, 'O': mid+24, 'y': mid-30,
+                    'A': x1-52, 'E': x1-70, 'U': mid+30, '\u25cc': mid+36}.get(base, mid)
         if kind in BELOW:
             return {'k': mid+10, 'K': mid+10, 'r': x0+s/2, 'l': x0+s/2, 't': x0+150, 'T': mid,
-                    'L': mid+10, 'R': mid+6, 's': mid, 'S': mid}.get(base, mid)
+                    'L': mid+10, 'R': mid+6, 's': mid, 'S': mid, 'y': mid-24}.get(base, mid)
         return {'a': mid+8, 'L': x0+S/2+26, 'l': x0+s/2, 'J': x1-S/2, 'h': x0+s/2, 'ȷ': x1-s/2,
-                'r': mid-12, 'd': mid, 't': x0+150, 'g': mid-20, 'c': mid+10, 'C': mid+22, 'G': mid+16}.get(base, mid)
+                'b': x0+s/2, 'k': x0+s/2, 'þ': x0+s/2, 'ſ': x0+s/2, 'ŀ': x0+s/2,
+                'd': x1-s/2, 'r': mid-12, 't': x0+132, 'f': (x0+268 if sh.italic else mid+28),
+                'g': mid-20, 'c': mid+10, 'C': mid+22, 'G': mid+16, 'Ŀ': x0+S/2+26}.get(base, mid)
 
     def compose(ch, base, kind):
         if base in 'ij' and kind not in BELOW:
@@ -708,14 +755,16 @@ def extended(sh, comma, R):
             x0, _, x1, _ = sh.ghosts[base].bounds
         shape = mark[kind]
         if kind == 'caron' and base in 'dtlL':
-            lift = ASC if base in 'dl' else CAP if base == 'L' else 690
+            lift = ASC if base in 'dl' else CAP if base == 'L' else 728
             x = {'d': x1+22, 'l': x1+22, 'L': x0+S+34, 't': x0+222}[base]
             g[ch] = (width + (0 if base in 'tL' else 62), union(path, soften(move(apostrophe, x, lift), lc)))
+            composed_meta[ch] = (base, kind, 0)
             return
         if kind == 'cedilla' and base in 'gkKlLnNrRG':
             kind, shape = 'commabelow', below
             if base == 'g':
                 g[ch] = (width, union(path, soften(move(turned, anchor('g', 'acute', x0, x1), X+312), lc)))
+                composed_meta[ch] = ('g', 'commaturnedabove', 0)
                 return
         x = anchor(base, kind, x0, x1)
         if kind not in BELOW and x1-x0 < 150:
@@ -729,6 +778,7 @@ def extended(sh, comma, R):
         else:
             flatter = shape.transform(1, 0, 0, .86, 0, 0)
             placed = move(flatter, x, (CAP if base.isupper() else ASC)+38)
+        left = 0
         if kind not in BELOW:
             # Keep every accent inside its own advance, widening the letter if it must.
             margin = 14
@@ -737,6 +787,7 @@ def extended(sh, comma, R):
             if left or right:
                 path, placed, width = move(path, left), move(placed, left), round(width+left+right)
         g[ch] = (width, union(path, soften(placed, lc)))
+        composed_meta[ch] = (base, kind, left)
         sh.groups[ch] = base if base not in 'ıȷ' else {'ı': 'i', 'ȷ': 'j'}[base]
 
     for first, last in RANGES:
@@ -750,9 +801,11 @@ def extended(sh, comma, R):
     width, o = g['o']
     ob = o.bounds
     put('ø', [o, bar((ob[0]+34, -34), (ob[2]-34, X+34), h*.78, 'h', 'h')], 40, 40)
+    composed_meta['ø'] = ('o', 'slash', 0)
     width, O = g['O']
     Ob = O.bounds
     put('Ø', [O, bar((Ob[0]+40, -30), (Ob[2]-40, CAP+30), uc.thin*.8, 'h', 'h')], 50, 50, uc)
+    composed_meta['Ø'] = ('O', 'slash', 0)
     _, e = g['e']
     eb = e.bounds
     put('œ', [o, move(e, ob[2]-eb[0]-s*.9)], 40, 38)
@@ -786,11 +839,13 @@ def extended(sh, comma, R):
         width, path = g[base]
         bx = path.bounds[0]
         g[ch] = (width, union(path, soften(rect(bx+x0, y, bx+x1, y+style.thin*.8), style)))
+        composed_meta[ch] = (base, 'bar', 0)
     for ch, base, a, b, style in [('ł', 'l', (-62, 286), (178, 446), lc), ('Ł', 'L', (-62, 262), (236, 444), uc)]:
         width, path = g[base]
         bx = path.bounds[0]
         shifted = move(path, 40)
         g[ch] = (width+40, union(shifted, soften(bar((bx+40+a[0], a[1]), (bx+40+b[0], b[1]), style.thin*.86), style)))
+        composed_meta[ch] = (base, 'bar', 40)
 
     # Spacing modifiers and the remaining European letters.
     put('¨', move(mark['dieresis'], 0, X+62), 54, 54)
@@ -837,3 +892,80 @@ def extended(sh, comma, R):
     if sh.italic:
         n_lc = move(g['n'][1], -g['n'][1].bounds[0])
     put('ŉ', [move(ap, -ax0), move(n_lc, dx_n)], 44, 68)
+
+    # Dotted circle for isolated combining-mark inspection.
+    dc_r = 25*wt**.55
+    dc_R = 204
+    dots = [oval(dc_R+dc_R*math.cos(a)-dc_r, X/2+dc_R*math.sin(a)-dc_r,
+                 dc_R+dc_R*math.cos(a)+dc_r, X/2+dc_R*math.sin(a)+dc_r, .62)
+            for a in (math.pi*2*k/12 for k in range(12))]
+    put('\u25cc', dots, 54, 54)
+
+    # Unencoded dotless i-ogonek for ccmp substitution when a top mark follows u012F.
+    ix0, _, ix1, _ = (sh.ghosts['i'] if 'i' in sh.ghosts else g['i'][1]).bounds
+    ux0, _, ux1, _ = (sh.ghosts['ı'] if 'ı' in sh.ghosts else g['ı'][1]).bounds
+    stem_dx = (ix0+ix1)/2 - (ux0+ux1)/2
+    i_dotless_aligned = move(g['ı'][1], stem_dx)
+    ogonek_placed = move(mark['ogonek'], anchor('i', 'ogonek', ix0, ix1), 0)
+    sh.extras['u012F.dotless'] = (g['į'][0], union(i_dotless_aligned, soften(ogonek_placed, lc)))
+    composed_meta['u012F.dotless'] = ('i', 'ogonek', 0)
+
+    # Zero-advance combining marks and their attachment/stacking anchors.
+    for code, kind in MARKS.items():
+        mcls = MARK_CLASS[code]
+        if mcls == 'top':
+            placed = soften(move(mark[kind], 0, X+62), lc)
+            attach = (0, X+62)
+            stack = (0, placed.bounds[3] + 34)
+        elif mcls == 'horn':
+            placed = soften(move(mark[kind], 0, X-56), lc)
+            attach = (0, X-56)
+            stack = None
+        elif mcls == 'ogonek':
+            placed = soften(mark[kind], lc)
+            attach = (0, 0)
+            stack = None
+        else:
+            placed = soften(mark[kind], lc)
+            attach = (0, 0)
+            stack = (0, placed.bounds[1] - 20)
+        g[chr(code)] = (0, placed)
+        sh.mark_defs[chr(code)] = dict(kind=mcls, attach=attach, stack=stack)
+
+    # Attachment anchors on every base letter and dotted circle (Pass 1: roots, Pass 2: composed).
+    for ch in [c for c in g if ((c.isalpha() and c not in 'ªº') or c == '\u25cc') and c not in composed_meta]:
+        _, path = g[ch]
+        ref_path = sh.ghosts.get(ch, path)
+        x0, _, x1, _ = ref_path.bounds
+        _, real_y0, _, real_y1 = path.bounds
+        top_x = anchor(ch, 'acute', x0, x1)
+        top_y = (X+62 if real_y1 <= X+OV+16 else CAP+46 if real_y1 <= CAP+OV+16
+                 else ASC+34 if real_y1 <= ASC+OV+8 else real_y1+36)
+        bottom_x = (x0+96 if sh.italic else (x0+x1)/2) if ch == 'f' else anchor(ch, 'commabelow', x0, x1)
+        bottom_y = 0 if real_y0 >= -20 else real_y0 - 20
+        anchors = dict(top=(top_x, top_y), bottom=(bottom_x, bottom_y))
+        if ch in 'aeiouyAEIOUYı\u25cc':
+            anchors['ogonek'] = (anchor(ch, 'ogonek', x0, x1), 0)
+        if ch in 'ouOU\u25cc':
+            anchors['horn'] = {'o': (x1-s*.42, X-56), 'u': (x1-s*.35, X-36),
+                               'O': (x1-S*.42, CAP-68), 'U': (x1-S*.35, CAP-44),
+                               '\u25cc': (x1-36, X-56)}[ch]
+        sh.base_anchors[ch] = anchors
+
+    for ch, (orig_base, kind, left_shift) in composed_meta.items():
+        path = sh.extras[ch][1] if ch in sh.extras else g[ch][1]
+        _, real_y0, _, real_y1 = path.bounds
+        base_anc = sh.base_anchors[orig_base]
+        anchors = {ak: (ax+left_shift, ay) for ak, (ax, ay) in base_anc.items()}
+        if ch == 'u012F.dotless':
+            anchors['top'] = (base_anc['top'][0], X+62)
+            anchors['bottom'] = (base_anc['bottom'][0], real_y0-20)
+        elif kind in BELOW:
+            anchors['bottom'] = (anchors['bottom'][0], 0 if real_y0 >= -20 else real_y0-20)
+        elif kind in ('bar', 'slash'):
+            anchors['top'] = (anchors['top'][0], max(base_anc['top'][1], real_y1+(28 if kind == 'slash' else 34)))
+            anchors['bottom'] = (anchors['bottom'][0], 0 if real_y0 >= -20 else real_y0-20)
+        else:
+            anchors['top'] = (anchors['top'][0], max(base_anc['top'][1], real_y1+34))
+            anchors['bottom'] = (anchors['bottom'][0], 0 if real_y0 >= -20 else real_y0-20)
+        sh.base_anchors[ch] = anchors

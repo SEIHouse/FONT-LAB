@@ -70,7 +70,7 @@ def pair_kern(right_of_a, left_of_b, target):
 OVERHANG = 'TVWYFPKfrſ“”‘’\'"'
 
 
-def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…¤¦§¨©ª¬®¯²³´¶¸¹º¼½¾', damp=.5, least=12,
+def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£¥¢−×÷±•…¤¦§¨©ª¬®¯²³´¶¸¹º¼½¾\u25cc', damp=.5, least=12,
             tightest=-76, loosest=32, clear=26, ghosts=None, optical_pass=True):
     """-> (class pairs {(a, b): value} on base glyphs, exceptions {(a, composite): value}).
 
@@ -80,7 +80,7 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
     optical_pass: apply the eye-reviewed corrections in optical.py (False gives the
     purely measured kerning, for before/after proofs).
     """
-    prof = {c: profile(p, w) for c, (w, p) in glyphs.items() if c not in skip}
+    prof = {c: profile(p, w) for c, (w, p) in glyphs.items() if c not in skip and w > 0}
     rhythm = dict(prof)
     for c, path in (ghosts or {}).items():
         if c in prof:

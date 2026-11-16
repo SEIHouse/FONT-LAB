@@ -45,7 +45,7 @@ Font Lab navigation; the first three studies remain accessible from its footer.
 ## Redraw 02 — candidate, not a new owner decision
 
 On 2026-11-12 the owner asked for SEIHouse Noto to be reimagined: more professional,
-keeping its flavour. Source and outputs: `studies/redraw/` (version 0.010).
+keeping its flavour. Source and outputs: `studies/redraw/` (version 0.011).
 
 - New construction: stroke thickness follows direction (88 upright / 74 horizontal
   at Regular) and tapers where arches and bowls meet a stem. The constant 74-unit
@@ -62,10 +62,15 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.010).
 - Changed from Balanced: vertical proportions (x-height 520, capitals 700,
   ascender 744), the 1.025 horizontal factor (letters are drawn to width instead),
   and all spacing, which is now shape-based with automatic kerning.
-- 343 characters: complete printable Basic Latin, Latin-1 Supplement and Latin
-  Extended-A (including `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and
-  `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ`), plus everyday typography symbols, Romanian comma-below
-  (`Ș ș Ț ț`) and Welsh accents (`Ẁ ẁ Ẃ ẃ Ẅ ẅ Ỳ ỳ`).
+- 363 characters (`367` glyphs): complete printable Basic Latin, Latin-1 Supplement and
+  Latin Extended-A (including `¤ ¦ § ¨ © ª ¬ ® ¯ ² ³ ´ µ ¶ ¸ ¹ º ¼ ½ ¾` and
+  `ĸ Ĳ ĳ Ŀ ŀ ŉ Ŋ ŋ ſ`), everyday typography symbols, Romanian comma-below
+  (`Ș ș Ț ț`), Welsh accents (`Ẁ ẁ Ẃ ẃ Ẅ ẅ Ỳ ỳ`), dotted circle (`◌`), and all 19
+  Latin combining marks (`U+0300–U+0304`, `U+0306–U+030C`, `U+0312`, `U+031B`,
+  `U+0323`, `U+0326–U+0328`, `U+0331`) with `GDEF`, `ccmp` canonical composition and
+  dotless substitution (including `u012F.dotless`), Romanian/Moldovan `locl`, `mark`
+  attachment anchors, independent above/below `mkmk` stacking, `IgnoreMarks` kerning,
+  separated `Š`/`Č`/`ť` carons, and `STAT` / `OS/2` / `CFF` stem metadata.
 - Night optical grade (`NIGHT_GRADE = -4`): `Light Night`, `Regular Night`,
   `Medium Night`, `Light Italic Night`, `Italic Night`, and `Medium Italic Night`
   thin strokes by 4 upright units to counter dark-mode halation while keeping
