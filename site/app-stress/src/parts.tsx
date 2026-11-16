@@ -1,5 +1,5 @@
 /** Shared building blocks: role wrappers, the living title, artist names and fallback marking. */
-import { createContext, useContext, useEffect, useRef, useState, type ReactNode } from "react";
+import { createContext, useContext, useEffect, useRef, useState, type CSSProperties, type ReactNode } from "react";
 import { createTitlePlayer, createTitleScene, type CutName, type TitlePlayer } from "@seihouse/living-titles";
 import {
   ElementalTitle,
@@ -18,7 +18,36 @@ export interface Settings {
   rarity: ElementalTitleIntensity;
   elementalFace: "noto" | "sans" | "display";
   metaFace: "seihouse" | "reference" | "system";
-  roles: boolean;
+  labels: "off" | "tags" | "outline";
+}
+
+const WEIGHTS: Record<string, string> = { "300": "Light", "400": "Regular", "500": "Medium", "600": "SemiBold", "700": "Bold" };
+const FACES = { noto: "Noto", sans: "Sans" } as const;
+
+/** The short label for each role under the current settings, e.g. "Noto · Night" or "Title · Soft". */
+export function roleTags(s: Settings): Record<Role, string> {
+  const night = s.theme === "night";
+  return {
+    noto: s.metaFace === "reference" ? "Noto Sans (Google)" : s.metaFace === "system" ? "System UI" : night ? "Noto · Night" : "Noto",
+    sans: night ? "Sans · Night" : "Sans",
+    title: `Title · ${s.cut}${s.living ? "" : " (still)"}`,
+    elemental: `Elemental · ${s.element} on ${s.elementalFace === "display" ? s.cut : FACES[s.elementalFace]}`,
+    serif: "Serif (stand-in)",
+  };
+}
+
+/** Exact face, weight and size of a piece of text, for the hover inspector. */
+export function describe(el: Element, tags: Record<Role, string>): string | null {
+  const host = el.closest("[data-role]");
+  if (!host) return null;
+  const role = host.getAttribute("data-role") as Role;
+  // Read the tag the element itself shows, so per-name overrides are reported exactly.
+  const own = getComputedStyle(host).getPropertyValue(`--tag-${role}`).trim();
+  const label = own ? own.replace(/^"|"$/g, "") : tags[role];
+  const style = getComputedStyle(el);
+  const weight = WEIGHTS[style.fontWeight] ?? style.fontWeight;
+  const italic = style.fontStyle === "italic" ? " Italic" : "";
+  return role === "title" ? label : `${label} · ${weight}${italic} · ${Math.round(parseFloat(style.fontSize))}px`;
 }
 
 export const SettingsContext = createContext<Settings | null>(null);
@@ -65,9 +94,13 @@ export function Name({ children, element, rarity, size = "inherit", className = 
   size?: "inherit" | "sm" | "md" | "lg" | "xl"; className?: string;
 }) {
   const s = useSettings();
+  const effect = element ?? s.element;
+  // Each name is tagged with the element it is actually drawn in, not the page default.
+  const tag = roleTags({ ...s, element: effect }).elemental;
   return (
-    <span className={`r-elemental base-${s.elementalFace} ${className}`.trim()} data-role="elemental">
-      <ElementalTitle element={element ?? s.element} intensity={rarity ?? s.rarity} size={size}>
+    <span className={`r-elemental base-${s.elementalFace} ${className}`.trim()} data-role="elemental"
+      style={{ "--tag-elemental": JSON.stringify(tag) } as CSSProperties}>
+      <ElementalTitle element={effect} intensity={rarity ?? s.rarity} size={size}>
         {children}
       </ElementalTitle>
     </span>

@@ -24,8 +24,9 @@ sit together on one line, and truncation in tight widths.
 
 Controls: Day/Night, text size (85–130%), phone width (360/390/430), title cut and motion,
 name element, rarity and base face, an *Everywhere face* switch to compare against Google
-Noto Sans or the system UI font, and *Show roles*, which outlines every piece of text in its
-role's colour. Settings are remembered in this browser only.
+Noto Sans or the system UI font, and *Font labels*: tags such as `Noto`, `Sans`, `Title · Soft` or
+`Elemental · lightning on Noto` on each run of text (optionally with outlines), plus a hover/tap
+inspector that names the exact face, weight and size under the pointer. Settings are remembered in this browser only.
 
 All content is fictional. Rebuild after editing `src/`:
 

@@ -1,8 +1,8 @@
 /** App-screen stress test: SEA and SEN screens set with the four SEIHouse type roles. */
-import { StrictMode, useEffect, useMemo, useState, type CSSProperties } from "react";
+import { StrictMode, useEffect, useMemo, useState, type CSSProperties, type PointerEvent } from "react";
 import { createRoot } from "react-dom/client";
 import { ROLES } from "./data";
-import { CharsetContext, SettingsContext, type Settings } from "./parts";
+import { CharsetContext, SettingsContext, describe, roleTags, type Settings } from "./parts";
 import {
   AlbumScreen, ArtistScreen, NovelScreen, NowPlayingScreen, ProfileScreen, ReaderScreen, SearchScreen, WorldScreen,
 } from "./screens";
@@ -12,13 +12,14 @@ type World = "sea" | "sen";
 const STORE = "seihouse-app-stress";
 const DEFAULTS: Settings = {
   theme: "night", scale: 1, width: 390, cut: "Soft", living: true, element: "lightning",
-  rarity: "rare", elementalFace: "noto", metaFace: "seihouse", roles: false,
+  rarity: "rare", elementalFace: "noto", metaFace: "seihouse", labels: "tags",
 };
 
 function load(): Settings {
   try {
-    const saved = JSON.parse(localStorage.getItem(STORE) || "{}");
-    return { ...DEFAULTS, ...saved };
+    const { roles, ...saved } = JSON.parse(localStorage.getItem(STORE) || "{}");
+    // Earlier saves used an on/off "roles" overlay; it is now the "outline" label mode.
+    return { ...DEFAULTS, ...(roles === true ? { labels: "outline" } : {}), ...saved };
   } catch {
     return DEFAULTS;
   }
@@ -32,6 +33,7 @@ function App() {
   const [s, setS] = useState<Settings>(load);
   const [world, setWorld] = useState<World>(worldFromHash);
   const [charset, setCharset] = useState<Set<string> | null>(null);
+  const [probe, setProbe] = useState<{ text: string; x: number; y: number } | null>(null);
   const set = <K extends keyof Settings>(key: K, value: Settings[K]) => setS((prev) => ({ ...prev, [key]: value }));
 
   useEffect(() => {
@@ -53,6 +55,12 @@ function App() {
   }, []);
 
   const night = s.theme === "night";
+  const tags = useMemo(() => roleTags(s), [s]);
+  const inspect = (e: PointerEvent<HTMLDivElement>) => {
+    const target = e.target instanceof Element ? e.target : null;
+    const text = target && target.closest(".phones-area, .sheet") ? describe(target, tags) : null;
+    setProbe(text ? { text, x: e.clientX, y: e.clientY } : null);
+  };
   const style = useMemo(() => ({
     "--s": String(s.scale),
     "--w": `${s.width}px`,
@@ -61,14 +69,16 @@ function App() {
       : night ? '"AS Noto Night", "AS Noto", sans-serif' : '"AS Noto", sans-serif',
     "--sans": night ? '"SEIHouse Sans Night", "SEIHouse Sans", sans-serif' : '"SEIHouse Sans", sans-serif',
     "--display": `"SEIHouse Display ${s.cut}", "SEIHouse Sans", sans-serif`,
-  }) as CSSProperties, [s, night]);
+    ...Object.fromEntries(Object.entries(tags).map(([role, tag]) => [`--tag-${role}`, JSON.stringify(tag)])),
+  }) as CSSProperties, [s, night, tags]);
 
   const go = (w: World) => { history.replaceState(null, "", `#${w}`); setWorld(w); };
 
   return (
     <SettingsContext.Provider value={s}>
       <CharsetContext.Provider value={charset}>
-        <div className={`app world-${world} ${s.roles ? "show-roles" : ""}`} style={style}>
+        <div className={`app world-${world} ${s.labels !== "off" ? "show-tags" : ""} ${s.labels === "outline" ? "show-roles" : ""}`}
+          style={style} onPointerMove={inspect} onPointerDown={inspect} onPointerLeave={() => setProbe(null)}>
           <header className="head">
             <div className="head-top">
               <div>
@@ -95,7 +105,7 @@ function App() {
               <Pick label="Name rarity" value={s.rarity} options={["common", "rare", "epic", "legendary"]} onChange={(v) => set("rarity", v)} />
               <Seg label="Name base face" value={s.elementalFace} options={[["noto", "Noto"], ["sans", "Sans"], ["display", "Title cut"]]} onChange={(v) => set("elementalFace", v)} />
               <Seg label="Everywhere face" value={s.metaFace} options={[["seihouse", "SEIHouse Noto"], ["reference", "Noto Sans"], ["system", "System UI"]]} onChange={(v) => set("metaFace", v)} />
-              <Seg label="Show roles" value={s.roles ? "on" : "off"} options={[["off", "Off"], ["on", "On"]]} onChange={(v) => set("roles", v === "on")} />
+              <Seg label="Font labels" value={s.labels} options={[["tags", "Tags"], ["outline", "Tags + outlines"], ["off", "Off"]]} onChange={(v) => set("labels", v as Settings["labels"])} />
             </div>
             <ul className="legend">
               {ROLES.map((r) => (
@@ -110,7 +120,7 @@ function App() {
             )}
           </header>
 
-          <main>
+          <main className="phones-area">
             {world === "sea" ? (
               <div className="screens">
                 <AlbumScreen />
@@ -128,6 +138,9 @@ function App() {
             )}
             <Sheet world={world} />
           </main>
+          {probe && (
+            <div className="probe" role="status" style={{ left: probe.x + 14, top: probe.y + 16 }}>{probe.text}</div>
+          )}
           <footer className="foot">
             Fictional content. Fonts are the shipped Font Lab files: SEIHouse Noto Redraw 02, SEIHouse Sans,
             SEIHouse Display cuts through the Living Titles runtime, and the Elemental Title package. The serif is a stand-in.

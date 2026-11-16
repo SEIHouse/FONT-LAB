@@ -1145,6 +1145,35 @@ mark.fb{background:#ffcf4d;color:#2a1d00;border-radius:2px;padding:0 1px}
 .show-roles [data-role="serif"]{outline:1px dotted #9a9a9a;outline-offset:1px}
 .show-roles [data-role] [data-role]{outline-offset:-1px}
 
+/* Font tags: a small label at the start of each run of text in one role.
+   Runs of the same role, and repeated list rows, are labelled once. */
+.show-tags [data-role]::before{
+  display:inline-block;margin:0 .4em 0 0;padding:1px 5px;border-radius:4px;
+  font:600 9px/1.45 system-ui,-apple-system,"Segoe UI",sans-serif;font-style:normal;letter-spacing:.02em;
+  text-transform:none;text-indent:0;white-space:nowrap;vertical-align:.2em;color:#fff;-webkit-text-fill-color:#fff;
+}
+.show-tags [data-role="noto"]::before{content:var(--tag-noto);background:#2f9e74}
+.show-tags [data-role="sans"]::before{content:var(--tag-sans);background:#3b7ddd}
+.show-tags [data-role="title"]::before{content:var(--tag-title);background:#d9822b}
+.show-tags [data-role="elemental"]::before{content:var(--tag-elemental);background:#c04ad6}
+.show-tags [data-role="serif"]::before{content:var(--tag-serif);background:#7d7d7d}
+.show-tags [data-role="noto"]+[data-role="noto"]::before,
+.show-tags [data-role="sans"]+[data-role="sans"]::before,
+.show-tags [data-role="serif"]+[data-role="serif"]::before,
+.show-tags [data-role] [data-role="noto"]::before,
+.show-tags li+li [data-role]::before,
+.show-tags .ladder+.ladder [data-role]::before,
+.show-tags .tabbar [data-role]::before,
+.show-tags :is(.tn,.cn,.tdur,.year)::before,
+.show-tags .tsub>[data-role="noto"]::before,
+.show-tags .stat-row>div+div [data-role]::before{content:none}
+.show-tags .tabbar::before{content:var(--tag-noto);display:inline-block;align-self:center;padding:1px 5px;border-radius:4px;font:600 9px/1.45 system-ui,sans-serif;color:#fff;background:#2f9e74;white-space:nowrap}
+/* The title tag sits on top of the artwork instead of pushing it aside. */
+.show-tags .title-slot::before{position:absolute;left:0;top:-2px;z-index:3}
+.probe{position:fixed;z-index:50;pointer-events:none;max-width:min(320px,80vw);padding:5px 9px;border-radius:8px;
+  font:500 12px/1.35 system-ui,-apple-system,"Segoe UI",sans-serif;background:#111;color:#fff;box-shadow:0 6px 18px rgb(0 0 0 / .3)}
+:root[data-theme="night"] .probe{background:#f4efe2;color:#1a1a1a}
+
 /* ── Worlds: each app has its own palette, same type roles ── */
 .world-sea .phone{--bg:#f6f4fb;--fg:#1c1a2b;--sub:#5f5b74;--rule:#e2deee;--hi:#6a4bd8;--hi-ink:#fff;--card:#ece8f7}
 :root[data-theme="night"] .world-sea .phone{--bg:#0f0e17;--fg:#ecebf5;--sub:#a5a2bd;--rule:#25233a;--hi:#a993ff;--hi-ink:#120f22;--card:#1b1a2b}
