@@ -2,6 +2,11 @@
 
 Newest first.
 
+## 2026-11-16 · SEIHouse Noto Redraw 02 — Complete combining-mark support & OpenType polish
+- **Combining-mark repertoire & OpenType layout (`0.011`, `363` characters / `367` glyphs)**: Added all 19 zero-advance Latin combining marks (`U+0300–U+0304`, `U+0306–U+030C`, `U+0312` turned comma above, `U+031B` horn, `U+0323` dot below, `U+0326–U+0328`, `U+0331` macron below), dotted circle (`◌` `U+25CC`), and unencoded `u012F.dotless` across all 14 faces (`noto/studies/redraw/`).
+- **`ccmp`, `locl`, `mark`, `mkmk`, `GDEF` & zero-reflow Night parity**: Compiled canonical precomposition (including `g` + `U+0312` → `ģ`), `Dotless` substitution (`i`, `j`, `į`), Romanian/Moldovan `locl` for both precomposed and decomposed `Ş ş Ţ ț`, ghost-centered sheared `mark` anchors, independent above/below `mkmk` stacking, and `IgnoreMarks` pair kerning. Night faces reuse their Day `GDEF`/`GSUB`/`GPOS` tables byte-for-byte.
+- **Minor outline & metadata fixes**: Separated fused caron/apostrophe contours on `Š` (`Medium`/`Bold`), `Č` (`Bold`), and `ť` (all styles); lifted `breve` by `+10` units for Bold capital clearance; and added `STAT` (`wght`, `GRAD`, `ital`), `CFF` `StdVW`/`StdHW`, `fsType=0`, `OS/2` `REGULAR` flag alignment, recalculated Unicode/code-page bits, and `usWinAscent=1180`/`usWinDescent=420` stack headroom while keeping line spacing untouched. Added `noto/studies/redraw/proofs/redraw-marks.png` and `CombiningMarkTests` in `tests/test_noto_redraw.py`.
+
 ## 2026-11-15 · App stress test: SEA and SEN screens
 - **New page `site/app-stress/`** (linked from the SEIHouse Noto card on the homepage): real app screens set with all four SEIHouse type roles at once. The Title Engine (Living Titles on the Display cuts) sets album, novel and world titles; Elemental Title sets artist, author, reader and character names; SEIHouse Noto sets everything else; SEIHouse Sans sets chapters, lyrics and synopses; a clearly labelled stand-in marks the future editorial serif.
 - **Two views**: SEA (album, now playing with lyrics, artist page, search and library) and SEN (novel page, a chapter with comments, the novel's world guide, profile and settings).

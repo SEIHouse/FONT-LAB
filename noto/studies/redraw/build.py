@@ -13,13 +13,14 @@ sys.path.insert(0, str(ROOT))
 import pathops  # noqa: E402
 from fontTools.feaLib.builder import addOpenTypeFeaturesFromString  # noqa: E402
 from fontTools.fontBuilder import FontBuilder  # noqa: E402
+from fontTools.otlLib.builder import buildStatTable  # noqa: E402
 from fontTools.pens.t2CharStringPen import T2CharStringPen  # noqa: E402
 
 import letters  # noqa: E402
 import spacing  # noqa: E402
 
 UPM = 1000
-VERSION = '0.010'
+VERSION = '0.011'
 FAMILY = 'SEIHouse Noto'
 WEIGHTS = [dict(name='Light', weight=.86, cls=300), dict(name='Regular', weight=1.0, cls=400),
            dict(name='Medium', weight=1.2, cls=500), dict(name='Bold', weight=1.46, cls=700)]
@@ -43,6 +44,127 @@ def glyph_name(char):
     return 'space' if char == ' ' else f'u{ord(char):04X}'
 
 
+def build_features(source, groups, layout, pairs, exceptions):
+    """Build GDEF, GSUB (ccmp, locl) and GPOS (mark, mkmk, kern) OpenType features."""
+    import unicodedata
+    marks = layout['marks']
+    bases = layout['bases']
+    by_kind = {kind: [] for kind in ('top', 'bottom', 'horn', 'ogonek')}
+    for ch, info in marks.items():
+        by_kind[info['kind']].append((glyph_name(ch), info))
+
+    lines = [
+        'languagesystem DFLT dflt;',
+        'languagesystem latn dflt;',
+        'languagesystem latn ROM;',
+        'languagesystem latn MOL;',
+        'languagesystem latn TRK;',
+        'languagesystem latn AZE;',
+    ]
+    for kind, items in by_kind.items():
+        lines.append(f'@{kind.upper()} = [{" ".join(name for name, _ in items)}];')
+        for name, info in items:
+            ax, ay = info['attach']
+            lines.append(f'markClass {name} <anchor {ax} {ay}> @MC_{kind};')
+
+    mark_names = {glyph_name(ch) for ch in marks}
+    base_names = [glyph_name(ch) for ch in source if ch not in (' ', '\u00a0') and ch not in marks]
+    base_names.extend(layout['extras'])
+    lines += [
+        'table GDEF {',
+        f' GlyphClassDef [{" ".join(base_names)}], , [{" ".join(sorted(mark_names))}], ;',
+        '} GDEF;',
+    ]
+
+    cmap_map = {ord(ch): glyph_name(ch) for ch in source}
+    below_subs, top_subs = [], []
+    for code, name in sorted(cmap_map.items()):
+        nfd = unicodedata.normalize('NFD', chr(code))
+        if len(nfd) == 2 and all(ord(c) in cmap_map for c in nfd):
+            b_char, m_char = nfd[0], nfd[1]
+            if m_char not in marks:
+                continue
+            b_name, m_name = cmap_map[ord(b_char)], cmap_map[ord(m_char)]
+            if marks[m_char]['kind'] in ('bottom', 'ogonek'):
+                below_subs.append(f'  sub {b_name} {m_name} by {name};')
+            else:
+                top_subs.append(f'  sub {b_name} {m_name} by {name};')
+                if b_char == 'i':
+                    top_subs.append(f'  sub u0131 {m_name} by {name};')
+                elif b_char == 'j':
+                    top_subs.append(f'  sub u0237 {m_name} by {name};')
+    if 0x0067 in cmap_map and 0x0312 in cmap_map and 0x0123 in cmap_map:
+        top_subs.append('  sub u0067 u0312 by u0123;')
+
+    lines.append('feature ccmp {')
+    if below_subs:
+        lines.append(' lookup PrecomposedBelow {')
+        lines.extend(below_subs)
+        lines.append(' } PrecomposedBelow;')
+    if top_subs:
+        lines.append(' lookup PrecomposedTop {')
+        lines.append('  lookupflag UseMarkFilteringSet @TOP;')
+        lines.extend(top_subs)
+        lines.append(' } PrecomposedTop;')
+    lines += [
+        ' lookup Dotless {',
+        '  lookupflag UseMarkFilteringSet @TOP;',
+        "  sub u0069' @TOP by u0131;",
+        "  sub u006A' @TOP by u0237;",
+        "  sub u012F' @TOP by u012F.dotless;",
+        ' } Dotless;',
+        '} ccmp;',
+    ]
+
+    lines += [
+        'feature locl {',
+        ' script latn;',
+        ' language ROM;',
+        '  sub u015E by u0218;',
+        '  sub u015F by u0219;',
+        '  sub u0162 by u021A;',
+        '  sub u0163 by u021B;',
+        ' language MOL;',
+        '  sub u015E by u0218;',
+        '  sub u015F by u0219;',
+        '  sub u0162 by u021A;',
+        '  sub u0163 by u021B;',
+        '} locl;',
+    ]
+
+    lines.append('feature mark {')
+    for key, anchors in bases.items():
+        gname = glyph_name(key) if len(key) == 1 else key
+        anchor_str = ' '.join(f'<anchor {ax} {ay}> mark @MC_{kind}' for kind, (ax, ay) in anchors.items())
+        lines.append(f' pos base {gname} {anchor_str};')
+    lines.append('} mark;')
+
+    lines.append('feature mkmk {')
+    for kind in ('top', 'bottom'):
+        lines += [f' lookup Stack_{kind} {{', f'  lookupflag MarkAttachmentType @{kind.upper()};']
+        for name, info in by_kind[kind]:
+            sx, sy = info['stack']
+            lines.append(f'  pos mark {name} <anchor {sx} {sy}> mark @MC_{kind};')
+        lines.append(f' }} Stack_{kind};')
+    lines.append('} mkmk;')
+
+    members = {}
+    for composite, base in groups.items():
+        members.setdefault(base, []).append(composite)
+    kerned = sorted({c for pair in pairs for c in pair})
+    for c in kerned:
+        mnames = [glyph_name(m) for m in [c, *members.get(c, [])]]
+        if c == 'i' and 'u012F.dotless' in layout['extras']:
+            mnames.append('u012F.dotless')
+        lines.append(f"@k_{glyph_name(c)} = [{' '.join(mnames)}];")
+    lines.append('feature kern {')
+    lines.append(' lookupflag IgnoreMarks;')
+    lines += [f' pos {glyph_name(a)} {glyph_name(b)} {v};' for (a, b), v in exceptions.items()]
+    lines += [f' pos @k_{glyph_name(a)} @k_{glyph_name(b)} {v};' for (a, b), v in pairs.items()]
+    lines.append('} kern;')
+    return '\n'.join(lines) + '\n'
+
+
 def build_font(spec, out_dir=None, day_cache=None):
     italic = spec.get('italic', False)
     grade = spec.get('grade', 0)
@@ -50,17 +172,18 @@ def build_font(spec, out_dir=None, day_cache=None):
     day_data = None
     if grade and day_style:
         if day_cache is not None and day_style in day_cache:
-            day_source, day_groups, day_ghosts, day_pairs, day_exceptions = day_cache[day_style]
+            day_source, day_groups, day_ghosts, day_layout, day_pairs, day_exceptions, day_fea = day_cache[day_style]
         else:
             day_spec = next(s for s in WEIGHTS + ITALICS if s['name'] == day_style)
-            day_source, day_groups, day_ghosts = letters.draw(
-                day_spec['weight'], day_spec.get('tilt', 0.0), italic=day_spec.get('italic', False))
+            day_source, day_groups, day_ghosts, day_layout = letters.draw(
+                day_spec['weight'], day_spec.get('tilt', 0.0), italic=day_spec.get('italic', False), with_layout=True)
             day_pairs, day_exceptions = spacing.kerning(day_source, day_groups, ghosts=day_ghosts)
+            day_fea = build_features(day_source, day_groups, day_layout, day_pairs, day_exceptions)
             if day_cache is not None:
-                day_cache[day_style] = (day_source, day_groups, day_ghosts, day_pairs, day_exceptions)
-        day_data = (day_source, day_groups, day_ghosts)
-    source, groups, ghosts = letters.draw(
-        spec['weight'], spec.get('tilt', 0.0), italic=italic, grade=grade, day=day_data)
+                day_cache[day_style] = (day_source, day_groups, day_ghosts, day_layout, day_pairs, day_exceptions, day_fea)
+        day_data = (day_source, day_groups, day_ghosts, day_layout)
+    source, groups, ghosts, layout = letters.draw(
+        spec['weight'], spec.get('tilt', 0.0), italic=italic, grade=grade, day=day_data, with_layout=True)
     box = pathops.Path()
     pen = box.getPen()
     for pts in ([(90, 0), (510, 0), (510, 700), (90, 700)], [(160, 70), (160, 630), (440, 630), (440, 70)]):
@@ -70,6 +193,8 @@ def build_font(spec, out_dir=None, day_cache=None):
     for char, (width, path) in source.items():
         cmap[ord(char)] = glyph_name(char)
         glyphs[glyph_name(char)] = (width, path)
+    for gname, (width, path) in layout['extras'].items():
+        glyphs[gname] = (width, path)
     if 'space' not in glyphs:
         glyphs['space'] = (248, pathops.Path()); cmap[32] = 'space'
     order = list(glyphs)
@@ -98,37 +223,36 @@ def build_font(spec, out_dir=None, day_cache=None):
         fullName=f'{FAMILY} {style}', psName=psname, version='Version '+VERSION,
         copyright='Original drawings for SEIHouse Productions LLC, 2026.',
         description='Latin design candidate. Not a production or multilingual release.'))
-    fb.setupOS2(version=4, sTypoAscender=960, sTypoDescender=-260, sTypoLineGap=0, usWinAscent=1000,
-                usWinDescent=300, sxHeight=letters.X, sCapHeight=letters.CAP, usWeightClass=spec['cls'],
-                fsSelection=(0xC0 if weight_name == 'Regular' and not italic else 0xA0 if weight_name == 'Bold' else 0x80) | (0x01 if italic else 0),
+    fb.setupOS2(version=4, sTypoAscender=960, sTypoDescender=-260, sTypoLineGap=0, usWinAscent=1180,
+                usWinDescent=420, sxHeight=letters.X, sCapHeight=letters.CAP, usWeightClass=spec['cls'], fsType=0,
+                fsSelection=(0xC0 if weight_name != 'Bold' and not italic else 0xA0 if weight_name == 'Bold' else 0x80) | (0x01 if italic else 0),
                 achVendID='SEIH')
-    fb.setupPost(italicAngle=-letters.SLANT if italic else 0)
+    fb.setupPost(italicAngle=-letters.SLANT if italic else 0, underlinePosition=-120, underlineThickness=60)
     if italic:
         fb.font['hhea'].caretSlopeRise = 1000
         fb.font['hhea'].caretSlopeRun = round(1000*math.tan(math.radians(letters.SLANT)))
     fb.font['head'].fontRevision = float(VERSION)
-    fb.font['OS/2'].ulCodePageRange1 = 1
-    fb.font['OS/2'].ulCodePageRange2 = 0
+    fb.font['OS/2'].recalcUnicodeRanges(fb.font)
+    fb.font['OS/2'].recalcCodePageRanges(fb.font)
+    axes = [dict(tag='wght', name='Weight', values=[dict(value=spec['cls'], name=weight_name, flags=(0x2 if weight_name == 'Regular' else 0))])]
+    if grade:
+        axes.append(dict(tag='GRAD', name='Grade', values=[dict(value=grade, name='Night')]))
+    axes.append(dict(tag='ital', name='Italic', values=[dict(value=1, name='Italic')] if italic else
+                     [dict(value=0, name='Roman', flags=0x2, linkedValue=1)]))
+    buildStatTable(fb.font, axes, elidedFallbackName=2)
+    sh_ref = letters.Sheet(spec['weight'], spec.get('tilt', 0.0), italic=italic, grade=grade)
+    private = dict(PRIVATE, StdVW=round(sh_ref.lc.thick*sh_ref.wide*(letters.CONDENSE if italic else 1)),
+                   StdHW=round(sh_ref.lc.thin))
     fb.setupCFF(psname, dict(FullName=f'{FAMILY} {style}', FamilyName=FAMILY, Weight=weight_name,
-                             **(dict(ItalicAngle=-letters.SLANT) if italic else {})), charstrings, PRIVATE)
+                             **(dict(ItalicAngle=-letters.SLANT) if italic else {})), charstrings, private)
     if grade and day_style:
-        pairs, exceptions = day_pairs, day_exceptions
+        pairs, exceptions, fea_text = day_pairs, day_exceptions, day_fea
     else:
         pairs, exceptions = spacing.kerning(source, groups, ghosts=ghosts)
+        fea_text = build_features(source, groups, layout, pairs, exceptions)
         if day_cache is not None:
-            day_cache[spec['name']] = (source, groups, ghosts, pairs, exceptions)
-    members = {}
-    for composite, base in groups.items():
-        members.setdefault(base, []).append(composite)
-    kerned = sorted({c for pair in pairs for c in pair})
-    fea = ['languagesystem DFLT dflt;', 'languagesystem latn dflt;']
-    for c in kerned:
-        fea.append(f"@k_{glyph_name(c)} = [{' '.join(glyph_name(m) for m in [c, *members.get(c, [])])}];")
-    fea.append('feature kern {')
-    fea += [f'pos {glyph_name(a)} {glyph_name(b)} {v};' for (a, b), v in exceptions.items()]
-    fea += [f'pos @k_{glyph_name(a)} @k_{glyph_name(b)} {v};' for (a, b), v in pairs.items()]
-    fea.append('} kern;')
-    addOpenTypeFeaturesFromString(fb.font, '\n'.join(fea))
+            day_cache[spec['name']] = (source, groups, ghosts, layout, pairs, exceptions, fea_text)
+    addOpenTypeFeaturesFromString(fb.font, fea_text)
     fb.font['head'].macStyle = (1 if weight_name == 'Bold' else 0) | (2 if italic else 0)
     fb.font['head'].created = fb.font['head'].modified = 3877200000
     out = Path(out_dir or ROOT/'fonts')

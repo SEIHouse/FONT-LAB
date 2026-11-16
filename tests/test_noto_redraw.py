@@ -4,6 +4,7 @@ import json
 import re
 import sys
 import tempfile
+import unicodedata
 import unittest
 from pathlib import Path
 
@@ -70,14 +71,15 @@ class RedrawTests(unittest.TestCase):
         required = (set(range(0x20, 0x7F)) | (set(range(0xA0, 0x100)) - {0xAD}) | set(range(0x100, 0x180)))
         for style, font in self.fonts.items():
             cmap = font.getBestCmap()
-            self.assertGreaterEqual(len(cmap), 345)
+            gdef = font['GDEF'].table.GlyphClassDef.classDefs
+            self.assertGreaterEqual(len(cmap), 365)
             self.assertFalse(required - set(cmap), f'{style} missing Latin-1/Extended-A codepoints')
             for name in font.getGlyphOrder():
                 with self.subTest(style=style, glyph=name):
                     advance = font['hmtx'][name][0]
-                    self.assertGreater(advance, 0)
                     path = outline(font, name)
                     if name in ('space', 'u00A0'):
+                        self.assertGreater(advance, 0)
                         self.assertEqual(len(list(path.contours)), 0)
                         continue
                     x0, y0, x1, y1 = path.bounds
@@ -85,14 +87,20 @@ class RedrawTests(unittest.TestCase):
                     self.assertGreater(y1-y0, 20)
                     self.assertGreaterEqual(y0, font['hhea'].descent)
                     self.assertLessEqual(y1, font['hhea'].ascent)
-                    self.assertGreater(x0, -190)
-                    self.assertLess(x1, advance+90)
+                    if gdef.get(name) == 3:
+                        self.assertEqual(advance, 0)
+                        self.assertGreater(x0, -260)
+                        self.assertLess(x1, 280)
+                    else:
+                        self.assertGreater(advance, 0)
+                        self.assertGreater(x0, -190)
+                        self.assertLess(x1, advance+90)
                     for contour in path.contours:
                         self.assertGreater(abs(contour.area), 40, 'Detached outline fragment')
 
     def test_counters_stay_open_at_every_weight(self):
         expected = {**dict.fromkeys('abdeopqADOPQR0469@¤§¶', 2), **dict.fromkeys('gB8©ªº½', 3),
-                    **dict.fromkeys('®¼¾', 4), '%': 5, 'i': 2, 'j': 2,
+                    **dict.fromkeys('®¼¾', 4), '%': 5, 'i': 2, 'j': 2, 'Š': 2, 'Č': 2, 'ť': 2,
                     'c': 1, 's': 1, 'n': 1, 'S': 1, 'C': 1, '&': 3, 'æ': 3, 'œ': 3, 'ß': 1}
         for style, font in self.fonts.items():
             cmap = font.getBestCmap()
@@ -302,6 +310,7 @@ class ItalicTests(unittest.TestCase):
     def test_outlines_are_clean_and_lean_at_ten_degrees(self):
         for style, font in self.fonts.items():
             cmap = font.getBestCmap()
+            gdef = font['GDEF'].table.GlyphClassDef.classDefs
             for name in font.getGlyphOrder():
                 if name in ('space', 'u00A0'):
                     continue
@@ -309,7 +318,12 @@ class ItalicTests(unittest.TestCase):
                 x0, y0, x1, y1 = path.bounds
                 self.assertGreaterEqual(y0, font['hhea'].descent, f'{style} {name}')
                 self.assertLessEqual(y1, font['hhea'].ascent, f'{style} {name}')
-                self.assertLess(x1, font['hmtx'][name][0]+190, f'{style} {name}')
+                if gdef.get(name) == 3:
+                    self.assertEqual(font['hmtx'][name][0], 0, f'{style} {name}')
+                    self.assertGreater(x0, -260, f'{style} {name}')
+                    self.assertLess(x1, 280, f'{style} {name}')
+                else:
+                    self.assertLess(x1, font['hmtx'][name][0]+190, f'{style} {name}')
                 for contour in path.contours:
                     self.assertGreater(abs(contour.area), 40, f'{style} {name}: detached fragment')
             # The I stem leans: its top sits 700·tan 10° ≈ 123 units right of its foot.
@@ -431,10 +445,7 @@ class NightGradeTests(unittest.TestCase):
             for name in day.getGlyphOrder():
                 d_path, n_path = outline(day, name), outline(font, name)
                 d_cnt, n_cnt = len(list(d_path.contours)), len(list(n_path.contours))
-                if name == 'u0160' and d_cnt == 1:
-                    self.assertIn(n_cnt, (1, 2), f'{style} {name}')
-                else:
-                    self.assertEqual(n_cnt, d_cnt, f'{style} {name}')
+                self.assertEqual(n_cnt, d_cnt, f'{style} {name}')
                 if list(d_path.contours):
                     self.assertGreater(abs(n_path.area), 40, f'{style} {name}')
             for ch in ('a', 'e', 'g', 's', 'B', '8'):
@@ -454,7 +465,7 @@ class NightGradeTests(unittest.TestCase):
             self.assertEqual(name.getDebugName(17), style, style)
             self.assertEqual(font['OS/2'].usWeightClass, day['OS/2'].usWeightClass, style)
             self.assertEqual(bool(font['OS/2'].fsSelection & 0x01), italic, style)
-            self.assertEqual(bool(font['OS/2'].fsSelection & 0x40), style == 'Regular Night', style)
+            self.assertEqual(bool(font['OS/2'].fsSelection & 0x40), not italic, style)
             self.assertEqual(bool(font['head'].macStyle & 2), italic, style)
             self.assertEqual(font['post'].italicAngle, -10 if italic else 0, style)
             self.assertEqual(font['hhea'].caretSlopeRise, 1000 if italic else 1, style)
@@ -463,7 +474,9 @@ class NightGradeTests(unittest.TestCase):
             self.assertEqual(font['hhea'].caretSlopeRun, day['hhea'].caretSlopeRun, style)
 
     def test_zero_reflow_metrics_and_shaping_parity(self):
-        samples = PROSE + ['To', 'AV', 'Wa', 'Yo', 'fï', 'f”', 'nn', 'HH', 'Ångström', 'Zażółć']
+        samples = (PROSE + [unicodedata.normalize('NFD', t) for t in PROSE]
+                   + ['To', 'AV', 'Wa', 'Yo', 'fï', 'f”', 'nn', 'HH', 'Ångström', 'Zażółć',
+                      'a\u0302\u0301', 'e\u0323\u0302\u0301', 'o\u031b\u0301', 'i\u0323\u0304', 'i\u0328\u0304', 'x\u0302\u0301\u0323'])
         pairs = ['nn', 'mm', 'uu', 'ii', 'aa', 'dd', 'hh', 'in', 'an', 'nj', 'ng', 'ay', 'af', 'nf', 'gf',
                  'yf', 'jf', 'ff', 'fï', 'f)', 'f”', 'To', 'Tö', 'AV', 'ïï', 'ââ', 'ďď', 'ťď', 'ĳs', 'ŉn']
         for style, font in self.fonts.items():
@@ -472,6 +485,8 @@ class NightGradeTests(unittest.TestCase):
             for gname in day.getGlyphOrder():
                 self.assertEqual(font['hmtx'][gname][0], day['hmtx'][gname][0], f'{style} {gname}')
             self.assertEqual(font.getTableData('GPOS'), day.getTableData('GPOS'), style)
+            self.assertEqual(font.getTableData('GSUB'), day.getTableData('GSUB'), style)
+            self.assertEqual(font.getTableData('GDEF'), day.getTableData('GDEF'), style)
             n_hb = hb.Font(hb.Face(hb.Blob((ROOT/'fonts'/f'{psname(style)}.otf').read_bytes())))
             d_hb = hb.Font(hb.Face(hb.Blob((ROOT/'fonts'/f'{psname(day_style)}.otf').read_bytes())))
             for text in samples:
@@ -547,6 +562,151 @@ class OpticalSpacingTests(unittest.TestCase):
             self.assertTrue(a in 'Wfſ' or (a.isalpha() and b.isalpha()), f'{a}{b} changed')
             self.assertNotIn(a, 'TY', f'{a}{b} changed')
         self.assertLess(len(changed), 250)
+
+
+class CombiningMarkTests(unittest.TestCase):
+    """Combining marks, attachment anchors, mark-to-mark stacking and NFC/NFD parity across all 14 faces."""
+
+    ALL_STYLES = STYLES + ITALICS + NIGHTS
+    MARKS = (0x300, 0x301, 0x302, 0x303, 0x304, 0x306, 0x307, 0x308, 0x309, 0x30A,
+             0x30B, 0x30C, 0x312, 0x31B, 0x323, 0x326, 0x327, 0x328, 0x331)
+
+    @classmethod
+    def setUpClass(cls):
+        cls.fonts, cls.hbfonts, cls.orders = {}, {}, {}
+        for style in cls.ALL_STYLES:
+            path = ROOT/'fonts'/f'{psname(style)}.otf'
+            font = TTFont(path)
+            cls.addClassCleanup(font.close)
+            cls.fonts[style] = font
+            cls.hbfonts[style] = hb.Font(hb.Face(path.read_bytes()))
+            cls.orders[style] = font.getGlyphOrder()
+
+    def shape(self, style, text, language=None, **features):
+        buf = hb.Buffer()
+        buf.add_str(text)
+        buf.guess_segment_properties()
+        if language:
+            buf.language = language
+        hb.shape(self.hbfonts[style], buf, features)
+        order = self.orders[style]
+        return [(order[i.codepoint], p.x_advance, p.x_offset, p.y_offset)
+                for i, p in zip(buf.glyph_infos, buf.glyph_positions)]
+
+    def positioned_ink(self, style, text):
+        font = self.fonts[style]
+        x = 0
+        ink = []
+        for gname, adv, dx, dy in self.shape(style, text):
+            ink.append((gname, outline(font, gname).transform(1, 0, 0, 1, x+dx, dy)))
+            x += adv
+        return ink
+
+    def test_mark_repertoire_zero_advance_gdef_and_stat(self):
+        for style in self.ALL_STYLES:
+            font = self.fonts[style]
+            cmap = font.getBestCmap()
+            gdef = font['GDEF'].table.GlyphClassDef.classDefs
+            self.assertIn(0x25CC, cmap, f'{style} missing dotted circle')
+            self.assertIn('u012F.dotless', font.getGlyphOrder(), f'{style} missing u012F.dotless')
+            self.assertEqual(gdef['u012F.dotless'], 1, style)
+            self.assertEqual(gdef[cmap[0x25CC]], 1, style)
+            for code in self.MARKS:
+                self.assertIn(code, cmap, f'{style} missing U+{code:04X}')
+                gname = cmap[code]
+                self.assertEqual(font['hmtx'][gname][0], 0, f'{style} U+{code:04X} nonzero advance')
+                self.assertEqual(gdef[gname], 3, f'{style} U+{code:04X} GDEF class')
+            for tag, required in (('GSUB', {'ccmp', 'locl'}), ('GPOS', {'mark', 'mkmk', 'kern'})):
+                tags = {r.FeatureTag for r in font[tag].table.FeatureList.FeatureRecord}
+                self.assertTrue(required <= tags, f'{style} {tag} missing {required - tags}')
+            self.assertIn('STAT', font, style)
+
+    def test_precomposed_and_decomposed_text_shape_identically(self):
+        extra = ['Tö', 'Vé', 'Wá', 'fï', 'Zażółć gęślą jaźń.', 'Příliš žluťoučký kůň.',
+                 'ģķļņŗ ĢĶĻŅŖ', 'ďťľĽ ĎŤŇŘŠČŽ', 'ÂÃÅÆÇÈÉÊËÌÍÎÏÐÑÒÓÔÕÖØÙÚÛÜÝ',
+                 'Ẁ ẁ Ẃ ẃ Ẅ ẅ Ỳ ỳ Ș ș Ț ț']
+        for style in self.ALL_STYLES:
+            cmap = self.fonts[style].getBestCmap()
+            for code in cmap:
+                ch = chr(code)
+                nfd = unicodedata.normalize('NFD', ch)
+                if nfd != ch:
+                    self.assertEqual(self.shape(style, ch), self.shape(style, nfd), f'{style} U+{code:04X}')
+            for text in PROSE + extra:
+                self.assertEqual(self.shape(style, text),
+                                 self.shape(style, unicodedata.normalize('NFD', text)),
+                                 f'{style}: {text}')
+            self.assertEqual(self.shape(style, 'g\u0312'), self.shape(style, 'ģ'), style)
+            self.assertEqual(self.shape(style, '\u0131\u0301'), self.shape(style, 'í'), style)
+            self.assertEqual(self.shape(style, '\u0237\u0302'), self.shape(style, 'ĵ'), style)
+            for old, new in zip('ŞşŢţ', 'ȘșȚț'):
+                expected = self.shape(style, new, language='ro')
+                self.assertEqual(self.shape(style, old, language='ro'), expected, f'{style} {old}')
+                self.assertEqual(self.shape(style, unicodedata.normalize('NFD', old), language='ro'),
+                                 expected, f'{style} NFD {old}')
+            horn_tones = ['Ớ', 'Ờ', 'Ở', 'Ỡ', 'Ợ', 'ớ', 'ờ', 'ở', 'ỡ', 'ợ',
+                          'Ứ', 'Ừ', 'Ử', 'Ữ', 'Ự', 'ứ', 'ừ', 'ử', 'ữ', 'ự']
+            for text in horn_tones:
+                self.assertEqual(self.shape(style, text),
+                                 self.shape(style, unicodedata.normalize('NFD', text)),
+                                 f'{style} horn NFD: {text}')
+                self.assertEqual(self.shape(style, text),
+                                 self.shape(style, unicodedata.normalize('NFC', text)),
+                                 f'{style} horn NFC: {text}')
+
+    def test_base_attachment_dotless_substitution_mark_stacking_and_kerning(self):
+        single = ['x\u0301', 'n\u0304', 'm\u0300', 'g\u0303', 'x\u0323', 'b\u0331', 'b\u0307', 'd\u0307',
+                  't\u0308', 'f\u0307', 'y\u0323', 'g\u0323', 'p\u0323', 'M\u0301', 'V\u0303',
+                  'o\u031b', 'u\u031b', 'O\u031b', 'U\u031b', 'o\u0328', 'æ\u0301', 'ø\u0301']
+        isolated = [f'\u25cc{chr(c)}' for c in self.MARKS]
+        stacks = ['x\u0302\u0301', 'x\u0306\u0300', 'x\u0308\u0304', 'x\u0302\u0301\u0323', 'x\u0323\u0331',
+                  'X\u0302\u0301', 'a\u0302\u0301', 'ấ', 'e\u0323\u0302\u0301', 'ệ', 'o\u031b\u0301', 'ớ',
+                  'u\u031b\u0323', 'ự', 'u\u0308\u030c', 'ǚ', 'A\u0302\u0301', 'Ấ', '\u25cc\u0302\u0301']
+        non_connecting = ['x\u0301', 'n\u0304', 'm\u0300', 'g\u0303', 'x\u0323', 'b\u0331', 'b\u0307', 'd\u0307',
+                          't\u0308', 'f\u0307', 'y\u0323', 'g\u0323', 'p\u0323', 'M\u0301', 'V\u0303',
+                          'i\u0309', 'j\u0301', 'i\u0323\u0309', 'j\u0323\u0301', 'į\u0304', 'i\u0328\u0304',
+                          'x\u0302\u0301', 'x\u0306\u0300', 'x\u0308\u0304', 'x\u0302\u0301\u0323',
+                          'x\u0323\u0331', 'X\u0302\u0301', 'a\u0302\u0301', 'e\u0323\u0302\u0301',
+                          'u\u0308\u030c', 'A\u0302\u0301', '\u25cc\u0301', '\u25cc\u0309', '\u25cc\u0323',
+                          '\u25cc\u0302\u0301']
+        for style in self.ALL_STYLES:
+            font = self.fonts[style]
+            gdef = font['GDEF'].table.GlyphClassDef.classDefs
+            win_ascent, win_descent = font['OS/2'].usWinAscent, font['OS/2'].usWinDescent
+            for text in single + isolated + stacks:
+                shaped = self.shape(style, text)
+                self.assertTrue(all(g != '.notdef' for g, _, _, _ in shaped), f'{style}: {text}')
+                self.assertTrue(all(adv == 0 for g, adv, _, _ in shaped if gdef.get(g) == 3), f'{style}: {text}')
+                for gname, path in self.positioned_ink(style, text):
+                    _, y0, _, y1 = path.bounds
+                    self.assertGreaterEqual(y0, -win_descent, f'{style} {text} {gname}')
+                    self.assertLessEqual(y1, win_ascent, f'{style} {text} {gname}')
+            self.assertNotEqual(self.shape(style, 'x\u0301'), self.shape(style, 'x\u0301', mark=False), style)
+            for cl in ('x\u0302\u0301', 'x\u0323\u0331', '\u25cc\u0302\u0301'):
+                self.assertNotEqual(self.shape(style, cl), self.shape(style, cl, mkmk=False), f'{style} {cl}')
+            # Dotless substitution and canonical order equivalence.
+            for text, dotless_name in [('i\u0309', 'u0131'), ('i\u0307', 'u0131'), ('j\u0301', 'u0237'),
+                                       ('j\u030c', 'u0237'), ('i\u0323\u0309', 'u0131'), ('j\u0323\u0301', 'u0237'),
+                                       ('į\u0304', 'u012F.dotless'), ('i\u0328\u0304', 'u012F.dotless')]:
+                shaped = self.shape(style, text)
+                self.assertEqual(shaped[0][0], dotless_name, f'{style} {text}')
+            self.assertEqual(self.shape(style, 'i\u0323\u0309'), self.shape(style, 'i\u0309\u0323'), style)
+            self.assertEqual(self.shape(style, 'j\u0323\u0301'), self.shape(style, 'j\u0301\u0323'), style)
+            self.assertEqual(self.shape(style, 'į\u0304'), self.shape(style, 'i\u0328\u0304'), style)
+            # No contour overlap between base and marks or between stacked marks.
+            for text in non_connecting:
+                ink = self.positioned_ink(style, text)
+                for i, (_, pa) in enumerate(ink):
+                    for _, pb in ink[i+1:]:
+                        ov = pathops.op(pa, pb, pathops.PathOp.INTERSECTION)
+                        self.assertLess(abs(ov.area), 0.01, f'{style} overlap in {text!r}: {ov.area}')
+            # Kerning remains active across combining marks.
+            for marked, plain in [('Tx\u0301', 'Tx'), ('Wa\u0323', 'Wa'), ('T\u0323o', 'To'), ('nx\u0301a', 'nxa')]:
+                w_marked = sum(a for _, a, _, _ in self.shape(style, marked))
+                w_plain = sum(a for _, a, _, _ in self.shape(style, plain))
+                self.assertEqual(w_marked, w_plain, f'{style} {marked}')
+            self.assertLess(sum(a for _, a, _, _ in self.shape(style, 'Wa\u0323')),
+                            sum(a for _, a, _, _ in self.shape(style, 'Wa\u0323', kern=False)), style)
 
 
 def _box(x0, y0, x1, y1):
