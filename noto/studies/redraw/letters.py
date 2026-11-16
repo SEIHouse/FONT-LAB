@@ -150,6 +150,19 @@ def arch_d(cl, cr, top, depth=182, lean=.585, down=0):
             f"C{px+K*rx} {top} {cr} {ysh+K*rx*1.04} {cr} {ysh} L{cr} {down}")
 
 
+def l_stroke(sh):
+    """The l: a stem with a hooked foot that keeps l apart from I and 1, tucked close so it reads as a stem in text."""
+    lc = sh.lc
+    s, h = lc.thick, lc.thin
+    reach, lt = L_HOOK
+    base = sh.day_stem/2               # measured from the Day stem, so a Night grade only thins the stroke
+    lx = base + reach
+    k = reach / (206 - base)           # 1 would be the original drawing; smaller tucks the hook in
+    hx = lambda x: base + (x - base)*k
+    return ribbon(f"M{s/2} {ASC} L{s/2} {lt} C{s/2} {lt-70} {hx(82)} {h/2-2} {hx(146)} {h/2-2} "
+                  f"C{hx(168)} {h/2-2} {hx(188)} 38 {lx} 44", lc, {3: 1.05})
+
+
 def lower(sh):
     lc = sh.lc
     s, h, hv = lc.thick, lc.thin, sh.heavy
@@ -227,14 +240,7 @@ def lower(sh):
     sh.put('ı', rect(0, 0, s, X), N, N)
     sh.put('j', [ribbon(f"M{s/2} {X} L{s/2} -70 C{s/2} -144 2 {DESC+h/2} -70 {DESC+h/2} C-96 {DESC+h/2} -118 -170 -138 -160",
                         lc, {3: 1.05}), dot], N, N, ref=(0, s))
-    # l: the hooked foot keeps l apart from I and 1, tucked close so it reads as a stem in text.
-    reach, lt = L_HOOK
-    base = sh.day_stem/2               # measured from the Day stem, so a Night grade only thins the stroke
-    lx = base + reach
-    k = reach / (206 - base)           # 1 would be the original drawing; smaller tucks the hook in
-    hx = lambda x: base + (x - base)*k
-    sh.put('l', ribbon(f"M{s/2} {ASC} L{s/2} {lt} C{s/2} {lt-70} {hx(82)} {h/2-2} {hx(146)} {h/2-2} "
-                       f"C{hx(168)} {h/2-2} {hx(188)} 38 {lx} 44", lc, {3: 1.05}),
+    sh.put('l', l_stroke(sh),
            N, 22)
     cross = h*(.9 - .16*hv)
     sh.put('t', [ribbon(f"M150 656 L150 138 C150 66 190 {h/2-2} 256 {h/2-2} C284 {h/2-2} 308 39 330 47", lc, {3: 1.05}),
@@ -896,7 +902,7 @@ def extended(sh, comma, R):
     md_u = 96*wt**.6
     put('Ŀ', [rect(0, 0, S, CAP), rect(S/2, 0, 398, uc.thin), oval(S+138, 342, S+138+md_u, 342+md_u, .62)], 88, 28, uc)
     md_l = 88*wt**.6
-    l_lc = ribbon(f"M{s/2} {ASC} L{s/2} 132 C{s/2} 62 82 {h/2-2} 146 {h/2-2} C168 {h/2-2} 188 38 206 44", lc, {3: 1.05})
+    l_lc = l_stroke(sh)                # the same l as the plain letter, so ŀ and l always match
     dx_l = max(214, s+120)
     put('ŀ', [l_lc, oval(dx_l, 248, dx_l+md_l, 248+md_l, .62)], 74, 46)
     ap = move(comma, 0, ASC-(2*R-5))
