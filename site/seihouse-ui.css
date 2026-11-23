@@ -634,8 +634,10 @@
 }
 
 .sei-button--noto:hover {
-  filter: brightness(1.06);
+  background-color: var(--fl-noto);
   border-color: var(--fl-noto);
+  color: var(--fl-noto-ink);
+  filter: brightness(1.06);
 }
 
 .sei-button--display {
@@ -645,8 +647,10 @@
 }
 
 .sei-button--display:hover {
-  filter: brightness(1.06);
+  background-color: var(--fl-display);
   border-color: var(--fl-display);
+  color: var(--fl-display-ink);
+  filter: brightness(1.06);
 }
 
 .sei-button--special {
@@ -656,8 +660,10 @@
 }
 
 .sei-button--special:hover {
-  filter: brightness(1.06);
+  background-color: var(--fl-special);
   border-color: var(--fl-special);
+  color: var(--fl-special-ink);
+  filter: brightness(1.06);
 }
 
 .sei-button--ghost {

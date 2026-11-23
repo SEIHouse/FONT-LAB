@@ -243,6 +243,8 @@
     if (!raw) {
       setView('fonts', { syncHash: false });
       setFontSubtab('normal', { syncHash: false });
+      setDownloadFont('sans', { syncHash: false });
+      setDownloadSubtab('current', { syncHash: false });
       return;
     }
 
@@ -258,6 +260,8 @@
       return;
     }
     if (raw === 'resources') {
+      setDownloadFont('sans', { syncHash: false });
+      setDownloadSubtab('current', { syncHash: false });
       setView('download', { syncHash: false });
       return;
     }
@@ -266,19 +270,17 @@
     const top = parts[0];
     if (top === 'fonts') {
       setView('fonts', { syncHash: false });
-      if (FONT_SUBTABS.includes(parts[1])) {
-        setFontSubtab(parts[1], { syncHash: false });
-      }
+      setFontSubtab(FONT_SUBTABS.includes(parts[1]) ? parts[1] : 'normal', { syncHash: false });
     } else if (top === 'lab') {
       setView('lab', { syncHash: false });
     } else if (top === 'download') {
-      if (DL_FONTS.includes(parts[1])) {
-        setDownloadFont(parts[1], { syncHash: false });
-      }
+      setDownloadFont(DL_FONTS.includes(parts[1]) ? parts[1] : 'sans', { syncHash: false });
       if (DL_SUBTABS.includes(parts[2])) {
         setDownloadSubtab(parts[2], { syncHash: false });
       } else if (DL_SUBTABS.includes(parts[1])) {
         setDownloadSubtab(parts[1], { syncHash: false });
+      } else {
+        setDownloadSubtab('current', { syncHash: false });
       }
       setView('download', { syncHash: false });
     }
