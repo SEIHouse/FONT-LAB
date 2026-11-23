@@ -17,7 +17,8 @@ remains the approved direction** until the owner decides otherwise; nothing in
 [Every italic glyph](proofs/redraw-glyphs-italic.svg) ·
 [Optical spacing, before and after](proofs/redraw-optical.png) ·
 [Combining marks &amp; stacking](proofs/redraw-marks.png) ·
-[Skim pass, before and after](proofs/redraw-skim.png)
+[Skim pass, before and after](proofs/redraw-skim.png) ·
+[Rhythm pass, before and after](proofs/redraw-rhythm.png)
 
 ## What changed, and why
 
@@ -116,6 +117,37 @@ italic (which reuses the l) and Night grade is rebuilt from the same rules.
 Still on the list, measured but not changed yet: the two-storey **g** is the darkest
 letter in text (+13%), and the round letters **o, e, c** run 5–7% wider than Noto Sans
 relative to **n**, so they swell slightly in a line.
+
+## Rhythm pass: letters spaced by their bodies
+
+The owner felt the spacing between letters lacked Google Noto Sans's consistency. Every
+letter pair at every weight was measured as the *area* of white between the two letters
+(each row capped a quarter x-height past the closest point, the way the eye reads a gap),
+relative to `nn` or `HH`, and compared with Noto Sans at the same weight.
+
+![Rhythm pass, before and after](proofs/redraw-rhythm.png)
+
+Most letters already matched. The ones that did not shared one cause: a single part sticks
+out (t's crossbar, l's hooked foot, the points of v, w, y, A, V, X, Y, Z). Spacing and kerning
+had been judged from that tip, so the letter's body floated loose in words like *twenty*,
+*villas* and *with*. Open-sided capitals (E, L, P, R, Q) sat a little tight.
+
+| Group | Change (Regular units, scaled per weight) | Regular gap, before → after (Noto) |
+|---|---|---|
+| t v w y l | t left −20 / right −7, v −19 / −13, w −11 / −11, y −16 / −13, l right −15 | 1.13 → 1.06 of `nn` (1.03) |
+| A V X Y Z | −9 to −11 each side, Z −10 | 1.13 → 1.07 of `HH` (1.05) |
+| G K F | right side −16, −8, −7 | |
+| E L P R Q, c | right side +7 to +12, c +6 | |
+
+- `RHYTHM` in `letters.py` holds the table; every weight, italic and Night grade is rebuilt from it.
+  Night fonts keep their Day widths and kerning, so Day/Night still never reflows.
+- t and y fade toward Bold (`RHYTHM_FADES`): Bold's heavier stroke already fills their open side,
+  and full tightening crowded them.
+- Measured on a prose passage, the average gap difference from Noto Sans fell from 7.1% to 4.7%
+  at Regular (Light 7.0 → 5.1, Medium 6.0 → 4.1, Bold 5.5 → 4.8). Ink clearance is still enforced
+  for every kerned pair.
+- Still measurably different, left for a later pass: `r` followed by `y` or `e` (open), `ow`,
+  `ll`, and Bold capitals `N S W Z`, which sit slightly loose against Bold `H`.
 
 ## Optical spacing pass
 
