@@ -576,6 +576,74 @@ class OpticalSpacingTests(unittest.TestCase):
         self.assertLess(len(changed), 250)
 
 
+class RhythmPassTests(unittest.TestCase):
+    """Letters with one protruding part (t, v, w, y, l, A, V, X, Y, Z) sit with their bodies, not their tips.
+
+    Gap = the white between a shaped, kerned pair inside the x-height (or cap height), each row capped
+    at a quarter x-height beyond the closest point, the way the eye reads a gap as area rather than
+    its single nearest tip. Values are shares of n|n (or H|H). Before the rhythm pass Regular averaged
+    1.13 for both groups; Google Noto Sans Regular measures 1.03 (lowercase) and 1.05 (capitals).
+    """
+
+    LOWER, UPPER = 'tvwyl', 'AVXYZ'
+
+    @staticmethod
+    def gaps(style):
+        import numpy as np
+        import spacing
+        from letters import X
+        path = ROOT/'fonts'/f'{psname(style)}.otf'
+        font = TTFont(path)
+        glyphs, order, hbfont, cache = font.getGlyphSet(), font.getGlyphOrder(), hb.Font(hb.Face(path.read_bytes())), {}
+
+        def profile(name):
+            if name not in cache:
+                cache[name] = spacing.profile(outline(font, name), font['hmtx'][name][0])
+            return cache[name]
+
+        def gap(text, top):
+            buffer = hb.Buffer()
+            buffer.add_str(text)
+            buffer.guess_segment_properties()
+            hb.shape(hbfont, buffer)
+            (a, b), (pa, _) = buffer.glyph_infos, buffer.glyph_positions
+            kern = pa.x_advance - font['hmtx'][order[a.codepoint]][0]
+            row = profile(order[a.codepoint])[1] + profile(order[b.codepoint])[0] + kern
+            row = row[(spacing.BANDS >= 0) & (spacing.BANDS <= top)]
+            cap = row[np.isfinite(row)].min() + .25*X
+            return float(np.mean(np.where(np.isfinite(row), np.minimum(row, cap), cap)))
+        return gap, glyphs
+
+    def ratios(self, style):
+        from letters import CAP, X
+        gap, _ = self.gaps(style)
+        nn, hh = gap('nn', X), gap('HH', CAP)
+        lower = [gap(s, X)/nn for c in self.LOWER for s in ('n'+c, c+'n')]
+        upper = [gap(s, CAP)/hh for c in self.UPPER for s in ('H'+c, c+'H')]
+        return sum(lower)/len(lower), sum(upper)/len(upper), max(lower), max(upper)
+
+    def test_protruding_letters_sit_with_their_bodies(self):
+        ceilings = {'Light': 1.07, 'Regular': 1.07, 'Medium': 1.09, 'Bold': 1.12, 'Italic': 1.16}
+        for style, ceiling in ceilings.items():
+            lower, upper, worst_lower, worst_upper = self.ratios(style)
+            self.assertLessEqual(lower, ceiling, f'{style} lowercase {lower:.3f}')
+            self.assertLessEqual(upper, ceiling + .01, f'{style} capitals {upper:.3f}')
+            # No single side opens a hole (the old Regular t, v and Z reached 1.20-1.21).
+            self.assertLess(worst_lower, 1.21 if style != 'Italic' else 1.33, style)
+            self.assertLess(worst_upper, 1.19, style)
+
+    def test_rhythm_fades_toward_bold_for_t_and_y(self):
+        """Bold's heavier stroke fills the open side of t and y; full tightening would crowd them."""
+        import letters
+        self.assertEqual(set(letters.RHYTHM_FADES), {'t', 'y'})
+        regular, bold = letters.Sheet(1.0), letters.Sheet(1.46)
+        for sheet, fade in ((regular, 1.0), (bold, .08)):
+            sheet.put('t', letters.rect(0, 0, 100, letters.X), 20, 18)
+            sheet.put('ı', letters.rect(0, 0, 100, letters.X), 20, 18)
+            width_t, width_i = sheet.glyphs['t'][0], sheet.glyphs['ı'][0]
+            self.assertAlmostEqual(width_i - width_t, round(27*fade*sheet.tight), delta=1)
+
+
 class CombiningMarkTests(unittest.TestCase):
     """Combining marks, attachment anchors, mark-to-mark stacking and NFC/NFD parity across all 14 faces."""
 
