@@ -19,6 +19,19 @@ L_HOOK = (124, 132)            # l: tail reach from the stem centre, and turn he
                                # (tail at x 206), which left a hole after every l. Reach, not x, so heavy weights
                                # keep room inside the curve.
 A_KNOT = 0.70                  # a: bowl-top weight at the stem; was 1.0, a dark knot in every word with a
+# Rhythm pass: sidebearing changes (left, right) in Regular units, scaled with each weight's fit.
+# Letters with one protruding part (t's crossbar, l's hook, the points of v w y A V X Y Z) were
+# spaced from that part, so their bodies floated loose in words; open-sided capitals sat tight.
+# Measured as white area between real letter pairs, against Google Noto Sans as a yardstick.
+RHYTHM = {
+    't': (-20, -7), 'l': (0, -15), 'v': (-19, -13), 'w': (-11, -11), 'y': (-16, -13), 'z': (-5, -5),
+    'c': (0, 6),
+    'A': (-11, -11), 'V': (-11, -11), 'X': (-9, -9), 'Y': (-11, -11), 'Z': (-10, -10),
+    'G': (0, -16), 'K': (0, -8), 'F': (0, -7),
+    'E': (0, 7), 'L': (0, 7), 'P': (0, 8), 'R': (0, 7), 'Q': (0, 12),
+}
+RHYTHM_FADES = 'ty'            # Bold's heavier stroke already fills t's and y's open side, so their
+                               # change fades out from Regular (full) to Bold (almost none).
 SLANT = 10.0                   # italic angle, degrees from upright
 CONDENSE = .96                 # italics are drawn a little narrower
 NIGHT_GRADE = -4               # Night optical grade: 4 units thinner upright stem, zero reflow
@@ -68,7 +81,9 @@ class Sheet:
         x0, _, x1, _ = path.bounds
         if ref:
             x0, x1 = (x0 if ref[0] is None else ref[0]), (x1 if ref[1] is None else ref[1])
-        lsb, rsb = lsb*self.tight, rsb*self.tight
+        fade = max(0.0, 1 - 2*self.heavy) if ch in RHYTHM_FADES else 1.0
+        fit = [d*fade for d in RHYTHM.get(ch, (0, 0))]
+        lsb, rsb = (lsb+fit[0])*self.tight, (rsb+fit[1])*self.tight
         self.glyphs[ch] = (round(x1-x0+lsb+rsb), move(path, lsb-x0))
         if ghost is not None:
             self.ghosts[ch] = move(ghost, lsb-x0)

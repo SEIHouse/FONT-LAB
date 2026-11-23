@@ -2,6 +2,12 @@
 
 Newest first.
 
+## 2026-11-23 · SEIHouse Noto Redraw 02 — Rhythm pass for letter spacing
+- **Why**: the spacing between letters felt less consistent than Google Noto Sans. Every letter pair at every weight was measured as the area of white between the letters (the way the eye reads a gap), against Noto Sans at the same weight.
+- **Cause**: letters with one protruding part (t's crossbar, l's hook, the points of v w y and A V X Y Z) had been spaced from that tip, so their bodies floated loose (*twenty*, *villas*, *with*). Open-sided capitals E L P R Q sat slightly tight.
+- **Fix**: a `RHYTHM` sidebearing table in `letters.py` (t, v, w, y, l, z, c, A, V, X, Y, Z, G, K, F, E, L, P, R, Q). t and y fade toward Bold, whose heavier stroke already fills their open side.
+- **Result**: average prose gap difference from Noto Sans 7.1% → 4.7% (Regular); Light 7.0 → 5.1, Medium 6.0 → 4.1, Bold 5.5 → 4.8. All 14 fonts rebuilt; Night keeps Day widths and kerning (zero reflow). Proof: `noto/studies/redraw/proofs/redraw-rhythm.png`. Next measured candidates: `ry`/`re`, `ow`, `ll`, Bold capitals `N S W Z`.
+
 ## 2026-11-16 · SEIHouse Noto Redraw 02 — Skim pass for l and a
 - **Why**: skimming felt snaggy on "random little letters". A skim test (7,500 characters of chapter prose at 16 px, blurred like peripheral vision, measured letter by letter against Google Noto Sans and SEIHouse Sans) showed the overall grey was already even; two frequent letters were the catches.
 - **l**: the hooked foot is kept, tucked closer to the stem (it reaches 124 units from the stem instead of 162 at Regular). The old hook left a light hole after every l (+1.0% vs line; now +2.6%, the same as Google Noto Sans).
