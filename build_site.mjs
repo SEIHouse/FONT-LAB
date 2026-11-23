@@ -8,11 +8,11 @@ import {versionInventory} from './site/version_inventory.mjs';
 const root = dirname(fileURLToPath(import.meta.url));
 const output = join(root, 'dist', 'site');
 const pages = [
-  'index.html', 'site/home.css', 'site/home.js', 'site/favicon.svg',
+  'index.html', 'site/seihouse-ui.css', 'site/home.css', 'site/home.js', 'site/favicon.svg',
   'noto/studies/redraw/index.html', 'noto/studies/redraw/README.md', 'noto/studies/redraw/manifest.json',
   'noto/studies/redraw/proofs/redraw-glyphs.svg', 'noto/studies/redraw/proofs/redraw-glyphs-italic.svg',
   ...['compare','details','dark','mobile','family','italic','optical','marks','skim'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
-  ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic','LightNight','RegularNight','MediumNight','LightItalicNight','ItalicNight','MediumItalicNight'].map(style => `noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`),
+  ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic','LightNight','RegularNight','MediumNight','LightItalicNight','ItalicNight','MediumItalicNight'].flatMap(style => [`noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`, `noto/studies/redraw/fonts/SEIHouseNoto-${style}.otf`]),
   'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
   'noto/studies/warmth/warmth-01.html',
   'noto/DESIGN.md', 'noto/studies/warmth/proofs/balanced-glyphs.svg',
@@ -48,7 +48,7 @@ const displayFiles = displayInventory(root);
 const versionFiles = versionInventory(root);
 const files = [...new Set([
   ...pages,
-  ...styles.map(style => `fonts/SEIReader-${style}.woff2`),
+  ...styles.flatMap(style => [`fonts/SEIReader-${style}.woff2`, `fonts/SEIReader-${style}.otf`]),
   ...displayFiles,
   ...versionFiles,
 ])];

@@ -1,0 +1,746 @@
+/* ==========================================================================
+   SEIHouse UI — Standalone Design System Layer for Font Lab
+   Ported from @seihouse/ui (tokens.css, bottom-navigation.css,
+   sei-bottom-navigation.tsx, sei-app-header.tsx, sei-segmented-control.tsx,
+   sei-card.tsx, sei-badge.tsx, sei-button.tsx).
+   ========================================================================== */
+
+:root {
+  color-scheme: dark;
+
+  /* ---- Typography ---- */
+  --sh-font-sans: "SEIHouseNotoBalanced", SEIReader, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sh-font-display: SEIReader, system-ui, -apple-system, "Segoe UI", sans-serif;
+  --sh-font-mono: ui-monospace, "SF Mono", "JetBrains Mono", Consolas, monospace;
+
+  /* ---- Radii (role-based, from @seihouse/ui) ---- */
+  --sh-radius-sm: 0.375rem;
+  --sh-radius-md: 0.5rem;
+  --sh-radius-lg: 0.75rem;
+  --sh-radius-xl: 1rem;
+  --sh-radius-2xl: 1.5rem;
+  --sh-radius-full: 9999px;
+  --sh-radius-control: var(--sh-radius-full);
+  --sh-radius-field: 0.625rem;
+  --sh-radius-card: 1.25rem;
+  --sh-radius-panel: 1.35rem;
+
+  /* ---- Motion ---- */
+  --sh-motion-fast: 150ms;
+  --sh-motion-surface-duration: 200ms;
+  --sh-motion-surface-ease: cubic-bezier(0.4, 0, 0.2, 1);
+
+  /* ---- Z-index layering scale ---- */
+  --sh-z-base: 0;
+  --sh-z-raised: 10;
+  --sh-z-sticky: 20;
+  --sh-z-overlay: 40;
+
+  /* ---- Glass / blur ---- */
+  --sh-blur-sm: 8px;
+  --sh-blur-md: 16px;
+  --sh-blur-lg: 24px;
+
+  /* ---- Safe-area insets ---- */
+  --sh-safe-top: env(safe-area-inset-top, 0px);
+  --sh-safe-right: env(safe-area-inset-right, 0px);
+  --sh-safe-bottom: env(safe-area-inset-bottom, 0px);
+  --sh-safe-left: env(safe-area-inset-left, 0px);
+
+  /* ---- Night Theme (Default — Font Lab Studio Dark) ---- */
+  --sh-page-background: #0f1311;
+  --sh-surface: #151b18;
+  --sh-surface-elevated: #1b221e;
+  --sh-surface-raised: #232c27;
+  --sh-text-primary: #eef1e8;
+  --sh-text-muted: #a9b4aa;
+  --sh-text-subtle: #89968b;
+  --sh-border: rgba(235, 242, 232, 0.11);
+  --sh-border-strong: rgba(235, 242, 232, 0.22);
+
+  --sh-glass-bg: rgba(20, 26, 23, 0.78);
+  --sh-glass-border: rgba(235, 242, 232, 0.14);
+  --sh-glass-sheen: linear-gradient(165deg, rgba(255, 255, 255, 0.065), rgba(255, 255, 255, 0.01) 44%);
+
+  --sh-focus-ring: #c5dfaa;
+  --sh-focus-offset: #0f1311;
+
+  --sh-interactive-primary: #c5dfaa;
+  --sh-interactive-primary-hover: #d4eab9;
+  --sh-interactive-on-primary: #121b14;
+  --sh-interactive-surface: rgba(235, 242, 232, 0.05);
+  --sh-interactive-surface-hover: rgba(235, 242, 232, 0.095);
+  --sh-interactive-surface-active: rgba(235, 242, 232, 0.14);
+  --sh-interactive-selected: rgba(197, 223, 170, 0.16);
+  --sh-interactive-selected-border: rgba(197, 223, 170, 0.45);
+  --sh-interactive-selected-text: #d7f0bc;
+
+  --sh-field-surface: rgba(0, 0, 0, 0.24);
+  --sh-field-border: rgba(235, 242, 232, 0.14);
+  --sh-field-border-hover: rgba(235, 242, 232, 0.26);
+
+  --sh-elevation-card: 0 14px 40px rgba(0, 0, 0, 0.28);
+  --sh-elevation-dock: 0 18px 48px rgba(0, 0, 0, 0.48), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+
+  /* ---- Font Lab Track Accents ---- */
+  --fl-sans: #c5dfaa;
+  --fl-sans-ink: #121b14;
+  --fl-sans-soft: rgba(197, 223, 170, 0.14);
+  --fl-sans-border: rgba(197, 223, 170, 0.36);
+
+  --fl-noto: #e5c37f;
+  --fl-noto-ink: #1d1609;
+  --fl-noto-soft: rgba(229, 195, 127, 0.14);
+  --fl-noto-border: rgba(229, 195, 127, 0.36);
+
+  --fl-display: #d7bdfa;
+  --fl-display-ink: #1a1226;
+  --fl-display-soft: rgba(215, 189, 250, 0.14);
+  --fl-display-border: rgba(215, 189, 250, 0.36);
+
+  --fl-special: #8cd4ff;
+  --fl-special-ink: #0a1b29;
+  --fl-special-soft: rgba(140, 212, 255, 0.14);
+  --fl-special-border: rgba(140, 212, 255, 0.36);
+
+  --sh-atmosphere:
+    radial-gradient(ellipse 46rem 24rem at 15% 0%, rgba(197, 223, 170, 0.065), transparent 70%),
+    radial-gradient(ellipse 40rem 22rem at 88% 4%, rgba(215, 189, 250, 0.05), transparent 70%);
+
+  /* ---- Bottom navigation tokens ---- */
+  --sei-bottom-nav-border: var(--sh-glass-border);
+  --sei-bottom-nav-opaque: #171e1a;
+  --sei-bottom-nav-fill: rgba(21, 27, 24, 0.82);
+  --sei-bottom-nav-sheen: var(--sh-glass-sheen);
+  --sei-bottom-nav-backdrop: blur(var(--sh-blur-md)) saturate(1.25);
+  --sei-bottom-nav-shadow: var(--sh-elevation-dock);
+  --sei-bottom-nav-text: var(--sh-text-muted);
+  --sei-bottom-nav-hover-text: var(--sh-text-primary);
+  --sei-bottom-nav-hover: var(--sh-interactive-surface-hover);
+  --sei-bottom-nav-press: var(--sh-interactive-surface-active);
+  --sei-bottom-nav-selected: var(--sh-interactive-selected);
+  --sei-bottom-nav-selected-border: var(--sh-interactive-selected-border);
+  --sei-bottom-nav-selected-text: var(--sh-interactive-selected-text);
+}
+
+:root[data-theme="day"] {
+  color-scheme: light;
+
+  --sh-page-background: #f5f4ec;
+  --sh-surface: #ffffff;
+  --sh-surface-elevated: #ecece2;
+  --sh-surface-raised: #e2e3d7;
+  --sh-text-primary: #18211b;
+  --sh-text-muted: #4b594e;
+  --sh-text-subtle: #5c6a5f;
+  --sh-border: rgba(24, 33, 27, 0.13);
+  --sh-border-strong: rgba(24, 33, 27, 0.25);
+
+  --sh-glass-bg: rgba(245, 244, 236, 0.84);
+  --sh-glass-border: rgba(24, 33, 27, 0.13);
+  --sh-glass-sheen: linear-gradient(165deg, rgba(255, 255, 255, 0.72), rgba(255, 255, 255, 0.18) 50%);
+
+  --sh-focus-ring: #254b27;
+  --sh-focus-offset: #f5f4ec;
+
+  --sh-interactive-primary: #254b27;
+  --sh-interactive-primary-hover: #1d3c1f;
+  --sh-interactive-on-primary: #f7f8f2;
+  --sh-interactive-surface: rgba(24, 33, 27, 0.05);
+  --sh-interactive-surface-hover: rgba(24, 33, 27, 0.09);
+  --sh-interactive-surface-active: rgba(24, 33, 27, 0.14);
+  --sh-interactive-selected: #ddebd4;
+  --sh-interactive-selected-border: #89ad7b;
+  --sh-interactive-selected-text: #1c3a1d;
+
+  --sh-field-surface: rgba(24, 33, 27, 0.035);
+  --sh-field-border: rgba(24, 33, 27, 0.22);
+  --sh-field-border-hover: rgba(24, 33, 27, 0.36);
+
+  --sh-elevation-card: 0 10px 28px rgba(24, 33, 27, 0.06);
+  --sh-elevation-dock: 0 14px 36px rgba(24, 33, 27, 0.14), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+
+  --fl-sans: #254b27;
+  --fl-sans-ink: #f7f8f2;
+  --fl-sans-soft: rgba(37, 75, 39, 0.1);
+  --fl-sans-border: rgba(37, 75, 39, 0.3);
+
+  --fl-noto: #7c561a;
+  --fl-noto-ink: #fdfaf2;
+  --fl-noto-soft: rgba(124, 86, 26, 0.1);
+  --fl-noto-border: rgba(124, 86, 26, 0.3);
+
+  --fl-display: #553580;
+  --fl-display-ink: #fbf8ff;
+  --fl-display-soft: rgba(85, 53, 128, 0.1);
+  --fl-display-border: rgba(85, 53, 128, 0.3);
+
+  --fl-special: #0f5696;
+  --fl-special-ink: #f5faff;
+  --fl-special-soft: rgba(15, 86, 150, 0.1);
+  --fl-special-border: rgba(15, 86, 150, 0.3);
+
+  --sh-atmosphere:
+    radial-gradient(ellipse 46rem 24rem at 15% 0%, rgba(37, 75, 39, 0.055), transparent 70%),
+    radial-gradient(ellipse 40rem 22rem at 88% 4%, rgba(85, 53, 128, 0.045), transparent 70%);
+
+  --sei-bottom-nav-opaque: #ffffff;
+  --sei-bottom-nav-fill: rgba(255, 255, 255, 0.84);
+}
+
+/* ==========================================================================
+   SEIAppHeader — Single-row sticky frosted-glass header
+   ========================================================================== */
+
+.sei-app-header {
+  position: sticky;
+  inset-block-start: 0;
+  z-index: var(--sh-z-sticky);
+  inline-size: 100%;
+  padding-block-start: var(--sh-safe-top);
+  background-color: var(--sh-surface);
+  border-block-end: 1px solid var(--sh-glass-border);
+  color: var(--sh-text-primary);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .sei-app-header {
+    background-color: var(--sh-glass-bg);
+    -webkit-backdrop-filter: blur(var(--sh-blur-md)) saturate(1.2);
+    backdrop-filter: blur(var(--sh-blur-md)) saturate(1.2);
+  }
+}
+
+.sei-app-header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.75rem;
+  min-block-size: 3.75rem;
+  inline-size: min(70rem, calc(100% - 2rem));
+  margin-inline: auto;
+  padding-inline-start: var(--sh-safe-left);
+  padding-inline-end: var(--sh-safe-right);
+}
+
+.sei-app-header-identity {
+  display: flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-inline-size: 0;
+  flex: 1 1 auto;
+}
+
+.sei-app-header-brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.65rem;
+  min-inline-size: 0;
+  text-decoration: none;
+  color: inherit;
+  border-radius: var(--sh-radius-md);
+}
+
+.sei-app-header-context {
+  display: none;
+  align-items: center;
+  gap: 0.5rem;
+  min-inline-size: 0;
+  font-size: 0.875rem;
+  color: var(--sh-text-muted);
+}
+
+.sei-app-header-context-sep {
+  color: var(--sh-text-subtle);
+  user-select: none;
+}
+
+.sei-app-header-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .sei-app-header-inner {
+    min-block-size: 4rem;
+    inline-size: min(70rem, calc(100% - 3rem));
+  }
+
+  .sei-app-header-context {
+    display: inline-flex;
+  }
+}
+
+/* ==========================================================================
+   SEIBottomNavigation — Ported directly from @seihouse/ui
+   Full-width frosted bar on mobile; centered floating glass dock on wide screens.
+   ========================================================================== */
+
+.sei-bottom-navigation {
+  position: fixed;
+  inset-block-end: 0;
+  inset-inline: 0;
+  z-index: var(--sh-z-sticky);
+  pointer-events: none;
+}
+
+.sei-bottom-navigation-surface {
+  pointer-events: auto;
+  display: flex;
+  align-items: stretch;
+  justify-content: center;
+  gap: 0.25rem;
+  inline-size: 100%;
+  padding-block-start: 0.45rem;
+  padding-block-end: calc(0.5rem + var(--sh-safe-bottom));
+  padding-inline-start: calc(0.5rem + var(--sh-safe-left));
+  padding-inline-end: calc(0.5rem + var(--sh-safe-right));
+  border-block-start: 1px solid var(--sei-bottom-nav-border);
+  background-color: var(--sei-bottom-nav-opaque);
+  background-image: var(--sei-bottom-nav-sheen);
+  box-shadow: 0 -8px 28px rgba(0, 0, 0, 0.22);
+}
+
+@supports ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .sei-bottom-navigation-surface {
+    background-color: var(--sei-bottom-nav-fill);
+    -webkit-backdrop-filter: var(--sei-bottom-nav-backdrop);
+    backdrop-filter: var(--sei-bottom-nav-backdrop);
+  }
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-tab"] {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.22rem;
+  flex: 1 1 0;
+  max-inline-size: 10rem;
+  min-block-size: 3.25rem;
+  min-inline-size: 0;
+  padding: 0.4rem 0.5rem;
+  border: 1px solid transparent;
+  border-radius: 0.85rem;
+  background: transparent;
+  color: var(--sei-bottom-nav-text);
+  font-size: 0.75rem;
+  font-weight: 500;
+  line-height: 1.1;
+  touch-action: manipulation;
+  user-select: none;
+  cursor: pointer;
+  transition:
+    background-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    border-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    transform var(--sh-motion-fast) var(--sh-motion-surface-ease);
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-icon"] {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-icon"] svg {
+  inline-size: 1.2rem;
+  block-size: 1.2rem;
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-label"] {
+  max-inline-size: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+@media (hover: hover) {
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"]:hover {
+    color: var(--sei-bottom-nav-hover-text);
+    background-color: var(--sei-bottom-nav-hover);
+  }
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-tab"]:active {
+  background-color: var(--sei-bottom-nav-press);
+  transform: scale(0.98);
+}
+
+.sei-bottom-navigation [data-slot="bottom-nav-tab"][aria-current="page"],
+.sei-bottom-navigation [data-slot="bottom-nav-tab"][data-selected="true"] {
+  color: var(--sei-bottom-nav-selected-text);
+  background-color: var(--sei-bottom-nav-selected);
+  border-color: var(--sei-bottom-nav-selected-border);
+  font-weight: 600;
+}
+
+/* Non-color active indicator bar (WCAG 1.4.1) */
+.sei-bottom-navigation [data-slot="bottom-nav-tab"][aria-current="page"]::after,
+.sei-bottom-navigation [data-slot="bottom-nav-tab"][data-selected="true"]::after {
+  content: "";
+  position: absolute;
+  inset-block-start: -1px;
+  inset-inline: 30%;
+  border-block-start: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+/* Floating Dock treatment on tablet & desktop (matches SEIBottomNavigation variant="dock") */
+@media (min-width: 720px) {
+  .sei-bottom-navigation {
+    display: flex;
+    justify-content: center;
+    padding-block-end: calc(1rem + var(--sh-safe-bottom));
+    padding-inline: 1rem;
+  }
+
+  .sei-bottom-navigation-surface {
+    inline-size: auto;
+    padding: 0.375rem;
+    border: 1px solid var(--sei-bottom-nav-border);
+    border-radius: var(--sh-radius-2xl);
+    box-shadow: var(--sei-bottom-nav-shadow);
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"] {
+    flex-direction: row;
+    flex: 0 0 auto;
+    gap: 0.5rem;
+    min-block-size: 2.75rem;
+    min-inline-size: 7.75rem;
+    max-inline-size: none;
+    padding: 0.5rem 1.25rem;
+    border-radius: 1.125rem;
+    font-size: 0.875rem;
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][aria-current="page"]::after,
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][data-selected="true"]::after {
+    inset-block-start: auto;
+    inset-block-end: 0.25rem;
+    inset-inline: 28%;
+    border-block-start: 0;
+    border-block-end: 2px solid currentColor;
+  }
+}
+
+/* ==========================================================================
+   SEISegmentedControl — Pill group for sub-categories (Normal/Title/Special, Current/Legacy)
+   ========================================================================== */
+
+.sei-segmented-control {
+  display: inline-flex;
+  align-items: center;
+  max-inline-size: 100%;
+  overflow-x: auto;
+  scrollbar-width: none;
+  gap: 0.2rem;
+  padding: 0.25rem;
+  border-radius: var(--sh-radius-control);
+  border: 1px solid var(--sh-border);
+  background-color: var(--sh-interactive-surface);
+}
+
+.sei-segmented-control::-webkit-scrollbar {
+  display: none;
+}
+
+.sei-segmented-option {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.4rem;
+  min-block-size: 2.5rem;
+  padding: 0.4rem 1.05rem;
+  border: 1px solid transparent;
+  border-radius: var(--sh-radius-control);
+  background: transparent;
+  color: var(--sh-text-muted);
+  font-size: 0.875rem;
+  font-weight: 500;
+  white-space: nowrap;
+  flex: 0 0 auto;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    border-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease);
+}
+
+.sei-segmented-option:hover {
+  color: var(--sh-text-primary);
+}
+
+.sei-segmented-option[aria-selected="true"],
+.sei-segmented-option[aria-checked="true"] {
+  background-color: var(--sh-interactive-selected);
+  border-color: var(--sh-interactive-selected-border);
+  color: var(--sh-interactive-selected-text);
+  font-weight: 600;
+}
+
+.sei-segmented-option[aria-selected="true"]::after,
+.sei-segmented-option[aria-checked="true"]::after {
+  content: "";
+  position: absolute;
+  inset-block-end: 0.22rem;
+  inset-inline: 32%;
+  border-block-end: 2px solid currentColor;
+  border-radius: 999px;
+}
+
+.sei-segmented-count {
+  font-size: 0.72rem;
+  font-variant-numeric: tabular-nums;
+  opacity: 0.78;
+}
+
+/* ==========================================================================
+   SEICard — Shared surface with optional top accent hairline
+   ========================================================================== */
+
+.sei-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background-color: var(--sh-surface);
+  border: 1px solid var(--sh-border);
+  border-radius: var(--sh-radius-card);
+  box-shadow: var(--sh-elevation-card);
+  overflow: hidden;
+  transition:
+    border-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    box-shadow var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    transform var(--sh-motion-surface-duration) var(--sh-motion-surface-ease);
+}
+
+.sei-card[data-accent="true"]::after {
+  content: "";
+  pointer-events: none;
+  position: absolute;
+  inset-inline: 8%;
+  inset-block-start: 0;
+  block-size: 2px;
+  background: var(--sh-card-accent, var(--fl-sans));
+  opacity: 0.85;
+  border-radius: 999px;
+}
+
+/* ==========================================================================
+   SEIBadge & SEIButton — Shared pill primitives
+   ========================================================================== */
+
+.sei-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  min-block-size: 1.65rem;
+  padding: 0.2rem 0.65rem;
+  border-radius: var(--sh-radius-full);
+  border: 1px solid var(--sh-border);
+  background-color: var(--sh-interactive-surface);
+  color: var(--sh-text-muted);
+  font-size: 0.75rem;
+  font-weight: 550;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.sei-badge--sans {
+  background-color: var(--fl-sans);
+  border-color: var(--fl-sans);
+  color: var(--fl-sans-ink);
+  font-weight: 650;
+}
+
+.sei-badge--noto {
+  background-color: var(--fl-noto);
+  border-color: var(--fl-noto);
+  color: var(--fl-noto-ink);
+  font-weight: 650;
+}
+
+.sei-badge--display {
+  background-color: var(--fl-display);
+  border-color: var(--fl-display);
+  color: var(--fl-display-ink);
+  font-weight: 650;
+}
+
+.sei-badge--special {
+  background-color: var(--fl-special);
+  border-color: var(--fl-special);
+  color: var(--fl-special-ink);
+  font-weight: 650;
+}
+
+.sei-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.45rem;
+  min-block-size: 2.65rem;
+  padding: 0.5rem 1.05rem;
+  border-radius: var(--sh-radius-control);
+  border: 1px solid var(--sh-border-strong);
+  background-color: var(--sh-surface-elevated);
+  color: var(--sh-text-primary);
+  font-size: 0.85rem;
+  font-weight: 600;
+  line-height: 1.1;
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: pointer;
+  touch-action: manipulation;
+  transition:
+    background-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    border-color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    color var(--sh-motion-surface-duration) var(--sh-motion-surface-ease),
+    transform var(--sh-motion-fast) var(--sh-motion-surface-ease);
+}
+
+.sei-button:hover {
+  background-color: var(--sh-surface-raised);
+  border-color: var(--sh-focus-ring);
+}
+
+.sei-button:active {
+  transform: translateY(1px);
+}
+
+.sei-button--primary {
+  background-color: var(--sh-interactive-primary);
+  border-color: var(--sh-interactive-primary);
+  color: var(--sh-interactive-on-primary);
+}
+
+.sei-button--primary:hover {
+  background-color: var(--sh-interactive-primary-hover);
+  border-color: var(--sh-interactive-primary-hover);
+  color: var(--sh-interactive-on-primary);
+}
+
+.sei-button--noto {
+  background-color: var(--fl-noto);
+  border-color: var(--fl-noto);
+  color: var(--fl-noto-ink);
+}
+
+.sei-button--noto:hover {
+  filter: brightness(1.06);
+  border-color: var(--fl-noto);
+}
+
+.sei-button--display {
+  background-color: var(--fl-display);
+  border-color: var(--fl-display);
+  color: var(--fl-display-ink);
+}
+
+.sei-button--display:hover {
+  filter: brightness(1.06);
+  border-color: var(--fl-display);
+}
+
+.sei-button--special {
+  background-color: var(--fl-special);
+  border-color: var(--fl-special);
+  color: var(--fl-special-ink);
+}
+
+.sei-button--special:hover {
+  filter: brightness(1.06);
+  border-color: var(--fl-special);
+}
+
+.sei-button--ghost {
+  background-color: transparent;
+  border-color: transparent;
+  color: var(--sh-text-muted);
+}
+
+.sei-button--ghost:hover {
+  background-color: var(--sh-interactive-surface-hover);
+  border-color: var(--sh-border);
+  color: var(--sh-text-primary);
+}
+
+.sei-button--sm {
+  min-block-size: 2.35rem;
+  padding: 0.35rem 0.85rem;
+  font-size: 0.8rem;
+}
+
+/* ==========================================================================
+   Accessibility & Media Queries (Reduced Transparency, Reduced Motion, Forced Colors)
+   ========================================================================== */
+
+@media (prefers-reduced-transparency: reduce) {
+  .sei-app-header,
+  .sei-bottom-navigation-surface {
+    background-color: var(--sei-bottom-nav-opaque);
+    background-image: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"],
+  .sei-segmented-option,
+  .sei-card,
+  .sei-button {
+    transition: none;
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"]:active,
+  .sei-button:active {
+    transform: none;
+  }
+}
+
+@media (forced-colors: active) {
+  .sei-app-header,
+  .sei-bottom-navigation-surface {
+    border-color: ButtonText;
+    color: CanvasText;
+    background: Canvas;
+    box-shadow: none;
+    -webkit-backdrop-filter: none;
+    backdrop-filter: none;
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"],
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"]:hover,
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"]:active,
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][aria-current="page"],
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][data-selected="true"],
+  .sei-segmented-option,
+  .sei-segmented-option[aria-selected="true"] {
+    color: ButtonText;
+    background: ButtonFace;
+    box-shadow: none;
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][aria-current="page"],
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"][data-selected="true"],
+  .sei-segmented-option[aria-selected="true"] {
+    border: 1px solid Highlight;
+    text-decoration: underline;
+    text-underline-offset: 0.2em;
+  }
+
+  .sei-bottom-navigation [data-slot="bottom-nav-tab"]:focus-visible,
+  .sei-segmented-option:focus-visible,
+  .sei-button:focus-visible {
+    outline: 2px solid Highlight;
+    outline-offset: 2px;
+  }
+}

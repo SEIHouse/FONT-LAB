@@ -2,301 +2,747 @@
 <html lang="en" data-theme="night">
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="SEIHouse Font Lab: calm reading fonts (SEIHouse Sans 0.43 and SEIHouse Noto) and the expressive Title Engine (SEIHouse Display 0.1 and Living Titles).">
-  <meta name="theme-color" content="#141917">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <meta name="description" content="SEIHouse Font Lab: explore Normal, Title, and Special fonts, inspect craft in the Lab, and download Current or Legacy releases.">
+  <meta name="color-scheme" content="dark">
+  <meta name="theme-color" content="#0f1311">
   <script>
     try {
       if (localStorage.getItem('seihouse.home.theme') === 'day') {
         document.documentElement.dataset.theme = 'day';
-        document.querySelector('meta[name="theme-color"]').content = '#f4f3ea';
+        document.querySelector('meta[name="color-scheme"]').content = 'light';
+        document.querySelector('meta[name="theme-color"]').content = '#f5f4ec';
       }
     } catch { /* Keep Night mode when browser storage is unavailable. */ }
   </script>
-  <title>SEIHouse Font Lab — Reading Fonts &amp; Title Engine</title>
+  <title>SEIHouse Font Lab</title>
   <link rel="icon" href="./site/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="./fonts-full.css">
+  <link rel="stylesheet" href="./site/seihouse-ui.css">
   <link rel="stylesheet" href="./site/home.css">
   <script src="./site/home.js" defer></script>
 </head>
 <body>
-  <a class="skip" href="#hero-title">Skip to content</a>
+  <a class="skip" href="#main">Skip to content</a>
 
-  <header class="masthead wrap">
-    <a class="brand" href="./index.html" aria-label="SEIHouse Font Lab home">
-      <span class="brand-mark" aria-hidden="true">S.</span>
-      <span>SEIHOUSE <span class="brand-label">FONT LAB</span></span>
-    </a>
-    <nav aria-label="Primary">
-      <a href="#reading-fonts">Reading fonts</a>
-      <a href="#title-engine">Title engine</a>
-      <a href="#resources">Downloads</a>
-      <a href="./site/versions/index.html">Past versions</a>
-    </nav>
-    <button class="theme-button" id="theme" type="button" aria-pressed="false">Day mode</button>
+  <!-- Top App Header (SEIAppHeader pattern from @seihouse/ui) -->
+  <header class="sei-app-header" data-slot="app-header">
+    <div class="sei-app-header-inner">
+      <div class="sei-app-header-identity">
+        <a class="sei-app-header-brand" href="#fonts" id="brand-home" aria-label="SEIHouse Font Lab home">
+          <span class="brand-mark" aria-hidden="true">S.</span>
+          <span class="brand-text">
+            <span class="brand-name">SEIHOUSE</span>
+            <span class="brand-sub">FONT LAB</span>
+          </span>
+        </a>
+        <div class="sei-app-header-context" aria-hidden="true">
+          <span class="sei-app-header-context-sep">/</span>
+          <span id="header-context-label">Fonts</span>
+        </div>
+      </div>
+
+      <div class="sei-app-header-actions">
+        <button class="sei-button sei-button--sm theme-toggle" id="theme" type="button" aria-pressed="false">
+          <span class="theme-icon" id="theme-icon" aria-hidden="true">☀</span>
+          <span id="theme-label">Day</span>
+        </button>
+      </div>
+    </div>
   </header>
 
-  <main id="main" class="wrap">
-    <section class="hero">
-      <div class="hero-copy">
-        <p class="eyebrow"><span class="dot" aria-hidden="true"></span> SEIHOUSE TYPE WORKSHOP</p>
-        <h1 id="hero-title" tabindex="-1">Type with<br><em>your signature.</em></h1>
-        <p class="hero-note">Calm fonts for reading chapters in one section. Expressive fonts for book covers and living titles in the other.</p>
-      </div>
-      <div class="hero-directory">
-        <a class="directory-card" href="#reading-fonts">
-          <span class="directory-num">01</span>
-          <div class="directory-body">
-            <span class="directory-title">Reading Fonts</span>
-            <span class="directory-meta"><strong data-sans-version>SEIHouse Sans 0.43</strong> &amp; SEIHouse Noto</span>
-          </div>
-          <span class="directory-arrow" aria-hidden="true">↓</span>
-        </a>
-        <a class="directory-card directory-display" href="#title-engine">
-          <span class="directory-num">02</span>
-          <div class="directory-body">
-            <span class="directory-title">Title Engine</span>
-            <span class="directory-meta"><strong>Display 0.1</strong> · Soft, Edge, Ink, Wide &amp; Living Titles</span>
-          </div>
-          <span class="directory-arrow" aria-hidden="true">↓</span>
-        </a>
-      </div>
-    </section>
-
-    <!-- SECTION 01: REGULAR & READING FONTS -->
-    <section id="reading-fonts" class="studio-section reading-section">
-      <div class="section-intro">
-        <div>
-          <p class="eyebrow">01 / REGULAR &amp; READING FONTS</p>
-          <h2 id="reading-title">Made for long reading.</h2>
-        </div>
-        <p class="section-lead">Soft, steady letterforms built for chapters and everyday screens, with live workspaces to test, compare, and tune.</p>
-      </div>
-
-      <!-- Main Reading Font: SEIHouse Sans 0.43 -->
-      <div class="feature-panel sans-panel">
-        <div class="panel-header-row">
-          <div>
-            <div class="badge-row">
-              <span class="version-pill current-pill" data-sans-version>SEIHouse Sans 0.43</span>
-              <span class="meta-pill">5 weights + italics · Light/Regular/Medium Night grades</span>
-            </div>
-            <h3>SEIHouse Sans</h3>
-            <p class="panel-summary">Our main reading and app font—gentle horizontal strokes, real italics, and automatic Night-mode grades that soften glare without shifting line breaks.</p>
-          </div>
-          <a class="history-link" href="./site/versions/index.html?track=sans"><span>Past versions (0.6–<span data-sans-version>0.43</span>) →</span></a>
+  <main id="main" class="shell-main" tabindex="-1">
+    <!-- ================================================================
+         VIEW 1: FONTS (Normal · Title · Special)
+         ================================================================ -->
+    <section id="view-fonts" class="view-section" data-view="fonts" aria-labelledby="fonts-heading">
+      <div class="view-header">
+        <div class="view-title-block">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> SEIHOUSE TYPE STUDIO</p>
+          <h1 id="fonts-heading">Fonts</h1>
+          <p class="view-lead">Calm type for reading, bold cuts for covers, and living systems for special titles.</p>
         </div>
 
-        <div class="tester-box">
-          <div class="tester-controls">
-            <div class="control-field">
-              <label for="sans-weight">Weight</label>
-              <select id="sans-weight">
-                <option value="300">Light (300)</option>
-                <option value="400" selected>Regular (400)</option>
-                <option value="500">Medium (500)</option>
-                <option value="600">SemiBold (600)</option>
-                <option value="700">Bold (700)</option>
-              </select>
-            </div>
-            <div class="control-field size-field">
-              <label for="sans-size">Size <output id="sans-size-value" for="sans-size">24px</output></label>
-              <input id="sans-size" type="range" min="14" max="48" step="1" value="24">
-            </div>
-            <button id="sans-italic" class="quiet-button" type="button" aria-pressed="false">Italic</button>
-            <div class="control-field compare-field">
-              <label for="sans-compare">Compare older</label>
-              <select id="sans-compare">
-                <option value="" selected>Off (just 0.43)</option>
-                <option value="0.42">0.42 — Night-mode grades</option>
-                <option value="0.41">0.41 — Rare Latin</option>
-                <option value="0.40">0.40 — Smoother g &amp; S</option>
-                <option value="0.39">0.39 — Cyrillic &amp; Greek</option>
-                <option value="0.34">0.34 — First 10 languages</option>
-                <option value="0.27">0.27 — Softened forms</option>
-                <option value="0.6">0.6 — Early prototype</option>
-              </select>
-            </div>
-          </div>
+        <div class="sei-segmented-control" role="tablist" aria-label="Font categories" data-tablist="fonts">
+          <button type="button" class="sei-segmented-option" role="tab" id="tab-fonts-normal" data-subtab="normal" aria-selected="true" tabindex="0">Normal</button>
+          <button type="button" class="sei-segmented-option" role="tab" id="tab-fonts-title" data-subtab="title" aria-selected="false" tabindex="-1">Title</button>
+          <button type="button" class="sei-segmented-option" role="tab" id="tab-fonts-special" data-subtab="special" aria-selected="false" tabindex="-1">Special</button>
+        </div>
+      </div>
 
-          <div class="specimen-compare-wrap" id="sans-compare-wrap" data-comparing="false">
-            <div class="specimen-column">
-              <div class="specimen-label-row">
-                <span class="specimen-tag" id="sans-current-label">Current · SEIHouse Sans 0.43</span>
-                <span class="grade-note" id="sans-grade-note">Night optical grade active</span>
+      <!-- SUB-CATEGORY: NORMAL -->
+      <div id="panel-fonts-normal" class="subtab-panel" role="tabpanel" aria-labelledby="tab-fonts-normal">
+        <div class="font-stack">
+          <!-- SEIHouse Sans -->
+          <article class="sei-card font-card" data-accent="true" style="--sh-card-accent: var(--fl-sans);">
+            <div class="font-card-head">
+              <div class="font-card-meta">
+                <div class="badge-row">
+                  <span class="sei-badge sei-badge--sans" data-sans-version>SEIHouse Sans 0.43</span>
+                  <span class="sei-badge">5 weights · Italics · Night grade</span>
+                </div>
+                <h2>SEIHouse Sans</h2>
+                <p class="card-copy">Our main reading and app font — gentle curves, real italics, and automatic Night grades that soften glare without shifting line breaks.</p>
               </div>
-              <label class="sr-only" for="specimen">Editable SEIHouse Sans sample text</label>
-              <textarea id="specimen" rows="2" spellcheck="false">The mountain was still asleep when Mei opened the gate.
+              <div class="font-card-links">
+                <a class="sei-button sei-button--primary sei-button--sm" href="./lab/index.html">Reader Lab <span aria-hidden="true">↗</span></a>
+                <button type="button" class="sei-button sei-button--sm" data-jump-download="sans">Download</button>
+              </div>
+            </div>
+
+            <div class="tester-surface">
+              <div class="tester-controls">
+                <div class="control-field">
+                  <label for="sans-weight">Weight</label>
+                  <select id="sans-weight">
+                    <option value="300">Light (300)</option>
+                    <option value="400" selected>Regular (400)</option>
+                    <option value="500">Medium (500)</option>
+                    <option value="600">SemiBold (600)</option>
+                    <option value="700">Bold (700)</option>
+                  </select>
+                </div>
+                <div class="control-field size-field">
+                  <label for="sans-size">Size <output id="sans-size-value" for="sans-size">24px</output></label>
+                  <input id="sans-size" type="range" min="14" max="48" step="1" value="24">
+                </div>
+                <button id="sans-italic" class="toggle-chip" type="button" aria-pressed="false">Italic</button>
+                <div class="control-field compare-field">
+                  <label for="sans-compare">Compare older</label>
+                  <select id="sans-compare">
+                    <option value="" selected>Off (just 0.43)</option>
+                    <option value="0.42">0.42 — Night grades</option>
+                    <option value="0.41">0.41 — Rare Latin</option>
+                    <option value="0.40">0.40 — Smoother g &amp; S</option>
+                    <option value="0.39">0.39 — Cyrillic &amp; Greek</option>
+                    <option value="0.34">0.34 — First 10 languages</option>
+                    <option value="0.27">0.27 — Softened forms</option>
+                    <option value="0.6">0.6 — Early prototype</option>
+                  </select>
+                </div>
+              </div>
+
+              <div class="specimen-compare-wrap" id="sans-compare-wrap" data-comparing="false">
+                <div class="specimen-column">
+                  <div class="specimen-label-row">
+                    <span class="specimen-tag" id="sans-current-label">Current · SEIHouse Sans 0.43</span>
+                    <span class="grade-note" id="sans-grade-note">Night optical grade active</span>
+                  </div>
+                  <label class="sr-only" for="specimen">Editable SEIHouse Sans sample text</label>
+                  <textarea id="specimen" class="specimen-input" rows="2" spellcheck="false">The mountain was still asleep when Mei opened the gate.
 “Lian,” Iñés said—1,234.56 · One more chapter?</textarea>
-            </div>
-            <div class="compact-old-card" id="sans-old-column" hidden>
-              <div class="specimen-label-row">
-                <span class="specimen-tag muted-tag" id="sans-old-label">Older version</span>
-                <a class="inline-action" id="sans-full-compare-link" href="./site/versions/index.html?track=sans&amp;right=0.39">Full archive →</a>
+                </div>
+
+                <div class="compact-old-card" id="sans-old-column" hidden>
+                  <div class="specimen-label-row">
+                    <span class="specimen-tag muted-tag" id="sans-old-label">Older version</span>
+                    <a class="inline-link" id="sans-full-compare-link" href="./site/versions/index.html?track=sans&amp;right=0.39">Full archive →</a>
+                  </div>
+                  <div id="sans-old-preview" class="mirror-specimen" aria-label="Older version preview"></div>
+                  <p class="compare-diff-note" id="sans-old-note"></p>
+                </div>
               </div>
-              <div id="sans-old-preview" class="mirror-specimen" aria-label="Older version preview"></div>
-              <p class="compare-diff-note" id="sans-old-note"></p>
             </div>
-          </div>
-        </div>
+          </article>
 
-        <div class="workspace-strip">
-          <a class="ws-card ws-primary" href="./lab/index.html">
-            <span class="ws-kicker">MAIN WORKSPACE</span>
-            <span class="ws-name">Open Reader Lab <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">Tune letter shapes, weight, and spacing live.</span>
-          </a>
-          <a class="ws-card" href="./lab/reading-test.html">
-            <span class="ws-kicker">CHAPTER TEST</span>
-            <span class="ws-name">Read 3 Full Chapters <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">Test sustained reading in Day and Night modes.</span>
-          </a>
-          <a class="ws-card" href="./lab/comparison.html">
-            <span class="ws-kicker">BENCHMARK</span>
-            <span class="ws-name">Reference Compare <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">148 languages beside Literata and Rubik.</span>
-          </a>
+          <!-- SEIHouse Noto -->
+          <article class="sei-card font-card" data-accent="true" style="--sh-card-accent: var(--fl-noto);">
+            <div class="font-card-head">
+              <div class="font-card-meta">
+                <div class="badge-row">
+                  <span class="sei-badge sei-badge--noto">Balanced · Redraw 02</span>
+                  <span class="sei-badge">4 weights · Italics · Night grade</span>
+                </div>
+                <h2 class="noto-heading">SEIHouse Noto</h2>
+                <p class="card-copy">A warmer, custom-drawn cousin to Google Noto Sans with modulated strokes, tapered joins, automatic kerning, and zero-reflow Night grades.</p>
+              </div>
+              <div class="font-card-links">
+                <a class="sei-button sei-button--noto sei-button--sm" href="./noto/studies/redraw/index.html">Noto Workspace <span aria-hidden="true">↗</span></a>
+                <button type="button" class="sei-button sei-button--sm" data-jump-download="noto">Download</button>
+              </div>
+            </div>
+
+            <div class="tester-surface">
+              <div class="tester-controls">
+                <div class="control-field">
+                  <label for="noto-weight">Weight</label>
+                  <select id="noto-weight">
+                    <option value="300">Light (300)</option>
+                    <option value="400" selected>Regular (400)</option>
+                    <option value="500">Medium (500)</option>
+                    <option value="700">Bold (700)</option>
+                  </select>
+                </div>
+                <div class="control-field size-field">
+                  <label for="noto-size">Size <output id="noto-size-value" for="noto-size">22px</output></label>
+                  <input id="noto-size" type="range" min="14" max="42" step="1" value="22">
+                </div>
+                <button id="noto-italic" class="toggle-chip toggle-chip--noto" type="button" aria-pressed="false">Italic</button>
+              </div>
+
+              <div class="specimen-column">
+                <div class="specimen-label-row">
+                  <span class="specimen-tag specimen-tag--noto">Candidate · SEIHouse Noto Redraw 02</span>
+                  <span class="grade-note" id="noto-grade-note">Night optical grade active</span>
+                </div>
+                <label class="sr-only" for="noto-specimen">Editable SEIHouse Noto sample text</label>
+                <textarea id="noto-specimen" class="specimen-input specimen-input--noto" rows="2" spellcheck="false">A familiar warmth. The morning light settled gently over the quiet library.</textarea>
+              </div>
+            </div>
+          </article>
         </div>
       </div>
 
-      <!-- Companion Reading Font: SEIHouse Noto -->
-      <div class="companion-panel noto-panel">
-        <div class="companion-copy">
-          <div class="badge-row">
-            <span class="version-pill noto-pill">Balanced · Redraw 02</span>
-            <span class="meta-pill">Candidate for review</span>
-          </div>
-          <h3>SEIHouse Noto</h3>
-          <p class="panel-summary">A warmer, custom-drawn cousin to Google Noto Sans. Redrawn on the Balanced foundation with modulated strokes, tapered joins, kerning and four weights, each with a true italic plus a zero-reflow Night grade for Light, Regular and Medium.</p>
-          <div class="companion-actions">
-            <a class="button noto-button" href="./noto/studies/redraw/index.html">Open Noto Workspace <span aria-hidden="true">↗</span></a>
-            <a class="button noto-button" href="./site/app-stress/index.html">Open App Stress Test · SEA &amp; SEN <span aria-hidden="true">↗</span></a>
-            <a class="history-link" href="./site/versions/index.html?track=noto">Compare 5 versions →</a>
-          </div>
-        </div>
-        <div class="companion-preview">
-          <p class="noto-live-sample">A familiar warmth. The morning light settled gently over the quiet library.</p>
-        </div>
-      </div>
-    </section>
-
-    <!-- SECTION 02: THE TITLE ENGINE -->
-    <section id="title-engine" class="studio-section display-section">
-      <div class="section-intro">
-        <div>
-          <p class="eyebrow">02 / THE TITLE ENGINE</p>
-          <h2 id="display-title">Covers, headers &amp; animated titles.</h2>
-        </div>
-        <p class="section-lead">Four display voices, audio-reactive wordmarks, and elemental name lettering for covers, chapters, and reader profiles.</p>
-      </div>
-
-      <div class="feature-panel display-panel">
-        <div class="panel-header-row">
-          <div>
-            <div class="badge-row">
-              <span class="version-pill display-pill">SEIHouse Display 0.1</span>
-              <span class="meta-pill">Living Titles 0.1.4 · Elemental Title 0.1.0</span>
+      <!-- SUB-CATEGORY: TITLE -->
+      <div id="panel-fonts-title" class="subtab-panel" role="tabpanel" aria-labelledby="tab-fonts-title" hidden>
+        <div class="font-stack">
+          <article class="sei-card font-card" data-accent="true" style="--sh-card-accent: var(--fl-display);">
+            <div class="font-card-head">
+              <div class="font-card-meta">
+                <div class="badge-row">
+                  <span class="sei-badge sei-badge--display">SEIHouse Display 0.1</span>
+                  <span class="sei-badge">4 cuts · Soft, Edge, Ink, Wide</span>
+                </div>
+                <h2>SEIHouse Display</h2>
+                <p class="card-copy">Four expressive display cuts crafted for book covers, chapter titles, posters, and album headers.</p>
+              </div>
+              <div class="font-card-links">
+                <a class="sei-button sei-button--display sei-button--sm" href="./display/lab/index.html">Display Lab <span aria-hidden="true">↗</span></a>
+                <button type="button" class="sei-button sei-button--sm" data-jump-download="display">Download</button>
+              </div>
             </div>
-            <h3>SEIHouse Display, Living &amp; Elemental Titles</h3>
-            <p class="panel-summary">Pick a cut below to preview how it shapes a title, then open the Display Lab, Elemental Title Lab, specimen gallery, or cover mock.</p>
-          </div>
-          <a class="history-link display-history-link" href="./site/versions/index.html?track=display">8 build milestones →</a>
-        </div>
 
-        <div class="tester-box display-tester-box">
-          <div class="tester-controls">
-            <div class="cut-tabs" role="group" aria-label="Choose a Display cut">
-              <button type="button" class="cut-tab" data-cut="soft" aria-pressed="false">Soft</button>
-              <button type="button" class="cut-tab" data-cut="edge" aria-pressed="true">Edge</button>
-              <button type="button" class="cut-tab" data-cut="ink" aria-pressed="false">Ink</button>
-              <button type="button" class="cut-tab" data-cut="wide" aria-pressed="false">Wide</button>
-            </div>
-            <div class="control-field size-field">
-              <label for="display-size">Size <output id="display-size-value" for="display-size">48px</output></label>
-              <input id="display-size" type="range" min="28" max="84" step="1" value="48">
-            </div>
-            <button id="display-caps" class="quiet-button" type="button" aria-pressed="false">All caps</button>
-          </div>
+            <div class="tester-surface tester-surface--display">
+              <div class="tester-controls">
+                <div class="cut-pills" role="group" aria-label="Choose a Display cut">
+                  <button type="button" class="cut-tab" data-cut="soft" aria-pressed="false">Soft</button>
+                  <button type="button" class="cut-tab" data-cut="edge" aria-pressed="true">Edge</button>
+                  <button type="button" class="cut-tab" data-cut="ink" aria-pressed="false">Ink</button>
+                  <button type="button" class="cut-tab" data-cut="wide" aria-pressed="false">Wide</button>
+                </div>
+                <div class="control-field size-field">
+                  <label for="display-size">Size <output id="display-size-value" for="display-size">48px</output></label>
+                  <input id="display-size" type="range" min="28" max="84" step="1" value="48">
+                </div>
+                <button id="display-caps" class="toggle-chip toggle-chip--display" type="button" aria-pressed="false">All caps</button>
+              </div>
 
-          <label class="sr-only" for="display-specimen">Editable Title Engine sample text</label>
-          <textarea id="display-specimen" rows="2" spellcheck="false">Make Your Mark.
+              <label class="sr-only" for="display-specimen">Editable SEIHouse Display sample text</label>
+              <textarea id="display-specimen" class="specimen-input specimen-input--display" rows="2" spellcheck="false">Make Your Mark.
 The Nine Heavens</textarea>
-          <p class="tester-hint" id="display-cut-note"><strong>Edge:</strong> Crisp flat terminals and decisive corners—built for sharp fantasy titles and bold posters.</p>
+              <p class="tester-hint" id="display-cut-note"><strong>Edge:</strong> Crisp flat terminals and decisive corners—built for sharp fantasy titles and bold posters.</p>
+            </div>
+          </article>
         </div>
+      </div>
 
-        <div class="workspace-strip display-workspaces">
-          <a class="ws-card ws-display-primary" href="./display/lab/index.html">
-            <span class="ws-kicker">DESIGN &amp; MOTION LAB</span>
-            <span class="ws-name">Open Display Lab <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">Shape cuts, nibs, alternates, and Living Title motion.</span>
-          </a>
-          <a class="ws-card ws-display-secondary" href="./display/elemental/index.html">
-            <span class="ws-kicker">ELEMENTAL &amp; FAMILIAR LAB</span>
-            <span class="ws-name">Open Elemental Title Lab <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">Test lightning, water, rank colors, crowd budgets &amp; Quill signatures.</span>
-          </a>
-          <a class="ws-card" href="./site/display/index.html">
-            <span class="ws-kicker">SPECIMEN GALLERY</span>
-            <span class="ws-name">Finished Cuts Gallery <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">See Soft, Edge, Ink, and Wide on covers and posters.</span>
-          </a>
-          <a class="ws-card" href="./display/novel-expanded/index.html">
-            <span class="ws-kicker">BOOK COVER MOCK</span>
-            <span class="ws-name">NovelExpanded Cover <span aria-hidden="true">↗</span></span>
-            <span class="ws-desc">Test animated living wordmarks on a cover &amp; export SVG.</span>
-          </a>
-        </div>
+      <!-- SUB-CATEGORY: SPECIAL -->
+      <div id="panel-fonts-special" class="subtab-panel" role="tabpanel" aria-labelledby="tab-fonts-special" hidden>
+        <div class="special-grid">
+          <!-- Living Titles -->
+          <article class="sei-card font-card" data-accent="true" style="--sh-card-accent: var(--fl-display);">
+            <div class="font-card-head">
+              <div class="font-card-meta">
+                <div class="badge-row">
+                  <span class="sei-badge sei-badge--display">Living Titles 0.1.4</span>
+                  <span class="sei-badge">Motion &amp; Audio-Reactive</span>
+                </div>
+                <h2>Living Titles</h2>
+                <p class="card-copy">Animated cover wordmarks built on the four Display cuts with restrained motion profiles and transparent SVG export.</p>
+              </div>
+            </div>
 
-        <div class="cut-download-bar">
-          <span class="eyebrow">STARTER FONTS (.OTF)</span>
-          <div class="cut-downloads">
-            <a href="./display/fonts/soft/SEIHouseDisplay-Soft.otf" download>Soft ↓</a>
-            <a href="./display/fonts/edge/SEIHouseDisplay-Edge.otf" download>Edge ↓</a>
-            <a href="./display/fonts/ink/SEIHouseDisplay-Ink.otf" download>Ink ↓</a>
-            <a href="./display/fonts/wide/SEIHouseDisplay-Wide.otf" download>Wide ↓</a>
-          </div>
+            <div class="special-stage special-stage--living">
+              <span class="special-stage-kicker">LIVE MOTION WORDMARK</span>
+              <p class="living-preview-word" id="living-preview-word">The Nine Heavens</p>
+              <div class="stage-chip-row" role="group" aria-label="Living Title cut style">
+                <button type="button" class="stage-chip" data-living-cut="soft" aria-pressed="false">Soft</button>
+                <button type="button" class="stage-chip" data-living-cut="edge" aria-pressed="true">Edge</button>
+                <button type="button" class="stage-chip" data-living-cut="ink" aria-pressed="false">Ink</button>
+                <button type="button" class="stage-chip" data-living-cut="wide" aria-pressed="false">Wide</button>
+              </div>
+            </div>
+
+            <div class="card-action-row">
+              <a class="sei-button sei-button--display sei-button--sm" href="./display/novel-expanded/index.html">Cover Mock <span aria-hidden="true">↗</span></a>
+              <a class="sei-button sei-button--sm" href="./docs/proofs/display-step6/index.html">SVG Proofs <span aria-hidden="true">↗</span></a>
+            </div>
+          </article>
+
+          <!-- Elemental Title -->
+          <article class="sei-card font-card" data-accent="true" style="--sh-card-accent: var(--fl-special);">
+            <div class="font-card-head">
+              <div class="font-card-meta">
+                <div class="badge-row">
+                  <span class="sei-badge sei-badge--special">Elemental Title 0.1.0</span>
+                  <span class="sei-badge">Ranks &amp; Familiar Signatures</span>
+                </div>
+                <h2>Elemental Title</h2>
+                <p class="card-copy">Elemental name lettering, cultivator rank palettes, crowd budgets, and Quill familiar signatures (Stormwrit &amp; True North).</p>
+              </div>
+            </div>
+
+            <div class="special-stage special-stage--elemental" id="elemental-stage" data-element="lightning">
+              <span class="special-stage-kicker" id="elemental-kicker">LIGHTNING · STORMWRIT SIGNATURE</span>
+              <p class="elemental-preview-word" id="elemental-preview-word">Stormwrit</p>
+              <div class="stage-chip-row" role="group" aria-label="Elemental style preview">
+                <button type="button" class="stage-chip" data-element-preset="lightning" aria-pressed="true">Lightning</button>
+                <button type="button" class="stage-chip" data-element-preset="water" aria-pressed="false">Water</button>
+                <button type="button" class="stage-chip" data-element-preset="celestial" aria-pressed="false">Celestial</button>
+                <button type="button" class="stage-chip" data-element-preset="fire" aria-pressed="false">Fire</button>
+              </div>
+            </div>
+
+            <div class="card-action-row">
+              <a class="sei-button sei-button--special sei-button--sm" href="./display/elemental/index.html">Elemental Lab <span aria-hidden="true">↗</span></a>
+              <a class="sei-button sei-button--sm" href="./docs/FAMILIAR-SIGNATURES.md" download>Signatures Brief <span aria-hidden="true">↓</span></a>
+            </div>
+          </article>
         </div>
       </div>
     </section>
 
-    <!-- RESOURCES & DOWNLOADS -->
-    <section id="resources" class="resources">
-      <div class="section-heading">
-        <h2 id="resources-title">Downloads &amp; guides.</h2>
-        <span class="eyebrow">READY FOR APPS &amp; DEVICES</span>
-      </div>
-      <div class="resource-grid">
-        <div>
-          <h3>SEIHouse Sans (<span data-sans-version>0.43</span>)</h3>
-          <a href="./fonts-sans.css" download>Full-family CSS <span aria-hidden="true">↓</span></a>
-          <a href="./docs/APP-INSTALL.md" download>App install guide <span aria-hidden="true">↓</span></a>
-          <a href="./docs/HOW-TO-USE.txt" download>Usage &amp; features <span aria-hidden="true">↓</span></a>
-          <a href="./LICENSE">Ecosystem license <span aria-hidden="true">↗</span></a>
-        </div>
-        <div>
-          <h3>Title Engine</h3>
-          <a href="./display/README.md" download>Display engine guide <span aria-hidden="true">↓</span></a>
-          <a href="./packages/living-titles/README.md" download>Living Titles package <span aria-hidden="true">↓</span></a>
-          <a href="./packages/elemental-title/README.md" download>Elemental Title package <span aria-hidden="true">↓</span></a>
-          <a href="./docs/FAMILIAR-SIGNATURES.md" download>Familiar signatures brief <span aria-hidden="true">↓</span></a>
-          <a href="./docs/DISPLAY-LIVING-TITLES-STEP6.md" download>Motion profiles <span aria-hidden="true">↓</span></a>
-          <a href="./docs/proofs/display-step6/index.html">Animated SVG proofs <span aria-hidden="true">↗</span></a>
-        </div>
-        <div>
-          <h3>Quality &amp; checklists</h3>
-          <a href="./docs/DEVICE-TEST.md" download>Device test checklist <span aria-hidden="true">↓</span></a>
-          <a href="./docs/HEALTH-CHECK.txt" download>FontBakery report <span aria-hidden="true">↓</span></a>
-          <a href="./docs/DESIGN-GOALS.md" download>Reading design goals <span aria-hidden="true">↓</span></a>
-          <a href="./docs/WEBSITE.md" download>Website &amp; archive guide <span aria-hidden="true">↓</span></a>
+    <!-- ================================================================
+         VIEW 2: LAB (Pure Font Quality Showcase Cards + Links to Labs)
+         ================================================================ -->
+    <section id="view-lab" class="view-section" data-view="lab" aria-labelledby="lab-heading" hidden>
+      <div class="view-header">
+        <div class="view-title-block">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> INTERACTIVE WORKSPACES</p>
+          <h1 id="lab-heading">Lab</h1>
+          <p class="view-lead">See each typeface's craft up close, then open its dedicated workspace to test and tune.</p>
         </div>
       </div>
+
+      <div class="lab-grid">
+        <!-- 1. Reader Lab (SEIHouse Sans) -->
+        <article class="sei-card lab-card" data-accent="true" style="--sh-card-accent: var(--fl-sans);">
+          <div class="lab-showcase lab-showcase--sans" aria-hidden="true">
+            <div class="lab-specimen-hero">Aa Bb Gg</div>
+            <p class="lab-specimen-line">The mountain was still asleep when Mei opened the gate.</p>
+            <div class="lab-specimen-details">
+              <span>0123456789</span>
+              <span><em>True Italic</em></span>
+              <span>Ⓢ ☯ ⚡ ⚔</span>
+            </div>
+          </div>
+          <div class="lab-card-body">
+            <div class="badge-row">
+              <span class="sei-badge sei-badge--sans" data-sans-version>SEIHouse Sans 0.43</span>
+              <span class="sei-badge">148 locales · Night grade</span>
+            </div>
+            <h2>Reader Lab</h2>
+            <p class="card-copy">Tune letter shapes, weight, spacing, and Night-mode optical grades in real time.</p>
+            <div class="lab-card-actions">
+              <a class="sei-button sei-button--primary" href="./lab/index.html">Open Reader Lab <span aria-hidden="true">↗</span></a>
+              <div class="lab-sub-links">
+                <a href="./lab/reading-test.html">3-Chapter Test ↗</a>
+                <a href="./lab/comparison.html">148-Language Benchmark ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 2. Noto Workspace (SEIHouse Noto) -->
+        <article class="sei-card lab-card" data-accent="true" style="--sh-card-accent: var(--fl-noto);">
+          <div class="lab-showcase lab-showcase--noto" aria-hidden="true">
+            <div class="lab-specimen-hero">Aa Ee Gg</div>
+            <p class="lab-specimen-line">A familiar warmth. Morning light settled gently over the library.</p>
+            <div class="lab-specimen-details">
+              <span>Light · Regular · Medium · Bold</span>
+              <span><em>True Italic</em></span>
+            </div>
+          </div>
+          <div class="lab-card-body">
+            <div class="badge-row">
+              <span class="sei-badge sei-badge--noto">Balanced · Redraw 02</span>
+              <span class="sei-badge">Modulated strokes</span>
+            </div>
+            <h2>Noto Workspace</h2>
+            <p class="card-copy">Review tapered joins, kerning passes, combining marks, and live SEA &amp; SEN app screens.</p>
+            <div class="lab-card-actions">
+              <a class="sei-button sei-button--noto" href="./noto/studies/redraw/index.html">Open Noto Workspace <span aria-hidden="true">↗</span></a>
+              <div class="lab-sub-links">
+                <a href="./site/app-stress/index.html">App Stress Test · SEA &amp; SEN ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 3. Display Lab (SEIHouse Display & Living Titles) -->
+        <article class="sei-card lab-card" data-accent="true" style="--sh-card-accent: var(--fl-display);">
+          <div class="lab-showcase lab-showcase--display" aria-hidden="true">
+            <div class="display-quartet">
+              <span class="q-soft">Soft</span>
+              <span class="q-edge">Edge</span>
+              <span class="q-ink">Ink</span>
+              <span class="q-wide">Wide</span>
+            </div>
+            <p class="lab-specimen-line lab-specimen-line--display">Make Your Mark.</p>
+          </div>
+          <div class="lab-card-body">
+            <div class="badge-row">
+              <span class="sei-badge sei-badge--display">SEIHouse Display 0.1</span>
+              <span class="sei-badge">Living Titles 0.1.4</span>
+            </div>
+            <h2>Display Lab</h2>
+            <p class="card-copy">Shape display cuts, calligraphic nibs, stylistic alternates, and Living Title motion.</p>
+            <div class="lab-card-actions">
+              <a class="sei-button sei-button--display" href="./display/lab/index.html">Open Display Lab <span aria-hidden="true">↗</span></a>
+              <div class="lab-sub-links">
+                <a href="./site/display/index.html">Cuts Gallery ↗</a>
+                <a href="./display/novel-expanded/index.html">NovelExpanded Cover ↗</a>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <!-- 4. Elemental Title Lab -->
+        <article class="sei-card lab-card" data-accent="true" style="--sh-card-accent: var(--fl-special);">
+          <div class="lab-showcase lab-showcase--elemental" aria-hidden="true">
+            <div class="lab-specimen-hero lab-specimen-hero--elemental">Stormwrit</div>
+            <p class="lab-specimen-line">Lightning · Water · Fire · Frost · Celestial · Void</p>
+            <div class="rank-swatches">
+              <span style="--swatch:#7fd8ff"></span>
+              <span style="--swatch:#d7bdfa"></span>
+              <span style="--swatch:#e5c37f"></span>
+              <span style="--swatch:#ff8f70"></span>
+              <span style="--swatch:#c5dfaa"></span>
+            </div>
+          </div>
+          <div class="lab-card-body">
+            <div class="badge-row">
+              <span class="sei-badge sei-badge--special">Elemental Title 0.1.0</span>
+              <span class="sei-badge">Quill signatures</span>
+            </div>
+            <h2>Elemental Title Lab</h2>
+            <p class="card-copy">Test elemental effects, cultivator rank colors, page budgets, and familiar signatures.</p>
+            <div class="lab-card-actions">
+              <a class="sei-button sei-button--special" href="./display/elemental/index.html">Open Elemental Lab <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+
+        <!-- 5. Version History & Compare -->
+        <article class="sei-card lab-card lab-card--wide" data-accent="true" style="--sh-card-accent: var(--sh-text-muted);">
+          <div class="lab-showcase lab-showcase--versions" aria-hidden="true">
+            <div class="versions-evolution">
+              <span class="evo-old">0.6</span>
+              <span class="evo-arrow">→</span>
+              <span class="evo-now">0.43</span>
+            </div>
+            <p class="lab-specimen-line">Side-by-side history across SEIHouse Sans, Noto, and Display.</p>
+          </div>
+          <div class="lab-card-body">
+            <div class="badge-row">
+              <span class="sei-badge">31 archived milestones</span>
+              <span class="sei-badge">Live side-by-side compare</span>
+            </div>
+            <h2>Version Compare</h2>
+            <p class="card-copy">Type any passage and compare today's release directly against any archived milestone.</p>
+            <div class="lab-card-actions">
+              <a class="sei-button" href="./site/versions/index.html">Open Version Compare <span aria-hidden="true">↗</span></a>
+            </div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <!-- ================================================================
+         VIEW 3: DOWNLOAD (Font Selector + Current / Legacy)
+         ================================================================ -->
+    <section id="view-download" class="view-section" data-view="download" aria-labelledby="download-heading" hidden>
+      <div class="view-header">
+        <div class="view-title-block">
+          <p class="eyebrow"><span class="dot" aria-hidden="true"></span> FONT RELEASES</p>
+          <h1 id="download-heading">Download</h1>
+          <p class="view-lead">Pick a font family, then grab the current release or browse its older legacy versions.</p>
+        </div>
+      </div>
+
+      <!-- Font Family Selector + Current / Legacy Split -->
+      <div class="download-controls-bar">
+        <div class="font-picker" role="radiogroup" aria-label="Select font family">
+          <button type="button" class="font-pick-chip" role="radio" data-dl-font="sans" aria-checked="true" tabindex="0">
+            <span class="pick-dot pick-dot--sans" aria-hidden="true"></span>
+            <span>SEIHouse Sans</span>
+          </button>
+          <button type="button" class="font-pick-chip" role="radio" data-dl-font="noto" aria-checked="false" tabindex="-1">
+            <span class="pick-dot pick-dot--noto" aria-hidden="true"></span>
+            <span>SEIHouse Noto</span>
+          </button>
+          <button type="button" class="font-pick-chip" role="radio" data-dl-font="display" aria-checked="false" tabindex="-1">
+            <span class="pick-dot pick-dot--display" aria-hidden="true"></span>
+            <span>SEIHouse Display</span>
+          </button>
+        </div>
+
+        <div class="sei-segmented-control" role="tablist" aria-label="Release type" data-tablist="download">
+          <button type="button" class="sei-segmented-option" role="tab" id="tab-dl-current" data-subtab="current" aria-selected="true" tabindex="0">Current</button>
+          <button type="button" class="sei-segmented-option" role="tab" id="tab-dl-legacy" data-subtab="legacy" aria-selected="false" tabindex="-1">
+            <span>Legacy</span>
+            <span class="sei-segmented-count" id="legacy-count-badge">17</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- SUB-CATEGORY: CURRENT -->
+      <div id="panel-dl-current" class="subtab-panel" role="tabpanel" aria-labelledby="tab-dl-current">
+        <!-- Current: SEIHouse Sans -->
+        <div class="sei-card download-card" data-accent="true" data-current-font="sans" style="--sh-card-accent: var(--fl-sans);">
+          <div class="dl-card-head">
+            <div>
+              <div class="badge-row">
+                <span class="sei-badge sei-badge--sans" data-sans-version>SEIHouse Sans 0.43</span>
+                <span class="sei-badge">Current release</span>
+              </div>
+              <h2>SEIHouse Sans <span class="muted-ver" data-sans-version>0.43</span></h2>
+              <p class="card-copy">Desktop OpenType (.OTF), Web (.WOFF2), and CSS stylesheets for all 5 weights, real italics, and Night grades.</p>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Desktop Fonts (.OTF)</h3>
+            <div class="dl-pill-grid">
+              <a class="dl-file-pill" href="./fonts/SEIReader-Light.otf" download><span>Light</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightItalic.otf" download><span>Light Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./fonts/SEIReader-Regular.otf" download><span>Regular</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Italic.otf" download><span>Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Medium.otf" download><span>Medium</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumItalic.otf" download><span>Medium Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-SemiBold.otf" download><span>SemiBold</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-SemiBoldItalic.otf" download><span>SemiBold Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Bold.otf" download><span>Bold</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-BoldItalic.otf" download><span>Bold Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightNight.otf" download><span>Light Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightItalicNight.otf" download><span>Light Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-RegularNight.otf" download><span>Regular Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-ItalicNight.otf" download><span>Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumNight.otf" download><span>Medium Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumItalicNight.otf" download><span>Medium Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Web Fonts (.WOFF2)</h3>
+            <div class="dl-pill-grid">
+              <a class="dl-file-pill" href="./fonts/SEIReader-Light.woff2" download><span>Light</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightItalic.woff2" download><span>Light Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./fonts/SEIReader-Regular.woff2" download><span>Regular</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Italic.woff2" download><span>Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Medium.woff2" download><span>Medium</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumItalic.woff2" download><span>Medium Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-SemiBold.woff2" download><span>SemiBold</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-SemiBoldItalic.woff2" download><span>SemiBold Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-Bold.woff2" download><span>Bold</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-BoldItalic.woff2" download><span>Bold Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightNight.woff2" download><span>Light Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-LightItalicNight.woff2" download><span>Light Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-RegularNight.woff2" download><span>Regular Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-ItalicNight.woff2" download><span>Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumNight.woff2" download><span>Medium Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./fonts/SEIReader-MediumItalicNight.woff2" download><span>Medium Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Stylesheets &amp; Guides</h3>
+            <div class="dl-link-list">
+              <a href="./fonts-sans.css" download><span>SEIHouse Sans CSS</span><span class="dl-ext">fonts-sans.css ↓</span></a>
+              <a href="./fonts-full.css" download><span>Full Reading CSS (with Night grades)</span><span class="dl-ext">fonts-full.css ↓</span></a>
+              <a href="./docs/APP-INSTALL.md" download><span>App Install Guide</span><span class="dl-ext">APP-INSTALL.md ↓</span></a>
+              <a href="./docs/HOW-TO-USE.txt" download><span>Usage &amp; OpenType Features</span><span class="dl-ext">HOW-TO-USE.txt ↓</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current: SEIHouse Noto -->
+        <div class="sei-card download-card" data-accent="true" data-current-font="noto" style="--sh-card-accent: var(--fl-noto);" hidden>
+          <div class="dl-card-head">
+            <div>
+              <div class="badge-row">
+                <span class="sei-badge sei-badge--noto">Balanced · Redraw 02</span>
+                <span class="sei-badge">Current candidate</span>
+              </div>
+              <h2>SEIHouse Noto</h2>
+              <p class="card-copy">Four weights with true italics and zero-reflow Night optical grades for Light, Regular, and Medium.</p>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Desktop Fonts (.OTF)</h3>
+            <div class="dl-pill-grid">
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Light.otf" download><span>Light</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightItalic.otf" download><span>Light Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./noto/studies/redraw/fonts/SEIHouseNoto-Regular.otf" download><span>Regular</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Italic.otf" download><span>Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Medium.otf" download><span>Medium</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumItalic.otf" download><span>Medium Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Bold.otf" download><span>Bold</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-BoldItalic.otf" download><span>Bold Italic</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightNight.otf" download><span>Light Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightItalicNight.otf" download><span>Light Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-RegularNight.otf" download><span>Regular Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-ItalicNight.otf" download><span>Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumNight.otf" download><span>Medium Night</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumItalicNight.otf" download><span>Medium Italic Night</span><span class="dl-ext">.otf ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Web Fonts (.WOFF2)</h3>
+            <div class="dl-pill-grid">
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Light.woff2" download><span>Light</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightItalic.woff2" download><span>Light Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2" download><span>Regular</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Italic.woff2" download><span>Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2" download><span>Medium</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumItalic.woff2" download><span>Medium Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2" download><span>Bold</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-BoldItalic.woff2" download><span>Bold Italic</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightNight.woff2" download><span>Light Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-LightItalicNight.woff2" download><span>Light Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-RegularNight.woff2" download><span>Regular Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-ItalicNight.woff2" download><span>Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumNight.woff2" download><span>Medium Night</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./noto/studies/redraw/fonts/SEIHouseNoto-MediumItalicNight.woff2" download><span>Medium Italic Night</span><span class="dl-ext">.woff2 ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Design Notes &amp; Manifest</h3>
+            <div class="dl-link-list">
+              <a href="./noto/DESIGN.md" download><span>SEIHouse Noto Design Notes</span><span class="dl-ext">DESIGN.md ↓</span></a>
+              <a href="./noto/studies/redraw/manifest.json" download><span>Redraw 02 Character Manifest</span><span class="dl-ext">manifest.json ↓</span></a>
+            </div>
+          </div>
+        </div>
+
+        <!-- Current: SEIHouse Display -->
+        <div class="sei-card download-card" data-accent="true" data-current-font="display" style="--sh-card-accent: var(--fl-display);" hidden>
+          <div class="dl-card-head">
+            <div>
+              <div class="badge-row">
+                <span class="sei-badge sei-badge--display">SEIHouse Display 0.1</span>
+                <span class="sei-badge">Current release</span>
+              </div>
+              <h2>SEIHouse Display</h2>
+              <p class="card-copy">All four display cuts (Soft, Edge, Ink, Wide) plus Living Titles and Elemental Title documentation.</p>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Desktop Fonts (.OTF)</h3>
+            <div class="dl-pill-grid dl-pill-grid--four">
+              <a class="dl-file-pill dl-file-pill--featured" href="./display/fonts/soft/SEIHouseDisplay-Soft.otf" download><span>Soft</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./display/fonts/edge/SEIHouseDisplay-Edge.otf" download><span>Edge</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./display/fonts/ink/SEIHouseDisplay-Ink.otf" download><span>Ink</span><span class="dl-ext">.otf ↓</span></a>
+              <a class="dl-file-pill dl-file-pill--featured" href="./display/fonts/wide/SEIHouseDisplay-Wide.otf" download><span>Wide</span><span class="dl-ext">.otf ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Web Fonts (.WOFF2)</h3>
+            <div class="dl-pill-grid dl-pill-grid--four">
+              <a class="dl-file-pill" href="./display/fonts/soft/SEIHouseDisplay-Soft.woff2" download><span>Soft</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./display/fonts/edge/SEIHouseDisplay-Edge.woff2" download><span>Edge</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./display/fonts/ink/SEIHouseDisplay-Ink.woff2" download><span>Ink</span><span class="dl-ext">.woff2 ↓</span></a>
+              <a class="dl-file-pill" href="./display/fonts/wide/SEIHouseDisplay-Wide.woff2" download><span>Wide</span><span class="dl-ext">.woff2 ↓</span></a>
+            </div>
+          </div>
+
+          <div class="dl-group">
+            <h3>Stylesheets &amp; Title Engine Docs</h3>
+            <div class="dl-link-list">
+              <a href="./display/fonts.css" download><span>Display Cuts CSS</span><span class="dl-ext">fonts.css ↓</span></a>
+              <a href="./display/README.md" download><span>Display Engine Guide</span><span class="dl-ext">README.md ↓</span></a>
+              <a href="./packages/living-titles/README.md" download><span>Living Titles Package</span><span class="dl-ext">living-titles ↓</span></a>
+              <a href="./packages/elemental-title/README.md" download><span>Elemental Title Package</span><span class="dl-ext">elemental-title ↓</span></a>
+              <a href="./docs/DISPLAY-LIVING-TITLES-STEP6.md" download><span>Living Motion Profiles</span><span class="dl-ext">STEP6.md ↓</span></a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- SUB-CATEGORY: LEGACY (Populated from site/versions.json for the selected font) -->
+      <div id="panel-dl-legacy" class="subtab-panel" role="tabpanel" aria-labelledby="tab-dl-legacy" hidden>
+        <div class="sei-card download-card" data-accent="true" id="legacy-card" style="--sh-card-accent: var(--fl-sans);">
+          <div class="dl-card-head">
+            <div>
+              <div class="badge-row">
+                <span class="sei-badge" id="legacy-track-badge">SEIHouse Sans</span>
+                <span class="sei-badge">Archived web fonts (.WOFF2)</span>
+              </div>
+              <h2 id="legacy-heading">Legacy Versions</h2>
+              <p class="card-copy" id="legacy-summary">Every preserved earlier milestone for this font family, ready to download or compare side by side.</p>
+            </div>
+            <a class="sei-button sei-button--sm" id="legacy-compare-all" href="./site/versions/index.html?track=sans">Compare All <span aria-hidden="true">↗</span></a>
+          </div>
+
+          <div id="legacy-list" class="legacy-list" aria-live="polite">
+            <p class="legacy-loading">Loading archived versions…</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Quiet Licensing & Quality Reference Strip -->
+      <aside class="reference-strip" aria-label="Licenses and quality reports">
+        <span class="eyebrow">LICENSES &amp; REPORTS</span>
+        <div class="reference-links">
+          <a href="./LICENSE">Ecosystem License ↗</a>
+          <a href="./FONT-LICENSE.txt" download>Font License ↓</a>
+          <a href="./docs/DEVICE-TEST.md" download>Device Checklist ↓</a>
+          <a href="./docs/HEALTH-CHECK.txt" download>FontBakery Report ↓</a>
+          <a href="./docs/DESIGN-GOALS.md" download>Design Goals ↓</a>
+          <a href="./docs/WEBSITE.md" download>Website Guide ↓</a>
+        </div>
+      </aside>
     </section>
   </main>
 
-  <footer class="wrap">
+  <footer class="shell-footer">
     <span>SEIHOUSE PRODUCTIONS LLC</span>
     <span>Calm for chapters. Distinct for titles.</span>
-    <a href="./FONT-LICENSE.txt" download>Font license summary ↓</a>
   </footer>
+
+  <!-- Bottom Navigation Bar (SEIBottomNavigation ported from @seihouse/ui) -->
+  <nav class="sei-bottom-navigation" aria-label="Primary" data-slot="bottom-navigation">
+    <div class="sei-bottom-navigation-surface" data-slot="bottom-nav-tabs">
+      <button type="button" data-slot="bottom-nav-tab" data-nav="fonts" aria-current="page" data-selected="true" aria-label="Fonts">
+        <span data-slot="bottom-nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="4 7 4 4 20 4 20 7"></polyline>
+            <line x1="9" y1="20" x2="15" y2="20"></line>
+            <line x1="12" y1="4" x2="12" y2="20"></line>
+          </svg>
+        </span>
+        <span data-slot="bottom-nav-label">Fonts</span>
+      </button>
+
+      <button type="button" data-slot="bottom-nav-tab" data-nav="lab" aria-label="Lab">
+        <span data-slot="bottom-nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M10 2v7.31"></path>
+            <path d="M14 9.3V2"></path>
+            <path d="M8.5 2h7"></path>
+            <path d="M14 9.3a6.5 6.5 0 1 1-4 0"></path>
+            <path d="M5.52 16h12.96"></path>
+          </svg>
+        </span>
+        <span data-slot="bottom-nav-label">Lab</span>
+      </button>
+
+      <button type="button" data-slot="bottom-nav-tab" data-nav="download" aria-label="Download">
+        <span data-slot="bottom-nav-icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+          </svg>
+        </span>
+        <span data-slot="bottom-nav-label">Download</span>
+      </button>
+    </div>
+  </nav>
 </body>
 </html>

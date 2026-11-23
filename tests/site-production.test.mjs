@@ -80,15 +80,28 @@ test('manifest cannot expose source files or traverse outside the public invento
   }
 }));
 
-test('built homepage separates Reading Fonts & Title Engine, showcases 0.42, and deploys full version history', () => {
+test('built homepage organizes Fonts, Lab & Download with SEIHouse bottom nav and deploys full version history', () => {
   const repo = fileURLToPath(new URL('../', import.meta.url));
   execFileSync(process.execPath, ['build_site.mjs'], {cwd:repo});
   const output = join(repo, 'dist', 'site');
   const phase4 = JSON.parse(readFileSync(join(repo, 'phase4.json'), 'utf8'));
   const home = readFileSync(join(output, 'index.html'), 'utf8');
 
-  assert.match(home, /id="reading-fonts"/, 'Homepage must have the Reading Fonts section');
-  assert.match(home, /id="title-engine"/, 'Homepage must have the Title Engine section');
+  // Primary navigation categories: Fonts, Lab, Download via SEIHouse bottom navigation bar
+  assert.match(home, /data-slot="bottom-navigation"/, 'Homepage must include the SEIHouse bottom navigation bar');
+  assert.match(home, /id="view-fonts"/, 'Homepage must have the Fonts view');
+  assert.match(home, /id="view-lab"/, 'Homepage must have the Lab view');
+  assert.match(home, /id="view-download"/, 'Homepage must have the Download view');
+
+  // Fonts sub-categories: Normal, Title, Special
+  assert.match(home, /id="panel-fonts-normal"/, 'Fonts view must include Normal category');
+  assert.match(home, /id="panel-fonts-title"/, 'Fonts view must include Title category');
+  assert.match(home, /id="panel-fonts-special"/, 'Fonts view must include Special category');
+
+  // Downloads sub-categories: Current, Legacy
+  assert.match(home, /id="panel-dl-current"/, 'Download view must include Current category');
+  assert.match(home, /id="panel-dl-legacy"/, 'Download view must include Legacy category');
+
   assert.match(home, new RegExp(`SEIHouse Sans ${phase4.version.replace('.', '\\.')}`), 'Homepage must showcase current Sans version');
   assert.doesNotMatch(home, /Current · SEIHouse Sans 0\.39/, 'Homepage must not label 0.39 as current');
 
