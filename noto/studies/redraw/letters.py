@@ -18,7 +18,7 @@ K = 0.585                      # Balanced's full curve
 L_HOOK = (124, 132)            # l: tail reach from the stem centre, and turn height. The reach was 162 at Regular
                                # (tail at x 206), which left a hole after every l. Reach, not x, so heavy weights
                                # keep room inside the curve.
-A_KNOT = 0.70                  # a: bowl-top weight at the stem; was 1.0, a dark knot in every word with a
+A_KNOT = 0.66                  # a: bowl-top taper where it meets the stem (was 1.0, a dark knot)
 # Rhythm pass: sidebearing changes (left, right) in Regular units, scaled with each weight's fit.
 # Letters with one protruding part (t's crossbar, l's hook, the points of v w y A V X Y Z) were
 # spaced from that part, so their bodies floated loose in words; open-sided capitals sat tight.
@@ -218,25 +218,30 @@ def lower(sh):
                f"C{s/2} 120 140 {bot} 272 {bot} C344 {bot} 406 60 448 122", lc, {0: 1.06, 4: 1.06})
     c = minus(minus(c, rect(424, X/2, 700, 700)), rect(432, -100, 700, X/2))
     sh.put('c', c, B, 30)
-    ew = 492 + 14*hv
-    ey = 236 - 22*hv
+    ew = 490 + 14*hv
+    ey = 238 - 20*hv
     e_cross = h*(.88 - .24*hv)
-    e = ribbon(f"M{446+12*hv} 126 C{404+10*hv} 62 {344+6*hv} {bot} {272+4*hv} {bot} C140 {bot} {s/2} 122 {s/2} {X/2+2} "
+    e_cut = ew - 15
+    e = ribbon(f"M{e_cut+26} 100 C{e_cut-28} 44 {352+8*hv} {bot} {264+4*hv} {bot} C138 {bot} {s/2} 120 {s/2} {X/2+2} "
                f"C{s/2} 400 136 {top} {254+4*hv} {top} C{374+10*hv} {top} {ew-s/2} 404 {ew-s/2} 294 L{ew-s/2} {ey}",
-               lc, {0: 1.05 - .10*hv, 4: 1 - .16*hv})
-    e = minus(e, rect(430+12*hv, -100, 700, 190))
+               lc, {0: .98 - .10*hv, 4: 1 - .16*hv})
+    e = minus(e, rect(e_cut, -100, 700, 176))
     sh.put('e', [e, rect(s/2, ey, ew-s/2, ey+e_cross)], B, B-2)
 
     # a
-    aw = 446 + 24*hv
-    a_top = ribbon(f"M52 406 C96 462 160 {top} {232+4*hv} {top} C{340+12*hv} {top} {aw-s/2} 444 {aw-s/2} 344 L{aw-s/2} 0",
-                   lc, {0: 1.04 - .18*hv})
-    a_top = minus(a_top, rect(-100, 300, 58, 520))
-    ay = 284 - 6*hv
-    a_bowl = ribbon(f"M{aw-s/2+6} {ay} C352 {ay+8} 296 {ay+10} 228 {ay+4} C112 {ay-6} {s/2-2} 230 {s/2-2} 148 "
-                    f"C{s/2-2} 74 106 {bot} 192 {bot} C290 {bot} 362 88 {aw-s/2} 190",
-                    lc, {0: (.90 - .26*hv)*A_KNOT, 1: (.94 - .30*hv)*A_KNOT, 2: .98 - .14*hv, 4: .5})
-    sh.put('a', [a_top, a_bowl], B+4, N-8)
+    aw = 450 + 24*hv
+    a_top = ribbon(f"M34 422 C86 474 154 {top} {228+4*hv} {top} C{338+12*hv} {top} {aw-s/2} 440 {aw-s/2} 336 L{aw-s/2} 0",
+                   lc, {0: .90 - .16*hv})
+    a_top = minus(a_top, poly((-120, 280), (42, 280), (62, 540), (-120, 540)))
+    ay = 280 - 8*hv
+    a_bscale = .96 - .14*hv
+    a_bot = -OV + h*a_bscale/2
+    a_mx, a_my = 232 + 4*hv, ay - 15
+    a_bowl = ribbon(f"M{aw-s/2+6} {ay} C{344+12*hv} {ay-2} {a_mx+54} {a_my+9} {a_mx} {a_my} "
+                    f"C{a_mx-108} {a_my-18} {s/2} 206 {s/2} 132 C{s/2} 62 104 {a_bot} 188 {a_bot} "
+                    f"C282 {a_bot} {354+10*hv} 76 {aw-s/2} 172",
+                    lc, {0: (.85 - .24*hv)*A_KNOT, 1: .85 - .22*hv, 2: .97 - .12*hv, 3: a_bscale, 4: .5})
+    sh.put('a', [a_top, a_bowl], B+2, N-8)
 
     # s
     sw = 380 + 16*hv
@@ -277,20 +282,22 @@ def lower(sh):
     sh.put('z', [rect(34, X-h, 398, X), rect(12, 0, 404, h), keep(bar((358, X+20), (52, -20), s-4, 'h', 'h'), y0=0, y1=X)],
            30, 30)
 
-    # g: bowl, ear, compact neck and rounded loop
-    gb_r = 418 + 22*hv
-    g_bowl = ribbon(oval_d(28+s/2-2-4*hv, 218+h/2-2-14*hv, gb_r-s/2+2, top, K), lc,
-                    {0: .97, 1: .96 - .14*hv, 2: .92 - .26*hv, 3: .96 - .14*hv})
-    g_ear = keep(ribbon(f"M{338+10*hv} 444 C{374+10*hv} 476 {424+10*hv} {X-h*.45} {502+10*hv} {X-h*.45}",
-                        lc, {0: .85, 1: .85}), x1=474+10*hv)
-    rx, bx, by, lx = 432 + 14*hv, 244 + 6*hv, -186 - 2*hv, 58 - 4*hv
-    tx, ty = 228 + 4*hv, 105
-    g_neck = ribbon(f"M196 256 C136 232 104 200 104 164 C104 128 142 {ty+4} {tx} {ty}",
-                    lc, {0: .56*(1-.08*hv), 1: .65*(1-.08*hv), 2: .72*(1-.12*hv)})
-    g_loop = ribbon(f"M{tx} {ty} C{tx+116} {ty-5} {rx} 46 {rx} -28 C{rx} -112 {bx+106} {by} {bx} {by} "
-                    f"C{bx-106} {by} {lx} -124 {lx} -50 C{lx} 34 {tx-102} {ty+5} {tx} {ty} Z",
-                    lc, {0: .74*(1-.12*hv), 1: .83*(1-.06*hv), 2: .81*(1-.10*hv), 3: .80*(1-.06*hv)})
-    sh.put('g', [g_bowl, g_ear, g_neck, g_loop], 32, 18)
+    # g: bowl, ear, tucked left neck, baseline bridge and descender loop
+    gb_l, gb_r, gb_b = 36 - 4*hv, 446 + 22*hv, 184 - 12*hv
+    g_bowl = ribbon(oval_d(gb_l+s/2-2, gb_b+h/2-2, gb_r-s/2+2, top, K), lc,
+                    {0: .96, 1: .94 - .14*hv, 2: .90 - .24*hv, 3: .94 - .14*hv})
+    ear_y, ear_end = X - h*.44, gb_r + 38 + 6*hv
+    g_ear = keep(ribbon(f"M{gb_r-84} 448 C{gb_r-46} 480 {gb_r} {ear_y} {ear_end+26} {ear_y}",
+                        lc, {0: .72, 1: .84 - .08*hv}), x1=ear_end)
+    nx, lx, rx = 90 - 2*hv, 42 - 4*hv, 448 + 16*hv
+    bx, by = 245 + 6*hv, DESC + h*.41 - 2*hv
+    g_loop = ribbon(f"M184 {gb_b+32} C122 {gb_b+8} {nx} 170 {nx} 132 C{nx} 86 138 68 220 63 "
+                    f"C272 60 {302+8*hv} 58 {340+10*hv} 52 C{408+14*hv} 42 {rx} 4 {rx} -56 "
+                    f"C{rx} -132 {bx+112} {by} {bx} {by} C{bx-114} {by} {lx} -134 {lx} -64 "
+                    f"C{lx} -8 {lx+64} 46 188 62",
+                    lc, {0: .52*(1-.08*hv), 1: .68*(1-.08*hv), 2: .78*(1-.12*hv), 3: .78*(1-.12*hv),
+                         4: .84*(1-.06*hv), 5: .82*(1-.10*hv), 6: .80*(1-.06*hv), 7: .50*(1-.08*hv)})
+    sh.put('g', [g_bowl, g_ear, g_loop], 34, 26)
 
 
 # ---------------------------------------------------------------- italic lowercase
@@ -770,7 +777,7 @@ def extended(sh, comma, R):
     def anchor(base, kind, x0, x1):
         mid = (x0+x1)/2
         if kind == 'ogonek':
-            return {'a': x1-34, 'e': mid+64, 'u': x1-30, 'o': mid+20, 'O': mid+24, 'y': mid-30,
+            return {'a': x1-34, 'e': mid+112, 'u': x1-30, 'o': mid+20, 'O': mid+24, 'y': mid-30,
                     'A': x1-52, 'E': x1-70, 'U': mid+30, '\u25cc': mid+36}.get(base, mid)
         if kind in BELOW:
             return {'k': mid+10, 'K': mid+10, 'r': x0+s/2, 'l': x0+s/2, 't': x0+150, 'T': mid,

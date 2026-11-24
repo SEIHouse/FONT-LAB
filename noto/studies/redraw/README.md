@@ -108,7 +108,7 @@ Overall texture was already as even as Noto Sans, so the catches were specific l
 | Letter | What the eye met | Measured (vs its line) | Fix |
 |---|---|---|---|
 | **l** (4% of letters) | The hooked foot swung 160 units right, making l 25% wider than a normal l and leaving a light hole after it (`ll`, `ld`, `ul`) | +1.0% (Noto Sans +2.6%) → **+2.6%** | Hook kept, tucked closer: it reaches 124 units from the stem instead of 162 (tail at x 168 instead of 206 at Regular; `L_HOOK` in `letters.py`) |
-| **a** (8% of letters) | The bowl's top stroke met the stem at nearly full weight: a dark knot, and every join with a clotted (`ag`, `as`, `ea`, `wa`) | +6.9% (Noto Sans +2.5%) → **+3.5%** | Bowl top thinned to 70% where it meets the stem (`A_KNOT`) |
+| **a** (8% of letters) | The bowl's top stroke met the stem at nearly full weight: a dark knot, and every join with a clotted (`ag`, `as`, `ea`, `wa`) | +6.9% (Noto Sans +2.5%) → **+3.5%** | Bowl top tapered where it meets the stem (`A_KNOT`) while keeping full stroke weight across the curve |
 
 Overall texture went from 0.112 to 0.110, the same as Google Noto Sans. The hooked l still
 tells l from I and 1, and the two-storey a keeps its shape at display sizes. Every weight,
@@ -162,7 +162,7 @@ italic `ff`, `fi`, `gj`, in sentences as well as in isolation.
 |---|---|---|
 | W sat looser than V beside the same letter, most visibly in italic (*Wanda*, *Waved*) | W with a lowercase letter kerns at least ¾ of V's value | `Wa` −29 → −37, italic −14 → −25 |
 | The f terminal crowded an i dot, accent, ascender or closing quote (*fifty* clotted in Bold Italic) | Above the x-height an f gets about one stem of air, opened by at most 0.16 stem; `ff` keeps its shared crossbar | italic `fi` 0 → +14, Bold `fi` 0 → +21 |
-| `gj` opened a hole at the x-height: tucked descenders were pushing the letters apart | Between letters, descender contact only needs a smaller clearance (12 units) and never loosens the rhythm | `gj` +31 → 0 (Bold +38 → +24), `jj` +20 → 0 |
+| `gj` opened a hole at the x-height: tucked descenders were pushing the letters apart | Between letters, descender contact only needs a smaller clearance (12 units) and never loosens the rhythm | `gj` +32 → 0 (Italic +32 → +15, Bold +39 → +25), `jj` +20 → 0 |
 
 Reviewed and left as they were: `T` and `Y` with lowercase (`To`, `Te`, `Ta`, `Tr`, `Ty`,
 `Yo`, `Ya`, `Ye`) already read evenly. Upright Light and Regular `fi` already have enough
@@ -218,11 +218,11 @@ python -m unittest tests.test_noto_redraw
 Latin only. This is a design candidate, version 0.011, not a release.
 
 - Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`).
-  For even texture at 14–18 px in Regular and Bold, lowercase `g` uses a compact
-  curved neck and rounded closed lower loop seated under its bowl with balanced
-  right sidebearing, `s` calms its diagonal spine weight, and `a` and `e` balance
-  arch weight and counter openness; Light and Medium otherwise come directly from
-  the shared weight rules.
+  For natural letterforms and even texture at 14–18 px across all weights, lowercase
+  `g` pairs a fuller round bowl and calm ear with a tucked left neck, baseline bridge,
+  and open descender loop; `e` extends its lower stroke cleanly under the right side
+  of its eye; `a` pairs an angled upper-left terminal with a smooth downward-flowing
+  waist; and `s` calms its diagonal spine weight.
 - Printable Basic Latin, Latin-1 Supplement and Latin Extended-A are complete (alongside
   Romanian `Ș ș Ț ț`, Welsh `Ẁ–Ẅ Ỳ ỳ`, dotted circle `◌`, 19 combining marks, and everyday
   typography symbols). Precomposed extended blocks (Extended-B, precomposed Vietnamese

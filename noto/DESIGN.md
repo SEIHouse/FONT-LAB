@@ -52,11 +52,11 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.011).
   line of the earlier drawings is retired in this candidate.
 - Regular carries a text weight. Light is close to the earlier colour; Medium and
   Bold come from the same rules, with lighter horizontal crossbars and opened inner
-  loops in heavier weights (`a, e, g, s, B, 8`), plus a reading-size polish to
-  `a`, `e`, `g`, and `s` (replacing `g`'s wide flat loop shelf with a compact
-  curved neck and rounded lower loop under the upper bowl, calming `s`'s mid-spine,
-  and tuning `a` and `e` counter openness) so paragraphs keep an even colour at
-  14–18 px.
+  loops in heavier weights (`a, e, g, s, B, 8`), plus an owner-guided letterform
+  refinement to `g`, `e`, and `a` (giving `g` a fuller upper bowl, calm ear, tucked
+  left neck, baseline bridge, and open descender loop; extending `e`'s lower tail
+  cleanly under the right side of its eye; and giving `a` a smooth downward-flowing
+  waist and angled upper-left terminal) alongside a calmer `s` spine for 14–18 px.
 - Kept from Balanced: the softness (one corner radius, 13 units at Regular), the
   .585 full curve, two-storey a and g, hooked l, distinct I / l / 1.
 - Changed from Balanced: vertical proportions (x-height 520, capitals 700,
