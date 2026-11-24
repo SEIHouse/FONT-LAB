@@ -238,8 +238,24 @@ class RedrawTests(unittest.TestCase):
                 limits['g_ratio_max'],
                 f'{style} g lower counter too wide vs upper bowl ({lower_w:.1f} vs {upper_w:.1f})',
             )
+            # Lower loop sits below the baseline bridge rather than ballooning up into the x-height.
+            self.assertLess(inner[0].bounds[3], 55, f'{style} g lower counter rises too high above baseline')
             g_adv, _ = font['hmtx'][cmap[ord('g')]]
             self.assertGreaterEqual(g_adv - gp.bounds[2], 16, f'{style} g right sidebearing too tight')
+
+            # Refined e: lower stroke extends cleanly under the right side of the eye.
+            ep = outline(font, cmap[ord('e')])
+            e_lower = pathops.op(ep, _box(-200, -50, 900, 140), pathops.PathOp.INTERSECTION)
+            self.assertLessEqual(ep.bounds[2] - e_lower.bounds[2], 22, f'{style} e bottom line too short')
+
+            # Refined a: waist leaves stem and curves smoothly downward (no upward hump in the middle).
+            ap = outline(font, cmap[ord('a')])
+            a_inner = min(ap.contours, key=lambda c: c.area).bounds
+            a_mid_x = (a_inner[0] + a_inner[2]) / 2
+            a_right_x = a_inner[2] - 24
+            a_mid = pathops.op(ap, _box(a_mid_x - 1, 180, a_mid_x + 1, 360), pathops.PathOp.INTERSECTION).bounds
+            a_stem_side = pathops.op(ap, _box(a_right_x - 1, 180, a_right_x + 1, 360), pathops.PathOp.INTERSECTION).bounds
+            self.assertLess(a_mid[1], a_stem_side[1], f'{style} a waist humps upward instead of curving down')
 
             densities = {}
             for ch in ('a', 'e'):
@@ -552,7 +568,7 @@ class OpticalSpacingTests(unittest.TestCase):
             self.assertLessEqual(self.kern(style, 'fi'), 22, style)
 
     def test_tucked_descenders_are_closer_but_clear(self):
-        expected = {'Regular': 0, 'Italic': 0, 'Medium': 14, 'Bold': 24, 'Medium Italic': 20, 'Bold Italic': 27}
+        expected = {'Regular': 0, 'Italic': 15, 'Medium': 15, 'Bold': 25, 'Medium Italic': 20, 'Bold Italic': 30}
         for style, value in expected.items():
             self.assertAlmostEqual(self.kern(style, 'gj'), value, delta=2, msg=style)
         for style in self.STYLES:

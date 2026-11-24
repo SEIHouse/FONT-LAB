@@ -2,6 +2,12 @@
 
 Newest first.
 
+## 2026-11-23 · SEIHouse Noto Redraw 02 — Refine lowercase g, e, and a
+- **Lowercase `e`**: Extended and calmed the bottom stroke so its lower-right terminal reaches cleanly under the right side of the eye (`ew - 15` instead of stopping 62 units short), and moved `ę`'s ogonek attachment along the lengthened tail.
+- **Lowercase `a`**: Removed the upward hump and mid-span pinch on the lower bowl's top curve so the waist flows smoothly downward from the stem into a baseline-overshooting belly (`-11` units at every weight), paired with a cleaner angled upper-left arch terminal.
+- **Lowercase `g`**: Redrew the two-storey `g` with a fuller upper bowl, calm level ear, tucked left neck, baseline-aligned bridge, and open descender loop below the baseline so it no longer reads as a stacked figure-8.
+- **Rebuild & verification**: Rebuilt all 14 SEIHouse Noto faces (four weights, true italics, and zero-reflow Night optical grades), refreshed Redraw 02 proofs and `site/versions.json`, and added anatomy regression gates in `tests/test_noto_redraw.py`.
+
 ## 2026-11-23 · SEIHouse Noto Redraw 02 — Rhythm pass for letter spacing
 - **Why**: the spacing between letters felt less consistent than Google Noto Sans. Every letter pair at every weight was measured as the area of white between the letters (the way the eye reads a gap), against Noto Sans at the same weight.
 - **Cause**: letters with one protruding part (t's crossbar, l's hook, the points of v w y and A V X Y Z) had been spaced from that tip, so their bodies floated loose (*twenty*, *villas*, *with*). Open-sided capitals E L P R Q sat slightly tight.
