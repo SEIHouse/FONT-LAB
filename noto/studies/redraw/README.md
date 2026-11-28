@@ -146,8 +146,8 @@ had been judged from that tip, so the letter's body floated loose in words like 
 - Measured on a prose passage, the average gap difference from Noto Sans fell from 7.1% to 4.7%
   at Regular (Light 7.0 → 5.1, Medium 6.0 → 4.1, Bold 5.5 → 4.8). Ink clearance is still enforced
   for every kerned pair.
-- Still measurably different, left for a later pass: `r` followed by `y` or `e` (open), `ow`,
-  `ll`, and Bold capitals `N S W Z`, which sit slightly loose against Bold `H`.
+- The lowercase follow-up is shown in the word proof below. Bold capitals `N S W Z`
+  still sit slightly loose against Bold `H`.
 
 ## Optical spacing pass
 
@@ -170,6 +170,24 @@ air, so the f rule leaves them as they were. Punctuation pairs are untouched by 
 descender rule. About 70–190 pairs change per weight; every kerned pair still keeps clear ink.
 Night fonts reuse their Day kerning, so they inherit the pass with zero reflow between Day and Night.
 `spacing.kerning(..., optical_pass=False)` gives the purely measured kerning for comparison.
+
+### Word spacing at 16 px
+
+In *returned* and *willow*, the open space after `r` and before `w` took the largest
+correction. The tips of `r` and `y` already sit close in *every*. The two hooked
+letters in *gallery* took a smaller adjustment as well.
+
+| Pair | Regular before | Regular after |
+|---|---:|---:|
+| `re` | −36 | −52 |
+| `ry` | +18 | +12 |
+| `ll` | 0 | −8 |
+| `ow` | 0 | −16 |
+
+Values are pair kerning in font units (1,000 per em). The adjustments also apply
+to italic and accented pairs, subject to the existing ink clearance rule.
+
+![Regular, Italic, and Bold before and after in 16 px paragraphs](proofs/redraw-word-spacing.png)
 
 ## Combining marks and OpenType layout
 
@@ -215,7 +233,7 @@ python -m unittest tests.test_noto_redraw
 
 ## Scope and honest limits
 
-Latin only. This is a design candidate, version 0.011, not a release.
+Latin only. The current design candidate is version 0.012.
 
 - Heavier weights thin horizontal crossbars and open enclosed loops (`a, e, g, s, B, 8`).
   For natural letterforms and even texture at 14–18 px across all weights, lowercase

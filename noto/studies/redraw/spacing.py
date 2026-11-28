@@ -111,20 +111,31 @@ def kerning(glyphs, groups, skip='0123456789 \u00a0+=/&?!·#$%*@<>^_|\\~`°€£
                 raw = min(raw, pair_kern(*zone, target))
         return max(tightest, min(loosest, raw*damp))
 
-    def value(a, b):
+    def value(a, b, minimum=0):
         v = measured(a, b)
         if optical_pass:
             if a == 'W' and 'V' in rhythm:
                 v = optical.w_follows_v(a, b, v, measured('V', b))
             v = max(v, optical.terminal_air(BANDS, a, b, prof[a][1], prof[b][0], X, stem))
-        return int(round(max(v, floor(a, b))))
+        ink_floor = floor(a, b)
+        kern = int(round(max(v, ink_floor)))
+        if abs(kern) < minimum:
+            kern = 0
+        if optical_pass:
+            # Start from the kern the font would actually emit. Small reviewed
+            # changes can be finer than the automatic pair inclusion threshold.
+            base_pair = (groups.get(a, a), groups.get(b, b))
+            tightening = optical.WORD_PAIR_TIGHTENING.get(base_pair)
+            if tightening:
+                kern = int(np.ceil(max(kern - tightening, ink_floor)))
+        return kern
 
     bases = [c for c in prof if c not in groups]
     pairs = {}
     for a in bases:
         for b in bases:
-            v = value(a, b)
-            if abs(v) >= least:
+            v = value(a, b, minimum=least)
+            if v or least <= 0:
                 pairs[(a, b)] = v
     # An accent can meet an overhanging neighbour that its bare letter clears.
     exceptions = {}

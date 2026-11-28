@@ -2,6 +2,11 @@
 
 Newest first.
 
+## 2026-11-27 · SEIHouse Noto Redraw 02 — Word spacing
+
+- Version 0.012 tightens four lowercase pairs across the family. In Regular, `re` and `ow` each close by 16 font units, `ll` by 8, and `ry` by 6.
+- [Compare the 16 px paragraphs and enlarged words](noto/studies/redraw/proofs/redraw-word-spacing.png).
+
 ## 2026-11-23 · SEIHouse Noto Redraw 02 — Refine lowercase g, e, and a
 - **Lowercase `e`**: Extended and calmed the bottom stroke so its lower-right terminal reaches cleanly under the right side of the eye (`ew - 15` instead of stopping 62 units short), and moved `ę`'s ogonek attachment along the lengthened tail.
 - **Lowercase `a`**: Removed the upward hump and mid-span pinch on the lower bowl's top curve so the waist flows smoothly downward from the stem into a baseline-overshooting belly (`-11` units at every weight), paired with a cleaner angled upper-left arch terminal.

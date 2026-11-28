@@ -45,7 +45,7 @@ Font Lab navigation; the first three studies remain accessible from its footer.
 ## Redraw 02 — candidate, not a new owner decision
 
 On 2026-11-12 the owner asked for SEIHouse Noto to be reimagined: more professional,
-keeping its flavour. Source and outputs: `studies/redraw/` (version 0.011).
+keeping its flavour. Source and outputs: `studies/redraw/` (version 0.012).
 
 - New construction: stroke thickness follows direction (88 upright / 74 horizontal
   at Regular) and tapers where arches and bowls meet a stem. The constant 74-unit
@@ -83,7 +83,8 @@ keeping its flavour. Source and outputs: `studies/redraw/` (version 0.011).
   `v w y`, `A V X Y Z`) are spaced by their bodies, not their tips, and open-sided capitals
   (`E L P R Q`) get a little more room. Measured as white area between real pairs against
   Google Noto Sans as a yardstick: prose gap difference 7.1% → 4.7% at Regular. `t` and `y`
-  fade toward Bold. Next candidates: `ry`/`re`, `ow`, `ll`, Bold capitals `N S W Z`.
+  fade toward Bold. A 16 px word proof led to pair adjustments for `re`, `ry`, `ll`, and `ow`.
+  Bold capitals `N S W Z` are still candidates for review.
 - Optical spacing pass (`optical.py`) on top of the automatic kerning, from an
   eye review of real words at every weight: W follows V with lowercase (`Wa`, `We`,
   `Wo`), the f terminal gets air above the x-height (`fi`, `fl`, `fí`, `f”`), and

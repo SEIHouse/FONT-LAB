@@ -11,7 +11,7 @@ const pages = [
   'index.html', 'site/seihouse-ui.css', 'site/home.css', 'site/home.js', 'site/favicon.svg',
   'noto/studies/redraw/index.html', 'noto/studies/redraw/README.md', 'noto/studies/redraw/manifest.json',
   'noto/studies/redraw/proofs/redraw-glyphs.svg', 'noto/studies/redraw/proofs/redraw-glyphs-italic.svg',
-  ...['compare','details','dark','mobile','family','italic','optical','marks','skim','rhythm'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
+  ...['compare','details','dark','mobile','family','italic','optical','marks','skim','rhythm','word-spacing'].map(view => `noto/studies/redraw/proofs/redraw-${view}.png`),
   ...['Light','Regular','Medium','Bold','LightItalic','Italic','MediumItalic','BoldItalic','LightNight','RegularNight','MediumNight','LightItalicNight','ItalicNight','MediumItalicNight'].flatMap(style => [`noto/studies/redraw/fonts/SEIHouseNoto-${style}.woff2`, `noto/studies/redraw/fonts/SEIHouseNoto-${style}.otf`]),
   'noto/studies/warmth/index.html', 'noto/studies/warmth/README.md',
   'noto/studies/warmth/warmth-01.html',

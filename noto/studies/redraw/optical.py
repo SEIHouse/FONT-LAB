@@ -33,6 +33,10 @@ AIR_LIMIT = .16
 TERMINALS = 'fſ'          # letters whose terminal overhangs the next letter
 SHARED_BAR = 'fſ'         # followers that share the f crossbar rhythm (off, buffet)
 
+# Additional tightening in font units, proofed at 16 px. The open r/e and
+# round-to-diagonal o/w take more than the two l hooks or the close r/y tips.
+WORD_PAIR_TIGHTENING = {('r', 'e'): 16, ('r', 'y'): 6, ('l', 'l'): 8, ('o', 'w'): 16}
+
 
 def letters_only(a, b):
     return a.isalpha() and b.isalpha()

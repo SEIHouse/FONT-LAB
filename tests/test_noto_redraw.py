@@ -576,6 +576,19 @@ class OpticalSpacingTests(unittest.TestCase):
             self.assertLess(self.kern(style, 'gj'), 45, style)
             # Ink still clears: the italic and upright collision gates check gj, nj and ng.
 
+    def test_word_pair_kerning_reaches_text_and_accented_letters(self):
+        # Shipped re and ry kerning before the word proof. ll and ow were zero.
+        before = {'Light': (-38, 15), 'Regular': (-36, 18), 'Medium': (-34, 18), 'Bold': (-32, 18),
+                  'Light Italic': (-34, 16), 'Italic': (-32, 18), 'Medium Italic': (-30, 19),
+                  'Bold Italic': (-27, 19)}
+        for style, (old_re, old_ry) in before.items():
+            for pair, accented, expected in [('re', 'ré', old_re - 16), ('ry', 'rý', old_ry - 6),
+                                             ('ll', 'ĺĺ', -8), ('ow', 'öŵ', -16)]:
+                self.assertEqual(self.kern(style, pair), expected, (style, pair))
+                self.assertEqual(self.kern(style, accented), expected, (style, accented))
+                self.assertEqual(self.kern(style, unicodedata.normalize('NFD', accented)), expected,
+                                 (style, accented))
+
     def test_reviewed_pairs_are_unchanged(self):
         """T and Y read evenly before the pass, and punctuation is outside it."""
         sys.path.insert(0, str(ROOT))
