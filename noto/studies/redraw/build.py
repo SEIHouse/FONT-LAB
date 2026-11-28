@@ -20,7 +20,7 @@ import letters  # noqa: E402
 import spacing  # noqa: E402
 
 UPM = 1000
-VERSION = '0.011'
+VERSION = '0.012'
 FAMILY = 'SEIHouse Noto'
 WEIGHTS = [dict(name='Light', weight=.86, cls=300), dict(name='Regular', weight=1.0, cls=400),
            dict(name='Medium', weight=1.2, cls=500), dict(name='Bold', weight=1.46, cls=700)]

@@ -2642,13 +2642,14 @@
           "version": "Redraw 02",
           "label": "Balanced · Redraw 02 (candidate)",
           "shortTitle": "Modulated strokes, tapered joins, four weights, italics & Night grade",
-          "date": "2026-11-23",
+          "date": "2026-11-27",
           "current": true,
           "summary": "A full redraw on the Balanced foundation: strokes that swell and thin, arches that taper into their stems, a proper reading weight, calmer Bold counters and lowercase g, automatic kerning with an eye-reviewed optical pass, four weights with true italics, a zero-reflow Night optical grade for Light, Regular and Medium, and 363 characters with complete combining-mark attachment and mark-to-mark stacking. A candidate for review; Balanced remains the approved direction.",
           "highlights": [
             "Keeps Balanced softness, full bowls, refined two-storey a and g, extended e tail, and hooked l",
             "Light, Regular, Medium and Bold with open Bold counters down to 14–16 px",
             "Optical spacing pass on the automatic kerning: closer Wa/We/Wo, air under the f terminal, a tighter gj",
+            "Closer re, ry, ll, and ow in words such as returned, every, gallery, and willow",
             "Skim pass: a tucked l hook and a lighter a knot, so paragraphs read as evenly as Google Noto Sans",
             "Rhythm pass: t, v, w, y, l and A V X Y Z spaced by their bodies, not their tips, so words keep an even beat like Google Noto Sans",
             "Complete printable Latin-1 & Extended-A, everyday typography symbols, and 19 combining marks with precomposed/decomposed parity and mark-to-mark stacking",
@@ -2675,8 +2676,8 @@
               "weight": 300,
               "style": "normal",
               "night": false,
-              "bytes": 28364,
-              "sha256": "f678fc9ab2a9aa5976f58e31c672c04c16c1b4d42cc66b37d2de24fbfedc0007"
+              "bytes": 28400,
+              "sha256": "566e15d4bf1567171c7f357285e7151ec933051180914c45e0816acfbfa50338"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Regular.woff2",
@@ -2684,8 +2685,8 @@
               "weight": 400,
               "style": "normal",
               "night": false,
-              "bytes": 27368,
-              "sha256": "f300af8016ce5aa62a6fe26a762ca5bac5ce19399f46275c7a2ab4675052005d"
+              "bytes": 27432,
+              "sha256": "d448a051ac12e69e2c3c54cd0190b6690a1725fdbda932784d663dbd2e019bb7"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Medium.woff2",
@@ -2693,8 +2694,8 @@
               "weight": 500,
               "style": "normal",
               "night": false,
-              "bytes": 29152,
-              "sha256": "f5f558d9d8c05b9fda460ee01d5ae48c0720ab865dd6a703914ef52f82b9c514"
+              "bytes": 29176,
+              "sha256": "404cd6580469a02ee102e138bdeb741e69e0a1e885ad41b2b185d31b4132605e"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Bold.woff2",
@@ -2702,8 +2703,8 @@
               "weight": 700,
               "style": "normal",
               "night": false,
-              "bytes": 29840,
-              "sha256": "e3af5dae882edc2e507693a1e8cceafab01bb26d1d58b0b8ac1c38a77a93c271"
+              "bytes": 29820,
+              "sha256": "1d0a4cdb1dfbbd08bb77ddf49a5f8d2e29255953bfa4809a037325e30891f66f"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalic.woff2",
@@ -2711,8 +2712,8 @@
               "weight": 300,
               "style": "italic",
               "night": false,
-              "bytes": 29864,
-              "sha256": "a4503acad323f169c260fc8d1ca805d09db4d68dc5274da85e153162cd4efd65"
+              "bytes": 29756,
+              "sha256": "f17657f142671c52f998e732abd184861dc1394b7a6e95430c06ece4e402c2e9"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-Italic.woff2",
@@ -2720,8 +2721,8 @@
               "weight": 400,
               "style": "italic",
               "night": false,
-              "bytes": 30792,
-              "sha256": "9c98eb3a7dd114d34f694bcf25fe9b562bc68b329e915250ab11998b10ff8799"
+              "bytes": 30784,
+              "sha256": "5d0e223ddf24906f52f7cc99458935ae2fa82ec8c78ee391cef0d2b53b2c811e"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalic.woff2",
@@ -2729,8 +2730,8 @@
               "weight": 500,
               "style": "italic",
               "night": false,
-              "bytes": 31128,
-              "sha256": "38ff598035b0924028de3f7da8a3ceae8b4d7ebfe51a6bfaaa83b5f9aefffc52"
+              "bytes": 31072,
+              "sha256": "7b8aacd109ef1f10088eb2dc73f2a017d3a32b0791208f505eb2906a7d96f4f9"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-BoldItalic.woff2",
@@ -2739,7 +2740,7 @@
               "style": "italic",
               "night": false,
               "bytes": 32456,
-              "sha256": "8fcaefcbf1826d8fd487183d5b13d0772da7afd368653eff91e3777b55137fb8"
+              "sha256": "f2a5b360e1f233b488cc565bec513af7fcf53fcb8f4d42c735031ea2f53301da"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightNight.woff2",
@@ -2747,8 +2748,8 @@
               "weight": 300,
               "style": "normal",
               "night": true,
-              "bytes": 28564,
-              "sha256": "e4a02fa04b683f3d14e64f307a40805756a4df99ece715edbf2cb6c70c8b3d6d"
+              "bytes": 28460,
+              "sha256": "e671654664b1922aaf162185dd004c821466ba902153fbe029d1b876da3669a3"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-RegularNight.woff2",
@@ -2756,8 +2757,8 @@
               "weight": 400,
               "style": "normal",
               "night": true,
-              "bytes": 27256,
-              "sha256": "9485059fb82255deb55d1b74367bf9c65598259754e1f6f1b9b06d53773be15f"
+              "bytes": 27436,
+              "sha256": "fe4380db489ab26cf3c92fd887dec26b8e701595ccbbf6b421b2a967603c9201"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumNight.woff2",
@@ -2765,8 +2766,8 @@
               "weight": 500,
               "style": "normal",
               "night": true,
-              "bytes": 29124,
-              "sha256": "16392966de9416b20e75ca48a784a9a8fd0cde22fd7c18ca4bf92f37ad713d36"
+              "bytes": 29164,
+              "sha256": "2e7ea25b2f4154bedfaace1956b048b8d852d952550ae2be633fad4063bc451d"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-LightItalicNight.woff2",
@@ -2774,8 +2775,8 @@
               "weight": 300,
               "style": "italic",
               "night": true,
-              "bytes": 30180,
-              "sha256": "0eaf9181a3b2d832012661d08ac104171260746d20026dc1c9e925c04f1d5d2f"
+              "bytes": 30272,
+              "sha256": "a148846f8f95d8758c1b82b594dbefd2f71116e7f88e2491545d01a7193bc713"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-ItalicNight.woff2",
@@ -2783,8 +2784,8 @@
               "weight": 400,
               "style": "italic",
               "night": true,
-              "bytes": 30572,
-              "sha256": "bcb1d10ef40f863f8e0d688ecf1f97ec621c4a206e704168bbb855f4c3ead53d"
+              "bytes": 30600,
+              "sha256": "6cb4aa441ee038d87974356375e48f8e8ae45e3c9cc5b3655da43d05cddea5fe"
             },
             {
               "path": "noto/studies/redraw/fonts/SEIHouseNoto-MediumItalicNight.woff2",
@@ -2792,8 +2793,8 @@
               "weight": 500,
               "style": "italic",
               "night": true,
-              "bytes": 31276,
-              "sha256": "ad5e0d05e45745dc4fea63c6544b1b59d2e443f885cf1a342d8177eb2bdf15a7"
+              "bytes": 31100,
+              "sha256": "4ff51adb4b6df8dd0b5912d99376f24324c6efd5fe6ffbb1f3935e69d69bc2e2"
             }
           ]
         },
